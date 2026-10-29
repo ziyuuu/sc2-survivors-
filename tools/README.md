@@ -2,6 +2,12 @@
 
 本目录保留构建/资源流水线、后台和各批复现代码。脚本多并不意味着都应在当前版本执行；日期型验证工具依赖当批输入与版本。
 
+2026-10-29孤星/无尽/掉落见[本地实现与范围](../docs/project/GROWTH_LOOT_IMPLEMENTATION_20261029.md)。`node --import tsx tools/measure-growth-loot-20261029.mts`对四难度、五种参与/诱饵/模块条件各16种子进行有限原生机会/结算重放，生成/拾取/销毁/带出与全部来源分账；没有战斗存活或真人概率含义。`node tools/qa-growth-loot-ui.mjs`用命名Web资源和正式UI函数检查三尺寸孤星说明；`--entry-only`检查正式Web菜单及新游戏种族选择，使用临时本机服务。`inspect-growth-loot-20261029.mts`已标记为调整前历史检查，须匹配旧源码，不得在新规则上覆盖历史报告。
+
+2026-10-29 BGM见[接入记录](../docs/project/BGM_INTEGRATION_20261029.md)。`tools/bgm-audition/render.py --full`生成完整循环编配，`package.mjs`将指定输出登记为两个独立音乐资源，`verify.py`做完整解码/响度/循环采样核验。`build-checks.mjs`生成本机压缩资源检测页与仅含两曲的离线播放器；`qa.mjs`使用18892临时服务检查三尺寸、正式Web菜单及离线播放，`check-clock.mjs`用Chrome模拟音频输出核验真实媒体/Web Audio波形和循环。所有检测入口只留在`reports/local/bgm-integration-20261029`，不能作为部署输入；物理设备与用户听感单列。
+
+2026-10-29关间操作见[本批记录](../docs/project/FEEDBACK_ACTIONS_20261029.md)。`node tools/build-feedback-actions-diagnostic.mjs`生成有受控装备夹具的本机入口；依赖保留的`dist/runtime-lifecycle-20261028/final/web`原版清单及`sites/size-optimized-site/public`压缩资源，不能发布。`node tools/qa-feedback-actions.mjs`自动临时启动18891服务，使用独立Chrome上下文检查三种视口、菜单音频、装备操作和刷新恢复，结束关闭；若手动使用`serve-feedback-actions-diagnostic.mjs`，不要同时运行同端口检查。`node --import tsx tools/measure-feedback-shop.mjs`对三个关段分别固定抽取2000组，比较两种白色全军卡买满前后，不是自然游玩或整体平衡验收。临时输出在`reports/local/feedback-actions-20261029`。
+
 2026-10-29关间音频对照见[结果](../docs/project/FEEDBACK_PERFORMANCE_20261029.md)：`build-intermission-diagnostic.mjs baseline|candidate`、`serve-intermission-diagnostic.mjs`、`measure-intermission.mjs baseline|candidate`。使用现有压缩资源与本机18890端口；基线取`ff8140b`音频源码，检测入口有固定种子和设备预算，不发布。先完成CPU检查，再串行测量两版，使用独立临时浏览器数据。
 
 对应Coze更新见[交付步骤](../docs/project/COZE_INTERMISSION_UPDATE_20261029.md)。`package-intermission-patch.mjs`为本次日期型打包工具：输入为`ff8140b`中的Safari候选压缩快照和`dist/intermission-release-20261029/web`正式Web构建，输出4文件增量包；它会校验旧appBuildId，不适用于已经覆盖的新快照，也不会部署服务。

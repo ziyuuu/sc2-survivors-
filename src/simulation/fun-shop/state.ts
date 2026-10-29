@@ -45,9 +45,8 @@ export function funShopDescription(id:FunShopId,level:number,difficulty?:Difficu
   return '每20秒有额外机会引来：本难度的特殊遭遇'+Math.round(BAIT_CHANCES.encounter[level]*100)+'%、精英'+Math.round(BAIT_CHANCES.elite[level]*100)+'%'+(locked?'，两者独立判定。当前难度不触发虫群，也不补成其他事件。':'、虫群'+Math.round(BAIT_CHANCES.horde[level]*100)+'%，三者独立判定。虫群仅困难／地狱可触发。')+'\n每关最多额外触发一次，遭遇、精英与虫群共用额度；场上暂时无法出现时，每类最多留一次机会，成功触发后清空其余机会。原本的出现机会保留；升级只付总价差额。';
  }
  case 'dice':{
-  const bands=[[4,0],[7,1],[12,3]],labels=['1—5','6—11','12—19'];
-  const rates=bands.map(([p,o],i)=>{const weights=shopRarityWeights([100-p-o,0,0,p,o],level),total=weights.reduce((a,b)=>a+b,0);return '第'+labels[i]+'关：紫'+(weights[3]/total*100).toFixed(1)+'%、橙'+(weights[4]/total*100).toFixed(1)+'%';}).join('；');
-  return '只影响之后出现的新商品和刷新结果。\n未计入其他装备加成时，各关段刷出紫色和橙色商品的概率为：'+rates+'。装备的免费刷新加成可进一步提高紫橙商品的出现机会；抽中的品质无可售商品时改选其他品质。\n按白→绿→蓝→紫→橙逐级升级，只付总价差额。';
+  const [purple,orange]=DICE_BONUSES[level]??DICE_BONUSES[0];
+  return '只影响之后出现的新商品和刷新结果。\n在关段基础权重上，紫色增加'+purple+'、橙色增加'+orange+'；装备的免费刷新加成可进一步提高紫橙权重。买满或当前无法使用的商品退出候选池，并带走自己的权重，因此实际概率随可售商品变化。资源补给在仍有其他可售强化时，每组最多一张。\n按白→绿→蓝→紫→橙逐级升级，只付总价差额。';
  }
  case 'pandora':return '立即获得3000矿物和1500瓦斯，无需支付资源，每局只能开启一次。\n作为代价，本局之后出生的敌军生命提高25%、攻击伤害提高15%，数量不增加；场上已有敌军不变。';
  }

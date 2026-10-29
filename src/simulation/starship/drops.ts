@@ -16,25 +16,24 @@ const row=(category:EquipmentDropCategory,quality:Quality,weight:number):Equipme
 const stages=(c:EquipmentDropContext)=>c.endlessRound?3:Math.min(2,Math.max(0,Math.floor((c.stage-1)/6)));
 const ordinary=(qualities:Quality[],weights:readonly number[])=>qualities.map((q,i)=>row('ordinary',q,weights[i])).filter(r=>r.weight>0);
 const bases:Record<Difficulty,{rate:number[];qualities:Quality[];weights:number[][]}>={
- easy:{rate:[.001,.0015,.002,.002],qualities:[1,2],weights:[[85,15],[60,40],[35,65],[20,80]]},
- normal:{rate:[.0015,.002,.0025,.0025],qualities:[1,2,3],weights:[[50,45,5],[30,60,10],[15,65,20],[5,65,30]]},
- hard:{rate:[.002,.0025,.003,.003],qualities:[1,2,3],weights:[[20,60,20],[10,55,35],[0,50,50],[0,40,60]]},
- hell:{rate:[.0025,.003,.0035,.0035],qualities:[2,3,4],weights:[[50,45,5],[35,55,10],[20,65,15],[10,70,20]]}
+ easy:{rate:[.0035,.0035,.0035,.0035],qualities:[1,2,3],weights:[[85,15,0],[80,20,0],[75,24,1],[70,28,2]]},
+ normal:{rate:[.0018,.0018,.0018,.0018],qualities:[1,2,3],weights:[[50,45,5],[30,60,10],[15,65,20],[5,65,30]]},
+ hard:{rate:[.0012,.0012,.0012,.0012],qualities:[1,2,3],weights:[[20,60,20],[10,55,35],[0,50,50],[0,40,60]]},
+ hell:{rate:[.001,.001,.001,.001],qualities:[2,3,4],weights:[[50,45,5],[35,55,10],[20,65,15],[10,70,20]]}
 };
-// Calibrated against a complete easy campaign + 6–12 endless rounds.
-// Only regular-enemy trials change; elite/boss bonus layers retain their approved rates.
-export const EASY_REGULAR_EQUIPMENT_RATES=[.027,.027,.023,.015] as const;
+// Quantity is one trial per natural enemy; optional endless rolls upgrade that item.
+export const EASY_REGULAR_EQUIPMENT_RATES=[.0035,.0035,.0035,.0035] as const;
 const normalElite=[[80,20],[60,40],[40,60],[30,70]],normalBoss=[[80,15,5],[70,20,10],[60,25,15],[50,30,20]],hardElite=[[60,25,15],[50,25,25],[40,25,35],[30,25,45]],hardBoss=[[60,25,15],[50,30,20],[40,40,20],[30,45,25]],hellElite=[[78,20,2],[71,25,4],[64,30,6],[57,35,8]],hellBoss=[[57,25,15,3],[45,25,25,5],[32,25,35,8],[25,25,40,10]];
 function orange(weight:number){return [row('orangeSet',5,weight*.7),row('orangeModule',5,weight*.3)];}
-export function equipmentDropPolicy(c:EquipmentDropContext){const stage=stages(c),b=bases[c.difficulty],base=ordinary(b.qualities,b.weights[stage]),baseChance=c.difficulty==='easy'&&c.tier==='regular'?EASY_REGULAR_EQUIPMENT_RATES[stage]:b.rate[stage]*(c.tier==='boss'?40:c.tier==='elite'?20:1);let guaranteed:EquipmentPoolRow[]=[];
+export function equipmentDropPolicy(c:EquipmentDropContext){const stage=stages(c),b=bases[c.difficulty],base=ordinary(b.qualities,b.weights[stage]),baseChance=c.tier==='regular'?b.rate[stage]:c.tier==='elite'?(c.difficulty==='easy'?.3:.16):c.endlessRound?.35:1;let guaranteed:EquipmentPoolRow[]=[];
  if(c.tier!=='regular'){
-  const boss=c.tier==='boss';if(c.difficulty==='easy')guaranteed=boss?[row('greenSet',2,100)]:ordinary([1,2],[[70,30],[55,45],[40,60],[30,70]][stage]);
+  const boss=c.tier==='boss';if(c.difficulty==='easy'){const weights=(boss?[[75,25,0],[70,30,0],[65,33,2],[60,35,5]]:[[80,20,0],[75,25,0],[70,29,1],[65,32,3]])[stage];guaranteed=ordinary([1,2,3],weights).map(r=>boss&&r.quality===2?{...r,category:'greenSet'}:r);if(boss&&c.stage===18&&!c.endlessRound)guaranteed=guaranteed.filter(r=>r.quality>=2);}
   if(c.difficulty==='normal'){const p=(boss?normalBoss:normalElite)[stage];guaranteed=boss?[row('blueSet',3,p[0]),row('special',3,p[1]),row('ordinary',4,p[2])]:[row('greenSet',2,p[0]),row('ordinary',3,p[1])];}
   if(c.difficulty==='hard'){const p=(boss?hardBoss:hardElite)[stage];guaranteed=boss?[row('lowerPurple',3,p[0]),row('purpleSet',4,p[1]),row('special',4,p[2])]:[row('blueSet',3,p[0]),row('special',3,p[1]),row('lowerPurple',3,p[2])];}
   if(c.difficulty==='hell'){const p=(boss?hellBoss:hellElite)[stage];guaranteed=boss?[row('purpleSet',4,p[0]),row('special',4,p[1]),row('lowerOrange',4,p[2]),...orange(p[3])]:[row('purpleSet',4,p[0]),row('special',4,p[1]),...orange(p[2])];}
  }
  const additional:EquipmentPoolRow[]=c.difficulty==='easy'?[row('ordinary',3,100)]:c.difficulty==='normal'?[row('lowerPurple',3,100)]:c.difficulty==='hard'?[row('lowerOrange',4,40),row('purpleSet',4,60)]:[row('lowerOrange',4,60),...orange(40)];
- return {baseChance,base,guaranteed,additional,additionalChance:c.tier==='boss'&&c.endlessRound?Math.min(.5,.2+.05*Math.floor((c.endlessRound-1)/6)):0,pollutionChance:c.endlessRound&&c.difficulty==='hell'?.15:c.endlessRound&&c.difficulty==='hard'?.1:.05};
+ return {baseChance,base,guaranteed,additional,additionalChance:c.difficulty!=='easy'&&c.tier==='boss'&&c.endlessRound?Math.min(.5,.2+.05*Math.floor((c.endlessRound-1)/6)):0,pollutionChance:c.endlessRound&&c.difficulty==='hell'?.15:c.endlessRound&&c.difficulty==='hard'?.1:.05};
 }
 function weighted<T>(pool:readonly T[],weight:(t:T)=>number,random:()=>number):T {const sum=pool.reduce((s,t)=>s+weight(t),0);if(!pool.length||sum<=0)throw Error('舰装掉落池缺少合法模板');let n=random()*sum;for(const t of pool){n-=weight(t);if(n<0)return t;}return pool.at(-1)!;}
 export function categoryTemplates(category:EquipmentDropCategory,quality:Quality){return Object.values(EQUIPMENT_TEMPLATES).filter(t=>t.quality===quality&&(category==='ordinary'?t.kind==='attribute'||t.kind==='module':category==='special'?t.kind==='special':category==='orangeModule'?t.kind==='module':category==='greenSet'?t.kind==='set'&&t.quality===2:category==='blueSet'?t.setFamily?.startsWith('blue.'):category==='lowerPurple'?t.setFamily?.startsWith('advanced.'):category==='purpleSet'?t.setFamily?.startsWith('advanced.')||t.setFamily?.startsWith('special.'):t.setFamily?.startsWith('orange.')));}
@@ -49,14 +48,27 @@ export function qualityWeightedPool(w:World,pool:readonly EquipmentPoolRow[],bos
  candidates.sort((a,b)=>{for(let i=0;i<a.qualityMass.length;i++){const diff=b.qualityMass[i]-a.qualityMass[i];if(Math.abs(diff)>1e-12)return diff;}return 0;});return candidates[0].rows;
 }
 export function markDerivedEquipmentEnemy(w:World,u:Entity){w.starship.derivedEnemies.add(u.id);}
-/** Relative rate bonus on the optional base layer only; guaranteed quantities and quality weights are separate. */
+/** Relative bonus on probabilistic natural drops. Explicit event quantities stay fixed. */
 export function equipmentBaseDropChance(w:World,chance:number){return Math.min(1,chance*(1+equipmentValue(w,'equipment_drop_chance')));}
 export function dropEnemyEquipment(w:World,u:Entity){if(u.fun||u.encounter||u.mission?.noLoot)return [];if(isDensityCompanion(u))return [];const a=w.starship.account,run=a.run;if(!w.starship.enabled||!run||run.ended||u.owner!=='zerg'||u.summonKind||u.temporary||u.attributes.includes('Structure')||w.starship.derivedEnemies.has(u.id))return [];
  const receipt='equipment-enemy:'+u.id+':'+u.bornAt;if(run.receipts.has(receipt))return [];run.receipts.add(receipt);
- const tier=u.enemyTier==='boss'||u.enemyTier==='lord'?'boss':u.enemyTier==='elite'?'elite':'regular',context={difficulty:w.difficulty,stage:w.stage,endlessRound:w.endless?.round,tier} as const,policy=equipmentDropPolicy(context),random=()=>equipmentRandom(a),layers:readonly [string,number,EquipmentPoolRow[]][]=[['base',equipmentBaseDropChance(w,policy.baseChance),policy.base],['guaranteed',tier==='regular'?0:1,policy.guaranteed],['endless',policy.additionalChance,policy.additional]],created:string[]=[];
- for(const [layer,chance,pool] of layers){if(!chance||chance<1&&random()>=chance)continue;const chosen=weighted(qualityWeightedPool(w,pool,tier==='boss'),r=>r.weight,random),input=rollEquipmentTemplate(a,chosen,policy.pollutionChance),result=grantEquipment(a,{...input,race:run.race},run.id+':'+receipt+':'+layer,{kind:'ground',run:run.id,x:u.x,z:u.z});if(!result.ok)throw Error(result.error);registerEquipmentDrop(w,result.value);created.push(result.value.id);}
- if(created.length)w.changed();return created;
+ const tier=u.enemyTier==='boss'||u.enemyTier==='lord'?'boss':u.enemyTier==='elite'?'elite':'regular',context={difficulty:w.difficulty,stage:w.stage,endlessRound:w.endless?.round,tier} as const,policy=equipmentDropPolicy(context),random=()=>equipmentRandom(a);
+ // Arena rewards use cumulative defeated elites; repeated hits cannot advance the count.
+ const arena=w.specialStages.active;
+ if(arena?.kind==='arena'&&(u.arenaElite||u.arenaHero)){
+  if(u.arenaElite){const prefix=arena.id+':equipment-elite:';run.receipts.add(prefix+u.id);const count=[...run.receipts].filter(r=>r.startsWith(prefix)).length;if(count%5!==0)return [];}
+ }else if(random()>=equipmentBaseDropChance(w,policy.baseChance))return [];
+ const chosen=equipmentRewardRow(w,context),input=rollEquipmentTemplate(a,chosen,policy.pollutionChance),result=grantEquipment(a,{...input,race:run.race},run.id+':'+receipt+':item',{kind:'ground',run:run.id,x:u.x,z:u.z});
+ if(!result.ok)throw Error(result.error);registerEquipmentDrop(w,result.value);w.changed();return [result.value.id];
 }
+/** A second quality roll can improve the same item, never create another or downgrade it. */
+function equipmentRewardRow(w:World,context:EquipmentDropContext){
+ const policy=equipmentDropPolicy(context),random=()=>equipmentRandom(w.starship.account),boss=context.tier==='boss';
+ let chosen=weighted(qualityWeightedPool(w,context.tier==='regular'?policy.base:policy.guaranteed,boss),r=>r.weight,random);
+ if(policy.additionalChance&&random()<policy.additionalChance){const upgrade=weighted(qualityWeightedPool(w,policy.additional,boss),r=>r.weight,random);if(upgrade.quality>=chosen.quality)chosen=upgrade;}
+ return chosen;
+}
+
 export function collectNearbyEquipment(w:World){
  if(!w.starship.enabled||w.phase!=='battle'||w.paused||w.requiresPlayerDecision)return;
  pruneEquipmentLoot(w);if(itemsAt(w.starship.account,'backpack').length<BACKPACK_CAPACITY)w.starship.loot.fullNotified=false;
@@ -87,21 +99,18 @@ function collectReachableEquipment(w:World,drop:ReturnType<typeof equipmentGroun
  else if(result.error==='背包已满')recordEquipmentBackpackFull(w,drop);
  return result;
 }
-/** Explicit equipment reward is separate from the three natural drop layers. */
+/** Explicit plunder reward remains an extra item, independent of the natural drop trial. */
 export function dropPlunderEquipment(w:World,u:Entity){if(u.mission?.noLoot)return;const a=w.starship.account,run=a.run;if(!run||!w.starship.enabled||run.ended)return;const receipt=run.id+':plunder-gear:'+u.id+':'+u.bornAt;if(run.receipts.has(receipt))return;
  const policy=equipmentDropPolicy({difficulty:w.difficulty,stage:w.stage,endlessRound:w.endless?.round,tier:'boss'}),legal=[...policy.guaranteed,...(policy.additionalChance?policy.additional:[])],high=legal.filter(r=>r.quality>=4),pool=high.length?high:legal.filter(r=>r.quality===Math.max(...legal.map(r=>r.quality))),chosen=weighted(qualityWeightedPool(w,pool,true),r=>r.weight,()=>equipmentRandom(a)),input=rollEquipmentTemplate(a,chosen,policy.pollutionChance);const result=grantEquipment(a,{...input,race:run.race},receipt,{kind:'ground',run:run.id,x:u.x,z:u.z});if(!result.ok)throw Error(result.error);run.receipts.add(receipt);registerEquipmentDrop(w,result.value);w.changed();return result.value;
 }
 
 export interface TaskEquipmentPlan {receipt:string;context:EquipmentDropContext;items:{layer:string;item:import('./types').EquipmentItem}[]}
+/** One explicit reward; natural enemy probability does not cancel a promised item. */
 export function planTaskEquipment(w:World,context:EquipmentDropContext,receipt:string):TaskEquipmentPlan|null {
  const a=w.starship.account;if(!w.starship.enabled||!a.run||a.run.ended)return null;
- const policy=equipmentDropPolicy(context),random=()=>equipmentRandom(a),items:TaskEquipmentPlan['items']=[];
- for(const [layer,chance,pool] of [['base',equipmentBaseDropChance(w,policy.baseChance),policy.base],['guaranteed',1,policy.guaranteed],['endless',policy.additionalChance,policy.additional]] as const){
-  if(!chance||chance<1&&random()>=chance)continue;
-  const selected=weighted(qualityWeightedPool(w,pool,context.tier==='boss'),r=>r.weight,random),input=rollEquipmentTemplate(a,selected,policy.pollutionChance),result=createEquipmentItem(a,{...input,race:a.run.race});
-  if(!result.ok)throw Error(result.error);items.push({layer,item:result.value});
- }
- return {receipt,context:{...context},items};
+ const policy=equipmentDropPolicy(context),chosen=equipmentRewardRow(w,context),input=rollEquipmentTemplate(a,chosen,policy.pollutionChance),result=createEquipmentItem(a,{...input,race:a.run.race});
+ if(!result.ok)throw Error(result.error);
+ return {receipt,context:{...context},items:[{layer:'guaranteed',item:result.value}]};
 }
 export function deliverTaskEquipment(w:World,plan:TaskEquipmentPlan,p:{x:number;z:number}){
  const a=w.starship.account,run=a.run;if(!run||run.ended)return false;if(run.receipts.has(plan.receipt))return true;
@@ -116,7 +125,7 @@ export function planOrdinaryEncounterEquipment(w:World,context:EquipmentDropCont
  const c:EquipmentDropContext={difficulty:context.difficulty,stage:context.stage,tier:'regular'};
  const policy=equipmentDropPolicy(c),pool=policy.base.filter(r=>r.weight>0),max=Math.max(...pool.map(r=>r.quality)),random=()=>equipmentRandom(a),items:TaskEquipmentPlan['items']=[];
  for(let i=0;i<count;i++){
-  const legal=highest&&(allHighest||i===count-1)?pool.filter(r=>r.quality===max):pool;
+  const high=highest&&(allHighest||i===count-1),legal=high?(context.difficulty==='easy'?ordinary([1,2,3],context.stage<=12?[60,40,0]:[60,38,2]):pool.filter(r=>r.quality===max)):pool;
   const chosen=weighted(qualityWeightedPool(w,legal,false),r=>r.weight,random),input=rollEquipmentTemplate(a,chosen,policy.pollutionChance),result=createEquipmentItem(a,{...input,race:a.run.race});
   if(!result.ok)throw Error(result.error);items.push({layer:'item:'+i,item:result.value});
  }
@@ -134,8 +143,5 @@ export function planOffensiveEncounterEquipment(w:World,context:EquipmentDropCon
  return {receipt,context:c,items:[{layer:'guaranteed',item:result.value}]};
 }
 export function planSingleBossEncounterEquipment(w:World,context:EquipmentDropContext,receipt:string):TaskEquipmentPlan|null {
- const a=w.starship.account;if(!w.starship.enabled||!a.run||a.run.ended)return null;
- const policy=equipmentDropPolicy(context),random=()=>equipmentRandom(a),pool=policy.additionalChance&&random()<policy.additionalChance?policy.additional:policy.guaranteed;
- const chosen=weighted(qualityWeightedPool(w,pool,true),r=>r.weight,random),input=rollEquipmentTemplate(a,chosen,policy.pollutionChance),result=createEquipmentItem(a,{...input,race:a.run.race});if(!result.ok)throw Error(result.error);
- return {receipt,context:{...context},items:[{layer:'guaranteed',item:result.value}]};
+ return planTaskEquipment(w,context,receipt);
 }

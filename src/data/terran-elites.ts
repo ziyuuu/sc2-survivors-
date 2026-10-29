@@ -71,9 +71,15 @@ export const TERRAN_ELITE_RULES={
       "growthK": 20,
       "dpsAsymptoteFactor": 4,
       "hpAsymptoteFactor": 5,
-      "armorAsymptoteAdd": 10
+      "armorAsymptoteAdd": 10,
+      "eliteContributionFactor": 2,
+      "damageHpPerPoint": 0.01,
+      "attackSpeedPerPoint": 0.005,
+      "attackSpeedCap": 1,
+      "movePerPoint": 0.0015,
+      "moveCap": 0.35
     },
-    "description": "死神家族仅保留这一名永久战士；吸收其余死神与后续送达死神，按军衔和精英身份积累成长。伤害、生命、护甲增长逐渐趋缓，上限分别为基础的4倍、5倍和额外10点护甲。其他兵种与英雄照常保留。"
+    "description": "死神家族仅保留这一名永久战士，吸收其他死神；精英可重复获取，成长贡献翻倍，不继承技能。普通Ⅰ级死神计1点，高军衔折算更多。保留前期成长，每点再增加基础伤害和生命各1%；攻速每点+0.5%（最多+100%），移速每点+0.15%（最多+35%），额外护甲渐近10点。其他兵种与英雄照常保留。"
   },
   "hellion.1": {
     "name": "长炎",

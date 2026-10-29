@@ -7,7 +7,7 @@ import {mixWaves,campaignMainBefore,ambientResources} from './mixed-waves';
 // The minimum is one fixed simulation tick, not a difficulty plateau.
 export const ENDLESS={
  wave:{interval:15},elite:{interval:30},boss:{interval:90},
- growth:{health:1.22,damage:1.10,attackSpeed:1.025},
+ growth:{health:1.22,damage:1.10,damageAfterFiveMinutes:1.16,attackSpeed:1.025},
  bossTypes:['queen','lurker','mutalisk','corruptor','ultralisk','zergling','roach','hydralisk','ravager'] as readonly SpecialType[],
  types:['zergling','roach','hydralisk','ravager'] as readonly SpecialType[],
  roundDuration:60,

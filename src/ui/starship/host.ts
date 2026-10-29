@@ -17,6 +17,7 @@ export interface StarshipHost {
  equip(id:string,slot:EquipmentSlot,revision:number):EquipmentResult<unknown>;
  unequip(slot:EquipmentSlot,revision:number):EquipmentResult<unknown>;
  loadout(value:EquipmentLoadout,revision:number):EquipmentResult<unknown>;
+ autoEquip?(protectedIds:ReadonlySet<string>,revision:number):EquipmentResult<unknown>;
  pickup(id:string):EquipmentResult<unknown>;
  drop(id:string,revision:number):EquipmentResult<unknown>;
  dismantle(ids:readonly string[],revision:number):EquipmentResult<unknown>;

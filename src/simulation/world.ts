@@ -44,6 +44,7 @@ import {newStarshipRuntime,equipWorldItem,unequipWorldItem,startStarshipRun,with
 import type {EquipmentAccount,EquipmentSlot} from './starship/types';
 import {settleEquipment,canBeginEquipmentRun} from './starship/inventory';
 import {applyEquipmentLoadout,type EquipmentLoadout} from './starship/loadout';
+import {quickEquip} from './starship/quick-equip';
 import {refreshEquippedBodies} from './starship/runtime';
 import {equipmentValue,equipmentRosterMember,equipmentWorkerRescue,equipmentPickupFactor,equipmentStageReward,beginEquipmentWindow,equipmentRefreshPrice} from './starship/modules';
 import {rememberObservationSource,observeDamage,observeAmount,observeRecovery} from './observation';
@@ -159,9 +160,10 @@ export class World extends RunState {
  private selectedRace:Race;
  starship=newStarshipRuntime();
  equipItem(itemId:string,slot:EquipmentSlot,revision=this.starship.account.revision){return this.atomicMutation(()=>equipWorldItem(this,itemId,slot,revision));}
+ autoEquipItems(protectedIds:ReadonlySet<string>,revision=this.starship.account.revision){return this.atomicMutation(()=>{if(!this.canExtractEquipment)return {ok:false,error:'只能在正常关间一键换装'} as const;const result=quickEquip(this.starship.account,this.expedition.race,protectedIds,revision);if(result.ok){this.starship.enabled=true;refreshEquippedBodies(this);}return result;});}
  applyEquipmentLoadout(loadout:EquipmentLoadout,revision=this.starship.account.revision){return this.atomicMutation(()=>{if(this.phase==='battle')return {ok:false,error:'战斗中不能换装'} as const;const result=applyEquipmentLoadout(this.starship.account,this.expedition.race,loadout,revision);if(result.ok){this.starship.enabled=true;refreshEquippedBodies(this);}return result;});}
  unequipItem(slot:EquipmentSlot,revision=this.starship.account.revision){return this.atomicMutation(()=>unequipWorldItem(this,slot,revision));}
- get canExtractEquipment(){return !!this.starship.account.run&&!this.starship.account.run.ended&&(!!this.endless&&['battle','reward','endless-ready'].includes(this.phase)&&!this.specialStages.active||['reward','won','endless-ready'].includes(this.phase)&&this.stage%3===0);}
+ get canExtractEquipment(){return !!this.starship.account.run&&!this.starship.account.run.ended&&!this.specialStages.active&&['reward','won','endless-ready'].includes(this.phase);}
  extractEquipment(){if(!this.canExtractEquipment)return false;cancelMissions(this);settleEquipment(this.starship.account,'success');this.phase='finished';this.changed();return true;}
  awardPermanentResource(receipt:string,amount:number){return this.permanentProfile.award(receipt,amount,this.runConfig?.race??this.selectedRace);}
  setProductionOutputs(line:ProductionLineId,families:FamilyId[]){return setOutputs(this,line,families);}
@@ -274,7 +276,7 @@ export class World extends RunState {
   this.initialTerrain=campaign;this.seed=data.seed;this.terrain=terrain;this.obstacles=data.state.battlefield.mode==='endless'?[]:[...this.initialObstacles];this.terrain?.setStage?.(this.terrainStage);this.input={x:0,z:0};if(this.phase==='battle')this.paused=true;
   this.spawnCells=connectedSpawnCells(this.terrain,this.anchor,this.mapHalf,this.obstacles);
   const bodies:Body[]=[...this.entities.values(),...this.pods.filter(p=>p.status==='active'||p.status==='opening'),...[...this.economicTargets.values()].filter(e=>e.status==='active'),...this.expansionHives.values(),...this.fortifications.values(),...missionBodies(this),...[...(this.specialStages.active?.resources.values()??[])].filter(b=>b.hp>0)];if(this.hive&&this.hive.hp>0)bodies.push(this.hive);this.hash.rebuild(bodies);
-  this.atomicMutation(()=>{settlePendingLoot(this);this.changed();});
+  this.atomicMutation(()=>{for(const u of this.entities.values())if(u.hp>0&&u.eliteId==='reaper.3'){const ratio=u.hp/u.maxHp;this.refreshStats(u);u.hp=u.maxHp*ratio;}settlePendingLoot(this);this.changed();});
  }
  get config(){const key=this.stage+(this.endless?this.endless.round*100:0);if(this.configStage!==key||this.configDifficulty!==this.difficulty||!!this.endless!==('endlessId' in (this.stageData??{}))){this.stageData=this.endless?endlessConfig(this.difficulty,this.endless.round):campaign18StageConfig(this.stage,this.difficulty);this.configStage=key;this.configDifficulty=this.difficulty;}return this.stageData;}
  get terrainStage(){return this.terrain instanceof RadialTerrain?this.stage:campaign18TerrainStage(this.stage);}

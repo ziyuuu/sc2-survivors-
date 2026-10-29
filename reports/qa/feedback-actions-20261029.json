@@ -1,0 +1,258 @@
+{
+  "schemaVersion": 1,
+  "task": "V06",
+  "date": "2026-10-29",
+  "status": "Local implementation and bounded verification passed; physical iPhone/user review pending",
+  "baseCommit": "72eb10d26264a987f79baf729b0ce5fcc3f33ffe",
+  "branch": "体积优化版",
+  "source": {
+    "sha256": "a27dcc1cd8412fa8def94a2ecf07379d89396b7df65392036656b085044e8650",
+    "files": [
+      {
+        "path": "src/app/bootstrap.ts",
+        "sha256": "91c5b7b833b421a2b40b73534ddf976753988edf46f664abd6792775d6199682"
+      },
+      {
+        "path": "src/render/effects/audio.ts",
+        "sha256": "a6c5cda5cfd93b84943b7d2a450dde41c06ad59deccbdf44b7e444301256375d"
+      },
+      {
+        "path": "src/simulation/fun-shop/state.ts",
+        "sha256": "99d05fcd7a315deaa02501546fda2ddb2389500446572b2b2c369478758e5381"
+      },
+      {
+        "path": "src/simulation/progression/expedition-drafts.ts",
+        "sha256": "0063f4c143e11ce3fb30a764b605ed9018fb45283e2c7cd1cc9a6777a18e3e4f"
+      },
+      {
+        "path": "src/simulation/starship/quick-equip.ts",
+        "sha256": "81517bc1731108b49b62538bae3e022d85f706de2384191b109e456631553446"
+      },
+      {
+        "path": "src/simulation/world.ts",
+        "sha256": "6ca7285016ad31cc9fed90cc5604f063db42226a5a691d9be9947c07cc1ab6aa"
+      },
+      {
+        "path": "src/ui/hud.ts",
+        "sha256": "007d4259223a291ed1532b56b940701c420b44b1b4a86bba9df5bf1b6806790c"
+      },
+      {
+        "path": "src/ui/interface-audio.ts",
+        "sha256": "55323f8a46266be03fec4f5e66b1703bd050f3a41e9b912d1afe813de1d6ba9d"
+      },
+      {
+        "path": "src/ui/presentation/intermission.ts",
+        "sha256": "c8f1f98737c6195fa8d90efaf0ab349a39e50db0b215b6f16c06d625126cc1ec"
+      },
+      {
+        "path": "src/ui/presentation/settings-screen.ts",
+        "sha256": "63c58eaf9d53db8382fdb260ef3f0c615fb04166141f639909922c2aa8293598"
+      },
+      {
+        "path": "src/ui/starship/controller.ts",
+        "sha256": "b5f7c92e13374d2e69d717c670718700fdd96f21ca48f2a36ba9371956528134"
+      },
+      {
+        "path": "src/ui/starship/equipment-availability.ts",
+        "sha256": "70954226cf1fdcc4f18a8178236402b002241628c1b1f99f56bbd1a0b94216aa"
+      },
+      {
+        "path": "src/ui/starship/host.ts",
+        "sha256": "8fc00d6700b4535ee3638b75adea3942e2d9d1dae52f2408924d8ab8ea2f0c55"
+      },
+      {
+        "path": "src/ui/starship/legacy-view.ts",
+        "sha256": "153849206fe53d76ffd34b145f641bc9a3de3894e34eadafaa6420a565698cab"
+      },
+      {
+        "path": "src/ui/starship/memory-host.ts",
+        "sha256": "73f2ee300f46f0f4b3c549f1c61a0a186d28aaee3b78be8d65c2c105ebb217ad"
+      },
+      {
+        "path": "src/ui/starship/world-host.ts",
+        "sha256": "2471aa6c993ba80a228e3fe25daf3b658b57ced6fbe33164bdbab38140630a45"
+      }
+    ]
+  },
+  "diagnosticBuild": {
+    "sha": "01046b308abafa311caff7810b2133cdd4d2f8b65e5083935b7aae54ca1a1759",
+    "packedManifest": "asset-manifest.ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2.json",
+    "seed": 529,
+    "scope": "Normal menu, injected bounded equipment/intermission UI fixture; not deployment"
+  },
+  "changes": [
+    "normal intermission extraction every stage",
+    "eligibility labels/filter",
+    "cross-page bulk selection and protected-item handling",
+    "one-revision quality-based ordinary equipment exchange",
+    "shop live eligibility and per-product weight removal",
+    "menu-first interface sound and touch compatibility click deduplication"
+  ],
+  "tests": {
+    "fullInitial": {
+      "total": 2783,
+      "pass": 2767,
+      "fail": 16,
+      "seconds": 242.7741473,
+      "remainingProductFailures": 0,
+      "notes": "Nine outdated elite-sampling/dice-copy assertions corrected to approved semantics; seven environment failures including parent test count were rerun with local-service permission. Earlier targeted run also updated old extraction expectations."
+    },
+    "focusedFinal": {
+      "total": 108,
+      "pass": 108
+    },
+    "localServiceRerun": {
+      "total": 16,
+      "pass": 16
+    },
+    "audioAfterTouchBindingFix": {
+      "total": 7,
+      "pass": 7
+    },
+    "typecheck": "passed after final binding change",
+    "docsData": "regenerated; no output difference",
+    "docsCheck": "passed",
+    "scope": "No new full gameplay run after the final UI selection/audio wiring fixes; final browser checks cover those changes."
+  },
+  "browser": {
+    "scope": "Injected equipment fixture with production UI; Chrome viewport/touch emulation, not physical iPhone or a natural campaign",
+    "devices": [
+      {
+        "name": "desktop",
+        "width": 1440,
+        "height": 900,
+        "input": "Pointer clicks and checkbox checks",
+        "menuAudio": {
+          "volume": 0.25,
+          "state": "running",
+          "phase": "menu",
+          "offlinePeak": 0.008616480976343155,
+          "liveClockSeconds": 0,
+          "calls": 1,
+          "peak": 0
+        },
+        "selectionAcrossPages": 38,
+        "selectionClearedOnFilterAndSearch": true,
+        "oneRevisionExchange": true,
+        "protectedGear": true,
+        "bulkConfirmation": "分解 31 件 · +1150 粉尘\n\n跳过 1 件\n\n须先清洗：1 件",
+        "storedAndReloaded": true,
+        "noHorizontalOverflow": true,
+        "pageErrors": 0
+      },
+      {
+        "name": "landscape",
+        "width": 844,
+        "height": 390,
+        "input": "Touch taps on menu, auto-equip and extraction; pointer list/checkbox actions",
+        "menuAudio": {
+          "volume": 0.25,
+          "state": "running",
+          "phase": "menu",
+          "offlinePeak": 0.008616480976343155,
+          "liveClockSeconds": 0.010666666666666666,
+          "calls": 1,
+          "peak": 0
+        },
+        "selectionAcrossPages": 38,
+        "selectionClearedOnFilterAndSearch": true,
+        "oneRevisionExchange": true,
+        "protectedGear": true,
+        "bulkConfirmation": "分解 31 件 · +1150 粉尘\n\n跳过 1 件\n\n须先清洗：1 件",
+        "storedAndReloaded": true,
+        "noHorizontalOverflow": true,
+        "pageErrors": 0
+      },
+      {
+        "name": "portrait",
+        "width": 390,
+        "height": 844,
+        "input": "Touch taps on menu, auto-equip and extraction; pointer list/checkbox actions",
+        "menuAudio": {
+          "volume": 0.25,
+          "state": "running",
+          "phase": "menu",
+          "offlinePeak": 0.008616480976343155,
+          "liveClockSeconds": 0.010666666666666666,
+          "calls": 1,
+          "peak": 0
+        },
+        "selectionAcrossPages": 38,
+        "selectionClearedOnFilterAndSearch": true,
+        "oneRevisionExchange": true,
+        "protectedGear": true,
+        "bulkConfirmation": "分解 31 件 · +1150 粉尘\n\n跳过 1 件\n\n须先清洗：1 件",
+        "storedAndReloaded": true,
+        "noHorizontalOverflow": true,
+        "pageErrors": 0
+      }
+    ],
+    "screenshotsReviewed": [
+      "desktop and mobile landscape/portrait intermission and equipment views"
+    ],
+    "audioLimits": "Earlier same-tone build produced realtime peak 0.00861648 in all three sizes. Later Windows headless audio clock stalled near 0–0.01s; final checks assert one accepted click, running AudioContext and real OfflineAudioContext PCM peak. Not speaker listening or physical iPhone evidence."
+  },
+  "shop": {
+    "scope": "Three stage bands, same one-family fixture before/after selling out white team firepower and defense; no dice, roster or inventory changes between each pair",
+    "seed": 529,
+    "shelvesPerCase": 2000,
+    "rows": [
+      {
+        "stage": 1,
+        "before": 0.1675,
+        "after": 0.17683333333333334,
+        "firstSlotBefore": 0.12753939251116372,
+        "firstSlotAfter": 0.15240666307542397,
+        "remainingResourceWeightsUnchanged": true,
+        "maxResourceCards": 1
+      },
+      {
+        "stage": 8,
+        "before": 0.29983333333333334,
+        "after": 0.31583333333333335,
+        "firstSlotBefore": 0.2588601058282671,
+        "firstSlotAfter": 0.29025907688778524,
+        "remainingResourceWeightsUnchanged": true,
+        "maxResourceCards": 1
+      },
+      {
+        "stage": 16,
+        "before": 0.43166666666666664,
+        "after": 0.44,
+        "firstSlotBefore": 0.39597550612019305,
+        "firstSlotAfter": 0.4264931422399899,
+        "remainingResourceWeightsUnchanged": true,
+        "maxResourceCards": 1
+      }
+    ]
+  },
+  "delivery": {
+    "committed": false,
+    "pushed": false,
+    "deployed": false,
+    "packedSnapshotUpdated": false,
+    "saveSchemaChanged": false
+  },
+  "deferred": [
+    "孤星猎手成长",
+    "装备掉落平衡",
+    "BGM"
+  ],
+  "open": [
+    "physical iPhone and subjective audio review",
+    "earlier iPhone restore/intermission performance",
+    "future deployment only when instructed"
+  ],
+  "reproduce": [
+    "tools/build-feedback-actions-diagnostic.mjs",
+    "tools/qa-feedback-actions.mjs",
+    "node --import tsx tools/measure-feedback-shop.mjs"
+  ],
+  "retention": {
+    "completed": true,
+    "removedBytes": 66981879,
+    "removed": "Task diagnostic site/build, screenshots, detailed UI/unit/full/regression/service logs and temporary measurement JSON",
+    "retained": "Production code, tests, reproduction tools and this compact summary",
+    "userArchivesTouched": false
+  }
+}

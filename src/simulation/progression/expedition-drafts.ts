@@ -1,4 +1,4 @@
-import {funShopCandidates,funShopQuote,shopRarityWeights,type FunShopLevels,type FunShopId} from '../fun-shop/state';
+import {funShopCandidates,funShopCatalogue,funShopQuote,shopRarityWeights,type FunShopLevels,type FunShopId} from '../fun-shop/state';
 import {UNIQUE_SUPPORT,type UniqueSupportId} from '../../data/unique-support';
 import {supplyPrice,supplyTier,type SupplyMode} from './supply-cards';
 import type {SupportCard} from '../combat/shop-support';
@@ -146,7 +146,6 @@ export function drawExpeditionDevelopment(ctx:ExpeditionDraftContext,reroll=fals
 }
 
 export function expeditionRarityWeights(stage:number):readonly number[]{assertWindow(stage);return stage<=5?[45,35,16,4,0]:stage<=11?[25,40,27,7,1]:[15,35,35,12,3];}
-function rollTier(ctx:ExpeditionDraftContext,minimum=0){const weights=shopRarityWeights(expeditionRarityWeights(ctx.stage),ctx.funShop?.dice??0,ctx.highQualityWeight??0);return sample(RARITIES.filter((_,i)=>i>=minimum),tier=>weights[tierIndex(tier)],ctx.random)??RARITIES[minimum];}
 function familyAllowed(ctx:ExpeditionDraftContext,family:FamilyId){return (FAMILIES_BY_RACE[ctx.state.race] as readonly string[]).includes(family);}
 function effectLegal(ctx:ExpeditionDraftContext,effect:ExpeditionCardEffect,family:FamilyId,amount:number){
  if(!familyAllowed(ctx,family))return false;const info=ctx.familyInfo(family),definition=EXPEDITION_CARD_DEFINITIONS[effect],key=expeditionCardKey(effect,family);
@@ -169,9 +168,9 @@ function reinforcementUnits(ctx:ExpeditionDraftContext):Candidate[]{
  for(const elite of ctx.elites??[])if(elite.race===ctx.state.race&&elite.eligible&&ctx.state.familySlots.includes(elite.family)&&familyAllowed(ctx,elite.family))result.push({id:`elite.${elite.id}`,name:elite.name,description:'招募或培养本族已入编家族的精英，占用同系席位。',icon:elite.icon,rarity:'purple',kind:'elite',value:elite.id,effect:{kind:'elite',eliteId:elite.id,family:elite.family},category:'core',group:'elite',family:elite.family,immediate:true});
  return result;
 }
-function reinforcementPool(ctx:ExpeditionDraftContext,shop=false):Candidate[]{
+function reinforcementPool(ctx:ExpeditionDraftContext,shop=false,reference=false):Candidate[]{
  const result:Candidate[]=[];
- if(shop&&ctx.funShop)for(const c of funShopCandidates(ctx.funShop,ctx.difficulty))result.push({...c,kind:'buff',value:c.item,effect:{kind:'funShop',item:c.item,level:c.level,expected:c.expected},category:'synergy',group:'fun-shop.'+c.item,immediate:true});
+ if(shop&&ctx.funShop)for(const c of reference?funShopCatalogue():funShopCandidates(ctx.funShop,ctx.difficulty))result.push({...c,kind:'buff',value:c.item,effect:{kind:'funShop',item:c.item,level:c.level,expected:c.expected},category:'synergy',group:'fun-shop.'+c.item,immediate:true});
  for(const group of ['firepower','defense'] as const)for(const [i,rarity] of RARITIES.entries())if(teamCardLegal(ctx.state,group,rarity))result.push({id:teamCardKey(group,rarity),name:group==='firepower'?'全军火力':'全军防御',description:group==='firepower'?`伤害 +${TEAM_CARD_VALUES.damage[i]*100}% · 攻速 +${TEAM_CARD_VALUES.speed[i]*100}%`:`生命与护盾 +${TEAM_CARD_VALUES.health[i]*100}% · 护甲 +${TEAM_CARD_VALUES.armor[i]}`,icon:group==='firepower'?'tech.attack':'tech.armor',rarity,kind:'buff',value:teamCardKey(group,rarity),effect:{kind:'teamCard',group,rarity},category:'core',group,immediate:true});
  for(let rank=2;rank<=5;rank++){const plan=ctx.training?.(rank);if(plan)result.push({id:`training.${rank}`,name:`两名士兵晋升${['','I','II','III','IV','V'][rank]}`,description:`最低军衔的两名普通士兵提升至${rank}级`,icon:'tech.attack',rarity:RARITIES[rank-1],kind:'buff',value:'training',effect:{kind:'training',rank,...plan},category:'core',group:'training',immediate:true});}
  if(shop)for(const [kind,rarity,names,description] of [
@@ -204,22 +203,44 @@ export function inspectReinforcementPool(ctx:ExpeditionDraftContext){
  const pool=reinforcementPool(ctx,true);
  return pool.map(c=>({id:c.id,family:c.family??null,group:c.group,rarity:c.rarity,bucket:reinforcementOfferBucket(ctx,c.effect),effect:c.effect,weight:candidateWeight(ctx,c,pool.filter(o=>o.rarity===c.rarity)),historyKey:historyKey(c.id)}));
 }
-function guaranteeResource(tier:number,slot:number):Candidate {const rarity=RARITIES[tier],[minerals,gas]=RESOURCE_VALUES[tier];return {id:`fallback.guarantee.${rarity}.${slot}`,name:'保底资源补给',description:`本次保底没有合法的${rarity==='orange'?'橙':rarity==='purple'?'紫':'蓝'}色强化可供选择，改为${minerals}矿物与${gas}瓦斯；仍只领取一张。`,icon:'ui.minerals',rarity,kind:'economy',value:'guarantee',effect:{kind:'resource',minerals,gas,fallback:true,fallbackReason:'guarantee'},category:'general',group:'resource',immediate:true};}
-function pickReinforcement(ctx:ExpeditionDraftContext,pool:readonly Candidate[],picked:readonly Candidate[],minimum:number,immediate:boolean){
- let available=pool.filter(c=>!picked.some(p=>p.id===c.id||p.group===c.group&&c.effect.kind!=='support')&&(!immediate||c.immediate));
- if(!available.length)available=pool.filter(c=>!picked.some(p=>p.id===c.id)&&(!immediate||c.immediate));
- if(!available.length)return minimum>0?guaranteeResource(minimum,picked.length):undefined;
- const rolled=rollTier(ctx,minimum),rolledIndex=tierIndex(rolled);
- // If a rolled tier is exhausted, retain a guarantee by considering higher legal tiers first.
- let same=available.filter(c=>c.rarity===rolled);
- if(!same.length){const order=[...Array.from({length:rolledIndex-minimum},(_,i)=>rolledIndex-1-i),...Array.from({length:4-rolledIndex},(_,i)=>rolledIndex+1+i)];for(const tier of order){same=available.filter(c=>tierIndex(c.rarity)===tier);if(same.length)break;}}
- if(!same.length)return minimum>0?guaranteeResource(minimum,picked.length):undefined;
- const fun=same.filter(c=>c.effect.kind==='support'||c.effect.kind==='funShop'),other=same.filter(c=>c.effect.kind!=='support'&&c.effect.kind!=='funShop');if(fun.length&&(!other.length||ctx.random()<.25))return sample(fun,()=>1,ctx.random);if(other.length)same=other;
- if(immediate)return sample(same,c=>candidateWeight(ctx,c,same),ctx.random);
- const group=(c:Candidate)=>reinforcementOfferBucket(ctx,c.effect);
- const weights={current:70,shared:20,other:10};const buckets=(Object.keys(weights) as (keyof typeof weights)[]).filter(g=>same.some(c=>group(c)===g));
- const bucket=sample(buckets,g=>weights[g],ctx.random)!;return sample(same.filter(c=>group(c)===bucket),c=>candidateWeight(ctx,c,same),ctx.random);
+/** A reference catalogue keeps each product's mass after another product sells out.
+ * It is never offered or applied: live eligibility still controls the actual shelf. */
+function shopReferencePool(ctx:ExpeditionDraftContext){
+ const reference:ExpeditionDraftContext={...ctx,state:{...ctx.state,cardTotals:{}},
+  heroes:ctx.heroes.map(h=>({...h,eligible:true})),heroSeatsUsed:0,
+  elites:ctx.elites?.map(e=>({...e,eligible:true})),
+  supplyLegal:ctx.supplyLegal?()=>true:undefined,supportLegal:ctx.supportLegal?()=>true:undefined,
+  training:ctx.training?rank=>ctx.training!(rank)??{targets:[],minerals:0,gas:0}:undefined};
+ return reinforcementPool(reference,true,true);
 }
+function shopWeights(ctx:ExpeditionDraftContext,reference:readonly Candidate[],immediate:boolean){
+ const result=new Map<string,number>(),rarities=shopRarityWeights(expeditionRarityWeights(ctx.stage),ctx.funShop?.dice??0,ctx.highQualityWeight??0);
+ for(const rarity of RARITIES){
+  const tier=reference.filter(c=>c.rarity===rarity&&(!immediate||c.immediate)),fun=tier.filter(c=>c.effect.kind==='support'||c.effect.kind==='funShop'),other=tier.filter(c=>!fun.includes(c));
+  const assign=(items:Candidate[],mass:number)=>{const weights=items.map(c=>candidateWeight(ctx,c,tier)),total=weights.reduce((n,v)=>n+v,0);items.forEach((c,i)=>result.set(c.id,total?mass*weights[i]/total:0));};
+  const mass=rarities[tierIndex(rarity)];assign(fun,mass*(other.length?.25:1));
+  const otherMass=mass*(fun.length?.75:1);
+  if(immediate){assign(other,otherMass);continue;}
+  const buckets={current:70,shared:20,other:10},keys=(Object.keys(buckets) as (keyof typeof buckets)[]).filter(k=>other.some(c=>reinforcementOfferBucket(ctx,c.effect)===k)),total=keys.reduce((n,k)=>n+buckets[k],0);
+  for(const key of keys)assign(other.filter(c=>reinforcementOfferBucket(ctx,c.effect)===key),otherMass*buckets[key]/total);
+ }
+ return result;
+}
+/** Read-only actual weights, before without-replacement choices within the shelf. */
+export function inspectShopWeights(ctx:ExpeditionDraftContext,immediate=false){
+ const weights=shopWeights(ctx,shopReferencePool(ctx),immediate);
+ return reinforcementPool(ctx,true).filter(c=>shopEffectLegal(ctx,c.effect)&&(!immediate||c.immediate)).map(c=>({id:c.id,rarity:c.rarity,group:c.group,weight:weights.get(c.id)??0}));
+}
+function pickShopCandidate(ctx:ExpeditionDraftContext,pool:readonly Candidate[],picked:readonly Candidate[],weights:ReadonlyMap<string,number>,immediate:boolean){
+ const remaining=pool.filter(c=>!picked.some(p=>p.id===c.id)&&(!immediate||c.immediate)&&(weights.get(c.id)??0)>0);
+ // One resource card while another unshown strengthening remains available.
+ const resourceAllowed=!picked.some(c=>c.effect.kind==='resource')||!remaining.some(c=>c.effect.kind!=='resource');
+ let available=remaining.filter(c=>(resourceAllowed||c.effect.kind!=='resource')&&!picked.some(p=>p.group===c.group&&c.effect.kind!=='support'));
+ if(!available.length)available=remaining.filter(c=>resourceAllowed||c.effect.kind!=='resource');
+ available.sort((a,b)=>tierIndex(a.rarity)-tierIndex(b.rarity));
+ return sample(available,c=>weights.get(c.id)??0,ctx.random);
+}
+function guaranteeResource(tier:number,slot:number):Candidate {const rarity=RARITIES[tier],[minerals,gas]=RESOURCE_VALUES[tier];return {id:`fallback.guarantee.${rarity}.${slot}`,name:'保底资源补给',description:`本次保底没有合法的${rarity==='orange'?'橙':rarity==='purple'?'紫':'蓝'}色强化可供选择，改为${minerals}矿物与${gas}瓦斯；仍只领取一张。`,icon:'ui.minerals',rarity,kind:'economy',value:'guarantee',effect:{kind:'resource',minerals,gas,fallback:true,fallbackReason:'guarantee'},category:'general',group:'resource',immediate:true};}
 /** Disjoint pools: strongest matching route(s) supply the authored stage recommendations.
  * A custom family's core cards stay current; off-route units are never excluded. */
 export function reinforcementOfferBucket(ctx:ExpeditionDraftContext,effect:ExpeditionOfferEffect):'current'|'shared'|'other' {
@@ -254,8 +275,8 @@ export function canClaimTalentLoot(ctx:ExpeditionDraftContext,offer:ExpeditionRe
 }
 export function drawExpeditionReinforcements(ctx:ExpeditionDraftContext,reroll=false):ExpeditionReward[]{
  requireCurrent(ctx);if(ctx.state.draftTaken)return [];const retained=retainedOffers(ctx,'random',reroll);if(retained)return retained;
- const pool=reinforcementPool(ctx,true),picked:Candidate[]=[];
- while(picked.length<3){const next=pickReinforcement(ctx,pool,picked,0,picked.length===0);if(!next)break;picked.push(next);}
+ const pool=reinforcementPool(ctx,true).filter(c=>shopEffectLegal(ctx,c.effect)),reference=shopReferencePool(ctx),firstWeights=shopWeights(ctx,reference,true),laterWeights=shopWeights(ctx,reference,false),picked:Candidate[]=[];
+ while(picked.length<3){const first=picked.length===0,next=pickShopCandidate(ctx,pool,picked,first?firstWeights:laterWeights,first);if(!next)break;picked.push(next);}
  for(const fallback of pool.filter(c=>c.kind==='economy')){if(picked.length>=3)break;if(!picked.some(c=>c.id===fallback.id))picked.push(fallback);}
  const history=ctx.state.draftHistory.at(-1)!;for(const c of picked)if(!history.shown.includes(c.id))history.shown.push(c.id);
  if(picked.some(c=>tierIndex(c.rarity)>=2))ctx.state.draftSeenHigh=true;
@@ -309,6 +330,11 @@ export function canTakeExpeditionOffer(ctx:ExpeditionDraftContext,offer:Expediti
   // Equipment changes the persisted shelf price; the native quote still identifies the upgrade.
   return !!q&&offer.baseMinerals===q.minerals&&offer.baseGas===q.gas;
  }
+ return shopEffectLegal(ctx,effect);
+}
+/** Shared by fresh shelves and the final transaction; insufficient money is not ineligibility. */
+function shopEffectLegal(ctx:ExpeditionDraftContext,effect:ExpeditionOfferEffect){
+ if(effect.kind==='funShop')return !!ctx.funShop&&!!funShopQuote(ctx.funShop,effect.item,effect.level,effect.expected);
  if(effect.kind==='supply')return ctx.supplyLegal?.(effect.family,effect.count,effect.mode)??false;
  if(effect.kind==='support')return ctx.supportLegal?.(effect.support)??false;
  if(effect.kind==='training')return ctx.trainingValid?.(effect.rank,effect.targets)??false;

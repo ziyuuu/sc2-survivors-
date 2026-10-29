@@ -24,20 +24,20 @@ test('I03 naturally rolled M03 inheritance affects the real aiming modifier with
  const enemy=w.addUnit('roach','zerg',u.x+3,u.z);w.hash.rebuild(w.entities.values());u.attackTarget=enemy.id;u.thinkAt=100;u.facing=u.attackFacing=0;u.weaponCooldown=0;u.nextShotAt=0;w.time=1;w.updateUnit(u,1/60);assert.ok(u.attackFacing>.3,'real aiming rotates faster with inherited multiplier');
 });
 function pickupModule(template?:string){const a=newEquipmentAccount(529);if(template){const r=grantEquipment(a,{template,race:'terran',slot:'gathering'},'i03:pickup',{kind:'warehouse'});assert.ok(r.ok);assert.ok(equip(a,'terran',r.value.id,'gathering').ok);}const w=new World({seed:529,waves:false,sandbox:true,terrain:false,obstacles:[],equipmentAccount:a});assert.ok(w.start());w.pods=[];return w;}
-test('I03 blue, purple and inherited pickup bonuses increase only the optional equipment rate by 15 percent relatively',()=>{
- const policy=equipmentDropPolicy({difficulty:'easy',stage:1,tier:'regular'});assert.equal(policy.baseChance,.027);
+test('I03 blue, purple and inherited pickup bonuses increase probabilistic natural drops by 15 percent relatively',()=>{
+ const policy=equipmentDropPolicy({difficulty:'easy',stage:1,tier:'regular'});assert.equal(policy.baseChance,.0035);
  for(const w of [pickupModule('module.pickup.3'),pickupModule('module.pickup.4'),inherited('C06','module.workers.4')]){
-  assert.ok(Math.abs(equipmentBaseDropChance(w,policy.baseChance)-.03105)<1e-12);assert.equal(equipmentBaseDropChance(w,0),0);assert.equal(equipmentBaseDropChance(w,1),1);
+  assert.ok(Math.abs(equipmentBaseDropChance(w,policy.baseChance)-.004025)<1e-12);assert.equal(equipmentBaseDropChance(w,0),0);assert.equal(equipmentBaseDropChance(w,1),1);
   const boss=equipmentDropPolicy({difficulty:'hell',stage:13,tier:'boss',endlessRound:7});assert.deepEqual(qualityWeightedPool(w,boss.guaranteed,true),boss.guaranteed);
  }
 });
 test('I03 an unchanged natural equipment RNG seed can cross the new rate while non-Boss cards remain disabled',()=>{
- let seed=1;for(;seed<100000;seed++){const r=equipmentRandom(newEquipmentAccount(seed));if(r>=.027&&r<.03105)break;}assert.ok(seed<100000);
+ let seed=1;for(;seed<100000;seed++){const r=equipmentRandom(newEquipmentAccount(seed));if(r>=.0035&&r<.004025)break;}assert.ok(seed<100000);
  for(const enabled of [false,true]){const w=pickupModule(enabled?'module.pickup.3':undefined);w.difficulty='easy';w.starship.account.rng=seed;const e=w.addUnit('roach','zerg',12,12,1,'regular');const before=Object.keys(w.starship.account.items).length;w.hit(e,1e12,[],1,'terran',0,1,w.allies()[0].id);assert.equal(Object.keys(w.starship.account.items).length-before,enabled?1:0);assert.equal(w.rewardDrops.length,0);const count=Object.keys(w.starship.account.items).length;w.hit(e,1e12,[],1,'terran');assert.equal(Object.keys(w.starship.account.items).length,count);}
 });
-test('I03 the task equipment planner retains its guaranteed item and uses the same optional layer bonus',()=>{
+test('I03 explicit task equipment stays one item with or without a natural drop-rate bonus',()=>{
  const context={difficulty:'normal' as const,stage:7,tier:'elite' as const},native=equipmentDropPolicy(context).baseChance;let seed=1;for(;seed<100000;seed++){const r=equipmentRandom(newEquipmentAccount(seed));if(r>=native&&r<native*1.15)break;}assert.ok(seed<100000);
- for(const enabled of [false,true]){const w=pickupModule(enabled?'module.pickup.3':undefined);w.starship.account.rng=seed;const plan=planTaskEquipment(w,context,'i03:task')!;assert.equal(plan.items.filter(i=>i.layer==='guaranteed').length,1);assert.equal(plan.items.filter(i=>i.layer==='base').length,enabled?1:0);}
+ for(const enabled of [false,true]){const w=pickupModule(enabled?'module.pickup.3':undefined);w.starship.account.rng=seed;const plan=planTaskEquipment(w,context,'i03:task')!;assert.equal(plan.items.filter(i=>i.layer==='guaranteed').length,1);assert.equal(plan.items.length,1);}
 });
 test('I03 naturally rolled M04 inheritance affects the real moving-shot recovery without granting turn multiplier',()=>{
  const w=inherited('M04'),u=w.allies()[0],m=talentModifiers(w,u);assert.equal(m.movingFireChance,1);assert.equal(m.aimingSpeedMultiplier??1,1);

@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "generatedSha256": "5ca1326edd277cddf3ab9865e9a24500c9da8ed86c4119e468b2ea5f58d1b74e",
+  "source": "preview/bgm-audition-20261029/arrangements.json",
+  "generator": "tools/bgm-audition/render.py --full",
+  "records": [
+    {
+      "id": "music.menu",
+      "kind": "music",
+      "status": "available",
+      "required": true,
+      "url": "assets/music/a8b4c87df6e68a28e834bf81595453dcfb7a24c19c4fe1dea2fbd43b17453ca0.mp3",
+      "sourceFile": "deploy/runtime/assets/a8b4c87df6e68a28e834bf81595453dcfb7a24c19c4fe1dea2fbd43b17453ca0.mp3",
+      "gitPath": "deploy/runtime/assets/a8b4c87df6e68a28e834bf81595453dcfb7a24c19c4fe1dea2fbd43b17453ca0.mp3",
+      "packedFile": "public/assets/music/a8b4c87df6e68a28e834bf81595453dcfb7a24c19c4fe1dea2fbd43b17453ca0.mp3",
+      "bytes": 2573610,
+      "sourceSha256": "a8b4c87df6e68a28e834bf81595453dcfb7a24c19c4fe1dea2fbd43b17453ca0",
+      "packedSha256": "a8b4c87df6e68a28e834bf81595453dcfb7a24c19c4fe1dea2fbd43b17453ca0",
+      "seconds": 153.191,
+      "loopSamples": 6755745
+    },
+    {
+      "id": "music.intermission",
+      "kind": "music",
+      "status": "available",
+      "required": true,
+      "url": "assets/music/b5c5fc434632765c636690c12ebd76d5c132fb971517bbe35d6594049bf9974c.mp3",
+      "sourceFile": "deploy/runtime/assets/b5c5fc434632765c636690c12ebd76d5c132fb971517bbe35d6594049bf9974c.mp3",
+      "gitPath": "deploy/runtime/assets/b5c5fc434632765c636690c12ebd76d5c132fb971517bbe35d6594049bf9974c.mp3",
+      "packedFile": "public/assets/music/b5c5fc434632765c636690c12ebd76d5c132fb971517bbe35d6594049bf9974c.mp3",
+      "bytes": 1953347,
+      "sourceSha256": "b5c5fc434632765c636690c12ebd76d5c132fb971517bbe35d6594049bf9974c",
+      "packedSha256": "b5c5fc434632765c636690c12ebd76d5c132fb971517bbe35d6594049bf9974c",
+      "seconds": 112.941,
+      "loopSamples": 4980706
+    }
+  ]
+}

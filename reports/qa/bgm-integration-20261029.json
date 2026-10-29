@@ -1,0 +1,443 @@
+{
+  "date": "2026-10-29",
+  "task": "V06-F29-08",
+  "status": "待验证",
+  "authorization": "User accepted the audition and proposed integration with 就这样吧; local implementation including existing-settings music volume; no deployment.",
+  "baseline": {
+    "branch": "体积优化版",
+    "commit": "72eb10d26264a987f79baf729b0ce5fcc3f33ffe",
+    "priorLocalChanges": "Previous approved intermission/equipment/shop/interface-audio changes remain in the same working tree."
+  },
+  "tracks": [
+    {
+      "id": "menu",
+      "seconds": 153.19149659863945,
+      "bytes": 2573610,
+      "decodedSamples": 6755745,
+      "gaplessSampleCount": true,
+      "lufs": -20.01,
+      "truePeakDbTP": -6.12,
+      "seamStep": 0.0023412369191646576,
+      "boundaryNeighborP99Step": 0.0044841705821454525,
+      "clipped": false,
+      "subjectiveOrDeviceAcceptance": false
+    },
+    {
+      "id": "intermission",
+      "seconds": 112.941179138322,
+      "bytes": 1953347,
+      "decodedSamples": 4980706,
+      "gaplessSampleCount": true,
+      "lufs": -22.01,
+      "truePeakDbTP": -11.51,
+      "seamStep": 0.0045216381549835205,
+      "boundaryNeighborP99Step": 0.005503547377884388,
+      "clipped": false,
+      "subjectiveOrDeviceAcceptance": false
+    }
+  ],
+  "source": [
+    {
+      "file": "src/assets/music.ts",
+      "bytes": 520,
+      "sha256": "5ca1326edd277cddf3ab9865e9a24500c9da8ed86c4119e468b2ea5f58d1b74e"
+    },
+    {
+      "file": "src/assets/manifest.ts",
+      "bytes": 2314,
+      "sha256": "e1479b2abedb0ebfcf0ac4b295430d32116950de6aa80df68a541df10dae7ed1"
+    },
+    {
+      "file": "src/render/effects/background-music.ts",
+      "bytes": 6667,
+      "sha256": "e42380a9da16e9cdb16227f584ebb4abdc2f9df4d3bf1779644a08dbe1d9f0a9"
+    },
+    {
+      "file": "src/render/effects/audio.ts",
+      "bytes": 13174,
+      "sha256": "3e36113e13a9718a7af500f6119479ed70babc9b54b207dd696477c55ce87a27"
+    },
+    {
+      "file": "src/app/bootstrap.ts",
+      "bytes": 18225,
+      "sha256": "3fc2b34b5e38e5cf6a1e6ce2e9fb747edda6ca8dcc3d8dfa58a0b7be9caf9ffd"
+    },
+    {
+      "file": "src/ui/hud.ts",
+      "bytes": 57325,
+      "sha256": "78f9c11bfecaa60d0ed009aa290d9f5a46a8fbe467ea39f49555134bf4154ae6"
+    },
+    {
+      "file": "src/ui/presentation/settings-screen.ts",
+      "bytes": 8093,
+      "sha256": "68a73c96f03196d54c807df32e51444af2799e5f63c13b885bbe430ed542c44a"
+    },
+    {
+      "file": "tools/music-assets.mjs",
+      "bytes": 1694,
+      "sha256": "e65b7515422e25f1313f5b43f72647f52e0655d59ea2726b2e4a6c223fa2df93"
+    },
+    {
+      "file": "tools/load-build-assets.mjs",
+      "bytes": 3517,
+      "sha256": "dbc19d9950b82f56b1850e18757147707924bb5252085167057277fc519ba36e"
+    },
+    {
+      "file": "tools/restore-git-runtime.mjs",
+      "bytes": 6126,
+      "sha256": "3b5544d685f634318d0a32cd82c4f1fb4005995e7f04746a946e04e15dd8dc54"
+    },
+    {
+      "file": "tools/m6-release-assets.mjs",
+      "bytes": 10838,
+      "sha256": "574901d7e9a6272ad4cb6573e5db48c029573cfd138dcccb70cafd485b82ca55"
+    },
+    {
+      "file": "tools/build-demo.mjs",
+      "bytes": 7912,
+      "sha256": "6e3e63c3f8565057d9e7d8336bf92b91d7cd7260c43c54b7326796829152e60a"
+    },
+    {
+      "file": "tools/bgm-audition/render.py",
+      "bytes": 18609,
+      "sha256": "5ab229538647f01693d51c808306630a1ed5db6cab6da3c3eccca91fc9b8af20"
+    },
+    {
+      "file": "tools/bgm-audition/package.mjs",
+      "bytes": 2215,
+      "sha256": "412aaffd71854365188b405ae525b66db162b96a2a0658cc66609e34134ebb4a"
+    },
+    {
+      "file": "tools/bgm-audition/build-checks.mjs",
+      "bytes": 5669,
+      "sha256": "5f23b6ecedcb9f1c087386d33508376d0a4e3d23173375f08e23ad10305e51ca"
+    },
+    {
+      "file": "tools/bgm-audition/serve-checks.mjs",
+      "bytes": 1318,
+      "sha256": "d3588bafeaa500bb776369d54ea3505a89f61b0500692a3b10382cf9cbf031fe"
+    },
+    {
+      "file": "tools/bgm-audition/qa.mjs",
+      "bytes": 10672,
+      "sha256": "ba91bc30a3b5a0bf70d2552ebc70bed69ce12e8a7804e5bddc3f61727d94caf4"
+    },
+    {
+      "file": "tools/bgm-audition/check-clock.mjs",
+      "bytes": 4493,
+      "sha256": "0597748d4cc3c5ae3fee358192a49a62eaa653fb9497fd9f87add0b19f4d0d1f"
+    },
+    {
+      "file": "tools/bgm-audition/verify.py",
+      "bytes": 1972,
+      "sha256": "f7a3ee4f7cbdc4d7117510de034a4ffe4fac6c1f8caf65e61e7e1be4d5bfcaf2"
+    },
+    {
+      "file": "test/background-music.test.ts",
+      "bytes": 7266,
+      "sha256": "eb6024ff8410b954c55e243ef1b68dee8ee4e77e93b3463ca68d8e0893bbc8cd"
+    },
+    {
+      "file": "deploy/runtime/music-assets.json",
+      "bytes": 1870,
+      "sha256": "04d57375cde8a06feade768b2257c30ef68b1b53dfa420c75a8579a5bface2c5"
+    },
+    {
+      "file": "preview/bgm-audition-20261029/arrangements.json",
+      "bytes": 6659,
+      "sha256": "70dd9368270762f13a16651c389b37d98f102f27dc21cd8515d15b0125802c1a"
+    }
+  ],
+  "implementation": {
+    "oneMediaElement": true,
+    "independentMusicGain": true,
+    "defaultMusicVolume": 0.15,
+    "mainVolumeApplies": true,
+    "existingAudioPreferencesPreserved": true,
+    "combatPcmExcludesMusic": true,
+    "scenes": {
+      "menu": "menu and outside-run equipment",
+      "intermission": "reward/won/endless-ready/finished/lost",
+      "silent": "battle including pause"
+    },
+    "asyncCancellation": true,
+    "backgroundPause": true,
+    "foregroundContextResume": true,
+    "gameplayAndSaveSchemaChanges": false
+  },
+  "validation": {
+    "targetedTests": {
+      "unique": 44,
+      "passed": 44,
+      "failed": 0,
+      "suites": [
+        "background-music (9)",
+        "interface-audio (2)",
+        "audio-preparation (5)",
+        "offline-pack (5)",
+        "http-assets (4)",
+        "settings-downloads (5)",
+        "combat-audio (14)"
+      ]
+    },
+    "typecheck": true,
+    "dataDocsCheck": true,
+    "webBuild": true,
+    "ui": {
+      "diagnosticEntry": "99ca23acd166359a02b50a92a0193cfebaaf613eca5668e3eea5e05c75d097e8",
+      "finalDiagnosticEntry": "c3a4a7d506c74181f0192c2740270c066a7f641c68b5282405f118446aafb9e8",
+      "finalChange": "After the 3-viewport pass, added a resume() attempt for a previously unlocked AudioContext on foreground. UI unchanged; final unit checks, build, clock and delivery checks repeated.",
+      "sizes": [
+        {
+          "name": "desktop",
+          "width": 1440,
+          "height": 900,
+          "simulatedTouch": false,
+          "defaultMusic": 0.15,
+          "persistedMusic": 0.01,
+          "pageErrors": 0,
+          "failedResponses": 0,
+          "settingVisible": true,
+          "horizontalOverflow": false,
+          "sameSceneContinues": true,
+          "muteAndMasterControls": true,
+          "battleSilence": true,
+          "hiddenPause": true,
+          "refreshPreference": true,
+          "defaultOutputClockAdvance": 0
+        },
+        {
+          "name": "landscape",
+          "width": 844,
+          "height": 390,
+          "simulatedTouch": true,
+          "defaultMusic": 0.15,
+          "persistedMusic": 0.01,
+          "pageErrors": 0,
+          "failedResponses": 0,
+          "settingVisible": true,
+          "horizontalOverflow": false,
+          "sameSceneContinues": true,
+          "muteAndMasterControls": true,
+          "battleSilence": true,
+          "hiddenPause": true,
+          "refreshPreference": true,
+          "defaultOutputClockAdvance": 0
+        },
+        {
+          "name": "portrait",
+          "width": 390,
+          "height": 844,
+          "simulatedTouch": true,
+          "defaultMusic": 0.15,
+          "persistedMusic": 0.01,
+          "pageErrors": 0,
+          "failedResponses": 0,
+          "settingVisible": true,
+          "horizontalOverflow": false,
+          "sameSceneContinues": true,
+          "muteAndMasterControls": true,
+          "battleSilence": true,
+          "hiddenPause": true,
+          "refreshPreference": true,
+          "defaultOutputClockAdvance": 0
+        }
+      ]
+    },
+    "productionWeb": {
+      "name": "production-web",
+      "report": {
+        "scene": "menu",
+        "track": "menu",
+        "unlocked": true,
+        "visible": true,
+        "enabled": true,
+        "loading": false,
+        "playing": true,
+        "time": 0,
+        "duration": 153.191497,
+        "loop": true,
+        "prepared": [
+          "menu"
+        ],
+        "starts": 1,
+        "errors": [],
+        "volume": 0.15
+      },
+      "errors": []
+    },
+    "offline": {
+      "name": "offline-music-only",
+      "menu": {
+        "audio": {
+          "music": {
+            "scene": "menu",
+            "track": "menu",
+            "unlocked": true,
+            "visible": true,
+            "enabled": true,
+            "loading": false,
+            "playing": true,
+            "time": 0,
+            "duration": 153.191497,
+            "loop": true,
+            "prepared": [
+              "menu"
+            ],
+            "starts": 1,
+            "errors": [],
+            "volume": 0.15
+          },
+          "pcmBytes": 0,
+          "peakPcmBytes": 0,
+          "pcmBudget": null,
+          "pcmBudgetExceeded": false,
+          "decode": {
+            "active": 0,
+            "queued": 0,
+            "peak": 0,
+            "completed": 0,
+            "milliseconds": 0
+          },
+          "contextState": "running",
+          "originalDecoded": 0,
+          "decoded": [],
+          "errors": [],
+          "played": {},
+          "activeHealers": 0,
+          "activeChannels": [],
+          "nativePlayed": {},
+          "nativeRejected": {},
+          "nativeRoutes": [],
+          "activeVoices": 0
+        },
+        "embedded": {
+          "prepared": 1,
+          "total": 2
+        }
+      },
+      "intermission": {
+        "audio": {
+          "music": {
+            "scene": "intermission",
+            "track": "intermission",
+            "unlocked": true,
+            "visible": true,
+            "enabled": true,
+            "loading": false,
+            "playing": true,
+            "time": 0,
+            "duration": 112.941179,
+            "loop": true,
+            "prepared": [
+              "menu",
+              "intermission"
+            ],
+            "starts": 2,
+            "errors": [],
+            "volume": 0.15
+          },
+          "pcmBytes": 0,
+          "peakPcmBytes": 0,
+          "pcmBudget": null,
+          "pcmBudgetExceeded": false,
+          "decode": {
+            "active": 0,
+            "queued": 0,
+            "peak": 0,
+            "completed": 0,
+            "milliseconds": 0
+          },
+          "contextState": "running",
+          "originalDecoded": 0,
+          "decoded": [],
+          "errors": [],
+          "played": {},
+          "activeHealers": 0,
+          "activeChannels": [],
+          "nativePlayed": {},
+          "nativeRejected": {},
+          "nativeRoutes": [],
+          "activeVoices": 0
+        },
+        "embedded": {
+          "prepared": 2,
+          "total": 2
+        }
+      },
+      "signal": {
+        "decodedSeconds": 112.941179138322,
+        "renderedSeconds": 2,
+        "peak": 0.020454388111829758,
+        "seamStep": 0.0006782468408346176,
+        "scope": "Offline browser decode and two-second render across the source loop seam; not a hardware speaker test"
+      },
+      "httpRequests": [],
+      "errors": []
+    },
+    "simulatedAudioOutput": {
+      "scope": "Real Chromium media/Web Audio graph with --disable-audio-output simulated output stream; not a hardware speaker or iPhone test",
+      "clockAdvance": 0.736,
+      "menuPeak": 0.016985498368740082,
+      "loops": [
+        {
+          "track": "menu",
+          "looped": true,
+          "peak": 0.022144919261336327,
+          "unchangedStartCounter": true
+        },
+        {
+          "track": "intermission",
+          "looped": true,
+          "peak": 0.02061905525624752,
+          "unchangedStartCounter": true
+        }
+      ],
+      "mutePeak": 0,
+      "unmutePeak": 0.0008503799326717854,
+      "battlePeak": 0,
+      "hiddenTimePreserved": true,
+      "foregroundClockAdvance": 0.7359999999999998,
+      "foregroundPeak": 0.001040806295350194,
+      "errors": []
+    }
+  },
+  "delivery": {
+    "applicationVersion": "0.6.29-rc.1",
+    "rulesId": "mvp-1.0",
+    "runSchema": 26,
+    "appBuildId": "2663edb6f7090e4c27b268269a351ca684c3927a5e1f80fe0aba4c09b786c872",
+    "resourceRelease": "c57126842b2eebe90f278e5dfe9c5ad54eaaec683b3e611e697abada0118fdad",
+    "webPath": "dist/bgm-integration-20261029/web",
+    "musicAddedBytes": 4526957,
+    "musicAddedAssets": 2,
+    "packedDiagnosticOnly": true,
+    "fullOfflineGameBuilt": false,
+    "committed": false,
+    "pushed": false,
+    "deployed": false,
+    "currentHtmlOverwritten": false,
+    "sharedDistWebOverwritten": false
+  },
+  "toolIssuesResolved": [
+    "Initial full renderer required an absolute output path for relative_to(ROOT); resolved and both songs regenerated.",
+    "First Web promotion lacked the new destination parent; verified staging was recovered; final build later completed normally.",
+    "Restricted loopback access was retried through approved local browser execution.",
+    "Production menu selector matched hidden and visible settings; corrected the diagnostic locator and reran delivery checks.",
+    "One transient direct board-file write failed before changes; a subsequent ordinary write and board regeneration succeeded."
+  ],
+  "limits": [
+    "Physical iPhone and human full-length listening still pending.",
+    "Default headless Windows output clock remained stalled; actual waveform/timing checks use Chromium simulated output, not a hardware speaker claim.",
+    "Three UI sizes use Chrome touch emulation; phases/visibility are bounded fixtures, not natural campaign completion.",
+    "Offline verification used a two-track file:// pack, not a full-game offline rebuild.",
+    "Compressed publication must include the new music manifest and payloads; the previous four-file frontend-only update is insufficient."
+  ],
+  "retention": {
+    "kept": "Composition source, generator/tests, formal music resources, current Web candidate and full-loop listening files.",
+    "removed": "Obsolete short auditions and temporary score copies; diagnostic sites, screenshots, offline harness and detailed checks after summary capture.",
+    "userSavesTouched": false,
+    "completed": true
+  },
+  "boardRevision": 285
+}

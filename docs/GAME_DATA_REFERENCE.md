@@ -271,9 +271,9 @@
 | 1 | 0 | 1 | 1 | 1 |
 | 3 | 2 | 1.4884 | 1.21 | 1.0506 |
 | 6 | 5 | 2.7027 | 1.6105 | 1.1314 |
-| 12 | 11 | 8.9117 | 2.8531 | 1.25 |
-| 24 | 23 | 96.8894 | 8.9543 | 1.25 |
-| 30 | 29 | 319.4737 | 15.8631 | 1.25 |
+| 12 | 11 | 8.9117 | 3.9238 | 1.25 |
+| 24 | 23 | 96.8894 | 23.292 | 1.25 |
+| 30 | 29 | 319.4737 | 56.7486 | 1.25 |
 
 ## 新规则：持续生产和发展行动
 
@@ -535,7 +535,7 @@
 | marine.3 | 战场指挥官 | 陆战队员 | bulwark | 全队普通与精英陆战队员的生命、护盾、武器伤害、攻速、移速和护甲提高20%；同类指挥加成只生效一次。 | {"familyAttributeIncrease":0.2,"auraRadius":null} | elite.marine.3 |
 | reaper.1 | 午夜死神 | 死神 | mobile | 每次攻击连续射出6发高速子弹，对轻甲造成1.8倍伤害；子弹逐发命中。 | {"shotsPerCycle":6,"lightDamageFactor":1.8,"moveFactor":1.4} | elite.reaper.1 |
 | reaper.2 | 大枪管 | 死神 | precision | 进入战斗后的前10轮攻击强化至3倍伤害，重甲伤害额外×1.5；命中向周围2.6范围溅射50%伤害。脱战2秒重置。 | {"openingCycles":10,"openingDamageFactor":3,"splashFraction":0.5,"splashRadius":2.6,"armoredDamageFactor":1.5,"outOfCombatSeconds":2} | elite.reaper.1 |
-| reaper.3 | 孤星猎手 | 死神 | bulwark | 死神家族仅保留这一名永久战士；吸收其余死神与后续送达死神，按军衔和精英身份积累成长。伤害、生命、护甲增长逐渐趋缓，上限分别为基础的4倍、5倍和额外10点护甲。其他兵种与英雄照常保留。 | {"familyOnly":true,"absorbAttributesOnly":true,"growthK":20,"dpsAsymptoteFactor":4,"hpAsymptoteFactor":5,"armorAsymptoteAdd":10} | elite.reaper.1 |
+| reaper.3 | 孤星猎手 | 死神 | bulwark | 死神家族仅保留这一名永久战士，吸收其他死神；精英可重复获取，成长贡献翻倍，不继承技能。普通Ⅰ级死神计1点，高军衔折算更多。保留前期成长，每点再增加基础伤害和生命各1%；攻速每点+0.5%（最多+100%），移速每点+0.15%（最多+35%），额外护甲渐近10点。其他兵种与英雄照常保留。 | {"familyOnly":true,"absorbAttributesOnly":true,"growthK":20,"dpsAsymptoteFactor":4,"hpAsymptoteFactor":5,"armorAsymptoteAdd":10,"eliteContributionFactor":2,"damageHpPerPoint":0.01,"attackSpeedPerPoint":0.005,"attackSpeedCap":1,"movePerPoint":0.0015,"moveCap":0.35} | elite.reaper.1 |
 | hellion.1 | 长炎 | 恶火 | assault | 火焰射程提高至4倍，沿窄幅直线灼烧地面目标；对轻甲造成1.8倍伤害。恶蝠形态同样延长火焰攻击距离。 | {"lengthIncrease":3,"lightDamageFactor":1.8,"widthFactor":1,"attackRangeFactor":4} | elite.hellion.1 |
 | hellion.2 | 地狱骑士 | 恶火 | assault | 火焰半径为普通恶火／恶蝠对应形态的2/3，覆盖前方150°扇面；对轻甲造成1.8倍伤害。恶蝠形态保留扇面喷火。 | {"fanDegrees":150,"lengthIncrease":-0.3333333333333333,"lightDamageFactor":1.8,"attackRangeFactor":0.6666666666666666} | elite.hellion.2 |
 | hellion.3 | 布雷车 | 恶火 | mobile | 每12秒部署2枚大型追踪雷，最多保留8枚；发现6范围内地面敌人后出土并以6速度追击。I级爆炸1200、半径4.2，随后两次每秒180残火；随军衔强化。 | {"minePeriod":12,"mineCount":2,"mineDamageI":1200,"mineRadius":4.2,"fireSeconds":2,"fireDamagePerSecondI":180,"activeMineLimit":8,"chaseSpeed":6,"detectionRadius":6} | elite.hellion.3 |

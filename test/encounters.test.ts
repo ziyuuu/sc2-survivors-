@@ -29,10 +29,10 @@ test('golden one-shot supplements all nodes; healed thresholds never pay twice',
  const a=world(),one=spawn(a,'golden');a.hit(one.u,1e9,[],1,'terran',0,1);assert.equal(gear(a).length,8);
  const w=world(),{m,u}=spawn(w,'golden');w.hit(u,u.maxHp*.51,[],1,'terran',0,1);assert.equal(gear(w).length,2);u.hp=u.maxHp;w.hit(u,u.maxHp*.51,[],1,'terran',0,1);assert.equal(gear(w).length,2);assert.equal(m.threshold,5);
 });
-for(const difficulty of ['easy','normal','hard','hell'] as const)for(const stage of [4,9,17])test(`${difficulty} stage ${stage} highest guarantee never borrows elite or Boss pools`,()=>{
+for(const difficulty of ['easy','normal','hard','hell'] as const)for(const stage of [4,9,17])test(`${difficulty} stage ${stage} premium rewards stay in ordinary pools with easy weighted quality`,()=>{
  const w=world(difficulty,stage),policy=equipmentDropPolicy({difficulty,stage,tier:'regular'}),max=Math.max(...policy.base.filter(p=>p.weight>0).map(p=>p.quality));
  const p=planOrdinaryEncounterEquipment(w,{difficulty,stage,tier:'boss',endlessRound:99},'ordinary-test',6,true)!;
- assert.equal(p.items.length,6);assert.equal(p.items.at(-1)!.item.quality,max);assert.ok(p.items.every(i=>policy.base.some(row=>row.weight>0&&row.quality===i.item.quality)));assert.equal(p.context.tier,'regular');assert.equal(p.context.endlessRound,undefined);
+ assert.equal(p.items.length,6);if(difficulty!=='easy')assert.equal(p.items.at(-1)!.item.quality,max);assert.ok(p.items.every(i=>policy.base.some(row=>row.weight>0&&row.quality===i.item.quality)));assert.equal(p.context.tier,'regular');assert.equal(p.context.endlessRound,undefined);
  assert.equal(gear(w).length,0);
 });
 test('golden countdown starts on first damage, pause freezes, escape preserves earlier ground loot',()=>{

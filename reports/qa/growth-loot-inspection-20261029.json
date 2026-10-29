@@ -1,0 +1,1269 @@
+{
+  "date": "2026-10-29",
+  "scope": "Current local working-tree inspection and candidate arithmetic; no gameplay modification or deployment",
+  "sourceHashes": {
+    "src/data/terran-elites.ts": "6a18c78e8d723a3c138482d3f4e3c025d68cf1bb14980991074a1dff7e5233af",
+    "src/simulation/combat/terran-elite-runtime.ts": "120e69de8bfb2caf28a0a7039d9d1ba07e4fe5cfae98d290b133e2a7281e6395",
+    "src/simulation/combat/expedition-elites.ts": "eb31675d5108a39bd1d79ddafdb910e5709f2e7ba1b0f7812249bdb41671acb3",
+    "src/simulation/combat/expedition-combat.ts": "d19a5a47c5094c2c563172034c4862966336d96a2c18839e476285af92af377f",
+    "src/data/enemy-tuning.ts": "86c344755a19832227c7c594bfd9137496f4c6ad09d36907381323c7b166c258",
+    "src/data/enemy-progression.ts": "589de736a57eb9da63355be0a99a1abb65e4dc76a86784c65cf712c20e6a94e6",
+    "src/data/endless.ts": "5e20e4a612bbf7712388df09a7ea437e51dc9dab093dde93e4f8ee22362b0125",
+    "src/simulation/world.ts": "6ca7285016ad31cc9fed90cc5604f063db42226a5a691d9be9947c07cc1ab6aa",
+    "src/simulation/starship/drops.ts": "b81f74a1996ae06289c107c8b977089bae200a8fb3f461819aaef0a49d1ec4d7",
+    "src/simulation/encounters/runtime.ts": "d511090ded8e492187011b6d65cad2e9de708b4c867cdb62d46c675e3ff5b3b0",
+    "src/simulation/encounters/expanded.ts": "5d9594e017e745e0149831188dc8e01063408a78c4ae36939140318d7b56b3d6",
+    "src/simulation/special-stages/rewards.ts": "3746b2bd445eb43d4df4f1529218bc11793bfaf8358fedd30d23564fd4eeac6f",
+    "src/simulation/special-stages/arena.ts": "c5e7405bee1096173f0d5f4dcf1c8862096b7328a95da6aa0b781033e248ed0a",
+    "src/simulation/progression/fun-availability.ts": "11f2dea93a5c3a9e50b76005c690a3f1aab125708c3fc1f67d9d3f8d9ff23dcd",
+    "src/simulation/field-events/pacing.ts": "68f25927aaeeb7851991115dd05e5d0301303012669123dc356c54182615403e",
+    "src/simulation/fun-shop/bait.ts": "037ba4952edfc66c2dee451089d1e2e3862baef0e6e6c3ea1353030ff5cca576"
+  },
+  "lone": {
+    "acquisition": [
+      {
+        "id": "reaper.1",
+        "before": true,
+        "after": false,
+        "gained": 7.99,
+        "repeatResult": false
+      },
+      {
+        "id": "reaper.2",
+        "before": true,
+        "after": false,
+        "gained": 8.07,
+        "repeatResult": false
+      }
+    ],
+    "restorePreserved": true,
+    "normalGrowth": [
+      {
+        "bodies": 0,
+        "growth": 0,
+        "stats": {
+          "hp": 1912.68,
+          "damage": 77.625,
+          "period": 0.427019,
+          "armor": 11.3,
+          "move": 6.0375
+        },
+        "modifiers": {
+          "damage": 1,
+          "speed": 1,
+          "move": 1,
+          "armor": 9,
+          "hp": 1
+        }
+      },
+      {
+        "bodies": 1,
+        "growth": 1,
+        "stats": {
+          "hp": 2277,
+          "damage": 88.714286,
+          "period": 0.427019,
+          "armor": 11.77619,
+          "move": 6.0375
+        },
+        "modifiers": {
+          "damage": 1.1428571428571428,
+          "speed": 1,
+          "move": 1,
+          "armor": 9.476190476190476,
+          "hp": 1.1904761904761905
+        }
+      },
+      {
+        "bodies": 20,
+        "growth": 20,
+        "stats": {
+          "hp": 5738.04,
+          "damage": 194.0625,
+          "period": 0.427019,
+          "armor": 16.3,
+          "move": 6.0375
+        },
+        "modifiers": {
+          "damage": 2.5,
+          "speed": 1,
+          "move": 1,
+          "armor": 14,
+          "hp": 3
+        }
+      },
+      {
+        "bodies": 50,
+        "growth": 50,
+        "stats": {
+          "hp": 7377.48,
+          "damage": 243.964286,
+          "period": 0.427019,
+          "armor": 18.442857,
+          "move": 6.0375
+        },
+        "modifiers": {
+          "damage": 3.142857142857143,
+          "speed": 1,
+          "move": 1,
+          "armor": 16.142857142857142,
+          "hp": 3.857142857142857
+        }
+      },
+      {
+        "bodies": 100,
+        "growth": 100,
+        "stats": {
+          "hp": 8288.28,
+          "damage": 271.6875,
+          "period": 0.427019,
+          "armor": 19.633333,
+          "move": 6.0375
+        },
+        "modifiers": {
+          "damage": 3.5,
+          "speed": 1,
+          "move": 1,
+          "armor": 17.333333333333336,
+          "hp": 4.333333333333334
+        }
+      },
+      {
+        "bodies": 200,
+        "growth": 200,
+        "stats": {
+          "hp": 8867.88,
+          "damage": 289.329545,
+          "period": 0.427019,
+          "armor": 20.390909,
+          "move": 6.0375
+        },
+        "modifiers": {
+          "damage": 3.727272727272727,
+          "speed": 1,
+          "move": 1,
+          "armor": 18.09090909090909,
+          "hp": 4.636363636363637
+        }
+      }
+    ],
+    "fireComparison": {
+      "scope": "Controlled rank-V three-Reaper group versus same hunter after absorbing the other two; no gear, armor, attributes, splash victims or AI. Actual twenty firing-cycle transactions, not a human battle or measured sustained DPS.",
+      "before": {
+        "livingReapers": 3,
+        "growth": 0,
+        "firstTenCycleDamage": 12109.5,
+        "laterTenCycleDamage": 8383.5
+      },
+      "after": {
+        "livingReapers": 1,
+        "growth": 37.032,
+        "firstTenCycleDamage": 4576.70641,
+        "laterTenCycleDamage": 4576.70641
+      },
+      "steadyRatio": 0.545918,
+      "proposal": {
+        "effectiveGrowth": 74.064,
+        "damageFactor": 4.102776,
+        "attackSpeedFactor": 1.37032,
+        "estimatedSteadyOutputVsPreviousThree": 1.041133,
+        "scope": "Arithmetic with doubled elite contribution and proposed growth, not executed candidate combat; excludes opening burst, armor, attributes, movement and splash."
+      }
+    },
+    "contributions": [
+      {
+        "rank": 1,
+        "normal": 1,
+        "midnight": 7.99,
+        "barrel": 8.07,
+        "proposedMidnight": 15.98,
+        "proposedBarrel": 16.14
+      },
+      {
+        "rank": 3,
+        "normal": 2.8,
+        "midnight": 13.184000000000001,
+        "barrel": 13.362,
+        "proposedMidnight": 26.368000000000002,
+        "proposedBarrel": 26.724
+      },
+      {
+        "rank": 5,
+        "normal": 4.6,
+        "midnight": 18.378,
+        "barrel": 18.654,
+        "proposedMidnight": 36.756,
+        "proposedBarrel": 37.308
+      }
+    ],
+    "proposal": [
+      {
+        "g": 0,
+        "oldDamage": 1,
+        "oldHp": 1,
+        "damage": 1,
+        "hp": 1,
+        "attackSpeed": 1,
+        "move": 1,
+        "relativeDps": 1
+      },
+      {
+        "g": 1,
+        "oldDamage": 1.142857,
+        "oldHp": 1.190476,
+        "damage": 1.152857,
+        "hp": 1.200476,
+        "attackSpeed": 1.005,
+        "move": 1.0015,
+        "relativeDps": 1.013794
+      },
+      {
+        "g": 20,
+        "oldDamage": 2.5,
+        "oldHp": 3,
+        "damage": 2.7,
+        "hp": 3.2,
+        "attackSpeed": 1.1,
+        "move": 1.03,
+        "relativeDps": 1.188
+      },
+      {
+        "g": 50,
+        "oldDamage": 3.142857,
+        "oldHp": 3.857143,
+        "damage": 3.642857,
+        "hp": 4.357143,
+        "attackSpeed": 1.25,
+        "move": 1.075,
+        "relativeDps": 1.448864
+      },
+      {
+        "g": 100,
+        "oldDamage": 3.5,
+        "oldHp": 4.333333,
+        "damage": 4.5,
+        "hp": 5.333333,
+        "attackSpeed": 1.5,
+        "move": 1.15,
+        "relativeDps": 1.928571
+      },
+      {
+        "g": 200,
+        "oldDamage": 3.727273,
+        "oldHp": 4.636364,
+        "damage": 5.727273,
+        "hp": 6.636364,
+        "attackSpeed": 2,
+        "move": 1.3,
+        "relativeDps": 3.073171
+      }
+    ],
+    "proposalStatus": "Arithmetic only; ordinary contributions retained, elite contribution doubled via derived effective growth while saved receipts stay unchanged. Existing early curve retained, plus 1% base damage/HP per effective growth point; speed capped at +100%, move at +35%. Not implemented."
+  },
+  "endless": {
+    "curves": [
+      {
+        "round": 1,
+        "elapsedMinutes": 0,
+        "health": 1,
+        "damage": 1,
+        "attackSpeed": 1,
+        "weaponDps": 1,
+        "proposalDamage": 1,
+        "proposalDps": 1
+      },
+      {
+        "round": 6,
+        "elapsedMinutes": 5,
+        "health": 2.702708,
+        "damage": 1.61051,
+        "attackSpeed": 1.131408,
+        "weaponDps": 1.822144,
+        "proposalDamage": 1.61051,
+        "proposalDps": 1.822144
+      },
+      {
+        "round": 12,
+        "elapsedMinutes": 11,
+        "health": 8.91165,
+        "damage": 2.853117,
+        "attackSpeed": 1.25,
+        "weaponDps": 3.566396,
+        "proposalDamage": 3.923841,
+        "proposalDps": 4.904801
+      },
+      {
+        "round": 16,
+        "elapsedMinutes": 15,
+        "health": 19.742287,
+        "damage": 4.177248,
+        "attackSpeed": 1.25,
+        "weaponDps": 5.22156,
+        "proposalDamage": 7.10466,
+        "proposalDps": 8.880825
+      },
+      {
+        "round": 24,
+        "elapsedMinutes": 23,
+        "health": 96.889364,
+        "damage": 8.954302,
+        "attackSpeed": 1.25,
+        "weaponDps": 11.192878,
+        "proposalDamage": 23.292024,
+        "proposalDps": 29.11503
+      }
+    ],
+    "native": [
+      {
+        "difficulty": "easy",
+        "rounds": [
+          {
+            "round": 1,
+            "units": [
+              {
+                "type": "zergling",
+                "ordinary": {
+                  "hp": 63,
+                  "damage": 8,
+                  "period": 0.414286,
+                  "armor": 0.5,
+                  "move": 6.44957
+                },
+                "boss": {
+                  "hp": 13500,
+                  "damage": 13,
+                  "period": 0.443878,
+                  "armor": 1,
+                  "skillFactor": 1.3
+                }
+              },
+              {
+                "type": "roach",
+                "ordinary": {
+                  "hp": 261,
+                  "damage": 25.6,
+                  "period": 1.190476,
+                  "armor": 2.5,
+                  "move": 4.914
+                },
+                "boss": {
+                  "hp": 18000,
+                  "damage": 41.6,
+                  "period": 1.27551,
+                  "armor": 2,
+                  "skillFactor": 1.3
+                }
+              },
+              {
+                "type": "hydralisk",
+                "ordinary": {
+                  "hp": 162,
+                  "damage": 19.2,
+                  "period": 0.491071,
+                  "armor": 0.5,
+                  "move": 4.914
+                },
+                "boss": {
+                  "hp": 15000,
+                  "damage": 31.2,
+                  "period": 0.526148,
+                  "armor": 3,
+                  "skillFactor": 1.3
+                }
+              },
+              {
+                "type": "ultralisk",
+                "ordinary": {
+                  "hp": 900,
+                  "damage": 56,
+                  "period": 0.511905,
+                  "armor": 2.5,
+                  "move": 6.44957
+                },
+                "boss": {
+                  "hp": 21600,
+                  "damage": 91,
+                  "period": 0.548469,
+                  "armor": 4,
+                  "skillFactor": 1.3
+                }
+              }
+            ]
+          },
+          {
+            "round": 16,
+            "units": [
+              {
+                "type": "zergling",
+                "ordinary": {
+                  "hp": 1243.764078,
+                  "damage": 33.417985,
+                  "period": 0.331429,
+                  "armor": 0.5,
+                  "move": 6.44957
+                },
+                "boss": {
+                  "hp": 266520.873901,
+                  "damage": 54.304226,
+                  "period": 0.355102,
+                  "armor": 1,
+                  "skillFactor": 5.430423
+                }
+              },
+              {
+                "type": "roach",
+                "ordinary": {
+                  "hp": 5152.736895,
+                  "damage": 106.937553,
+                  "period": 0.952381,
+                  "armor": 2.5,
+                  "move": 4.914
+                },
+                "boss": {
+                  "hp": 355361.165202,
+                  "damage": 173.773524,
+                  "period": 1.020408,
+                  "armor": 2,
+                  "skillFactor": 5.430423
+                }
+              },
+              {
+                "type": "hydralisk",
+                "ordinary": {
+                  "hp": 3198.250487,
+                  "damage": 80.203165,
+                  "period": 0.392857,
+                  "armor": 0.5,
+                  "move": 4.914
+                },
+                "boss": {
+                  "hp": 296134.304335,
+                  "damage": 130.330143,
+                  "period": 0.420918,
+                  "armor": 3,
+                  "skillFactor": 5.430423
+                }
+              },
+              {
+                "type": "ultralisk",
+                "ordinary": {
+                  "hp": 17768.05826,
+                  "damage": 233.925897,
+                  "period": 0.409524,
+                  "armor": 2.5,
+                  "move": 6.44957
+                },
+                "boss": {
+                  "hp": 426433.398242,
+                  "damage": 380.129583,
+                  "period": 0.438776,
+                  "armor": 4,
+                  "skillFactor": 5.430423
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "difficulty": "normal",
+        "rounds": [
+          {
+            "round": 1,
+            "units": [
+              {
+                "type": "zergling",
+                "ordinary": {
+                  "hp": 119,
+                  "damage": 16,
+                  "period": 0.342857,
+                  "armor": 1,
+                  "move": 6.44957
+                },
+                "boss": {
+                  "hp": 23400,
+                  "damage": 12,
+                  "period": 0.414286,
+                  "armor": 1,
+                  "skillFactor": 1.2
+                }
+              },
+              {
+                "type": "roach",
+                "ordinary": {
+                  "hp": 493,
+                  "damage": 51.2,
+                  "period": 0.985222,
+                  "armor": 3,
+                  "move": 4.914
+                },
+                "boss": {
+                  "hp": 31200,
+                  "damage": 38.4,
+                  "period": 1.190476,
+                  "armor": 2,
+                  "skillFactor": 1.2
+                }
+              },
+              {
+                "type": "hydralisk",
+                "ordinary": {
+                  "hp": 306,
+                  "damage": 38.4,
+                  "period": 0.406404,
+                  "armor": 1,
+                  "move": 4.914
+                },
+                "boss": {
+                  "hp": 26000,
+                  "damage": 28.8,
+                  "period": 0.491071,
+                  "armor": 3,
+                  "skillFactor": 1.2
+                }
+              },
+              {
+                "type": "ultralisk",
+                "ordinary": {
+                  "hp": 1700,
+                  "damage": 112,
+                  "period": 0.423645,
+                  "armor": 3,
+                  "move": 6.44957
+                },
+                "boss": {
+                  "hp": 37440,
+                  "damage": 84,
+                  "period": 0.511905,
+                  "armor": 4,
+                  "skillFactor": 1.2
+                }
+              }
+            ]
+          },
+          {
+            "round": 16,
+            "units": [
+              {
+                "type": "zergling",
+                "ordinary": {
+                  "hp": 2349.332148,
+                  "damage": 66.835971,
+                  "period": 0.274286,
+                  "armor": 1,
+                  "move": 6.44957
+                },
+                "boss": {
+                  "hp": 461969.514762,
+                  "damage": 50.126978,
+                  "period": 0.331429,
+                  "armor": 1,
+                  "skillFactor": 5.012698
+                }
+              },
+              {
+                "type": "roach",
+                "ordinary": {
+                  "hp": 9732.947469,
+                  "damage": 213.875106,
+                  "period": 0.788177,
+                  "armor": 3,
+                  "move": 4.914
+                },
+                "boss": {
+                  "hp": 615959.353016,
+                  "damage": 160.40633,
+                  "period": 0.952381,
+                  "armor": 2,
+                  "skillFactor": 5.012698
+                }
+              },
+              {
+                "type": "hydralisk",
+                "ordinary": {
+                  "hp": 6041.139808,
+                  "damage": 160.40633,
+                  "period": 0.325123,
+                  "armor": 1,
+                  "move": 4.914
+                },
+                "boss": {
+                  "hp": 513299.460847,
+                  "damage": 120.304747,
+                  "period": 0.392857,
+                  "armor": 3,
+                  "skillFactor": 5.012698
+                }
+              },
+              {
+                "type": "ultralisk",
+                "ordinary": {
+                  "hp": 33561.887825,
+                  "damage": 467.851795,
+                  "period": 0.338916,
+                  "armor": 3,
+                  "move": 6.44957
+                },
+                "boss": {
+                  "hp": 739151.223619,
+                  "damage": 350.888846,
+                  "period": 0.409524,
+                  "armor": 4,
+                  "skillFactor": 5.012698
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "difficulty": "hard",
+        "rounds": [
+          {
+            "round": 1,
+            "units": [
+              {
+                "type": "zergling",
+                "ordinary": {
+                  "hp": 473.2,
+                  "damage": 30,
+                  "period": 0.341444,
+                  "armor": 1,
+                  "move": 7.223519
+                },
+                "boss": {
+                  "hp": 93600,
+                  "damage": 31.2,
+                  "period": 0.369898,
+                  "armor": 1,
+                  "skillFactor": 3.12
+                }
+              },
+              {
+                "type": "roach",
+                "ordinary": {
+                  "hp": 1960.4,
+                  "damage": 96,
+                  "period": 0.981162,
+                  "armor": 3,
+                  "move": 5.50368
+                },
+                "boss": {
+                  "hp": 124800,
+                  "damage": 99.84,
+                  "period": 1.062925,
+                  "armor": 2,
+                  "skillFactor": 3.12
+                }
+              },
+              {
+                "type": "hydralisk",
+                "ordinary": {
+                  "hp": 1216.8,
+                  "damage": 72,
+                  "period": 0.404729,
+                  "armor": 1,
+                  "move": 5.50368
+                },
+                "boss": {
+                  "hp": 104000,
+                  "damage": 74.88,
+                  "period": 0.438457,
+                  "armor": 3,
+                  "skillFactor": 3.12
+                }
+              },
+              {
+                "type": "ultralisk",
+                "ordinary": {
+                  "hp": 6760,
+                  "damage": 210,
+                  "period": 0.4219,
+                  "armor": 3,
+                  "move": 7.223519
+                },
+                "boss": {
+                  "hp": 149760,
+                  "damage": 218.4,
+                  "period": 0.457058,
+                  "armor": 4,
+                  "skillFactor": 3.12
+                }
+              }
+            ]
+          },
+          {
+            "round": 16,
+            "units": [
+              {
+                "type": "zergling",
+                "ordinary": {
+                  "hp": 9342.050187,
+                  "damage": 125.317445,
+                  "period": 0.273155,
+                  "armor": 1,
+                  "move": 7.223519
+                },
+                "boss": {
+                  "hp": 1847878.059048,
+                  "damage": 130.330143,
+                  "period": 0.295918,
+                  "armor": 1,
+                  "skillFactor": 13.033014
+                }
+              },
+              {
+                "type": "roach",
+                "ordinary": {
+                  "hp": 38702.779348,
+                  "damage": 401.015824,
+                  "period": 0.784929,
+                  "armor": 3,
+                  "move": 5.50368
+                },
+                "boss": {
+                  "hp": 2463837.412064,
+                  "damage": 417.056457,
+                  "period": 0.85034,
+                  "armor": 2,
+                  "skillFactor": 13.033014
+                }
+              },
+              {
+                "type": "hydralisk",
+                "ordinary": {
+                  "hp": 24022.414768,
+                  "damage": 300.761868,
+                  "period": 0.323783,
+                  "armor": 1,
+                  "move": 5.50368
+                },
+                "boss": {
+                  "hp": 2053197.843387,
+                  "damage": 312.792343,
+                  "period": 0.350765,
+                  "armor": 3,
+                  "skillFactor": 13.033014
+                }
+              },
+              {
+                "type": "ultralisk",
+                "ordinary": {
+                  "hp": 133457.85982,
+                  "damage": 877.222116,
+                  "period": 0.33752,
+                  "armor": 3,
+                  "move": 7.223519
+                },
+                "boss": {
+                  "hp": 2956604.894477,
+                  "damage": 912.311,
+                  "period": 0.365646,
+                  "armor": 4,
+                  "skillFactor": 13.033014
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "difficulty": "hell",
+        "rounds": [
+          {
+            "round": 1,
+            "units": [
+              {
+                "type": "zergling",
+                "ordinary": {
+                  "hp": 1092,
+                  "damage": 57.692308,
+                  "period": 0.305934,
+                  "armor": 1,
+                  "move": 7.610493
+                },
+                "boss": {
+                  "hp": 216000,
+                  "damage": 60,
+                  "period": 0.331429,
+                  "armor": 1,
+                  "skillFactor": 6
+                }
+              },
+              {
+                "type": "roach",
+                "ordinary": {
+                  "hp": 4524,
+                  "damage": 184.615385,
+                  "period": 0.879121,
+                  "armor": 3,
+                  "move": 5.79852
+                },
+                "boss": {
+                  "hp": 288000,
+                  "damage": 192,
+                  "period": 0.952381,
+                  "armor": 2,
+                  "skillFactor": 6
+                }
+              },
+              {
+                "type": "hydralisk",
+                "ordinary": {
+                  "hp": 2808,
+                  "damage": 138.461538,
+                  "period": 0.362637,
+                  "armor": 1,
+                  "move": 5.79852
+                },
+                "boss": {
+                  "hp": 240000,
+                  "damage": 144,
+                  "period": 0.392857,
+                  "armor": 3,
+                  "skillFactor": 6
+                }
+              },
+              {
+                "type": "ultralisk",
+                "ordinary": {
+                  "hp": 15600,
+                  "damage": 403.846154,
+                  "period": 0.378022,
+                  "armor": 3,
+                  "move": 7.610493
+                },
+                "boss": {
+                  "hp": 345600,
+                  "damage": 420,
+                  "period": 0.409524,
+                  "armor": 4,
+                  "skillFactor": 6
+                }
+              }
+            ]
+          },
+          {
+            "round": 16,
+            "units": [
+              {
+                "type": "zergling",
+                "ordinary": {
+                  "hp": 21558.577356,
+                  "damage": 240.995087,
+                  "period": 0.244747,
+                  "armor": 1,
+                  "move": 7.610493
+                },
+                "boss": {
+                  "hp": 4264333.982419,
+                  "damage": 250.63489,
+                  "period": 0.265143,
+                  "armor": 1,
+                  "skillFactor": 25.063489
+                }
+              },
+              {
+                "type": "roach",
+                "ordinary": {
+                  "hp": 89314.106187,
+                  "damage": 771.184277,
+                  "period": 0.703297,
+                  "armor": 3,
+                  "move": 5.79852
+                },
+                "boss": {
+                  "hp": 5685778.643226,
+                  "damage": 802.031649,
+                  "period": 0.761905,
+                  "armor": 2,
+                  "skillFactor": 25.063489
+                }
+              },
+              {
+                "type": "hydralisk",
+                "ordinary": {
+                  "hp": 55436.341771,
+                  "damage": 578.388208,
+                  "period": 0.29011,
+                  "armor": 1,
+                  "move": 5.79852
+                },
+                "boss": {
+                  "hp": 4738148.869355,
+                  "damage": 601.523736,
+                  "period": 0.314286,
+                  "armor": 3,
+                  "skillFactor": 25.063489
+                }
+              },
+              {
+                "type": "ultralisk",
+                "ordinary": {
+                  "hp": 307979.676508,
+                  "damage": 1686.965607,
+                  "period": 0.302418,
+                  "armor": 3,
+                  "move": 7.610493
+                },
+                "boss": {
+                  "hp": 6822934.371871,
+                  "damage": 1754.444231,
+                  "period": 0.327619,
+                  "armor": 4,
+                  "skillFactor": 25.063489
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "proposalStatus": "Only damage changes after five elapsed endless combat minutes; HP, speed, armor and admission schedules retained. Not implemented."
+  },
+  "loot": {
+    "seed": 529,
+    "horizon": "Campaign 1–18 plus completed endless rounds 1–16",
+    "schedules": [
+      {
+        "difficulty": "easy",
+        "summary": {
+          "campaignPrimary": 1323,
+          "endlessPrimary": 749,
+          "campaignElites": 6,
+          "campaignBosses": 6,
+          "endlessElites": 18,
+          "endlessBosses": 12,
+          "guaranteedFromScheduledSpecials": 42,
+          "expectedRegular": 43.684,
+          "expectedOptionalSpecialLayers": 5.19,
+          "expectedSubtotal": 90.874
+        },
+        "proposal": {
+          "regularChance": 0.0035,
+          "eliteChance": 0.3,
+          "campaignBossChance": 1,
+          "endlessBossChance": 0.35,
+          "maxItemsPerNaturalEnemy": 1,
+          "expectedRegular": 7.252,
+          "expectedElite": 7.2,
+          "expectedBoss": 10.2,
+          "expectedSubtotal": 24.652
+        }
+      },
+      {
+        "difficulty": "normal",
+        "summary": {
+          "campaignPrimary": 2656,
+          "endlessPrimary": 1632,
+          "campaignElites": 9,
+          "campaignBosses": 6,
+          "endlessElites": 37,
+          "endlessBosses": 12,
+          "guaranteedFromScheduledSpecials": 64,
+          "expectedRegular": 10.116,
+          "expectedOptionalSpecialLayers": 6.86,
+          "expectedSubtotal": 80.976
+        },
+        "proposal": {
+          "regularChance": 0.0018,
+          "eliteChance": 0.16,
+          "campaignBossChance": 1,
+          "endlessBossChance": 0.35,
+          "maxItemsPerNaturalEnemy": 1,
+          "expectedRegular": 7.7184,
+          "expectedElite": 7.36,
+          "expectedBoss": 10.2,
+          "expectedSubtotal": 25.2784
+        }
+      },
+      {
+        "difficulty": "hard",
+        "summary": {
+          "campaignPrimary": 4022,
+          "endlessPrimary": 2674,
+          "campaignElites": 11,
+          "campaignBosses": 6,
+          "endlessElites": 37,
+          "endlessBosses": 12,
+          "guaranteedFromScheduledSpecials": 66,
+          "expectedRegular": 19.258,
+          "expectedOptionalSpecialLayers": 7.79,
+          "expectedSubtotal": 93.048
+        },
+        "proposal": {
+          "regularChance": 0.0012,
+          "eliteChance": 0.16,
+          "campaignBossChance": 1,
+          "endlessBossChance": 0.35,
+          "maxItemsPerNaturalEnemy": 1,
+          "expectedRegular": 8.0352,
+          "expectedElite": 7.68,
+          "expectedBoss": 10.2,
+          "expectedSubtotal": 25.9152
+        }
+      },
+      {
+        "difficulty": "hell",
+        "summary": {
+          "campaignPrimary": 4529,
+          "endlessPrimary": 3663,
+          "campaignElites": 14,
+          "campaignBosses": 6,
+          "endlessElites": 37,
+          "endlessBosses": 12,
+          "guaranteedFromScheduledSpecials": 69,
+          "expectedRegular": 27.7465,
+          "expectedOptionalSpecialLayers": 8.81,
+          "expectedSubtotal": 105.5565
+        },
+        "proposal": {
+          "regularChance": 0.001,
+          "eliteChance": 0.16,
+          "campaignBossChance": 1,
+          "endlessBossChance": 0.35,
+          "maxItemsPerNaturalEnemy": 1,
+          "expectedRegular": 8.192,
+          "expectedElite": 8.16,
+          "expectedBoss": 10.2,
+          "expectedSubtotal": 26.552
+        }
+      }
+    ],
+    "events": [
+      {
+        "difficulty": "easy",
+        "golden": {
+          "items": 8,
+          "qualities": [
+            1,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            2
+          ]
+        },
+        "resources": {
+          "boxes": 5,
+          "items": 7,
+          "qualities": [
+            1,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1
+          ]
+        },
+        "arena": null,
+        "repeatAdded": 0,
+        "allowed": {
+          "missions": [
+            "repair",
+            "hives"
+          ],
+          "encounters": [
+            "golden",
+            "giant"
+          ],
+          "specials": [
+            "resources",
+            "dodge"
+          ]
+        }
+      },
+      {
+        "difficulty": "normal",
+        "golden": {
+          "items": 8,
+          "qualities": [
+            2,
+            3,
+            3,
+            2,
+            1,
+            2,
+            2,
+            3
+          ]
+        },
+        "resources": {
+          "boxes": 5,
+          "items": 7,
+          "qualities": [
+            2,
+            3,
+            3,
+            2,
+            3,
+            3,
+            2
+          ]
+        },
+        "arena": null,
+        "repeatAdded": 0,
+        "allowed": {
+          "missions": [
+            "repair",
+            "hives",
+            "escort",
+            "intel",
+            "rescue"
+          ],
+          "encounters": [
+            "golden",
+            "giant",
+            "gentle",
+            "whitePack",
+            "flyingRoaches"
+          ],
+          "specials": [
+            "resources",
+            "dodge",
+            "crossing"
+          ]
+        }
+      },
+      {
+        "difficulty": "hard",
+        "golden": {
+          "items": 8,
+          "qualities": [
+            2,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ]
+        },
+        "resources": {
+          "boxes": 5,
+          "items": 7,
+          "qualities": [
+            2,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ]
+        },
+        "arena": {
+          "bodies": 12,
+          "items": 12,
+          "elites": 10,
+          "bosses": 2
+        },
+        "repeatAdded": 0,
+        "allowed": {
+          "missions": [
+            "repair",
+            "hives",
+            "escort",
+            "intel",
+            "rescue",
+            "eggs",
+            "fleet"
+          ],
+          "encounters": [
+            "golden",
+            "giant",
+            "gentle",
+            "whitePack",
+            "flyingRoaches",
+            "devourer",
+            "cruelQueen",
+            "infectedTerrans",
+            "corruptedProtoss",
+            "parasites"
+          ],
+          "specials": [
+            "resources",
+            "dodge",
+            "crossing",
+            "arena"
+          ]
+        }
+      },
+      {
+        "difficulty": "hell",
+        "golden": {
+          "items": 8,
+          "qualities": [
+            3,
+            3,
+            3,
+            2,
+            4,
+            3,
+            4,
+            4
+          ]
+        },
+        "resources": {
+          "boxes": 5,
+          "items": 7,
+          "qualities": [
+            3,
+            4,
+            3,
+            4,
+            4,
+            2,
+            2
+          ]
+        },
+        "arena": {
+          "bodies": 12,
+          "items": 13,
+          "elites": 10,
+          "bosses": 2
+        },
+        "repeatAdded": 0,
+        "allowed": {
+          "missions": [
+            "repair",
+            "hives",
+            "escort",
+            "intel",
+            "rescue",
+            "eggs",
+            "fleet"
+          ],
+          "encounters": [
+            "golden",
+            "giant",
+            "gentle",
+            "whitePack",
+            "flyingRoaches",
+            "devourer",
+            "cruelQueen",
+            "infectedTerrans",
+            "corruptedProtoss",
+            "parasites"
+          ],
+          "specials": [
+            "resources",
+            "dodge",
+            "crossing",
+            "arena"
+          ]
+        }
+      }
+    ]
+  },
+  "limits": [
+    "Scheduled baseline assumes every admitted primary/elite/boss is killed at its scheduled round and all equipment is counted, before pickup, dismantling or loss. No natural playthrough.",
+    "Scheduled counts exclude pod guards, main/expansion hive guards, mission adds, bait, random encounters, special stages, plunder and equipment modifiers; not total loot. Horde replacement can displace baseline waves.",
+    "Controlled golden/resources/arena reward probes check sources independently; not their frequency or successful human completion.",
+    "No user save or physical device examined. Current source findings do not identify the exact Coze build or attribute each item from the reported run."
+  ]
+}

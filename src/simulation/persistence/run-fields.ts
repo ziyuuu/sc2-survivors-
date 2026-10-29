@@ -25,7 +25,11 @@ import {validBattleView} from '../combat/battle-view';
 export const RUN_FIELDS=[
  'funShop','specialStages','fieldEvents',
  'encounters','missions',
+ // encounters.expanded: optional equipmentMilestones + existing paid receipts.
+ // missions.active.hiveEquipment: frozen first/completion plans. Missing keeps old per-hive rewards.
+ // Golden repeat count derives from delivered account.run.receipts; no resettable counter.
  'protossElites','teamAuras','zergElites','terranElites','eliteSupport',
+ // Lone hunter effective growth/cache rebuilds from raw absorptions; stored contributions stay unchanged.
  // Saved inside entities.heroCombat / heroCasts: cycle, warmup, cloak episode/charge, protection expiry, cast rank/targets/view.
  // Saved in expedition.support.mines: phase, stable target, emergence timer, point/facing. Routes/poses rebuild.
  'expedition','runConfig','campaign18Runtime','swarm',

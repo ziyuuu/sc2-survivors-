@@ -1,4 +1,5 @@
 import {COMBAT_AUDIO_ASSETS} from './combat-audio';
+import {MUSIC_ASSETS} from './music';
 import {FUN_PROP_ASSETS} from './fun-props.generated';
 import {MISSION_ASSETS} from './mission-assets';
 import {RUNTIME_ASSETS} from './runtime.generated';
@@ -11,7 +12,7 @@ import {COMBAT_EFFECT_ASSETS} from './combat-effects';
 import {UI_ART_ASSETS} from './ui-art.generated';
 import {STARSHIP_ART_ASSETS} from './starship-art.generated';
 import {isRetiredAsset} from './retired';
-export const ASSETS=new Map([...RUNTIME_ASSETS,...FUN_PROP_ASSETS,...MISSION_ASSETS,...UI_ART_ASSETS,...INTERMISSION_ART_ASSETS,...NATIVE_HUD_ASSETS,...MATERIAL_TEXTURE_ASSETS,...ENVIRONMENT_TEXTURE_ASSETS,...ENVIRONMENT_SCENERY_ASSETS,...COMBAT_EFFECT_ASSETS,...COMBAT_AUDIO_ASSETS,...STARSHIP_ART_ASSETS].filter(a=>!isRetiredAsset(a.id)).map(a=>[a.id,a]));
+export const ASSETS=new Map([...RUNTIME_ASSETS,...FUN_PROP_ASSETS,...MISSION_ASSETS,...UI_ART_ASSETS,...INTERMISSION_ART_ASSETS,...NATIVE_HUD_ASSETS,...MATERIAL_TEXTURE_ASSETS,...ENVIRONMENT_TEXTURE_ASSETS,...ENVIRONMENT_SCENERY_ASSETS,...COMBAT_EFFECT_ASSETS,...COMBAT_AUDIO_ASSETS,...STARSHIP_ART_ASSETS,...MUSIC_ASSETS].filter(a=>!isRetiredAsset(a.id)).map(a=>[a.id,a]));
 declare global {interface Window {__SC2_EMBEDDED__?:Record<string,string>;__SC2_PACK_ACTIVE__?:boolean;__SC2_REPORT__?:unknown}}
 let platformAssetUrl:((id:string)=>string|null)|null=null;
 /** The mini-game host only exposes verified, locally prepared asset paths. */

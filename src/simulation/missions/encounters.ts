@@ -7,6 +7,7 @@ import {makeMissionBody,missionNear,missionPointLegal,missionAwayFromSquad,finis
 import {distance,clearLine} from '../movement/steering';
 import {identityCandidates,planIntelReward,deliverReward} from './rewards';
 import {planTaskEquipment} from '../starship/drops';
+import {equipmentRandom} from '../starship/inventory';
 export function currentMissionStamp(w:World){return {stage:w.stage,progress:campaignProgress(w.stage,w.stageElapsed,w.duration),density:1 as const};}
 export function nearbyMissionPoint(w:World,min=12,max=24){for(let i=0;i<32;i++){const p=w.eventPoint(min,max);if(missionPointLegal(w,p,1.5)&&missionAwayFromSquad(w,p,1.5,12))return p;}return null;}
 export function queueMissionGuards(w:World,m:MissionRecord,b:MissionBody,elite:number,ordinary:number,noLoot=false){
@@ -42,11 +43,13 @@ export function spawnHives(w:World,m:MissionRecord){
  // Use the same ordinary profile as a real roach, without creating a hidden combat body.
  const hp=w.missionOrdinaryHp('roach',stamp)*8;
  for(const p of points){const b=makeMissionBody(w,m,'hive',p,hp,'hive','zerg',2.4);b.armor=2;b.production=3+Math.floor(w.random()*3);b.nextSpawn=missionWaveTicks(MISSION_RULES.hives.waveTicks,w.stage);}
+ const context={difficulty:w.difficulty,stage:w.stage,tier:'elite' as const};
+ m.hiveEquipment={first:planTaskEquipment(w,context,m.id+':hives:first'),completion:equipmentRandom(w.starship.account)<.5?planTaskEquipment(w,context,m.id+':hives:complete'):null};
  return true;
 }
 export function tickHives(w:World,m:MissionRecord){
  for(const id of m.bodyIds){const b=w.missions.bodies.get(id)!;if(b.resolved)continue;
-  if(b.hp<=0){b.resolved=true;m.completed++;m.queue=m.queue.filter(v=>v.sourceId!==b.id);const key=m.id+':hive:'+id+':equipment';if(!w.missions.receipts.has(key)){const plan=planTaskEquipment(w,{difficulty:w.difficulty,stage:w.stage,tier:'elite'},key);if(plan)w.missions.pendingEquipment.push({plan,point:{x:b.x,z:b.z}});w.missions.receipts.add(key);}continue;}
+  if(b.hp<=0){b.resolved=true;m.completed++;m.queue=m.queue.filter(v=>v.sourceId!==b.id);const key=m.id+':hive:'+id+':equipment';if(!w.missions.receipts.has(key)){const plan=m.hiveEquipment?(m.completed===1?m.hiveEquipment.first:m.completed===m.total?m.hiveEquipment.completion:null):planTaskEquipment(w,{difficulty:w.difficulty,stage:w.stage,tier:'elite'},key);if(plan)w.missions.pendingEquipment.push({plan,point:{x:b.x,z:b.z}});w.missions.receipts.add(key);}continue;}
   if(m.phase==='offered'&&missionNear(w,b,6))m.phase='active';b.age++;
   if(b.age>=(b.nextSpawn??missionWaveTicks(MISSION_RULES.hives.waveTicks,w.stage))&&!m.queue.some(v=>v.sourceId===b.id)&&m.queue.length<MISSION_RULES.hives.queueLimit){const n=Math.min(2*b.production!,b.production!+Math.floor(b.age/MISSION_RULES.hives.growthTicks));queueMissionGuards(w,m,b,0,Math.min(n,MISSION_RULES.hives.queueLimit-m.queue.length));b.nextSpawn=b.age+missionWaveTicks(MISSION_RULES.hives.waveTicks,w.stage);}
  }

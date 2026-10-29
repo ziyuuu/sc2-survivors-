@@ -55,22 +55,22 @@ test('giant grows near the squad without approaching or attacking until damaged'
  w.hit(u,1,[],1,'terran',0,1,ally.id);assert.equal(w.targetAllowed(u,ally),true);
 });
 
-test('golden worker pays eight total with one guaranteed highest-quality item, without duplicates',()=>{
+test('easy golden worker pays four weighted-quality items, without duplicates',()=>{
  const w=fixture();assert.equal(spawnEncounter(w,'golden'),true);for(let i=0;i<120;i++)tickEncounters(w);const m=w.encounters.active!,u=w.entities.get(m.subject!)!;
- w.hit(u,1e9,[],1,'terran',0,1);assert.equal(Object.keys(w.starship.account.items).length,8);assert.equal(m.plans[9][0].items.at(-1)!.item.quality,2);
- w.hit(u,1e9,[],1,'terran',0,1);assert.equal(Object.keys(w.starship.account.items).length,8);
+ w.hit(u,1e9,[],1,'terran',0,1);assert.equal(Object.keys(w.starship.account.items).length,4);assert.ok(m.plans[9][0].items.at(-1)!.item.quality<=2);
+ w.hit(u,1e9,[],1,'terran',0,1);assert.equal(Object.keys(w.starship.account.items).length,4);
 });
 
-test('resource stage pays seven pieces; premium chests guarantee one highest piece each',()=>{
+test('easy resource stage pays five pieces, including its two premium chests',()=>{
  const w=fixture();assert.equal(beginSpecialStage(w,'resources','fixture'),true);markSpecialReady(w);const a=w.specialStages.active!;
  for(const b of a.resources.values()){b.hp=0;resolveSpecialResource(w,b.id);resolveSpecialResource(w,b.id);}
- assert.equal(Object.keys(w.starship.account.items).length,7);assert.equal([...a.resources.values()].filter(b=>b.kind==='highChest').length,2);
+ assert.equal(Object.keys(w.starship.account.items).length,5);assert.equal([...a.resources.values()].filter(b=>b.kind==='highChest').length,2);
 });
 
 test('natural chance halves; bait admits at most one extra category even after queueing',()=>{
  assert.deepEqual([3,4,7,13,19].map(naturalEventChance),[0,.3,.35,.4,0]);const w=fixture();Object.defineProperty(w,'diagnosticRun',{value:false});w.funShop.levels.bait=3;w.funShop.bait.stage=w.stage;w.funShop.bait.counts.elite=1;w.funShop.bait.pending.encounter=true;w.stageElapsed=40;w.random=()=>0;
  tickBait(w);assert.equal(w.encounters.active,null);assert.deepEqual(w.funShop.bait.pending,{encounter:false,elite:false,horde:false});
- const pool=equipmentDropPolicy({difficulty:'easy',stage:7,tier:'elite'}).guaranteed;assert.deepEqual(pool.map(r=>[r.quality,r.weight]),[[1,55],[2,45]]);
+ const pool=equipmentDropPolicy({difficulty:'easy',stage:7,tier:'elite'}).guaranteed;assert.deepEqual(pool.map(r=>[r.quality,r.weight]),[[1,75],[2,25]]);
 });
 
 for(const difficulty of ['easy','normal','hard','hell'] as const)test(difficulty+' ordinary/special growth and chapter wave frequency never decrease',()=>{

@@ -21,7 +21,7 @@ export const geometric=(a:number,b:number,p:number)=>a*(b/a)**p;
 export const campaignProgress=(stage:number,elapsed:number,duration:number)=>clamp01((stage-1+clamp01(elapsed/duration))/18);
 export const endlessFrequency=(seconds:number)=>1+.04*Math.min(5,Math.max(0,seconds)/60);
 /** Numerical safety ceiling only; no spawn-serial or previous-enemy input. */
-export function continuousEndlessGrowth(seconds=0){const x=Math.max(0,seconds)/60;return {health:Math.min(1e100,1.22**x),damage:Math.min(1e100,1.1**x),attackSpeed:Math.min(1.25,1.025**x)};}
+export function continuousEndlessGrowth(seconds=0){const x=Math.max(0,seconds)/60;return {health:Math.min(1e100,1.22**x),damage:Math.min(1e100,1.1**Math.min(x,5)*1.16**Math.max(0,x-5)),attackSpeed:Math.min(1.25,1.025**x)};}
 export const ORDINARY_CURVES={
  easy:{health:[.8,1.8],damage:[1,1.6],attackSpeed:[1,1.2]},
  normal:{health:[1.1,3.4],damage:[1.05,3.2],attackSpeed:[1.02,1.45]},

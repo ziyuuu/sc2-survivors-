@@ -25,10 +25,11 @@ export function parkNormalWorld(w:World,a:SpecialActive,members:Entity[]){
  const record=w as unknown as Record<string,unknown>,fresh=new RunState(),fields:Record<string,unknown>={};
  for(const key of Object.keys(fresh))fields[key]=record[key];
  const oldStarship=w.starship,selected=new Set(members.map(u=>u.id)),children=[...w.entities.values()].filter(u=>u.hp>0&&u.summonOwnerId!==undefined&&selected.has(u.summonOwnerId)&&u.summonKind==='interceptor');
- const data=structuredClone({members:[...members,...children],expedition:w.expedition,heroes:w.heroes,wallet:w.wallet,upgrades:w.upgrades,account:oldStarship.account,runConfig:w.runConfig,membersMap:oldStarship.members,boundMembers:oldStarship.boundMembers,nativeHeroes:oldStarship.nativeHeroes,numbers:oldStarship.numbers,cycles:oldStarship.cycles,captured:oldStarship.captured,advanced:oldStarship.advancedBodies,bounty:oldStarship.bounty});
+ const data=structuredClone({members:[...members,...children],absorptions:w.terranElites.absorptions.filter(r=>selected.has(r.hunter)),expedition:w.expedition,heroes:w.heroes,wallet:w.wallet,upgrades:w.upgrades,account:oldStarship.account,runConfig:w.runConfig,membersMap:oldStarship.members,boundMembers:oldStarship.boundMembers,nativeHeroes:oldStarship.nativeHeroes,numbers:oldStarship.numbers,cycles:oldStarship.cycles,captured:oldStarship.captured,advanced:oldStarship.advancedBodies,bounty:oldStarship.bounty});
  const saved:Parked={fields,terrain:w.terrain,obstacles:w.obstacles,starship:oldStarship,enemySpecials:w.enemySpecials,autoWaves:record.autoWaves,positions:new Map(members.map(u=>[u.id,{x:u.x,z:u.z,slot:u.slot,trailIndex:u.trailIndex}])),wallet:{...w.wallet}};
  parked.set(w,saved);
  Object.assign(w,fresh,{specialStages:fields.specialStages,expedition:data.expedition,heroes:data.heroes,wallet:data.wallet,upgrades:data.upgrades,runConfig:data.runConfig,difficulty:fields.difficulty,stage:fields.stage,time:fields.time,tick:fields.tick,runId:fields.runId,nextId:fields.nextId,phase:'battle',paused:false});
+ w.terranElites.absorptions=data.absorptions;
  w.dashReady=Number(fields.dashReady);w.dashUntil=Number(fields.dashUntil);w.airliftReady=Number(fields.airliftReady);
  record.autoWaves=false;record.scheduledStage=w.stage;record.rngState=((Number(fields.rngState)^Math.imul(w.specialStages.serial,0x9e3779b9))>>>0);
  w.terrain=terrain(a.kind);w.obstacles=(w.terrain as SpecialTerrain).walls.map(o=>({...o}));w.enemySpecials=new EnemySpecials(w);

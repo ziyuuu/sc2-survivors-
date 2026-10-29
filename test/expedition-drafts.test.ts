@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {newExpedition} from '../src/simulation/expedition-state';
 import {DEVELOPMENT} from '../src/data/expedition-buildings';
 import {FAMILIES_BY_RACE,type FamilyId,type Race} from '../src/data/races';
-import {beginExpeditionWindow,expeditionRefreshCost,consumeExpeditionRefresh,expeditionDevelopmentActions,drawExpeditionDevelopment,drawExpeditionReinforcements,finishExpeditionDraft,canTakeExpeditionOffer,recordExpeditionOffer,expeditionCardKey,EXPEDITION_CARD_DEFINITIONS,type ExpeditionDraftContext,type ExpeditionReward} from '../src/simulation/progression/expedition-drafts';
+import {beginExpeditionWindow,expeditionRefreshCost,consumeExpeditionRefresh,inspectShopWeights,expeditionDevelopmentActions,drawExpeditionDevelopment,drawExpeditionReinforcements,finishExpeditionDraft,canTakeExpeditionOffer,recordExpeditionOffer,expeditionCardKey,EXPEDITION_CARD_DEFINITIONS,type ExpeditionDraftContext,type ExpeditionReward} from '../src/simulation/progression/expedition-drafts';
 
 import {teamCardKey,CARD_RARITIES} from '../src/simulation/progression/team-cards';
 const capTeam=(ctx:ExpeditionDraftContext)=>{for(const group of ['firepower','defense'] as const)for(const rarity of CARD_RARITIES)ctx.state.cardTotals[teamCardKey(group,rarity)]=3;};
@@ -104,7 +104,7 @@ test('multiple elite variants split one family probability instead of tripling i
  const ctx=context('terran',15);ctx.state.familySlots=['marine','marauder'];ctx.heroes=[];ctx.state.resourceCards=3;capTeam(ctx);
  for(const f of ctx.state.familySlots)for(const [kind,d] of Object.entries(EXPEDITION_CARD_DEFINITIONS))ctx.state.cardTotals[`${kind}.${f}`]=d.cap;
  ctx.elites=[...Array.from({length:3},(_,i)=>({id:`marine.${i+1}`,family:'marine' as const})),{id:'marauder.1',family:'marauder' as const}].map(e=>({...e,race:'terran',name:e.id,icon:'test',eligible:true}));let draw=0;ctx.random=()=>[.94,.6][draw++%2];
- const offer=drawExpeditionReinforcements(ctx)[0];assert.equal(offer.expeditionEffect.kind,'elite');assert.equal(offer.value,'marauder.1');
+ const pool=inspectShopWeights(ctx,true),mass=(family:string)=>pool.filter(c=>c.id.startsWith('elite.'+family+'.')&&c.rarity==='purple').reduce((n,c)=>n+c.weight,0);assert.ok(mass('marine')>0);assert.ok(Math.abs(mass('marine')-mass('marauder'))<1e-9);
 });
 test('recent choices suppress the same team group across rarity',()=>{
  const count=(prior:boolean)=>{let found=0;const ctx=context('terran',2,773);ctx.heroes=[];ctx.familyInfo=()=>({alive:1,canAttack:true,canSupport:false,usesEnergy:false,cultivationCapacity:0,canProduce:false});

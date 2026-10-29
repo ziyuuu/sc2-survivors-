@@ -32,10 +32,10 @@ test('normal ground equipment is absent in challenge and returns at its original
  const w=fixture(),account=w.starship.account;const result=grantEquipment(account,{template:'attribute.1',slot:'defense3',race:'terran'},'normal-ground',{kind:'ground',run:account.run!.id,x:9,z:11});
  assert.ok(result.ok);if(!result.ok)return;const location=structuredClone(account.locations[result.value.id]);begin(w,'resources');assert.equal(w.starship.account.items[result.value.id],undefined);finishSpecialStage(w,'timeout');assert.deepEqual(account.locations[result.value.id],location);
 });
-test('arena has approved 1+6 count and genuine boss/elite drops with victory loot phase',()=>{
+test('arena has approved 1+6 count and cumulative equipment rewards with victory loot phase',()=>{
  const w=fixture(),a=begin(w,'arena');assert.equal(a.enemies.length,7);assert.equal(a.heroIds.length,1);
  for(const id of a.enemies){const u=w.entities.get(id)!;w.hit(u,1e10,[],1,'terran',0,1,w.allies()[0].id,true);}
- specialAfterStep(w);assert.equal(a.phase,'loot');assert.equal(a.result,'success');assert.ok(itemsAt(w.starship.account,'ground').length>=7);assert.ok(w.rewardDrops.some(d=>d.bossLootReceipt));const clock=a.clock;w.advance(10);assert.equal(a.clock,clock);collectSpecialRewards(w);assert.ok(itemsAt(w.starship.account,'backpack').length>=7);assert.ok(a.cards.length>=1);quitSpecialStage(w);assert.equal(w.specialStages.active,null);assert.equal(w.stage,4);
+ specialAfterStep(w);assert.equal(a.phase,'loot');assert.equal(a.result,'success');assert.equal(itemsAt(w.starship.account,'ground').length,2);assert.ok(w.rewardDrops.some(d=>d.bossLootReceipt));const clock=a.clock;w.advance(10);assert.equal(a.clock,clock);collectSpecialRewards(w);assert.equal(itemsAt(w.starship.account,'backpack').length,2);assert.ok(a.cards.length>=1);quitSpecialStage(w);assert.equal(w.specialStages.active,null);assert.equal(w.stage,4);
 });
 test('arena carrier hero retains damaging weapon children without extra hero attacks',()=>{
  const w=fixture(),a=begin(w,'arena');for(const [id,u] of w.entities)if(u.owner==='zerg')w.entities.delete(id);a.enemies=[];a.heroIds=[];initializeArena(w,['purifier_flagship']);initializeCarrierSubsystem(w);

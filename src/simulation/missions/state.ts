@@ -1,4 +1,5 @@
 import {MISSION_RULES} from './config';
+import {validateItem} from '../starship/inventory';
 import {newFleetState,type FleetState} from './fleet';
 import type {Body,Point} from '../types';
 import type {EnemySpawnStamp} from '../../data/enemy-tuning';
@@ -17,6 +18,8 @@ export interface MissionSpawn {
 }
 export type MissionReward={kind:'equipment';plan:import('../starship/drops').TaskEquipmentPlan}|{kind:'technology';id:string}|{kind:'elite';id:import('../../data/elites').EliteId;seats:number;ranks:number}|{kind:'hero';id:import('../../data/heroes').HeroId};
 export interface MissionRecord {
+ /** Frozen on creation; missing means the earlier per-hive reward contract. */
+ hiveEquipment?:{first:import('../starship/drops').TaskEquipmentPlan|null;completion:import('../starship/drops').TaskEquipmentPlan|null};
  id:string;kind:MissionKind;phase:MissionPhase;stage:number;age:number;
  bodyIds:number[];enemyIds:number[];queue:MissionSpawn[];progress:number;
  rescue?:{center:Point;target:number|null;friends:number[];initial:number;escorts:number;signal:number;cycle:number};reward?:MissionReward;intelTier?:0|1|2;pendingNext?:boolean;lastPoint?:Point;repair?:{kind:import('../building/rules').FacilityKind;waves:number;grantedAt?:number};completed:number;total:number;nextSpawn:number;receipts:string[];
@@ -47,6 +50,10 @@ export function validateMissionState(s:MissionState){
  const count=(n:unknown)=>typeof n==='number'&&Number.isSafeInteger(n)&&n>=0;
  if(!s||!(s.bodies instanceof Map)||!(s.receipts instanceof Set)||!Array.isArray(s.pendingEquipment)||![s.serial,s.gcd,s.check,s.stage].every(count)||s.scope||s.packetSource||s.claiming)throw Error('任务运行状态无效');
  const m=s.active;if(m){if(!MISSION_KINDS.includes(m.kind)||!['offered','active','resolving'].includes(m.phase)||typeof m.id!=='string'||![m.age,m.completed,m.total,m.progress].every(count)||m.completed>m.total||!Array.isArray(m.queue)||!Array.isArray(m.enemyIds)||new Set(m.bodyIds).size!==m.bodyIds.length||m.bodyIds.some(id=>!s.bodies.has(id)))throw Error('任务事务无效');
+ if(m.hiveEquipment!==undefined){
+  if(m.kind!=='hives'||!m.hiveEquipment||!Object.hasOwn(m.hiveEquipment,'first')||!Object.hasOwn(m.hiveEquipment,'completion'))throw Error('虫巢装备计划无效');
+  const ids=new Set<string>();for(const [key,plan] of Object.entries(m.hiveEquipment))if(plan!==null){if(!['first','completion'].includes(key)||!plan||plan.receipt!==m.id+':hives:'+(key==='first'?'first':'complete')||plan.context?.stage!==m.stage||plan.context.tier!=='elite'||!Array.isArray(plan.items)||plan.items.length!==1||!validateItem(plan.items[0]?.item)||ids.has(plan.items[0].item.id))throw Error('虫巢装备计划无效');ids.add(plan.items[0].item.id);}
+ }
  for(const q of m.queue)if(q.taskId!==m.id||!m.bodyIds.includes(q.sourceId)&&m.rescue?.target!==q.sourceId||![q.point.x,q.point.z,q.stamp.progress,q.stamp.stage].every(Number.isFinite))throw Error('任务投放计划无效');}
  for(const [id,b] of s.bodies)if(id!==b.id||!m||b.missionId!==m.id||!m.bodyIds.includes(id)||![b.x,b.z,b.hp,b.maxHp,b.age,b.progress].every(Number.isFinite)||b.hp<0||b.hp>b.maxHp)throw Error('任务实体无效');
  const f=s.fleet;if(!f||!(f.ships instanceof Map)||!Array.isArray(f.flights)||![f.cooldown,f.serial].every(count)||typeof f.unlocked!=='boolean'||f.committed)throw Error('舰队运行状态无效');

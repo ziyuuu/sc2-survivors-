@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "title": "星际幸存者MVP收尾与性能看板",
   "updated": "2026-10-29",
-  "revision": 277,
+  "revision": 290,
   "baseline": {
     "branch": "main",
     "commit": "be9e2982944314194c6dcc9dcc535bc321749eb4",
@@ -2692,7 +2692,7 @@
       ]
     },
     {
-      "status": "待验证",
+      "status": "进行中",
       "phase": "交付",
       "priority": "收尾",
       "auditIds": [],
@@ -2765,17 +2765,22 @@
         "FEEDBACK_PERFORMANCE_20261029.md",
         "../../reports/qa/intermission-performance-20261029.json",
         "COZE_INTERMISSION_UPDATE_20261029.md",
-        "../../reports/qa/intermission-delivery-20261029.json"
+        "../../reports/qa/intermission-delivery-20261029.json",
+        "GROWTH_LOOT_PROPOSAL_20261029.md",
+        "../../reports/qa/growth-loot-inspection-20261029.json",
+        "GROWTH_LOOT_IMPLEMENTATION_20261029.md",
+        "../../reports/qa/growth-loot-implementation-20261029.json",
+        "../../reports/qa/growth-loot-replay-20261029.json"
       ],
-      "result": "11项无尽反馈已登记。关间音频重复解码修复的固定本机战役/无尽16中位数1384.2→77.2 ms、1806.6→136.5 ms；核心2771项、最终51项定向和类型/数据检查通过。修复及4文件前端854fe1f已推体积优化版并核对远端，Coze增量包/步骤已准备；未部署，原iPhone及其他反馈仍待验证。",
+      "result": "孤星、无尽与全来源掉落完成批准参数的本地实现，旧档/奖励回执保护通过。全量回归失败项均修正或在允许本机访问后复验，覆盖2811项唯一回归，最终54项及类型/数据检查通过；三尺寸说明、正式Web入口通过。320次有限全来源重放发现高收益/掠夺组合仍超数量与简单品质目标，平衡验收开放；构建b785addb，未提交推送部署。",
       "observedIssues": [
         {
           "id": "V06-GEAR-YIELD-001",
           "resolved": false,
           "status": "待讨论",
-          "scope": "最新反馈：简单到无尽16仍满背包绿装；目标通常半背包、白主绿辅蓝个别，差十几件好50–60件，提出普通怪掉落间隔候选。",
-          "evidence": "../../reports/qa/v06-loot-native-20261027.json",
-          "next": "性能批之后核对总量/品质及统计口径，方案见FEEDBACK_PERFORMANCE_20261029.md。"
+          "scope": "批准的分难度单次自然掉落与特殊来源数量/品质已本地实现，旧计划/重复回执通过。320次全来源有限重放中等参与均值36.56/40.19/36.56/38.31；充分参与配橙色战争掠夺协议55.75/62.75/65.38/69.13，简单蓝装14–16件。参数落实，但全来源数量/品质目标未全部达标。",
+          "evidence": "GROWTH_LOOT_IMPLEMENTATION_20261029.md",
+          "next": "讨论稀有掉落构筑是否作为目标例外，或具体调整战争掠夺协议额外数量/品质；保留已批准收益，不加隐藏额度。原机与其他种族/阵容尚未验证，暂不部署。"
         },
         {
           "id": "V06-FB-08",
@@ -2822,7 +2827,7 @@
           "resolved": false,
           "status": "待验证",
           "scope": "原机首关奖励前自动刷新、续局35%刷新及浏览器终止页。已证实读档无条件加载本族全英雄/精英和无尽资源，已在本地候选收紧并保留真实身份/订单/天赋/舰装依赖；同档114→62模型缓存，Windows首关和正式压缩包恢复通过。原iPhone终止原因未确认。",
-          "next": "候选appBuildId 820a6f82e6dabc06629c36b70df967bd6a272ba76331759b767f677e7f98180c已打包；发布授权后更新现有Coze并原机保留存档复测。若仍刷新，定位准确阶段和WebContent/GPU终止信息。",
+          "next": "用户2026-10-29明确暂不部署；候选与原机验证保留，后续部署由用户另行决定。",
           "evidence": "../../reports/qa/safari-restore-20261029.json"
         },
         {
@@ -2867,11 +2872,11 @@
         },
         {
           "id": "V06-F29-02",
-          "status": "待讨论",
+          "status": "待验证",
           "resolved": false,
-          "scope": "用户要求每个关间可撤离；当前战役实现仍每3关。",
-          "evidence": "FEEDBACK_PERFORMANCE_20261029.md",
-          "next": "性能优先批后按记录处理；未复现不冒称已修复。"
+          "scope": "每个正常战役/无尽关间可撤离；特殊关先回正常关间。",
+          "evidence": "../../reports/qa/feedback-actions-20261029.json",
+          "next": "本地实现与定向验证通过；用户操作/原机体验待验证，暂不部署。"
         },
         {
           "id": "V06-F29-03",
@@ -2879,71 +2884,71 @@
           "resolved": false,
           "scope": "用户在iPhone 17 Pro/Coze报告后期/无尽反复加载；本机复现并修复重复音频解码，真实原机尚未验证。",
           "evidence": "../../reports/qa/intermission-performance-20261029.json",
-          "next": "854fe1f与正式4文件前端已推GitHub；按Coze更新步骤部署后复测原iPhone。新资源仍会正常加载，未隐藏加载页。"
+          "next": "用户2026-10-29明确暂不部署；候选与原机验证保留，后续部署由用户另行决定。"
         },
         {
           "id": "V06-F29-04",
-          "status": "待讨论",
+          "status": "待验证",
           "resolved": false,
-          "scope": "用户已确认一键选择、一键分解和一键销毁；后续明确页面、筛选、锁定/装备保护及确认方式。",
-          "evidence": "FEEDBACK_PERFORMANCE_20261029.md",
-          "next": "按记录讨论具体UI与保护范围后实施。"
+          "scope": "跨页全选当前筛选结果，筛选/搜索清空选择；批量分解/销毁保护已装、锁定、收藏及来源锁定项。",
+          "evidence": "../../reports/qa/feedback-actions-20261029.json",
+          "next": "本地实现与定向验证通过；用户操作/原机体验待验证，暂不部署。"
         },
         {
           "id": "V06-F29-05",
-          "status": "待讨论",
+          "status": "待验证",
           "resolved": false,
-          "scope": "提前区分装备可用资格与不可装备原因。",
-          "evidence": "FEEDBACK_PERFORMANCE_20261029.md",
-          "next": "性能优先批后按记录处理；未复现不冒称已修复。"
+          "scope": "列表与详情显示真实装备资格，提供可装备筛选；不混淆效果激活。",
+          "evidence": "../../reports/qa/feedback-actions-20261029.json",
+          "next": "本地实现与定向验证通过；用户操作/原机体验待验证，暂不部署。"
         },
         {
           "id": "V06-F29-06",
-          "status": "待讨论",
+          "status": "待验证",
           "resolved": false,
-          "scope": "关间按稀有度一键装备合法散件，套装保护等边界待定。",
-          "evidence": "FEEDBACK_PERFORMANCE_20261029.md",
-          "next": "性能优先批后按记录处理；未复现不冒称已修复。"
+          "scope": "正常关间一键更高品质合法散件，保护套装/特殊/锁定收藏，同品质保留现装，整批一次保存。",
+          "evidence": "../../reports/qa/feedback-actions-20261029.json",
+          "next": "本地实现与定向验证通过；用户操作/原机体验待验证，暂不部署。"
         },
         {
           "id": "V06-F29-07",
-          "status": "待讨论",
+          "status": "待验证",
           "resolved": false,
-          "scope": "菜单/操作按键音效需求。",
-          "evidence": "FEEDBACK_PERFORMANCE_20261029.md",
-          "next": "性能优先批后按记录处理；未复现不冒称已修复。"
+          "scope": "主菜单起的短按键音，新默认25%保留已有偏好；触屏补发点击已去重，实机听感待验证。",
+          "evidence": "../../reports/qa/feedback-actions-20261029.json",
+          "next": "本地实现与定向验证通过；用户操作/原机体验待验证，暂不部署。"
         },
         {
           "id": "V06-F29-08",
-          "status": "待讨论",
+          "status": "待验证",
           "resolved": false,
-          "scope": "非游戏界面BGM需求。",
-          "evidence": "FEEDBACK_PERFORMANCE_20261029.md",
-          "next": "性能优先批后按记录处理；未复现不冒称已修复。"
+          "scope": "已确认的电子管弦BGM完成完整循环与菜单/局外/关间接入；设置新增背景音乐音量。工程验证通过，原机完整版听感待验证。",
+          "evidence": "BGM_INTEGRATION_20261029.md",
+          "next": "原手机试听循环衔接、背景音量、入战/暂停与前后台；暂不部署。"
         },
         {
           "id": "V06-F29-09",
           "status": "待验证",
           "resolved": false,
-          "scope": "孤星猎手后期吸收后无明显成长；现有渐近公式不等于已排除bug。",
-          "evidence": "FEEDBACK_PERFORMANCE_20261029.md",
-          "next": "性能优先批后按记录处理；未复现不冒称已修复。"
+          "scope": "孤星已按批准参数本地实现：已吸收精英可再获取，精英折算翻倍、持续1%伤害/生命与有上限攻/移速；旧回执补算、受伤比例、付费去重及特殊关往返通过。实际攻击间隔单体输出与三尺寸准确说明通过。",
+          "evidence": "GROWTH_LOOT_IMPLEMENTATION_20261029.md",
+          "next": "用户复测集中培养、重复精英、旧局成长和完整战斗手感；本批未部署。"
         },
         {
           "id": "V06-F29-10",
           "status": "待验证",
           "resolved": false,
-          "scope": "不可再次购买商品仍刷新，需核对具体商品与资格。",
-          "evidence": "FEEDBACK_PERFORMANCE_20261029.md",
-          "next": "性能优先批后按记录处理；未复现不冒称已修复。"
+          "scope": "新商店候选与最终交易共用资格，买满/不可用商品退出，余额不足仍展示。",
+          "evidence": "../../reports/qa/feedback-actions-20261029.json",
+          "next": "本地实现与定向验证通过；用户操作/原机体验待验证，暂不部署。"
         },
         {
           "id": "V06-F29-11",
-          "status": "待讨论",
+          "status": "待验证",
           "resolved": false,
-          "scope": "合法白色商品耗尽后动态提升蓝紫等权重，后续参考其他游戏。",
-          "evidence": "FEEDBACK_PERFORMANCE_20261029.md",
-          "next": "性能优先批后按记录处理；未复现不冒称已修复。"
+          "scope": "售罄商品带走自身权重，剩余资源权重不被放大；三个关段固定样本蓝紫占比上升，非自然平衡验收。",
+          "evidence": "../../reports/qa/feedback-actions-20261029.json",
+          "next": "本地实现与定向验证通过；用户操作/原机体验待验证，暂不部署。"
         },
         {
           "id": "V06-INTERMISSION-PERF-001",
@@ -2952,9 +2957,17 @@
           "scope": "已复现并修复超过32 MiB音频预算导致的关间反复解码；同输入重复准备202/253次解码降为0，画质/声音内容/玩法/保存保持。",
           "evidence": "../../reports/qa/intermission-performance-20261029.json",
           "next": "工程批次关闭；发布与原iPhone体验归V06-F29-03，其他反馈按FEEDBACK_PERFORMANCE_20261029.md继续。"
+        },
+        {
+          "id": "V06-ENDLESS-BALANCE-001",
+          "status": "待验证",
+          "resolved": false,
+          "scope": "无尽伤害前5分钟每分钟×1.10、之后×1.16已本地实现，生命/护甲/数量保持。四难度1/6/12/16/24轮属性及实际酸液/虫后持续伤害结算通过；第16轮开场普攻DPS8.88倍，未测真人存活率。",
+          "next": "结合新掉落在原机试玩后期输出压力；暂不改生命/护甲/数量，不部署。",
+          "evidence": "GROWTH_LOOT_IMPLEMENTATION_20261029.md"
         }
       ],
-      "next": "用户按COZE_INTERMISSION_UPDATE_20261029.md更新原Coze后，使用原iPhone检查续局、连续关间和自动刷新；其余反馈按记录处理。"
+      "next": "用户决定暂时保留当前参数并推送远端：核对并提交本批关间/BGM/成长掉落源码、正式音乐与证据，推送体积优化版并核对远端；不部署。"
     },
     {
       "id": "D01",
@@ -10242,6 +10255,142 @@
       "evidence": [
         "COZE_INTERMISSION_UPDATE_20261029.md",
         "../../reports/qa/intermission-delivery-20261029.json"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "用户明确先不部署，转为其余试玩问题的计划与方案讨论。本轮只读核对当前规则及参考游戏并更新计划；不实施玩法/UI改动，不自动提交推送或部署。",
+      "evidence": [
+        "FEEDBACK_PERFORMANCE_20261029.md"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "其余反馈四批方案完成并附源码事实、具体UI范围、候选平衡目标和两款游戏官方参考；等待讨论，未改游戏、提交推送或部署。",
+      "evidence": [
+        "FEEDBACK_PERFORMANCE_20261029.md"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "用户批准先实施关间撤离、装备资格提示/筛选、跨页批量处理、一键散件换装、商店资格/有效商品权重及从菜单开始的按键音。孤星、掉落和BGM后置；不部署。",
+      "evidence": [
+        "FEEDBACK_PERFORMANCE_20261029.md"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "完成本地关间/装备/商店/菜单按键音批次，修复筛选残留选择与触屏兼容点击重复音。108项定向及16项环境复验、7项最终音频与类型/数据检查通过，三尺寸操作/保存恢复通过；实际音频设备时钟异常与iPhone实听边界单列。对应7项反馈转待验证，孤星/掉落/BGM后置，未提交推送部署。",
+      "evidence": [
+        "FEEDBACK_ACTIONS_20261029.md",
+        "../../reports/qa/feedback-actions-20261029.json"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "开始BGM方案与试听：用户希望电子交响风格并允许自行制作；先核授权及制作候选，确认后才接入，暂不部署。其他反馈状态保持。",
+      "evidence": [
+        "FEEDBACK_PERFORMANCE_20261029.md"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "BGM方案与试听完成：菜单新世界·启航64.777秒、关间新世界·归港59.971秒；原作/旧谱来源及新合成边界记录，MP3完整解码与峰值通过。V06-F29-08转待讨论，等用户听感/曲目确认后才接入；无游戏修改、提交推送或部署。",
+      "evidence": [
+        "BGM_AUDITION_20261029.md",
+        "../../reports/qa/bgm-audition-20261029.json"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "用户回复“就这样吧”，确认前轮BGM方案/试听，按此前“确认后再接入”执行本地接入与必要音量设置；不部署。",
+      "evidence": [
+        "BGM_AUDITION_20261029.md"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "V06-F29-08完成BGM本地接入：153.191/112.941秒自制循环、独立媒体播放和15%默认音量。44项相关回归、类型/数据检查、三尺寸设置/生命周期、正式Web及仅两曲file离线通过；Chrome模拟音频输出检出真实波形与循环，默认设备时钟停滞及实机听感单列。状态待验证，未提交推送或部署。",
+      "evidence": [
+        "BGM_INTEGRATION_20261029.md",
+        "../../reports/qa/bgm-integration-20261029.json"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "按用户新要求启动孤星/无尽攻防/掉落现状核验。好时50–60件必须包括特殊关、特殊怪与诱饵，并比较各难度事件池。本轮只给方案，暂不改玩法或部署。",
+      "evidence": [
+        "FEEDBACK_PERFORMANCE_20261029.md"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "完成孤星/无尽/掉落现状核验与数值候选。确认已吸收精英资格排除、V级三精英合并持续攻击只剩54.59%；无尽HP增长快于输出而护甲不随轮数增长。四难度基础盘至无尽16已约81–106件，特殊来源另核对且必须计入用户总量目标。90项现有回归通过；三议题转待讨论，生产代码未改，未提交推送部署。",
+      "evidence": [
+        "GROWTH_LOOT_PROPOSAL_20261029.md",
+        "../../reports/qa/growth-loot-inspection-20261029.json"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "用户明确批准孤星、无尽和掉落方案，要求本地实现与验证，掉落按所有来源合计；开始实施，暂不部署。既有关间/BGM与其他工作区成果保留。",
+      "evidence": [
+        "GROWTH_LOOT_PROPOSAL_20261029.md"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "按用户批准完成孤星/无尽/全来源掉落本地实现与有限验证。旧吸收回执补算、精英重获、一次掉落和特殊奖励冻结/累计节点通过。回归覆盖2811项（含环境失败重跑及批准文案快照修订），最终54项、类型/数据、三尺寸说明和正式Web入口通过。320次全来源重放中等参与均值36.56/40.19/36.56/38.31；充分参与橙色掠夺组合55.75/62.75/65.38/69.13，简单蓝装14–16，数量/品质目标不能全部关闭。孤星/无尽待验证，掉落待讨论，构建b785addb；未提交、推送或部署。",
+      "evidence": [
+        "GROWTH_LOOT_IMPLEMENTATION_20261029.md",
+        "../../reports/qa/growth-loot-implementation-20261029.json",
+        "../../reports/qa/growth-loot-replay-20261029.json"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "用户明确暂时保留本地候选并要求推送远端。开始按明确清单同步本批关间操作、BGM、孤星/无尽/全来源掉落；已核对远端起点72eb10d。不合main、不部署，平衡和原机验收限制保持。",
+      "evidence": [
+        "LOCAL_FEEDBACK_GITHUB_SYNC_20261029.md"
       ]
     }
   ],

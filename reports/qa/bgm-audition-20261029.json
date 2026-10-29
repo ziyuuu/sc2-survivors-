@@ -1,0 +1,116 @@
+{
+  "date": "2026-10-29",
+  "task": "V06-F29-08",
+  "status": "待讨论",
+  "baselineCommit": "72eb10d26264a987f79baf729b0ce5fcc3f33ffe",
+  "scope": "Two newly synthesized electronic-orchestral theme arrangement auditions; confirmation required before game integration; no deployment.",
+  "sources": [
+    {
+      "work": "Antonin Dvorak, Symphony No.9 in E minor, Op.95 (1893), first edition Simrock 1894",
+      "url": "https://www.antonin-dvorak.cz/en/work/symphony-no-9/",
+      "use": "Composer, work, original movements, publication and orchestration reference. No site text or recordings copied into music."
+    },
+    {
+      "work": "Largo, violin part, Leo Schrattenholz arrangement, N. Simrock 1902, plate 11698",
+      "url": "https://urresearch.rochester.edu/institutionalPublicationPublicView.action?institutionalItemId=16433",
+      "file": "https://urresearch.rochester.edu/fileDownloadForInstitutionalItem.action?itemFileId=46853&itemId=16663",
+      "rights": "University of Rochester Sibley Music Library marks the item Public Domain.",
+      "use": "Main melody read visually from PDF page 2; accompaniment, texture and timing newly adapted.",
+      "sha256": "d686f61b1d0911eba7206f92e48ce44f6e3ad1502f0071c1955b1bf5f624c746"
+    },
+    {
+      "work": "Finale original trumpet-in-E theme, excerpt from measure 8 onward",
+      "url": "https://campus.kennesaw.edu/colleges-departments/arts/academics/music/docs/ensemble-audtions/f26-orchestra-trumpet.pdf",
+      "use": "PDF page 4 used to read the original public-domain melody, transposed to concert pitch. University headings, audition text and other works are not reused.",
+      "sha256": "0e5f35b8d7d60fa02dc7fc7ca181b58161e66652379833fac634e287daada341"
+    },
+    {
+      "work": "Original 1894 Simrock edition and orchestral parts catalog",
+      "url": "https://imslp.org/wiki/Symphony_No.9,_Op.95_(Dvo%C5%99%C3%A1k,_Anton%C3%ADn)",
+      "rights": "First edition 1894, plates 10139/10140, identified as Public Domain. The modern recordings on the same page have separate licenses.",
+      "use": "Publication/rights metadata only; direct PDF returned a bot check and was not used."
+    }
+  ],
+  "tracks": [
+    {
+      "id": "menu",
+      "title": "新世界·启航 — 菜单电子管弦小样",
+      "bpm": 94,
+      "seconds": 64.777,
+      "musicalEvents": 721,
+      "file": "reports/local/bgm-audition-20261029/menu-new-world-demo.mp3",
+      "bytes": 1163693,
+      "sha256": "27af1cea59c568395d0acac6689c1fbe7e94d16173f461d8629fe9bf918c865f",
+      "normalization": {
+        "input_i": "-15.07",
+        "input_tp": "-2.50",
+        "input_lra": "9.00",
+        "input_thresh": "-25.38",
+        "output_i": "-18.90",
+        "output_tp": "-2.62",
+        "output_lra": "5.90",
+        "output_thresh": "-29.05",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.10"
+      },
+      "decodedMeasurement": {
+        "integratedLUFS": -18.9,
+        "truePeakDbTP": -2.6,
+        "fullDecode": true
+      }
+    },
+    {
+      "id": "intermission",
+      "title": "新世界·归港 — 关间电子管弦小样",
+      "bpm": 68,
+      "seconds": 59.971,
+      "musicalEvents": 310,
+      "file": "reports/local/bgm-audition-20261029/intermission-new-world-demo.mp3",
+      "bytes": 978452,
+      "sha256": "4b82217d2deed44fc48b7f2278a0310a5fb96b490ebeb38c975b16d429abf055",
+      "normalization": {
+        "input_i": "-12.02",
+        "input_tp": "-2.60",
+        "input_lra": "8.70",
+        "input_thresh": "-22.41",
+        "output_i": "-21.26",
+        "output_tp": "-9.84",
+        "output_lra": "6.80",
+        "output_thresh": "-31.44",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.74"
+      },
+      "decodedMeasurement": {
+        "integratedLUFS": -21.2,
+        "truePeakDbTP": -9.8,
+        "fullDecode": true
+      }
+    }
+  ],
+  "sourceHashes": {
+    "preview/bgm-audition-20261029/arrangements.json": "70dd9368270762f13a16651c389b37d98f102f27dc21cd8515d15b0125802c1a",
+    "tools/bgm-audition/render.py": "03d2c9af8a53aa07d8f7f2ba49b50f468d471819cd1dba6919c7d858800a07b0"
+  },
+  "verification": {
+    "rendered": true,
+    "finitePCM": true,
+    "fullMP3Decode": true,
+    "digitalClipping": false,
+    "subjectiveListeningAccepted": false,
+    "physicalIphoneTested": false,
+    "seamlessLoopVerified": false
+  },
+  "delivery": {
+    "gameIntegrated": false,
+    "committed": false,
+    "pushed": false,
+    "deployed": false
+  },
+  "open": [
+    "User choice of each track, electronic/orchestral balance and energy",
+    "Full-length seamless loops after approval",
+    "Specific existing-settings BGM volume control before implementation",
+    "Mobile user gesture and lifecycle validation after integration"
+  ],
+  "retention": "Keep current auditions and two source PDFs while awaiting user selection; remove obsolete rebuilt outputs after replacement, preserve source/decisions."
+}

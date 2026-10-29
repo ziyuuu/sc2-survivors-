@@ -2,6 +2,7 @@ import type {EquipmentSlot,Quality,EquipmentResult} from '../../simulation/stars
 import {failure,success} from '../../simulation/starship/types';
 import {equipmentTemplate} from '../../simulation/starship/catalog';
 import * as rules from '../../simulation/starship/inventory';
+import {quickEquipPlan} from '../../simulation/starship/quick-equip';
 import type {StarshipHost} from './host';
 
 export type ShipCommand=
@@ -15,13 +16,15 @@ export type ShipCommand=
  |{type:'finishReroll';receipt:string;choice:number|null}
  |{type:'savePreset'|'applyPreset';index:number}
  |{type:'renamePreset';index:number;name:string}
- |{type:'begin'|'continue'|'extract'};
+ |{type:'begin'|'continue'|'extract'|'autoEquip'};
 export interface CommandEnvelope {id:string;revision:number;managementRevision:number;command:ShipCommand}
 export interface BatchPreview {ids:string[];skipped:{id:string;reason:string}[];dust:number}
 /** Shared by the standalone and real World hosts. DOM handlers have no mutation authority. */
 export class StarshipController {
  private receipts=new Map<string,{signature:string;result:EquipmentResult<unknown>}>();
  constructor(readonly host:StarshipHost){}
+ private protectedEquipment(){return new Set([...this.host.management.locked,...this.host.management.favorites]);}
+ previewAutoEquip(){return this.host.phase()==='intermission'?quickEquipPlan(this.host.account(),this.host.race(),this.protectedEquipment()):[];}
  protectedReason(id:string,operation:'discard'|'dismantle'|'rerollElite'|'drop'){
   const a=this.host.account(),m=this.host.management,i=a.items[id],loc=a.locations[id];
   if(!i||!loc)return '物品已不存在';
@@ -52,6 +55,7 @@ export class StarshipController {
   if(c.type==='dismantle'&&!outside&&phase!=='intermission')return failure('战斗中不能分解');
   if(['equip','unequip','applyPreset'].includes(c.type)&&phase==='battle')return failure('战斗中不能换装；暂停不会开放换装');
   switch(c.type){
+   case 'autoEquip':result=phase==='intermission'&&this.host.autoEquip?this.host.autoEquip(this.protectedEquipment(),a.revision):failure('只能在关间一键换装');break;
    case 'equip':result=this.host.equip(c.id,c.slot,a.revision);break;
    case 'unequip':result=this.host.unequip(c.slot,a.revision);break;
    case 'pickup':result=phase==='battle'||phase==='intermission'?this.host.pickup(c.id):failure('当前没有可拾取的战利品');break;
@@ -85,7 +89,7 @@ export class StarshipController {
    }
    case 'begin':result=outside&&this.host.begin?this.host.begin():failure('当前不能出征');break;
    case 'continue':result=phase==='intermission'&&this.host.continue?this.host.continue():failure('当前不能继续关卡');break;
-   case 'extract':result=(this.host.canExtract?.()??phase==='intermission')&&this.host.extract?this.host.extract():failure('当前尚未到撤退节点');break;
+   case 'extract':result=(this.host.canExtract?.()??phase==='intermission')&&this.host.extract?this.host.extract():failure('请在正常关间撤离');break;
   }
   this.receipts.set(envelope.id,{signature,result});if(result.ok)this.host.notify();return result;
  }

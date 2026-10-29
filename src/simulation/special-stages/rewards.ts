@@ -14,7 +14,7 @@ export function initializeResources(w:World){
 export function resolveSpecialResource(w:World,id:number){
  const a=w.specialStages.active,b=a?.resources.get(id);if(!a||a.kind!=='resources'||a.phase!=='active'||!b||b.hp>0||b.paid)return false;
  b.paid=true;w.effect('explosion',b,b,1,.3);
- if(b.kind==='chest'||b.kind==='highChest'){const high=b.kind==='highChest',plan=planOrdinaryEncounterEquipment(w,{difficulty:w.difficulty,stage:a.stage,tier:'regular'},a.id+':resource:'+id,high?2:1,high);if(plan)deliverTaskEquipment(w,plan,{x:b.x,z:b.z});}
+ if(b.kind==='chest'||b.kind==='highChest'){const high=b.kind==='highChest',plan=planOrdinaryEncounterEquipment(w,{difficulty:w.difficulty,stage:a.stage,tier:'regular'},a.id+':resource:'+id,high&&w.difficulty!=='easy'?2:1,high);if(plan)deliverTaskEquipment(w,plan,{x:b.x,z:b.z});}
  else w.drop(b,b.amount);w.changed();return true;
 }
 /** Three exact power slots. Filter legal templates before renormalizing category weights. */

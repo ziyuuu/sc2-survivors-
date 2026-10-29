@@ -83,7 +83,9 @@ export function spawnFunEncounter(w:World,kind:FunKind,position?:Point,bait=fals
  const s=w.encounters.expanded,id=`${w.runId}:fun:${++w.encounters.serial}`,m:FunRecord={id,kind,bait,stage:w.stage,stamp:{stage:w.stage,progress:campaignProgress(w.stage,w.stageElapsed,w.duration),density:1},point:{...point},phase:'offered',clock:0,age:0,next:0,actors:[],guards:[],held:[],queue:[],plans:[],paid:new Set(),kills:0,tier:0,route:[],routeIndex:0,claimed:0,eliteChildren:0,ordinaryChildren:0};
  const context={difficulty:w.difficulty,stage:w.stage,tier:'elite' as const};
  if(kind==='whitePack'){
-  for(let i=0;i<6;i++){const u=spawn(w,m,'zergling',points[i]);u.fun!.mode='passive';u.moveSpeed*=1.2;m.plans.push(planTaskEquipment(w,context,id+':elite:'+i)!);}
+  m.equipmentMilestones=true;
+  for(let i=0;i<6;i++){const u=spawn(w,m,'zergling',points[i]);u.fun!.mode='passive';u.moveSpeed*=1.2;}
+  for(const n of [3,6])m.plans.push(planTaskEquipment(w,context,id+':elite-milestone:'+n)!);
   m.route=[{...point}];let p=point;
   for(let leg=0;leg<5;leg++){let q:Point|undefined;for(let a=0;a<24;a++){const angle=leg*1.2+a*Math.PI/12,r={x:p.x+Math.sin(angle)*8,z:p.z+Math.cos(angle)*8};if(encounterPointLegal(w,r,.65)&&clearLine(p,r,.65,w.obstacles,w.terrain)){q=r;break;}}if(q){m.route.push(q);p=q;}}
   if(m.route.length<2){for(const u of alive(w,m.actors))retire(w,u);return false;}m.routeIndex=1;
@@ -102,7 +104,9 @@ export function spawnFunEncounter(w:World,kind:FunKind,position?:Point,bait=fals
   const u=spawn(w,m,'queen',point,'actor','queen',true);m.base={hp:u.maxHp,damage:u.weaponDamage,armor:u.armor,move:u.moveSpeed};u.maxHp*=2;u.hp=u.maxHp;u.moveSpeed*=.9;u.specialReady=Infinity;m.phase='active';m.next=360;
   m.plans.push(planSingleBossEncounterEquipment(w,{...context,stage:18,tier:'boss',endlessRound:1},id+':queen')!);
  }else if(kind==='infectedTerrans'){
-  for(let i=0;i<points.length;i++){const u=spawn(w,m,'marine',points[i],'actor','neutral');u.modelKey='fun-infested-marine';u.action='idle';u.maxHp*=2;u.hp=u.maxHp*.4;u.moveSpeed*=1.2;u.fun!.mode='passive';m.plans.push(planOffensiveEncounterEquipment(w,context,id+':infected:'+i)!);}
+  m.equipmentMilestones=true;
+  for(let i=0;i<points.length;i++){const u=spawn(w,m,'marine',points[i],'actor','neutral');u.modelKey='fun-infested-marine';u.action='idle';u.maxHp*=2;u.hp=u.maxHp*.4;u.moveSpeed*=1.2;u.fun!.mode='passive';}
+  for(const n of [3,6,10])m.plans.push(planOffensiveEncounterEquipment(w,context,id+':infected-milestone:'+n)!);
  }else if(kind==='corruptedProtoss'){
   createCorruptSite(w,m);m.route=points.map(p=>({...p})).sort((a,b)=>Math.atan2(a.x-point!.x,a.z-point!.z)-Math.atan2(b.x-point!.x,b.z-point!.z));
   for(let i=0;i<CORRUPT.alive;i++)spawnCorrupt(w,m,points[i],i<13?'zealot':'stalker');
@@ -156,7 +160,12 @@ export function funBeforeDamage(w:World,target:Body,owner:Body['owner'],sourceId
  const source=w.missions.packetSource?.id===sourceId?w.missions.packetSource:sourceId===undefined?undefined:w.entities.get(sourceId);
  return funRelation(w,source,target,owner,sourceId)!==false;
 }
-function rewardInfected(w:World,m:FunRecord,u:Entity){const i=m.actors.indexOf(u.id);pay(w,m,'infected:'+u.id,u,m.plans[i]);u.fun!.rewarded=true;}
+function payMilestone(w:World,m:FunRecord,u:Entity,prefix:string,thresholds:number[]){
+ const key=prefix+u.id;if(m.paid.has(key))return;m.paid.add(key);
+ const count=[...m.paid].filter(k=>k.startsWith(prefix)).length,index=thresholds.indexOf(count);
+ if(index>=0)pay(w,m,'equipment-milestone:'+count,u,m.plans[index]);
+}
+function rewardInfected(w:World,m:FunRecord,u:Entity){if(m.equipmentMilestones)payMilestone(w,m,u,'infected:',[3,6,10]);else pay(w,m,'infected:'+u.id,u,m.plans[m.actors.indexOf(u.id)]);u.fun!.rewarded=true;}
 export function commitFunMedical(w:World,source:Entity|number|string|undefined,body:Body,amount:number){
  const u=w.entities.get(body.id),healer=typeof source==='object'?source:typeof source==='number'?w.entities.get(source):undefined,m=w.encounters.expanded.short;
  if(!u||!healer||!m||m.kind!=='infectedTerrans'||u.fun?.id!==m.id||u.fun.mode!=='passive'||!funMedicalPatient(w,healer,u)||amount<=0)return;
@@ -183,7 +192,7 @@ export function funDeath(w:World,u:Entity,sourceId?:number){
  if(u.fun.role!=='actor'){
   return;
  }
- if(m.kind==='whitePack')pay(w,m,'white:'+u.id,u,m.plans[m.actors.indexOf(u.id)]);
+ if(m.kind==='whitePack'){if(m.equipmentMilestones)payMilestone(w,m,u,'white:',[3,6]);else pay(w,m,'white:'+u.id,u,m.plans[m.actors.indexOf(u.id)]);}
  if(m.kind==='infectedTerrans')rewardInfected(w,m,u);
  if(m.kind==='corruptedProtoss')w.drop(u,u.unitType==='zealot'?[8,2]:[12,4]);
  if(m.kind==='cruelQueen'){

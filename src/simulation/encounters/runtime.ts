@@ -41,6 +41,12 @@ function fleeRoute(w:World,p:Point,r:number){
   if(!best)return null;out.push(best);
  }return out;
 }
+/** Only delivered rewards count: retries and unclaimed/failed spawns do not. */
+export function goldenEquipmentNodes(w:World){
+ const events=new Set<string>();for(const receipt of w.starship.account.run?.receipts??[]){const match=/^(.*:encounter:\d+):node:\d+$/.exec(receipt);if(match)events.add(match[1]);}
+ const index=Math.min(2,events.size),total=(w.difficulty==='easy'?[4,2,1]:[8,4,2])[index];
+ return total===8?[0,1,0,1,0,1,0,1,0,4]:total===4?[0,0,0,1,0,0,0,1,0,2]:total===2?[0,0,0,0,0,1,0,0,0,1]:[0,0,0,0,0,0,0,0,0,1];
+}
 export function spawnEncounter(w:World,kind:EncounterKind,bait=false){
  const s=w.encounters;
  if(!encounterAllowed(w.difficulty,kind)||w.endless||w.phase!=='battle'||w.stage<(kind==='gentle'?7:4)||w.stage>18||s.active||s.expanded.short||!bait&&s.used.has(kind))return false;
@@ -58,7 +64,7 @@ export function spawnEncounter(w:World,kind:EncounterKind,bait=false){
  if(!point)return false;
  const id=`${w.runId}:encounter:${s.serial+1}`,context={difficulty:w.difficulty,stage:w.stage};
  const plans:EncounterRecord['plans']=[];
- if(kind==='golden')for(let i=1;i<=10;i++)plans.push(i%2?[]:[planOrdinaryEncounterEquipment(w,{...context,tier:'regular'},id+':node:'+i,i===10?4:1,i===10)!]);
+ if(kind==='golden')for(const [i,count] of goldenEquipmentNodes(w).entries())plans.push(count?[planOrdinaryEncounterEquipment(w,{...context,tier:'regular'},id+':node:'+(i+1),count,i===9)!]:[]);
  if(kind==='giant')for(let i=0;i<4;i++){
   const tiers=i===0?['elite']:i===1?['elite','elite']:i===2?['elite','boss']:['boss','boss'];
   plans.push(tiers.map((tier,j)=>planTaskEquipment(w,{...context,tier:tier as 'elite'|'boss'},id+':tier:'+i+':'+j)!));
@@ -230,7 +236,7 @@ export function encounterLabel(w:World){
  const u=w.entities.get(m.subject!);
  const detail=m.phase==='signal'?'即将出现':m.phase==='offered'?(m.kind==='golden'?'攻击开始20秒寻宝':'靠近开始') :
  m.kind==='golden'?`钻地 ${Math.max(0,Math.ceil((1200-m.age)/60))}秒 · 已触发 ${m.threshold}/10`:
- m.kind==='giant'?`${['幼体','成长','巨型','成熟'][m.tier]} · ${m.growthBlocked?'成长受阻':m.tier===3?'Boss档装备2包':Math.max(0,Math.ceil((720-m.growth)/60))+'秒后成长'}`:
+ m.kind==='giant'?`${['幼体','成长','巨型','成熟'][m.tier]} · ${m.growthBlocked?'成长受阻':m.tier===3?'首领档装备2件':Math.max(0,Math.ceil((720-m.growth)/60))+'秒后成长'}`:
  m.phase==='cleared'?`靠近接纳 ${(m.progress/60).toFixed(1)}/3秒`:`围攻 ${m.enemies.filter(id=>(w.entities.get(id)?.hp??0)>0).length} · ${Math.ceil((2700-m.age)/60)}秒`;
  return ENCOUNTER_NAMES[m.kind]+' · '+detail+(u?' · '+Math.ceil(u.hp/u.maxHp*100)+'%':'');
 }

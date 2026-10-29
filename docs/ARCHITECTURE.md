@@ -1,4 +1,10 @@
+孤星与掉落补充（2026-10-29）：[本地实现记录](project/GROWTH_LOOT_IMPLEMENTATION_20261029.md)。`effectiveReaperGrowth`从原吸收回执推导精英额外贡献，以按Run对象/数组身份及长度失效的WeakMap缓存重建；原值/付款保持。恢复时刷新孤星属性并保留受伤比例，特殊关携带该孤星回执。自然敌人只做一次数量判定，同件品质升级；显式奖励使用冻结`TaskEquipmentPlan`。新白群/感染累计节点保存在既有paid回执，黄金递减从已交付事件回执推导，虫巢first/completion物品计划在生成时冻结；旧缺失字段沿用旧合同。新增嵌套字段在`run-fields.ts`登记，schema26不变；渲染不参与结算。
+
 > **当前入口 · 2026-10-27：** 实际模块地图见 [项目结构](PROJECT_STRUCTURE.md) 与 [交接](project/MVP_TO_1_0_HANDOFF_20261027.md)。本文保留历次架构说明；旧 M2、天赋或页面内存状态不代表当前产品。保存以 [D05](project/D05_CHECKPOINT_20261023.md) 和当前 schema26/profile v6 源码为准。
+
+BGM补充（2026-10-29）：`render/effects/background-music.ts`以一个`HTMLAudioElement`按需播放两首`kind: music`资源，通过`MediaElementAudioSourceNode`接入既有AudioContext的音乐/主音量通道。长音乐不进入战斗AudioBuffer目录；读取World阶段，菜单/局外同曲续播、关间/结算同曲续播，入战淡出，隐藏/静音立即暂停。异步载入与淡出采用代次校验，取消后不能重启旧曲；恢复时尝试恢复浏览器音频时钟。偏好沿用`sc2.audio-mix`新增music键，旧字段保持；不新增RunState或保存schema。两首MP3进入既有资源hash、恢复、Web与单文件打包路径，见[接入记录](project/BGM_INTEGRATION_20261029.md)。
+
+关间操作补充（2026-10-29）：`simulation/starship/quick-equip.ts`先生成合法散件替换计划，再由`World.atomicMutation`一次应用并刷新派生属性；界面不直接改变账户。`equipment-availability.ts`复用`canEquip`与当前阶段，筛选、列表和详情同源。商店用参考候选目录计算每件商品权重、实时合法池决定上架，售罄项不向剩余同品质商品转移权重；不新增持久化字段。界面音在各操作面板的触屏兼容拦截后播放，外层排除已绑定子区域，与战斗资源解码独立。细节及边界见[本批记录](project/FEEDBACK_ACTIONS_20261029.md)。
 
 > 2026-10-23 G03：[高品质装备成长边界](project/G03_GROWTH_CONSUMPTION_20261023.md)。`attributes.ts`按品质与污染来源返回基础白字；`equipmentTotals`随账户revision/种族重建全量与高品质两份派生汇总。`equipmentUnitTotals`只为英雄/精英的紫橙DPS、真实DPS、HP贡献增加每级5%系数，白字套装倍率与团队卡各走原通道一次；子机读取母体身份后分摊，投影沿用创建时冻结汇总。独立固定支援继续读全局普通DPS，不能借用英雄的额外等级系数。新增缓存属于可重建运行态，不改变延期中的存档合同；相机、输入和渲染路径保持。
 

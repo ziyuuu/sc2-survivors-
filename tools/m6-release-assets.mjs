@@ -77,6 +77,7 @@ for(const record of available){
  if(mention)useIfPresent(record.id,`runtime source ${mention.file.replaceAll('\\','/')}`);
  if(record.kind==='effect-texture'&&!Object.hasOwn(RETIRED_ASSETS,record.id))requireAsset(record.id,'BattleEffects loads active effect texture catalog');
  if(record.kind==='audio')requireAsset(record.id,'AudioEffects loads audio catalog');
+ if(record.kind==='music')requireAsset(record.id,'BackgroundMusic streams the approved menu/intermission loops');
 }
 
 // Icons used through data-driven cards and the four talent icon arrays are

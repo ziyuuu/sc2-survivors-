@@ -45,7 +45,7 @@ export function eliteFriendlyAura(w:World,u:Entity){if(u.team!=='player'||u.owne
 export function eliteStatModifiers(w:World,u:Entity){let damage=1,speed=1,move=1,armor=0,hp=1;if(!revisedElite(u))return {damage,speed,move,armor,hp};const s=eliteCombat(u),id=u.eliteId!,p=TERRAN_ELITE_RULES[id as keyof typeof TERRAN_ELITE_RULES].parameters as Record<string,unknown>;
  move=typeof p.moveFactor==='number'?p.moveFactor:1;armor=terranEliteArmor(id as keyof typeof TERRAN_ELITE_RULES,u.rank);
  if(id==='marine.1'&&s.started!==null&&w.time>=s.coolUntil)speed=1+3*Math.min(1,(w.time-s.started)/5);
- if(id==='reaper.3'){const n=s.absorbed/(s.absorbed+20);damage*=1+3*n;hp*=1+4*n;armor+=10*n;}
+ if(id==='reaper.3'){const p=TERRAN_ELITE_RULES['reaper.3'].parameters,g=effectiveReaperGrowth(w,u),n=g/(g+p.growthK);damage*=1+(p.dpsAsymptoteFactor-1)*n+p.damageHpPerPoint*g;hp*=1+(p.hpAsymptoteFactor-1)*n+p.damageHpPerPoint*g;armor+=p.armorAsymptoteAdd*n;speed*=1+Math.min(p.attackSpeedCap,p.attackSpeedPerPoint*g);move*=1+Math.min(p.moveCap,p.movePerPoint*g);}
  if(id==='tank.2'&&u.mode==='siege'){damage*=2;speed*=2;}
  if(id==='thor.2'&&s.target!==null&&w.time-s.lockAt>=3&&unitData(u).targetType==='air')speed*=2;
  if(id==='thor.3'&&s.started!==null){const phase=(w.time-s.started)%16;if(phase>=4&&phase<12)damage*=3;}
@@ -130,6 +130,17 @@ export function terranMedical(w:World,u:Entity,dt:number){if(!revisedElite(u)||!
  }return true;
 }
 export function reaperContribution(rank:number,elite:string|null){const g=elite&&isTerranEliteId(elite)?TERRAN_ELITE_RULES[elite].body:null,base=rankStats(rank),dps=g?({assault:1.6,precision:1.8,bulwark:1.5,mobile:1.6,support:1.5}[g])*eliteFixedGrowth(rank)*5:base.rank,hp=g?({assault:1.8,precision:1.7,bulwark:3,mobile:1.9,support:2.4}[g])*4.2*(1+.3*(rank-1)):base.health;return (dps+hp)/2;}
+// Receipts retain their original contribution and payment. This cache is rebuilt
+// from the ledger after restore; stat refresh does not rescan every old body.
+const absorptionBonuses=new WeakMap<TerranEliteRun,{receipts:AbsorptionReceipt[];length:number;byHunter:Map<number,number>}>();
+export function effectiveReaperGrowth(w:World,u:Entity){
+ const run=w.terranElites;let cache=absorptionBonuses.get(run);
+ if(!cache||cache.receipts!==run.absorptions||cache.length!==run.absorptions.length){
+  const byHunter=new Map<number,number>();for(const r of run.absorptions)if(r.elite)byHunter.set(r.hunter,(byHunter.get(r.hunter)??0)+r.contribution*(TERRAN_ELITE_RULES['reaper.3'].parameters.eliteContributionFactor-1));
+  cache={receipts:run.absorptions,length:run.absorptions.length,byHunter};absorptionBonuses.set(run,cache);
+ }
+ return eliteCombat(u).absorbed+(cache.byHunter.get(u.id)??0);
+}
 /** Absorbed bodies retire atomically without an enemy-death/revival event. */
 export function absorbReaper(w:World,hunter:Entity,u:Entity,job:number|null=null,passenger:number|null=null,paid={minerals:0,gas:0}){if(hunter.id===u.id||hunter.eliteId!=='reaper.3'||!revisedElite(hunter)||u.unitType!=='reaper'||u.heroId||u.temporary||u.hp<=0||w.terranElites.absorptions.some(r=>r.id===u.id&&r.born===u.bornAt))return false;
  const contribution=reaperContribution(u.rank,u.eliteId??null);
