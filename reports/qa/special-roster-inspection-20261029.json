@@ -1,0 +1,402 @@
+{
+  "date": "2026-10-29",
+  "issue": "V06-SPECIAL-ROSTER-001",
+  "sourceHead": "674c528ee8657f7b2f6ba743e2aac6c13f644eec",
+  "workingTree": "shared uncommitted changes present",
+  "scope": "Controlled simulation only; no battle ticks, no private player save, no production modification or deployment.",
+  "results": [
+    {
+      "kind": "resources",
+      "gear": false,
+      "wounded": true,
+      "diagnosticCacheTransfer": false,
+      "entryAlive": 6,
+      "returnAlive": 6,
+      "aliveAfterReturnRefresh": 6,
+      "dead": []
+    },
+    {
+      "kind": "resources",
+      "gear": true,
+      "wounded": false,
+      "diagnosticCacheTransfer": false,
+      "entryAlive": 6,
+      "returnAlive": 6,
+      "aliveAfterReturnRefresh": 6,
+      "dead": []
+    },
+    {
+      "kind": "resources",
+      "gear": true,
+      "wounded": true,
+      "diagnosticCacheTransfer": false,
+      "entryAlive": 2,
+      "returnAlive": 2,
+      "aliveAfterReturnRefresh": 2,
+      "dead": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "kind": "resources",
+      "gear": true,
+      "wounded": true,
+      "diagnosticCacheTransfer": true,
+      "entryAlive": 6,
+      "returnAlive": 6,
+      "aliveAfterReturnRefresh": 2,
+      "dead": []
+    },
+    {
+      "kind": "arena",
+      "gear": false,
+      "wounded": true,
+      "diagnosticCacheTransfer": false,
+      "entryAlive": 6,
+      "returnAlive": 6,
+      "aliveAfterReturnRefresh": 6,
+      "dead": []
+    },
+    {
+      "kind": "arena",
+      "gear": true,
+      "wounded": false,
+      "diagnosticCacheTransfer": false,
+      "entryAlive": 6,
+      "returnAlive": 6,
+      "aliveAfterReturnRefresh": 6,
+      "dead": []
+    },
+    {
+      "kind": "arena",
+      "gear": true,
+      "wounded": true,
+      "diagnosticCacheTransfer": false,
+      "entryAlive": 2,
+      "returnAlive": 2,
+      "aliveAfterReturnRefresh": 2,
+      "dead": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "kind": "arena",
+      "gear": true,
+      "wounded": true,
+      "diagnosticCacheTransfer": true,
+      "entryAlive": 6,
+      "returnAlive": 6,
+      "aliveAfterReturnRefresh": 2,
+      "dead": []
+    },
+    {
+      "kind": "crossing",
+      "gear": false,
+      "wounded": true,
+      "diagnosticCacheTransfer": false,
+      "entryAlive": 6,
+      "returnAlive": 6,
+      "aliveAfterReturnRefresh": 6,
+      "dead": []
+    },
+    {
+      "kind": "crossing",
+      "gear": true,
+      "wounded": false,
+      "diagnosticCacheTransfer": false,
+      "entryAlive": 6,
+      "returnAlive": 6,
+      "aliveAfterReturnRefresh": 6,
+      "dead": []
+    },
+    {
+      "kind": "crossing",
+      "gear": true,
+      "wounded": true,
+      "diagnosticCacheTransfer": false,
+      "entryAlive": 2,
+      "returnAlive": 2,
+      "aliveAfterReturnRefresh": 2,
+      "dead": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "kind": "crossing",
+      "gear": true,
+      "wounded": true,
+      "diagnosticCacheTransfer": true,
+      "entryAlive": 6,
+      "returnAlive": 6,
+      "aliveAfterReturnRefresh": 2,
+      "dead": []
+    }
+  ],
+  "example": {
+    "before": [
+      {
+        "id": 1,
+        "type": "marine",
+        "rank": 1,
+        "hp": 30.35,
+        "maxHp": 151.75
+      },
+      {
+        "id": 2,
+        "type": "marine",
+        "rank": 2,
+        "hp": 54.629999999999995,
+        "maxHp": 273.15
+      },
+      {
+        "id": 3,
+        "type": "marine",
+        "rank": 3,
+        "hp": 78.91,
+        "maxHp": 394.54999999999995
+      },
+      {
+        "id": 4,
+        "type": "marine",
+        "rank": 4,
+        "hp": 103.19000000000001,
+        "maxHp": 515.95
+      },
+      {
+        "id": 5,
+        "type": "marine",
+        "rank": 5,
+        "hp": 573.615,
+        "maxHp": 637.35
+      },
+      {
+        "id": 6,
+        "type": "ultralisk",
+        "rank": 1,
+        "hp": 607.5,
+        "maxHp": 675
+      }
+    ],
+    "entry": [
+      {
+        "id": 1,
+        "type": "marine",
+        "rank": 1,
+        "hp": 0,
+        "maxHp": 151.75
+      },
+      {
+        "id": 2,
+        "type": "marine",
+        "rank": 2,
+        "hp": 0,
+        "maxHp": 273.15
+      },
+      {
+        "id": 3,
+        "type": "marine",
+        "rank": 3,
+        "hp": 0,
+        "maxHp": 394.54999999999995
+      },
+      {
+        "id": 4,
+        "type": "marine",
+        "rank": 4,
+        "hp": 0,
+        "maxHp": 515.95
+      },
+      {
+        "id": 5,
+        "type": "marine",
+        "rank": 5,
+        "hp": 450.4555797101449,
+        "maxHp": 637.35
+      },
+      {
+        "id": 6,
+        "type": "ultralisk",
+        "rank": 1,
+        "hp": 595.7608695652174,
+        "maxHp": 675
+      }
+    ],
+    "returned": [
+      {
+        "id": 1,
+        "type": "marine",
+        "rank": 1,
+        "hp": 0,
+        "maxHp": 151.75
+      },
+      {
+        "id": 2,
+        "type": "marine",
+        "rank": 2,
+        "hp": 0,
+        "maxHp": 273.15
+      },
+      {
+        "id": 3,
+        "type": "marine",
+        "rank": 3,
+        "hp": 0,
+        "maxHp": 394.54999999999995
+      },
+      {
+        "id": 4,
+        "type": "marine",
+        "rank": 4,
+        "hp": 0,
+        "maxHp": 515.95
+      },
+      {
+        "id": 5,
+        "type": "marine",
+        "rank": 5,
+        "hp": 450.4555797101449,
+        "maxHp": 637.35
+      },
+      {
+        "id": 6,
+        "type": "ultralisk",
+        "rank": 1,
+        "hp": 595.7608695652174,
+        "maxHp": 675
+      }
+    ],
+    "afterReturnRefresh": [
+      {
+        "id": 1,
+        "type": "marine",
+        "rank": 1,
+        "hp": 0,
+        "maxHp": 151.75
+      },
+      {
+        "id": 2,
+        "type": "marine",
+        "rank": 2,
+        "hp": 0,
+        "maxHp": 273.15
+      },
+      {
+        "id": 3,
+        "type": "marine",
+        "rank": 3,
+        "hp": 0,
+        "maxHp": 394.54999999999995
+      },
+      {
+        "id": 4,
+        "type": "marine",
+        "rank": 4,
+        "hp": 0,
+        "maxHp": 515.95
+      },
+      {
+        "id": 5,
+        "type": "marine",
+        "rank": 5,
+        "hp": 89.30694146887889,
+        "maxHp": 637.35
+      },
+      {
+        "id": 6,
+        "type": "ultralisk",
+        "rank": 1,
+        "hp": 581.9801512287335,
+        "maxHp": 675
+      }
+    ],
+    "trace": [
+      {
+        "id": 1,
+        "rank": 1,
+        "before": {
+          "hp": 30.35,
+          "maxHp": 151.75,
+          "hasNativeCache": false
+        },
+        "after": {
+          "hp": 0,
+          "maxHp": 151.75
+        }
+      },
+      {
+        "id": 2,
+        "rank": 2,
+        "before": {
+          "hp": 54.629999999999995,
+          "maxHp": 273.15,
+          "hasNativeCache": false
+        },
+        "after": {
+          "hp": 0,
+          "maxHp": 273.15
+        }
+      },
+      {
+        "id": 3,
+        "rank": 3,
+        "before": {
+          "hp": 78.91,
+          "maxHp": 394.54999999999995,
+          "hasNativeCache": false
+        },
+        "after": {
+          "hp": 0,
+          "maxHp": 394.54999999999995
+        }
+      },
+      {
+        "id": 4,
+        "rank": 4,
+        "before": {
+          "hp": 103.19000000000001,
+          "maxHp": 515.95,
+          "hasNativeCache": false
+        },
+        "after": {
+          "hp": 0,
+          "maxHp": 515.95
+        }
+      },
+      {
+        "id": 5,
+        "rank": 5,
+        "before": {
+          "hp": 573.615,
+          "maxHp": 637.35,
+          "hasNativeCache": false
+        },
+        "after": {
+          "hp": 450.4555797101449,
+          "maxHp": 637.35
+        }
+      },
+      {
+        "id": 6,
+        "rank": 1,
+        "before": {
+          "hp": 607.5,
+          "maxHp": 675,
+          "hasNativeCache": false
+        },
+        "after": {
+          "hp": 595.7608695652174,
+          "maxHp": 675
+        }
+      }
+    ]
+  }
+}

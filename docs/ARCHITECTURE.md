@@ -1,3 +1,5 @@
+2026-10-29特殊关修复：[原生属性基准迁移](project/SPECIAL_ROSTER_FIX_20261029.md)在进出场景时按原实体与克隆实体对应迁移starship.native，含新生、截击机及阶段复生投影；正常World对象图、真实伤亡与schema26保持。
+
 2026-10-29虫族与接敌修订：[实现与边界](project/ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md)。固定进化复用报价/扣费/行动回执；旧棚补齐报价后通知保存。`approach-charge.ts`保存实体冲锋意图/CD，接敌不可达缓存重建；近战与冲锋均由simulation驱动。潜伏者两形态共用地刺与攻击片段，伤害/速度适配独立于原版数据。局外一键装备复用账户事务，schema26保持。
 
 孤星与掉落补充（2026-10-29）：[本地实现记录](project/GROWTH_LOOT_IMPLEMENTATION_20261029.md)。`effectiveReaperGrowth`从原吸收回执推导精英额外贡献，以按Run对象/数组身份及长度失效的WeakMap缓存重建；原值/付款保持。恢复时刷新孤星属性并保留受伤比例，特殊关携带该孤星回执。自然敌人只做一次数量判定，同件品质升级；显式奖励使用冻结`TaskEquipmentPlan`。新白群/感染累计节点保存在既有paid回执，黄金递减从已交付事件回执推导，虫巢first/completion物品计划在生成时冻结；旧缺失字段沿用旧合同。新增嵌套字段在`run-fields.ts`登记，schema26不变；渲染不参与结算。

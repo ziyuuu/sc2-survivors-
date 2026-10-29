@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "title": "星际幸存者MVP收尾与性能看板",
   "updated": "2026-10-29",
-  "revision": 307,
+  "revision": 309,
   "baseline": {
     "branch": "main",
     "commit": "be9e2982944314194c6dcc9dcc535bc321749eb4",
@@ -2781,9 +2781,11 @@
         "../../reports/qa/queen-unlock-inspection-20261029.json",
         "../../reports/qa/unlock-feedback-fix-20261029.json",
         "../../reports/qa/zerg-melee-equipment-20261029.json",
-        "../../reports/qa/zerg-github-sync-20261029.json"
+        "../../reports/qa/zerg-github-sync-20261029.json",
+        "SPECIAL_ROSTER_FIX_20261029.md",
+        "../../reports/qa/special-roster-fix-20261029.json"
       ],
-      "result": "第一阶段已完成：解锁反馈前置与虫族/近战/舰装共68文件已提交并推送f10cfc18d359710b2e0c7dd13ea38764ec23cfef，Git远端引用与GitHub提交接口均确认。249项最终组合回归、类型/数据检查通过；未部署。",
+      "result": "第二阶段修复本地完成：20项对照回归及2867项完整回归通过；保留真实伤亡，准备提交推送，不部署。",
       "observedIssues": [
         {
           "id": "V06-GEAR-YIELD-001",
@@ -3056,9 +3058,17 @@
           "resolved": true,
           "next": "本地已验证并随f10cfc1推送体积优化版，未部署；按实机反馈复核。",
           "evidence": "ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md"
+        },
+        {
+          "id": "V06-SPECIAL-ROSTER-001",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "进出特殊关一致迁移原生属性基准，受伤成员不再无战斗归零；原成员/撤离/截击机/双生及真实伤亡验证通过。",
+          "next": "本地已验证，按授权单独提交推送；原玩家档案与手机复测仍开放，未部署。",
+          "evidence": "SPECIAL_ROSTER_FIX_20261029.md"
         }
       ],
-      "next": "第一阶段远端核验完成；已读取挑战关调查线程，确认仅调查未修改游戏且当前未运行。接续第二阶段修复进出特殊关属性基准丢失，验证后提交推送；第三阶段随后仅本地排查修复，全程不部署。"
+      "next": "第二阶段验证完成，提交推送核验后开展已授权第三阶段多模块排查；第三阶段只本地修复，不推送。"
     },
     {
       "id": "D01",
@@ -10522,6 +10532,17 @@
       "evidence": [
         "ZERG_MELEE_EQUIPMENT_GITHUB_SYNC_20261029.md",
         "../../reports/qa/zerg-github-sync-20261029.json"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "第二阶段修复本地完成：20项对照回归及2867项完整回归通过；保留真实伤亡，准备提交推送，不部署。",
+      "evidence": [
+        "SPECIAL_ROSTER_FIX_20261029.md",
+        "../../reports/qa/special-roster-fix-20261029.json"
       ]
     }
   ],

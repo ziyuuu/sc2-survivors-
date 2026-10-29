@@ -1,0 +1,67 @@
+{
+  "date": "2026-10-29",
+  "id": "V06-SPECIAL-ROSTER-001",
+  "status": "本地修复验证完成，待本阶段授权推送",
+  "baseCommit": "ddd085662ac205ae768a20358960c67ec9f033c0",
+  "repository": "ziyuuu/sc2-survivors-",
+  "branch": "体积优化版",
+  "rootCause": "装备前原生属性缓存以实体对象为键；跨场景克隆和返回丢失缓存，将装备生命池的已损生命扣在原生生命池上。",
+  "scope": [
+    "进场克隆成员及截击机迁移原生属性基准",
+    "返回原成员、新生跳虫、截击机与阶段复生投影迁移相应基准",
+    "躲避关保留原身体及升降级既有规则"
+  ],
+  "validation": {
+    "sameTestsBefore": {
+      "total": 20,
+      "pass": 8,
+      "fail": 12,
+      "bridgeFrom": "ddd085662ac205ae768a20358960c67ec9f033c0"
+    },
+    "targeted": {
+      "total": 20,
+      "pass": 20,
+      "fail": 0
+    },
+    "full": {
+      "tests": 2867,
+      "pass": 2867,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0
+    },
+    "typecheck": "passed",
+    "docsCheck": "passed",
+    "initialFullAttempt": "受限权限下两项本机HTTP测试失败且未结束，主动终止；获准正常本机权限后全量重跑",
+    "coverage": [
+      "5枪兵+1雷兽",
+      "无装备受伤/带装备满血/带装备受伤",
+      "资源关/竞技场/横穿虫群进出",
+      "真实伤害与死亡",
+      "重复往返",
+      "普通/英雄/精英护盾",
+      "正确地图与账户的存档恢复",
+      "横穿撤离和领取奖励返回",
+      "截击机真实损失和合法装备分摊",
+      "方舟固定属性",
+      "躲避关培养",
+      "特殊关新生双生跳虫"
+    ],
+    "physicalPhone": "not tested",
+    "originalPlayerSave": "not available",
+    "browserVisual": "not run: simulation-only fix"
+  },
+  "sourceHashes": {
+    "src/simulation/special-stages/bridge.ts": "110914c1cf289844d96eada4b7a21ff09a9669a03c170d914e82a9fcc84e02ab",
+    "test/special-roster-health.test.ts": "fd0c6da3e85b5efef825b318e7680ae37ea5aab3aa50f25da40643c12023d1cd"
+  },
+  "delivery": {
+    "committed": false,
+    "pushed": false,
+    "deployed": false,
+    "newPackage": false
+  },
+  "cleanup": {
+    "pending": true
+  }
+}

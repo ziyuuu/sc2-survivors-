@@ -1,3 +1,5 @@
+2026-10-29挑战关当前回归：node --import tsx --test test/special-roster-health.test.ts。旧inspect-special-roster-20261029.mts只适配修复前版本，不覆盖历史调查报告；见[修复记录](../docs/project/SPECIAL_ROSTER_FIX_20261029.md)。
+
 # 工具入口
 
 2026-10-29解锁反馈见[修复与复现](../docs/project/UNLOCK_FEEDBACK_FIX_20261029.md)。`test/development-unlock-feedback.test.ts`覆盖失效候选清理与首次解锁排期；`qa-unlock-feedback.mjs`使用命名Web构建、实际HUD和受控账户检查三尺寸，`--entry-only`检查同批正式Web入口。仅本机服务和独立浏览器数据，输出到`reports/local/unlock-feedback-20261029`，不部署。修复前`inspect-queen-unlock-20261029.mts`保留历史断言，勿在新规则上覆盖旧报告。

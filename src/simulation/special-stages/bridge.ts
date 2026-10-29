@@ -19,13 +19,18 @@ interface Parked {
 const parked=new WeakMap<World,Parked>(),terrains=new Map<SpecialStageKind,SpecialTerrain>();
 export const specialSuspended=(w:World)=>parked.has(w);
 function terrain(kind:SpecialStageKind){let t=terrains.get(kind);if(!t){t=new SpecialTerrain(kind);terrains.set(kind,t);}return t;}
+/** A copied equipped body must keep the native layer that produced its current pools. */
+function transferNativeStats(from:World['starship'],source:Entity,to:World['starship'],target:Entity){
+ const native=from.native.get(source);if(native)to.native.set(target,{...native});else to.native.delete(target);
+}
 /** The frozen normal field remains as its original object graph, including private caches. */
 export function parkNormalWorld(w:World,a:SpecialActive,members:Entity[]){
  if(parked.has(w))throw Error('不能嵌套特殊关');
  const record=w as unknown as Record<string,unknown>,fresh=new RunState(),fields:Record<string,unknown>={};
  for(const key of Object.keys(fresh))fields[key]=record[key];
  const oldStarship=w.starship,selected=new Set(members.map(u=>u.id)),children=[...w.entities.values()].filter(u=>u.hp>0&&u.summonOwnerId!==undefined&&selected.has(u.summonOwnerId)&&u.summonKind==='interceptor');
- const data=structuredClone({members:[...members,...children],absorptions:w.terranElites.absorptions.filter(r=>selected.has(r.hunter)),expedition:w.expedition,heroes:w.heroes,wallet:w.wallet,upgrades:w.upgrades,account:oldStarship.account,runConfig:w.runConfig,membersMap:oldStarship.members,boundMembers:oldStarship.boundMembers,nativeHeroes:oldStarship.nativeHeroes,numbers:oldStarship.numbers,cycles:oldStarship.cycles,captured:oldStarship.captured,advanced:oldStarship.advancedBodies,bounty:oldStarship.bounty});
+ const originals=[...members,...children];
+ const data=structuredClone({members:originals,absorptions:w.terranElites.absorptions.filter(r=>selected.has(r.hunter)),expedition:w.expedition,heroes:w.heroes,wallet:w.wallet,upgrades:w.upgrades,account:oldStarship.account,runConfig:w.runConfig,membersMap:oldStarship.members,boundMembers:oldStarship.boundMembers,nativeHeroes:oldStarship.nativeHeroes,numbers:oldStarship.numbers,cycles:oldStarship.cycles,captured:oldStarship.captured,advanced:oldStarship.advancedBodies,bounty:oldStarship.bounty});
  const saved:Parked={fields,terrain:w.terrain,obstacles:w.obstacles,starship:oldStarship,enemySpecials:w.enemySpecials,autoWaves:record.autoWaves,positions:new Map(members.map(u=>[u.id,{x:u.x,z:u.z,slot:u.slot,trailIndex:u.trailIndex}])),wallet:{...w.wallet}};
  parked.set(w,saved);
  Object.assign(w,fresh,{specialStages:fields.specialStages,expedition:data.expedition,heroes:data.heroes,wallet:data.wallet,upgrades:data.upgrades,runConfig:data.runConfig,difficulty:fields.difficulty,stage:fields.stage,time:fields.time,tick:fields.tick,runId:fields.runId,nextId:fields.nextId,phase:'battle',paused:false});
@@ -50,6 +55,7 @@ export function parkNormalWorld(w:World,a:SpecialActive,members:Entity[]){
  for(const [i,u] of data.members.entries()){
   const index=Math.max(0,members.findIndex(v=>v.id===u.id));u.x=(index%columns-(columns-1)/2)*spacing;u.z=w.anchor.z+Math.floor(index/columns)*spacing;u.prev={x:u.x,z:u.z};u.trailIndex=0;u.slot=i;u.velocity={x:0,z:0};u.attackTarget=null;u.pendingTarget=null;u.windup=0;u.action='idle';delete u.cliffTransit;delete u.chargeState;
   w.entities.set(u.id,u);
+  transferNativeStats(oldStarship,originals[i],w.starship,u);
  }
  w.missions.enabled=false;w.encounters.enabled=false;record.spawnCells=w.terrain.connectedLocations!(w.anchor,.5,1);
  for(const u of w.allies()){
@@ -97,18 +103,18 @@ export function resumeNormalWorld(w:World,result:NonNullable<SpecialActive['resu
   if(!updated){old.hp=0;old.shield=0;old.deadAt=w.time;old.action='dead';old.attackTarget=null;old.pendingTarget=null;continue;}
   const pos=saved.positions.get(id)!;restoreSpecialBody(old,updated,pos,elapsed);Object.assign(old,{slot:pos.slot,trailIndex:pos.trailIndex});if(old.hp<=0){old.deadAt=w.time;old.action='dead';}
   if(old.heroId){const record=w.heroes.get(old.heroId),h=child.heroes.get(old.heroId);if(h){const updated={...h,rank:old.rank,skillReady:w.time+Math.max(0,h.skillReady-child.time)};if(record)Object.assign(record,updated);else w.heroes.set(old.heroId,updated);}}
-  w.starship.native.delete(old);
+  transferNativeStats(childRuntime,updated,w.starship,old);
  }
- for(const u of bodies)if(!ids.has(u.id)&&u.hp>0){rebaseSpecialActor(u,elapsed);const origin=[...saved.positions.values()][0]??w.anchor,p=w.freePosition(u.unitType,origin,0,5)??origin;Object.assign(u,p,{prev:{...p}});w.entities.set(u.id,u);}
+ for(const u of bodies)if(!ids.has(u.id)&&u.hp>0){rebaseSpecialActor(u,elapsed);const origin=[...saved.positions.values()][0]??w.anchor,p=w.freePosition(u.unitType,origin,0,5)??origin;Object.assign(u,p,{prev:{...p}});w.entities.set(u.id,u);transferNativeStats(childRuntime,u,w.starship,u);}
  if(a.kind!=='dodge'){
   // Interceptors are paid, targetable children. Keep their actual losses and
   // replacements, rather than reviving the parked complement for free.
   for(const old of w.entities.values())if(old.summonKind==='interceptor'&&ids.has(old.summonOwnerId!)){
-   const updated=childActors.get(old.id);if(updated)restoreSpecialBody(old,updated,{x:old.x,z:old.z},elapsed);
+   const updated=childActors.get(old.id);if(updated){restoreSpecialBody(old,updated,{x:old.x,z:old.z},elapsed);transferNativeStats(childRuntime,updated,w.starship,old);}
    else {old.hp=0;old.shield=0;old.deadAt=w.time;old.action='dead';}
   }
   for(const u of childActors.values())if(u.summonKind==='interceptor'&&ids.has(u.summonOwnerId!)&&!w.entities.has(u.id)&&u.hp>0){
-   const owner=w.entities.get(u.summonOwnerId!)!;restoreSpecialBody(u,u,owner,elapsed);w.entities.set(u.id,u);
+   const owner=w.entities.get(u.summonOwnerId!)!;restoreSpecialBody(u,u,owner,elapsed);w.entities.set(u.id,u);transferNativeStats(childRuntime,u,w.starship,u);
   }
   // A pending phase revival owns real projection actors until it resolves.
   // Transfer only that recovery group; unrelated temporary allies stay frozen.
@@ -118,7 +124,7 @@ export function resumeNormalWorld(w:World,result:NonNullable<SpecialActive['resu
    for(const u of childActors.values())if(group.has(u.id)||group.has(u.summonOwnerId!)){
     const projection=childRuntime.projections.get(u.id);if(!projection)continue;
     const position=w.freePosition(u.unitType,origin,0,5)??origin;restoreSpecialBody(u,u,position,elapsed);
-    projection.until-=elapsed;rebaseSpecialActor(projection.snapshot,elapsed);w.entities.set(u.id,u);w.starship.projections.set(u.id,projection);
+    projection.until-=elapsed;rebaseSpecialActor(projection.snapshot,elapsed);w.entities.set(u.id,u);w.starship.projections.set(u.id,projection);transferNativeStats(childRuntime,u,w.starship,u);
     const member=childRuntime.members.get(u.id);if(member)w.starship.members.set(u.id,member);
     const hero=childRuntime.nativeHeroes.get(u.id);if(hero){hero.record.skillReady=Math.max(0,hero.record.skillReady-elapsed);w.starship.nativeHeroes.set(u.id,hero);}
    }
