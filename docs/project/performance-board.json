@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "title": "星际幸存者MVP收尾与性能看板",
   "updated": "2026-10-29",
-  "revision": 272,
+  "revision": 273,
   "baseline": {
     "branch": "main",
     "commit": "be9e2982944314194c6dcc9dcc535bc321749eb4",
@@ -2763,7 +2763,7 @@
         "SAFARI_RESTORE_20261029.md",
         "../../reports/qa/safari-restore-20261029.json"
       ],
-      "result": "第16版已发布且b9de9c7已同步GitHub。2026-10-29完成Safari续局本地候选：恢复按真实身份/已装备依赖准备，非无尽不预载无尽；同档模型缓存114→62，首关自然结算及正式压缩包恢复通过，2767项回归含权限项重跑均有通过证据。Coze前端4文件更新包已备好，用户已授权GitHub同步，正在提交修复及前端候选；尚未部署；原iPhone首关刷新原因、实机恢复及MVP最终验收仍开放。",
+      "result": "第16版已发布且b9de9c7已同步GitHub。2026-10-29 Safari续局候选按真实身份/已装备依赖准备，非无尽不预载无尽；同档模型缓存114→62，Windows自然首关及正式压缩包恢复通过，2767项回归含权限项重跑有通过证据。修复源码、报告与4文件压缩前端候选已通过7cbc5c6推送GitHub体积优化版并核对远端；Coze/Sites尚未部署本候选。原iPhone首关刷新原因、实机恢复及MVP最终验收仍开放。",
       "observedIssues": [
         {
           "id": "V06-GEAR-YIELD-001",
@@ -10095,6 +10095,17 @@
       "change": "用户要求推到远端：开始仅将本轮Safari修复、相关Coze/SW核对证据和已验证4文件压缩前端候选提交、推送GitHub体积优化版。main、独立Sites部署checkout及线上服务保持。",
       "evidence": [
         "SAFARI_RESTORE_20261029.md"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "Safari修复及压缩前端候选7cbc5c6已推送GitHub体积优化版，远端提交一致；提交中4个运行文件长度/SHA与测试包一致。28文件范围含相关Coze/SW核对证据；main仍2924d9b，Sites/Coze线上未更新，V06仍待原机验证。",
+      "evidence": [
+        "SAFARI_RESTORE_20261029.md",
+        "../../reports/qa/safari-restore-20261029.json"
       ]
     }
   ],

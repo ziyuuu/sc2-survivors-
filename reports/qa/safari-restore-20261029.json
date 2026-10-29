@@ -415,7 +415,7 @@
   },
   "gitSync": {
     "requested": "2026-10-29",
-    "status": "in progress",
+    "status": "complete",
     "branch": "体积优化版",
     "candidateSnapshot": "sites/size-optimized-site/public",
     "runtimeFiles": [
@@ -441,6 +441,15 @@
       }
     ],
     "sitesDeploymentChanged": false,
-    "cozeDeploymentChanged": false
+    "cozeDeploymentChanged": false,
+    "sourceCommit": "7cbc5c632b190e080d945cfa5bcc4d5f579832f9",
+    "remoteCommitVerified": "7cbc5c632b190e080d945cfa5bcc4d5f579832f9",
+    "sourceTree": "1da337157cad59262df1db12419287d85bfa56ba",
+    "mainVerified": "2924d9bb3330f10ad78462b6f96efda163c5eff3",
+    "filesCommitted": 28,
+    "committedRuntimeByteHashesMatchTestedPatch": true,
+    "verification": "git ls-remote after successful push; git show for all four committed runtime files with byte length and SHA-256 comparison",
+    "validationReusedFromLocalCandidate": true,
+    "committedUnrelatedFiles": false
   }
 }

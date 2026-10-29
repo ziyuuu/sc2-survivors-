@@ -73,6 +73,8 @@
 
 ## GitHub 同步
 
-用户于本批验证后要求推到远端。正在将上述源码、测试、复现工具、相关Coze/SW检查记录及压缩前端候选提交、推送到`体积优化版`。`sites/size-optimized-site/public`更新4个前端文件，逐项与已验证更新包相同；独立`sites/v04-private-test`及Sites/Coze线上仍为此前版本，不能从GitHub更新推断已经部署。旧内容hash程序和资源保持，main不合并。
+用户于本批验证后要求推到远端。修复提交`7cbc5c632b190e080d945cfa5bcc4d5f579832f9`已推送到GitHub`体积优化版`，远端引用与本地提交核对一致；`main`仍为`2924d9bb3330f10ad78462b6f96efda163c5eff3`。本次共28个文件，包含上述源码、测试、复现工具、相关Coze/SW检查记录及压缩前端候选。
 
-上文和包内“未提交／未推送”描述打包时状态；同步完成后以本节和QA的`gitSync`为准。重新生成这一日期补丁时，向`package-safari-restore-patch.mjs`传入固定第16版public目录（可从`ac053e2`恢复），工具会拒绝用更新后的候选冒充旧基线。
+`sites/size-optimized-site/public`更新4个前端文件，提交内逐份长度及SHA-256与已验证更新包完全相同，旧内容hash程序和资源保持。独立`sites/v04-private-test`及Sites/Coze线上仍为此前版本，GitHub同步未执行部署。本次未提交私有原始素材改动、其他已有修改、旧产物删除、测试缓存或重复ZIP。
+
+上文和包内“未提交／未推送”描述打包时状态；当前Git同步以本节和QA的`gitSync`为准。此次复用上一轮同版游戏验证，仅补提交范围、文件完整性与远端引用核验。重新生成这一日期补丁时，向`package-safari-restore-patch.mjs`传入固定第16版public目录（可从`ac053e2`恢复），工具会拒绝用更新后的候选冒充旧基线。
