@@ -1,7 +1,7 @@
 {
   "date": "2026-10-29",
   "id": "V06-SPECIAL-ROSTER-001",
-  "status": "本地修复验证完成，待本阶段授权推送",
+  "status": "第二阶段已提交推送并远端核验",
   "baseCommit": "ddd085662ac205ae768a20358960c67ec9f033c0",
   "repository": "ziyuuu/sc2-survivors-",
   "branch": "体积优化版",
@@ -56,12 +56,17 @@
     "test/special-roster-health.test.ts": "fd0c6da3e85b5efef825b318e7680ae37ea5aab3aa50f25da40643c12023d1cd"
   },
   "delivery": {
-    "committed": false,
-    "pushed": false,
+    "committed": true,
+    "pushed": true,
     "deployed": false,
     "newPackage": false
   },
   "cleanup": {
     "pending": true
+  },
+  "featureCommit": "f68cc858c591d1f8a4674e4b9e0433ba4a6af903",
+  "remoteVerification": {
+    "gitRef": "f68cc858c591d1f8a4674e4b9e0433ba4a6af903",
+    "githubCommit": "f68cc858c591d1f8a4674e4b9e0433ba4a6af903"
   }
 }

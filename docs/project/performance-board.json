@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "title": "星际幸存者MVP收尾与性能看板",
   "updated": "2026-10-29",
-  "revision": 309,
+  "revision": 310,
   "baseline": {
     "branch": "main",
     "commit": "be9e2982944314194c6dcc9dcc535bc321749eb4",
@@ -2785,7 +2785,7 @@
         "SPECIAL_ROSTER_FIX_20261029.md",
         "../../reports/qa/special-roster-fix-20261029.json"
       ],
-      "result": "第二阶段修复本地完成：20项对照回归及2867项完整回归通过；保留真实伤亡，准备提交推送，不部署。",
+      "result": "第二阶段完成：挑战关属性基准迁移修复f68cc85已推送体积优化版，Git引用与GitHub接口双重核验；2867项回归通过，未部署。",
       "observedIssues": [
         {
           "id": "V06-GEAR-YIELD-001",
@@ -3064,11 +3064,11 @@
           "status": "已完成",
           "resolved": true,
           "scope": "进出特殊关一致迁移原生属性基准，受伤成员不再无战斗归零；原成员/撤离/截击机/双生及真实伤亡验证通过。",
-          "next": "本地已验证，按授权单独提交推送；原玩家档案与手机复测仍开放，未部署。",
+          "next": "已验证并随f68cc85推送体积优化版；原玩家档案与手机复测仍开放，未部署。",
           "evidence": "SPECIAL_ROSTER_FIX_20261029.md"
         }
       ],
-      "next": "第二阶段验证完成，提交推送核验后开展已授权第三阶段多模块排查；第三阶段只本地修复，不推送。"
+      "next": "已满足第三阶段启动条件，按授权开展多模块实际bug排查；后续修复只留本地，不推送、不部署。"
     },
     {
       "id": "D01",
@@ -10540,6 +10540,17 @@
         "V06"
       ],
       "change": "第二阶段修复本地完成：20项对照回归及2867项完整回归通过；保留真实伤亡，准备提交推送，不部署。",
+      "evidence": [
+        "SPECIAL_ROSTER_FIX_20261029.md",
+        "../../reports/qa/special-roster-fix-20261029.json"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "第二阶段完成：挑战关属性基准迁移修复f68cc85已推送体积优化版，Git引用与GitHub接口双重核验；2867项回归通过，未部署。",
       "evidence": [
         "SPECIAL_ROSTER_FIX_20261029.md",
         "../../reports/qa/special-roster-fix-20261029.json"
