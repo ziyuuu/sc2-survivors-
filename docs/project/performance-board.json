@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "title": "星际幸存者MVP收尾与性能看板",
-  "updated": "2026-10-28",
-  "revision": 264,
+  "updated": "2026-10-29",
+  "revision": 272,
   "baseline": {
     "branch": "main",
     "commit": "be9e2982944314194c6dcc9dcc535bc321749eb4",
@@ -2696,7 +2696,7 @@
       "phase": "交付",
       "priority": "收尾",
       "auditIds": [],
-      "updated": "2026-10-28",
+      "updated": "2026-10-29",
       "owner": "Codex",
       "historical": false,
       "id": "V06",
@@ -2754,9 +2754,16 @@
         "RUNTIME_MEMORY_PLAN_20261028.md",
         "../../reports/qa/runtime-memory-plan-20261028.json",
         "RUNTIME_MEMORY_LIFECYCLE_20261028.md",
-        "../../reports/qa/runtime-memory-lifecycle-20261028.json"
+        "../../reports/qa/runtime-memory-lifecycle-20261028.json",
+        "PACKED_SW_COMPATIBILITY_20261028.md",
+        "../../reports/qa/packed-sw-compatibility-20261028.json",
+        "SAFARI_STAGE_END_20261028.md",
+        "COZE_LIVE_CHECK_20261028.md",
+        "../../reports/qa/coze-live-http-20261028.json",
+        "SAFARI_RESTORE_20261029.md",
+        "../../reports/qa/safari-restore-20261029.json"
       ],
-      "result": "V06-MEMORY-005工程批次完成并发布Sites第16版：关闭效果缓冲释放、公共特效按依赖准备、闲置部队缓存回收、CPU解析器副本释放。3组成对样本首战贴图估算441.44→426.83MB，可追踪CPU数组197.96→175.33MB；入场无稳定加速、总进程峰值重叠。2759项回归含权限项重跑通过，三关正常流程、生命周期、舰装及离线修复通过；线上本族/全部预下载各两次入场与25文件校验通过。GitHub同步收尾中；原iPhone重载及最终MVP验收仍开放。",
+      "result": "第16版已发布且b9de9c7已同步GitHub。2026-10-29完成Safari续局本地候选：恢复按真实身份/已装备依赖准备，非无尽不预载无尽；同档模型缓存114→62，首关自然结算及正式压缩包恢复通过，2767项回归含权限项重跑均有通过证据。Coze前端4文件更新包已备好，用户已授权GitHub同步，正在提交修复及前端候选；尚未部署；原iPhone首关刷新原因、实机恢复及MVP最终验收仍开放。",
       "observedIssues": [
         {
           "id": "V06-GEAR-YIELD-001",
@@ -2810,9 +2817,9 @@
           "id": "V06-SAFARI-001",
           "resolved": false,
           "status": "待验证",
-          "scope": "用户确认 iPhone 17 Pro / iOS 26.7.1 / 自动中档，载入战场时网页自动重载；按当前Sites网址排查，原始原因尚未确定。",
-          "next": "使用已发布第16版原网址，在原iPhone自动档完成全部预下载、首战/第1至3关、返回再开和一次前后台切换；若仍重载，记录准确时刻与可取得的相关系统信息。",
-          "evidence": "../../reports/qa/safari-entry-20261028.json"
+          "scope": "原机首关奖励前自动刷新、续局35%刷新及浏览器终止页。已证实读档无条件加载本族全英雄/精英和无尽资源，已在本地候选收紧并保留真实身份/订单/天赋/舰装依赖；同档114→62模型缓存，Windows首关和正式压缩包恢复通过。原iPhone终止原因未确认。",
+          "next": "候选appBuildId 820a6f82e6dabc06629c36b70df967bd6a272ba76331759b767f677e7f98180c已打包；发布授权后更新现有Coze并原机保留存档复测。若仍刷新，定位准确阶段和WebContent/GPU终止信息。",
+          "evidence": "../../reports/qa/safari-restore-20261029.json"
         },
         {
           "id": "V06-MEMORY-002",
@@ -2845,6 +2852,14 @@
           "scope": "第15版已有KTX2Loader导入在单文件IIFE中因缺失模块URL而启动失败；离线构建补文档基址后，3845原始资源断网首战通过。",
           "next": "共享离线构建继续保留该配置；原Current/V04成品未覆盖。",
           "evidence": "../../reports/qa/runtime-memory-lifecycle-20261028.json"
+        },
+        {
+          "id": "V06-SW-001",
+          "status": "进行中",
+          "resolved": false,
+          "scope": "Coze v5线上43份独立KTX2带/不带索引参数共86次200且长度/hash全部正确，14份合包切片通过；启动器/SW/清单/索引/游戏程序与第16版逐字节一致。旧客户端升级仍未在原手机观测。",
+          "next": "服务器独立文件兜底已验证；保留旧客户端状态的真实升级验证尚未完成，原机自动刷新继续归V06-SAFARI-001。",
+          "evidence": "../../reports/qa/packed-sw-compatibility-20261028.json"
         }
       ]
     },
@@ -10016,6 +10031,70 @@
       "evidence": [
         "RUNTIME_MEMORY_LIFECYCLE_20261028.md",
         "../../reports/qa/runtime-memory-lifecycle-20261028.json"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V06"
+      ],
+      "change": "核对外部部署KTX2 404解释，登记V06-SW-001待验证：默认旧索引不必然失败，当前请求版本参数和SW协议能力共同决定。四组隔离处理器测试完成；实际站点根因和旧客户端升级未验证，未改游戏/资源或部署，Safari重载保持独立开放。",
+      "evidence": [
+        "PACKED_SW_COMPATIBILITY_20261028.md",
+        "../../reports/qa/packed-sw-compatibility-20261028.json"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V06"
+      ],
+      "change": "补充原iOS设备Coze首关奖励前及续局35%自动刷新反馈；核对Safari软限制与本地读档额外准备，未确认根因。Coze读取因本环境无法访问未取得版本，无游戏修改或部署。",
+      "evidence": [
+        "SAFARI_STAGE_END_20261028.md"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V06"
+      ],
+      "change": "Coze v5实站核对完成：107次HTTP请求全部200，43份KTX2双路径、14合包hash通过，核心程序与第16版同字节。Windows线上首关正常到奖励页，刷新后继续游戏越过35%到100%，恢复相同奖励与103/56资源，无关键节点警告/错误；非原iPhone验收，未改游戏或部署。",
+      "evidence": [
+        "COZE_LIVE_CHECK_20261028.md",
+        "../../reports/qa/coze-live-http-20261028.json"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "依据原机浏览器终止页截图开始V06-SAFARI-001排查：以Coze第16版相同核心程序为基线，定向检查首关结算与35%续局准备；暂未归因。",
+      "evidence": [
+        "SAFARI_STAGE_END_20261028.md",
+        "COZE_LIVE_CHECK_20261028.md"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "V06-SAFARI-001本地续局候选完成：按真实身份/舰装收紧准备并条件加载无尽；同档模型114→62，Windows自然首关与正式压缩包恢复通过，2767项回归含权限项重跑有通过证据。Coze差量包仅4个前端文件，未提交/推送/部署；原iPhone首关刷新与根因仍待验证，V05保持。",
+      "evidence": [
+        "SAFARI_RESTORE_20261029.md",
+        "../../reports/qa/safari-restore-20261029.json"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "用户要求推到远端：开始仅将本轮Safari修复、相关Coze/SW核对证据和已验证4文件压缩前端候选提交、推送GitHub体积优化版。main、独立Sites部署checkout及线上服务保持。",
+      "evidence": [
+        "SAFARI_RESTORE_20261029.md"
       ]
     }
   ],

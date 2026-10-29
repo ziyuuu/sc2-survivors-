@@ -4,31 +4,32 @@ import {BattleRenderer} from '../src/render/scene/battle-renderer';
 import type {RunSnapshot} from '../src/simulation/persistence/run-snapshot';
 import {newExpedition} from '../src/simulation/expedition-state';
 import {World} from '../src/simulation/world';
+const frozenTalents=(race:'terran'|'protoss')=>{const w=new World({race,sandbox:true,terrain:false,waves:false});w.start();return w.captureRun().config.frozenTalents;};
 const sourceRosterPreparation={raceModels:(BattleRenderer.prototype as any).raceModels,retainRequiredUnits:()=>{},prepareCommonAssets:async()=>{},world:new World({sandbox:true,terrain:false,waves:false})};
 
 test('loading a campaign save prepares upcoming wave and paid-order models before resume',async()=>{
  const requested:string[]=[];
  const renderer={...sourceRosterPreparation,prepareRescueAssets:async()=>{},prepareMissionAssets:async()=>{},prepareEndlessAssets:async()=>{},gpu:new Map(),ensureUnitVariant:async(key:string)=>{requested.push(key);return true;}};
- const snapshot={config:{race:'terran'},state:{stage:4,phase:'battle',battlefield:{mode:'campaign'},expedition:{...newExpedition('terran'),familySlots:['marine'],production:{barracks:{outputs:['marauder'],enabled:{marauder:true}}},ledger:[{family:'tank',state:'training'}]},entities:new Map(),pods:[],rewards:[]}} as unknown as RunSnapshot;
+ const snapshot={config:{race:'terran',frozenTalents:frozenTalents('terran')},state:{stage:4,phase:'battle',battlefield:{mode:'campaign'},expedition:{...newExpedition('terran'),familySlots:['marine'],production:{barracks:{outputs:['marauder'],enabled:{marauder:true}}},ledger:[{family:'tank',state:'training'}]},entities:new Map(),pods:[],rewards:[]}} as unknown as RunSnapshot;
  await BattleRenderer.prototype.prepareSnapshotAssets.call(renderer as BattleRenderer,snapshot);
  for(const model of ['marine','marauder','tank','zergling','roach','baneling'])assert.ok(requested.includes(model),`${model} must be ready before combat resumes`);
 });
 
 test('a missing upcoming enemy model blocks restored combat',async()=>{
  const renderer={...sourceRosterPreparation,prepareRescueAssets:async()=>{},prepareMissionAssets:async()=>{},prepareEndlessAssets:async()=>{},gpu:new Map(),ensureUnitVariant:async(key:string)=>key!=='roach'};
- const snapshot={config:{race:'terran'},state:{stage:4,phase:'battle',battlefield:{mode:'campaign'},expedition:{...newExpedition('terran'),familySlots:['marine'],production:{},ledger:[]},entities:new Map(),pods:[],rewards:[]}} as unknown as RunSnapshot;
+ const snapshot={config:{race:'terran',frozenTalents:frozenTalents('terran')},state:{stage:4,phase:'battle',battlefield:{mode:'campaign'},expedition:{...newExpedition('terran'),familySlots:['marine'],production:{},ledger:[]},entities:new Map(),pods:[],rewards:[]}} as unknown as RunSnapshot;
  await assert.rejects(BattleRenderer.prototype.prepareSnapshotAssets.call(renderer as BattleRenderer,snapshot),/必需单位模型未就绪：roach/);
 });
 test('Protoss readiness includes separate flagship and elite carrier displays for their shared immutable asset',async()=>{
  const requested:string[]=[],renderer={...sourceRosterPreparation,prepareRescueAssets:async()=>{},prepareMissionAssets:async()=>{},prepareEndlessAssets:async()=>{},gpu:new Map(),ensureUnitVariant:async(key:string)=>{requested.push(key);return true;}};
- const snapshot={config:{race:'protoss'},state:{stage:1,phase:'battle',battlefield:{mode:'campaign'},expedition:newExpedition('protoss'),entities:new Map(),pods:[],rewards:[]}} as unknown as RunSnapshot;
+ const snapshot={config:{race:'protoss',frozenTalents:frozenTalents('protoss')},state:{stage:1,phase:'battle',battlefield:{mode:'campaign'},expedition:newExpedition('protoss'),heroes:new Map([['purifier_flagship',{id:'purifier_flagship'}]]),pendingElites:['carrier.1'],entities:new Map(),pods:[],rewards:[]}} as unknown as RunSnapshot;
  await BattleRenderer.prototype.prepareSnapshotAssets.call(renderer as BattleRenderer,snapshot);
  assert.equal(requested.filter(key=>key==='hero.purifier_flagship').length,1);assert.equal(requested.filter(key=>key==='elite.carrier.1').length,1);assert.ok(!requested.includes('purifier_flagship'));
 });
 
 test('loading stage fifteen prepares its scheduled lurker Boss before it appears',async()=>{
  const requested:string[]=[],renderer={...sourceRosterPreparation,prepareRescueAssets:async()=>{},prepareMissionAssets:async()=>{},prepareEndlessAssets:async()=>{},gpu:new Map(),ensureUnitVariant:async(key:string)=>{requested.push(key);return true;}};
- const snapshot={config:{race:'terran'},state:{stage:15,phase:'battle',battlefield:{mode:'campaign'},expedition:newExpedition('terran'),entities:new Map(),pods:[],rewards:[]}} as unknown as RunSnapshot;
+ const snapshot={config:{race:'terran',frozenTalents:frozenTalents('terran')},state:{stage:15,phase:'battle',battlefield:{mode:'campaign'},expedition:newExpedition('terran'),entities:new Map(),pods:[],rewards:[]}} as unknown as RunSnapshot;
  await BattleRenderer.prototype.prepareSnapshotAssets.call(renderer as BattleRenderer,snapshot);assert.ok(requested.includes('lurker'));
 });
 

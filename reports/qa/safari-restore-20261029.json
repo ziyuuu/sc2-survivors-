@@ -1,0 +1,446 @@
+{
+  "date": "2026-10-29",
+  "finding": "V06-SAFARI-001",
+  "status": "待验证",
+  "conclusion": "Restore over-preparation fixed locally; original iPhone crash and first-stage auto-reload root cause unconfirmed",
+  "source": {
+    "baseCommit": "ac053e218de163c8c25fddc9e3e65aeca0d20bfa",
+    "branch": "体积优化版",
+    "uncommitted": true,
+    "files": [
+      {
+        "path": "src/app/race-preload.ts",
+        "sha256": "91ffe4983143dfa485775ef013f78a72905450baecb9a7d87734e8eabe38d173"
+      },
+      {
+        "path": "src/app/snapshot-preload-plan.ts",
+        "sha256": "0e2018f8baeeb84dd067cc984174534a8b6d4e8d8a6d6ed84f3b06dabd0a5ab2"
+      },
+      {
+        "path": "src/render/scene/battle-renderer.ts",
+        "sha256": "7c133393026db473d37e3e0ac5a406f61324bd549475fdd24e43638a6a6c1438"
+      },
+      {
+        "path": "src/simulation/starship/asset-plan.ts",
+        "sha256": "ca0f34b554b23a7d127d1f958c7afa6a2fb221d5374978eb873d5db55bf378e4"
+      },
+      {
+        "path": "test/m6-snapshot-assets.test.ts",
+        "sha256": "92a911e48d7e00792de408c75d976f326a87d00af4ef89f78b46da67a7489ffb"
+      },
+      {
+        "path": "test/snapshot-preload-scope.test.ts",
+        "sha256": "81a29cc492735116cb693b016491ee8a32f442d1f4b3842c9d8b1d1c55bd401c"
+      },
+      {
+        "path": "tools/measure-snapshot-preload.mjs",
+        "sha256": "9cb61aa961b08c121d86420efc45299af5a65c593de8d4e63eddbc2986b33aea"
+      },
+      {
+        "path": "tools/build-safari-stage-diagnostic.mjs",
+        "sha256": "a7be336fe3c882b2d7245e999b87be08d0efbc5bb5c6d74ab28919fa3de9334d"
+      },
+      {
+        "path": "tools/safari-stage-diagnostic.mjs",
+        "sha256": "873b33b9c025ff57da59e6a1d26fe1752d27582dcb6e3d95e8e4478520470b0b"
+      },
+      {
+        "path": "tools/serve-safari-stage-diagnostic.mjs",
+        "sha256": "68b38402d26f22e87a02ad1b79ce72b22ef8a26313aff730f15f3f68962b6e21"
+      },
+      {
+        "path": "tools/package-safari-restore-patch.mjs",
+        "sha256": "42155f23d3c3fe04226a017b12bd8d3f9ae4fc77195743c8c48c8f6c7a524bea"
+      }
+    ],
+    "validationState": "Source hashes at local validation; the packaging helper subsequently gained a version-16 baseline guard, without changing game runtime or tested bundle"
+  },
+  "dependencyProbe": {
+    "scope": "Actual renderer method intercepted on legal immediate first-intermission fixtures; not browser or natural 60-second play",
+    "before": [
+      {
+        "race": "terran",
+        "scope": "Node rendering-dependency interception; immediate legal stage-end fixture, no browser/GPU allocation",
+        "models": 54,
+        "heroes": [
+          "nova",
+          "raynor",
+          "swann",
+          "tosh",
+          "tychus",
+          "yamato_battlecruiser"
+        ],
+        "endlessCalls": 1,
+        "archiveBytes": 36198,
+        "snapshotAndSerializeMs": 3.2800999999999476
+      },
+      {
+        "race": "zerg",
+        "scope": "Node rendering-dependency interception; immediate legal stage-end fixture, no browser/GPU allocation",
+        "models": 32,
+        "heroes": [
+          "dehaka",
+          "hots_leviathan",
+          "kerrigan",
+          "niadra",
+          "stukov",
+          "zagara"
+        ],
+        "endlessCalls": 1,
+        "archiveBytes": 38587,
+        "snapshotAndSerializeMs": 2.3059400000001915
+      },
+      {
+        "race": "protoss",
+        "scope": "Node rendering-dependency interception; immediate legal stage-end fixture, no browser/GPU allocation",
+        "models": 41,
+        "heroes": [
+          "alarak",
+          "artanis",
+          "fenix",
+          "purifier_flagship",
+          "vorazun",
+          "zeratul"
+        ],
+        "endlessCalls": 1,
+        "archiveBytes": 35731,
+        "snapshotAndSerializeMs": 1.9379999999997382
+      }
+    ],
+    "after": [
+      {
+        "race": "terran",
+        "scope": "Node renderer dependency interception; immediate legal stage-end fixture, no browser/GPU allocation",
+        "models": 28,
+        "heroes": [],
+        "endlessCalls": 0,
+        "archiveBytes": 36198,
+        "snapshotAndSerializeMs": 4.615799999999945
+      },
+      {
+        "race": "zerg",
+        "scope": "Node renderer dependency interception; immediate legal stage-end fixture, no browser/GPU allocation",
+        "models": 17,
+        "heroes": [],
+        "endlessCalls": 0,
+        "archiveBytes": 38587,
+        "snapshotAndSerializeMs": 3.4556000000000493
+      },
+      {
+        "race": "protoss",
+        "scope": "Node renderer dependency interception; immediate legal stage-end fixture, no browser/GPU allocation",
+        "models": 26,
+        "heroes": [],
+        "endlessCalls": 0,
+        "archiveBytes": 35731,
+        "snapshotAndSerializeMs": 2.781420000000071
+      }
+    ]
+  },
+  "browser": {
+    "method": "Windows Chromium; medium visuals; simulated unknown-memory touch budget; native RAF/fixed steps; local instrumentation only",
+    "race": "terran",
+    "difficulty": "normal",
+    "map": "char",
+    "seed": 529,
+    "hero": null,
+    "equipment": 0,
+    "firstStage": {
+      "naturalSixtySeconds": true,
+      "simulatedDirectionInput": true,
+      "result": {
+        "phase": "reward",
+        "stage": 1,
+        "time": 60,
+        "models": 38,
+        "textureObjects": 1044,
+        "shaderPrograms": 359,
+        "reachableCpuBufferBytes": 175420186,
+        "decodedRgbaEstimateBytes": 202006528,
+        "recordedGlBufferBytes": 37532262,
+        "archiveBytes": 73345,
+        "wallet": {
+          "minerals": 170.08200000000102,
+          "gas": 133.82019999999721
+        },
+        "rewards": [
+          {
+            "id": "1:0:123:barracks",
+            "value": "barracks",
+            "sold": false
+          },
+          {
+            "id": "1:0:124:unlock.reaper",
+            "value": "unlock.reaper",
+            "sold": false
+          },
+          {
+            "id": "1:0:125:system.barracks",
+            "value": "system.barracks",
+            "sold": false
+          }
+        ],
+        "errors": [],
+        "modelErrors": [],
+        "missingEffects": 0,
+        "lastWarmMs": 49.19999998807907
+      },
+      "endEvents": [
+        {
+          "key": "captureRun",
+          "phase": "reward",
+          "time": 60,
+          "start": 255452.10000002384,
+          "ms": 2.699999988079071
+        },
+        {
+          "key": "endStage",
+          "phase": "battle",
+          "time": 60,
+          "start": 255446,
+          "ms": 9.100000023841858
+        },
+        {
+          "key": "captureRun",
+          "phase": "reward",
+          "time": 60,
+          "start": 255455.10000002384,
+          "ms": 1.2999999821186066
+        },
+        {
+          "key": "exportJSON",
+          "phase": "reward",
+          "time": 60,
+          "start": 255548.40000000596,
+          "ms": 1.9000000059604645
+        },
+        {
+          "key": "saveNow",
+          "phase": "reward",
+          "time": 60,
+          "start": 255548.30000001192,
+          "ms": 219
+        },
+        {
+          "key": "exportJSON",
+          "phase": "reward",
+          "time": 60,
+          "start": 257828.20000001788,
+          "ms": 2.4000000059604645
+        }
+      ]
+    },
+    "restore": {
+      "sameCheckpoint": true,
+      "sameWallet": true,
+      "sameRewards": true,
+      "before": {
+        "phase": "reward",
+        "stage": 1,
+        "time": 60,
+        "models": 114,
+        "textureObjects": 1727,
+        "shaderPrograms": 591,
+        "reachableCpuBufferBytes": 458183346,
+        "decodedRgbaEstimateBytes": 892936192,
+        "recordedGlBufferBytes": 105710330,
+        "archiveBytes": 73345,
+        "wallet": {
+          "minerals": 170.08200000000102,
+          "gas": 133.82019999999721
+        },
+        "rewards": [
+          {
+            "id": "1:0:123:barracks",
+            "value": "barracks",
+            "sold": false
+          },
+          {
+            "id": "1:0:124:unlock.reaper",
+            "value": "unlock.reaper",
+            "sold": false
+          },
+          {
+            "id": "1:0:125:system.barracks",
+            "value": "system.barracks",
+            "sold": false
+          }
+        ],
+        "errors": [],
+        "modelErrors": [],
+        "missingEffects": 0,
+        "restoreMs": 11732.799999982119,
+        "lastWarmMs": 38454.60000002384
+      },
+      "after": {
+        "phase": "reward",
+        "stage": 1,
+        "time": 60,
+        "models": 62,
+        "textureObjects": 1227,
+        "shaderPrograms": 447,
+        "reachableCpuBufferBytes": 257132520,
+        "decodedRgbaEstimateBytes": 372039680,
+        "recordedGlBufferBytes": 52990880,
+        "archiveBytes": 73345,
+        "wallet": {
+          "minerals": 170.08200000000102,
+          "gas": 133.82019999999721
+        },
+        "rewards": [
+          {
+            "id": "1:0:123:barracks",
+            "value": "barracks",
+            "sold": false
+          },
+          {
+            "id": "1:0:124:unlock.reaper",
+            "value": "unlock.reaper",
+            "sold": false
+          },
+          {
+            "id": "1:0:125:system.barracks",
+            "value": "system.barracks",
+            "sold": false
+          }
+        ],
+        "errors": [],
+        "modelErrors": [],
+        "missingEffects": 0,
+        "restoreMs": 3299.699999988079,
+        "lastWarmMs": 4411.300000011921
+      },
+      "comparisonLimit": "One ordered pair, cache/background timing differs; no stable latency claim. CPU/image/GL categories are separate estimates, not total process RAM or physical iPhone memory."
+    },
+    "production": {
+      "diagnosticInjection": false,
+      "restoreCompleted": true,
+      "progress100": true,
+      "phase": "stage 1 reward",
+      "displayWallet": {
+        "minerals": 170,
+        "gas": 133
+      },
+      "offers": [
+        "barracks",
+        "unlock.reaper",
+        "system.barracks"
+      ],
+      "warningErrorLogs": [],
+      "screenshot": "reports/local/safari-20261029/restore-release.png"
+    }
+  },
+  "validation": {
+    "fullRun": {
+      "tests": 2767,
+      "passed": 2760,
+      "failed": 7,
+      "failures": "Temporary file rename EPERM and local HTTP EACCES, including parent test"
+    },
+    "targetedRetry": {
+      "files": [
+        "test/coze-fetch.test.mjs",
+        "test/coze-web.test.mjs",
+        "test/p5-backend.test.mjs"
+      ],
+      "normalHostPermissions": true,
+      "tests": 16,
+      "passed": 16,
+      "failed": 0
+    },
+    "all2767HavePassingEvidence": true,
+    "newBoundaryTests": 8,
+    "typecheck": "passed",
+    "docsCheck": "passed",
+    "build": "Vite and all resource hashes passed; missing destination parent caused final rename failure; created parent and moved verified staging before packing",
+    "packedFileHashes": "all four matched ZIP entries",
+    "diagnosticMarkersAbsent": true
+  },
+  "delivery": {
+    "date": "2026-10-29",
+    "status": "local candidate; original iPhone verification pending; not deployed",
+    "baselineAppBuildId": "fb923fd9ec6430f39c00c0a96400b020a82932ffd4babe4e2a0bbf94a4a457c5",
+    "appBuildId": "820a6f82e6dabc06629c36b70df967bd6a272ba76331759b767f677e7f98180c",
+    "resourceRelease": "ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2",
+    "runSchema": 26,
+    "compressedEntrySha256": "6161cbaa5e7b07e0fa0f628c757cf7849bed8484b04d02261d080945e90d99fc",
+    "files": [
+      {
+        "path": "public/assets/index-5ffd2c224b8a7f78.js",
+        "bytes": 4018,
+        "sha256": "5ffd2c224b8a7f784a64929c4c5cd31ac41f41bb5fb31515272aead0833b6285"
+      },
+      {
+        "path": "public/assets/sc2-entry.6161cbaa5e7b07e0.js.gz",
+        "bytes": 7670471,
+        "sha256": "6161cbaa5e7b07e0fa0f628c757cf7849bed8484b04d02261d080945e90d99fc"
+      },
+      {
+        "path": "public/index.html",
+        "bytes": 955167,
+        "sha256": "1d9608404e44e5ebdedeb3bdb6c6d8bcf910ddbee24687534e7910470f37ece3"
+      },
+      {
+        "path": "public/web-release.json",
+        "bytes": 971,
+        "sha256": "4ec161cad80d8768c65b10c213387b33e95a07f5ba2b622cac30b4ae6c25b9bc"
+      }
+    ],
+    "zip": "dist/safari-stage-20261029/release/Coze-Safari-Restore-Candidate.zip",
+    "zipBytes": 8376391,
+    "zipSha256": "0278231ba6b80b0f6fc59275b3ec8eeb25514ccf3713e6c3365028e31d7526a1",
+    "githubPushed": false,
+    "sitesDeployed": false,
+    "cozeDeployed": false,
+    "sharedDistWebReplaced": false,
+    "currentOfflineReplaced": false
+  },
+  "limitations": {
+    "physicalIphoneTested": false,
+    "userActualHeroGearConfigurationKnown": false,
+    "firstStageCrashReproduced": false,
+    "processTerminationCauseKnown": false,
+    "secondStageEntryTested": false,
+    "optionalRewardClick": "Automatic approval review rejected local test Unlock button because it changes a save without specific authorization. Action was not performed. No bypass."
+  },
+  "next": "After deployment authorization, update the existing Coze front end and retest original device with its existing save/cache. Keep first-stage crash open and collect phase/termination evidence if it persists.",
+  "cleanup": {
+    "retained": [
+      "current code patch ZIP and contents",
+      "packed candidate runtime",
+      "production restored-reward screenshot",
+      "compact QA report and reproduction tools"
+    ],
+    "removedBytes": 1545206752
+  },
+  "gitSync": {
+    "requested": "2026-10-29",
+    "status": "in progress",
+    "branch": "体积优化版",
+    "candidateSnapshot": "sites/size-optimized-site/public",
+    "runtimeFiles": [
+      {
+        "path": "sites/size-optimized-site/public/assets/index-5ffd2c224b8a7f78.js",
+        "bytes": 4018,
+        "sha256": "5ffd2c224b8a7f784a64929c4c5cd31ac41f41bb5fb31515272aead0833b6285"
+      },
+      {
+        "path": "sites/size-optimized-site/public/assets/sc2-entry.6161cbaa5e7b07e0.js.gz",
+        "bytes": 7670471,
+        "sha256": "6161cbaa5e7b07e0fa0f628c757cf7849bed8484b04d02261d080945e90d99fc"
+      },
+      {
+        "path": "sites/size-optimized-site/public/index.html",
+        "bytes": 955167,
+        "sha256": "1d9608404e44e5ebdedeb3bdb6c6d8bcf910ddbee24687534e7910470f37ece3"
+      },
+      {
+        "path": "sites/size-optimized-site/public/web-release.json",
+        "bytes": 971,
+        "sha256": "4ec161cad80d8768c65b10c213387b33e95a07f5ba2b622cac30b4ae6c25b9bc"
+      }
+    ],
+    "sitesDeploymentChanged": false,
+    "cozeDeploymentChanged": false
+  }
+}

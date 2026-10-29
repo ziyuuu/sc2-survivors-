@@ -6,6 +6,7 @@ import {familyRace,type Race} from '../../data/races';
 import type {Entity} from '../types';
 import {selectEquipmentEffects} from './selection';
 import {equippedItems} from './inventory';
+import type {EquipmentAccount} from './types';
 
 /** Run only the shared opening constructor on isolated copies. No combat ticks, live RNG or profile writes. */
 export function equipmentOpeningModels(world:World,race:Race,hero:HeroId|null,preset?:PresetSlot){if(!world.starship.enabled)return [];
@@ -19,8 +20,12 @@ export function equipmentOpeningModels(world:World,race:Race,hero:HeroId|null,pr
 /** Possible later deliveries from the currently equipped effects, without
  * replaying an opening or rolling a second random identity. */
 export function equipmentRuntimeModels(world:World,race:Race){if(!world.starship.enabled)return [];
+ return equipmentAccountModels(world.starship.account,race);
+}
+/** A restore prepares the incoming account, which may differ from the title screen. */
+export function equipmentAccountModels(account:EquipmentAccount,race:Race){
  const models:{key:string;type:Entity['unitType']}[]=[];
- for(const e of selectEquipmentEffects(equippedItems(world.starship.account,race))){
+ for(const e of selectEquipmentEffects(equippedItems(account,race))){
   if(e.key==='swarm')models.push({key:'zergling',type:'zergling'},{key:'mutalisk',type:'mutalisk'});
   if(e.key==='plague')models.push({key:'ultralisk',type:'ultralisk'},{key:HEROES.hots_leviathan.model,type:'hots_leviathan'});
   if(e.key==='behemoth'){models.push({key:HEROES.hots_leviathan.model,type:'hots_leviathan'});for(const elite of Object.values(ELITES).filter(e=>e.family==='ultralisk'))models.push({key:elite.model,type:elite.family});}

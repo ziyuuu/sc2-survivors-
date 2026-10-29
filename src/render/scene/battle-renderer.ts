@@ -19,6 +19,7 @@ import {cloneForPreparation} from './preparation-clone';
 import type {PreparationJob} from '../../app/background-preparation';
 import {openingPreloadModels,campaignPreloadModels,plannedBossPreloadModels} from '../../app/battle-preload-plan';
 import {combatPreloadPlan,fullCombatPreloadPlan,type CombatPreloadPlan} from '../../app/combat-preload-plan';
+import {snapshotIdentityModels,snapshotEquipmentEffects,completeSnapshotModelForms} from '../../app/snapshot-preload-plan';
 import {SOURCE_EFFECTS} from '../effects/source/player';
 import {sourceDependencies} from '../effects/source/materials';
 import {battleScenePreload,type BattleSceneScope} from '../../app/battle-scene-preload';
@@ -823,7 +824,7 @@ export class BattleRenderer {
  }
  async prepareSnapshotAssets(snapshot:RunSnapshot,progress:(done:number,total:number,label:string)=>void=()=>{}){
   await this.prepareRescueAssets(snapshot.state.expedition.race);await this.prepareMissionAssets({race:snapshot.config.race,difficulty:snapshot.config.difficulty,stage:Math.min(18,snapshot.state.stage+(snapshot.state.phase==='reward'?1:0)),endless:snapshot.state.battlefield.mode==='endless',bodyModels:[...[...(snapshot.state.missions?.bodies.values()??[])].map(b=>b.model),...(snapshot.state.encounters?.expanded.short?.corrupt?[snapshot.state.encounters.expanded.short.corrupt.site.model]:[])],hasHive:!!snapshot.state.hive||(snapshot.state.expansionHives?.size??0)>0});
-  const required:Map<string,UnitType>=this.raceModels(snapshot.config.race);
+  const required:Map<string,UnitType>=snapshotIdentityModels(snapshot);
   for(const family of snapshot.state.expedition.familySlots)required.set(family,family);
   for(const entry of snapshot.state.expedition.bossLootQueue){const effect=entry.reward.expeditionEffect;if(effect.kind==='elite')for(const elite of Object.values(ELITES).filter(e=>e.family===effect.family))required.set(elite.model,elite.family);else if(effect.kind==='hero'){const hero=HEROES[effect.heroId as HeroId];required.set(displayLoadModelKey(hero.model,hero.baseFamily),hero.baseFamily);}}
   for(const family of selectedProductionFamilies(snapshot.state.expedition))required.set(family,family);
@@ -838,11 +839,12 @@ export class BattleRenderer {
   for(const contract of snapshot.state.expedition.eliteContracts)if(!contract.purchased)offerFamilies.push(contract.family);
   for(const family of offerFamilies)for(const elite of Object.values(ELITES).filter(e=>e.family===family))required.set(elite.model,elite.family);
   if(snapshot.state.expedition.pendingShopElite){const elite=ELITES[snapshot.state.expedition.pendingShopElite.variantId];required.set(elite.model,elite.family);}
+  completeSnapshotModelForms(required);
   this.retainRequiredUnits(required.keys());
-  await this.prepareCommonAssets(combatPreloadPlan({race:snapshot.config.race,stage,difficulty:snapshot.config.difficulty,models:required,identities:[snapshot,selectEquipmentEffects(equippedItems(this.world.starship.account,snapshot.config.race))]}));
+  await this.prepareCommonAssets(combatPreloadPlan({race:snapshot.config.race,stage,difficulty:snapshot.config.difficulty,models:required,identities:[snapshot.state,snapshotEquipmentEffects(snapshot)]}));
   await prepareEmbeddedAssetIds(modelPreloadAssets([...required].filter(([key])=>!this.gpu.has(key)).map(([key,type])=>[displayAssetModelKey(key),type] as const)));
   let done=0;for(const [key,type] of required){if(!this.gpu.has(key)&&!await this.ensureUnitVariant(key,type))throw Error('必需单位模型未就绪：'+key);progress(++done,required.size,key);}
-  await this.prepareEndlessAssets((n,total,label)=>progress(required.size+n,required.size+total,label));
+  if(snapshot.state.battlefield.mode==='endless'||snapshot.state.endlessEntry)await this.prepareEndlessAssets((n,total,label)=>progress(required.size+n,required.size+total,label));
  }
  private async prepareUnit(type:UnitType,gltf:GLTF){gltf.scene.updateMatrixWorld(true);const box=new THREE.Box3().setFromObject(gltf.scene),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3());const scale=heights[type]*TUNING.unitScale/Math.max(.001,size.y);
   const batch:UnitBatch={gltf:{animations:gltf.animations},meshes:[],data:[],scale,center,minY:box.min.y,clips:mapAnimations(gltf.animations)};

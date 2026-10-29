@@ -1,0 +1,8 @@
+import http from 'node:http';import fs from 'node:fs/promises';import path from 'node:path';
+const root=path.resolve('dist/safari-stage-20261029'),fallback=path.resolve('sites/size-optimized-site/public'),reports=path.resolve('reports/local/safari-20261029');
+const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript','.css':'text/css','.json':'application/json','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml','.woff2':'font/woff2'};
+http.createServer(async(req,res)=>{try{const url=new URL(req.url,'http://localhost'),parts=decodeURIComponent(url.pathname).split('/').filter(Boolean);
+ if(req.method==='POST'&&parts[0]==='__diagnostic-report'&&['baseline','candidate'].includes(parts[1])){let body='';for await(const chunk of req){body+=chunk;if(body.length>5000000)throw Error('Report too large');}JSON.parse(body);await fs.writeFile(path.join(reports,parts[1]+'-browser.json'),body);res.writeHead(200);res.end('ok');return;}
+ const variant=['baseline','candidate'].includes(parts[0])?parts.shift():'release/packed';if(parts.some(p=>p==='..'||p.startsWith('.')||p.includes('\\')))throw Error('Invalid path');if(!parts.length)parts.push('index.html');const relative=parts.join('/');let file=path.join(root,variant,relative);try{await fs.access(file);}catch{file=path.join(fallback,relative);}
+ const data=await fs.readFile(file);res.writeHead(200,{'Content-Type':mime[path.extname(file)]??'application/octet-stream','Cache-Control':'no-store'});res.end(data);
+ }catch{res.writeHead(404);res.end('not found');}}).listen(18889,'127.0.0.1',()=>console.log('Safari diagnostic: http://127.0.0.1:18889/candidate/'));
