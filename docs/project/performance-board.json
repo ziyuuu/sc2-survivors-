@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "title": "星际幸存者MVP收尾与性能看板",
   "updated": "2026-10-29",
-  "revision": 290,
+  "revision": 291,
   "baseline": {
     "branch": "main",
     "commit": "be9e2982944314194c6dcc9dcc535bc321749eb4",
@@ -2692,7 +2692,7 @@
       ]
     },
     {
-      "status": "进行中",
+      "status": "待验证",
       "phase": "交付",
       "priority": "收尾",
       "auditIds": [],
@@ -2770,17 +2770,19 @@
         "../../reports/qa/growth-loot-inspection-20261029.json",
         "GROWTH_LOOT_IMPLEMENTATION_20261029.md",
         "../../reports/qa/growth-loot-implementation-20261029.json",
-        "../../reports/qa/growth-loot-replay-20261029.json"
+        "../../reports/qa/growth-loot-replay-20261029.json",
+        "LOCAL_FEEDBACK_GITHUB_SYNC_20261029.md",
+        "../../reports/qa/local-feedback-github-sync-20261029.json"
       ],
-      "result": "孤星、无尽与全来源掉落完成批准参数的本地实现，旧档/奖励回执保护通过。全量回归失败项均修正或在允许本机访问后复验，覆盖2811项唯一回归，最终54项及类型/数据检查通过；三尺寸说明、正式Web入口通过。320次有限全来源重放发现高收益/掠夺组合仍超数量与简单品质目标，平衡验收开放；构建b785addb，未提交推送部署。",
+      "result": "孤星、无尽与全来源掉落完成批准参数的本地实现，旧档/奖励回执保护通过。全量回归失败项均修正或在允许本机访问后复验，覆盖2811项唯一回归，最终54项及类型/数据检查通过；三尺寸说明、正式Web入口通过。320次有限全来源重放发现高收益/掠夺组合仍超数量与简单品质目标，平衡验收开放；构建b785addb；本批关间/BGM/成长掉落已随adcf9a8推送GitHub体积优化版，101文件及2份音乐LFS确认，未部署。用户决定暂时保留现有平衡。",
       "observedIssues": [
         {
           "id": "V06-GEAR-YIELD-001",
           "resolved": false,
-          "status": "待讨论",
+          "status": "暂缓",
           "scope": "批准的分难度单次自然掉落与特殊来源数量/品质已本地实现，旧计划/重复回执通过。320次全来源有限重放中等参与均值36.56/40.19/36.56/38.31；充分参与配橙色战争掠夺协议55.75/62.75/65.38/69.13，简单蓝装14–16件。参数落实，但全来源数量/品质目标未全部达标。",
           "evidence": "GROWTH_LOOT_IMPLEMENTATION_20261029.md",
-          "next": "讨论稀有掉落构筑是否作为目标例外，或具体调整战争掠夺协议额外数量/品质；保留已批准收益，不加隐藏额度。原机与其他种族/阵容尚未验证，暂不部署。"
+          "next": "用户2026-10-29明确暂时保留当前候选并要求推送，进一步调参暂缓。高收益/掠夺数量与简单蓝装目标仍未全部满足，后续按用户试玩与新决定处理；不以暂缓等同达标。"
         },
         {
           "id": "V06-FB-08",
@@ -2967,7 +2969,7 @@
           "evidence": "GROWTH_LOOT_IMPLEMENTATION_20261029.md"
         }
       ],
-      "next": "用户决定暂时保留当前参数并推送远端：核对并提交本批关间/BGM/成长掉落源码、正式音乐与证据，推送体积优化版并核对远端；不部署。"
+      "next": "等待用户继续试玩：原iPhone关间/音频/恢复与孤星/无尽手感仍待验证；按用户决定暂保留当前掉落参数，进一步平衡暂缓。GitHub同步完成，未部署。"
     },
     {
       "id": "D01",
@@ -10391,6 +10393,17 @@
       "change": "用户明确暂时保留本地候选并要求推送远端。开始按明确清单同步本批关间操作、BGM、孤星/无尽/全来源掉落；已核对远端起点72eb10d。不合main、不部署，平衡和原机验收限制保持。",
       "evidence": [
         "LOCAL_FEEDBACK_GITHUB_SYNC_20261029.md"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "按用户要求，已核对101项清单并将关间操作、菜单音、两首BGM与孤星/无尽/全来源掉落批次提交adcf9a8，推送GitHub体积优化版。远端分支及GitHub提交接口确认，2份音乐LFS上传完成。V06恢复待验证，掉落继续调参按用户决定暂缓；不合main、不部署，原机与平衡限制保持。",
+      "evidence": [
+        "LOCAL_FEEDBACK_GITHUB_SYNC_20261029.md",
+        "../../reports/qa/local-feedback-github-sync-20261029.json"
       ]
     }
   ],
