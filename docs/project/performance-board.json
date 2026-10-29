@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "title": "星际幸存者MVP收尾与性能看板",
   "updated": "2026-10-29",
-  "revision": 273,
+  "revision": 276,
   "baseline": {
     "branch": "main",
     "commit": "be9e2982944314194c6dcc9dcc535bc321749eb4",
@@ -2761,17 +2761,21 @@
         "COZE_LIVE_CHECK_20261028.md",
         "../../reports/qa/coze-live-http-20261028.json",
         "SAFARI_RESTORE_20261029.md",
-        "../../reports/qa/safari-restore-20261029.json"
+        "../../reports/qa/safari-restore-20261029.json",
+        "FEEDBACK_PERFORMANCE_20261029.md",
+        "../../reports/qa/intermission-performance-20261029.json",
+        "COZE_INTERMISSION_UPDATE_20261029.md",
+        "../../reports/qa/intermission-delivery-20261029.json"
       ],
-      "result": "第16版已发布且b9de9c7已同步GitHub。2026-10-29 Safari续局候选按真实身份/已装备依赖准备，非无尽不预载无尽；同档模型缓存114→62，Windows自然首关及正式压缩包恢复通过，2767项回归含权限项重跑有通过证据。修复源码、报告与4文件压缩前端候选已通过7cbc5c6推送GitHub体积优化版并核对远端；Coze/Sites尚未部署本候选。原iPhone首关刷新原因、实机恢复及MVP最终验收仍开放。",
+      "result": "本轮登记11项无尽试玩反馈，确认iPhone 17 Pro/Coze及批量分解/销毁。压缩版关间重复音频解码已修复：固定本机战役/无尽16中位数1384.2→77.2 ms、1806.6→136.5 ms；PCM预算不变，音频补回及保存进入17轮通过。核心2771项回归、最终51项定向与类型/数据检查通过。未提交推送部署；原机和其他反馈仍开放。",
       "observedIssues": [
         {
           "id": "V06-GEAR-YIELD-001",
           "resolved": false,
-          "status": "已按批准范围实施，待用户体验确认",
-          "scope": "简单难度，用户第11关本局新增约80件且多数绿装；已购买诱饵并参与额外事件",
+          "status": "待讨论",
+          "scope": "最新反馈：简单到无尽16仍满背包绿装；目标通常半背包、白主绿辅蓝个别，差十几件好50–60件，提出普通怪掉落间隔候选。",
           "evidence": "../../reports/qa/v06-loot-native-20261027.json",
-          "next": "用户在Sites第7版复测实际产出与奖励感"
+          "next": "性能批之后核对总量/品质及统计口径，方案见FEEDBACK_PERFORMANCE_20261029.md。"
         },
         {
           "id": "V06-FB-08",
@@ -2860,8 +2864,97 @@
           "scope": "Coze v5线上43份独立KTX2带/不带索引参数共86次200且长度/hash全部正确，14份合包切片通过；启动器/SW/清单/索引/游戏程序与第16版逐字节一致。旧客户端升级仍未在原手机观测。",
           "next": "服务器独立文件兜底已验证；保留旧客户端状态的真实升级验证尚未完成，原机自动刷新继续归V06-SAFARI-001。",
           "evidence": "../../reports/qa/packed-sw-compatibility-20261028.json"
+        },
+        {
+          "id": "V06-F29-02",
+          "status": "待讨论",
+          "resolved": false,
+          "scope": "用户要求每个关间可撤离；当前战役实现仍每3关。",
+          "evidence": "FEEDBACK_PERFORMANCE_20261029.md",
+          "next": "性能优先批后按记录处理；未复现不冒称已修复。"
+        },
+        {
+          "id": "V06-F29-03",
+          "status": "待验证",
+          "resolved": false,
+          "scope": "用户在iPhone 17 Pro/Coze报告后期/无尽反复加载；本机复现并修复重复音频解码，真实原机尚未验证。",
+          "evidence": "../../reports/qa/intermission-performance-20261029.json",
+          "next": "本批未部署；后续按发布授权更新Coze后复测原机。新资源仍会正常加载，未隐藏加载页。"
+        },
+        {
+          "id": "V06-F29-04",
+          "status": "待讨论",
+          "resolved": false,
+          "scope": "用户已确认一键选择、一键分解和一键销毁；后续明确页面、筛选、锁定/装备保护及确认方式。",
+          "evidence": "FEEDBACK_PERFORMANCE_20261029.md",
+          "next": "按记录讨论具体UI与保护范围后实施。"
+        },
+        {
+          "id": "V06-F29-05",
+          "status": "待讨论",
+          "resolved": false,
+          "scope": "提前区分装备可用资格与不可装备原因。",
+          "evidence": "FEEDBACK_PERFORMANCE_20261029.md",
+          "next": "性能优先批后按记录处理；未复现不冒称已修复。"
+        },
+        {
+          "id": "V06-F29-06",
+          "status": "待讨论",
+          "resolved": false,
+          "scope": "关间按稀有度一键装备合法散件，套装保护等边界待定。",
+          "evidence": "FEEDBACK_PERFORMANCE_20261029.md",
+          "next": "性能优先批后按记录处理；未复现不冒称已修复。"
+        },
+        {
+          "id": "V06-F29-07",
+          "status": "待讨论",
+          "resolved": false,
+          "scope": "菜单/操作按键音效需求。",
+          "evidence": "FEEDBACK_PERFORMANCE_20261029.md",
+          "next": "性能优先批后按记录处理；未复现不冒称已修复。"
+        },
+        {
+          "id": "V06-F29-08",
+          "status": "待讨论",
+          "resolved": false,
+          "scope": "非游戏界面BGM需求。",
+          "evidence": "FEEDBACK_PERFORMANCE_20261029.md",
+          "next": "性能优先批后按记录处理；未复现不冒称已修复。"
+        },
+        {
+          "id": "V06-F29-09",
+          "status": "待验证",
+          "resolved": false,
+          "scope": "孤星猎手后期吸收后无明显成长；现有渐近公式不等于已排除bug。",
+          "evidence": "FEEDBACK_PERFORMANCE_20261029.md",
+          "next": "性能优先批后按记录处理；未复现不冒称已修复。"
+        },
+        {
+          "id": "V06-F29-10",
+          "status": "待验证",
+          "resolved": false,
+          "scope": "不可再次购买商品仍刷新，需核对具体商品与资格。",
+          "evidence": "FEEDBACK_PERFORMANCE_20261029.md",
+          "next": "性能优先批后按记录处理；未复现不冒称已修复。"
+        },
+        {
+          "id": "V06-F29-11",
+          "status": "待讨论",
+          "resolved": false,
+          "scope": "合法白色商品耗尽后动态提升蓝紫等权重，后续参考其他游戏。",
+          "evidence": "FEEDBACK_PERFORMANCE_20261029.md",
+          "next": "性能优先批后按记录处理；未复现不冒称已修复。"
+        },
+        {
+          "id": "V06-INTERMISSION-PERF-001",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "已复现并修复超过32 MiB音频预算导致的关间反复解码；同输入重复准备202/253次解码降为0，画质/声音内容/玩法/保存保持。",
+          "evidence": "../../reports/qa/intermission-performance-20261029.json",
+          "next": "工程批次关闭；发布与原iPhone体验归V06-F29-03，其他反馈按FEEDBACK_PERFORMANCE_20261029.md继续。"
         }
-      ]
+      ],
+      "next": "完成本轮关间音频优化与4文件压缩前端的GitHub体积优化版同步，按Coze更新说明由用户发布后用原iPhone复测；其余11项反馈保留。"
     },
     {
       "id": "D01",
@@ -10106,6 +10199,38 @@
       "evidence": [
         "SAFARI_RESTORE_20261029.md",
         "../../reports/qa/safari-restore-20261029.json"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "登记用户无尽16试玩的11项反馈并明确性能优先；当前简单无尽池白20/绿80与新目标不符、战役撤退仍每3关、孤星使用渐近成长。启动关间重复准备测量，其他反馈未实施，未改UI/音画/掉落或部署。",
+      "evidence": [
+        "FEEDBACK_PERFORMANCE_20261029.md"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "关间重复音频解码本地修复与有限对照通过；战役/无尽16准备中位数1384.2→77.2 ms、1806.6→136.5 ms。预算、原声音频、玩法及保存保持。11项反馈及用户确认同步；未提交、推送、部署，原机继续待验证。",
+      "evidence": [
+        "FEEDBACK_PERFORMANCE_20261029.md",
+        "../../reports/qa/intermission-performance-20261029.json"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "用户授权提交推送本批优化并提供Coze步骤；正式4文件前端包和本机入口冒烟通过，开始Git同步。Coze仍fb923fd9、资源相同，线上尚未更新。",
+      "evidence": [
+        "COZE_INTERMISSION_UPDATE_20261029.md",
+        "../../reports/qa/intermission-delivery-20261029.json"
       ]
     }
   ],

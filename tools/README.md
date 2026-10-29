@@ -2,6 +2,10 @@
 
 本目录保留构建/资源流水线、后台和各批复现代码。脚本多并不意味着都应在当前版本执行；日期型验证工具依赖当批输入与版本。
 
+2026-10-29关间音频对照见[结果](../docs/project/FEEDBACK_PERFORMANCE_20261029.md)：`build-intermission-diagnostic.mjs baseline|candidate`、`serve-intermission-diagnostic.mjs`、`measure-intermission.mjs baseline|candidate`。使用现有压缩资源与本机18890端口；基线取`ff8140b`音频源码，检测入口有固定种子和设备预算，不发布。先完成CPU检查，再串行测量两版，使用独立临时浏览器数据。
+
+对应Coze更新见[交付步骤](../docs/project/COZE_INTERMISSION_UPDATE_20261029.md)。`package-intermission-patch.mjs`为本次日期型打包工具：输入为`ff8140b`中的Safari候选压缩快照和`dist/intermission-release-20261029/web`正式Web构建，输出4文件增量包；它会校验旧appBuildId，不适用于已经覆盖的新快照，也不会部署服务。
+
 | 目的 | 入口 |
 | --- | --- |
 | 常规回归、类型、参考资料 | 根目录 npm test、npm run typecheck、npm run docs:check |

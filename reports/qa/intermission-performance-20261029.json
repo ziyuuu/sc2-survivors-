@@ -1,0 +1,231 @@
+{
+  "date": "2026-10-29",
+  "task": "V06-INTERMISSION-PERF-001",
+  "status": "本地工程验证完成，原iPhone和Coze部署待后续",
+  "baselineCommit": "ff8140b",
+  "candidate": {
+    "label": "candidate",
+    "sha": "b5c2127c0e74f14a6387ed1603c41097f5838e9b6625031045ac04994ba5d4af",
+    "audioSha": "a5651a86a22522967f0f60f65c313532dd352ac006274099ba9d213d8c6bc607",
+    "baseline": "ff8140b",
+    "packedManifest": "asset-manifest.ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2.json",
+    "seed": 529,
+    "graphics": "medium",
+    "deviceBudget": "unknown-memory touch 6-core"
+  },
+  "actualUserEnvironment": "iPhone 17 Pro / Coze; confirmed same as prior report",
+  "feedbackDocument": "../../docs/project/FEEDBACK_PERFORMANCE_20261029.md",
+  "cause": "Required audio preparation repeatedly decoded a broad bank larger than the 32 MiB PCM budget. LRU eviction removed earlier clips and the next unchanged gate forced them back, causing 202/253 repeated decodes.",
+  "change": "Remember successful immutable audio validation for the current AudioEffects lifetime. Preparation does not refill intentionally evicted PCM; actual playback always reloads missing buffers, failures invalidate the marker, cancellation cannot validate unfinished work. No source clips, volume, RNG, simulation or saving rules changed.",
+  "method": "Windows Chrome; medium packed assets; simulated touch budget; fixed run seed 529; forced first-stage and endless-16 reward fixtures, battle clock paused; optional tick stopped and drained for controlled repeated gates; real readiness, stage window, on-demand native audio and HUD checkpoint/commit; no physical iOS test",
+  "scenarios": {
+    "campaign": {
+      "repeats": 3,
+      "seed": 529,
+      "round": null,
+      "totalMs": {
+        "baseline": [
+          1384.2,
+          1333.9,
+          1442.8
+        ],
+        "candidate": [
+          98.2,
+          77.2,
+          60.1
+        ],
+        "baselineMedian": 1384.2,
+        "candidateMedian": 77.2
+      },
+      "audioMs": {
+        "baseline": [
+          1322.9,
+          1272.4,
+          1379.1
+        ],
+        "candidate": [
+          22.1,
+          19.5,
+          14.5
+        ]
+      },
+      "decodes": {
+        "baseline": [
+          202,
+          202,
+          202
+        ],
+        "candidate": [
+          0,
+          0,
+          0
+        ]
+      },
+      "candidatePcmBytes": [
+        33153448,
+        33153448,
+        33153448
+      ],
+      "pcmBudget": 33554432,
+      "firstGate": {
+        "baselineMs": 3375,
+        "candidateMs": 3216.7,
+        "presentationJobs": 30
+      },
+      "unchangedRenderResources": {
+        "models": 38,
+        "programs": 384,
+        "textures": 1043
+      },
+      "sameOffers": [
+        "stim",
+        "barracks",
+        "unlock.reaper"
+      ]
+    },
+    "endless": {
+      "repeats": 3,
+      "seed": 529,
+      "round": 16,
+      "totalMs": {
+        "baseline": [
+          1632.7,
+          1811.3,
+          1806.6
+        ],
+        "candidate": [
+          153.4,
+          136.5,
+          122
+        ],
+        "baselineMedian": 1806.6,
+        "candidateMedian": 136.5
+      },
+      "audioMs": {
+        "baseline": [
+          1532.2,
+          1704.3,
+          1708.9
+        ],
+        "candidate": [
+          29.6,
+          28.7,
+          22
+        ]
+      },
+      "decodes": {
+        "baseline": [
+          253,
+          253,
+          253
+        ],
+        "candidate": [
+          0,
+          0,
+          0
+        ]
+      },
+      "candidatePcmBytes": [
+        33212868,
+        33212868,
+        33212868
+      ],
+      "pcmBudget": 33554432,
+      "firstGate": {
+        "baselineMs": 4028.2,
+        "candidateMs": 2467.6,
+        "presentationJobs": 74
+      },
+      "unchangedRenderResources": {
+        "models": 52,
+        "programs": 448,
+        "textures": 1186
+      },
+      "sameOffers": [
+        "shield",
+        "barracks",
+        "unlock.reaper"
+      ]
+    }
+  },
+  "checks": {
+    "onDemand": {
+      "played": 1,
+      "bufferRestored": true,
+      "errors": []
+    },
+    "advance": {
+      "phase": "battle",
+      "round": 17,
+      "saveFailed": false,
+      "modelErrors": [],
+      "audioErrors": []
+    }
+  },
+  "validation": {
+    "fullRegression": {
+      "passed": 2771,
+      "failed": 0,
+      "scope": "After core cache fix, before final one-line later-failure invalidation guard. First restricted-network attempt was interrupted after localhost fixture failures; authorized rerun passed."
+    },
+    "finalFocused": {
+      "passed": 51,
+      "failed": 0,
+      "includes": "5 new audio-preparation regressions plus combat/motion/hero audio, readiness/cancellation and stage windows; includes the final failure guard"
+    },
+    "typecheck": "passed on final source",
+    "docsCheck": "passed on final source",
+    "browser": "final candidate serial measurement and native audio fallback/HUD checkpoint commit passed",
+    "visual": "Final raw endless canvas and paused HUD inspected; original structures/unit rendered"
+  },
+  "limitations": [
+    "Windows Chrome with simulated unknown-memory touch budget, not physical iOS.",
+    "Forced first-stage and endless-16 reward fixtures, not natural play to endless 16.",
+    "Three unchanged gates per scenario in one fixed-seed pair; not a general FPS or total-memory claim.",
+    "New presentation work still occurs on the first gate; startup/first-gate timing varied and is not claimed as a stable speedup.",
+    "Loading UI/120 ms reveal logic unchanged; genuine new-resource preparation and possible brief loading UI remain.",
+    "Original iPhone page termination remains a separate unresolved finding."
+  ],
+  "harnessNotes": [
+    "Exploratory candidate overlapped CPU regression, so only the final serial pair is used.",
+    "One test-fixture attempt entered endless before settling the previous reward window and was corrected; not a product regression."
+  ],
+  "delivery": {
+    "sourceModified": true,
+    "committed": false,
+    "pushed": false,
+    "sitesPublished": false,
+    "cozeUpdated": false
+  },
+  "changedFiles": [
+    "src/render/effects/audio.ts",
+    "test/audio-preparation.test.ts",
+    "tools/build-intermission-diagnostic.mjs",
+    "tools/serve-intermission-diagnostic.mjs",
+    "tools/measure-intermission.mjs",
+    "docs/project/FEEDBACK_PERFORMANCE_20261029.md",
+    "docs/project/README.md",
+    "docs/project/performance-board.json",
+    "docs/project/PERFORMANCE_BOARD.html",
+    "docs/project/PERFORMANCE_TODO.md",
+    "tools/README.md",
+    "reports/qa/intermission-performance-20261029.json"
+  ],
+  "reproduction": [
+    "node tools/build-intermission-diagnostic.mjs baseline",
+    "node tools/build-intermission-diagnostic.mjs candidate",
+    "node tools/serve-intermission-diagnostic.mjs",
+    "node tools/measure-intermission.mjs baseline",
+    "node tools/measure-intermission.mjs candidate"
+  ],
+  "retention": "Completed temporary builds, screenshots and verbose logs are removed after recording this summary. Shared source assets, production snapshots and Safari candidate retained.",
+  "sourceSha256": "a5651a86a22522967f0f60f65c313532dd352ac006274099ba9d213d8c6bc607",
+  "baselineBuild": {
+    "label": "baseline",
+    "sha": "933b4dd18034214e60d6747d521eb628453d032d3232d077f46947b2d86c2848",
+    "packedManifest": "asset-manifest.ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2.json",
+    "seed": 529,
+    "graphics": "medium",
+    "deviceBudget": "unknown-memory touch 6-core"
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "appBuildId": "820a6f82e6dabc06629c36b70df967bd6a272ba76331759b767f677e7f98180c",
+  "appBuildId": "88e920c3b848e76f20f4de7c5cf895d8facd7f29d0b99868866c2698b4a6a4fa",
   "runSchema": 26,
   "rulesId": "mvp-1.0",
   "mapId": "campaign-five-v3",
@@ -12,7 +12,7 @@
   "release": "ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2",
   "source": "reports/local/asset-reachability.json",
   "sourceWebRelease": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
-  "compressedEntrySha256": "6161cbaa5e7b07e0fa0f628c757cf7849bed8484b04d02261d080945e90d99fc",
+  "compressedEntrySha256": "faa5306eeb61f78acd41b9b2533259493436247c37f92db37273512683b3fea3",
   "qualityVariants": true,
   "packedBytes": 458346118,
   "variantRecordCount": 1375,

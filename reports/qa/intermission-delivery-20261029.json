@@ -1,0 +1,100 @@
+{
+  "date": "2026-10-29",
+  "task": "V06-INTERMISSION-PERF-001",
+  "status": "Packaged; Git sync pending; Coze/Sites not deployed",
+  "sourceBaseline": "ff8140b118db8a051ca67724f77839241312acf2",
+  "audioSourceSha256": "a5651a86a22522967f0f60f65c313532dd352ac006274099ba9d213d8c6bc607",
+  "patch": {
+    "date": "2026-10-29",
+    "status": "local verified-source frontend package; not deployed",
+    "baselineAppBuildIds": [
+      "fb923fd9ec6430f39c00c0a96400b020a82932ffd4babe4e2a0bbf94a4a457c5",
+      "820a6f82e6dabc06629c36b70df967bd6a272ba76331759b767f677e7f98180c"
+    ],
+    "appBuildId": "88e920c3b848e76f20f4de7c5cf895d8facd7f29d0b99868866c2698b4a6a4fa",
+    "resourceRelease": "ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2",
+    "runSchema": 26,
+    "compressedEntrySha256": "faa5306eeb61f78acd41b9b2533259493436247c37f92db37273512683b3fea3",
+    "files": [
+      {
+        "path": "public/assets/index-ca1494ca74ce0cea.js",
+        "bytes": 4018,
+        "sha256": "ca1494ca74ce0ceadc8645a4b96f843fa502f52cd932d5adc0bfaed5c0a1bb3e"
+      },
+      {
+        "path": "public/assets/sc2-entry.faa5306eeb61f78a.js.gz",
+        "bytes": 7670504,
+        "sha256": "faa5306eeb61f78acd41b9b2533259493436247c37f92db37273512683b3fea3"
+      },
+      {
+        "path": "public/index.html",
+        "bytes": 955167,
+        "sha256": "8c7d71efb5018822b6c88c6b3c06bfb1b12b832bd28e0068fcfe6c60f9f5aba7"
+      },
+      {
+        "path": "public/web-release.json",
+        "bytes": 971,
+        "sha256": "0e1a38a3d81d2e84e3135347113db2c81dafd1a5ef68f4c904347d68d2a94545"
+      }
+    ]
+  },
+  "zip": {
+    "path": "dist/intermission-release-20261029/Coze-Intermission-Update.zip",
+    "bytes": 8376506,
+    "sha256": "011b57e23d5369956fdd4117f29366107641c671b62acc73ef38aa78d2b3f587"
+  },
+  "verification": {
+    "webBuild": "passed; isolated SC2_WEB_OUTPUT",
+    "compressedUpdate": "resource IDs/release/schema unchanged",
+    "fileHash": "All 4 files match ZIP entries, package directory, tracked frontend snapshot and local HTTP entry on port 18891",
+    "browser": {
+      "tool": "tools/verify-safari-entry.mjs",
+      "command": "SC2_ENTRY_QA_OUTPUT=reports/local/intermission-delivery-20261029 node tools/verify-safari-entry.mjs http://127.0.0.1:18891 chromium intermission-release medium",
+      "engine": "chromium",
+      "tier": "medium",
+      "simulatedTouchBudget": true,
+      "physicalAppleDevice": false,
+      "path": "normal menu -> human/normal -> first battle for more than 5 seconds -> pause",
+      "endTime": 5.816666666666666,
+      "errors": [],
+      "httpFailures": [],
+      "contextLoss": false,
+      "visual": "Actual battle screenshot inspected"
+    }
+  },
+  "reusedRegression": {
+    "evidence": "intermission-performance-20261029.json",
+    "sameFinalAudioSource": true,
+    "coreFull": 2771,
+    "finalFocused": 51,
+    "typecheck": "passed",
+    "docsCheck": "passed"
+  },
+  "cozePreflight": {
+    "origin": "https://sc-survivors.coze.site",
+    "date": "2026-10-29",
+    "rootStatus": 200,
+    "releaseStatus": 200,
+    "appBuildId": "fb923fd9ec6430f39c00c0a96400b020a82932ffd4babe4e2a0bbf94a4a457c5",
+    "resourceRelease": "ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2",
+    "rootCacheControl": "no-cache",
+    "releaseCacheControl": "public, max-age=31536000, immutable",
+    "cacheAction": "Deployment instructions require no-cache for web-release.json"
+  },
+  "git": {
+    "branch": "体积优化版",
+    "committed": false,
+    "pushed": false
+  },
+  "deployments": {
+    "coze": false,
+    "sites": false
+  },
+  "limitations": [
+    "Only frontend increment packaged; existing assets/backend/configuration retained.",
+    "No physical iPhone test in this task.",
+    "Source performance comparisons are fixed local fixtures; no additional full-game or sustained performance matrix.",
+    "Root-site HTTP checks do not inspect Coze deployment settings."
+  ],
+  "retention": "Keep deliverable ZIP and patch directory for pending Coze update. Remove completed smoke screenshots/log and intermediate web/packed build after summary."
+}
