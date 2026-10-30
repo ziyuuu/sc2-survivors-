@@ -2,6 +2,8 @@
 
 # 工具入口
 
+2026-10-30坦克拖尾[修复与验证](../docs/project/TANK_EFFECT_FIX_20261030.md)：`node tools/inspect-tank-effects-20261030.mjs`渲染四套既有特效与独立火星层，`--baseline`只在诊断中读取2737b9f旧实现。`node --import tsx tools/inspect-tank-particle-direction-20261030.mts`核对实际位移与拖尾方向，重力置零仅在诊断副本使用。输出在`reports/local/tank-effects-20261030`，不改游戏或发布；正式回归为`test/source-particle-tail-motion.test.ts`。
+
 2026-10-29解锁反馈见[修复与复现](../docs/project/UNLOCK_FEEDBACK_FIX_20261029.md)。`test/development-unlock-feedback.test.ts`覆盖失效候选清理与首次解锁排期；`qa-unlock-feedback.mjs`使用命名Web构建、实际HUD和受控账户检查三尺寸，`--entry-only`检查同批正式Web入口。仅本机服务和独立浏览器数据，输出到`reports/local/unlock-feedback-20261029`，不部署。修复前`inspect-queen-unlock-20261029.mts`保留历史断言，勿在新规则上覆盖旧报告。
 
 本目录保留构建/资源流水线、后台和各批复现代码。脚本多并不意味着都应在当前版本执行；日期型验证工具依赖当批输入与版本。

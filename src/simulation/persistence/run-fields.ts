@@ -21,6 +21,7 @@ import {allocationCost,allocationPoints,validateTalentAllocation} from '../../da
 import {ELITES} from '../../data/elites';
 import {HEROES} from '../../data/heroes';
 import {validBattleView} from '../combat/battle-view';
+import type {StarshipSnapshot} from './starship-snapshot';
 /** Explicit schema: adding RunState state requires choosing persistence or rebuild. */
 export const RUN_FIELDS=[
  'funShop','specialStages','fieldEvents',
@@ -48,7 +49,7 @@ export const RUN_FIELDS=[
 export const RUN_REBUILT_FIELDS=['input','directionRoute','hash','visualEvents','heroAttackEvents','heroAuraMembership','maxStretch','distancePairs','collisionContacts','spawnCells','swarmSpawnCache','revision','contacts','formation','destinationFormation','engagement','movementAllies','formationPlanned','configStage','configDifficulty','stageData','attackLines','statuses'] as const;
 export type RunData=ReturnType<RunState['snapshotData']>;
 export function selectRunData(state:RunState):RunData {return state.snapshotData();}
-export function validateRunData(data:RunData,defaults:object){
+export function validateRunData(data:RunData,defaults:object,equipment?:StarshipSnapshot){
  if(!data||typeof data!=='object'||Object.keys(data).length!==RUN_FIELDS.length)throw Error('续局字段不完整');
  if(!data.expedition||typeof data.expedition!=='object')throw Error('三族状态缺失');
  if(!data.specialStages||data.specialStages.active||!(data.specialStages.used instanceof Set))throw Error('特殊关运行状态无效');
@@ -72,7 +73,13 @@ export function validateRunData(data:RunData,defaults:object){
  if(!frozen||frozen.effectsVersion!=='shared-tech-20260929'||frozen.ruleset!=='mvp-1.0'||frozen.race!==data.expedition.race||validateTalentAllocation(frozen.race,frozen.levels)||frozen.allocated!==allocationPoints(frozen.levels)||frozen.investment!==allocationCost(frozen.levels))throw Error('冻结天赋与战局状态不一致');
  if(!['battle','reward','won','endless-ready','finished','lost'].includes(data.phase)||!['easy','normal','hard','hell'].includes(data.difficulty)||!Number.isSafeInteger(data.tick)||data.tick<0||!Number.isFinite(data.time)||data.time<0||!Number.isInteger(data.stage)||data.stage<1||data.stage>18||typeof data.runId!=='string'||!data.runId||data.runConfig.rulesId!=='mvp-1.0'||data.runConfig.campaignId!=='campaign-18'||!['campaign-kairos-v1','campaign-five-v3'].includes(data.runConfig.mapId)||!data.runConfig.mapHash||!Number.isSafeInteger(data.runConfig.seed)||data.runConfig.difficulty!==data.difficulty||data.runConfig.race!==data.expedition.race||!Number.isFinite(data.wallet?.minerals)||!Number.isFinite(data.wallet?.gas)||data.wallet.minerals<0||data.wallet.gas<0)throw Error('续局基本状态无效');
  if(!data.battlefield||data.battlefield.mode!==(data.endless?'endless':'campaign')||data.battlefield.mapId!==(data.endless?'endless-flat-v1':data.runConfig.mapId)||typeof data.battlefield.mapHash!=='string'||!data.battlefield.mapHash||data.endlessEntry!==null&&(!data.endlessEntry||data.stage!==18||data.endless||data.endlessEntry.id!==data.runId+':endless-entry'||!Number.isSafeInteger(data.endlessEntry.revision)||data.endlessEntry.revision<0||typeof data.endlessEntry.ready!=='boolean')||data.endlessTransitionReceipt!==null&&typeof data.endlessTransitionReceipt!=='string'||!Array.isArray(data.endlessRoundReceipts)||data.endlessRoundReceipts.some(x=>typeof x!=='string')||new Set(data.endlessRoundReceipts).size!==data.endlessRoundReceipts.length)throw Error('续局战场或无尽整备状态无效');
- for(const [id,u] of data.entities){const combatBody=isAirHeroType(u.unitType)?u.heroId===u.unitType&&u.owner==='terran':ALL_FAMILIES.includes(u.unitType as FamilyId);if(!Number.isSafeInteger(id)||u?.id!==id||!combatBody||u.race!==combatRace(u.unitType)||u.team!==(u.owner==='terran'?'player':'enemy')||![u.x,u.z,u.hp,u.maxHp,u.weaponCooldown,u.nextShotAt,u.lastShotAt].every(n=>typeof n==='number'&&!Number.isNaN(n))||u.maxHp<=0)throw Error('续局单位无效');}
+ for(const [id,u] of data.entities){
+  // Plague/behemoth equipment creates temporary Leviathans without hero identity.
+  // Their corpses also remain in the intermission checkpoint until normal cleanup.
+  const bodies=equipment?.runtime?.advancedBodies,members=equipment?.runtime?.members,body=bodies instanceof Map?bodies.get(id):undefined,member=members instanceof Map?members.get(id):undefined;
+  const equipmentLeviathan=u.unitType==='hots_leviathan'&&u.owner==='terran'&&u.temporary===true&&u.heroId===undefined&&!u.attributes.includes('Heroic')&&Number.isFinite(u.temporaryUntil)&&body&&['plague','behemoth'].includes(body.kind)&&member?.origin===body.kind&&member.independent===true&&member.cannotGrow===true&&member.cannotRevive===true;
+  const combatBody=isAirHeroType(u.unitType)?u.owner==='terran'&&(u.heroId===u.unitType||equipmentLeviathan):ALL_FAMILIES.includes(u.unitType as FamilyId);if(!Number.isSafeInteger(id)||u?.id!==id||!combatBody||u.race!==combatRace(u.unitType)||u.team!==(u.owner==='terran'?'player':'enemy')||![u.x,u.z,u.hp,u.maxHp,u.weaponCooldown,u.nextShotAt,u.lastShotAt].every(n=>typeof n==='number'&&!Number.isNaN(n))||u.maxHp<=0)throw Error('续局单位无效');
+ }
  for(const u of data.entities.values())if(u.rewardSourceKind!==undefined&&(!u.summonKind||!['ordinary','elite','hero','temporary'].includes(u.rewardSourceKind)||!Number.isSafeInteger(u.rewardOwnerId)||!Number.isFinite(u.rewardOwnerGeneration)||u.rewardOwnerId!==u.summonOwnerId))throw Error('召唤物奖励归属无效');
  // Saved: pair identity/rank/regrowth tick, queen cooldown, per-carrier injection receipt.
  // Rebuilt: console selection/pages and engagement positions. No view objects in these DTOs.

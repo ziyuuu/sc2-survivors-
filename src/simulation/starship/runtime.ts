@@ -1,4 +1,5 @@
 import {equipmentNativeWeaponBudget} from './weapon-budget';
+import {canReceiveRecovery} from '../combat/support-targets';
 import {teamCardEffects} from '../progression/team-cards';
 import {uniqueActiveStats} from '../combat/unique-support';
 import {newEquipmentLootRuntime,type EquipmentLootRuntime} from './loot-presentation';
@@ -120,7 +121,7 @@ export function applyEquipmentTrueHit(w:World,u:Entity,target:Body,hits=1,crit=1
 export function equipmentCrit(w:World,u:Entity){const t=equipmentUnitTotals(w,u);return equipmentRecipient(w,u)?{chance:t.crit,damage:t.critDamage}:{chance:0,damage:0};}
 export function equipmentIncomingReduction(w:World,u:Entity){return equipmentRecipient(w,u)?Math.min(.7,equipmentUnitTotals(w,u).reduction):0;}
 export function equipmentDodge(w:World,u:Entity){return equipmentRecipient(w,u)?Math.min(.75,equipmentUnitTotals(w,u).dodge):0;}
-export function equipmentRecoveryFactor(w:World,u:Entity){return equipmentRecipient(w,u)?1+equipmentUnitTotals(w,u).defense/1000:1;}
+export function equipmentRecoveryFactor(w:World,u:Entity){if(!canReceiveRecovery(u))return 0;return equipmentRecipient(w,u)?1+equipmentUnitTotals(w,u).defense/1000:1;}
 
 export function tickStarship(w:World){const a=w.starship.account;if(!w.starship.enabled||!a.run||a.run.ended||w.phase!=='battle'||w.paused||w.requiresPlayerDecision)return;
  tickEquipmentLife(w);tickEquipmentProjections(w);tickEquipmentControls(w);tickEquipmentDefense(w);tickEquipmentRecall(w);if(!w.specialStages.active){tickEquipmentModules(w);tickEquipmentEconomy(w);}tickEquipmentGrowth(w);tickEquipmentCombat(w);collectNearbyEquipment(w);

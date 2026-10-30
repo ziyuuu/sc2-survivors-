@@ -11,10 +11,12 @@ export function firstSupportTargets(bodies:Iterable<Entity>,eligible:(u:Entity)=
  return selected;
 }
 export const healthOrder=(a:Entity,b:Entity)=>a.hp/a.maxHp-b.hp/b.maxHp||a.id-b.id;
+/** S15 locks recovery until its forced expiry, including the deadline's fixed step. */
+export const canReceiveRecovery=(u:Entity)=>!u.lastStandUntil;
 export function medicalTargets(w:World,u:Entity,radius:number,limit:number,previous?:number|null){
  let retained:Entity|undefined;
  const selected=firstSupportTargets(w.entities.values(),p=>{
-  if(!((funMedicalPatient(w,u,p)??(p.owner===u.owner))&&missionSupportAllowed(u,p)&&p.id!==u.id&&p.hp>0&&p.hp<p.maxHp&&!p.attributes.includes('Structure')&&(p.attributes.includes('Biological')||p.attributes.includes('Mechanical'))&&w.edgeDistance(u,p)<=radius&&w.hasAttackLine(u,p)))return false;
+  if(!(canReceiveRecovery(p)&&(funMedicalPatient(w,u,p)??(p.owner===u.owner))&&missionSupportAllowed(u,p)&&p.id!==u.id&&p.hp>0&&p.hp<p.maxHp&&!p.attributes.includes('Structure')&&(p.attributes.includes('Biological')||p.attributes.includes('Mechanical'))&&w.edgeDistance(u,p)<=radius&&w.hasAttackLine(u,p)))return false;
   if(p.id===previous)retained=p;return true;
  },healthOrder,limit);
  if(retained&&selected[0]!==retained&&retained.hp/retained.maxHp<=selected[0].hp/selected[0].maxHp+.08){const at=selected.indexOf(retained);if(at>=0)selected.splice(at,1);selected.unshift(retained);if(selected.length>limit)selected.pop();}

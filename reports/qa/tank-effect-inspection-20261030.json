@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-30",
+  "finding": "V06-TANK-FX-001",
+  "status": "confirmed-unfixed",
+  "head": "2737b9f1a5fd47b3e5dea88bf77192117266ff30",
+  "scope": "read-only game investigation; diagnostics/documents only",
+  "video": "dist/promo-video-20261027/Starcraft-Survivors-Trailer-v1.mp4",
+  "videoSeconds": [
+    46.8,
+    47.6
+  ],
+  "samples": 12,
+  "pageErrors": [],
+  "missing": 0,
+  "direction": [
+    {
+      "gravity": "native",
+      "age": 0.3,
+      "count": 15,
+      "minAngle": 23.718505608850528,
+      "maxAngle": 72.5475788996191
+    },
+    {
+      "gravity": "native",
+      "age": 0.6,
+      "count": 15,
+      "minAngle": 147.85257238541075,
+      "maxAngle": 171.7773040642886
+    },
+    {
+      "gravity": "native",
+      "age": 1,
+      "count": 15,
+      "minAngle": 157.27797991134355,
+      "maxAngle": 173.5346698865132
+    },
+    {
+      "gravity": "zero-control",
+      "age": 0.3,
+      "count": 15,
+      "minAngle": 0,
+      "maxAngle": 0.0000012074182697257333
+    },
+    {
+      "gravity": "zero-control",
+      "age": 0.6,
+      "count": 15,
+      "minAngle": 0,
+      "maxAngle": 8.537736462515939e-7
+    },
+    {
+      "gravity": "zero-control",
+      "age": 1,
+      "count": 15,
+      "minAngle": 0,
+      "maxAngle": 0.0000012074182697257333
+    }
+  ],
+  "limitations": [
+    "No native SC2 client comparison",
+    "Tail length and bounce fidelity remain to verify",
+    "No production fix or build/deployment"
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-30",
+  "status": "validated-awaiting-push",
+  "repository": "ziyuuu/sc2-survivors-",
+  "branch": "体积优化版",
+  "baseline": "2737b9f1a5fd47b3e5dea88bf77192117266ff30",
+  "findings": [
+    "V06-TANK-FX-001",
+    "V06-AUDIT-SAVE-001",
+    "V06-AUDIT-EXPIRY-001",
+    "V06-AUDIT-RECOVERY-001",
+    "V06-AUDIT-PRIVACY-001"
+  ],
+  "validation": {
+    "full": {
+      "tests": 2890,
+      "pass": 2890,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "milliseconds": 188673.2453
+    },
+    "combined": 43,
+    "tailNew": 8,
+    "initialBaseline": {
+      "tests": 7,
+      "pass": 1,
+      "fail": 6
+    },
+    "typecheck": "passed",
+    "docsCheck": "passed",
+    "browser": {
+      "versions": 2,
+      "fullSamplesPerVersion": 12,
+      "isolatedSamplesPerVersion": 9,
+      "pageErrors": 0,
+      "missingAssets": 0,
+      "drawReportsEqual": true
+    },
+    "directionAtPoint6Seconds": {
+      "beforeDegrees": [
+        147.85257238541075,
+        171.7773040642886
+      ],
+      "afterDegrees": [
+        0.0011408192340702666,
+        0.006607559721532558
+      ]
+    }
+  },
+  "sourceHashes": {
+    "src/persistence/archive.ts": "5fc9d0d7dafe84068f8461ac83dce942b6c9202cb56741f134708a283b6c0646",
+    "src/services/telemetry-client.ts": "35cfa841cd097202605c33f2651d9094165f1ca1976735e3497f145a1fbd15ba",
+    "src/simulation/combat/expedition-combat.ts": "34c9230d49beefdc40e938128d318a6c881527c38a27a897a42b571ed2816c5d",
+    "src/simulation/combat/support-targets.ts": "a5b4c4b36eee28bc8ed92884fb572da6789c79f5c2482e11cb2d93c721109181",
+    "src/simulation/persistence/run-fields.ts": "77268dd3afd079b3f4a61fd4fdb826c2a292a72e8bf59ff45488b38baf81a0ae",
+    "src/simulation/starship/advanced-support.ts": "c150121e3c2ce6692ac8bf26a2603485b447c5983543d8c36a0f4f0f526e08bc",
+    "src/simulation/starship/combat.ts": "dd472ea7226a84cbe9aedc7662be4f1bfb0071198b3a557cc4a87cc62d8006f0",
+    "src/simulation/starship/hero-advancements.ts": "4904ca83ef45a93dd82eb0847cb489616750d4dd44c0c50ecf80fab0e3c65257",
+    "src/simulation/starship/members.ts": "18a35ec094f0d4f6a598102122044f69a917603120a4ee90ba6058e8f5a3bc79",
+    "src/simulation/starship/runtime.ts": "221eca99d3da080867391fd208418afc249b9d2534e17185740a817c45ad43ff",
+    "src/simulation/world.ts": "e49bed9540bf06f7a98b73a4bdbf7faf7a2d2eae3df8772d0201d8197a213d11",
+    "test/equipment-leviathan-checkpoint.test.ts": "e57b997c24afd7fe53b44516aa1d9349a9ddb4b19afd1339d8d0069b91f1fabc",
+    "test/telemetry-storage-privacy.test.ts": "1faf86ff5b5d20921559f66ebae494ce871ff15ae173b381279d3f3b9bc9073e",
+    "test/timed-death-boundaries.test.ts": "45b1a3be5154a0bd44a61793abeb11ee6776b2e86a97591efe5452c564f192f4",
+    "src/render/effects/source/particles.ts": "104ef5b9877ede557ccf1e76b4ffb4413754c146a8174fff87c1e64603df96e2",
+    "test/source-particle-tail-motion.test.ts": "aef61195ec366d1d2c3c760f4a9ee8c4289f629618e7a6466f69d92106807112",
+    "test/performance-contracts.test.ts": "ff83b1b8eec02e36df8c025b3179fb391b60af5d666677160179c54bedf81304"
+  },
+  "delivery": {
+    "pushed": false,
+    "mergedMain": false,
+    "deployed": false,
+    "packagesReplaced": false
+  },
+  "limits": [
+    "Isolated original-effect browser rendering; no natural campaign or physical iPhone test",
+    "No SC2 client frame-for-frame claim",
+    "Existing particle positions and authored lengths retained"
+  ]
+}

@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "title": "星际幸存者MVP收尾与性能看板",
-  "updated": "2026-10-29",
-  "revision": 310,
+  "updated": "2026-10-30",
+  "revision": 318,
   "baseline": {
     "branch": "main",
     "commit": "be9e2982944314194c6dcc9dcc535bc321749eb4",
@@ -2692,11 +2692,11 @@
       ]
     },
     {
-      "status": "进行中",
+      "status": "待验证",
       "phase": "交付",
       "priority": "收尾",
       "auditIds": [],
-      "updated": "2026-10-29",
+      "updated": "2026-10-30",
       "owner": "Codex",
       "historical": false,
       "id": "V06",
@@ -2783,9 +2783,16 @@
         "../../reports/qa/zerg-melee-equipment-20261029.json",
         "../../reports/qa/zerg-github-sync-20261029.json",
         "SPECIAL_ROSTER_FIX_20261029.md",
-        "../../reports/qa/special-roster-fix-20261029.json"
+        "../../reports/qa/special-roster-fix-20261029.json",
+        "CODE_BUG_AUDIT_20261029.md",
+        "../../reports/qa/code-bug-audit-20261029.json",
+        "TANK_EFFECT_INSPECTION_20261030.md",
+        "../../reports/qa/tank-effect-inspection-20261030.json",
+        "TANK_EFFECT_FIX_20261030.md",
+        "BUGFIX_GITHUB_SYNC_20261030.md",
+        "../../reports/qa/tank-audit-sync-20261030.json"
       ],
-      "result": "第二阶段完成：挑战关属性基准迁移修复f68cc85已推送体积优化版，Git引用与GitHub接口双重核验；2867项回归通过，未部署。",
+      "result": "坦克火星拖尾及上一轮四项代码审查修复合并验证完成，2890项全部通过；用户已授权推送GitHub体积优化版，当前正在整理提交。前两阶段已在远端，未部署。",
       "observedIssues": [
         {
           "id": "V06-GEAR-YIELD-001",
@@ -3066,9 +3073,58 @@
           "scope": "进出特殊关一致迁移原生属性基准，受伤成员不再无战斗归零；原成员/撤离/截击机/双生及真实伤亡验证通过。",
           "next": "已验证并随f68cc85推送体积优化版；原玩家档案与手机复测仍开放，未部署。",
           "evidence": "SPECIAL_ROSTER_FIX_20261029.md"
+        },
+        {
+          "id": "V06-AUDIT-PRIVACY-001",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "浏览器无存储或撤回队列写失败时，请求完全不发送；已合入页面内存回退，失败保留重试且删除意图不降级。",
+          "next": "已与坦克修复完成2890项最终合流回归；用户授权推送，实际状态见BUGFIX_GITHUB_SYNC_20261030.md，未部署。",
+          "evidence": "CODE_BUG_AUDIT_20261029.md"
+        },
+        {
+          "id": "V06-AUDIT-SAVE-001",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "舰装瘟疫/巨兽临时利维坦误判非法单位导致关间保存失败；来源严格约束修复已合入，两模板保存恢复与非法来源拒绝通过。",
+          "next": "已与坦克修复完成2890项最终合流回归；用户授权推送，实际状态见BUGFIX_GITHUB_SYNC_20261030.md，未部署。",
+          "evidence": "CODE_BUG_AUDIT_20261029.md"
+        },
+        {
+          "id": "V06-AUDIT-EXPIRY-001",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "临时成员/死战不退到期死亡被护盾或减伤阻挡，精英行为也可能跳过到期检查；已合入固定寿命死亡入口并验证仅结算一次。",
+          "next": "已与坦克修复完成2890项最终合流回归；用户授权推送，实际状态见BUGFIX_GITHUB_SYNC_20261030.md，未部署。",
+          "evidence": "CODE_BUG_AUDIT_20261029.md"
+        },
+        {
+          "id": "V06-AUDIT-RECOVERY-001",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "死战不退错误接受治疗、原生回盾及增援落地治疗；按既定禁止恢复规则统一恢复资格，已合入并验证。",
+          "evidence": "CODE_BUG_AUDIT_20261029.md",
+          "next": "已与坦克修复完成2890项最终合流回归；用户授权推送，实际状态见BUGFIX_GITHUB_SYNC_20261030.md，未部署。"
+        },
+        {
+          "id": "V06-TANK-FX-001",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "坦克火星拖尾已随当前运动方向及触地反射更新，保留原版发射/颜色/长度；8项新回归、43项组合、2890项全回归及浏览器前后对照通过。",
+          "next": "本地修复验证完成，正与上一轮四项修复一起提交推送；未部署。",
+          "evidence": "TANK_EFFECT_FIX_20261030.md"
         }
       ],
-      "next": "已满足第三阶段启动条件，按授权开展多模块实际bug排查；后续修复只留本地，不推送、不部署。"
+      "next": "完成本批明确文件提交、推送与远端SHA核验；原iPhone及旧客户端兼容复核保持。",
+      "codeAudit": {
+        "date": "2026-10-29",
+        "status": "已完成",
+        "baseline": "f68cc858c591d1f8a4674e4b9e0433ba4a6af903",
+        "scope": "项目实际bug代码审查；不扩大玩法/UI/平衡；不是无bug保证",
+        "evidence": "CODE_BUG_AUDIT_20261029.md",
+        "localOnly": true,
+        "findings": 4
+      }
     },
     {
       "id": "D01",
@@ -10554,6 +10610,60 @@
       "evidence": [
         "SPECIAL_ROSTER_FIX_20261029.md",
         "../../reports/qa/special-roster-fix-20261029.json"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "第三阶段代码审查进行中：三个独立源码副本分别负责保存账户、战斗舰装、生产奖励，主代理负责加载/音频/操作/服务边界；先复现再修复，最后合流验证。仅本地，不推送部署。",
+      "evidence": [
+        "CODE_BUG_AUDIT_20261029.md"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "第三阶段四项缺陷修复合入本地：利维坦检查点、到期死亡、死战恢复和统计授权撤回；35项合流定向通过，完整回归待结束。不提交推送部署。",
+      "evidence": [
+        "CODE_BUG_AUDIT_20261029.md"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "第三阶段并行审查与本地合流完成：四项实际缺陷均修复验证，2882项完整回归及类型/数据检查通过。前两阶段已推送；本阶段不提交推送部署。V06保留原机等待验证范围。",
+      "evidence": [
+        "CODE_BUG_AUDIT_20261029.md",
+        "../../reports/qa/code-bug-audit-20261029.json"
+      ]
+    },
+    {
+      "date": "2026-10-30",
+      "tasks": [
+        "V06"
+      ],
+      "change": "按用户指定查看宣发视频，完成坦克光条定向调查；确认普通命中火星的拖尾方向未随重力改变。仅新增诊断和记录，游戏修复未实施，无提交推送部署。",
+      "evidence": [
+        "TANK_EFFECT_INSPECTION_20261030.md",
+        "../../reports/qa/tank-effect-inspection-20261030.json"
+      ]
+    },
+    {
+      "date": "2026-10-30",
+      "tasks": [
+        "V06"
+      ],
+      "change": "按用户授权完成坦克拖尾修复，并与上一轮四项代码审查修复合并验证：2890项全回归、类型/数据检查与坦克前后画面对照通过。准备明确文件提交推送；不合并main、不部署或替换交付包。",
+      "evidence": [
+        "TANK_EFFECT_FIX_20261030.md",
+        "BUGFIX_GITHUB_SYNC_20261030.md",
+        "../../reports/qa/tank-audit-sync-20261030.json"
       ]
     }
   ],

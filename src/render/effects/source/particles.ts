@@ -93,7 +93,7 @@ function particleUv(d:ParticleDynamics,t:number,seed:number):[number,number,numb
  if(d.flags&0x10000)frame+=Math.floor(sourceRandom(seed,73)*cols*rows);
  frame=((Math.floor(frame)%(cols*rows))+(cols*rows))%(cols*rows);return [(frame%cols)/cols,(rows-1-Math.floor(frame/cols))/rows,1/cols,1/rows];
 }
-function particleScratch(){return {velocity:new THREE.Vector3(),local:new THREE.Vector3(),worldVelocity:new THREE.Vector3(),emitterOrigin:new THREE.Vector3(),parentScale:new THREE.Vector3(),along:new THREE.Vector3(),eye:new THREE.Vector3(),right:new THREE.Vector3(),normal:new THREE.Vector3(),scale:new THREE.Vector3(),basis:new THREE.Matrix4(),rotation:new THREE.Quaternion(),turn:new THREE.Quaternion()};}
+function particleScratch(){return {velocity:new THREE.Vector3(),motion:new THREE.Vector3(),local:new THREE.Vector3(),worldVelocity:new THREE.Vector3(),emitterOrigin:new THREE.Vector3(),parentScale:new THREE.Vector3(),along:new THREE.Vector3(),eye:new THREE.Vector3(),right:new THREE.Vector3(),normal:new THREE.Vector3(),scale:new THREE.Vector3(),basis:new THREE.Matrix4(),rotation:new THREE.Quaternion(),turn:new THREE.Quaternion()};}
 type ParticleScratch=ReturnType<typeof particleScratch>;
 function orient(position:THREE.Vector3,direction:THREE.Vector3,camera:THREE.Camera,type:number,angle:number,bone:THREE.Matrix4,s:ParticleScratch){
  const q=s.rotation;
@@ -127,12 +127,16 @@ export function sourceParticleQuads(def:SourceEffectDefinition,request:SourceEff
    // independent M3 schema), not a positive downward magnitude. In particular
    // BanelingDeath authors -20: negating it launched the acid upwards.
    const drag=Math.max(0,d.drag),travel=drag>1e-8?(1-Math.exp(-drag*age))/drag:age,local=s.local.copy(initial).addScaledVector(velocity,travel),gravity=d.gravity*(flags&0x20000?((additional&4)||d.mass_randomize?randRange(d.mass,d.mass2,random(20)):d.mass):1);local.z+=.5*gravity*age*age;
-   const noise=d.noise_amplitude,frequency=d.noise_frequency;if(noise)for(let axis=0;axis<3;axis++)local.setComponent(axis,local.getComponent(axis)+noise*Math.sin(age*frequency+random(30+axis)*Math.PI*2));
+   // A tail follows the derivative of the same trajectory as its head. Keeping
+   // the launch velocity made falling tank sparks draw backwards after turning.
+   const tailParticle=type===1||type===6||type===10,motion=s.motion.copy(velocity);if(tailParticle){motion.multiplyScalar(Math.exp(-drag*age));motion.z+=gravity*age;}
+   if(tailParticle&&d.variation.speed[0]){const delta=.00001,slope=(dynamicVariation(d.variation.speed,age+delta,seed)-dynamicVariation(d.variation.speed,age-delta,seed))/(2*delta);motion.addScaledVector(born.direction,slope*travel);}
+   const noise=d.noise_amplitude,frequency=d.noise_frequency;if(noise)for(let axis=0;axis<3;axis++){const phase=age*frequency+random(30+axis)*Math.PI*2;local.setComponent(axis,local.getComponent(axis)+noise*Math.sin(phase));if(tailParticle)motion.setComponent(axis,motion.getComponent(axis)+noise*frequency*Math.cos(phase));}
    // Local forces use authored channels and source-space positions. Integrating on
    // an age grid, rather than render dt, makes paused and restored views identical.
    const localForces=d.local_forces,forces=def.forces.length?def.forces.filter(f=>(Number(f.channels)&localForces)!==0):undefined;
    if(forces?.length){const pose=boneMatrices(def,phase),emitter=pose[p.bone]??new THREE.Matrix4(),inverse=emitter.clone().invert(),position=initial.clone(),v=velocity.clone(),steps=Math.max(1,Math.ceil(age*60)),dt=age/steps;
-    for(let step=0;step<steps;step++){const acceleration=new THREE.Vector3(0,0,gravity);for(const f of forces){const center=new THREE.Vector3().setFromMatrixPosition(pose[f.bone]??new THREE.Matrix4()).applyMatrix4(inverse),delta=position.clone().sub(center),distance=delta.length(),radius=number(f,'width',phase);if(distance>1e-5&&(!radius||distance<=radius))acceleration.addScaledVector(delta.normalize(),number(f,'strength',phase));}v.addScaledVector(acceleration,dt).multiplyScalar(Math.exp(-drag*dt));position.addScaledVector(v,dt);}local.copy(position);
+    for(let step=0;step<steps;step++){const acceleration=new THREE.Vector3(0,0,gravity);for(const f of forces){const center=new THREE.Vector3().setFromMatrixPosition(pose[f.bone]??new THREE.Matrix4()).applyMatrix4(inverse),delta=position.clone().sub(center),distance=delta.length(),radius=number(f,'width',phase);if(distance>1e-5&&(!radius||distance<=radius))acceleration.addScaledVector(delta.normalize(),number(f,'strength',phase));}v.addScaledVector(acceleration,dt).multiplyScalar(Math.exp(-drag*dt));position.addScaledVector(v,dt);}local.copy(position);motion.copy(v);
    }
    // Local-space particles of this emitter share the exact current parent.
    // Scratch belongs to this call, so nested ground callbacks cannot corrupt it.
@@ -140,8 +144,8 @@ export function sourceParticleQuads(def:SourceEffectDefinition,request:SourceEff
    if(worldSpace){if(lastParent&&lastBorn===birth.born&&lastClip===phase.clip&&lastSeconds===phase.seconds)parent=lastParent;
     else{parent=sourcePlacement(def,request.placement,birth.born).multiply(boneMatrices(def,phase)[p.bone]??new THREE.Matrix4());lastParent=parent;lastBorn=birth.born;lastClip=phase.clip;lastSeconds=phase.seconds;}}
    else parent=parentLocal??(parentLocal=(nowPlacement??=sourcePlacement(def,request.placement,request.age)).clone().multiply((nowBones??=boneMatrices(def,phaseNow))[p.bone]??new THREE.Matrix4()));
-   const at=local.applyMatrix4(parent),worldVelocity=s.worldVelocity.copy(velocity).transformDirection(parent).multiplyScalar(speed);
-   if(flags&2){const floor=ground(at)+.025;if(at.y<floor){const restitution=d.bounce;at.y=floor+(floor-at.y)*Math.max(0,restitution);worldVelocity.y=Math.abs(worldVelocity.y)*restitution;}}
+   const at=local.applyMatrix4(parent),worldVelocity=s.worldVelocity.copy(tailParticle?motion:velocity).transformDirection(parent).multiplyScalar(tailParticle?motion.length():speed);
+   if(flags&2){const floor=ground(at)+.025;if(at.y<floor){const restitution=d.bounce;at.y=floor+(floor-at.y)*Math.max(0,restitution);worldVelocity.y=tailParticle?-worldVelocity.y*Math.max(0,restitution):Math.abs(worldVelocity.y)*restitution;}}
    const sizes=born.sizes,smoothing=d.size_smoothing,baseSize=lifeCurve(sizes[0],sizes[1],sizes[2],t,d.size_anim_mid,smoothing,smoothing>=3?d.size_hold:0)+dynamicVariation(d.variation.size,age,seed),unitScale=(request.placement.scale??1)*1.4;
    let nativeScale=localScale;if(parent!==scaleParent||nativeScale===undefined){const parentScale=s.parentScale.setFromMatrixScale(parent);nativeScale=Math.max(0,(parentScale.x+parentScale.z)*.5);localScale=nativeScale;scaleParent=parent;}
    let width=Math.max(0,baseSize*nativeScale),length=width;const rot=born.rotation,angle=lifeCurve(rot[0],rot[1],rot[2],t,d.rotation_anim_mid,d.rotation_smoothing)+dynamicVariation(d.variation.rotation,age,seed);

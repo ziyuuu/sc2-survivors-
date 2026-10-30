@@ -40,11 +40,19 @@ test('normal introduction joins the original curve continuously without changing
  for(const p of [3/18,6/18]){const left=normalIntroPressure(p-1e-10),right=normalIntroPressure(p+1e-10);assert.ok(Math.abs(left.health-right.health)<1e-8);assert.ok(Math.abs(left.damage-right.damage)<1e-8);}
  for(const p of [6/18,12/18,1]){const g=continuousOrdinaryGrowth('normal',p),c=ORDINARY_CURVES.normal;assert.equal(g.health,linear(c.health[0],c.health[1],p));assert.equal(g.damage,linear(c.damage[0],c.damage[1],p));}
 });
-test('particle birth reuse matches every original channel through motion, repeat frames, capacity fallback and expiry',()=>{
+test('particle birth reuse preserves source channels through motion, repeat frames, capacity fallback and expiry',()=>{
  const camera=new THREE.PerspectiveCamera();camera.position.set(3,20,11);camera.lookAt(0,0,0);camera.updateMatrixWorld();const ground=(p:{x:number;z:number})=>p.x*.01+p.z*.02;
  const cache=new SourceParticleCache(8192),tiny=new SourceParticleCache(2);let emitted=0,frame=0;
  const pack=(rows:ReturnType<typeof sourceParticleQuads>)=>rows.map(q=>[q.materialReference,q.emitter,q.born,q.matrix.elements,q.color,q.uv,q.phase.clip.name,q.phase.seconds]);
- for(const def of Object.values(effects) as unknown as SourceEffectDefinition[])for(const seed of [17,43])for(const age of [0,.13,.13,.44,.81,1.31]){frame++;const request:SourceEffectRequest={key:def.id+':'+seed,model:def.id,seed,age,placement:{x:Math.sin(frame),y:.2,z:Math.cos(frame),facing:frame*.01,age,from:{x:-1,y:0,z:-1}},mesh:false};cache.begin(frame);tiny.begin(frame);const expected=pack(legacySourceParticleQuads(def,request,camera,ground));assert.deepEqual(pack(sourceParticleQuads(def,request,camera,ground,cache)),expected,def.id+'/'+age);assert.deepEqual(pack(sourceParticleQuads(def,request,camera,ground,tiny)),expected,def.id+'/capacity');cache.end();tiny.end();emitted+=expected.length;assert.ok(tiny.report().liveBirths<=2);}
+ for(const def of Object.values(effects) as unknown as SourceEffectDefinition[])for(const seed of [17,43])for(const age of [0,.13,.13,.44,.81,1.31]){frame++;const request:SourceEffectRequest={key:def.id+':'+seed,model:def.id,seed,age,placement:{x:Math.sin(frame),y:.2,z:Math.cos(frame),facing:frame*.01,age,from:{x:-1,y:0,z:-1}},mesh:false};cache.begin(frame);tiny.begin(frame);
+  const legacy=pack(legacySourceParticleQuads(def,request,camera,ground)),expected=pack(sourceParticleQuads(def,request,camera,ground));
+  // The frozen writer contains the old launch-direction tail bug. Preserve its
+  // emission/material/colour/UV contract, and all non-tail geometry exactly;
+  // trajectory tangents have independent physical tests in tail-motion.test.ts.
+  const authored=(rows:typeof expected)=>rows.map(row=>[1,6,10].includes(Number(def.particles[Number(row[1])%1000].particle_type))?row.map((v,i)=>i===3?null:v):row);
+  assert.deepEqual(authored(expected),authored(legacy),def.id+'/authored');
+  assert.deepEqual(pack(sourceParticleQuads(def,request,camera,ground,cache)),expected,def.id+'/'+age);assert.deepEqual(pack(sourceParticleQuads(def,request,camera,ground,tiny)),expected,def.id+'/capacity');cache.end();tiny.end();emitted+=expected.length;assert.ok(tiny.report().liveBirths<=2);
+ }
  assert.ok(emitted>1000);assert.ok(cache.hits>0);cache.begin(frame+1);cache.end();assert.equal(cache.report().liveBirths,0);assert.equal(cache.report().requests,0);tiny.reset();assert.equal(tiny.report().liveBirths,0);
 });
 test('material dirty rows retain pending writes and fully restore a new GPU context',()=>{
