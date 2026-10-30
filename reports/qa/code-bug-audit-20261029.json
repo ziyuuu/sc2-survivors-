@@ -263,5 +263,14 @@
       "f68cc858c591d1f8a4674e4b9e0433ba4a6af903"
     ],
     "note": "Final read-only query initially could not initialize DNS in restricted execution; permitted read-only retry returned this SHA. No third-stage changes uploaded."
+  },
+  "followup": {
+    "date": "2026-10-30",
+    "commit": "dcb7a3c89a323cb69df9db702fec597327511b7f",
+    "pushed": true,
+    "verified": "Git remote ref and GitHub branch API",
+    "fullRegressionTests": 2890,
+    "evidence": "docs/project/BUGFIX_GITHUB_SYNC_20261030.md",
+    "deployed": false
   }
 }

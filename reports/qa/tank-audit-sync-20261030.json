@@ -1,6 +1,6 @@
 {
   "date": "2026-10-30",
-  "status": "validated-awaiting-push",
+  "status": "pushed-and-verified",
   "repository": "ziyuuu/sc2-survivors-",
   "branch": "体积优化版",
   "baseline": "2737b9f1a5fd47b3e5dea88bf77192117266ff30",
@@ -68,14 +68,20 @@
     "test/performance-contracts.test.ts": "ff83b1b8eec02e36df8c025b3179fb391b60af5d666677160179c54bedf81304"
   },
   "delivery": {
-    "pushed": false,
+    "pushed": true,
     "mergedMain": false,
     "deployed": false,
-    "packagesReplaced": false
+    "packagesReplaced": false,
+    "branch": "体积优化版",
+    "gitRemoteSha": "dcb7a3c89a323cb69df9db702fec597327511b7f",
+    "githubBranchSha": "dcb7a3c89a323cb69df9db702fec597327511b7f",
+    "main": "2924d9bb3330f10ad78462b6f96efda163c5eff3"
   },
   "limits": [
     "Isolated original-effect browser rendering; no natural campaign or physical iPhone test",
     "No SC2 client frame-for-frame claim",
     "Existing particle positions and authored lengths retained"
-  ]
+  ],
+  "commit": "dcb7a3c89a323cb69df9db702fec597327511b7f",
+  "cleanup": "Only task-generated rebuildable images, bundles, sampled JSON, test logs and staging helpers removed at closeout; trailer and source assets retained"
 }
