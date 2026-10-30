@@ -1,4 +1,4 @@
-> 2026-10-30：[坦克与代码审查修复](docs/project/BUGFIX_GITHUB_SYNC_20261030.md)已随`dcb7a3c`推送GitHub“体积优化版”并双重核验，2890项完整回归及类型/数据检查通过；未合并main、未部署。
+> 2026-10-30：[Coze v7已上线](docs/project/COZE_REPAIR_DEPLOY_20261030.md)。坦克修复与累计更新已推送GitHub“体积优化版”并部署至原Coze域名，程序/资源SHA及实际菜单核验通过；原iPhone待验，main未合并。
 
 > 2026-10-29：[挑战关小兵异常死亡修复](docs/project/SPECIAL_ROSTER_FIX_20261029.md)已本地验证：进出场景一致迁移装备前属性基准，保留伤势与真实战损。20项定向及2867项完整回归通过；已随`f68cc85`推送“体积优化版”并双重核验，未部署。
 

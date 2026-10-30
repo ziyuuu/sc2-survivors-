@@ -2,6 +2,8 @@
 
 # 工具入口
 
+2026-10-30 [Coze修复更新](../docs/project/COZE_REPAIR_DEPLOY_20261030.md)：`package-coze-repair-20261030.mjs`锁定baf0d94源码及v6资源，生成5文件增量并逐条读回ZIP；`verify-coze-repair-20261030.mjs --baseline|--live`只读核验公开入口/缓存头/文件SHA，`--serve`在127.0.0.1:18906提供本机压缩入口，后台关闭。浏览器交互通过当前已授权Coze对话完成；工具本身不部署。最新Git交付快照另含v6已上线的清单和两首音乐，使仓库入口依赖完整，不需要再向Coze覆盖这些已有资源。
+
 2026-10-30普通坦克长线[复核与第二轮修复](../docs/project/TANK_EFFECT_FOLLOWUP_20261030.md)：`verify-tank-followup-20261030.mjs`在诊断打包中读取94b8a3d旧粒子实现，验证新物理断言与同粒子位移，不替换生产文件；`inspect-tank-effects-20261030.mjs --followup [--baseline]`做同版定向渲染；`record-tank-effects-20261030.mjs --followup`录普通/攻城两段并生成前后对照。输出在本轮reports/local与dist/tank-effects-20261030，不部署。
 
 2026-10-30坦克拖尾[修复与验证](../docs/project/TANK_EFFECT_FIX_20261030.md)：`node tools/inspect-tank-effects-20261030.mjs`渲染四套既有特效与独立火星层，`--baseline`只在诊断中读取2737b9f旧实现。`node --import tsx tools/inspect-tank-particle-direction-20261030.mts`核对实际位移与拖尾方向，重力置零仅在诊断副本使用。输出在`reports/local/tank-effects-20261030`，不改游戏或发布；正式回归为`test/source-particle-tail-motion.test.ts`。

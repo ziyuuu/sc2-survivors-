@@ -1,0 +1,131 @@
+{
+  "date": "2026-10-30",
+  "status": "Git pushed; Coze v7 deployed and independently verified",
+  "sourceCommit": "baf0d943fed76a8338310e146f296186d6743934",
+  "deliveryCommit": "424a0e26256b15817734072136a1ac1d13513547",
+  "git": {
+    "remoteAndApiVerified": true,
+    "main": "2924d9bb3330f10ad78462b6f96efda163c5eff3"
+  },
+  "baseline": {
+    "date": "2026-10-30",
+    "sourceCommit": "baf0d943fed76a8338310e146f296186d6743934",
+    "appBuildId": "acdcecdc04cf61ebab8822312f20b9a8561eedacfa26d1689dab8f76c2df5f52",
+    "resourceRelease": "50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a",
+    "runSchema": 26,
+    "patchFiles": 5,
+    "retainedFiles": 8,
+    "resourceIds": 3847,
+    "gpuRecords": 43,
+    "checks": [
+      "Five increment files and retained dependencies match SHA256; entry decompresses; resource manifest unchanged",
+      "Live v6 baseline matches appBuildId/schema/release; mutable JSON no-cache; immutable files match SHA256"
+    ],
+    "scope": "Byte identity, HTTP delivery and separately recorded browser UI; no physical iPhone or production database mutation.",
+    "http": {
+      "baseline": true,
+      "origin": "https://sc-survivors.coze.site",
+      "verifiedDependencies": 48,
+      "htmlExact": false,
+      "platformHtmlInjectionAllowed": true,
+      "releaseCache": "no-cache",
+      "configCache": "no-cache"
+    }
+  },
+  "localBrowser": {
+    "browser": "Edge",
+    "origin": "http://127.0.0.1:18906",
+    "phaseBeforeReload": "reward",
+    "stage": 1,
+    "wallet": {
+      "minerals": 145,
+      "gas": 54
+    },
+    "phaseAfterContinue": "reward",
+    "sameWallet": true,
+    "sameThreeBuildingChoices": true,
+    "capturedWarnings": 0,
+    "capturedErrors": 0,
+    "scope": "Real menu/new-run/start, natural first-stage completion and normal reload/continue; local-only browser save"
+  },
+  "upload": {
+    "attempts": 2,
+    "error": "Extension file URL access",
+    "nativeFallback": "Window state unavailable",
+    "fallback": "Five hash-verified files on authorized GitHub branch"
+  },
+  "coze": {
+    "conversation": "https://www.coze.cn/project/7701311814654525730",
+    "applicationId": "7701424746063233067",
+    "priorDeployment": "7702033380623450154",
+    "priorVersion": 6,
+    "origin": "https://sc-survivors.coze.site",
+    "requested": true,
+    "deploymentId": "7702329028769841167",
+    "version": 7,
+    "status": "Succeeded",
+    "serviceStatus": "Ready(3)",
+    "backup": "/Coze/Drive/sc/repair_backup_20261030/",
+    "preserved": [
+      "application",
+      "domain",
+      "1C/2048MB",
+      "backend/authentication/database/player data",
+      "all old hash assets",
+      "43 standalone KTX2",
+      "two music MP3s",
+      "JSON no-cache"
+    ]
+  },
+  "limits": [
+    "Physical iPhone not tested",
+    "Production player saves and database not inspected",
+    "No merge to main; no Alibaba or Sites deployment"
+  ],
+  "live": {
+    "date": "2026-10-30",
+    "sourceCommit": "baf0d943fed76a8338310e146f296186d6743934",
+    "appBuildId": "acdcecdc04cf61ebab8822312f20b9a8561eedacfa26d1689dab8f76c2df5f52",
+    "resourceRelease": "50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a",
+    "runSchema": 26,
+    "patchFiles": 5,
+    "retainedFiles": 8,
+    "resourceIds": 3847,
+    "gpuRecords": 43,
+    "checks": [
+      "Five increment files and retained dependencies match SHA256; entry decompresses; resource manifest unchanged",
+      "Live new application matches appBuildId/schema/release; mutable JSON no-cache; immutable files match SHA256"
+    ],
+    "scope": "Byte identity, HTTP delivery and separately recorded browser UI; no physical iPhone or production database mutation.",
+    "http": {
+      "baseline": false,
+      "origin": "https://sc-survivors.coze.site",
+      "verifiedDependencies": 48,
+      "htmlExact": false,
+      "platformHtmlInjectionAllowed": true,
+      "releaseCache": "no-cache",
+      "configCache": "no-cache"
+    }
+  },
+  "liveBrowser": {
+    "browser": "Edge",
+    "menuVisible": true,
+    "domAppBuildId": "acdcecdc04cf61ebab8822312f20b9a8561eedacfa26d1689dab8f76c2df5f52",
+    "capturedWarnings": 0,
+    "capturedErrors": 0,
+    "existingResumeAvailable": false,
+    "newRunCreated": false
+  },
+  "cleanup": {
+    "status": "complete",
+    "targets": [
+      "dist/coze-repair-20261030/web",
+      "dist/coze-repair-20261030/packed",
+      "reports/local/tank-recording-20261030",
+      "dist/tank-effects-20261030"
+    ],
+    "filesRemoved": 3784,
+    "bytesRemoved": 1519807991,
+    "retained": "Latest increment ZIP and extracted delivery, Git runtime snapshot, compact evidence and reproduction tools; current verification screenshots remain for review"
+  }
+}

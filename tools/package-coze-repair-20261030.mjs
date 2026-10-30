@@ -19,7 +19,14 @@ await fs.mkdir(packed+'/assets',{recursive:true});
 for(const name of ['web-release.json',old.manifest])await fs.copyFile(bgm+'/'+name,packed+'/'+name);
 await fs.copyFile(base+'/sites-pack-index.js',packed+'/sites-pack-index.js');
 console.log(execFileSync(process.execPath,['tools/update-compressed-game.mjs',packed,web],{encoding:'utf8'}).trim());
-const baseline=async name=>{for(const folder of [bgm,base])try{return await fs.readFile(folder+'/'+name);}catch(e){if(e.code!=='ENOENT')throw e;}return null;};
+const baseline=async name=>{
+ try{return await fs.readFile(bgm+'/'+name);}catch(e){if(e.code!=='ENOENT')throw e;}
+ // The working public snapshot is updated after delivery; freeze its v6-era
+ // fallback to the source commit so later reproduction still includes new CSS.
+ const rel='sites/size-optimized-site/public/'+name;
+ if(!execFileSync('git',['ls-tree',sourceCommit,'--',rel],{encoding:'utf8'}).trim())return null;
+ return execFileSync('git',['show',sourceCommit+':'+rel],{maxBuffer:16*1024*1024});
+};
 const files=[],retained=[];
 async function walk(folder,rel=''){
  for(const entry of await fs.readdir(folder,{withFileTypes:true})){
