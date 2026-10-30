@@ -1,0 +1,125 @@
+{
+  "date": "2026-10-30",
+  "sourceCommit": "baf0d943fed76a8338310e146f296186d6743934",
+  "status": "Verified locally; prepared for authorized Coze v7 deployment",
+  "compatibility": {
+    "origin": "https://sc-survivors.coze.site",
+    "version": 6,
+    "appBuildId": "b785addbf5e8ed98de78dd8363d1c9d87cf2a03915c30918df8e2eeef856bc67",
+    "resourceRelease": "50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a",
+    "runSchema": 26
+  },
+  "target": {
+    "appBuildId": "acdcecdc04cf61ebab8822312f20b9a8561eedacfa26d1689dab8f76c2df5f52",
+    "runSchema": 26,
+    "rulesId": "mvp-1.0",
+    "mapId": "campaign-five-v3",
+    "assetCount": 3847,
+    "fileCount": 5138,
+    "assetBytes": 824778460,
+    "logicalBytes": 827862182,
+    "sharedBytes": 3083722,
+    "manifest": "asset-manifest.50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a.json",
+    "release": "50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a",
+    "source": "reports/local/asset-reachability.json",
+    "sourceWebRelease": "c57126842b2eebe90f278e5dfe9c5ad54eaaec683b3e611e697abada0118fdad",
+    "compressedEntrySha256": "babf34a172cd295362b57dc01ba31cd986544473f7302a682f7a3bf67819d179",
+    "qualityVariants": true,
+    "packedBytes": 458346118,
+    "variantRecordCount": 1375,
+    "sharedImageIdentities": 1,
+    "gpuTextureSidecars": {
+      "count": 43,
+      "bytes": 22644988,
+      "source": "tier-invariant normal/specular; UASTC level3; same dimensions"
+    },
+    "standaloneMusic": {
+      "count": 2,
+      "bytes": 4526957,
+      "encoding": "Approved original MP3, unchanged; outside existing packed bundles"
+    }
+  },
+  "files": [
+    {
+      "path": "public/assets/index-BBLppp3h.css",
+      "bytes": 645578,
+      "sha256": "79ff71792d5a667ea6e99e6ce5d93722034897a5ab0e51d7ef05621a19f2b603"
+    },
+    {
+      "path": "public/assets/index-e30bb06f20764359.js",
+      "bytes": 4018,
+      "sha256": "e30bb06f20764359a8d754c1e41c943aef58a4a750e5c666ea5499878a6820a0"
+    },
+    {
+      "path": "public/assets/sc2-entry.babf34a172cd2953.js.gz",
+      "bytes": 7677025,
+      "sha256": "babf34a172cd295362b57dc01ba31cd986544473f7302a682f7a3bf67819d179"
+    },
+    {
+      "path": "public/index.html",
+      "bytes": 955167,
+      "sha256": "21e6f3c12f3bad86ce7bf31e8ffcd0347369d7a0948afe59e32c9995bd1ccee1"
+    },
+    {
+      "path": "public/web-release.json",
+      "bytes": 1121,
+      "sha256": "0de8cce21250befec0dca7e8f5d40ea22386b6040ed66a63598050b06b789029"
+    }
+  ],
+  "retained": [
+    {
+      "path": "asset-manifest.50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a.json",
+      "bytes": 2309774,
+      "sha256": "7662120dc3b6a1ab6437160c1236056235ffc581dfce817c84f1dc3f12f2fc8b"
+    },
+    {
+      "path": "basis/basis_transcoder.js",
+      "bytes": 57529,
+      "sha256": "8478b5b6d6b74e7d3082b89f6417321d8d1dc0307f2b30d4484bb11b441696a1"
+    },
+    {
+      "path": "basis/basis_transcoder.wasm",
+      "bytes": 527333,
+      "sha256": "6cf17dc889352c42e9acf8897107978d127005fe3386c36a0e3845e27967630a"
+    },
+    {
+      "path": "basis/LICENSE.txt",
+      "bytes": 11347,
+      "sha256": "065fcf48d6af21c0b75e23be5ed5753aee75c892e1c2cf178fa6736305614a5c"
+    },
+    {
+      "path": "basis/README.md",
+      "bytes": 1388,
+      "sha256": "a578df416c1e0852e9c36a1cf91b4d28d91a251294f87ce610a3bc7ca4df15e0"
+    },
+    {
+      "path": "sites-pack-index.0bb43ff1011a0ab1462d.js",
+      "bytes": 782043,
+      "sha256": "0bb43ff1011a0ab1462d14581dbeec3ad02e9b8c46f1d84ef5bdf2b08cdb0f95"
+    },
+    {
+      "path": "sites-pack-index.js",
+      "bytes": 782043,
+      "sha256": "0bb43ff1011a0ab1462d14581dbeec3ad02e9b8c46f1d84ef5bdf2b08cdb0f95"
+    },
+    {
+      "path": "sites-sw.js",
+      "bytes": 6939,
+      "sha256": "72e7e953c451843bded423880518ee9230598307fa3c777f391bc9f910fa543a"
+    }
+  ],
+  "scope": "Cumulative approved source since v6: unlock feedback, fixed Zerg evolution/melee/equipment, special-stage health, four audited bugs and accepted tank particle fixes. No new resource payloads, no backend/config/schema changes.",
+  "preserve": [
+    "All existing hash resources including two MP3s and 43 standalone KTX2 fallbacks",
+    "Existing SW, pack index, Basis decoder, resource manifest",
+    "Current server.mjs no-cache rules, domain, authentication, database and player data"
+  ],
+  "rollback": "Back up current index.html and web-release.json and deployment version. Restore these two entry files or prior deployment if needed; retain every old/new immutable file and all data.",
+  "snapshotPrefix": "sites/size-optimized-site/public",
+  "zip": {
+    "bytes": 8499170,
+    "sha256": "bfbe3bbd4fba016a635abc2752723ce66eaa5e9e8ca30d5754ffe3b681165d1c",
+    "entries": 7,
+    "readBack": true
+  }
+}

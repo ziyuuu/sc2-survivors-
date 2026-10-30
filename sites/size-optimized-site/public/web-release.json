@@ -1,18 +1,18 @@
 {
-  "appBuildId": "88e920c3b848e76f20f4de7c5cf895d8facd7f29d0b99868866c2698b4a6a4fa",
+  "appBuildId": "acdcecdc04cf61ebab8822312f20b9a8561eedacfa26d1689dab8f76c2df5f52",
   "runSchema": 26,
   "rulesId": "mvp-1.0",
   "mapId": "campaign-five-v3",
-  "assetCount": 3845,
-  "fileCount": 5136,
-  "assetBytes": 820251503,
-  "logicalBytes": 823335225,
+  "assetCount": 3847,
+  "fileCount": 5138,
+  "assetBytes": 824778460,
+  "logicalBytes": 827862182,
   "sharedBytes": 3083722,
-  "manifest": "asset-manifest.ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2.json",
-  "release": "ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2",
+  "manifest": "asset-manifest.50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a.json",
+  "release": "50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a",
   "source": "reports/local/asset-reachability.json",
-  "sourceWebRelease": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
-  "compressedEntrySha256": "faa5306eeb61f78acd41b9b2533259493436247c37f92db37273512683b3fea3",
+  "sourceWebRelease": "c57126842b2eebe90f278e5dfe9c5ad54eaaec683b3e611e697abada0118fdad",
+  "compressedEntrySha256": "babf34a172cd295362b57dc01ba31cd986544473f7302a682f7a3bf67819d179",
   "qualityVariants": true,
   "packedBytes": 458346118,
   "variantRecordCount": 1375,
@@ -21,5 +21,10 @@
     "count": 43,
     "bytes": 22644988,
     "source": "tier-invariant normal/specular; UASTC level3; same dimensions"
+  },
+  "standaloneMusic": {
+    "count": 2,
+    "bytes": 4526957,
+    "encoding": "Approved original MP3, unchanged; outside existing packed bundles"
   }
 }
