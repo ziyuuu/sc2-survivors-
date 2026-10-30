@@ -2,6 +2,8 @@
 
 # 工具入口
 
+2026-10-30普通坦克长线[复核与第二轮修复](../docs/project/TANK_EFFECT_FOLLOWUP_20261030.md)：`verify-tank-followup-20261030.mjs`在诊断打包中读取94b8a3d旧粒子实现，验证新物理断言与同粒子位移，不替换生产文件；`inspect-tank-effects-20261030.mjs --followup [--baseline]`做同版定向渲染；`record-tank-effects-20261030.mjs --followup`录普通/攻城两段并生成前后对照。输出在本轮reports/local与dist/tank-effects-20261030，不部署。
+
 2026-10-30坦克拖尾[修复与验证](../docs/project/TANK_EFFECT_FIX_20261030.md)：`node tools/inspect-tank-effects-20261030.mjs`渲染四套既有特效与独立火星层，`--baseline`只在诊断中读取2737b9f旧实现。`node --import tsx tools/inspect-tank-particle-direction-20261030.mts`核对实际位移与拖尾方向，重力置零仅在诊断副本使用。输出在`reports/local/tank-effects-20261030`，不改游戏或发布；正式回归为`test/source-particle-tail-motion.test.ts`。
 
 2026-10-29解锁反馈见[修复与复现](../docs/project/UNLOCK_FEEDBACK_FIX_20261029.md)。`test/development-unlock-feedback.test.ts`覆盖失效候选清理与首次解锁排期；`qa-unlock-feedback.mjs`使用命名Web构建、实际HUD和受控账户检查三尺寸，`--entry-only`检查同批正式Web入口。仅本机服务和独立浏览器数据，输出到`reports/local/unlock-feedback-20261029`，不部署。修复前`inspect-queen-unlock-20261029.mts`保留历史断言，勿在新规则上覆盖旧报告。

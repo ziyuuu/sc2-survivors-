@@ -1,0 +1,171 @@
+{
+  "date": "2026-10-30",
+  "id": "V06-TANK-FX-002",
+  "baseline": "94b8a3dd222534c3164310c6f2cf53664fd989c3",
+  "status": "用户已接受画面，授权推送及Coze部署",
+  "productionChanges": [
+    "世界竖直重力，不随发射器骨骼旋转",
+    "从接触点重放反弹与摩擦",
+    "静止自由/夹限拖尾收为粒子宽度，固定尾长保留"
+  ],
+  "verification": {
+    "newRegression": {
+      "before": {
+        "total": 5,
+        "failed": 5
+      },
+      "after": {
+        "total": 5,
+        "passed": 5
+      }
+    },
+    "targeted": 15,
+    "related": 27,
+    "full": {
+      "total": 2895,
+      "initialPassed": 2889,
+      "initialFailed": 6,
+      "reason": "本机测试端口被沙箱EACCES阻止",
+      "retestedFiles": [
+        "test/coze-web.test.mjs",
+        "test/p5-backend.test.mjs"
+      ],
+      "retestPassed": 15,
+      "retestFailed": 0,
+      "skipped": 0
+    },
+    "typecheck": true,
+    "docsCheck": true,
+    "browser": {
+      "beforeSamples": 12,
+      "afterSamples": 12,
+      "errors": 0,
+      "missing": 0
+    }
+  },
+  "metrics": {
+    "baseline": "94b8a3d",
+    "baselineRegressionExit": 1,
+    "baselineSamples": [
+      {
+        "age": 0.35,
+        "count": 15,
+        "gravityHorizontalDrift": 0.37755782187415315,
+        "groundedRadius": 1.1183938604815382,
+        "groundedHeight": 1.7312983548001477,
+        "finite": true
+      },
+      {
+        "age": 0.75,
+        "count": 15,
+        "gravityHorizontalDrift": 1.9315380100255901,
+        "groundedRadius": 0.9145777419083387,
+        "groundedHeight": 1.0634473707812144,
+        "finite": true
+      },
+      {
+        "age": 1.5,
+        "count": 15,
+        "gravityHorizontalDrift": 8.085840592694964,
+        "groundedRadius": 6.811833754121486,
+        "groundedHeight": 4.497127548811219,
+        "finite": true
+      },
+      {
+        "age": 2,
+        "count": 12,
+        "gravityHorizontalDrift": 14.536962408594427,
+        "groundedRadius": 13.217458221140568,
+        "groundedHeight": 9.544085718601826,
+        "finite": true
+      }
+    ],
+    "candidateSamples": [
+      {
+        "age": 0.35,
+        "count": 15,
+        "gravityHorizontalDrift": 4.577566798522237e-16,
+        "groundedRadius": 1.4765204090809185,
+        "groundedHeight": 1.5160048884918744,
+        "finite": true
+      },
+      {
+        "age": 0.75,
+        "count": 15,
+        "gravityHorizontalDrift": 3.1401849173675503e-16,
+        "groundedRadius": 2.217427760580205,
+        "groundedHeight": 0.49712335425188114,
+        "finite": true
+      },
+      {
+        "age": 1.5,
+        "count": 15,
+        "gravityHorizontalDrift": 4.965068306494546e-16,
+        "groundedRadius": 2.3744685198467845,
+        "groundedHeight": 0.47939558354375245,
+        "finite": true
+      },
+      {
+        "age": 2,
+        "count": 12,
+        "gravityHorizontalDrift": 4.440892098500626e-16,
+        "groundedRadius": 2.3139628457289403,
+        "groundedHeight": 0.3378745019760452,
+        "finite": true
+      }
+    ]
+  },
+  "comparison": {
+    "file": "D:\\星际\\dist\\tank-effects-20261030\\Tank-Normal-Before-After.mp4",
+    "seconds": 10,
+    "left": "previous",
+    "right": "followup",
+    "sha256": "42741426b30fc6a4744fc303ce3dfa9591d0db957e6693ef0c9b36ec10045437"
+  },
+  "videoReport": "tank-effect-followup-video-20261030.json",
+  "files": [
+    {
+      "file": "src/render/effects/source/particles.ts",
+      "sha256": "f269d524e5c15faceb4fa253de0a01575d35398b2678b01e3ad830d663b78307"
+    },
+    {
+      "file": "src/render/effects/source/particle-ground.ts",
+      "sha256": "f7a8ff7976efb2ca415e7e5eadb875cb6bfe72e74687d3e0caca684d5d35ada4"
+    },
+    {
+      "file": "test/source-particle-ground-motion.test.ts",
+      "sha256": "b1883e36085a3f37e9bd0970413f588e41f43c84ae2085efd74f3dba47917900"
+    },
+    {
+      "file": "test/performance-contracts.test.ts",
+      "sha256": "58159586cc80ad06a6cb339b74b8e7b2a9eb798cbc9d36b81c40728a8f6fb269"
+    },
+    {
+      "file": "tools/inspect-tank-effects-20261030.mjs",
+      "sha256": "680178ed31d9494cf0c90f65a04e1f885c78f0a9cae58a6a3e1fd4ffe76534a6"
+    },
+    {
+      "file": "tools/record-tank-effects-20261030.mjs",
+      "sha256": "b443eab129312e1d35a182d6edec9615b6d39a2bb137d68f386a95cbd587ec7c"
+    },
+    {
+      "file": "tools/verify-tank-followup-20261030.mjs",
+      "sha256": "cdebad2f07774fdb08f011ffb5d0841ab28ba919debc30ca06c14554f5edaf0d"
+    }
+  ],
+  "limitations": [
+    "独立Windows Chrome靶场，不是原SC2客户端或原iPhone对照",
+    "新视频未单独录制三种精英",
+    "未使用的复杂力/噪声碰撞组合保持旧适配路径"
+  ],
+  "delivery": {
+    "committed": false,
+    "pushed": false,
+    "deployed": false
+  },
+  "acceptance": {
+    "date": "2026-10-30",
+    "userConfirmed": true,
+    "scope": "普通坦克修正后左右对照画面"
+  }
+}

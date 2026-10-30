@@ -7,8 +7,9 @@ import {chromium} from '@playwright/test';
 
 // Bounded diagnostic: four existing native tank layers, three source ages each.
 // No World, player archive, production bundle or live service is modified.
-const baseline=process.argv.includes('--baseline');
-const out=path.resolve('reports/local/tank-effects-20261030',baseline?'baseline':'candidate');
+const baseline=process.argv.includes('--baseline'),followup=process.argv.includes('--followup');
+const baselineRevision=followup?'94b8a3d':'2737b9f';
+const out=path.resolve(followup?'reports/local/tank-followup-20261030':'reports/local/tank-effects-20261030',baseline?'baseline':'candidate');
 await fs.mkdir(out,{recursive:true});
 const models=['SiegeTankAttackLaunch','SiegeTankAttackImpact','SiegeTankSiegedAttackLaunch','SiegeTankSiegedAttackImpact'];
 const source=`
@@ -32,7 +33,7 @@ window.sample=async(model,age,onlyEmitter)=>{
 for(const model of models)for(const age of ages){const sample=await window.sample(model,age);window.results.push({model,age,report:sample.report});const figure=document.createElement('figure');figure.innerHTML='<figcaption>'+model+' / '+age+'s</figcaption><img src="'+sample.image+'">';document.body.append(figure);}
 window.ready=true;
 `;
-const plugins=baseline?[{name:'frozen-particle-baseline',setup(b){b.onLoad({filter:/render[\\/]effects[\\/]source[\\/]particles\.ts$/},()=>({contents:execFileSync('git',['show','2737b9f:src/render/effects/source/particles.ts'],{encoding:'utf8'}),loader:'ts'}));}}]:[];
+const plugins=baseline?[{name:'frozen-particle-baseline',setup(b){b.onLoad({filter:/render[\\/]effects[\\/]source[\\/]particles\.ts$/},()=>({contents:execFileSync('git',['show',baselineRevision+':src/render/effects/source/particles.ts'],{encoding:'utf8'}),loader:'ts'}));}}]:[];
 await build({stdin:{contents:source,resolveDir:process.cwd(),sourcefile:'tank-inspection.ts',loader:'ts'},outfile:path.join(out,'main.js'),bundle:true,format:'esm',platform:'browser',target:'es2022',plugins});
 const records=JSON.parse(await fs.readFile('deploy/runtime/combat-effects.json','utf8')).records,assets=new Map(records.map(r=>[r.id,r]));
 const html='<!doctype html><meta charset="utf-8"><style>body{margin:0;background:#101619;color:#e5edf1;display:grid;grid-template-columns:repeat(3,350px);font:12px sans-serif}figure{margin:0;border:1px solid #456}figcaption{height:24px;padding:6px}img{display:block;width:350px;height:275px}</style><script type="module" src="/main.js"></script>';

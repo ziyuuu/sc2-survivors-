@@ -2792,7 +2792,7 @@
         "BUGFIX_GITHUB_SYNC_20261030.md",
         "../../reports/qa/tank-audit-sync-20261030.json"
       ],
-      "result": "坦克火星拖尾与上一轮四项代码审查修复已随dcb7a3c推送体积优化版，Git/GitHub双重核验；2890项完整回归及类型/数据检查通过。前两阶段已在远端，main未合并，未部署。",
+      "result": "用户已接受坦克长线修复，当前按明确授权推进Git推送、Coze新版增量打包与原对话部署。原iPhone续局等独立验收保持。",
       "observedIssues": [
         {
           "id": "V06-GEAR-YIELD-001",
@@ -3113,9 +3113,17 @@
           "scope": "坦克火星拖尾已随当前运动方向及触地反射更新，保留原版发射/颜色/长度；8项新回归、43项组合、2890项全回归及浏览器前后对照通过。",
           "next": "已随dcb7a3c推送GitHub体积优化版并双重核验；未部署，交付事实见BUGFIX_GITHUB_SYNC_20261030.md。",
           "evidence": "TANK_EFFECT_FIX_20261030.md"
+        },
+        {
+          "id": "V06-TANK-FX-002",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "普通坦克火星重力被倾斜骨骼旋转、触地后镜像加速的问题已本地修正；同源2秒半径13.22→2.31，粒子数量保持。5新增/15定向/27相关、2895项回归含本机权限项重跑、类型/数据检查通过，已重录左右对照。",
+          "next": "用户已接受对照；推送体积优化版并通过当前Coze对话部署，实际状态见COZE_REPAIR_DEPLOY_20261030.md。",
+          "evidence": "TANK_EFFECT_FOLLOWUP_20261030.md"
         }
       ],
-      "next": "按后续明确交付指示准备包含最新源码的新包；原iPhone、真实玩家档案及旧客户端更新仍待验。无具体bug时保持MVP范围冻结。",
+      "next": "用户已接受对照；推送体积优化版并通过当前Coze对话部署，实际状态见COZE_REPAIR_DEPLOY_20261030.md。",
       "codeAudit": {
         "date": "2026-10-29",
         "status": "已完成",
@@ -10677,6 +10685,37 @@
       "evidence": [
         "BUGFIX_GITHUB_SYNC_20261030.md",
         "../../reports/qa/tank-audit-sync-20261030.json"
+      ]
+    },
+    {
+      "date": "2026-10-30",
+      "change": "用户反馈已修复版普通坦克射击仍有多条长线乱飞，登记V06-TANK-FX-002并继续定向调查；不将上轮方向回归等同于实际效果验收。",
+      "tasks": [
+        "V06"
+      ],
+      "evidence": [
+        "TANK_EFFECT_FIX_20261030.md"
+      ]
+    },
+    {
+      "date": "2026-10-30",
+      "tasks": [
+        "V06"
+      ],
+      "change": "V06-TANK-FX-002本地完成重力坐标与触地反弹修正，2秒火星半径13.22→2.31，未减少粒子。15定向/27相关通过；完整2895项中6个本机端口权限失败，相关15项提权重跑全部通过。类型/数据和实际渲染通过，左右对照已生成；V06转待验证，用户画面待确认，未提交推送部署。",
+      "evidence": [
+        "TANK_EFFECT_FOLLOWUP_20261030.md",
+        "../../reports/qa/tank-effect-followup-20261030.json"
+      ]
+    },
+    {
+      "date": "2026-10-30",
+      "tasks": [
+        "V06"
+      ],
+      "change": "用户确认普通坦克修正画面可以，V06-TANK-FX-002已完成；明确授权推送远端Git并操作当前Coze对话完成新部署。V06进入发布执行，不合并main。 当前V05与PROMO-01已在进行中；本次是已完成修复的交付收尾，V06保留原机待验证状态，不启动第三项研发任务。",
+      "evidence": [
+        "COZE_REPAIR_DEPLOY_20261030.md"
       ]
     }
   ],

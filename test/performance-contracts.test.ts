@@ -46,10 +46,11 @@ test('particle birth reuse preserves source channels through motion, repeat fram
  const pack=(rows:ReturnType<typeof sourceParticleQuads>)=>rows.map(q=>[q.materialReference,q.emitter,q.born,q.matrix.elements,q.color,q.uv,q.phase.clip.name,q.phase.seconds]);
  for(const def of Object.values(effects) as unknown as SourceEffectDefinition[])for(const seed of [17,43])for(const age of [0,.13,.13,.44,.81,1.31]){frame++;const request:SourceEffectRequest={key:def.id+':'+seed,model:def.id,seed,age,placement:{x:Math.sin(frame),y:.2,z:Math.cos(frame),facing:frame*.01,age,from:{x:-1,y:0,z:-1}},mesh:false};cache.begin(frame);tiny.begin(frame);
   const legacy=pack(legacySourceParticleQuads(def,request,camera,ground)),expected=pack(sourceParticleQuads(def,request,camera,ground));
-  // The frozen writer contains the old launch-direction tail bug. Preserve its
-  // emission/material/colour/UV contract, and all non-tail geometry exactly;
-  // trajectory tangents have independent physical tests in tail-motion.test.ts.
-  const authored=(rows:typeof expected)=>rows.map(row=>[1,6,10].includes(Number(def.particles[Number(row[1])%1000].particle_type))?row.map((v,i)=>i===3?null:v):row);
+  // The frozen writer has the old tail direction, bone-rotated gravity and
+  // mirrored ground-contact bugs. Preserve every authored channel, plus exact
+  // geometry outside those paths. Corrected trajectories have independent
+  // physical tests in source-particle-{tail,ground}-motion.test.ts.
+  const authored=(rows:typeof expected)=>rows.map(row=>{const p=def.particles[Number(row[1])%1000],changed=[1,6,10].includes(Number(p.particle_type))||Number(p.gravity??0)!==0||!!(Number(p.flags)&2);return changed?row.map((v,i)=>i===3?null:v):row;});
   assert.deepEqual(authored(expected),authored(legacy),def.id+'/authored');
   assert.deepEqual(pack(sourceParticleQuads(def,request,camera,ground,cache)),expected,def.id+'/'+age);assert.deepEqual(pack(sourceParticleQuads(def,request,camera,ground,tiny)),expected,def.id+'/capacity');cache.end();tiny.end();emitted+=expected.length;assert.ok(tiny.report().liveBirths<=2);
  }

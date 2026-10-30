@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-30",
+  "head": "94b8a3dd222534c3164310c6f2cf53664fd989c3",
+  "video": "D:\\星际\\dist\\tank-effects-20261030\\Tank-Effects-Followup.mp4",
+  "seconds": 20,
+  "resolution": [
+    1280,
+    720
+  ],
+  "outputFps": 30,
+  "audio": false,
+  "scope": "Native tank and siege attacks on stationary high-HP diagnostic targets, current local World and BattleRenderer; recording itself does not modify production files",
+  "clips": [
+    {
+      "name": "normal",
+      "file": "D:\\星际\\reports\\local\\tank-recording-followup-20261030\\normal.mp4",
+      "seconds": 10,
+      "frames": 300,
+      "capturedFrames": 593,
+      "before": {
+        "mode": "tank",
+        "shots": 5
+      },
+      "after": {
+        "mode": "tank",
+        "shots": 29
+      },
+      "ticks": 600,
+      "backlog": 0.016500000000004855,
+      "errors": [],
+      "models": [
+        "SiegeTankAttackImpact",
+        "SiegeTankAttackLaunch"
+      ]
+    },
+    {
+      "name": "siege",
+      "file": "D:\\星际\\reports\\local\\tank-recording-followup-20261030\\siege.mp4",
+      "seconds": 10,
+      "frames": 300,
+      "capturedFrames": 583,
+      "before": {
+        "mode": "tank"
+      },
+      "after": {
+        "mode": "siege",
+        "shots": 8
+      },
+      "ticks": 601,
+      "backlog": 0.00003333333333786423,
+      "errors": [],
+      "models": [
+        "SiegeTankSiegedAttackImpact",
+        "SiegeTankSiegedAttackLaunch"
+      ]
+    }
+  ],
+  "errors": [],
+  "inputCount": 400,
+  "sha256": "4738ce2682e8d464c92b35c60a7a2f8c16b88363cb60e62ff33351eaa88e6d84",
+  "bytes": 4629523,
+  "comparison": {
+    "file": "D:\\星际\\dist\\tank-effects-20261030\\Tank-Normal-Before-After.mp4",
+    "seconds": 10,
+    "left": "previous",
+    "right": "followup",
+    "sha256": "42741426b30fc6a4744fc303ce3dfa9591d0db957e6693ef0c9b36ec10045437"
+  }
+}
