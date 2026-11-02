@@ -3,6 +3,7 @@ import {configurePlatformAssetUrl} from './manifest';
 import {initialMenuAssetIds} from './menu-assets';
 import {ResourceCache} from './persistent-cache';
 import {fetchAsset,ASSET_REQUEST_TIMEOUT,retryAssetPreparation} from './preparation-wait';
+import {invalidatePackedResource} from './packed-cache';
 import {openingProgress,finishOpening} from '../ui/presentation/opening';
 export interface HttpAssetRecord {url:string;bytes:number;sha256:string;mime:string;width?:number;height?:number;bundle?:string;imageSources?:({hash:string;mime:string;family:string}|null)[]}
 export interface HttpAssetManifest {version:1;release:string;assets:Record<string,HttpAssetRecord&{variants?:Partial<Record<GraphicsTier,HttpAssetRecord>>}>;gpuTextures?:Record<string,HttpAssetRecord>}
@@ -50,7 +51,7 @@ export class HttpAssetStore {
   if(cached)await this.cache.remove(row.sha256);this.metrics.cacheMisses++;
   for(let attempt=0;attempt<2;attempt++){
    const bytes=await fetchAsset(this.request,this.resourceURL(row.url),{cache:attempt?'reload':'default',credentials:'omit'},async r=>{if(!r.ok)throw Error('GPU贴图下载失败');return r.arrayBuffer();},this.requestTimeout);
-   if(!await valid(bytes))continue;this.metrics.downloadBytes+=bytes.byteLength;await this.cache.put(row.sha256,bytes,row.mime,this.manifest.release);return bytes;
+   if(!await valid(bytes)){await invalidatePackedResource(this.resourceURL(row.url));continue;}this.metrics.downloadBytes+=bytes.byteLength;await this.cache.put(row.sha256,bytes,row.mime,this.manifest.release);return bytes;
   }
   throw Error('GPU贴图校验失败');
  }
@@ -69,6 +70,7 @@ export class HttpAssetStore {
     const bytes=await fetchAsset(this.request,this.resourceURL(asset.url),{cache:attempt?'reload':'default',credentials:'omit'},async response=>{if(!response.ok)throw Error(`${id} 下载失败 (${response.status})`);return response.arrayBuffer();},this.requestTimeout);
     const hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(v=>v.toString(16).padStart(2,'0')).join('');
     if(bytes.byteLength===asset.bytes&&hash===asset.sha256){this.metrics.downloadBytes+=bytes.byteLength;this.metrics.files++;await this.cache.put(asset.sha256,bytes,asset.mime,this.manifest.release);return URL.createObjectURL(new Blob([bytes],{type:asset.mime}));}
+    await invalidatePackedResource(this.resourceURL(asset.url));
    }
    throw Error(id+' 文件校验失败，请重试');
   })();this.shared.set(asset.sha256,job);job.catch(()=>this.shared.delete(asset.sha256));}
@@ -85,7 +87,7 @@ export class HttpAssetStore {
   const hashes=rows.map(a=>a.sha256).sort(),taskId=[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(hashes.join(':'))))].map(v=>v.toString(16).padStart(2,'0')).join('');
   const total=rows.reduce((n,a)=>n+a.bytes,0);let cursor=0,done=0,failed=false;progress(0,total);await this.cache.task(taskId,this.manifest.release,hashes,'running',0);
   const jobs=Array.from({length:Math.min(Math.min(3,runtimeBudget().network),rows.length)},async()=>{while(!failed&&!cancelled()&&cursor<rows.length){const a=rows[cursor++];let job=this.prefetching.get(a.sha256);if(!job){const live=this.shared.get(a.sha256);job=(async()=>{if(live)await live;const cached=await this.cache.get(a.sha256);const valid=async(b:ArrayBuffer)=>b.byteLength===a.bytes&&[...new Uint8Array(await crypto.subtle.digest('SHA-256',b))].map(v=>v.toString(16).padStart(2,'0')).join('')===a.sha256;if(cached&&await valid(cached))return true;if(cancelled())return false;
-    const b=await fetchAsset(this.request,this.resourceURL(a.url),{cache:cached?'reload':'default',credentials:'omit'},async r=>{if(!r.ok)throw Error('下载失败：'+r.status);return r.arrayBuffer();},this.requestTimeout);if(!await valid(b))throw Error('资源校验失败');this.metrics.downloadBytes+=b.byteLength;if(!await this.cache.put(a.sha256,b,a.mime,this.manifest.release))throw Error(this.cache.warning??'浏览器未能保存资源缓存');return true;
+    const b=await fetchAsset(this.request,this.resourceURL(a.url),{cache:cached?'reload':'default',credentials:'omit'},async r=>{if(!r.ok)throw Error('下载失败：'+r.status);return r.arrayBuffer();},this.requestTimeout);if(!await valid(b)){await invalidatePackedResource(this.resourceURL(a.url));throw Error('资源校验失败');}this.metrics.downloadBytes+=b.byteLength;if(!await this.cache.put(a.sha256,b,a.mime,this.manifest.release))throw Error(this.cache.warning??'浏览器未能保存资源缓存');return true;
    })();this.prefetching.set(a.sha256,job);}try{if(!await job)return;done+=a.bytes;progress(done,total);}catch(error){failed=true;throw error;}finally{this.prefetching.delete(a.sha256);}}});
   const result=await Promise.allSettled(jobs),failure=result.find(r=>r.status==='rejected');await this.cache.task(taskId,this.manifest.release,hashes,failure?'failed':cancelled()?'stopped':'complete',done);if(failure?.status==='rejected')throw failure.reason;
  }

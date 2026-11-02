@@ -1,0 +1,215 @@
+{
+  "date": "2026-11-02",
+  "head": "fabfb4addfb65169c2abc0a9dba57f181fed0ad2",
+  "method": "Independent Node fault injection against current source; mock renderer and Cache API; actual updater subprocess with isolated synthetic manifests.",
+  "sourceHashes": {
+    "src/render/scene/screen-refraction.ts": "ea3cdfea20b260b4c0f980801c2c220701f2d1a477f5c6a84543341153021591",
+    "src/app/background-preparation.ts": "8130bf6a3283f6e77b58767874ca0a64364629f22da4c053bd42f54ffde68472",
+    "src/app/asset-readiness.ts": "903fddde03b97c02c19041fd09a35d034c39d874fa7e120863fc54dc9911cdcc",
+    "src/assets/http-store.ts": "36974f218cb5a2e88bb33d0fe766d175ca98da63a34b760d4d060c4424f07c38",
+    "src/assets/persistent-cache.ts": "cc7dfa0213d946d69923e614a54c3fbc47deb25adc7f2f84d354f157032ce865",
+    "tools/packed-sites-sw.js": "723e45b86a68f890ad7f3b70b5d71e3b5891bb75ba2aacbc0cb9df89a7eb5850",
+    "sites/size-optimized-site/public/sites-sw.js": "72e7e953c451843bded423880518ee9230598307fa3c777f391bc9f910fa543a",
+    "tools/update-compressed-game.mjs": "cd807f5ff66fdedd16f25bda387a8c8bc3b5b0b5bced0cfd18064db3fa63ef13"
+  },
+  "findings": {
+    "shader": {
+      "confirmed": true,
+      "optional": {
+        "busy": true,
+        "held": 2,
+        "targetRestored": true,
+        "renders": 0,
+        "disposed": 0
+      },
+      "required": {
+        "oldSettled": false,
+        "held": 2,
+        "error": "上一项资源准备等待超时，请重试"
+      },
+      "lateResolution": {
+        "rendersAfterContextMarkedLost": 1,
+        "readyPublished": 0,
+        "drained": true
+      },
+      "interpretation": "The JS lane remains blocked as long as compileAsync remains pending. Cancellation clears the UI, not the underlying work. Normal main-scene compilePresentation has a timeout; this refraction path does not."
+    },
+    "corruptPack": {
+      "confirmed": true,
+      "clientAttemptsBeforeRestart": [
+        "default",
+        "reload",
+        "default",
+        "reload",
+        "default",
+        "reload"
+      ],
+      "clientAttemptsAfterRestart": [
+        "default",
+        "reload"
+      ],
+      "networkRequests": 0,
+      "clearDeletedNamespaces": [
+        "sc2-resource-bytes-v1"
+      ],
+      "badDiskPackSurvivesClearAndWorkerRestart": true,
+      "memory": {
+        "resident": 26,
+        "inflight": 0,
+        "networkActive": 0,
+        "diskBytes": 26
+      },
+      "interpretation": "Client integrity check rejects the bytes, but retry/reload cannot bypass or evict either SW pack cache. This is a persistent recovery failure conditional on bad cached bytes, not evidence that the deployed packs are currently corrupt.",
+      "coldInvalidResponse": {
+        "networkRequests": 1,
+        "cachedBeforeClientValidation": true
+      }
+    },
+    "optionalDisk": {
+      "confirmed": true,
+      "cases": [
+        {
+          "mode": "healthy",
+          "statuses": [
+            200,
+            200
+          ],
+          "networkRequests": 1,
+          "sourceTimerMs": [
+            45000
+          ],
+          "resident": 26,
+          "inflight": 0,
+          "networkActive": 0,
+          "diskBytes": 26
+        },
+        {
+          "mode": "open-reject",
+          "statuses": [
+            200,
+            200
+          ],
+          "networkRequests": 1,
+          "sourceTimerMs": [
+            45000
+          ],
+          "resident": 26,
+          "inflight": 0,
+          "networkActive": 0,
+          "diskBytes": 0
+        },
+        {
+          "mode": "open-hang",
+          "statuses": [
+            502,
+            502
+          ],
+          "networkRequests": 0,
+          "sourceTimerMs": [
+            45000
+          ],
+          "resident": 0,
+          "inflight": 0,
+          "networkActive": 0,
+          "diskBytes": 0
+        },
+        {
+          "mode": "keys-hang",
+          "statuses": [
+            502,
+            502
+          ],
+          "networkRequests": 0,
+          "sourceTimerMs": [
+            45000
+          ],
+          "resident": 0,
+          "inflight": 0,
+          "networkActive": 0,
+          "diskBytes": 0
+        },
+        {
+          "mode": "match-hang",
+          "statuses": [
+            502,
+            502
+          ],
+          "networkRequests": 0,
+          "sourceTimerMs": [
+            45000
+          ],
+          "resident": 0,
+          "inflight": 0,
+          "networkActive": 0,
+          "diskBytes": 0
+        },
+        {
+          "mode": "match-reject",
+          "statuses": [
+            502,
+            502
+          ],
+          "networkRequests": 0,
+          "sourceTimerMs": [
+            45000
+          ],
+          "resident": 0,
+          "inflight": 0,
+          "networkActive": 0,
+          "diskBytes": 0
+        },
+        {
+          "mode": "put-hang",
+          "statuses": [
+            502,
+            502
+          ],
+          "networkRequests": 2,
+          "sourceTimerMs": [
+            45000
+          ],
+          "resident": 0,
+          "inflight": 0,
+          "networkActive": 0,
+          "diskBytes": 0
+        }
+      ],
+      "interpretation": "Rejected open() correctly degrades to network. A pending open()/keys()/match() does not. Requests return 502 on the outer 45-second deadline and release the SW network lane, but retries reuse the unresolved initialization or cache operation. Pending put() can discard an already downloaded result."
+    },
+    "updater": {
+      "confirmed": true,
+      "changedContentSameIdsAccepted": true,
+      "newModelHashRewrittenToOldPackedHash": true,
+      "oldTextureRetained": true,
+      "metadata": {
+        "appBuildId": "new-code",
+        "resourceRelease": "old-resources",
+        "sourceWebRelease": "new-resources"
+      },
+      "addedIdRejected": true,
+      "interpretation": "The updater checks ID sets, not a verified source-to-compressed provenance map. Different hashes are normal for compression, but changed source content is indistinguishable and accepted. This does not establish an existing deployed mismatch."
+    }
+  },
+  "limits": [
+    "Cloud thread read failed (timeout / single turn over size limit); original cloud report and script were not retrieved.",
+    "No actual GPU stall, Safari/iPhone, OS freeze, live cache corruption, or live deployment tested.",
+    "SW 45000 ms timers are shortened to 25 ms in the test host; source code remains unchanged.",
+    "Synthetic updater resources test identity policy; no visual or GLB decode claim."
+  ],
+  "relatedRegression": {
+    "command": "node --import tsx --test test/presentation-warmup.test.ts test/entry-readiness.test.ts test/resource-cache-update.test.ts test/http-assets.test.ts test/startup-auto-retry.test.ts",
+    "passed": 24,
+    "failed": 0
+  },
+  "sourceMatchesHead": true,
+  "docsCheck": {
+    "command": "npm run docs:check",
+    "passed": true
+  },
+  "delivery": {
+    "productionChanged": false,
+    "committed": false,
+    "pushed": false,
+    "deployed": false
+  }
+}

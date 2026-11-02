@@ -1,4 +1,5 @@
 import {waitForAsset} from './preparation-wait';
+import {clearPackedResourceCache} from './packed-cache';
 /** Resource bytes only. Never opens the profile/run databases. */
 const CACHE='sc2-resource-bytes-v1',DB='sc2-resource-downloads-v1';
 export class ResourceCache {
@@ -45,6 +46,6 @@ export class ResourceCache {
  async task(id:string,release:string,hashes:string[],status:'running'|'complete'|'stopped'|'failed',completedBytes:number){
   try{await this.transaction('tasks',tx=>{tx.objectStore('tasks').put({id,release,hashes,status,completedBytes,updatedAt:Date.now()});});}catch{this.warn();}
  }
- async clear(){if(typeof caches!=='undefined')await this.bounded(caches.delete(CACHE));this.storageRetryAt=this.indexRetryAt=0;await this.transaction(['files','tasks'],tx=>{tx.objectStore('files').clear();tx.objectStore('tasks').clear();});this.warning=null;}
+ async clear(){await clearPackedResourceCache(this.waitMs);if(typeof caches!=='undefined')await this.bounded(caches.delete(CACHE));this.storageRetryAt=this.indexRetryAt=0;await this.transaction(['files','tasks'],tx=>{tx.objectStore('files').clear();tx.objectStore('tasks').clear();});this.warning=null;}
  async persist(){try{return await this.bounded(Promise.resolve(navigator.storage?.persist?.()??false));}catch{return false;}}
 }

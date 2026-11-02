@@ -5,12 +5,14 @@ import {createHash} from 'node:crypto';
 import {gzipSync} from 'node:zlib';
 import assert from 'node:assert/strict';
 import {packedLauncher} from './packed-startup.mjs';
+import {PROVENANCE_FILE,verifyCompressedProvenance} from './compressed-resource-provenance.mjs';
 const destination=path.resolve(process.argv[2]??''),web=path.resolve(process.argv[3]??'dist/web');
 assert.ok(process.argv[2],'Usage: node tools/update-compressed-game.mjs <packed public directory> [web directory]');
 const sha=x=>createHash('sha256').update(x).digest('hex'),read=async p=>JSON.parse(await fs.readFile(p,'utf8'));
 const old=await read(destination+'/web-release.json'),fresh=await read(web+'/web-release.json');
-const packed=await read(destination+'/'+old.manifest),original=await read(web+'/'+fresh.manifest);
-assert.deepEqual(Object.keys(packed.assets).sort(),Object.keys(original.assets).sort(),'Resource IDs changed: rebuild compressed resources first');
+const packedBytes=await fs.readFile(destination+'/'+old.manifest),original=await read(web+'/'+fresh.manifest),indexBytes=await fs.readFile(destination+'/sites-pack-index.js');
+const proof=await read(destination+'/'+PROVENANCE_FILE).catch(error=>{if(error.code==='ENOENT')throw Error('Missing compressed resource provenance: seal the verified original baseline or rebuild compressed resources first');throw error;});
+const packed=verifyCompressedProvenance(proof,old,fresh,packedBytes,original,indexBytes);
 let html=await fs.readFile(web+'/index.html','utf8');
 const entry=html.match(/<script type="module"[^>]*src="\.\/([^\"]+\.js)"/)[1],css=html.match(/<link rel="stylesheet"[^>]*href="\.\/([^\"]+\.css)"/)[1];
 let code=await fs.readFile(web+'/'+entry,'utf8');
@@ -19,7 +21,7 @@ let code=await fs.readFile(web+'/'+entry,'utf8');
 const identities=new Map();for(const [id,a]of Object.entries(original.assets))if(a.mime==='model/gltf-binary'&&a.sha256!==packed.assets[id].sha256){const oldHash=identities.get(a.sha256);assert.ok(!oldHash||oldHash===packed.assets[id].sha256);identities.set(a.sha256,packed.assets[id].sha256);}
 let modelIdentityReferences=0;for(const [a,b]of identities){modelIdentityReferences+=code.split(a).length-1;code=code.replaceAll(a,b);}
 const packedCode=gzipSync(code,{level:9}),codeName='assets/sc2-entry.'+sha(packedCode).slice(0,16)+'.js.gz';
-const indexCode=await fs.readFile(destination+'/sites-pack-index.js','utf8'),indexName='sites-pack-index.'+sha(indexCode).slice(0,20)+'.js';
+const indexCode=indexBytes.toString('utf8'),indexName='sites-pack-index.'+sha(indexCode).slice(0,20)+'.js';
 const launcher=packedLauncher(path.basename(codeName),indexName);
 const launcherName='assets/index-'+sha(launcher).slice(0,16)+'.js';
 await fs.writeFile(destination+'/'+codeName,packedCode);await fs.writeFile(destination+'/'+launcherName,launcher);await fs.copyFile(web+'/'+css,destination+'/'+css);

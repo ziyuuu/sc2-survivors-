@@ -1,5 +1,9 @@
 # 历史诊断脚本与当前验证入口
 
+2026-11-02修复后入口：`test/refraction-preparation-recovery.test.ts`、`test/packed-cache-recovery.test.ts`、`test/compressed-resource-provenance.test.mjs`，14项新回归。`verify-stability-browser-20261102.mjs`用真实Chrome、临时回环服务检查SW缓存故障降级、清理、正式压缩首战及刷新续局；不访问真实玩家档案或部署服务。来源封存与更新命令见[四项修复](../docs/project/STABILITY_FIX_20261102.md)。
+
+2026-11-02：`inspect-stability-findings-20261102.mts`针对`fabfb4a`独立复现折射准备挂起、坏包重试、可选磁盘缓存阻断和压缩更新来源核验缺失。使用替身GPU/Cache API及隔离更新目录，断言的是修复前缺陷；修复后不能为使它通过而恢复旧行为。方法、24项相关回归和实际边界见[独立复核](../docs/project/STABILITY_RECHECK_20261102.md)。
+
 核对于 2026-10-27。常规检查仍使用 npm test、npm run typecheck、npm run docs:check；具体改动选相关检查，完整回归按影响范围执行。
 
 `inspect-queen-unlock-20261029.mts`是`674c528`修复前调查，断言旧卡残留并输出当时报告，不在修复后覆盖该历史结果。当前解锁卡清理、首次解锁排期及重型取消边界用`test/development-unlock-feedback.test.ts`与`qa-unlock-feedback.mjs`核验，见[修复记录](../docs/project/UNLOCK_FEEDBACK_FIX_20261029.md)。

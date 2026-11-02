@@ -193,7 +193,7 @@ export class BattleRenderer {
   this.labelLayer.id='pod-labels';canvas.parentElement!.append(this.labelLayer);this.friendlyLabels=new FriendlyLabels(this.labelLayer);this.equipmentDrops=new EquipmentDrops(this.scene,this.labelLayer);
   this.safeProbe.style.cssText='position:fixed;visibility:hidden;pointer-events:none;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)';canvas.parentElement!.append(this.safeProbe);
   this.resize();window.addEventListener('resize',this.resizeFromBrowser);this.viewportObserver=new ResizeObserver(this.resizeFromBrowser);this.viewportObserver.observe(canvas);
-  canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();this.adaptiveTimer?.clear();this.adaptive.suspend();this.contextEpoch++;this.screenWarmed.clear();this.commonWarmed.clear();this.preparedCommon.clear();this.validatedPrograms.clear();world.paused=true;world.announce('画面连接中断，正在等待恢复');});
+  canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();this.adaptiveTimer?.clear();this.adaptive.suspend();this.contextEpoch++;this.refraction.invalidatePreparation();this.screenWarmed.clear();this.commonWarmed.clear();this.preparedCommon.clear();this.validatedPrograms.clear();world.paused=true;world.announce('画面连接中断，正在等待恢复');});
   canvas.addEventListener('webglcontextrestored',()=>{restoreMaterialUploads();this.adaptiveTimer?.restore();this.adaptive.reset();this.resize();this.sceneShadows.restore();this.contact.restore();world.announce('画面连接已恢复，请准备画面后继续');});
  }
  /** Retain GPU programs, original map and decoded models when starting a fresh run. */
@@ -413,7 +413,7 @@ export class BattleRenderer {
     const cancelled=()=>epoch!==this.contextEpoch,wait=()=>checkpoint(cancelled);await wait();
     const anchor=cloneForPreparation(entry.root),root=new THREE.Scene(),meshes:THREE.Mesh[]=[];root.add(anchor.root);anchor.root.traverse(n=>{if(n instanceof THREE.Mesh)meshes.push(n);});
     try{
-     if(entry.displacement){root.environment=this.scene.environment;root.fog=this.scene.fog;this.scene.traverseVisible(n=>{if(n instanceof THREE.Light)root.add(n.clone());});await wait();await this.refraction.prepare(this.renderer,root);await this.waitForGpu();}
+     if(entry.displacement){root.environment=this.scene.environment;root.fog=this.scene.fog;this.scene.traverseVisible(n=>{if(n instanceof THREE.Light)root.add(n.clone());});await wait();await this.refraction.prepare(this.renderer,root,{cancelled});await this.waitForGpu();}
      else await this.warmDetachedBatches(root,meshes,wait);
      if(cancelled())throw Error('后台资源准备已取消');this.stageWarm.set(entry.key,anchor);anchor.root.removeFromParent();
     }catch(error){anchor.dispose();throw error;}
@@ -588,7 +588,7 @@ export class BattleRenderer {
  }
  private commonTasks(plan:CombatPreloadPlan|null=fullCombatPreloadPlan()):PreparationJob[]{return [
   {key:'effects',run:()=>this.fx.load()},
-  ...(plan?.sources??[]).map(id=>({key:'source-combat-effects:'+id,run:async()=>{await this.sourceCombatEffects.load([id]);await this.sourceCombatEffects.player.prepareMeshes(async (root,displacement)=>{await this.preloadTextures(root);this.filterTextures(root);if(displacement)await this.refraction.prepare(this.renderer,root);else await this.compilePresentation(root,this.camera,this.scene);},[id]);}})),
+  ...(plan?.sources??[]).map(id=>({key:'source-combat-effects:'+id,run:async()=>{const epoch=this.contextEpoch,control=this.preparationControl,cancelled=()=>epoch!==this.contextEpoch||!!control?.cancelled?.();await this.sourceCombatEffects.load([id]);await this.sourceCombatEffects.player.prepareMeshes(async (root,displacement)=>{await this.preloadTextures(root);this.filterTextures(root);if(displacement)await this.refraction.prepare(this.renderer,root,{cancelled});else await this.compilePresentation(root,this.camera,this.scene);},[id]);}})),
   {key:'ordinary-effects',run:async()=>{await this.nonHeroEffects.load();this.lowDanger.prepare();}},
   {key:'protoss-elites',run:()=>this.protossEliteEffects.load()}, {key:'zerg-elites',run:()=>this.zergEliteEffects.load()},
   {key:'medical',run:()=>this.eliteSupportEffects.loadMedicalTextures()}, {key:'terran-elites',run:()=>this.terranEliteEffects.load()},

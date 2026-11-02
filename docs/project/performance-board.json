@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "title": "星际幸存者MVP收尾与性能看板",
-  "updated": "2026-10-30",
+  "updated": "2026-11-02",
   "revision": 319,
   "baseline": {
     "branch": "main",
@@ -2696,7 +2696,7 @@
       "phase": "交付",
       "priority": "收尾",
       "auditIds": [],
-      "updated": "2026-10-30",
+      "updated": "2026-11-02",
       "owner": "Codex",
       "historical": false,
       "id": "V06",
@@ -2792,9 +2792,13 @@
         "BUGFIX_GITHUB_SYNC_20261030.md",
         "../../reports/qa/tank-audit-sync-20261030.json",
         "COZE_REPAIR_DEPLOY_20261030.md",
-        "../../reports/qa/coze-repair-deploy-20261030.json"
+        "../../reports/qa/coze-repair-deploy-20261030.json",
+        "STABILITY_FIX_20261102.md",
+        "STABILITY_RECHECK_20261102.md",
+        "../../reports/qa/stability-fix-20261102.json",
+        "../../reports/qa/stability-recheck-20261102.json"
       ],
-      "result": "坦克长线修复已获用户接受，源码baf0d94与正式前端424a0e2已推送体积优化版。Coze v7部署7702329028769841167成功；新版入口、4文件SHA及48项资源依赖、缓存头和线上菜单独立核验通过，本机首关/刷新续局通过。原iPhone等待实机验证，未合并main。",
+      "result": "四项稳定性缺陷已修复：14项新增定向检查、2909项完整回归（6项沙箱本机网络失败所属文件15项复验通过）、类型检查及真实Chrome五组缓存/首战/刷新续局通过。3750份原始和5138份压缩资源来源验证通过；待本批推送，未部署，原iPhone仍待验证。",
       "observedIssues": [
         {
           "id": "V06-GEAR-YIELD-001",
@@ -3123,9 +3127,45 @@
           "scope": "普通坦克火星重力被倾斜骨骼旋转、触地后镜像加速的问题已本地修正；同源2秒半径13.22→2.31，粒子数量保持。5新增/15定向/27相关、2895项回归含本机权限项重跑、类型/数据检查通过，已重录左右对照。",
           "next": "已随Coze v7上线并核验；用户已接受坦克对照，完整交付见COZE_REPAIR_DEPLOY_20261030.md。",
           "evidence": "TANK_EFFECT_FOLLOWUP_20261030.md"
+        },
+        {
+          "id": "V06-AUDIT-SHADER-LANE-001",
+          "priority": "P1",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "折射特效直接等待compileAsync；不完成时后台/必需准备均无法排空，取消后重试仍超时。替身注入已复现，真实GPU与原iPhone触发未确认。",
+          "next": "本地修复和定向/完整回归、真实Chrome验证通过；待本批GitHub推送。未部署，原iPhone复测仍开放。",
+          "evidence": "STABILITY_FIX_20261102.md"
+        },
+        {
+          "id": "V06-AUDIT-PACK-RETRY-001",
+          "priority": "P1",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "客户端校验失败后的reload被SW包缓存忽略；三轮重试、清缓存及模拟SW重启仍返回坏包，网络请求为0。线上缓存损坏未确认。",
+          "next": "本地修复和定向/完整回归、真实Chrome验证通过；待本批GitHub推送。未部署，原iPhone复测仍开放。",
+          "evidence": "STABILITY_FIX_20261102.md"
+        },
+        {
+          "id": "V06-AUDIT-PACK-DISK-001",
+          "priority": "P1",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "SW可选磁盘open/keys/match挂起时两次请求均502且网络为0；外层45秒仍释放并发槽，但重试不能绕过缓存。put挂起也使已下载结果失败。",
+          "next": "本地修复和定向/完整回归、真实Chrome验证通过；待本批GitHub推送。未部署，原iPhone复测仍开放。",
+          "evidence": "STABILITY_FIX_20261102.md"
+        },
+        {
+          "id": "V06-AUDIT-PACK-PROVENANCE-001",
+          "priority": "P2",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "真实压缩更新脚本接受相同ID但内容变化的合成资源，将新模型hash改写为旧压缩hash并保留旧贴图。尚未证明已发布成品错配。",
+          "next": "本地修复和定向/完整回归、真实Chrome验证通过；待本批GitHub推送。未部署，原iPhone复测仍开放。",
+          "evidence": "STABILITY_FIX_20261102.md"
         }
       ],
-      "next": "本轮Git与Coze部署完成；原iPhone续局/听感与真实玩家档案按原机反馈复测。无具体bug时维持MVP 1.0冻结。",
+      "next": "完成本批GitHub推送与远端核验；后续按原iPhone实际反馈复测，不追加MVP功能或一般性能矩阵。",
       "codeAudit": {
         "date": "2026-10-29",
         "status": "已完成",
@@ -3136,6 +3176,24 @@
         "findings": 4,
         "pushed": "dcb7a3c89a323cb69df9db702fec597327511b7f",
         "syncEvidence": "BUGFIX_GITHUB_SYNC_20261030.md"
+      },
+      "stabilityAudit": {
+        "date": "2026-11-02",
+        "status": "已完成",
+        "baseline": "fabfb4addfb65169c2abc0a9dba57f181fed0ad2",
+        "scope": "四项结论独立调查；原云端文件未取得，未实施修复。",
+        "findings": 4,
+        "relatedTestsPassed": 24,
+        "evidence": "STABILITY_RECHECK_20261102.md"
+      },
+      "stabilityFix": {
+        "date": "2026-11-02",
+        "status": "已完成",
+        "findings": 4,
+        "newTests": 14,
+        "appBuildId": "a6b6e0d88b466383e804e20dd0ac94141085a32d25afe6d721c38c45e6484488",
+        "evidence": "STABILITY_FIX_20261102.md",
+        "delivery": "Git推送待完成；未部署"
       }
     },
     {
@@ -10729,6 +10787,17 @@
       "evidence": [
         "COZE_REPAIR_DEPLOY_20261030.md",
         "../../reports/qa/coze-repair-deploy-20261030.json"
+      ]
+    },
+    {
+      "date": "2026-11-02",
+      "tasks": [
+        "V06"
+      ],
+      "change": "V06四项稳定性修复完成：私有折射编译与取消/期限/晚到隔离；坏包驱逐/网络重取及完整性验证；可选磁盘限时降级；压缩来源封存核验。14项新回归、完整2909项（6项沙箱失败复验所属15项全通过）、类型检查和真实Chrome缓存/首战/续局通过。来源3750+5138份逐字节校验通过。待提交推送，不部署；原iPhone仍待验。",
+      "evidence": [
+        "STABILITY_FIX_20261102.md",
+        "../../reports/qa/stability-fix-20261102.json"
       ]
     }
   ],

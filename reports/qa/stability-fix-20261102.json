@@ -1,0 +1,198 @@
+{
+  "date": "2026-11-02",
+  "baseline": "fabfb4addfb65169c2abc0a9dba57f181fed0ad2",
+  "branch": "体积优化版",
+  "status": "Fixed and locally verified; Git push pending",
+  "sourceHashes": {
+    "src/render/scene/screen-refraction.ts": "13fe2e89dc1cfd8734bcc440456ff18ca146ffc926b01ecddfc6dabf2c1aff0e",
+    "src/render/scene/battle-renderer.ts": "7fc4dcf79b4ec43a70143826eef2136fea56892a880f4055ced1722a8510104b",
+    "src/assets/http-store.ts": "670c0498012916ea58a35f2ed85cd58836d1f5585350e11c93587981dcd63ed2",
+    "src/assets/persistent-cache.ts": "97c5dd3eba9e1e1d95b17d88508b1d16786f0090f6d4bdd25acbcd5acedb335f",
+    "src/assets/packed-cache.ts": "e54a78f443f169b8baa80e6563928c425511c56b31cebf9244aa48f4ca05fdc9",
+    "tools/packed-sites-sw.js": "2e4105864636aa5ab637130940cebf467904f2615c4d6a326688ec7c895fda1a",
+    "tools/update-compressed-game.mjs": "379f131d3c355045bd150dd421c9522de963764da5285065028d0cf1516c8f3a",
+    "tools/compressed-resource-provenance.mjs": "f96e596599b7beecfd36b4d76889ede384c0f0c6a6a45daaff92f4b90892bfbe",
+    "tools/seal-compressed-provenance.mjs": "582d0b6ca087716014111256c06b4a7ca228aeb892b4221ac9221486b8fe8c67"
+  },
+  "findings": [
+    {
+      "id": "V06-AUDIT-SHADER-LANE-001",
+      "resolved": true,
+      "change": "Private compile materials, bounded wait, cancellation/context invalidation, late-result isolation; no forced lane reset."
+    },
+    {
+      "id": "V06-AUDIT-PACK-RETRY-001",
+      "resolved": true,
+      "change": "Client integrity failure evicts corresponding SW memory/disk pack. Reload supersedes stale inflight work; full immutable pack verified before cache use/storage; clear covers both resource caches."
+    },
+    {
+      "id": "V06-AUDIT-PACK-DISK-001",
+      "resolved": true,
+      "change": "Independent 1000 ms cache deadlines; failures disable optional disk operations without dropping verified network bytes."
+    },
+    {
+      "id": "V06-AUDIT-PACK-PROVENANCE-001",
+      "resolved": true,
+      "change": "Sealed original records bind packed manifest/index including variants and GPU mappings. Missing proof or changed source content rejected before writes."
+    }
+  ],
+  "tests": {
+    "newTargeted": {
+      "command": "node --import tsx --test test/refraction-preparation-recovery.test.ts test/packed-cache-recovery.test.ts test/compressed-resource-provenance.test.mjs",
+      "passed": 14,
+      "failed": 0,
+      "finalRerunPassed": 14,
+      "includesWindowsProvenanceReseal": true
+    },
+    "related": {
+      "shader": 23,
+      "cache": 24,
+      "overlapsNewTests": true
+    },
+    "full": {
+      "command": "npm test",
+      "total": 2909,
+      "initialPassed": 2903,
+      "initialFailed": 6,
+      "initialFailure": "Sandbox EACCES to loopback HTTP, not application assertions",
+      "loopbackRetest": {
+        "command": "node --import tsx --test test/coze-web.test.mjs test/p5-backend.test.mjs",
+        "passed": 15,
+        "failed": 0
+      },
+      "unresolvedFailures": 0
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "passed": true
+    },
+    "docsCheck": {
+      "command": "npm run docs:check",
+      "passed": true
+    }
+  },
+  "browser": {
+    "date": "2026-11-02",
+    "workerSha256": "2e4105864636aa5ab637130940cebf467904f2615c4d6a326688ec7c895fda1a",
+    "scope": "Real Windows Chrome on isolated loopback origin; scripted Cache API faults and real CacheStorage; packed first battle/refresh. No physical iPhone or production services.",
+    "cache": [
+      {
+        "mode": "healthy",
+        "statuses": [
+          200,
+          200,
+          200
+        ],
+        "networkRequests": 3,
+        "elapsedMs": 30,
+        "cacheCleared": true,
+        "playerStatePreserved": true
+      },
+      {
+        "mode": "open-hang",
+        "statuses": [
+          200,
+          200,
+          200
+        ],
+        "networkRequests": 3,
+        "elapsedMs": 2037,
+        "cacheCleared": true,
+        "playerStatePreserved": true
+      },
+      {
+        "mode": "keys-hang",
+        "statuses": [
+          200,
+          200,
+          200
+        ],
+        "networkRequests": 3,
+        "elapsedMs": 2048,
+        "cacheCleared": true,
+        "playerStatePreserved": true
+      },
+      {
+        "mode": "match-hang",
+        "statuses": [
+          200,
+          200,
+          200
+        ],
+        "networkRequests": 3,
+        "elapsedMs": 2033,
+        "cacheCleared": true,
+        "playerStatePreserved": true
+      },
+      {
+        "mode": "put-hang",
+        "statuses": [
+          200,
+          200,
+          200
+        ],
+        "networkRequests": 3,
+        "elapsedMs": 2035,
+        "cacheCleared": true,
+        "playerStatePreserved": true
+      }
+    ],
+    "game": {
+      "appBuildId": "a6b6e0d88b466383e804e20dd0ac94141085a32d25afe6d721c38c45e6484488",
+      "release": "50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a",
+      "firstBattle": {
+        "stage": 1,
+        "time": 5.05,
+        "assetsPending": 0,
+        "missingEffects": 0
+      },
+      "resume": {
+        "stage": 1,
+        "time": 2.0166666666666666
+      },
+      "existingClearActionPassed": true,
+      "screens": [
+        "menu.png",
+        "battle.png",
+        "battle-mobile-layout.png"
+      ],
+      "physicalDevice": false
+    },
+    "errors": [],
+    "console": [],
+    "httpFailures": [],
+    "cacheReusedFromEarlierSameWorkerRun": true,
+    "complete": true,
+    "visualReview": {
+      "menu": "Passed at 1280x720",
+      "battle": "Passed at 1280x720; terrain, unit, battle effects and HUD visible",
+      "resizeSample": "Immediate viewport resize captured; excluded from mobile acceptance"
+    }
+  },
+  "build": {
+    "appBuildId": "a6b6e0d88b466383e804e20dd0ac94141085a32d25afe6d721c38c45e6484488",
+    "resourceRelease": "50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a",
+    "sourceWebRelease": "c57126842b2eebe90f278e5dfe9c5ad54eaaec683b3e611e697abada0118fdad",
+    "compressedEntrySha256": "c601e10313646ca2513ddaa357abfa73fba1319f8c303521caa1fb0a78b30c3b",
+    "originalFilesVerified": 3750,
+    "packedFilesVerified": 5138,
+    "resourcesChanged": false,
+    "manifestProofSha256": "dc03cb86fbac9b2c2ce91576ebd0b454e7fcc5113531cfe470f29f89360176bb"
+  },
+  "limitations": [
+    "Mock renderer validates stalled compilation state/control, not a physical GPU/OS freeze.",
+    "Real Chrome CacheStorage with scripted faults; no live corrupted production cache tested.",
+    "Desktop loopback smoke only; no physical iPhone/Safari or real player archive.",
+    "Initial QA /game/ mount caused SW scope rejection; QA corrected to deployed root path. Initial resume wait omitted the existing Continue action; QA corrected without product change.",
+    "First build completed compilation but final rename failed because output parent was absent; validated staging output moved into intended named task directory."
+  ],
+  "delivery": {
+    "committed": false,
+    "pushed": false,
+    "deployed": false,
+    "mainMerged": false
+  },
+  "retention": {
+    "status": "Pending final Git verification; temporary screenshots/logs/raw Web will be removed; compact report, reproduction tools and current packed snapshot retained"
+  }
+}
