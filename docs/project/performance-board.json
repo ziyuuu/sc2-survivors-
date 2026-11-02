@@ -2798,7 +2798,7 @@
         "../../reports/qa/stability-fix-20261102.json",
         "../../reports/qa/stability-recheck-20261102.json"
       ],
-      "result": "四项稳定性缺陷已修复：14项新增定向检查、2909项完整回归（6项沙箱本机网络失败所属文件15项复验通过）、类型检查及真实Chrome五组缓存/首战/刷新续局通过。3750份原始和5138份压缩资源来源验证通过；待本批推送，未部署，原iPhone仍待验证。",
+      "result": "四项稳定性缺陷已修复：14项新增定向检查、2909项完整回归（6项沙箱本机网络失败所属文件15项复验通过）、类型检查及真实Chrome五组缓存/首战/刷新续局通过。3750份原始和5138份压缩资源来源验证通过；已随ffc2c2f推送GitHub并双重核验，未部署，原iPhone仍待验证。",
       "observedIssues": [
         {
           "id": "V06-GEAR-YIELD-001",
@@ -3134,7 +3134,7 @@
           "status": "已完成",
           "resolved": true,
           "scope": "折射特效直接等待compileAsync；不完成时后台/必需准备均无法排空，取消后重试仍超时。替身注入已复现，真实GPU与原iPhone触发未确认。",
-          "next": "本地修复和定向/完整回归、真实Chrome验证通过；待本批GitHub推送。未部署，原iPhone复测仍开放。",
+          "next": "已随ffc2c2f推送GitHub体积优化版并双重核验。未部署，原iPhone复测仍开放。",
           "evidence": "STABILITY_FIX_20261102.md"
         },
         {
@@ -3143,7 +3143,7 @@
           "status": "已完成",
           "resolved": true,
           "scope": "客户端校验失败后的reload被SW包缓存忽略；三轮重试、清缓存及模拟SW重启仍返回坏包，网络请求为0。线上缓存损坏未确认。",
-          "next": "本地修复和定向/完整回归、真实Chrome验证通过；待本批GitHub推送。未部署，原iPhone复测仍开放。",
+          "next": "已随ffc2c2f推送GitHub体积优化版并双重核验。未部署，原iPhone复测仍开放。",
           "evidence": "STABILITY_FIX_20261102.md"
         },
         {
@@ -3152,7 +3152,7 @@
           "status": "已完成",
           "resolved": true,
           "scope": "SW可选磁盘open/keys/match挂起时两次请求均502且网络为0；外层45秒仍释放并发槽，但重试不能绕过缓存。put挂起也使已下载结果失败。",
-          "next": "本地修复和定向/完整回归、真实Chrome验证通过；待本批GitHub推送。未部署，原iPhone复测仍开放。",
+          "next": "已随ffc2c2f推送GitHub体积优化版并双重核验。未部署，原iPhone复测仍开放。",
           "evidence": "STABILITY_FIX_20261102.md"
         },
         {
@@ -3161,11 +3161,11 @@
           "status": "已完成",
           "resolved": true,
           "scope": "真实压缩更新脚本接受相同ID但内容变化的合成资源，将新模型hash改写为旧压缩hash并保留旧贴图。尚未证明已发布成品错配。",
-          "next": "本地修复和定向/完整回归、真实Chrome验证通过；待本批GitHub推送。未部署，原iPhone复测仍开放。",
+          "next": "已随ffc2c2f推送GitHub体积优化版并双重核验。未部署，原iPhone复测仍开放。",
           "evidence": "STABILITY_FIX_20261102.md"
         }
       ],
-      "next": "完成本批GitHub推送与远端核验；后续按原iPhone实际反馈复测，不追加MVP功能或一般性能矩阵。",
+      "next": "本批四项修复和GitHub推送已完成；按原iPhone实际反馈复测。Coze仍为原v7，本批未部署，无具体bug时维持MVP 1.0冻结。",
       "codeAudit": {
         "date": "2026-10-29",
         "status": "已完成",
@@ -3193,7 +3193,8 @@
         "newTests": 14,
         "appBuildId": "a6b6e0d88b466383e804e20dd0ac94141085a32d25afe6d721c38c45e6484488",
         "evidence": "STABILITY_FIX_20261102.md",
-        "delivery": "Git推送待完成；未部署"
+        "delivery": "GitHub体积优化版已推送并双重核验；未部署",
+        "commit": "ffc2c2fd111b86d67a2c276be6123bbf1d2167cc"
       }
     },
     {
@@ -10795,6 +10796,17 @@
         "V06"
       ],
       "change": "V06四项稳定性修复完成：私有折射编译与取消/期限/晚到隔离；坏包驱逐/网络重取及完整性验证；可选磁盘限时降级；压缩来源封存核验。14项新回归、完整2909项（6项沙箱失败复验所属15项全通过）、类型检查和真实Chrome缓存/首战/续局通过。来源3750+5138份逐字节校验通过。待提交推送，不部署；原iPhone仍待验。",
+      "evidence": [
+        "STABILITY_FIX_20261102.md",
+        "../../reports/qa/stability-fix-20261102.json"
+      ]
+    },
+    {
+      "date": "2026-11-02",
+      "tasks": [
+        "V06"
+      ],
+      "change": "四项稳定性修复及当前压缩快照已随ffc2c2f推送GitHub体积优化版；ls-remote与GitHub提交接口一致，main保持2924d9b，未部署。最终14项定向复验及docs:check通过。清理本批3777份可重建产物约1.46GB；原iPhone待验，其他任务改动保持。",
       "evidence": [
         "STABILITY_FIX_20261102.md",
         "../../reports/qa/stability-fix-20261102.json"

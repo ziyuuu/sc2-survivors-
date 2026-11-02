@@ -2,7 +2,7 @@
   "date": "2026-11-02",
   "baseline": "fabfb4addfb65169c2abc0a9dba57f181fed0ad2",
   "branch": "体积优化版",
-  "status": "Fixed and locally verified; Git push pending",
+  "status": "Fixed, verified and pushed to GitHub",
   "sourceHashes": {
     "src/render/scene/screen-refraction.ts": "13fe2e89dc1cfd8734bcc440456ff18ca146ffc926b01ecddfc6dabf2c1aff0e",
     "src/render/scene/battle-renderer.ts": "7fc4dcf79b4ec43a70143826eef2136fea56892a880f4055ced1722a8510104b",
@@ -187,12 +187,21 @@
     "First build completed compilation but final rename failed because output parent was absent; validated staging output moved into intended named task directory."
   ],
   "delivery": {
-    "committed": false,
-    "pushed": false,
+    "committed": true,
+    "pushed": true,
+    "codeCommit": "ffc2c2fd111b86d67a2c276be6123bbf1d2167cc",
+    "url": "https://github.com/ziyuuu/sc2-survivors-/commit/ffc2c2fd111b86d67a2c276be6123bbf1d2167cc",
+    "remoteBranch": "体积优化版",
+    "lsRemoteMatched": true,
+    "githubCommitApiMatched": true,
+    "main": "2924d9bb3330f10ad78462b6f96efda163c5eff3",
     "deployed": false,
     "mainMerged": false
   },
   "retention": {
-    "status": "Pending final Git verification; temporary screenshots/logs/raw Web will be removed; compact report, reproduction tools and current packed snapshot retained"
+    "status": "Complete",
+    "filesRemoved": 3777,
+    "bytesRemoved": 1463470700,
+    "retained": "Current packed snapshot including provenance; source/tests/reproduction tools and compact reports. Temporary raw Web, screenshots, logs, staging copies and baseline files removed."
   }
 }
