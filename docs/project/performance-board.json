@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "title": "星际幸存者MVP收尾与性能看板",
   "updated": "2026-11-03",
-  "revision": 354,
+  "revision": 355,
   "baseline": {
     "branch": "main",
     "commit": "be9e2982944314194c6dcc9dcc535bc321749eb4",
@@ -2692,7 +2692,7 @@
       ]
     },
     {
-      "status": "进行中",
+      "status": "待验证",
       "phase": "交付",
       "priority": "收尾",
       "auditIds": [],
@@ -2808,7 +2808,7 @@
         "AUDIT_FIXES_GITHUB_SYNC_20261103.md",
         "../../reports/qa/audit-fixes-github-sync-20261103.json"
       ],
-      "result": "两轮审查修复已通过2957项回归等本地验证；2026-11-03同版Web重建及压缩前端首战/续局/清缓存通过，33份验证输入指纹一致。按授权准备推送GitHub体积优化版；未部署，原iPhone待验。",
+      "result": "两轮审查15项产品缺陷、1项CI缺口及普通兵等级保存补正已随deeb9d8推送GitHub体积优化版，含同版压缩前端，远端双重核验通过。2957项既有回归、33份指纹同版依据与本批压缩首战/续局/清缓存通过；push已触发CI，结果待完成。未部署，原iPhone待验。",
       "observedIssues": [
         {
           "id": "V06-GEAR-YIELD-001",
@@ -2956,8 +2956,8 @@
           "resolved": true,
           "scope": "迭代分支直接push不触发常规CI。直接push体积优化版且没有PR/手动触发；不自动执行全量回归/类型/数据/构建工作流。",
           "evidence": "FULL_CODE_AUDIT_20261102.md",
-          "next": "本地配置已修复；远端触发待后续提交推送后核验。",
-          "resolution": "push过滤已加入体积优化版；对应本机检查通过，远端触发需后续提交核验。",
+          "next": "deeb9d8的push已实际触发CI运行41565561131；最后观察仍在运行，未宣称远端测试通过。",
+          "resolution": "push过滤包含体积优化版，实际push事件及匹配提交SHA已核验。",
           "resolutionEvidence": "AUDIT_FIXES_20261102.md"
         },
         {
@@ -3367,7 +3367,7 @@
           "evidence": "STABILITY_FIX_20261102.md"
         }
       ],
-      "next": "提交审查修复与同版压缩前端，推送体积优化版并核验远端及CI触发；不合并main或部署。",
+      "next": "按原iPhone/原网址/原档收取有限复测反馈；GitHub CI已触发但最后核验时仍在运行。部署及main合并按后续明确指示执行。",
       "codeAudit": {
         "date": "2026-10-29",
         "status": "已完成",
@@ -3432,16 +3432,20 @@
         "additionalFinding": "V06-RUNTIME-SAVE-RANKCAP-002",
         "regressions": 2957,
         "newTests": 48,
-        "committed": false,
-        "pushed": false,
+        "committed": true,
+        "pushed": true,
         "deployed": false,
         "githubSync": {
           "date": "2026-11-03",
-          "status": "交付检查完成，待提交推送",
+          "status": "已推送并双重核验",
           "report": "AUDIT_FIXES_GITHUB_SYNC_20261103.md",
           "appBuildId": "34408a35562ffdf62b278e8a310ae04d06515af98cee00f2c6ab61006922dbab",
-          "resourceRelease": "50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a"
-        }
+          "resourceRelease": "50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a",
+          "sourceCommit": "deeb9d8ce86682bb9edce8cf4724a19d676055ea",
+          "ciRunId": 41565561131,
+          "ciStatus": "in_progress"
+        },
+        "sourceCommit": "deeb9d8ce86682bb9edce8cf4724a19d676055ea"
       }
     },
     {
@@ -11121,6 +11125,17 @@
       "change": "用户明确要求推到远端GitHub；开始核对已验证33份源码/测试/工具指纹，构建同版压缩前端并只提交审查修复相关文件，保留其他工作区成果。",
       "evidence": [
         "AUDIT_FIXES_20261102.md"
+      ]
+    },
+    {
+      "date": "2026-11-03",
+      "tasks": [
+        "V06"
+      ],
+      "change": "两轮审查15项产品缺陷、1项CI缺口及普通兵等级保存补正已随deeb9d8推送GitHub体积优化版，含同版压缩前端，远端双重核验通过。2957项既有回归、33份指纹同版依据与本批压缩首战/续局/清缓存通过；push已触发CI，结果待完成。未部署，原iPhone待验。",
+      "evidence": [
+        "AUDIT_FIXES_GITHUB_SYNC_20261103.md",
+        "../../reports/qa/audit-fixes-github-sync-20261103.json"
       ]
     }
   ],
