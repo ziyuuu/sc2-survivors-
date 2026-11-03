@@ -1,6 +1,6 @@
 {
   "date": "2026-11-03",
-  "status": "Prepared; push pending",
+  "status": "Pushed and independently verified",
   "repository": "ziyuuu/sc2-survivors-",
   "branch": "体积优化版",
   "baseCommit": "b18410e58642d61b94390f2a20d6cc73e8f3428e",
@@ -75,15 +75,44 @@
       "passed": 4,
       "source": "Fixed b18410e baseline after current public snapshot update",
       "protectedStateUnchanged": true
-    }
+    },
+    "committedFrontendHashesMatch": true
   },
   "delivery": {
-    "committed": false,
-    "pushed": false,
-    "deployed": false,
-    "mainMerged": false
+    "committed": true,
+    "pushed": true,
+    "codeCommit": "81893e63965810ad721d7d7a9a2109cfd5af1909",
+    "url": "https://github.com/ziyuuu/sc2-survivors-/commit/81893e63965810ad721d7d7a9a2109cfd5af1909",
+    "lsRemoteMatched": true,
+    "githubCommitApiMatched": true,
+    "mainMerged": false,
+    "deployed": false
   },
   "retention": {
-    "status": "Pending closeout"
+    "status": "Complete",
+    "filesRemoved": 9,
+    "bytesRemoved": 1540768,
+    "removed": [
+      {
+        "path": "reports/local/cache-worker-fix-20261103",
+        "files": 1,
+        "bytes": 1247
+      },
+      {
+        "path": "reports/local/cache-worker-sync-20261103",
+        "files": 8,
+        "bytes": 1539521
+      }
+    ],
+    "retained": "Current increment ZIP/unpacked files/checksums, current Git frontend snapshot, source/tests/reproduction tools and concise reports"
+  },
+  "codeCommit": "81893e63965810ad721d7d7a9a2109cfd5af1909",
+  "ci": {
+    "id": 41589569498,
+    "url": "https://github.com/ziyuuu/sc2-survivors-/actions/runs/41589569498",
+    "headSha": "81893e63965810ad721d7d7a9a2109cfd5af1909",
+    "status": "in_progress",
+    "conclusion": null,
+    "scope": "Authenticated gh api read after anonymous API rate limit; not claimed passed"
   }
 }

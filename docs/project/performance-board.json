@@ -2692,7 +2692,7 @@
       ]
     },
     {
-      "status": "进行中",
+      "status": "待验证",
       "phase": "交付",
       "priority": "收尾",
       "auditIds": [],
@@ -2814,7 +2814,7 @@
         "COZE_CACHE_WORKER_GITHUB_SYNC_20261103.md",
         "../../reports/qa/cache-worker-github-sync-20261103.json"
       ],
-      "result": "本批旧缓存脚本升级/清理恢复已本地修复：2969完整回归、最终43相关回归及Chrome旧脚本/失败重试/真实检查点续局通过；存档及两备份SHA保持。9文件Coze增量已生成读回，待部署与原iPhone复验；线上API配置404仍开放。",
+      "result": "缓存脚本升级与清理恢复已随81893e6推送GitHub体积优化版，包含同版压缩前端与9文件清单；远端双重核验及Git对象SHA通过。复用2969完整/最终43相关检查，固定旧基线4项Chrome复验通过；未部署，原iPhone/CDN及配置API 404仍开放。",
       "observedIssues": [
         {
           "id": "V06-GEAR-YIELD-001",
@@ -3056,12 +3056,13 @@
         {
           "id": "V06-COZE-SW-001",
           "priority": "P1",
-          "status": "待办",
+          "status": "待验证",
           "resolved": false,
           "confirmed": true,
           "scope": "公开CDN/请求变体返回不同SW与无版本号索引，实际旧Chrome客户端清理资源缓存失败；之后新档案可拿到新版，原档案重开仍失败。",
-          "evidence": "COZE_LIVE_CHECK_20261103.md",
-          "next": "统一失效可变URL的CDN缓存变体并核验既有客户端SW更新，再验证清理成功且玩家检查点保留；部署操作另按授权执行。"
+          "evidence": "COZE_CACHE_WORKER_GITHUB_SYNC_20261103.md",
+          "next": "按固定提交发布9文件并处理CDN缓存，复验旧客户端与原iPhone后再关闭。",
+          "programFix": "程序本地验证与GitHub推送已完成，代码81893e6；线上尚未部署。"
         },
         {
           "id": "V06-COZE-CONFIG-001",
@@ -3409,9 +3410,9 @@
           "resolved": false,
           "confirmed": true,
           "scope": "公开CDN/请求变体返回不同SW与无版本号索引，实际旧Chrome客户端清理资源缓存失败；之后新档案可拿到新版，原档案重开仍失败。",
-          "evidence": "COZE_CACHE_WORKER_FIX_20261103.md",
-          "next": "依照交付说明部署9文件增量，清除旧CDN变体，复验既有客户端与原iPhone；实际线上成功后再关闭此项。",
-          "programFix": "已本地修复并验证旧脚本升级/清理/重试/检查点保留；候选86c3ca45…，线上尚未更新。"
+          "evidence": "COZE_CACHE_WORKER_GITHUB_SYNC_20261103.md",
+          "next": "按固定提交发布9文件并处理CDN缓存，复验旧客户端与原iPhone后再关闭。",
+          "programFix": "程序本地验证与GitHub推送已完成，代码81893e6；线上尚未部署。"
         },
         {
           "id": "V06-COZE-CONFIG-001",
@@ -3424,7 +3425,7 @@
           "next": "核对Coze渠道预期的API路由和后台接入；不用其他环境后台通过替代本域验证。"
         }
       ],
-      "next": "按用户明确授权将缓存脚本修复及已验证压缩前端推送GitHub体积优化版，核对远端后提供可直接发给Coze的完整部署提示词；不执行部署。",
+      "next": "将固定提交81893e6及完整提示词交Coze部署原域名，处理CDN所有旧缓存变体并核验旧会话清理/续局；独立核查/api/config真实路由与服务。当前仅GitHub已完成，未部署，原iPhone待验。",
       "codeAudit": {
         "date": "2026-10-29",
         "status": "已完成",
@@ -3526,20 +3527,22 @@
       },
       "cacheWorkerFix": {
         "date": "2026-11-03",
-        "status": "程序本地已完成，部署待验证",
+        "status": "程序及GitHub推送已完成，部署待验证",
         "appBuildId": "86c3ca45f17fe278119e0099e023330db4b0140c4c4b8ef7719a35b515889690",
         "worker": "sites-sw.bd646d557a5dc16c1b8b.js",
         "report": "COZE_CACHE_WORKER_FIX_20261103.md",
         "evidence": "../../reports/qa/cache-worker-fix-20261103.json",
-        "delivery": "9文件增量ZIP已读回校验；未提交/推送/部署"
+        "delivery": "源码和同版前端已随81893e6推送并双重核验；9文件ZIP保持，未部署"
       },
       "cacheWorkerGitSync": {
         "date": "2026-11-03",
-        "status": "进行中",
+        "status": "已推送并核验",
         "baseCommit": "b18410e58642d61b94390f2a20d6cc73e8f3428e",
         "appBuildId": "86c3ca45f17fe278119e0099e023330db4b0140c4c4b8ef7719a35b515889690",
         "report": "COZE_CACHE_WORKER_GITHUB_SYNC_20261103.md",
-        "manifest": "COZE_CACHE_WORKER_PATCH_20261103.json"
+        "manifest": "COZE_CACHE_WORKER_PATCH_20261103.json",
+        "codeCommit": "81893e63965810ad721d7d7a9a2109cfd5af1909",
+        "delivery": "GitHub已完成；Coze完整提示词已准备；未部署"
       }
     },
     {
@@ -11282,6 +11285,17 @@
       "change": "用户明确要求先推送本批修复到GitHub体积优化版，再提供包含CDN/旧客户端缓存更新及/api/config核查的Coze完整提示词。开始限定范围暂存与同版交付核验，不部署。",
       "evidence": [
         "COZE_CACHE_WORKER_FIX_20261103.md"
+      ]
+    },
+    {
+      "date": "2026-11-03",
+      "tasks": [
+        "V06"
+      ],
+      "change": "缓存脚本升级与清理恢复已随81893e6推送GitHub体积优化版，包含同版压缩前端与9文件清单；远端双重核验及Git对象SHA通过。复用2969完整/最终43相关检查，固定旧基线4项Chrome复验通过；未部署，原iPhone/CDN及配置API 404仍开放。 完整Coze提示词已记录；main与其他任务改动保持，CI进行中。",
+      "evidence": [
+        "COZE_CACHE_WORKER_GITHUB_SYNC_20261103.md",
+        "../../reports/qa/cache-worker-github-sync-20261103.json"
       ]
     }
   ],

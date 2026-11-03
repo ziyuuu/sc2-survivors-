@@ -1,7 +1,7 @@
 {
   "date": "2026-11-03",
   "finding": "V06-COZE-SW-001",
-  "status": "Program fixed and verified locally; deployment still pending",
+  "status": "Program fixed, verified and pushed; deployment still pending",
   "sourceHead": "b18410e58642d61b94390f2a20d6cc73e8f3428e",
   "sourceWorkingChanges": true,
   "appBuildId": "86c3ca45f17fe278119e0099e023330db4b0140c4c4b8ef7719a35b515889690",
@@ -177,15 +177,19 @@
     ],
     "retainedDependencies": 365,
     "retainedGpuFallbacks": 43,
-    "committed": false,
-    "pushed": false,
+    "committed": true,
+    "pushed": true,
     "deployed": false,
     "sharedSitesSnapshotChanged": true,
     "finalZipAndCandidateMatch": true,
     "sourceFingerprintMatch": true,
     "guideMatchesPackageAtPackaging": true,
     "latestGitReceipt": "reports/qa/cache-worker-github-sync-20261103.json",
-    "zipBytesUnchanged": true
+    "zipBytesUnchanged": true,
+    "codeCommit": "81893e63965810ad721d7d7a9a2109cfd5af1909",
+    "url": "https://github.com/ziyuuu/sc2-survivors-/commit/81893e63965810ad721d7d7a9a2109cfd5af1909",
+    "lsRemoteMatched": true,
+    "githubCommitApiMatched": true
   },
   "sourceFiles": [
     {
@@ -220,7 +224,7 @@
   ],
   "limitations": [
     "Local Windows Chrome; physical iPhone/Safari and live CDN not revalidated by this patch",
-    "No production deployment, Git commit/push, live player-save access or database writes",
+    "No production deployment, live player-save access or database writes",
     "V06-COZE-CONFIG-001 /api/config 404 is a separate existing deployment gap; Coze must verify actual backend routing",
     "No new natural full-campaign, performance or three-race acceptance claimed"
   ],
