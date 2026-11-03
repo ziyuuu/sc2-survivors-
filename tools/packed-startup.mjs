@@ -1,7 +1,39 @@
+/** A registration/ready promise does not prove which worker controls this page.
+ * Keep this self-contained: the launcher embeds the same function verbatim. */
+export async function connectPackedWorker(workerURL,scope,timeoutMs=25000){
+ const service=navigator.serviceWorker,expected=new URL(workerURL).href,deadline=Date.now()+timeoutMs;
+ const remaining=()=>Math.max(1,deadline-Date.now());
+ const bounded=async(work,label,ms=remaining())=>{let timer;try{return await Promise.race([work,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error(label)),ms);})]);}finally{clearTimeout(timer);}};
+ const registration=await bounded(service.register(expected,{scope,updateViaCache:'none'}),'资源服务连接超时');
+ const worker=await new Promise((resolve,reject)=>{
+  let settled=false;
+  const updating=[...new Set([registration.installing,registration.waiting,registration.active].filter(item=>item?.scriptURL===expected))];
+  const finish=(error,value)=>{if(settled)return;settled=true;clearTimeout(timer);service.removeEventListener('controllerchange',check);for(const item of updating)item.removeEventListener('statechange',check);error?reject(error):resolve(value);};
+  const check=()=>{const active=service.controller;if(active?.scriptURL===expected&&active.state==='activated')finish(null,active);else if(updating.some(item=>item.state==='redundant'))finish(Error('资源服务更新失败'));};
+  const timer=setTimeout(()=>finish(Error('资源服务接管超时')),remaining());
+  service.addEventListener('controllerchange',check);for(const item of updating)item.addEventListener('statechange',check);check();
+ });
+ const channel=new MessageChannel();
+ try{
+  const reply=await bounded(new Promise((resolve,reject)=>{channel.port1.onmessage=event=>resolve(event.data);channel.port1.onmessageerror=()=>reject(Error('资源服务响应无效'));worker.postMessage({type:'sc2-pack-capabilities'},[channel.port2]);}),'资源服务协议确认超时',Math.min(2000,remaining()));
+  if(service.controller!==worker||reply?.protocol!==1||reply?.cacheClear!==true||reply?.versionedIndexes!==true)throw Error('资源服务版本不兼容');
+  return worker;
+ }finally{channel.port1.close();channel.port2.close();}
+}
+
 /** Build the tiny bootstrap without changing the packed game's resource identities. */
-export function packedLauncher(codeFile,indexFile='sites-pack-index.js'){return `
+export function packedLauncher(codeFile,indexFile='sites-pack-index.js',workerFile='sites-sw.js'){
+ if(!/^sites-sw(?:\.[a-f0-9]{20})?\.js$/.test(workerFile))throw Error('Invalid packed worker filename');
+ return `
 globalThis.__SC2_PACKED_GRAPHICS__=true;
 globalThis.__SC2_PACK_INDEX_FILE__=${JSON.stringify(indexFile)};
+globalThis.__SC2_PACK_WORKER_FILE__=${JSON.stringify(workerFile)};
+const connectPackedWorker=${connectPackedWorker.toString()};
+let workerConnection;
+globalThis.__SC2_ENSURE_PACK_WORKER__=()=>{
+ if(!workerConnection)workerConnection=connectPackedWorker(new URL('../'+globalThis.__SC2_PACK_WORKER_FILE__,import.meta.url).href,new URL('../',import.meta.url).href).finally(()=>{workerConnection=null;});
+ return workerConnection;
+};
 const memory=navigator.deviceMemory,cores=navigator.hardwareConcurrency;
 const limited=(memory&&memory<=2)||(cores&&cores<=2)||(memory&&memory<=4&&cores&&cores<=4)||(memory===undefined&&matchMedia('(pointer:coarse)').matches);
 const packBytes=(limited?12:(memory>=8&&cores>=8)?48:24)*1024**2;
@@ -11,15 +43,7 @@ navigator.serviceWorker?.addEventListener('message',e=>{if(e.data?.type==='sc2-r
 const progress=message=>document.dispatchEvent(new CustomEvent('sc2-opening-progress',{detail:{value:null,phase:'loading',message}}));
 async function bounded(work,label,ms=60000){let timer;try{return await Promise.race([work,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error(label)),ms);})]);}finally{clearTimeout(timer);}}
 async function connect(){
- const registration=await bounded(navigator.serviceWorker.register(new URL('../sites-sw.js',import.meta.url),{scope:'../',updateViaCache:'none'}),'资源服务连接超时',25000);
- const updating=registration.installing??registration.waiting;
- if(updating&&updating.state!=='activated')await bounded(new Promise((resolve,reject)=>{const changed=()=>{if(updating.state==='activated')resolve();else if(updating.state==='redundant')reject(Error('资源服务更新失败'));};updating.addEventListener('statechange',changed);changed();}),'资源服务更新超时',25000);
- await bounded(navigator.serviceWorker.ready,'资源服务启动超时',25000);
- if(!navigator.serviceWorker.controller)await new Promise((resolve,reject)=>{
-  const ready=()=>{if(!navigator.serviceWorker.controller)return;clearTimeout(timer);navigator.serviceWorker.removeEventListener('controllerchange',ready);resolve();};
-  const timer=setTimeout(()=>{navigator.serviceWorker.removeEventListener('controllerchange',ready);reject(Error('资源服务启动超时'));},15000);
-  navigator.serviceWorker.addEventListener('controllerchange',ready);ready();
- });
+ await globalThis.__SC2_ENSURE_PACK_WORKER__();
  sendBudget();
  const controller=new AbortController();
  try{

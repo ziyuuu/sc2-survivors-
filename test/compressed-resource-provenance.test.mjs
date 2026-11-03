@@ -25,7 +25,9 @@ async function fixture(t){
 }
 test('a byte-verified original/compressed baseline permits code-only updates and legitimate model hash rebinding',async t=>{
  const f=await fixture(t);f.seal();const proof=f.packed+'/'+PROVENANCE_FILE;await fs.writeFile(proof,(await fs.readFile(proof,'utf8')).replaceAll('\n','\r\n'));f.seal();const output=JSON.parse(f.update());const code=gunzipSync(await fs.readFile(f.packed+'/'+output.entry)).toString();assert.ok(code.includes(f.target.assets.model.sha256));assert.ok(!code.includes(f.original.assets.model.sha256));
- const after=JSON.parse(await fs.readFile(f.packed+'/web-release.json'));assert.equal(after.appBuildId,'new-code');assert.equal(after.sourceWebRelease,f.original.release);assert.equal(after.release,f.target.release);f.update();
+ const after=JSON.parse(await fs.readFile(f.packed+'/web-release.json'));assert.equal(after.appBuildId,'new-code');assert.equal(after.sourceWebRelease,f.original.release);assert.equal(after.release,f.target.release);
+ const worker=await fs.readFile(f.packed+'/'+after.packedWorker);assert.equal(sha256(worker),after.packedWorkerSha256);assert.equal(after.packedWorker,'sites-sw.'+sha256(worker).slice(0,20)+'.js');assert.deepEqual(await fs.readFile(f.packed+'/sites-sw.js'),worker);
+ const html=await fs.readFile(f.packed+'/index.html','utf8'),launcher=html.match(/src="\.\/([^\"]+\.js)"/)[1];assert((await fs.readFile(f.packed+'/'+launcher,'utf8')).includes(after.packedWorker));assert.equal(after.packedWorkerProtocol,1);f.update();
 });
 test('missing provenance rejects before any destination mutation',async t=>{
  const f=await fixture(t),before=await fs.readFile(f.packed+'/web-release.json');assert.throws(f.update,/Missing compressed resource provenance/);assert.deepEqual(await fs.readFile(f.packed+'/web-release.json'),before);assert.deepEqual(await fs.readdir(f.packed+'/assets'),Object.values(f.target.assets).map(r=>path.basename(r.url)).sort());

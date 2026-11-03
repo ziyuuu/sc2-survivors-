@@ -78,7 +78,7 @@ test('the existing clear action clears both resource layers and cancels old infl
 
 test('failed clear reports failure while bypassing the stalled disk; an obsolete silent worker cannot claim success',async t=>{
  const sw=worker(cacheFixture('clear-hang'));withGlobals(t,sw);await assert.rejects(new ResourceCache(200).clear(),/未能清理/);assert.equal(sw.state().diskEnabled,false);assert.deepEqual(new Uint8Array(await sw.get()),good);
- Object.defineProperty(globalThis,'navigator',{configurable:true,value:{serviceWorker:{controller:{postMessage(){}}}}});await assert.rejects(new ResourceCache(10).clear(),/等待超时/);
+ Object.defineProperty(globalThis,'navigator',{configurable:true,value:{serviceWorker:{controller:{postMessage(){}}}}});await assert.rejects(new ResourceCache(10).clear(),/资源服务更新失败/);
 });
 
 

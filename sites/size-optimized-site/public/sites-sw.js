@@ -77,6 +77,7 @@ const network={active:0,queue:[]},decode={active:0,queue:[]};
 async function lane(state,limit,work){await new Promise(resolve=>{const enter=()=>{state.active++;resolve();};if(state.active<limit())enter();else state.queue.push(enter);});try{return await work();}finally{state.active--;while(state.queue.length&&state.active<limit())state.queue.shift()();}}
 async function budgets(){const active=new Set((await self.clients.matchAll()).map(c=>c.id));for(const id of clientsBudget.keys())if(!active.has(id))clientsBudget.delete(id);const all=[...clientsBudget.values()];packLimit=Math.min(24*1024**2,...all.map(b=>b.packBytes));networkLimit=Math.min(4,...all.map(b=>b.network));decodeLimit=Math.min(2,...all.map(b=>b.decode));trim();}
 self.addEventListener('message',event=>{
+ if(event.data?.type==='sc2-pack-capabilities')event.ports[0]?.postMessage({protocol:1,cacheClear:true,versionedIndexes:true});
  if(event.data?.type==='sc2-runtime-budget'&&event.source?.id){const d=event.data;clientsBudget.set(event.source.id,{packBytes:Math.max(4*1024**2,Math.min(64*1024**2,Number(d.packBytes)||12*1024**2)),network:Math.max(1,Math.min(6,Number(d.network)||2)),decode:Math.max(1,Math.min(4,Number(d.decode)||1))});event.waitUntil(budgets());}
  if(event.data?.type==='sc2-pack-metrics')event.ports[0]?.postMessage({...metrics,residentBytes:resident,inflight:inflight.size,decodeActive:decode.active,packLimit,networkLimit,decodeLimit,diskBytes,diskLimit});
  if(event.data?.type==='sc2-pack-cache-clear')event.waitUntil(clearPacks().then(ok=>event.ports[0]?.postMessage({ok})));

@@ -27,4 +27,5 @@ sites/size-optimized-site/public/assets/*.js -text
 sites/size-optimized-site/public/asset-manifest.*.json -text
 sites/size-optimized-site/public/sites-pack-index*.js -text
 sites/size-optimized-site/public/sites-sw.js -text
+sites/size-optimized-site/public/sites-sw.*.js -text
 sites/size-optimized-site/public/basis/** -text

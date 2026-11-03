@@ -2692,7 +2692,7 @@
       ]
     },
     {
-      "status": "待验证",
+      "status": "进行中",
       "phase": "交付",
       "priority": "收尾",
       "auditIds": [],
@@ -2806,9 +2806,15 @@
         "AUDIT_FIXES_20261102.md",
         "../../reports/qa/audit-fixes-20261102.json",
         "AUDIT_FIXES_GITHUB_SYNC_20261103.md",
-        "../../reports/qa/audit-fixes-github-sync-20261103.json"
+        "../../reports/qa/audit-fixes-github-sync-20261103.json",
+        "COZE_LIVE_CHECK_20261103.md",
+        "../../reports/qa/coze-live-check-20261103.json",
+        "COZE_CACHE_WORKER_FIX_20261103.md",
+        "../../reports/qa/cache-worker-fix-20261103.json",
+        "COZE_CACHE_WORKER_GITHUB_SYNC_20261103.md",
+        "../../reports/qa/cache-worker-github-sync-20261103.json"
       ],
-      "result": "两轮审查15项产品缺陷、1项CI缺口及普通兵等级保存补正已随deeb9d8推送GitHub体积优化版，含同版压缩前端，远端双重核验通过。2957项既有回归、33份指纹同版依据与本批压缩首战/续局/清缓存通过；push已触发CI，结果待完成。未部署，原iPhone待验。",
+      "result": "本批旧缓存脚本升级/清理恢复已本地修复：2969完整回归、最终43相关回归及Chrome旧脚本/失败重试/真实检查点续局通过；存档及两备份SHA保持。9文件Coze增量已生成读回，待部署与原iPhone复验；线上API配置404仍开放。",
       "observedIssues": [
         {
           "id": "V06-GEAR-YIELD-001",
@@ -3046,6 +3052,36 @@
           "evidence": "AUDIT_FIXES_20261102.md",
           "resolution": "采用正安全整数等级并保留身份/载荷校验，保存/导出/恢复及非整数/非有限篡改拒绝通过。",
           "next": "本地修复完成；当前尚未提交或部署。"
+        },
+        {
+          "id": "V06-COZE-SW-001",
+          "priority": "P1",
+          "status": "待办",
+          "resolved": false,
+          "confirmed": true,
+          "scope": "公开CDN/请求变体返回不同SW与无版本号索引，实际旧Chrome客户端清理资源缓存失败；之后新档案可拿到新版，原档案重开仍失败。",
+          "evidence": "COZE_LIVE_CHECK_20261103.md",
+          "next": "统一失效可变URL的CDN缓存变体并核验既有客户端SW更新，再验证清理成功且玩家检查点保留；部署操作另按授权执行。"
+        },
+        {
+          "id": "V06-COZE-CONFIG-001",
+          "priority": "P2",
+          "status": "待办",
+          "resolved": false,
+          "confirmed": true,
+          "scope": "/api/config持续404，真实UI反馈发送与统计启用按钮禁用；核心战斗/本地保存可用，尚未认定为本次更新新引入。",
+          "evidence": "COZE_LIVE_CHECK_20261103.md",
+          "next": "核对Coze渠道预期的API路由和后台接入；不用其他环境后台通过替代本域验证。"
+        },
+        {
+          "id": "V06-COZE-TLS-001",
+          "priority": "P2",
+          "status": "待验证",
+          "resolved": false,
+          "confirmed": false,
+          "scope": "虫族后台单个KTX2请求出现ERR_CERT_COMMON_NAME_INVALID，未阻断已测流程；独立同URL请求随后200且SHA匹配，稳定复现和证书/CDN节点原因未确认。",
+          "evidence": "COZE_LIVE_CHECK_20261103.md",
+          "next": "保留单次网络观察；如原机或后续发布复核重现，记录请求时间与CDN节点后定向排查，不启动无限重试。"
         }
       ],
       "openFindings": [
@@ -3365,9 +3401,30 @@
           "scope": "真实压缩更新脚本接受相同ID但内容变化的合成资源，将新模型hash改写为旧压缩hash并保留旧贴图。尚未证明已发布成品错配。",
           "next": "已随ffc2c2f推送GitHub体积优化版并双重核验。未部署，原iPhone复测仍开放。",
           "evidence": "STABILITY_FIX_20261102.md"
+        },
+        {
+          "id": "V06-COZE-SW-001",
+          "priority": "P1",
+          "status": "待验证",
+          "resolved": false,
+          "confirmed": true,
+          "scope": "公开CDN/请求变体返回不同SW与无版本号索引，实际旧Chrome客户端清理资源缓存失败；之后新档案可拿到新版，原档案重开仍失败。",
+          "evidence": "COZE_CACHE_WORKER_FIX_20261103.md",
+          "next": "依照交付说明部署9文件增量，清除旧CDN变体，复验既有客户端与原iPhone；实际线上成功后再关闭此项。",
+          "programFix": "已本地修复并验证旧脚本升级/清理/重试/检查点保留；候选86c3ca45…，线上尚未更新。"
+        },
+        {
+          "id": "V06-COZE-CONFIG-001",
+          "priority": "P2",
+          "status": "待办",
+          "resolved": false,
+          "confirmed": true,
+          "scope": "/api/config持续404，真实UI反馈发送与统计启用按钮禁用；核心战斗/本地保存可用，尚未认定为本次更新新引入。",
+          "evidence": "COZE_LIVE_CHECK_20261103.md",
+          "next": "核对Coze渠道预期的API路由和后台接入；不用其他环境后台通过替代本域验证。"
         }
       ],
-      "next": "按原iPhone/原网址/原档收取有限复测反馈；GitHub CI已触发但最后核验时仍在运行。部署及main合并按后续明确指示执行。",
+      "next": "按用户明确授权将缓存脚本修复及已验证压缩前端推送GitHub体积优化版，核对远端后提供可直接发给Coze的完整部署提示词；不执行部署。",
       "codeAudit": {
         "date": "2026-10-29",
         "status": "已完成",
@@ -3446,6 +3503,43 @@
           "ciStatus": "in_progress"
         },
         "sourceCommit": "deeb9d8ce86682bb9edce8cf4724a19d676055ea"
+      },
+      "liveDeploymentCheck": {
+        "date": "2026-11-03",
+        "status": "已核验，发现问题",
+        "origin": "https://sc-survivors.coze.site",
+        "scope": "公开HTTP版本/哈希及隔离浏览器实际流程；不改生产配置或真实玩家档案",
+        "report": "COZE_LIVE_CHECK_20261103.md",
+        "machineReport": "../../reports/qa/coze-live-check-20261103.json",
+        "appBuildId": "34408a35562ffdf62b278e8a310ae04d06515af98cee00f2c6ab61006922dbab",
+        "coreFlowsPassed": true,
+        "deploymentConsistencyPassed": false,
+        "confirmedFindingIds": [
+          "V06-COZE-SW-001",
+          "V06-COZE-CONFIG-001"
+        ],
+        "unconfirmedObservationIds": [
+          "V06-COZE-TLS-001"
+        ],
+        "productChanged": false,
+        "deployedByThisTask": false
+      },
+      "cacheWorkerFix": {
+        "date": "2026-11-03",
+        "status": "程序本地已完成，部署待验证",
+        "appBuildId": "86c3ca45f17fe278119e0099e023330db4b0140c4c4b8ef7719a35b515889690",
+        "worker": "sites-sw.bd646d557a5dc16c1b8b.js",
+        "report": "COZE_CACHE_WORKER_FIX_20261103.md",
+        "evidence": "../../reports/qa/cache-worker-fix-20261103.json",
+        "delivery": "9文件增量ZIP已读回校验；未提交/推送/部署"
+      },
+      "cacheWorkerGitSync": {
+        "date": "2026-11-03",
+        "status": "进行中",
+        "baseCommit": "b18410e58642d61b94390f2a20d6cc73e8f3428e",
+        "appBuildId": "86c3ca45f17fe278119e0099e023330db4b0140c4c4b8ef7719a35b515889690",
+        "report": "COZE_CACHE_WORKER_GITHUB_SYNC_20261103.md",
+        "manifest": "COZE_CACHE_WORKER_PATCH_20261103.json"
       }
     },
     {
@@ -11136,6 +11230,58 @@
       "evidence": [
         "AUDIT_FIXES_GITHUB_SYNC_20261103.md",
         "../../reports/qa/audit-fixes-github-sync-20261103.json"
+      ]
+    },
+    {
+      "date": "2026-11-03",
+      "tasks": [
+        "V06"
+      ],
+      "change": "用户提供Coze原域名，要求核验远端部署、可用性及bug。开始只读HTTP同版核验与隔离浏览器有限流程检查，不推断GitHub推送等于部署。",
+      "evidence": [
+        "AUDIT_FIXES_GITHUB_SYNC_20261103.md"
+      ]
+    },
+    {
+      "date": "2026-11-03",
+      "tasks": [
+        "V06"
+      ],
+      "change": "Coze主程序已核验为最新34408a35…，三族正常首关/关间保存/刷新续局/第二关通过。发现CDN与旧客户端SW/资源索引混用，实际清缓存3次失败；/api/config持续404致反馈与统计不可用。新Chrome后续可得新版但原档案仍失败，部署一致性未通过；原iPhone待验。",
+      "evidence": [
+        "COZE_LIVE_CHECK_20261103.md",
+        "../../reports/qa/coze-live-check-20261103.json"
+      ]
+    },
+    {
+      "date": "2026-11-03",
+      "tasks": [
+        "V06"
+      ],
+      "change": "按用户授权修复程序侧旧SW识别/升级/清缓存恢复，验证后提供Coze增量包及具体部署说明；两条错误文案已确认，不改线上或扩大后台实现。",
+      "evidence": [
+        "COZE_LIVE_CHECK_20261103.md"
+      ]
+    },
+    {
+      "date": "2026-11-03",
+      "tasks": [
+        "V06"
+      ],
+      "change": "本批旧缓存脚本升级/清理恢复已本地修复：2969完整回归、最终43相关回归及Chrome旧脚本/失败重试/真实检查点续局通过；存档及两备份SHA保持。9文件Coze增量已生成读回，待部署与原iPhone复验；线上API配置404仍开放。 本批只改已确认的两条错误文案；共享Sites快照、存档契约与资源release保持。",
+      "evidence": [
+        "COZE_CACHE_WORKER_FIX_20261103.md",
+        "../../reports/qa/cache-worker-fix-20261103.json"
+      ]
+    },
+    {
+      "date": "2026-11-03",
+      "tasks": [
+        "V06"
+      ],
+      "change": "用户明确要求先推送本批修复到GitHub体积优化版，再提供包含CDN/旧客户端缓存更新及/api/config核查的Coze完整提示词。开始限定范围暂存与同版交付核验，不部署。",
+      "evidence": [
+        "COZE_CACHE_WORKER_FIX_20261103.md"
       ]
     }
   ],

@@ -1,5 +1,5 @@
 {
-  "appBuildId": "34408a35562ffdf62b278e8a310ae04d06515af98cee00f2c6ab61006922dbab",
+  "appBuildId": "86c3ca45f17fe278119e0099e023330db4b0140c4c4b8ef7719a35b515889690",
   "runSchema": 26,
   "rulesId": "mvp-1.0",
   "mapId": "campaign-five-v3",
@@ -12,7 +12,7 @@
   "release": "50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a",
   "source": "reports/local/asset-reachability.json",
   "sourceWebRelease": "c57126842b2eebe90f278e5dfe9c5ad54eaaec683b3e611e697abada0118fdad",
-  "compressedEntrySha256": "fb6ca9fb439a132882bd1ed492c441499a7941736db8dc0111fc60d82193d63e",
+  "compressedEntrySha256": "6c2870662397867fd68d5038584720de6cf283a5314edd61f89264c91d85c29b",
   "qualityVariants": true,
   "packedBytes": 458346118,
   "variantRecordCount": 1375,
@@ -26,5 +26,8 @@
     "count": 2,
     "bytes": 4526957,
     "encoding": "Approved original MP3, unchanged; outside existing packed bundles"
-  }
+  },
+  "packedWorker": "sites-sw.bd646d557a5dc16c1b8b.js",
+  "packedWorkerSha256": "bd646d557a5dc16c1b8b75f494c0d14d4d829873c734951153117bdc0ae2eeb8",
+  "packedWorkerProtocol": 1
 }

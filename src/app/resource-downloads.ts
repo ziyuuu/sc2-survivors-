@@ -4,6 +4,7 @@ import {racePreloadModels} from './race-preload';
 import {RESCUE_PRESENTATION} from '../data/economy';
 import type {Race} from '../data/races';
 import {displayAssetModelKey} from '../render/materials/elite-visual';
+import {PackedWorkerUpdateError} from '../assets/packed-cache';
 
 /** Shared maps, enemies, materials, audio and effects accompany the chosen roster. */
 export function raceDownloadIds(race:Race,ids:string[]){
@@ -55,7 +56,7 @@ export class ResourceDownloads{
   const store=this.getStore();if(!store||!this.canStart)return;
   this.state.phase='clearing';this.state.message='正在清理资源缓存';this.onChange();let release=()=>{};
   try{release=await this.holdOptional();await store.cache.clear();Object.assign(this.state,{phase:'idle',done:0,total:0,scope:null,race:null,message:'资源缓存已清理；存档、天赋和设置保留。'});}
-  catch{this.state.phase='error';this.state.message='浏览器未允许清理资源缓存，请稍后重试。';}
+  catch(error){this.state.phase='error';this.state.message=error instanceof PackedWorkerUpdateError?'资源服务更新失败，请刷新后重试。':'资源缓存清理失败，请稍后重试。';}
   finally{release();this.onChange();}
  }
 }

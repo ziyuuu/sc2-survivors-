@@ -1,5 +1,9 @@
 # 历史诊断脚本与当前验证入口
 
+2026-11-03缓存升级修复：`test/packed-worker-update.test.ts`验证协议/实际控制权/升级失败/清理边界；`verify-cache-worker-upgrade-20261103.mjs`重放线上发现的旧Worker SHA `777a07c5…`，对本批 `86c3ca45…`候选执行本机有限升级与真实检查点恢复。小场景的模拟保存和完整游戏的真实UI检查点分别记录；不代替线上CDN或物理iPhone验收。`package-cache-worker-fix-20261103.mjs`的输入版本固定，不能跨版本直接套用。见[结果与步骤](../docs/project/COZE_CACHE_WORKER_FIX_20261103.md)。
+
+2026-11-03公开Coze检查：`verify-coze-live-20261103.mjs`及`inspect-coze-{delivery,cache}-20261103.mjs`针对appBuildId `34408a35…`，记录正常三族流程、CDN/SW混用及配置404。是有限线上观察，不能推断物理iPhone/长局通过，也不能将某一次HTTP成功覆盖其他请求变体的失败。版本变化时保留[当时结论](../docs/project/COZE_LIVE_CHECK_20261103.md)，不要覆盖历史报告；详细参数见工具入口。
+
 2026-11-02运行补查：`inspect-runtime-{persistence,hero-checkpoint,rescue-save,resources,simulation}-20261102.mts`及`inspect-runtime-browser-20261102.mjs`针对`8d680ac`。资源脚本用`node --import tsx --test`，其他mts用`node --import tsx`；simulation依次传terran/zerg/protoss，含保命/有限清敌，虫族第14关真实恢复失败是待修缺陷。browser生成本批隔离构建、使用临时Chrome与本机服务；`--no-build`只在已有本批构建时有效。AUDIT断言记录现有缺陷，不能当修复验收。覆盖、成功对照及限制见[运行过程补充审查](../docs/project/RUNTIME_CODE_AUDIT_20261102.md)。
 
 2026-11-02全面审查：`inspect-full-audit-assets-20261102.mts`、`inspect-full-audit-persistence-20261102.mts`、`inspect-full-audit-runtime-20261102.mts`、`inspect-full-audit-simulation-20261102.mts`针对`8d680ac`确认8项产品缺陷，**断言当前缺陷，不是正确行为验收测试**。修复后应改成对应正常预期的回归，不能为通过旧调查而恢复错误行为。资源脚本加`--verify-snapshot`核对当前压缩载荷；runtime脚本须用`node --import tsx --test`运行，其他用`node --import tsx`。结果、版本和限制见[全面审查](../docs/project/FULL_CODE_AUDIT_20261102.md)。

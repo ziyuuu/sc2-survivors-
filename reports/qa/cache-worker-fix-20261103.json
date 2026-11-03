@@ -1,0 +1,256 @@
+{
+  "date": "2026-11-03",
+  "finding": "V06-COZE-SW-001",
+  "status": "Program fixed and verified locally; deployment still pending",
+  "sourceHead": "b18410e58642d61b94390f2a20d6cc73e8f3428e",
+  "sourceWorkingChanges": true,
+  "appBuildId": "86c3ca45f17fe278119e0099e023330db4b0140c4c4b8ef7719a35b515889690",
+  "resourceRelease": "50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a",
+  "runSchema": 26,
+  "packedWorker": "sites-sw.bd646d557a5dc16c1b8b.js",
+  "packedWorkerSha256": "bd646d557a5dc16c1b8b75f494c0d14d4d829873c734951153117bdc0ae2eeb8",
+  "changes": [
+    "Hash-addressed worker in the packed bootstrap, actual controller and protocol verification before application import",
+    "Bounded upgrade from obsolete workers before clearing, verified acknowledgement and controller-switch handling",
+    "Approved separate update-failure and cache-clear-failure messages",
+    "Existing resource cache namespaces only; saves/settings/unrelated storage preserved"
+  ],
+  "tests": {
+    "full": {
+      "passed": 2969,
+      "failed": 0,
+      "scope": "Before final active/activating listener refinement; subsequent change covered by final related suite"
+    },
+    "finalRelated": {
+      "passed": 43,
+      "failed": 0,
+      "files": [
+        "test/packed-worker-update.test.ts",
+        "test/packed-cache-recovery.test.ts",
+        "test/settings-downloads.test.ts",
+        "test/compressed-resource-provenance.test.mjs",
+        "test/startup-auto-retry.test.ts",
+        "test/resource-cache-update.test.ts"
+      ],
+      "newWorkerTests": 12
+    },
+    "typecheck": "Passed, final source",
+    "docsCheck": "Passed, final source and records",
+    "webBuild": "Passed in isolated named destination; compressed provenance verified"
+  },
+  "fixtures": {
+    "legacySha256": "777a07c5f18c0c4184f9ded53fd363610d0404e053ed3ddbfc3d9ad98db7a9f9",
+    "checks": [
+      {
+        "mode": "bootstrap",
+        "passed": true,
+        "finalPhase": "idle",
+        "protectedStateUnchanged": true,
+        "worker": "sites-sw.f71657a615a61c443400.js"
+      },
+      {
+        "mode": "recover",
+        "passed": true,
+        "finalPhase": "idle",
+        "protectedStateUnchanged": true,
+        "worker": "sites-sw.f71657a615a61c443400.js"
+      },
+      {
+        "mode": "unavailable",
+        "passed": true,
+        "finalPhase": "idle",
+        "protectedStateUnchanged": true,
+        "worker": "sites-sw.f71657a615a61c443400.js"
+      },
+      {
+        "mode": "clear-failure",
+        "passed": true,
+        "finalPhase": "error",
+        "protectedStateUnchanged": true,
+        "worker": "sites-sw.085213d02fda7f52dd27.js"
+      }
+    ],
+    "expectedFaults": [
+      {
+        "mode": "unavailable",
+        "message": "资源服务更新失败，请刷新后重试。"
+      }
+    ]
+  },
+  "browser": {
+    "scope": "Local Windows Chrome; exact observed historical SW plus deliberate CDN/update/storage faults; isolated test data. Not a live deployment or physical iPhone test.",
+    "game": {
+      "appBuildId": "86c3ca45f17fe278119e0099e023330db4b0140c4c4b8ef7719a35b515889690",
+      "packedWorker": "sites-sw.bd646d557a5dc16c1b8b.js",
+      "legacyToCurrentStartup": true,
+      "samePageLegacyRecovery": true,
+      "updateFailureAndRetry": true,
+      "clearFailureAndRetry": true,
+      "protectedState": {
+        "saveSlotsSha256": "ffe77468f320ae7bd51793f5afb97d17fc791d81a6b5f326ee8105f5bc6c0714",
+        "localValue": "keep",
+        "unrelatedCacheValue": "keep",
+        "hasCurrent": true
+      },
+      "checkpointRestored": {
+        "stage": 1,
+        "time": 2.0166666666666666
+      },
+      "viewports": [
+        "1280x720",
+        "844x390",
+        "390x844"
+      ],
+      "quality": "medium in isolated test profile",
+      "physicalDevice": false
+    },
+    "pageErrors": [],
+    "httpFailures": [],
+    "viewedScreens": [
+      "update-failure-390.png",
+      "clear-failure-844.png",
+      "resumed-battle.png"
+    ],
+    "saveSource": "Real game UI first-stage checkpoint, then exact stale worker injected before candidate reload; fixture save slots are separate synthetic data"
+  },
+  "delivery": {
+    "path": "dist/coze-cache-worker-fix-20261103/Coze-Cache-Worker-Fix.zip",
+    "bytes": 9048023,
+    "sha256": "05a523646037fa87ec0861a62d7c69e28a07de5498282d2758890d41f144fccb",
+    "entries": 11,
+    "allEntriesReadBack": true,
+    "staticFiles": [
+      {
+        "path": "public/assets/index-52cb797e550cfae8.js",
+        "bytes": 5408,
+        "sha256": "52cb797e550cfae8a01f9643dfc29861f02b117be50f23b52d6139d28c993600",
+        "role": "immutable"
+      },
+      {
+        "path": "public/assets/sc2-entry.6c2870662397867f.js.gz",
+        "bytes": 7679670,
+        "sha256": "6c2870662397867fd68d5038584720de6cf283a5314edd61f89264c91d85c29b",
+        "role": "immutable"
+      },
+      {
+        "path": "public/assets/index-BBLppp3h.css",
+        "bytes": 645578,
+        "sha256": "79ff71792d5a667ea6e99e6ce5d93722034897a5ab0e51d7ef05621a19f2b603",
+        "role": "immutable"
+      },
+      {
+        "path": "public/sites-pack-index.0bb43ff1011a0ab1462d.js",
+        "bytes": 782043,
+        "sha256": "0bb43ff1011a0ab1462d14581dbeec3ad02e9b8c46f1d84ef5bdf2b08cdb0f95",
+        "role": "immutable"
+      },
+      {
+        "path": "public/sites-sw.bd646d557a5dc16c1b8b.js",
+        "bytes": 13637,
+        "sha256": "bd646d557a5dc16c1b8b75f494c0d14d4d829873c734951153117bdc0ae2eeb8",
+        "role": "immutable"
+      },
+      {
+        "path": "public/sites-pack-index.js",
+        "bytes": 782043,
+        "sha256": "0bb43ff1011a0ab1462d14581dbeec3ad02e9b8c46f1d84ef5bdf2b08cdb0f95",
+        "role": "mutable-compatibility"
+      },
+      {
+        "path": "public/sites-sw.js",
+        "bytes": 13637,
+        "sha256": "bd646d557a5dc16c1b8b75f494c0d14d4d829873c734951153117bdc0ae2eeb8",
+        "role": "mutable-compatibility"
+      },
+      {
+        "path": "public/web-release.json",
+        "bytes": 1296,
+        "sha256": "3e7025a3ffff13d2c7b40b1bc87a1e23483617eb9f90cc05f7b64c90676d228c",
+        "role": "switch-last"
+      },
+      {
+        "path": "public/index.html",
+        "bytes": 955167,
+        "sha256": "d03362678b57cf39a6dd4a849c983101724c01fdba17d18c982483e38cdd4da4",
+        "role": "switch-last"
+      }
+    ],
+    "retainedDependencies": 365,
+    "retainedGpuFallbacks": 43,
+    "committed": false,
+    "pushed": false,
+    "deployed": false,
+    "sharedSitesSnapshotChanged": true,
+    "finalZipAndCandidateMatch": true,
+    "sourceFingerprintMatch": true,
+    "guideMatchesPackageAtPackaging": true,
+    "latestGitReceipt": "reports/qa/cache-worker-github-sync-20261103.json",
+    "zipBytesUnchanged": true
+  },
+  "sourceFiles": [
+    {
+      "path": "src/app/resource-downloads.ts",
+      "bytes": 4958,
+      "sha256": "2023a16569ddd2a0596ac6e1296ab66f7a5cbeeca0d51792b4f02aa9afd9c695"
+    },
+    {
+      "path": "src/assets/packed-cache.ts",
+      "bytes": 2821,
+      "sha256": "aee67f71b0e911071eb24c4487189d914a9f94f4a1e456f5356f24f4f7b82d22"
+    },
+    {
+      "path": "tools/packed-sites-sw.js",
+      "bytes": 13616,
+      "sha256": "6449d5722fbe7bc517b41e6ad92808908fbaac495fe5f1be3b8b27dbf93189fa"
+    },
+    {
+      "path": "tools/packed-startup.mjs",
+      "bytes": 5925,
+      "sha256": "b265ff15d04578261fda2ea253cc377c74c8b4a6c4c87b72aba7de15538b0c4a"
+    },
+    {
+      "path": "tools/update-compressed-game.mjs",
+      "bytes": 4321,
+      "sha256": "779ffd0252b48a96eda147d46730a2007a60cc94653a40a8e829b23d8d7ded4e"
+    }
+  ],
+  "tools": [
+    "tools/verify-cache-worker-upgrade-20261103.mjs",
+    "tools/package-cache-worker-fix-20261103.mjs"
+  ],
+  "limitations": [
+    "Local Windows Chrome; physical iPhone/Safari and live CDN not revalidated by this patch",
+    "No production deployment, Git commit/push, live player-save access or database writes",
+    "V06-COZE-CONFIG-001 /api/config 404 is a separate existing deployment gap; Coze must verify actual backend routing",
+    "No new natural full-campaign, performance or three-race acceptance claimed"
+  ],
+  "probeCorrections": [
+    "Local test server reconstructed 43 existing standalone KTX2 files from identical verified pack bytes",
+    "Created checkpoint under complete baseline before forcing historical worker; obsolete index cannot serve all current startup resources",
+    "One sandbox loopback denial, followed by allowed local Chrome run with same product bytes"
+  ],
+  "retention": {
+    "status": "Complete",
+    "removed": [
+      {
+        "path": "dist/cache-worker-fix-20261103",
+        "files": 3771,
+        "bytes": 1473157651
+      },
+      {
+        "path": "reports/local/cache-worker-fix-20261103",
+        "files": 20,
+        "bytes": 1729403
+      }
+    ],
+    "filesRemoved": 3791,
+    "bytesRemoved": 1474887054,
+    "retained": [
+      "dist/coze-cache-worker-fix-20261103/Coze-Cache-Worker-Fix.zip",
+      "dist/coze-cache-worker-fix-20261103/Coze-Cache-Worker-Fix",
+      "dist/coze-cache-worker-fix-20261103/CHECKSUMS.json",
+      "Source, tests, reproduction/package scripts and compact documentation/report"
+    ],
+    "untouched": "Shared Sites snapshot, other tasks, original assets, actual player data and database"
+  }
+}

@@ -2,6 +2,10 @@
 
 # 工具入口
 
+2026-11-03 [缓存脚本升级修复](../docs/project/COZE_CACHE_WORKER_FIX_20261103.md)：`verify-cache-worker-upgrade-20261103.mjs [--fixtures-only|--game-only]`在隔离Chrome和本机服务验证旧脚本升级、清理失败恢复及真实检查点保留；GPU检查串行。`package-cache-worker-fix-20261103.mjs`读取本批独立Web构建和固定压缩基线，生成9文件Coze增量并读回ZIP；拒绝覆盖现有交付目录，不提交推送或部署。详细构建步骤、版本和清理边界见记录。
+
+2026-11-03 [Coze线上核验](../docs/project/COZE_LIVE_CHECK_20261103.md)：`verify-coze-live-20261103.mjs --http|--browser --race=terran|zerg|protoss [--touch]`核对公开交付和三族正常首关/续局。`inspect-coze-delivery-20261103.mjs --http|--browser`比较CDN请求变体并用全新Chrome观察实际SW；`--layout-profile=profile-zerg-<timestamp>`复核本批档案的稳定旋转布局。`inspect-coze-cache-20261103.mjs profile-terran-<timestamp> [--worker-only]`观察本批测试档案的缓存清理或实际Worker脚本。三者不部署、不使用真实玩家档案、不提交统计/反馈；浏览器串行，临时输出进本批reports/local。固定文件名/hash限本次发布。
+
 2026-10-30 [Coze修复更新](../docs/project/COZE_REPAIR_DEPLOY_20261030.md)：`package-coze-repair-20261030.mjs`锁定baf0d94源码及v6资源，生成5文件增量并逐条读回ZIP；`verify-coze-repair-20261030.mjs --baseline|--live`只读核验公开入口/缓存头/文件SHA，`--serve`在127.0.0.1:18906提供本机压缩入口，后台关闭。浏览器交互通过当前已授权Coze对话完成；工具本身不部署。最新Git交付快照另含v6已上线的清单和两首音乐，使仓库入口依赖完整，不需要再向Coze覆盖这些已有资源。
 
 2026-10-30普通坦克长线[复核与第二轮修复](../docs/project/TANK_EFFECT_FOLLOWUP_20261030.md)：`verify-tank-followup-20261030.mjs`在诊断打包中读取94b8a3d旧粒子实现，验证新物理断言与同粒子位移，不替换生产文件；`inspect-tank-effects-20261030.mjs --followup [--baseline]`做同版定向渲染；`record-tank-effects-20261030.mjs --followup`录普通/攻城两段并生成前后对照。输出在本轮reports/local与dist/tank-effects-20261030，不部署。

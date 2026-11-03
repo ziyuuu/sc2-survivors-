@@ -1,0 +1,89 @@
+{
+  "date": "2026-11-03",
+  "status": "Prepared; push pending",
+  "repository": "ziyuuu/sc2-survivors-",
+  "branch": "体积优化版",
+  "baseCommit": "b18410e58642d61b94390f2a20d6cc73e8f3428e",
+  "main": "2924d9bb3330f10ad78462b6f96efda163c5eff3",
+  "appBuildId": "86c3ca45f17fe278119e0099e023330db4b0140c4c4b8ef7719a35b515889690",
+  "resourceRelease": "50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a",
+  "runSchema": 26,
+  "files": [
+    {
+      "path": "public/assets/index-52cb797e550cfae8.js",
+      "bytes": 5408,
+      "sha256": "52cb797e550cfae8a01f9643dfc29861f02b117be50f23b52d6139d28c993600",
+      "role": "immutable"
+    },
+    {
+      "path": "public/assets/sc2-entry.6c2870662397867f.js.gz",
+      "bytes": 7679670,
+      "sha256": "6c2870662397867fd68d5038584720de6cf283a5314edd61f89264c91d85c29b",
+      "role": "immutable"
+    },
+    {
+      "path": "public/assets/index-BBLppp3h.css",
+      "bytes": 645578,
+      "sha256": "79ff71792d5a667ea6e99e6ce5d93722034897a5ab0e51d7ef05621a19f2b603",
+      "role": "immutable"
+    },
+    {
+      "path": "public/sites-pack-index.0bb43ff1011a0ab1462d.js",
+      "bytes": 782043,
+      "sha256": "0bb43ff1011a0ab1462d14581dbeec3ad02e9b8c46f1d84ef5bdf2b08cdb0f95",
+      "role": "immutable"
+    },
+    {
+      "path": "public/sites-sw.bd646d557a5dc16c1b8b.js",
+      "bytes": 13637,
+      "sha256": "bd646d557a5dc16c1b8b75f494c0d14d4d829873c734951153117bdc0ae2eeb8",
+      "role": "immutable"
+    },
+    {
+      "path": "public/sites-pack-index.js",
+      "bytes": 782043,
+      "sha256": "0bb43ff1011a0ab1462d14581dbeec3ad02e9b8c46f1d84ef5bdf2b08cdb0f95",
+      "role": "mutable-compatibility"
+    },
+    {
+      "path": "public/sites-sw.js",
+      "bytes": 13637,
+      "sha256": "bd646d557a5dc16c1b8b75f494c0d14d4d829873c734951153117bdc0ae2eeb8",
+      "role": "mutable-compatibility"
+    },
+    {
+      "path": "public/web-release.json",
+      "bytes": 1296,
+      "sha256": "3e7025a3ffff13d2c7b40b1bc87a1e23483617eb9f90cc05f7b64c90676d228c",
+      "role": "switch-last"
+    },
+    {
+      "path": "public/index.html",
+      "bytes": 955167,
+      "sha256": "d03362678b57cf39a6dd4a849c983101724c01fdba17d18c982483e38cdd4da4",
+      "role": "switch-last"
+    }
+  ],
+  "manifest": "docs/project/COZE_CACHE_WORKER_PATCH_20261103.json",
+  "validation": {
+    "sourceFingerprintMatch": true,
+    "nineFrontendFilesMatchVerifiedZip": true,
+    "reused": "reports/qa/cache-worker-fix-20261103.json",
+    "newProductChange": false,
+    "baselineToolFix": "Date-scoped tools now load fixed b18410e baseline instead of mutable current release",
+    "fixturesRerun": {
+      "passed": 4,
+      "source": "Fixed b18410e baseline after current public snapshot update",
+      "protectedStateUnchanged": true
+    }
+  },
+  "delivery": {
+    "committed": false,
+    "pushed": false,
+    "deployed": false,
+    "mainMerged": false
+  },
+  "retention": {
+    "status": "Pending closeout"
+  }
+}
