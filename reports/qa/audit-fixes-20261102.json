@@ -1,0 +1,505 @@
+{
+  "date": "2026-11-02",
+  "id": "V06-AUDIT-FIXES-20261102",
+  "baseline": "8d680aca1b3150b3faa0c9c170458d084c9a1a1e",
+  "branch": "体积优化版",
+  "status": "本地修复验证完成，未提交/推送/部署",
+  "originalFindings": [
+    {
+      "id": "V06-FULL-SAVE-NATIVE-001",
+      "resolved": true,
+      "result": "冻结原生倍率与攻击范围效果；6种精英有无装备、卸装、保存/导出/恢复及篡改拒绝通过。"
+    },
+    {
+      "id": "V06-FULL-SAVE-HP-CAP-001",
+      "resolved": true,
+      "result": "保存生命池生成基准，实际蓄力屏障卸装后保存/恢复通过，超额状态拒绝。"
+    },
+    {
+      "id": "V06-FULL-INDEX-HANG-001",
+      "resolved": true,
+      "result": "索引45秒超时、取消/清理/reload替换与晚到隔离通过。"
+    },
+    {
+      "id": "V06-FULL-HTTP-CACHE-001",
+      "resolved": true,
+      "result": "坏200 HTTP缓存包会自动reload重取一次，错误数据不进入缓存。"
+    },
+    {
+      "id": "V06-FULL-KTX-WORKER-001",
+      "resolved": true,
+      "result": "Worker错误、messageerror、初始化/转码超时会退出并释放通道；回退及新代重试通过。"
+    },
+    {
+      "id": "V06-FULL-AUDIO-HANG-001",
+      "resolved": true,
+      "result": "请求/正文/解码有界取消，多消费者与晚结果隔离；后续播放失败重新准备通过。"
+    },
+    {
+      "id": "V06-FULL-FAMILY-LIFE-001",
+      "resolved": true,
+      "result": "退役同步移除名册/复生/回溯/投影，保留独立成员；回溯一次性通过。"
+    },
+    {
+      "id": "V06-FULL-WIPE-001",
+      "resolved": true,
+      "result": "纯辅助不再阻止战败，合法待恢复战斗单位保持；对照通过。"
+    },
+    {
+      "id": "V06-FULL-CI-001",
+      "resolved": true,
+      "result": "push过滤已加入体积优化版；对应本机检查通过，远端触发需后续提交核验。"
+    },
+    {
+      "id": "V06-RUNTIME-RESCUE-SAVE-001",
+      "resolved": true,
+      "result": "营救护卫按任务/次序校验，第14关最后240步和三族20检查点连续验证通过。"
+    },
+    {
+      "id": "V06-RUNTIME-SAVE-SWANN-001",
+      "resolved": true,
+      "result": "冻结supportTier，原生7/橙套10/腐化全部目标可保存，重复目标拒绝。"
+    },
+    {
+      "id": "V06-RUNTIME-SAVE-NIADRA-001",
+      "resolved": true,
+      "result": "冻结bonusCharges，4/5次窗口均可保存，超额及重复回执拒绝。"
+    },
+    {
+      "id": "V06-RUNTIME-SAVE-HERORANK-001",
+      "resolved": true,
+      "result": "实际击杀成长至6级后的雷诺/斯托科夫/阿塔尼斯/诺娃技能与被动保存通过。"
+    },
+    {
+      "id": "V06-RUNTIME-MAP-RETRY-001",
+      "resolved": true,
+      "result": "地图仅成功后提交地形身份，原准备入口重试与返回原地图清错通过。"
+    },
+    {
+      "id": "V06-RUNTIME-GAMEPAD-RAF-001",
+      "resolved": true,
+      "result": "权限拒绝隔离，真实Chrome菜单与战斗继续绘制，键盘操作有效。"
+    },
+    {
+      "id": "V06-RUNTIME-TEXTURE-TIER-001",
+      "resolved": true,
+      "result": "纹理上传格式/mip/Source/共享缓存一致更新；真实GPU1024→512→1024，参考像素差0、GL错误0。"
+    }
+  ],
+  "additionalFindings": [
+    {
+      "id": "V06-RUNTIME-SAVE-RANKCAP-002",
+      "priority": "P1",
+      "status": "已完成",
+      "resolved": true,
+      "scope": "装备培养到8级的跳虫双生编制、尼亚德拉冻结复生身体及孤星吸收回执被旧7级上限拒绝；本轮3条真实装备/培养路径复现。",
+      "evidence": "AUDIT_FIXES_20261102.md",
+      "resolution": "采用正安全整数等级并保留身份/载荷校验，保存/导出/恢复及非整数/非有限篡改拒绝通过。",
+      "next": "本地修复完成；当前尚未提交或部署。"
+    }
+  ],
+  "verification": {
+    "newTests": 48,
+    "full": {
+      "initial": {
+        "tests": 2951,
+        "pass": 2942,
+        "fail": 9,
+        "causes": {
+          "audioPreparedInvalidation": 1,
+          "mapTestDoubles": 2,
+          "sandboxLoopback": 6
+        },
+        "afterFixRelatedTests": 20,
+        "loopbackFileRetest": 15
+      },
+      "final": {
+        "tests": 2957,
+        "pass": 2957,
+        "fail": 0,
+        "skip": 0,
+        "cancel": 0
+      }
+    },
+    "typecheck": true,
+    "docsCheck": true,
+    "ciBranchFilter": true,
+    "remoteCiRun": false,
+    "simulations": [
+      {
+        "race": "terran",
+        "result": "passed",
+        "runId": "runtime-audit-terran-529",
+        "maxStage": 18,
+        "endlessRounds": 2,
+        "steps": 115200,
+        "simulatedSeconds": 1920,
+        "checkpoints": 20,
+        "peakEntities": 64
+      },
+      {
+        "race": "zerg",
+        "result": "passed",
+        "runId": "runtime-audit-zerg-529",
+        "maxStage": 18,
+        "endlessRounds": 2,
+        "steps": 115200,
+        "simulatedSeconds": 1920,
+        "checkpoints": 20,
+        "peakEntities": 67
+      },
+      {
+        "race": "protoss",
+        "result": "passed",
+        "runId": "runtime-audit-protoss-529",
+        "maxStage": 18,
+        "endlessRounds": 2,
+        "steps": 115200,
+        "simulatedSeconds": 1920,
+        "checkpoints": 20,
+        "peakEntities": 63
+      }
+    ],
+    "browsers": [
+      {
+        "report": "browser-continuation",
+        "build": {
+          "baseline": "8d680ac",
+          "originalAppBuildId": "a6b6e0d88b466383e804e20dd0ac94141085a32d25afe6d721c38c45e6484488",
+          "release": "50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a",
+          "seed": 1801,
+          "entrySha256": "55058572aff950100600f8ae6902c628c9127d8d142989e43eed902e38baf795",
+          "modelIdentityReferences": 205,
+          "onlyTransform": "Expose returned app, texture GPU probe and fixed initial map seed; source gameplay unchanged"
+        },
+        "complete": true,
+        "pageErrors": [],
+        "httpFailuresObserved": [],
+        "cases": [
+          {
+            "name": "diagnostic-end-stage-real-advance",
+            "stage": 2,
+            "phase": "battle"
+          },
+          {
+            "name": "reload-checkpoint-resume",
+            "stage": 2,
+            "phase": "battle",
+            "loadedCheckpoint": {
+              "stage": 1,
+              "phase": "reward",
+              "rewardRound": "random"
+            }
+          },
+          {
+            "name": "new-run-after-resume",
+            "stage": 1,
+            "phase": "battle"
+          }
+        ]
+      },
+      {
+        "report": "browser-policy",
+        "build": {
+          "baseline": "8d680ac",
+          "originalAppBuildId": "a6b6e0d88b466383e804e20dd0ac94141085a32d25afe6d721c38c45e6484488",
+          "release": "50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a",
+          "seed": 1801,
+          "entrySha256": "55058572aff950100600f8ae6902c628c9127d8d142989e43eed902e38baf795",
+          "modelIdentityReferences": 205,
+          "onlyTransform": "Expose returned app, texture GPU probe and fixed initial map seed; source gameplay unchanged"
+        },
+        "complete": true,
+        "pageErrors": [],
+        "cases": [
+          {
+            "name": "denied-gamepad-keeps-raf-and-keyboard-gameplay",
+            "first": {
+              "frames": 5062,
+              "time": 0,
+              "phase": "menu",
+              "gamepad": {
+                "name": "SecurityError",
+                "message": "Failed to execute 'getGamepads' on 'Navigator': Access to the feature \"gamepad\" is disallowed by permissions policy."
+              },
+              "policy": false
+            },
+            "second": {
+              "frames": 5347,
+              "time": 0,
+              "phase": "menu",
+              "gamepad": {
+                "name": "SecurityError",
+                "message": "Failed to execute 'getGamepads' on 'Navigator': Access to the feature \"gamepad\" is disallowed by permissions policy."
+              },
+              "policy": false
+            },
+            "battleTime": [
+              0.11666666666666667,
+              2.15
+            ],
+            "battleFrames": [
+              5576,
+              7388
+            ],
+            "errors": []
+          }
+        ]
+      },
+      {
+        "report": "browser-textures",
+        "build": {
+          "baseline": "8d680ac",
+          "originalAppBuildId": "a6b6e0d88b466383e804e20dd0ac94141085a32d25afe6d721c38c45e6484488",
+          "release": "50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a",
+          "seed": 1801,
+          "entrySha256": "72911233e85ce479e5b11f5368d0b3744607ac112381f29eb446f994ec85504a",
+          "modelIdentityReferences": 205,
+          "onlyTransform": "Expose returned app, texture GPU probe and fixed initial map seed; source gameplay unchanged"
+        },
+        "complete": true,
+        "pageErrors": [],
+        "cases": [
+          {
+            "name": "actual-gpu-compressed-tier-roundtrip",
+            "high": {
+              "width": 1024,
+              "height": 1024,
+              "compressed": true,
+              "mips": 11,
+              "format": 36492
+            },
+            "medium": {
+              "width": 512,
+              "height": 512,
+              "compressed": false,
+              "mips": 0,
+              "format": 1023
+            },
+            "restored": {
+              "width": 1024,
+              "height": 1024,
+              "compressed": true,
+              "mips": 11,
+              "format": 36492
+            },
+            "mediumMeanAbsoluteError": 0,
+            "highPixelsIdentical": true,
+            "output": {
+              "min": 0,
+              "max": 255,
+              "sum": 744526
+            },
+            "gpuError": 0,
+            "decoder": {
+              "loaded": 3,
+              "fallbacks": 0,
+              "payloadBytes": 3145808,
+              "transcodeMs": 252.89999997615814,
+              "workerReleases": 0,
+              "supported": true,
+              "active": 0,
+              "workerResident": true,
+              "shared": {
+                "decodes": 3,
+                "reuses": 0
+              }
+            },
+            "uploadEvents": 99
+          }
+        ]
+      }
+    ],
+    "visualReview": [
+      "intermission",
+      "policy-running-battle",
+      "texture-gpu-reference"
+    ],
+    "build": {
+      "appBuildId": "34408a35562ffdf62b278e8a310ae04d06515af98cee00f2c6ab61006922dbab",
+      "runSchema": 26,
+      "rulesId": "mvp-1.0",
+      "mapId": "campaign-five-v3",
+      "assetCount": 3847,
+      "fileCount": 3750,
+      "assetBytes": 1420924058,
+      "logicalBytes": 1443531249,
+      "sharedBytes": 22607191,
+      "manifest": "asset-manifest.c57126842b2eebe90f278e5dfe9c5ad54eaaec683b3e611e697abada0118fdad.json",
+      "release": "c57126842b2eebe90f278e5dfe9c5ad54eaaec683b3e611e697abada0118fdad",
+      "source": "reports/local/asset-reachability.json"
+    },
+    "buildInitialFailure": "SC2_WEB_OUTPUT pointed outside dist; destination guard rejected it. Retried isolated dist/audit-fixes-20261102/web successfully."
+  },
+  "limitations": [
+    "Windows Chrome headless/loopback synthetic profiles, not original iPhone/Safari or physical gamepad.",
+    "Three-race simulation uses health lock and bounded assisted kills, not balance/performance evidence.",
+    "KTX worker/audio/map failure timing controlled by test doubles; actual GPU tier pixels measured separately.",
+    "Normal/policy browser runs preceded only the last ordinary-rank validator changes; final save tests/full regression and rebuilt GPU probe include them.",
+    "Current compressed release/public deployment remains unchanged; final production Web build is temporary verification output."
+  ],
+  "files": [
+    {
+      "file": ".github/workflows/tests.yml",
+      "sha256": "a2dd5688a0db676cf09c2b75bd3a0d39bb888e1533451e4e612e6025645a653f"
+    },
+    {
+      "file": "src/app/asset-readiness.ts",
+      "sha256": "265310197b94693d8d34fffa4ad39d76c38d1f615f79275e986b3f64b57c7a87"
+    },
+    {
+      "file": "src/assets/preparation-wait.ts",
+      "sha256": "a524c60458a4cceed5b71561f25dea9da700937c7d6a73e6dc6e2e0085c6f16e"
+    },
+    {
+      "file": "src/render/effects/audio.ts",
+      "sha256": "e56c27e2deb1f796a99731a204f9873a20b3a0efe587781546a59c19fa9d85de"
+    },
+    {
+      "file": "src/render/loaders/gpu-textures.ts",
+      "sha256": "edf02a8d2f4d3171affff17e9a419d1fd46e58ed10da298c4389efd5dba0cbe3"
+    },
+    {
+      "file": "src/render/loaders/guarded-ktx2-loader.ts",
+      "sha256": "ee5e24fe77bb68de1e4ae03a2c5b1d33e9c0674c926bf1aa8d1940638d47425f"
+    },
+    {
+      "file": "src/render/loaders/managed-textures.ts",
+      "sha256": "6daddada066967a7be3b6d878ccf73ecb672d20d7cd24055246e3c25d0b6c458"
+    },
+    {
+      "file": "src/render/loaders/shared-image-sources.ts",
+      "sha256": "f1baab9d304337c10876c9e9ed102c4afbca6231e51f1cccf71c3d7c51f5acf9"
+    },
+    {
+      "file": "src/render/scene/battle-renderer.ts",
+      "sha256": "75c55e6ac14d845224a96cf5fc1ad4aaebec1a83d0e976ef3d9af1a0753a3892"
+    },
+    {
+      "file": "src/simulation/combat/hero-attack-upgrades.ts",
+      "sha256": "bf43666375e10f6ba9b6ed50e4b94d023cc636e0450dd84e1676d45a972152f5"
+    },
+    {
+      "file": "src/simulation/combat/protoss-hero-passives.ts",
+      "sha256": "3510ed65d035eeffedd09bed43eab5b432a879087eeb28dcc166fb25086d4309"
+    },
+    {
+      "file": "src/simulation/combat/terran-elite-runtime.ts",
+      "sha256": "e20749ee395a733f9039c212c1fa2399c5b312cb67dec01f4b5a00eed39cecfa"
+    },
+    {
+      "file": "src/simulation/combat/zerg-elite-runtime.ts",
+      "sha256": "58c745976037c88d3803d7d294903a2a395d9dedff29f7d3268313fcf5dd977a"
+    },
+    {
+      "file": "src/simulation/combat/zerg-hero-passives.ts",
+      "sha256": "e1b20126853884c2a16d5c7498fb2572873980ed384e8348cd84b89ae29e85dd"
+    },
+    {
+      "file": "src/simulation/combat/zerg-hero-revival.ts",
+      "sha256": "570aeaf5db4524648f82d4ee55f9f01d16e3a4f897c41503c9ada5a0e2312975"
+    },
+    {
+      "file": "src/simulation/expedition-production.ts",
+      "sha256": "789e4f3f51ca91ae6565c9120670b0687ac1c880ebfb791bbb18c5b24f04b8fe"
+    },
+    {
+      "file": "src/simulation/expedition-state.ts",
+      "sha256": "a7aa372cfa4de523968d99a859dfa1e4d0d8254ecbd9236aef8365099172cac0"
+    },
+    {
+      "file": "src/simulation/persistence/run-fields.ts",
+      "sha256": "531fcc47d3fb1a72b80ed746fc60197474b60cbcb518091d91dbb3716c6a613f"
+    },
+    {
+      "file": "src/simulation/starship/hero-advancements.ts",
+      "sha256": "7e8865056167e9bad2a878df1896fcd5a4aa56a3e657200ed443fc4062e6f0ce"
+    },
+    {
+      "file": "src/simulation/starship/lifecycle.ts",
+      "sha256": "dbeb9a11778ce131db398ffd3b5943358249f2c814d89d1cd9d4cd2e19deb2bc"
+    },
+    {
+      "file": "src/simulation/starship/runtime.ts",
+      "sha256": "b0df2c8e81ec118ddb85b2b48af1cbc6d0a876bae86b91b97b709a5cd2eb037a"
+    },
+    {
+      "file": "src/simulation/types.ts",
+      "sha256": "12d7ab52ef2fc42c2fdce39bfcfd59ccb3bfac39f7a0123e23f749566822511f"
+    },
+    {
+      "file": "src/ui/gamepad/controller.ts",
+      "sha256": "bfb7b6529ab712e8fbae6e6d8e9f3ab765619ef182c6b053e4ac7c65b58c876c"
+    },
+    {
+      "file": "test/audit-lifecycle-contracts.test.ts",
+      "sha256": "b7ffa76d6fb5f9d3249f9bc1dbc1789d28f16bff75aaf16fe4df9530a67a32d6"
+    },
+    {
+      "file": "test/audit-persistence-contracts.test.ts",
+      "sha256": "e07fa68dcb4c77c5f1c47c3de1fcca5c5ade7ca0ad5bcdb70b98b6ec24aa60a5"
+    },
+    {
+      "file": "test/decoder-recovery.test.ts",
+      "sha256": "1dace0c01ebe40167251217a83d19830b7d1869e7e0f2a5a0a85588b60936738"
+    },
+    {
+      "file": "test/gamepad.test.ts",
+      "sha256": "d8e0ddd5abd5ad05e7a01e43d3f5caf934365cced510977a337bc79d43570498"
+    },
+    {
+      "file": "test/m6-snapshot-assets.test.ts",
+      "sha256": "4036e27b29ebbe5ce5a7a5a50ec0be17f4c9ed2cc0afdf6286da2b857319f2c6"
+    },
+    {
+      "file": "test/packed-cache-recovery.test.ts",
+      "sha256": "d46c6f361128d98a12fec57f20473ea2263b9890cbe39c1d43ef2ce7462fe7a5"
+    },
+    {
+      "file": "test/runtime-resource-recovery.test.ts",
+      "sha256": "86b45580d881e32d90f4bde5c20ee7fa8210c2474e9244a602132c0d015b61f0"
+    },
+    {
+      "file": "tools/packed-sites-sw.js",
+      "sha256": "9e87daf6bb9fd48f4d96541a79f80de9e09708cf9035957d5748c2ef45509ed5"
+    },
+    {
+      "file": "tools/verify-audit-browser-20261102.mjs",
+      "sha256": "5c157696268a40a5e760fb611c47d9092458cfed4ec40c2db39a58825cea1b53"
+    },
+    {
+      "file": "tools/verify-audit-textures-20261102.ts",
+      "sha256": "15903606b46ade0342e79491f09d8cb80bd4cc3afa635d9c51d091843eca01b0"
+    }
+  ],
+  "reproduction": {
+    "tests": "npm test",
+    "browser": "tools/verify-audit-browser-20261102.mjs",
+    "textures": "tools/verify-audit-textures-20261102.ts",
+    "continuousSimulation": "tools/inspect-runtime-simulation-20261102.mts"
+  },
+  "delivery": {
+    "committed": false,
+    "pushed": false,
+    "mergedMain": false,
+    "deployed": false,
+    "sourceAppBuildId": "34408a35562ffdf62b278e8a310ae04d06515af98cee00f2c6ab61006922dbab",
+    "packedSnapshotUpdated": false
+  },
+  "cleanup": {
+    "complete": true,
+    "targets": [
+      {
+        "path": "reports/local/audit-fixes-20261102",
+        "files": 37,
+        "bytes": 57461522
+      },
+      {
+        "path": "dist/audit-fixes-20261102",
+        "files": 3756,
+        "bytes": 1458451982
+      }
+    ],
+    "retained": "Source, regression tests, reproducible tools and concise findings; other work, formal deliverables and real player data untouched."
+  }
+}

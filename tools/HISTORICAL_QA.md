@@ -1,5 +1,9 @@
 # 历史诊断脚本与当前验证入口
 
+2026-11-02运行补查：`inspect-runtime-{persistence,hero-checkpoint,rescue-save,resources,simulation}-20261102.mts`及`inspect-runtime-browser-20261102.mjs`针对`8d680ac`。资源脚本用`node --import tsx --test`，其他mts用`node --import tsx`；simulation依次传terran/zerg/protoss，含保命/有限清敌，虫族第14关真实恢复失败是待修缺陷。browser生成本批隔离构建、使用临时Chrome与本机服务；`--no-build`只在已有本批构建时有效。AUDIT断言记录现有缺陷，不能当修复验收。覆盖、成功对照及限制见[运行过程补充审查](../docs/project/RUNTIME_CODE_AUDIT_20261102.md)。
+
+2026-11-02全面审查：`inspect-full-audit-assets-20261102.mts`、`inspect-full-audit-persistence-20261102.mts`、`inspect-full-audit-runtime-20261102.mts`、`inspect-full-audit-simulation-20261102.mts`针对`8d680ac`确认8项产品缺陷，**断言当前缺陷，不是正确行为验收测试**。修复后应改成对应正常预期的回归，不能为通过旧调查而恢复错误行为。资源脚本加`--verify-snapshot`核对当前压缩载荷；runtime脚本须用`node --import tsx --test`运行，其他用`node --import tsx`。结果、版本和限制见[全面审查](../docs/project/FULL_CODE_AUDIT_20261102.md)。
+
 2026-11-02修复后入口：`test/refraction-preparation-recovery.test.ts`、`test/packed-cache-recovery.test.ts`、`test/compressed-resource-provenance.test.mjs`，14项新回归。`verify-stability-browser-20261102.mjs`用真实Chrome、临时回环服务检查SW缓存故障降级、清理、正式压缩首战及刷新续局；不访问真实玩家档案或部署服务。来源封存与更新命令见[四项修复](../docs/project/STABILITY_FIX_20261102.md)。
 
 2026-11-02：`inspect-stability-findings-20261102.mts`针对`fabfb4a`独立复现折射准备挂起、坏包重试、可选磁盘缓存阻断和压缩更新来源核验缺失。使用替身GPU/Cache API及隔离更新目录，断言的是修复前缺陷；修复后不能为使它通过而恢复旧行为。方法、24项相关回归和实际边界见[独立复核](../docs/project/STABILITY_RECHECK_20261102.md)。
@@ -21,3 +25,6 @@ package.json 中 test:browser / test:offline:save 仍指向 qa-current-logic.mts
 
 
 2026-10-29虫族／舰装定向入口：`qa-zerg-melee-equipment.mjs`使用合成账户和暂停关卡，通过真实HUD验证三端逐巢进化及三族局外装备；先建立`dist/zerg-melee-equipment-20261029`父目录，再以`SC2_WEB_OUTPUT=dist/zerg-melee-equipment-20261029/web`构建。支持`--evolution-only`、`--entry-only`，不代表自然战役、原手机或性能结果。[记录](../docs/project/ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md)。
+
+
+2026-11-02后续：两轮审查的产品修复用新增 `test/audit-*`、`decoder-recovery`、`runtime-resource-recovery` 及 `verify-audit-browser-20261102.mjs` 验证正确行为。原 `inspect-full-audit-*`、`inspect-runtime-persistence/hero-checkpoint/rescue-save/resources/browser-*` 含修复前故障断言，保留历史用途，不能恢复缺陷来使它们通过。`inspect-runtime-simulation-20261102.mts` 的正常行为断言仍可复用，本批三族均通过，原虫族失败结果保留在历史报告。范围与命令见[修复记录](../docs/project/AUDIT_FIXES_20261102.md)。

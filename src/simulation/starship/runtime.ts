@@ -71,7 +71,7 @@ export function equipmentUnitTotals(w:World,u:Entity){const owner=parent(w,u)??u
  if(equipmentRecipient(w,u)){const team=teamCardEffects(w.expedition);t.dps*=1+team.damage+uniqueActiveStats(w,u).damage;t.hp*=1+team.health;}return t;
 }
 /** Remove only this layer before rebuilding native stats. Wounds remain fractions during the rebuild. */
-export function detachEquipmentStats(w:World,u:Entity){const previous=w.starship?.native.get(u);if(!previous)return;const hpRatio=u.maxHp>0?u.hp/u.maxHp:0,shieldRatio=(u.maxShield??0)>0?(u.shield??0)/u.maxShield!:0;
+export function detachEquipmentStats(w:World,u:Entity){const pools=u.zergEliteCombat;if(pools){if(pools.stored>0)pools.storedMaxHp??=u.maxHp;if(pools.barrier>0)pools.barrierMaxHp??=u.maxHp;if(pools.redirectSpent>0)pools.redirectMaxHp??=u.maxHp;}const previous=w.starship?.native.get(u);if(!previous)return;const hpRatio=u.maxHp>0?u.hp/u.maxHp:0,shieldRatio=(u.maxShield??0)>0?(u.shield??0)/u.maxShield!:0;
  Object.assign(u,previous);u.hp=u.maxHp*hpRatio;u.shield=(u.maxShield??0)*shieldRatio;w.starship.native.delete(u);
 }
 export function applyEquipmentStats(w:World,u:Entity,fill=false){if(!w.starship||!equipmentRecipient(w,u))return;const output=equipmentOutputFactor(w,u.id);if(output!==1){u.maxHp*=output;u.hp*=output;u.maxShield=(u.maxShield??0)*output;u.shield=(u.shield??0)*output;u.weaponDamage*=output;}const t=equipmentUnitTotals(w,u),range=equipmentValue(w,'weapon_range'),melee=u.weaponDamage>0&&u.attackRange<=1.5?equipmentValue(w,'melee_range'):0;if(!nonempty(t)&&!range&&!melee&&!equipmentValue(w,'adrenaline')&&(w.starship.numbers.get('dominance-fire')??0)<=w.time&&(w.starship.numbers.get('assault-until:'+u.id)??0)<=w.time)return;

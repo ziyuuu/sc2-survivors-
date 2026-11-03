@@ -1,3 +1,4 @@
+import {GamepadInput} from '../src/ui/gamepad/controller';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world.ts';
@@ -11,3 +12,13 @@ test('menu directions repeat after initial delay and support standard dpad',()=>
 test('saved nonstandard axes and triggers retain signs, neutral and travel',()=>{const p=pad();p.axes=[-1,.6];const b={axis:0,rest:-1,sign:1};assert.equal(value(p,b),0);(p.axes as number[])[0]=1;assert.equal(value(p,b),1);assert.ok(validMapping({...STANDARD,x:1,y:0,invertY:-1,next:b}));assert.equal(validMapping({...STANDARD,next:{axis:99,rest:-1,sign:1}}),false);});
 test('releasing directional input stops the anchor, never pursues the previous auto target',()=>{const w=new World({sandbox:true,waves:false,obstacles:[]});w.start();const u=w.allies()[0],e=w.addUnit('roach','zerg',15,0);e.moveSpeed=0;e.weaponDamage=0;u.weaponCooldown=2;u.attackTarget=e.id;w.input={x:0,z:1};w.advance(.5);assert.equal(w.order,null);assert.ok(w.anchor.z>2);const before={...w.anchor},cooldown=u.weaponCooldown;w.input={x:0,z:0};w.advance(.5);assert.deepEqual(w.anchor,before);assert.ok(u.weaponCooldown<cooldown);assert.equal(w.stats.shots,0);});
 test('directional input never unsieges a tank or manufactures a pursuit order',()=>{const w=new World({sandbox:true,waves:false,obstacles:[],initial:['tank']});w.start();const u=w.allies()[0];u.mode=u.desiredMode='siege';w.input={x:0,z:1};w.advance(.2);assert.equal(u.mode,'siege');assert.equal(u.distanceWalked,0);assert.equal(w.order,null);});
+
+test('Permissions-Policy denial isolates optional gamepad polling and diagnostics from keyboard simulation',t=>{
+ const descriptor=Object.getOwnPropertyDescriptor(globalThis,'navigator');let reads=0;
+ Object.defineProperty(globalThis,'navigator',{configurable:true,value:{getGamepads(){reads++;throw new DOMException('policy denied','SecurityError');}}});
+ t.after(()=>{if(descriptor)Object.defineProperty(globalThis,'navigator',descriptor);else delete (globalThis as any).navigator;});
+ const world=new World({sandbox:true,waves:false,terrain:false,obstacles:[]});world.start();
+ const controller=Object.assign(Object.create(GamepadInput.prototype),{world,active:false,states:new Map(),armed:new Set(),mappings:{},skillPage:0,index:null});
+ assert.doesNotThrow(()=>controller.poll());assert.equal(controller.report().available,false);for(let i=0;i<120;i++){controller.poll();world.input={x:0,z:1};world.step();}
+ assert.equal(reads,1);assert.ok(world.time>1);assert.ok(world.anchor.z>0);assert.deepEqual(controller.report().connected,[]);
+});

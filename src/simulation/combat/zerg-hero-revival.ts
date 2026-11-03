@@ -9,7 +9,7 @@ import {ZERG_HERO_RULES as R} from '../../data/zerg-heroes';
 import {permanentBiological,zergHeal} from './zerg-hero-passives';
 import {rosterMembers,pairBodies} from '../zerg-brood';
 export interface RevivalSeat {key:string;family:UnitType;pairId?:string;members:Entity[];rank:number;claimed:boolean;deadAt:number|null}
-export interface RevivalWindow {id:number;source:number;until:number;next:number;charges:number;seats:RevivalSeat[]}
+export interface RevivalWindow {id:number;source:number;until:number;next:number;charges:number;bonusCharges?:number;seats:RevivalSeat[]}
 const distance=(a:Point,b:Point)=>Math.hypot(a.x-b.x,a.z-b.z);
 const eligible=(u:Entity)=>permanentBiological(u)&&!u.heroId;
 export function canRegisterZergRevivalSeat(w:World,source:Entity,u:Entity){if(!eligible(u)||!w.expedition.familySlots.includes(u.unitType as UnitType)||w.edgeDistance(source,u)>R.niadra.revivalRange||!w.hasAttackLine(source,u))return false;if(!u.pairId)return true;const p=w.expedition.zerglingPairs.find(p=>p.id===u.pairId),bodies=p?pairBodies(w,p):[];return bodies.length===2&&bodies.every(a=>w.edgeDistance(source,a)<=R.niadra.revivalRange&&w.hasAttackLine(source,a));}
@@ -24,7 +24,7 @@ export function registerZergRevival(w:World,source:Entity,serial:number,rank:num
  const bodies=w.allies().filter(u=>canRegisterZergRevivalSeat(w,source,u)).sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp||a.id-b.id);
  const seats:RevivalSeat[]=rosterMembers(w,bodies).slice(0,R.niadra.revivalSeats).map(u=>{const pair=u.pairId?w.expedition.zerglingPairs.find(p=>p.id===u.pairId):undefined,members=pair?pairBodies(w,pair):[u];return {key:u.pairId??'body:'+u.id,family:u.unitType as UnitType,pairId:u.pairId,members:members.map(a=>({...structuredClone(a),hp:0})),rank,claimed:false,deadAt:null};});
  const wounded=w.allies().filter(u=>u.id!==source.id&&permanentBiological(u)&&u.hp<u.maxHp&&w.edgeDistance(source,u)<=R.niadra.revivalRange&&w.hasAttackLine(source,u)).sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp||a.id-b.id).slice(0,R.niadra.targets);
- if(!seats.length&&!wounded.length)return false;w.zergHeroes.revivals=w.zergHeroes.revivals.filter(r=>r.until>w.time);if(seats.length)w.zergHeroes.revivals.push({id:serial,source:source.id,until:w.time+R.niadra.revivalSeconds,next:w.time+1,charges:R.niadra.charges[n]+equipmentRevivalWindow(w,source,serial),seats});
+ if(!seats.length&&!wounded.length)return false;w.zergHeroes.revivals=w.zergHeroes.revivals.filter(r=>r.until>w.time);if(seats.length){const bonusCharges=equipmentRevivalWindow(w,source,serial);w.zergHeroes.revivals.push({id:serial,source:source.id,until:w.time+R.niadra.revivalSeconds,next:w.time+1,charges:R.niadra.charges[n]+bonusCharges,bonusCharges,seats});}
  for(const a of wounded)zergHeal(w,source,a,a.maxHp*R.niadra.immediate[n]*heroExtraAmount(rank),true);
  for(const s of seats)for(const a of s.members){const live=w.entities.get(a.id);if(live)w.visual('hero-revival-mark',source,live,serial);}return true;
 }

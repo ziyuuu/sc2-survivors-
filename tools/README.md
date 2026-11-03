@@ -57,3 +57,9 @@ KTX2仅小样：`prepare-ktx-samples.py`、`run-basis-sample.mjs`、`build-ktx-s
 
 
 2026-10-29虫族／舰装定向入口：`qa-zerg-melee-equipment.mjs`使用合成账户和暂停关卡，通过真实HUD验证三端逐巢进化及三族局外装备；先建立`dist/zerg-melee-equipment-20261029`父目录，再以`SC2_WEB_OUTPUT=dist/zerg-melee-equipment-20261029/web`构建。支持`--evolution-only`、`--entry-only`，不代表自然战役、原手机或性能结果。[记录](../docs/project/ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md)。
+
+## 2026-11-02 两轮审查修复验证
+
+[本批修复与边界](../docs/project/AUDIT_FIXES_20261102.md)。正确行为回归在 `test/audit-persistence-contracts.test.ts`、`audit-lifecycle-contracts.test.ts`、`decoder-recovery.test.ts`、`runtime-resource-recovery.test.ts` 及现有gamepad/packed-cache测试。`verify-audit-browser-20261102.mjs`建立独立源码构建及临时Chrome来源，显式选择 `--continuation-only --normal-only`、`--policy-only` 或 `--texture-only`；后两者可加 `--no-build` 复用当次构建。纹理GPU辅助模块只由该诊断构建导入，不进入正常玩家构建。输出在 `reports/local/audit-fixes-20261102`，工作完成后按规则清理。
+
+`inspect-runtime-simulation-20261102.mts terran|zerg|protoss` 的固定seed、有限18关加2轮无尽可用于修复后的连续状态检查；使用生命保护及有限辅助清敌，不代表自然游戏或性能达标。其余原审查故障断言的适用范围见 `HISTORICAL_QA.md`，不覆盖原审查报告。

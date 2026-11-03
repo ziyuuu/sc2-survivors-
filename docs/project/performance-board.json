@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "title": "星际幸存者MVP收尾与性能看板",
-  "updated": "2026-11-02",
-  "revision": 319,
+  "updated": "2026-11-03",
+  "revision": 354,
   "baseline": {
     "branch": "main",
     "commit": "be9e2982944314194c6dcc9dcc535bc321749eb4",
@@ -2692,34 +2692,31 @@
       ]
     },
     {
-      "status": "待验证",
+      "status": "进行中",
       "phase": "交付",
       "priority": "收尾",
       "auditIds": [],
-      "updated": "2026-11-02",
+      "updated": "2026-11-03",
       "owner": "Codex",
       "historical": false,
       "id": "V06",
-      "title": "完成八包关闭表与MVP最终确认",
+      "title": "MVP 1.0 缺陷复核与最终记录",
       "depends": [
         "V05"
       ],
       "scenes": [
         "SC18"
       ],
-      "problem": "单个任务完成数不能证明整个MVP结束，仍需将八包既定关闭条件、最终版本、用户体验确认和已知问题汇总为明确终点，防止漏项或无休止扩项。",
+      "problem": "MVP功能范围已收束；需要如实记录已有具体故障的复核与实际交付状态，而不是继续扩充平衡、画质或优化任务。",
       "steps": [
-        "逐包整理MVP1–8最终版本、直接证据、已确认内容、未关闭缺口及对应任务；保留五图已确认结论，不以重新列检查表为由重做。",
-        "汇总T01逐项覆盖、I02/I03缺陷、G01–G03平衡、D05存档、V01–V05验收和用户集中试玩反馈；检查没有挂在旧文档却未处置的阻断事项。",
-        "确认阻断出征、崩溃、错误结算、物品复制、存档损坏和明显不可玩问题已解决；有限轻微限制单独列明，不把未通过项改名隐藏。",
-        "明确本版支持范围、交付入口、版本、恢复方式和已知限制；确认八包关闭后宣布MVP完成，后续新玩法与额外润色进入1.1。",
-        "1.1交接明确保留三族人口/补员与种族趣味卡牌、特性的精细平衡方向及G03失败线索；此为用户允许的后续迭代范围，不将实际机制缺陷或明显不可玩问题包装为延期平衡。",
-        "八包关闭表纳入已完成的Sites体积优化、合包、有限音画对照、加载/首关帧率观察、私有部署与D1/R2后台适配；明确最终采用版本及访问范围，保留既有性能/质量限制，不自动追加完整战役或极限矩阵。"
+        "仅接收实际bug反馈，核对版本、复现和影响；无bug时保持1.0冻结。",
+        "已知原手机异常按有限复测处理；修复后执行相关验证，不重启全量矩阵。",
+        "维护真实交付/部署与最终确认记录，非缺陷改进明确归1.1。"
       ],
       "acceptance": [
-        "八包每项都有最终可追溯结论及同版证据，用户集中试玩已反馈并完成必要修复。",
-        "所有阻断缺陷清零，剩余轻微问题和未支持范围透明，不以任务计数替代验收。",
-        "交付入口与线上／本地状态真实明确，MVP结束点固定，不临时增加第九包。"
+        "当前实际bug有可追溯处理结论；不能将尚未复核的问题伪称已解决，也不以未做过的组合测试扩展开发。",
+        "MVP正式版本1.0、后续1.1及已接受功能范围清晰；非bug改进不作为本版新增任务。",
+        "源码、构建、部署和用户确认分别记录；未部署和原机未验证范围透明。"
       ],
       "evidence": [
         "MVP_COMPLETION_CONTRACT_20261013.md",
@@ -2773,14 +2770,19 @@
         "../../reports/qa/growth-loot-replay-20261029.json",
         "LOCAL_FEEDBACK_GITHUB_SYNC_20261029.md",
         "../../reports/qa/local-feedback-github-sync-20261029.json",
+        "COZE_FEEDBACK_BGM_UPDATE_20261029.md",
+        "../../reports/qa/coze-feedback-bgm-delivery-20261029.json",
+        "MVP_1_0_HANDOFF_20261029.md",
+        "../../reports/qa/mvp-1.0-handoff-20261029.json",
         "QUEEN_UNLOCK_INSPECTION_20261029.md",
-        "UNLOCK_FEEDBACK_FIX_20261029.md",
-        "ZERG_MELEE_EQUIPMENT_PROPOSAL_20261029.md",
-        "ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md",
-        "ZERG_MELEE_EQUIPMENT_GITHUB_SYNC_20261029.md",
         "../../reports/qa/queen-unlock-inspection-20261029.json",
+        "UNLOCK_FEEDBACK_FIX_20261029.md",
         "../../reports/qa/unlock-feedback-fix-20261029.json",
+        "ZERG_MELEE_EQUIPMENT_PROPOSAL_20261029.md",
+        "SPECIAL_ROSTER_INSPECTION_20261029.md",
+        "ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md",
         "../../reports/qa/zerg-melee-equipment-20261029.json",
+        "ZERG_MELEE_EQUIPMENT_GITHUB_SYNC_20261029.md",
         "../../reports/qa/zerg-github-sync-20261029.json",
         "SPECIAL_ROSTER_FIX_20261029.md",
         "../../reports/qa/special-roster-fix-20261029.json",
@@ -2793,12 +2795,20 @@
         "../../reports/qa/tank-audit-sync-20261030.json",
         "COZE_REPAIR_DEPLOY_20261030.md",
         "../../reports/qa/coze-repair-deploy-20261030.json",
-        "STABILITY_FIX_20261102.md",
         "STABILITY_RECHECK_20261102.md",
+        "../../reports/qa/stability-recheck-20261102.json",
+        "STABILITY_FIX_20261102.md",
         "../../reports/qa/stability-fix-20261102.json",
-        "../../reports/qa/stability-recheck-20261102.json"
+        "FULL_CODE_AUDIT_20261102.md",
+        "../../reports/qa/full-code-audit-20261102.json",
+        "RUNTIME_CODE_AUDIT_20261102.md",
+        "../../reports/qa/runtime-code-audit-20261102.json",
+        "AUDIT_FIXES_20261102.md",
+        "../../reports/qa/audit-fixes-20261102.json",
+        "AUDIT_FIXES_GITHUB_SYNC_20261103.md",
+        "../../reports/qa/audit-fixes-github-sync-20261103.json"
       ],
-      "result": "四项稳定性缺陷已修复：14项新增定向检查、2909项完整回归（6项沙箱本机网络失败所属文件15项复验通过）、类型检查及真实Chrome五组缓存/首战/刷新续局通过。3750份原始和5138份压缩资源来源验证通过；已随ffc2c2f推送GitHub并双重核验，未部署，原iPhone仍待验证。",
+      "result": "两轮审查修复已通过2957项回归等本地验证；2026-11-03同版Web重建及压缩前端首战/续局/清缓存通过，33份验证输入指纹一致。按授权准备推送GitHub体积优化版；未部署，原iPhone待验。",
       "observedIssues": [
         {
           "id": "V06-GEAR-YIELD-001",
@@ -2806,7 +2816,8 @@
           "status": "暂缓",
           "scope": "批准的分难度单次自然掉落与特殊来源数量/品质已本地实现，旧计划/重复回执通过。320次全来源有限重放中等参与均值36.56/40.19/36.56/38.31；充分参与配橙色战争掠夺协议55.75/62.75/65.38/69.13，简单蓝装14–16件。参数落实，但全来源数量/品质目标未全部达标。",
           "evidence": "GROWTH_LOOT_IMPLEMENTATION_20261029.md",
-          "next": "用户2026-10-29明确暂时保留当前候选并要求推送，进一步调参暂缓。高收益/掠夺数量与简单蓝装目标仍未全部满足，后续按用户试玩与新决定处理；不以暂缓等同达标。"
+          "next": "用户确认非bug改进留1.1。保留当前已批准参数；进一步平衡不是MVP未完成开发。若有真实结算/规则偏差，另按MVP bug复现处理。",
+          "targetVersion": "1.1"
         },
         {
           "id": "V06-FB-08",
@@ -2820,7 +2831,7 @@
           "status": "待验证",
           "scope": "特效预设仅局部联动，三档均强制原生分辨率；需整体画质与自定义偏好方案",
           "evidence": "../../reports/qa/sites-quality-implementation-20261028.json",
-          "next": "本地实现及工程检查完成；待用户画面/听感、原手机第1至3关复测。未经授权不发布。"
+          "next": "已完成工程实现保留。具体崩溃/缺失等故障并入原机bug复核；一般画质、听感和性能改进归1.1，不作为MVP新增开发。"
         },
         {
           "id": "V06-QUALITY-002",
@@ -2828,7 +2839,7 @@
           "status": "待验证",
           "scope": "DPR1的三固定画质比例相同；资源档位未联动，GLB与贴图仍同源同尺寸",
           "evidence": "../../reports/qa/sites-quality-implementation-20261028.json",
-          "next": "本地实现及工程检查完成；待用户画面/听感、原手机第1至3关复测。未经授权不发布。"
+          "next": "已完成工程实现保留。具体崩溃/缺失等故障并入原机bug复核；一般画质、听感和性能改进归1.1，不作为MVP新增开发。"
         },
         {
           "id": "V06-QUALITY-003",
@@ -2836,7 +2847,7 @@
           "status": "待验证",
           "scope": "全量PCM解码、混包请求放大及各层资源预算缺口；静态确认，手机运行成本未实测",
           "evidence": "../../reports/qa/sites-quality-implementation-20261028.json",
-          "next": "本地实现及工程检查完成；待用户画面/听感、原手机第1至3关复测。未经授权不发布。"
+          "next": "已完成工程实现保留。具体崩溃/缺失等故障并入原机bug复核；一般画质、听感和性能改进归1.1，不作为MVP新增开发。"
         },
         {
           "id": "V06-QUALITY-004",
@@ -2844,7 +2855,197 @@
           "status": "待验证",
           "scope": "首次启动强制高档，设备策略仅粗指针；缺少重资源前的能力初选",
           "evidence": "../../reports/qa/sites-quality-implementation-20261028.json",
-          "next": "本地实现及工程检查完成；待用户画面/听感、原手机第1至3关复测。未经授权不发布。"
+          "next": "已完成工程实现保留。具体崩溃/缺失等故障并入原机bug复核；一般画质、听感和性能改进归1.1，不作为MVP新增开发。"
+        },
+        {
+          "id": "V06-FULL-SAVE-NATIVE-001",
+          "priority": "P1",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "舰装增强虫族精英技能被保存校验拒绝。原生技能倍率大于1且胆汁/输血窗口跨入关间；自动保存与继续失败，旧档保留，当前导出不可读。",
+          "evidence": "FULL_CODE_AUDIT_20261102.md",
+          "next": "本地修复验证完成；原iPhone及线上部署验收独立保持。",
+          "runtimeExtension": "补充确认腐土播种者/腐蚀雨幕地面伤害和末日火炮增强脊刺被拒绝，8组对照；同编号不重复计数。",
+          "supplementalEvidence": [
+            "RUNTIME_CODE_AUDIT_20261102.md"
+          ],
+          "resolution": "冻结原生倍率与攻击范围效果；6种精英有无装备、卸装、保存/导出/恢复及篡改拒绝通过。",
+          "resolutionEvidence": "AUDIT_FIXES_20261102.md"
+        },
+        {
+          "id": "V06-FULL-SAVE-HP-CAP-001",
+          "priority": "P1",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "关间降低生命上限后残留屏障使保存失败。血羽迁徙有未过期屏障时卸生命装备；保存/继续失败，旧档保留，当前导出不可读。",
+          "evidence": "FULL_CODE_AUDIT_20261102.md",
+          "next": "本地修复验证完成；原iPhone及线上部署验收独立保持。",
+          "resolution": "保存生命池生成基准，实际蓄力屏障卸装后保存/恢复通过，超额状态拒绝。",
+          "resolutionEvidence": "AUDIT_FIXES_20261102.md"
+        },
+        {
+          "id": "V06-FULL-INDEX-HANG-001",
+          "priority": "P1",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "挂起资源索引不可由重试或清缓存替换。索引头或正文不完成，随后网络恢复；后续菜单/入场请求仍复用旧挂起Promise。",
+          "evidence": "FULL_CODE_AUDIT_20261102.md",
+          "next": "本地修复验证完成；原iPhone及线上部署验收独立保持。",
+          "resolution": "索引45秒超时、取消/清理/reload替换与晚到隔离通过。",
+          "resolutionEvidence": "AUDIT_FIXES_20261102.md"
+        },
+        {
+          "id": "V06-FULL-HTTP-CACHE-001",
+          "priority": "P1",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "HTTP缓存坏包使正常重试一直502。HTTP缓存已有错误200正文，源站已恢复正确包；4次自动重试与清缓存后仍force-cache，显式reload才恢复。",
+          "evidence": "FULL_CODE_AUDIT_20261102.md",
+          "next": "本地修复验证完成；原iPhone及线上部署验收独立保持。",
+          "resolution": "坏200 HTTP缓存包会自动reload重取一次，错误数据不进入缓存。",
+          "resolutionEvidence": "AUDIT_FIXES_20261102.md"
+        },
+        {
+          "id": "V06-FULL-KTX-WORKER-001",
+          "priority": "P1",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "KTX2 worker错误不结束解码与准备通道。支持压缩纹理时worker发出运行错误但无协议消息；模拟120001ms后active=1/fallbacks=0，release失败，入口被阻塞。",
+          "evidence": "FULL_CODE_AUDIT_20261102.md",
+          "next": "本地修复验证完成；原iPhone及线上部署验收独立保持。",
+          "resolution": "Worker错误、messageerror、初始化/转码超时会退出并释放通道；回退及新代重试通过。",
+          "resolutionEvidence": "AUDIT_FIXES_20261102.md"
+        },
+        {
+          "id": "V06-FULL-AUDIO-HANG-001",
+          "priority": "P1",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "音频解码挂起后取消和重试不能排空。必需音频decodeAudioData不完成；模拟120001ms后首次准备未结束，新准备超时，held=2。",
+          "evidence": "FULL_CODE_AUDIT_20261102.md",
+          "next": "本地修复验证完成；原iPhone及线上部署验收独立保持。",
+          "resolution": "请求/正文/解码有界取消，多消费者与晚结果隔离；后续播放失败重新准备通过。",
+          "resolutionEvidence": "AUDIT_FIXES_20261102.md"
+        },
+        {
+          "id": "V06-FULL-FAMILY-LIFE-001",
+          "priority": "P2",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "兵种退役遗漏舰装复生和回溯名册。满5族替换兵种时已有相位恢复或回溯快照；退役兵种复活形成第6族，或名册6/快照5导致回溯失效。",
+          "evidence": "FULL_CODE_AUDIT_20261102.md",
+          "next": "本地修复验证完成；原iPhone及线上部署验收独立保持。",
+          "resolution": "退役同步移除名册/复生/回溯/投影，保留独立成员；回溯一次性通过。",
+          "resolutionEvidence": "AUDIT_FIXES_20261102.md"
+        },
+        {
+          "id": "V06-FULL-WIPE-001",
+          "priority": "P2",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "空装备账户使纯辅助单位错误阻止团灭。战斗单位已死，仅医疗运输机或科学球存活；正式装备账户路径继续battle并到达reward；对照为lost。",
+          "evidence": "FULL_CODE_AUDIT_20261102.md",
+          "next": "本地修复验证完成；原iPhone及线上部署验收独立保持。",
+          "resolution": "纯辅助不再阻止战败，合法待恢复战斗单位保持；对照通过。",
+          "resolutionEvidence": "AUDIT_FIXES_20261102.md"
+        },
+        {
+          "id": "V06-FULL-CI-001",
+          "priority": "P2",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "迭代分支直接push不触发常规CI。直接push体积优化版且没有PR/手动触发；不自动执行全量回归/类型/数据/构建工作流。",
+          "evidence": "FULL_CODE_AUDIT_20261102.md",
+          "next": "本地配置已修复；远端触发待后续提交推送后核验。",
+          "resolution": "push过滤已加入体积优化版；对应本机检查通过，远端触发需后续提交核验。",
+          "resolutionEvidence": "AUDIT_FIXES_20261102.md"
+        },
+        {
+          "id": "V06-RUNTIME-RESCUE-SAVE-001",
+          "priority": "P1",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "营救任务临时跳虫被永久双生编制校验拒绝。正式任务护卫生成并跨入关间；读取/恢复/提交均失败，旧档保持。",
+          "evidence": "RUNTIME_CODE_AUDIT_20261102.md",
+          "next": "本地修复验证完成；原iPhone及线上部署验收独立保持。",
+          "resolution": "营救护卫按任务/次序校验，第14关最后240步和三族20检查点连续验证通过。",
+          "resolutionEvidence": "AUDIT_FIXES_20261102.md"
+        },
+        {
+          "id": "V06-RUNTIME-SAVE-SWANN-001",
+          "priority": "P1",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "斯旺橙套修复目标超过保存旧上限。同三级无装7目标通过，有装10目标失败；关间保存和继续失败，旧档保持，导出不可读。",
+          "evidence": "RUNTIME_CODE_AUDIT_20261102.md",
+          "next": "本地修复验证完成；原iPhone及线上部署验收独立保持。",
+          "resolution": "冻结supportTier，原生7/橙套10/腐化全部目标可保存，重复目标拒绝。",
+          "resolutionEvidence": "AUDIT_FIXES_20261102.md"
+        },
+        {
+          "id": "V06-RUNTIME-SAVE-NIADRA-001",
+          "priority": "P1",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "腐化尼亚德拉复生次数超过保存旧上限。同五级无装4次通过，腐化橙套5次失败；关间保存和继续失败，旧档保持，导出不可读。",
+          "evidence": "RUNTIME_CODE_AUDIT_20261102.md",
+          "next": "本地修复验证完成；原iPhone及线上部署验收独立保持。",
+          "resolution": "冻结bonusCharges，4/5次窗口均可保存，超额及重复回执拒绝。",
+          "resolutionEvidence": "AUDIT_FIXES_20261102.md"
+        },
+        {
+          "id": "V06-RUNTIME-SAVE-HERORANK-001",
+          "priority": "P1",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "六级英雄合法技能被五级载荷上限拒绝。真实击杀成长后施放；雷诺五级通过六级失败；关间保存和继续失败，旧档保持，导出不可读。",
+          "evidence": "RUNTIME_CODE_AUDIT_20261102.md",
+          "next": "本地修复验证完成；原iPhone及线上部署验收独立保持。",
+          "resolution": "实际击杀成长至6级后的雷诺/斯托科夫/阿塔尼斯/诺娃技能与被动保存通过。",
+          "resolutionEvidence": "AUDIT_FIXES_20261102.md"
+        },
+        {
+          "id": "V06-RUNTIME-MAP-RETRY-001",
+          "priority": "P1",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "地图失败后地形身份及错误锁死重试。正式进入特殊关，首次图片解码失败后恢复；后续3次仍不重载，挑战loading，后续准备也被旧错误拒绝。",
+          "evidence": "RUNTIME_CODE_AUDIT_20261102.md",
+          "next": "本地修复验证完成；原iPhone及线上部署验收独立保持。",
+          "resolution": "地图仅成功后提交地形身份，原准备入口重试与返回原地图清错通过。",
+          "resolutionEvidence": "AUDIT_FIXES_20261102.md"
+        },
+        {
+          "id": "V06-RUNTIME-GAMEPAD-RAF-001",
+          "priority": "P1",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "可选手柄权限拒绝终止整个帧循环。真实Chrome响应Permissions-Policy: gamepad=()，未连接手柄；SecurityError使尾部RAF未调度；1.8秒前后帧号均51。",
+          "evidence": "RUNTIME_CODE_AUDIT_20261102.md",
+          "next": "本地修复验证完成；原iPhone及线上部署验收独立保持。",
+          "resolution": "权限拒绝隔离，真实Chrome菜单与战斗继续绘制，键盘操作有效。",
+          "resolutionEvidence": "AUDIT_FIXES_20261102.md"
+        },
+        {
+          "id": "V06-RUNTIME-TEXTURE-TIER-001",
+          "priority": "P2",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "压缩贴图降档保留旧高档mip。科学球死亡图高1024到中512，普通Texture对照正常；Source更新但压缩格式/mip保持旧值；实际GPU输出未测。",
+          "evidence": "RUNTIME_CODE_AUDIT_20261102.md",
+          "next": "本地修复验证完成；原iPhone及线上部署验收独立保持。",
+          "resolution": "纹理上传格式/mip/Source/共享缓存一致更新；真实GPU1024→512→1024，参考像素差0、GL错误0。",
+          "resolutionEvidence": "AUDIT_FIXES_20261102.md"
+        },
+        {
+          "id": "V06-RUNTIME-SAVE-RANKCAP-002",
+          "priority": "P1",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "装备培养到8级的跳虫双生编制、尼亚德拉冻结复生身体及孤星吸收回执被旧7级上限拒绝；本轮3条真实装备/培养路径复现。",
+          "evidence": "AUDIT_FIXES_20261102.md",
+          "resolution": "采用正安全整数等级并保留身份/载荷校验，保存/导出/恢复及非整数/非有限篡改拒绝通过。",
+          "next": "本地修复完成；当前尚未提交或部署。"
         }
       ],
       "openFindings": [
@@ -2861,7 +3062,7 @@
           "status": "待验证",
           "resolved": false,
           "scope": "条件准备、公共英雄/特效依赖与闲置部队缓存已进入第16版；读档仍保留较宽阵容，公共特效/地图常驻部分不在本轮总量预算内。",
-          "next": "工程优化见V06-MEMORY-005；原iPhone仍待验证，进一步降低画质仍需另行选择。",
+          "next": "已完成工程实现保留。具体崩溃/缺失等故障并入原机bug复核；一般画质、听感和性能改进归1.1，不作为MVP新增开发。",
           "evidence": "../../reports/qa/battle-memory-scope-20261028.json"
         },
         {
@@ -2890,10 +3091,10 @@
         },
         {
           "id": "V06-SW-001",
-          "status": "进行中",
+          "status": "待验证",
           "resolved": false,
           "scope": "Coze v5线上43份独立KTX2带/不带索引参数共86次200且长度/hash全部正确，14份合包切片通过；启动器/SW/清单/索引/游戏程序与第16版逐字节一致。旧客户端升级仍未在原手机观测。",
-          "next": "服务器独立文件兜底已验证；保留旧客户端状态的真实升级验证尚未完成，原机自动刷新继续归V06-SAFARI-001。",
+          "next": "保留真实手机旧客户端升级兼容复核；已有服务器兜底证据不变。没有实际故障不新增MVP优化，发布须另按授权。",
           "evidence": "../../reports/qa/packed-sw-compatibility-20261028.json"
         },
         {
@@ -2902,7 +3103,7 @@
           "resolved": false,
           "scope": "每个正常战役/无尽关间可撤离；特殊关先回正常关间。",
           "evidence": "../../reports/qa/feedback-actions-20261029.json",
-          "next": "本地实现与定向验证通过；用户操作/原机体验待验证，暂不部署。"
+          "next": "本地实现及验证已完成，不再作为MVP新增开发；仅按实际bug反馈定向复核，进一步手感/平衡/偏好改进归1.1。未部署事实保持。"
         },
         {
           "id": "V06-F29-03",
@@ -2918,7 +3119,7 @@
           "resolved": false,
           "scope": "跨页全选当前筛选结果，筛选/搜索清空选择；批量分解/销毁保护已装、锁定、收藏及来源锁定项。",
           "evidence": "../../reports/qa/feedback-actions-20261029.json",
-          "next": "本地实现与定向验证通过；用户操作/原机体验待验证，暂不部署。"
+          "next": "本地实现及验证已完成，不再作为MVP新增开发；仅按实际bug反馈定向复核，进一步手感/平衡/偏好改进归1.1。未部署事实保持。"
         },
         {
           "id": "V06-F29-05",
@@ -2926,7 +3127,7 @@
           "resolved": false,
           "scope": "列表与详情显示真实装备资格，提供可装备筛选；不混淆效果激活。",
           "evidence": "../../reports/qa/feedback-actions-20261029.json",
-          "next": "本地实现与定向验证通过；用户操作/原机体验待验证，暂不部署。"
+          "next": "本地实现及验证已完成，不再作为MVP新增开发；仅按实际bug反馈定向复核，进一步手感/平衡/偏好改进归1.1。未部署事实保持。"
         },
         {
           "id": "V06-F29-06",
@@ -2934,7 +3135,7 @@
           "resolved": false,
           "scope": "正常关间一键更高品质合法散件，保护套装/特殊/锁定收藏，同品质保留现装，整批一次保存。",
           "evidence": "../../reports/qa/feedback-actions-20261029.json",
-          "next": "本地实现与定向验证通过；用户操作/原机体验待验证，暂不部署。"
+          "next": "本地实现及验证已完成，不再作为MVP新增开发；仅按实际bug反馈定向复核，进一步手感/平衡/偏好改进归1.1。未部署事实保持。"
         },
         {
           "id": "V06-F29-07",
@@ -2942,7 +3143,7 @@
           "resolved": false,
           "scope": "主菜单起的短按键音，新默认25%保留已有偏好；触屏补发点击已去重，实机听感待验证。",
           "evidence": "../../reports/qa/feedback-actions-20261029.json",
-          "next": "本地实现与定向验证通过；用户操作/原机体验待验证，暂不部署。"
+          "next": "本地实现及验证已完成，不再作为MVP新增开发；仅按实际bug反馈定向复核，进一步手感/平衡/偏好改进归1.1。未部署事实保持。"
         },
         {
           "id": "V06-F29-08",
@@ -2950,7 +3151,7 @@
           "resolved": false,
           "scope": "已确认的电子管弦BGM完成完整循环与菜单/局外/关间接入；设置新增背景音乐音量。工程验证通过，原机完整版听感待验证。",
           "evidence": "BGM_INTEGRATION_20261029.md",
-          "next": "原手机试听循环衔接、背景音量、入战/暂停与前后台；暂不部署。"
+          "next": "本地实现及验证已完成，不再作为MVP新增开发；仅按实际bug反馈定向复核，进一步手感/平衡/偏好改进归1.1。未部署事实保持。"
         },
         {
           "id": "V06-F29-09",
@@ -2958,7 +3159,7 @@
           "resolved": false,
           "scope": "孤星已按批准参数本地实现：已吸收精英可再获取，精英折算翻倍、持续1%伤害/生命与有上限攻/移速；旧回执补算、受伤比例、付费去重及特殊关往返通过。实际攻击间隔单体输出与三尺寸准确说明通过。",
           "evidence": "GROWTH_LOOT_IMPLEMENTATION_20261029.md",
-          "next": "用户复测集中培养、重复精英、旧局成长和完整战斗手感；本批未部署。"
+          "next": "本地实现及验证已完成，不再作为MVP新增开发；仅按实际bug反馈定向复核，进一步手感/平衡/偏好改进归1.1。未部署事实保持。"
         },
         {
           "id": "V06-F29-10",
@@ -2966,7 +3167,7 @@
           "resolved": false,
           "scope": "新商店候选与最终交易共用资格，买满/不可用商品退出，余额不足仍展示。",
           "evidence": "../../reports/qa/feedback-actions-20261029.json",
-          "next": "本地实现与定向验证通过；用户操作/原机体验待验证，暂不部署。"
+          "next": "本地实现及验证已完成，不再作为MVP新增开发；仅按实际bug反馈定向复核，进一步手感/平衡/偏好改进归1.1。未部署事实保持。"
         },
         {
           "id": "V06-F29-11",
@@ -2974,7 +3175,7 @@
           "resolved": false,
           "scope": "售罄商品带走自身权重，剩余资源权重不被放大；三个关段固定样本蓝紫占比上升，非自然平衡验收。",
           "evidence": "../../reports/qa/feedback-actions-20261029.json",
-          "next": "本地实现与定向验证通过；用户操作/原机体验待验证，暂不部署。"
+          "next": "本地实现及验证已完成，不再作为MVP新增开发；仅按实际bug反馈定向复核，进一步手感/平衡/偏好改进归1.1。未部署事实保持。"
         },
         {
           "id": "V06-INTERMISSION-PERF-001",
@@ -2986,11 +3187,12 @@
         },
         {
           "id": "V06-ENDLESS-BALANCE-001",
-          "status": "待验证",
+          "status": "暂缓",
           "resolved": false,
           "scope": "无尽伤害前5分钟每分钟×1.10、之后×1.16已本地实现，生命/护甲/数量保持。四难度1/6/12/16/24轮属性及实际酸液/虫后持续伤害结算通过；第16轮开场普攻DPS8.88倍，未测真人存活率。",
-          "next": "结合新掉落在原机试玩后期输出压力；暂不改生命/护甲/数量，不部署。",
-          "evidence": "GROWTH_LOOT_IMPLEMENTATION_20261029.md"
+          "next": "用户确认非bug改进留1.1。保留当前已批准参数；进一步平衡不是MVP未完成开发。若有真实结算/规则偏差，另按MVP bug复现处理。",
+          "evidence": "GROWTH_LOOT_IMPLEMENTATION_20261029.md",
+          "targetVersion": "1.1"
         },
         {
           "id": "V06-QUEEN-UNLOCK-001",
@@ -3165,7 +3367,7 @@
           "evidence": "STABILITY_FIX_20261102.md"
         }
       ],
-      "next": "本批四项修复和GitHub推送已完成；按原iPhone实际反馈复测。Coze仍为原v7，本批未部署，无具体bug时维持MVP 1.0冻结。",
+      "next": "提交审查修复与同版压缩前端，推送体积优化版并核验远端及CI触发；不合并main或部署。",
       "codeAudit": {
         "date": "2026-10-29",
         "status": "已完成",
@@ -3195,6 +3397,51 @@
         "evidence": "STABILITY_FIX_20261102.md",
         "delivery": "GitHub体积优化版已推送并双重核验；未部署",
         "commit": "ffc2c2fd111b86d67a2c276be6123bbf1d2167cc"
+      },
+      "fullCodeAudit": {
+        "date": "2026-11-02",
+        "status": "已完成",
+        "baseline": "8d680aca1b3150b3faa0c9c170458d084c9a1a1e",
+        "productFindings": 8,
+        "engineeringFindings": 1,
+        "scope": "当前分支全面代码审查，四路分工，主代理重跑全部新增反例",
+        "evidence": "FULL_CODE_AUDIT_20261102.md",
+        "productionModified": false,
+        "next": "先修两项存档阻断，再修四项恢复缺口与两项生命周期冲突，补当前分支CI；原iPhone及上线验收保持开放。"
+      },
+      "runtimeAudit": {
+        "date": "2026-11-02",
+        "status": "已完成",
+        "baseline": "8d680aca1b3150b3faa0c9c170458d084c9a1a1e",
+        "newProductFindings": 7,
+        "P1": 6,
+        "P2": 1,
+        "previousFindingExtension": "V06-FULL-SAVE-NATIVE-001",
+        "scope": "运行过程补查：连续固定步/同帧结算、运行与保存、主循环异常、资源生命周期和有限真实Chrome恢复",
+        "evidence": "RUNTIME_CODE_AUDIT_20261102.md",
+        "continuousSimulation": "人族/星灵各18关+2轮无尽通过；虫族第14关真实检查点失败；合计304200步、53成功恢复、1失败。辅助模拟，不是自然通关。",
+        "browser": "正常流程/上下文恢复/3次原局继续/关间与刷新新局通过；手柄权限拒绝使RAF停止已复现；真实手机与隐藏待验。",
+        "productionModified": false,
+        "next": "优先修复合法状态保存阻断，再修地图/输入异常恢复，复核压缩贴图实际切档；原iPhone与部署验收继续开放。"
+      },
+      "auditFixes": {
+        "date": "2026-11-02",
+        "report": "AUDIT_FIXES_20261102.md",
+        "baseline": "8d680aca1b3150b3faa0c9c170458d084c9a1a1e",
+        "originalFindings": 16,
+        "additionalFinding": "V06-RUNTIME-SAVE-RANKCAP-002",
+        "regressions": 2957,
+        "newTests": 48,
+        "committed": false,
+        "pushed": false,
+        "deployed": false,
+        "githubSync": {
+          "date": "2026-11-03",
+          "status": "交付检查完成，待提交推送",
+          "report": "AUDIT_FIXES_GITHUB_SYNC_20261103.md",
+          "appBuildId": "34408a35562ffdf62b278e8a310ae04d06515af98cee00f2c6ab61006922dbab",
+          "resourceRelease": "50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a"
+        }
       }
     },
     {
@@ -10810,6 +11057,70 @@
       "evidence": [
         "STABILITY_FIX_20261102.md",
         "../../reports/qa/stability-fix-20261102.json"
+      ]
+    },
+    {
+      "date": "2026-11-02",
+      "tasks": [
+        "V06"
+      ],
+      "change": "完成体积优化版8d680ac四路代码审查及主代理复核：确认4项合法游戏状态冲突、4项故障恢复缺口和1项CI覆盖缺口，均登记待办。2909项全回归中6项EACCES已正常权限复验通过，类型/数据检查、隔离Vite构建、359包/5138载荷完整性核验通过。本轮只新增复现工具与报告，未改产品、提交、推送或部署；原手机与线上验收保持。",
+      "evidence": [
+        "FULL_CODE_AUDIT_20261102.md",
+        "../../reports/qa/full-code-audit-20261102.json"
+      ]
+    },
+    {
+      "date": "2026-11-02",
+      "tasks": [
+        "V06"
+      ],
+      "change": "用户追加要求补运行过程审查；V06进入进行中，三路代码/受控模拟与主代理串行浏览器验证，不修改产品或部署。复用同基线全量回归，不重复堆测试数量。",
+      "evidence": [
+        "FULL_CODE_AUDIT_20261102.md"
+      ]
+    },
+    {
+      "date": "2026-11-02",
+      "tasks": [
+        "V06"
+      ],
+      "change": "完成运行过程补查：新增营救跳虫、斯旺、尼亚德拉、六级英雄4项保存冲突，地图重试及手柄权限导致主循环停止2项恢复缺陷，另有窄范围压缩贴图切档状态问题。合计304200步、53次成功恢复、虫族1次真实失败；Chrome正常流程及故障反例完成。只报告调查，未改产品/部署；V06返回待验证。",
+      "evidence": [
+        "RUNTIME_CODE_AUDIT_20261102.md",
+        "../../reports/qa/runtime-code-audit-20261102.json"
+      ]
+    },
+    {
+      "date": "2026-11-02",
+      "tasks": [
+        "V06"
+      ],
+      "change": "用户要求修复聊天bug寻找分支发现的问题。已读取两轮报告和聊天结论，在8d680ac体积优化版开始处理15项产品缺陷及1项CI缺口；先保存阻断，再异步恢复及生命周期，逐项定向验证。当前src/test无已有差异，不改其他任务成果或部署。",
+      "evidence": [
+        "FULL_CODE_AUDIT_20261102.md",
+        "RUNTIME_CODE_AUDIT_20261102.md"
+      ]
+    },
+    {
+      "date": "2026-11-02",
+      "tasks": [
+        "V06"
+      ],
+      "change": "两轮审查15项产品缺陷与1项CI缺口已本地修复，另补正普通兵8级保存三条路径。48新增/2957全回归、类型/数据/正式Web构建、三族60检查点与真实Chrome首战/续局/权限拒绝/纹理GPU通过。未提交推送部署；原iPhone待验保持。",
+      "evidence": [
+        "AUDIT_FIXES_20261102.md",
+        "../../reports/qa/audit-fixes-20261102.json"
+      ]
+    },
+    {
+      "date": "2026-11-03",
+      "tasks": [
+        "V06"
+      ],
+      "change": "用户明确要求推到远端GitHub；开始核对已验证33份源码/测试/工具指纹，构建同版压缩前端并只提交审查修复相关文件，保留其他工作区成果。",
+      "evidence": [
+        "AUDIT_FIXES_20261102.md"
       ]
     }
   ],

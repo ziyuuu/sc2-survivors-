@@ -5,7 +5,7 @@ import {graphicsPreferences,optimizedGraphics,type GraphicsTier} from '../../pla
 import {imageDecodeLane,modelDecodeLane} from '../../platform/preparation-budget';
 import {SharedImageSources} from './shared-image-sources';
 import {gltfImageIdentities} from './gltf-image-identities';
-import {gpuTexture,gpuTextureReport} from './gpu-textures';
+import {gpuTexture,gpuTextureReport,invalidateGpuTextureSource} from './gpu-textures';
 
 type Binding={id:string;image?:number;source:THREE.Texture['source'];textures:WeakRef<THREE.Texture>[]};
 let swapping=false;
@@ -78,17 +78,26 @@ function imageBlob(bytes:ArrayBuffer,index:number){
 async function readImage(binding:Binding,tier:GraphicsTier){
  const store=httpStore()!,url=await store.urlForTier(binding.id,tier);
  return imageDecodeLane.run(async()=>{
-  if(binding.image===undefined){const t=await new THREE.TextureLoader().loadAsync(url);return t.image;}
+  if(binding.image===undefined)return new THREE.TextureLoader().loadAsync(url);
+  const identity=store.record(binding.id,tier)?.imageSources?.[binding.image];
+  const compressed=identity?await gpuTexture(identity.hash):null;if(compressed)return compressed;
   const r=await fetch(url);if(!r.ok)throw Error('贴图读取失败');const blob=imageBlob(await r.arrayBuffer(),binding.image);
-  return createImageBitmap(blob,{premultiplyAlpha:'none',colorSpaceConversion:'none'});
+  const texture=new THREE.Texture(await createImageBitmap(blob,{premultiplyAlpha:'none',colorSpaceConversion:'none'}));texture.flipY=false;return texture;
  });
 }
-function swap(binding:Binding,image:TexImageSource){
- externalImages.invalidate(binding.source);
- const previous=binding.source.data as {close?:()=>void}|undefined;binding.source.data=image;
- swapping=true;for(const ref of binding.textures){const t=ref.deref();if(t){t.dispose();t.needsUpdate=true;}}
+function swap(binding:Binding,payload:THREE.Texture){
+ externalImages.invalidate(binding.source);invalidateGpuTextureSource(binding.source);
+ const image=payload.image,previous=binding.source.data as {close?:()=>void}|undefined;binding.source.data=image;
+ swapping=true;try{for(const ref of binding.textures){const t=ref.deref();if(t){
+  t.dispose();
+  // Materials retain wrapper identity and sampler/UV settings. Pixel storage,
+  // constructor/clone behavior and GPU upload flags must change together.
+  Object.setPrototypeOf(t,Object.getPrototypeOf(payload));
+  for(const flag of ['isCompressedTexture','isCompressedArrayTexture','isDataTexture','isDataArrayTexture','isData3DTexture']){delete (t as any)[flag];if((payload as any)[flag])(t as any)[flag]=true;}
+  t.mipmaps=payload.mipmaps;t.format=payload.format;t.type=payload.type;t.internalFormat=payload.internalFormat;t.generateMipmaps=payload.generateMipmaps;t.unpackAlignment=payload.unpackAlignment;t.premultiplyAlpha=payload.premultiplyAlpha;t.needsUpdate=true;
+ }}}finally{swapping=false;}
  // Three clones share Source. All registered wrappers now refer to the new image.
- swapping=false;binding.source.needsUpdate=true;if(previous&&previous!==image&&typeof previous.close==='function')previous.close();
+ binding.source.needsUpdate=true;if(previous&&previous!==image&&typeof previous.close==='function')previous.close();
  textureMetrics.swaps++;
 }
 /** Only called inside the existing preparation gate. Encoded bytes are staged;

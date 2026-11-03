@@ -51,14 +51,28 @@ function invalidatePack(name){
  return forgetDiskPack(name);
 }
 async function clearPacks(){
- const epoch=++cacheEpoch;for(const job of inflight.values())job.controller.abort();inflight.clear();bundles.clear();resident=0;diskRows.clear();diskBytes=0;diskBypass.clear();packVersions.clear();diskReady=null;diskJob=Promise.resolve();diskEnabled=false;
+ const epoch=++cacheEpoch;for(const job of indexes.values())job.controller.abort();indexes.clear();for(const job of inflight.values())job.controller.abort();inflight.clear();bundles.clear();resident=0;diskRows.clear();diskBytes=0;diskBypass.clear();packVersions.clear();diskReady=null;diskJob=Promise.resolve();diskEnabled=false;
  try{if(globalThis.caches)await bounded(caches.delete(PACK_CACHE),DISK_TIMEOUT,'Pack cache clear timeout');if(epoch===cacheEpoch)diskEnabled=true;return true;}catch{return false;}
 }
 let resident=0,packLimit=12*1024**2,networkLimit=2,decodeLimit=1;
 const metrics={bundleBodyBytes:0,networkTransferBytes:0,transferSamples:0,logicalBytes:0,gzipInputBytes:0,gzipOutputBytes:0,gzipMs:0,downloads:0,peakResident:0,peakInflight:0,peakDecode:0};
 function trim(){while(resident>packLimit&&bundles.size){const key=bundles.keys().next().value;resident-=bundles.get(key).byteLength;bundles.delete(key);}}
 const indexes=new Map();
-async function indexFor(name){if(!name)return self.SC2_PACK_INDEX;if(!/^sites-pack-index\.[a-f0-9]{20}\.js$/.test(name))throw Error('Invalid resource index');let job=indexes.get(name);if(!job){job=(async()=>{const r=await fetch(new URL(name,self.registration.scope),{cache:'force-cache'});if(!r.ok)throw Error('Resource index unavailable');const text=await r.text();return JSON.parse(text.trim().replace(/^self\.SC2_PACK_INDEX=/,'').replace(/;$/,''));})();indexes.set(name,job);job.catch(()=>indexes.delete(name));}return job;}
+async function indexFor(name,reload=false){
+ if(!name)return self.SC2_PACK_INDEX;if(!/^sites-pack-index\.[a-f0-9]{20}\.js$/.test(name))throw Error('Invalid resource index');
+ let record=indexes.get(name);if(reload&&record&&!record.reload){indexes.delete(name);record.controller.abort();record=null;}
+ if(!record){const controller=new AbortController(),epoch=cacheEpoch;record={controller,reload,promise:null};const current=record;
+  const check=()=>{if(controller.signal.aborted||epoch!==cacheEpoch||indexes.get(name)!==current)throw Error('Stale resource index');};
+  indexes.set(name,current);
+  current.promise=(async()=>{let abort;try{return await bounded(Promise.race([(async()=>{
+   const r=await fetch(new URL(name,self.registration.scope),{cache:reload?'reload':'force-cache',signal:controller.signal});check();if(!r.ok)throw Error('Resource index unavailable');
+   const text=await r.text();check();return JSON.parse(text.trim().replace(/^self\.SC2_PACK_INDEX=/,'').replace(/;$/,''));
+  })(),new Promise((_,reject)=>{abort=()=>reject(Error('Resource index cancelled'));controller.signal.addEventListener('abort',abort,{once:true});if(controller.signal.aborted)abort();})]),45000,'Resource index timeout');}
+  finally{if(abort)controller.signal.removeEventListener('abort',abort);controller.abort();}})();
+  current.promise.catch(()=>{if(indexes.get(name)===current)indexes.delete(name);});
+ }
+ return record.promise;
+}
 const network={active:0,queue:[]},decode={active:0,queue:[]};
 async function lane(state,limit,work){await new Promise(resolve=>{const enter=()=>{state.active++;resolve();};if(state.active<limit())enter();else state.queue.push(enter);});try{return await work();}finally{state.active--;while(state.queue.length&&state.active<limit())state.queue.shift()();}}
 async function budgets(){const active=new Set((await self.clients.matchAll()).map(c=>c.id));for(const id of clientsBudget.keys())if(!active.has(id))clientsBudget.delete(id);const all=[...clientsBudget.values()];packLimit=Math.min(24*1024**2,...all.map(b=>b.packBytes));networkLimit=Math.min(4,...all.map(b=>b.network));decodeLimit=Math.min(2,...all.map(b=>b.decode));trim();}
@@ -84,9 +98,14 @@ async function getBundle(name,reload=false){
    const url=new URL('./assets/'+name,self.registration.scope),immutable=/^(?:bundle-[a-z]+|gpu-textures)-[a-f0-9]{20}\.bin$/.test(name);
    let refresh=reload;
    if(immutable&&!reload){const cached=await diskRead(name,url);check();if(cached){if(await validPack(name,cached)){check();return cached;}refresh=true;await forgetDiskPack(name);check();}}
-   const r=await fetch(url,{signal:controller.signal,cache:refresh?'reload':immutable?'force-cache':'default'});if(!r.ok)throw Error('Bundle HTTP '+r.status);
-   const bytes=await r.arrayBuffer();check();if(!await validPack(name,bytes))throw Error('Bundle integrity failed');check();
-   if(immutable)await rememberPack(name,url,bytes,valid);check();return bytes;
+   // A corrupt 200 response may live in the HTTP cache, independently of our
+   // verified memory/disk caches. Retry that layer once with explicit reload.
+   for(let attempt=0;attempt<2;attempt++){
+    const r=await fetch(url,{signal:controller.signal,cache:refresh||attempt?'reload':immutable?'force-cache':'default'});check();if(!r.ok)throw Error('Bundle HTTP '+r.status);
+    const bytes=await r.arrayBuffer();check();if(!await validPack(name,bytes)){await forgetDiskPack(name);check();continue;}check();
+    if(immutable)await rememberPack(name,url,bytes,valid);check();return bytes;
+   }
+   throw Error('Bundle integrity failed');
   })(),new Promise((_,reject)=>{abort=()=>reject(Error('Bundle request cancelled'));controller.signal.addEventListener('abort',abort,{once:true});if(controller.signal.aborted)abort();})]),45000,'Bundle timeout');
    check();metrics.bundleBodyBytes+=b.byteLength;const timing=globalThis.performance?.getEntriesByName?.(new URL('./assets/'+name,self.registration.scope).href).at(-1);if(timing&&timing.startTime>=requestAt&&typeof timing.transferSize==='number'){metrics.networkTransferBytes+=timing.transferSize;metrics.transferSamples++;}metrics.downloads++;if(b.byteLength<=packLimit){dropMemory(name);bundles.set(name,b);resident+=b.byteLength;trim();metrics.peakResident=Math.max(metrics.peakResident,resident);}return b;
   }finally{if(abort)controller.signal.removeEventListener('abort',abort);controller.abort();}
@@ -100,7 +119,7 @@ self.addEventListener('fetch',event=>{
  const key=decodeURIComponent(u.pathname.slice(prefix.length)),indexName=u.searchParams.get('sc2-index');if(!indexName&&!self.SC2_PACK_INDEX[key])return;
  event.respondWith((async()=>{try{
   if(event.clientId&&!clientsBudget.has(event.clientId)){const client=await self.clients.get(event.clientId);client?.postMessage({type:'sc2-request-budget'});}
-  const row=(await indexFor(indexName))[key];if(!row)return fetch(event.request);
+  const row=(await indexFor(indexName,event.request.cache==='reload'||event.request.cache==='no-store'))[key];if(!row)return fetch(event.request);
   const [name,offset,length,mime,isGlb]=row,bundle=await getBundle(name,event.request.cache==='reload'||event.request.cache==='no-store');
   let bytes=bundle.slice(offset,offset+length);
   if(isGlb&&new Uint8Array(bytes)[0]===31&&new Uint8Array(bytes)[1]===139)bytes=await lane(decode,()=>decodeLimit,async()=>{metrics.peakDecode=Math.max(metrics.peakDecode,decode.active);const at=performance.now();metrics.gzipInputBytes+=bytes.byteLength;const expanded=await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();metrics.gzipMs+=performance.now()-at;metrics.gzipOutputBytes+=expanded.byteLength;return expanded;});

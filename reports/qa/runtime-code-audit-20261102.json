@@ -1,0 +1,1227 @@
+{
+  "date": "2026-11-02",
+  "branch": "体积优化版",
+  "baseline": "8d680aca1b3150b3faa0c9c170458d084c9a1a1e",
+  "scope": "运行过程补查：连续固定步/同帧结算、运行与保存、主循环异常、资源生命周期和有限真实Chrome恢复",
+  "status": "审查完成，发现未修复",
+  "counts": {
+    "newProductDefects": 7,
+    "P1": 6,
+    "P2": 1,
+    "previousFindingExtensions": 1,
+    "previousProductDefects": 8,
+    "cumulativeProductDefects": 15,
+    "previousEngineeringDefects": 1
+  },
+  "findings": [
+    {
+      "id": "V06-RUNTIME-RESCUE-SAVE-001",
+      "priority": "P1",
+      "category": "business",
+      "file": "src/simulation/persistence/run-fields.ts",
+      "line": 104,
+      "title": "营救任务临时跳虫被永久双生编制校验拒绝",
+      "trigger": "正式任务护卫生成并跨入关间",
+      "effect": "读取/恢复/提交均失败，旧档保持",
+      "reproduction": "tools/inspect-runtime-rescue-save-20261102.mts",
+      "status": "待办",
+      "resolved": false,
+      "sourceSha256": "77268dd3afd079b3f4a61fd4fdb826c2a292a72e8bf59ff45488b38baf81a0ae"
+    },
+    {
+      "id": "V06-RUNTIME-SAVE-SWANN-001",
+      "priority": "P1",
+      "category": "business",
+      "file": "src/simulation/persistence/run-fields.ts",
+      "line": 109,
+      "title": "斯旺橙套修复目标超过保存旧上限",
+      "trigger": "同三级无装7目标通过，有装10目标失败",
+      "effect": "关间保存和继续失败，旧档保持，导出不可读",
+      "reproduction": "tools/inspect-runtime-hero-checkpoint-20261102.mts",
+      "status": "待办",
+      "resolved": false,
+      "sourceSha256": "77268dd3afd079b3f4a61fd4fdb826c2a292a72e8bf59ff45488b38baf81a0ae"
+    },
+    {
+      "id": "V06-RUNTIME-SAVE-NIADRA-001",
+      "priority": "P1",
+      "category": "business",
+      "file": "src/simulation/combat/zerg-hero-passives.ts",
+      "line": 68,
+      "title": "腐化尼亚德拉复生次数超过保存旧上限",
+      "trigger": "同五级无装4次通过，腐化橙套5次失败",
+      "effect": "关间保存和继续失败，旧档保持，导出不可读",
+      "reproduction": "tools/inspect-runtime-hero-checkpoint-20261102.mts",
+      "status": "待办",
+      "resolved": false,
+      "sourceSha256": "72f26effd9a3e63471adc5abf2cbc4fbf175ed1a1cb9affbcddbcc91ab4c0b0e"
+    },
+    {
+      "id": "V06-RUNTIME-SAVE-HERORANK-001",
+      "priority": "P1",
+      "category": "business",
+      "file": "src/simulation/persistence/run-fields.ts",
+      "line": 109,
+      "title": "六级英雄合法技能被五级载荷上限拒绝",
+      "trigger": "真实击杀成长后施放；雷诺五级通过六级失败",
+      "effect": "关间保存和继续失败，旧档保持，导出不可读",
+      "reproduction": "tools/inspect-runtime-hero-checkpoint-20261102.mts",
+      "status": "待办",
+      "resolved": false,
+      "sourceSha256": "77268dd3afd079b3f4a61fd4fdb826c2a292a72e8bf59ff45488b38baf81a0ae"
+    },
+    {
+      "id": "V06-RUNTIME-MAP-RETRY-001",
+      "priority": "P1",
+      "category": "fault-injection",
+      "file": "src/render/scene/battle-renderer.ts",
+      "line": 698,
+      "title": "地图失败后地形身份及错误锁死重试",
+      "trigger": "正式进入特殊关，首次图片解码失败后恢复",
+      "effect": "后续3次仍不重载，挑战loading，后续准备也被旧错误拒绝",
+      "reproduction": "tools/inspect-runtime-resources-20261102.mts",
+      "status": "待办",
+      "resolved": false,
+      "sourceSha256": "7fc4dcf79b4ec43a70143826eef2136fea56892a880f4055ced1722a8510104b"
+    },
+    {
+      "id": "V06-RUNTIME-GAMEPAD-RAF-001",
+      "priority": "P1",
+      "category": "browser-policy",
+      "file": "src/ui/gamepad/controller.ts",
+      "line": 22,
+      "title": "可选手柄权限拒绝终止整个帧循环",
+      "trigger": "真实Chrome响应Permissions-Policy: gamepad=()，未连接手柄",
+      "effect": "SecurityError使尾部RAF未调度；1.8秒前后帧号均51",
+      "reproduction": "tools/inspect-runtime-browser-20261102.mjs",
+      "status": "待办",
+      "resolved": false,
+      "sourceSha256": "4b1fb794c2ed0a4c9d27709f47a959d8c9f22701615eb38751a9cd7c1880bd85"
+    },
+    {
+      "id": "V06-RUNTIME-TEXTURE-TIER-001",
+      "priority": "P2",
+      "category": "resource-state",
+      "file": "src/render/loaders/managed-textures.ts",
+      "line": 86,
+      "title": "压缩贴图降档保留旧高档mip",
+      "trigger": "科学球死亡图高1024到中512，普通Texture对照正常",
+      "effect": "Source更新但压缩格式/mip保持旧值；实际GPU输出未测",
+      "reproduction": "tools/inspect-runtime-resources-20261102.mts",
+      "status": "待办",
+      "resolved": false,
+      "sourceSha256": "da38c71366b7d4db181f5c9d0c0f0377e6174cf8aa99262f03b77eba0070e7b8"
+    }
+  ],
+  "previousFindingExtension": {
+    "id": "V06-FULL-SAVE-NATIVE-001",
+    "newDefectCount": 0,
+    "cases": [
+      {
+        "id": "baneling.2",
+        "name": "腐土播种者",
+        "equipped": false,
+        "payload": {
+          "damage": 1008,
+          "radius": 4,
+          "sourceDamage": 248.39999999999998,
+          "rank": 5
+        },
+        "error": "",
+        "savePassed": true,
+        "intermissionClockFrozen": true
+      },
+      {
+        "id": "baneling.2",
+        "name": "腐土播种者",
+        "equipped": true,
+        "payload": {
+          "damage": 2016,
+          "radius": 4,
+          "sourceDamage": 3979.13745024,
+          "rank": 5
+        },
+        "error": "腐蚀地面无效",
+        "savePassed": false,
+        "intermissionClockFrozen": true,
+        "oldSavePreserved": true,
+        "canAdvance": false,
+        "exportReadable": false
+      },
+      {
+        "id": "ravager.3",
+        "name": "腐蚀雨幕",
+        "equipped": false,
+        "payload": {
+          "damage": 912,
+          "radius": 4,
+          "sourceDamage": 206.99999999999997,
+          "rank": 5
+        },
+        "error": "",
+        "savePassed": true,
+        "intermissionClockFrozen": true
+      },
+      {
+        "id": "ravager.3",
+        "name": "腐蚀雨幕",
+        "equipped": true,
+        "payload": {
+          "damage": 1824,
+          "radius": 4,
+          "sourceDamage": 206.99999999999997,
+          "rank": 5
+        },
+        "error": "腐蚀地面无效",
+        "savePassed": false,
+        "intermissionClockFrozen": true,
+        "oldSavePreserved": true,
+        "canAdvance": false,
+        "exportReadable": false
+      },
+      {
+        "id": "lurker.1",
+        "name": "三脊穿心",
+        "equipped": false,
+        "payload": {
+          "damage": 114.99999999999999,
+          "width": 0.5,
+          "sourceDamage": 114.99999999999999,
+          "rank": 1
+        },
+        "error": "",
+        "savePassed": true,
+        "intermissionClockFrozen": true
+      },
+      {
+        "id": "lurker.1",
+        "name": "三脊穿心",
+        "equipped": true,
+        "payload": {
+          "damage": 171.74999999999997,
+          "width": 0.65,
+          "sourceDamage": 137.39999999999998,
+          "rank": 1
+        },
+        "error": "脊刺冻结载荷不一致",
+        "savePassed": false,
+        "intermissionClockFrozen": true,
+        "oldSavePreserved": true,
+        "canAdvance": false,
+        "exportReadable": false
+      },
+      {
+        "id": "hydralisk.2",
+        "name": "裂甲长棘",
+        "equipped": false,
+        "payload": {
+          "damage": 62.1,
+          "width": 1.2,
+          "sourceDamage": 77.625,
+          "rank": 1
+        },
+        "error": "",
+        "savePassed": true,
+        "intermissionClockFrozen": true
+      },
+      {
+        "id": "hydralisk.2",
+        "name": "裂甲长棘",
+        "equipped": true,
+        "payload": {
+          "damage": 117.225,
+          "width": 1.56,
+          "sourceDamage": 117.225,
+          "rank": 1
+        },
+        "error": "脊刺冻结载荷不一致",
+        "savePassed": false,
+        "intermissionClockFrozen": true,
+        "oldSavePreserved": true,
+        "canAdvance": false,
+        "exportReadable": false
+      }
+    ],
+    "files": [
+      "src/simulation/combat/zerg-elite-runtime.ts:216",
+      "src/simulation/combat/zerg-elite-runtime.ts:219"
+    ]
+  },
+  "verification": {
+    "continuousSimulation": {
+      "sameSeedAndRunId": true,
+      "survivalAndCombatAssistance": true,
+      "naturalPlay": false,
+      "randomSpecialStagesDisabled": true,
+      "totalSteps": 304200,
+      "successfulCheckpoints": 53,
+      "failedCheckpoints": 1,
+      "races": [
+        {
+          "race": "terran",
+          "result": "passed",
+          "runId": "runtime-audit-terran-529",
+          "steps": 115200,
+          "simulatedSeconds": 1920,
+          "successfulCheckpoints": 20,
+          "failedCheckpoint": null,
+          "peakEntities": 64,
+          "assistedKills": 1706,
+          "healthLock": {
+            "enabled": true,
+            "prevented": 360,
+            "damage": 4107.154591815748
+          },
+          "wallMs": 70851
+        },
+        {
+          "race": "zerg",
+          "result": "failed",
+          "runId": "runtime-audit-zerg-529",
+          "steps": 73800,
+          "simulatedSeconds": 1230,
+          "successfulCheckpoints": 13,
+          "failedCheckpoint": {
+            "stage": 14,
+            "phase": "reward",
+            "error": "Error: 双生编制无效",
+            "pairConflicts": [
+              {
+                "id": 10088,
+                "type": "zergling",
+                "team": "player",
+                "rank": 1,
+                "pairId": "runtime-audit-zerg-529:mission:2:escortPair:0",
+                "temporary": true
+              },
+              {
+                "id": 10089,
+                "type": "zergling",
+                "team": "player",
+                "rank": 1,
+                "pairId": "runtime-audit-zerg-529:mission:2:escortPair:0",
+                "temporary": true
+              },
+              {
+                "id": 10090,
+                "type": "zergling",
+                "team": "player",
+                "rank": 1,
+                "pairId": "runtime-audit-zerg-529:mission:2:escortPair:1",
+                "temporary": true
+              },
+              {
+                "id": 10091,
+                "type": "zergling",
+                "team": "player",
+                "rank": 1,
+                "pairId": "runtime-audit-zerg-529:mission:2:escortPair:1",
+                "temporary": true
+              }
+            ]
+          },
+          "peakEntities": null,
+          "assistedKills": null,
+          "healthLock": null,
+          "wallMs": 74012
+        },
+        {
+          "race": "protoss",
+          "result": "passed",
+          "runId": "runtime-audit-protoss-529",
+          "steps": 115200,
+          "simulatedSeconds": 1920,
+          "successfulCheckpoints": 20,
+          "failedCheckpoint": null,
+          "peakEntities": 63,
+          "assistedKills": 3343,
+          "healthLock": {
+            "enabled": true,
+            "prevented": 4021,
+            "damage": 9485.886542402333
+          },
+          "wallMs": 65174
+        }
+      ]
+    },
+    "rescueFinalTick": [
+      {
+        "case": "rescue-birth-on-stage-final-tick",
+        "race": "terran",
+        "steps": 240,
+        "phase": "reward",
+        "time": 120,
+        "runId": "runtime-rescue-terran-529",
+        "liveRescueFriends": 5,
+        "escorts": [],
+        "restoreError": null,
+        "archiveError": null,
+        "saveError": null,
+        "oldCheckpointRetained": false,
+        "commits": 2
+      },
+      {
+        "case": "rescue-birth-on-stage-final-tick",
+        "race": "zerg",
+        "steps": 240,
+        "phase": "reward",
+        "time": 120,
+        "runId": "runtime-rescue-zerg-529",
+        "liveRescueFriends": 5,
+        "escorts": [
+          {
+            "id": 9,
+            "pairId": "runtime-rescue-zerg-529:mission:1:escortPair:0",
+            "temporary": true,
+            "registered": false
+          },
+          {
+            "id": 10,
+            "pairId": "runtime-rescue-zerg-529:mission:1:escortPair:0",
+            "temporary": true,
+            "registered": false
+          },
+          {
+            "id": 11,
+            "pairId": "runtime-rescue-zerg-529:mission:1:escortPair:1",
+            "temporary": true,
+            "registered": false
+          },
+          {
+            "id": 12,
+            "pairId": "runtime-rescue-zerg-529:mission:1:escortPair:1",
+            "temporary": true,
+            "registered": false
+          }
+        ],
+        "restoreError": "Error: 双生编制无效",
+        "archiveError": "Error: 双生编制无效",
+        "saveError": "Error: 双生编制无效",
+        "oldCheckpointRetained": true,
+        "commits": 1
+      },
+      {
+        "case": "rescue-birth-on-stage-final-tick",
+        "race": "protoss",
+        "steps": 240,
+        "phase": "reward",
+        "time": 120,
+        "runId": "runtime-rescue-protoss-529",
+        "liveRescueFriends": 5,
+        "escorts": [],
+        "restoreError": null,
+        "archiveError": null,
+        "saveError": null,
+        "oldCheckpointRetained": false,
+        "commits": 2
+      }
+    ],
+    "heroLimits": [
+      {
+        "case": "swann-target-limit",
+        "equipped": false,
+        "rank": 3,
+        "targets": 7,
+        "error": "",
+        "savePassed": true,
+        "intermissionClockFrozen": true
+      },
+      {
+        "case": "swann-target-limit",
+        "equipped": true,
+        "rank": 3,
+        "targets": 10,
+        "error": "英雄弹体状态无效",
+        "savePassed": false,
+        "intermissionClockFrozen": true,
+        "oldSavePreserved": true,
+        "canAdvance": false,
+        "exportReadable": false
+      },
+      {
+        "case": "niadra-revival-charges",
+        "equipped": false,
+        "rank": 5,
+        "charges": 4,
+        "error": "",
+        "savePassed": true,
+        "intermissionClockFrozen": true
+      },
+      {
+        "case": "niadra-revival-charges",
+        "equipped": true,
+        "rank": 5,
+        "charges": 5,
+        "error": "复生登记无效",
+        "savePassed": false,
+        "intermissionClockFrozen": true,
+        "oldSavePreserved": true,
+        "canAdvance": false,
+        "exportReadable": false
+      },
+      {
+        "case": "hero-growth-rank",
+        "desiredRank": 5,
+        "rank": 5,
+        "castRank": 5,
+        "actualKillReceipts": 9,
+        "error": "",
+        "savePassed": true,
+        "intermissionClockFrozen": true
+      },
+      {
+        "case": "hero-growth-rank",
+        "desiredRank": 6,
+        "rank": 6,
+        "castRank": 6,
+        "actualKillReceipts": 15,
+        "error": "英雄弹体状态无效",
+        "savePassed": false,
+        "intermissionClockFrozen": true,
+        "oldSavePreserved": true,
+        "canAdvance": false,
+        "exportReadable": false
+      }
+    ],
+    "resourceCases": {
+      "cases": 3,
+      "passed": 3,
+      "meaning": "2 defect assertions and 1 healthy terrain-reuse control; no actual GPU texture output"
+    },
+    "browser": {
+      "build": {
+        "baseline": "8d680ac",
+        "originalAppBuildId": "a6b6e0d88b466383e804e20dd0ac94141085a32d25afe6d721c38c45e6484488",
+        "release": "50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a",
+        "seed": 1801,
+        "entrySha256": "453181a8202ae354ff4f0014496d95733ca7f30f51ee5c193886cdbf77c3f395",
+        "modelIdentityReferences": 205,
+        "onlyTransform": "Expose returned app and fixed initial map seed; source gameplay unchanged"
+      },
+      "platform": "Windows Chrome headless",
+      "viewport": [
+        1280,
+        720
+      ],
+      "graphics": "medium",
+      "normalPageErrors": 0,
+      "httpErrorResponses": 0,
+      "healthyFlowGroups": 9,
+      "cdpFreezeObservationGroups": 1,
+      "policyDefectGroups": 1,
+      "cases": [
+        {
+          "name": "ordinary-first-battle",
+          "state": {
+            "phase": "battle",
+            "stage": 1,
+            "time": 10.116666666666667,
+            "runId": "46d7ece5-f3d5-4983-ac95-3c8be5078ab3",
+            "paused": false,
+            "contextEpoch": 0,
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "assetsPending": 0,
+            "errors": [],
+            "frames": 13031,
+            "worldListeners": 6,
+            "profileListeners": 2,
+            "entities": 1,
+            "gpuModels": 44,
+            "geometry": 568,
+            "textures": 1109,
+            "programs": 413,
+            "backlog": 0.016633333333336307,
+            "discarded": 0,
+            "dom": 223,
+            "audio": {
+              "pcmBytes": 100430136,
+              "originalDecoded": 193,
+              "activeVoices": 1,
+              "decode": {
+                "active": 0,
+                "queued": 0,
+                "peak": 2,
+                "completed": 243,
+                "milliseconds": 1618.1000002026558
+              },
+              "errors": []
+            }
+          }
+        },
+        {
+          "name": "keyboard-and-pause",
+          "pausedTime": 11.366666666666667,
+          "resumedTime": 13.433333333333334,
+          "framesWhilePaused": 1203
+        },
+        {
+          "name": "offline-active-battle",
+          "before": 13.433333333333334,
+          "during": 16.983333333333334,
+          "after": 18.016666666666666,
+          "errors": []
+        },
+        {
+          "name": "cdp-freeze-restore",
+          "before": 18.05,
+          "after": 19.883333333333333,
+          "paused": false,
+          "events": []
+        },
+        {
+          "name": "synthetic-hidden-handler",
+          "before": 19.916666666666668,
+          "after": 19.916666666666668,
+          "paused": true
+        },
+        {
+          "name": "webgl-extension-loss-restore",
+          "lossEpoch": 1,
+          "lostReadiness": {
+            "kind": null,
+            "phase": "idle",
+            "done": 0,
+            "total": 0,
+            "label": "",
+            "error": null,
+            "progress": 0
+          },
+          "restoredEpoch": 1,
+          "time": 23.1,
+          "errors": []
+        },
+        {
+          "name": "three-menu-live-resume-cycles",
+          "cycles": [
+            {
+              "i": 0,
+              "before": {
+                "phase": "battle",
+                "stage": 1,
+                "time": 23.53333333333333,
+                "runId": "46d7ece5-f3d5-4983-ac95-3c8be5078ab3",
+                "paused": true,
+                "contextEpoch": 1,
+                "readiness": {
+                  "kind": null,
+                  "phase": "idle",
+                  "done": 0,
+                  "total": 0,
+                  "label": "",
+                  "error": null,
+                  "progress": 0
+                },
+                "assetsPending": 0,
+                "errors": [],
+                "frames": 2639,
+                "worldListeners": 6,
+                "profileListeners": 2,
+                "entities": 3,
+                "gpuModels": 56,
+                "geometry": 630,
+                "textures": 1159,
+                "programs": 406,
+                "backlog": 0,
+                "discarded": 0,
+                "dom": 257,
+                "audio": {
+                  "pcmBytes": 100449116,
+                  "originalDecoded": 230,
+                  "activeVoices": 0,
+                  "decode": {
+                    "active": 0,
+                    "queued": 0,
+                    "peak": 2,
+                    "completed": 346,
+                    "milliseconds": 2616.700000166893
+                  },
+                  "errors": []
+                }
+              },
+              "after": {
+                "phase": "battle",
+                "stage": 1,
+                "time": 25.616666666666667,
+                "runId": "46d7ece5-f3d5-4983-ac95-3c8be5078ab3",
+                "paused": false,
+                "contextEpoch": 1,
+                "readiness": {
+                  "kind": null,
+                  "phase": "idle",
+                  "done": 0,
+                  "total": 0,
+                  "label": "",
+                  "error": null,
+                  "progress": 0
+                },
+                "assetsPending": 0,
+                "errors": [],
+                "frames": 5187,
+                "worldListeners": 6,
+                "profileListeners": 2,
+                "entities": 5,
+                "gpuModels": 26,
+                "geometry": 545,
+                "textures": 941,
+                "programs": 324,
+                "backlog": 0.016566666666675403,
+                "discarded": 0,
+                "dom": 237,
+                "audio": {
+                  "pcmBytes": 100260032,
+                  "originalDecoded": 231,
+                  "activeVoices": 10,
+                  "decode": {
+                    "active": 2,
+                    "queued": 0,
+                    "peak": 2,
+                    "completed": 348,
+                    "milliseconds": 2702.200000166893
+                  },
+                  "errors": []
+                }
+              }
+            },
+            {
+              "i": 1,
+              "before": {
+                "phase": "battle",
+                "stage": 1,
+                "time": 25.716666666666665,
+                "runId": "46d7ece5-f3d5-4983-ac95-3c8be5078ab3",
+                "paused": true,
+                "contextEpoch": 1,
+                "readiness": {
+                  "kind": null,
+                  "phase": "idle",
+                  "done": 0,
+                  "total": 0,
+                  "label": "",
+                  "error": null,
+                  "progress": 0
+                },
+                "assetsPending": 0,
+                "errors": [],
+                "frames": 5311,
+                "worldListeners": 6,
+                "profileListeners": 2,
+                "entities": 5,
+                "gpuModels": 26,
+                "geometry": 545,
+                "textures": 941,
+                "programs": 325,
+                "backlog": 0,
+                "discarded": 0,
+                "dom": 267,
+                "audio": {
+                  "pcmBytes": 100645588,
+                  "originalDecoded": 232,
+                  "activeVoices": 0,
+                  "decode": {
+                    "active": 0,
+                    "queued": 0,
+                    "peak": 2,
+                    "completed": 350,
+                    "milliseconds": 3100.200000166893
+                  },
+                  "errors": []
+                }
+              },
+              "after": {
+                "phase": "battle",
+                "stage": 1,
+                "time": 27.78333333333333,
+                "runId": "46d7ece5-f3d5-4983-ac95-3c8be5078ab3",
+                "paused": false,
+                "contextEpoch": 1,
+                "readiness": {
+                  "kind": null,
+                  "phase": "idle",
+                  "done": 0,
+                  "total": 0,
+                  "label": "",
+                  "error": null,
+                  "progress": 0
+                },
+                "assetsPending": 0,
+                "errors": [],
+                "frames": 7886,
+                "worldListeners": 6,
+                "profileListeners": 2,
+                "entities": 5,
+                "gpuModels": 32,
+                "geometry": 563,
+                "textures": 984,
+                "programs": 342,
+                "backlog": 0.01663333333333629,
+                "discarded": 0,
+                "dom": 235,
+                "audio": {
+                  "pcmBytes": 98795448,
+                  "originalDecoded": 234,
+                  "activeVoices": 13,
+                  "decode": {
+                    "active": 0,
+                    "queued": 0,
+                    "peak": 2,
+                    "completed": 354,
+                    "milliseconds": 3315.2000001072884
+                  },
+                  "errors": []
+                }
+              }
+            },
+            {
+              "i": 2,
+              "before": {
+                "phase": "battle",
+                "stage": 1,
+                "time": 27.883333333333333,
+                "runId": "46d7ece5-f3d5-4983-ac95-3c8be5078ab3",
+                "paused": true,
+                "contextEpoch": 1,
+                "readiness": {
+                  "kind": null,
+                  "phase": "idle",
+                  "done": 0,
+                  "total": 0,
+                  "label": "",
+                  "error": null,
+                  "progress": 0
+                },
+                "assetsPending": 0,
+                "errors": [],
+                "frames": 7991,
+                "worldListeners": 6,
+                "profileListeners": 2,
+                "entities": 4,
+                "gpuModels": 32,
+                "geometry": 563,
+                "textures": 984,
+                "programs": 344,
+                "backlog": 0,
+                "discarded": 0,
+                "dom": 265,
+                "audio": {
+                  "pcmBytes": 98795448,
+                  "originalDecoded": 234,
+                  "activeVoices": 0,
+                  "decode": {
+                    "active": 0,
+                    "queued": 0,
+                    "peak": 2,
+                    "completed": 354,
+                    "milliseconds": 3315.2000001072884
+                  },
+                  "errors": []
+                }
+              },
+              "after": {
+                "phase": "battle",
+                "stage": 1,
+                "time": 29.933333333333334,
+                "runId": "46d7ece5-f3d5-4983-ac95-3c8be5078ab3",
+                "paused": false,
+                "contextEpoch": 1,
+                "readiness": {
+                  "kind": null,
+                  "phase": "idle",
+                  "done": 0,
+                  "total": 0,
+                  "label": "",
+                  "error": null,
+                  "progress": 0
+                },
+                "assetsPending": 0,
+                "errors": [],
+                "frames": 10686,
+                "worldListeners": 6,
+                "profileListeners": 2,
+                "entities": 2,
+                "gpuModels": 40,
+                "geometry": 580,
+                "textures": 1030,
+                "programs": 367,
+                "backlog": 0.016600000000005832,
+                "discarded": 0,
+                "dom": 235,
+                "audio": {
+                  "pcmBytes": 98795448,
+                  "originalDecoded": 234,
+                  "activeVoices": 3,
+                  "decode": {
+                    "active": 1,
+                    "queued": 0,
+                    "peak": 2,
+                    "completed": 354,
+                    "milliseconds": 3315.2000001072884
+                  },
+                  "errors": []
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "diagnostic-end-stage-real-advance",
+          "reward": {
+            "phase": "reward",
+            "stage": 1,
+            "rewardRound": "building",
+            "time": 2.1333333333333333,
+            "runId": "72946531-bcea-4f58-83c7-e46b019c0e34",
+            "paused": false,
+            "contextEpoch": 0,
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "assetsPending": 0,
+            "errors": [],
+            "frames": 7422,
+            "worldListeners": 6,
+            "profileListeners": 2,
+            "entities": 1,
+            "gpuModels": 38,
+            "geometry": 538,
+            "textures": 1043,
+            "programs": 377,
+            "backlog": 0,
+            "discarded": 0,
+            "dom": 425,
+            "audio": {
+              "pcmBytes": 100560852,
+              "originalDecoded": 182,
+              "activeVoices": 0,
+              "decode": {
+                "active": 0,
+                "queued": 0,
+                "peak": 1,
+                "completed": 203,
+                "milliseconds": 1271.699999988079
+              },
+              "errors": []
+            }
+          },
+          "stage2": {
+            "phase": "battle",
+            "stage": 2,
+            "rewardRound": "random",
+            "time": 4.133333333333333,
+            "runId": "72946531-bcea-4f58-83c7-e46b019c0e34",
+            "paused": false,
+            "contextEpoch": 0,
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "assetsPending": 0,
+            "errors": [],
+            "frames": 9828,
+            "worldListeners": 6,
+            "profileListeners": 2,
+            "entities": 1,
+            "gpuModels": 40,
+            "geometry": 559,
+            "textures": 1075,
+            "programs": 401,
+            "backlog": 2.7755575615628914e-17,
+            "discarded": 0,
+            "dom": 223,
+            "audio": {
+              "pcmBytes": 100293916,
+              "originalDecoded": 184,
+              "activeVoices": 1,
+              "decode": {
+                "active": 1,
+                "queued": 0,
+                "peak": 1,
+                "completed": 244,
+                "milliseconds": 1451.9000000357628
+              },
+              "errors": []
+            }
+          }
+        },
+        {
+          "name": "reload-checkpoint-resume",
+          "loadedCheckpoint": {
+            "phase": "reward",
+            "stage": 1,
+            "rewardRound": "random",
+            "time": 2.1333333333333333,
+            "runId": "72946531-bcea-4f58-83c7-e46b019c0e34",
+            "paused": false,
+            "contextEpoch": 0,
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "assetsPending": 0,
+            "errors": [],
+            "frames": 5987,
+            "worldListeners": 6,
+            "profileListeners": 2,
+            "entities": 1,
+            "gpuModels": 62,
+            "geometry": 599,
+            "textures": 1214,
+            "programs": 455,
+            "backlog": 0,
+            "discarded": 0,
+            "dom": 340,
+            "audio": {
+              "pcmBytes": 100511812,
+              "originalDecoded": 183,
+              "activeVoices": 0,
+              "decode": {
+                "active": 0,
+                "queued": 0,
+                "peak": 1,
+                "completed": 202,
+                "milliseconds": 1260.1000006198883
+              },
+              "errors": []
+            }
+          },
+          "state": {
+            "phase": "battle",
+            "stage": 2,
+            "rewardRound": "random",
+            "time": 4.133333333333333,
+            "runId": "72946531-bcea-4f58-83c7-e46b019c0e34",
+            "paused": false,
+            "contextEpoch": 0,
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "assetsPending": 0,
+            "errors": [],
+            "frames": 10441,
+            "worldListeners": 6,
+            "profileListeners": 2,
+            "entities": 1,
+            "gpuModels": 64,
+            "geometry": 634,
+            "textures": 1259,
+            "programs": 484,
+            "backlog": 3.469446951953614e-17,
+            "discarded": 0,
+            "dom": 223,
+            "audio": {
+              "pcmBytes": 100511812,
+              "originalDecoded": 183,
+              "activeVoices": 1,
+              "decode": {
+                "active": 1,
+                "queued": 0,
+                "peak": 1,
+                "completed": 202,
+                "milliseconds": 1260.1000006198883
+              },
+              "errors": []
+            }
+          }
+        },
+        {
+          "name": "new-run-after-resume",
+          "state": {
+            "phase": "battle",
+            "stage": 1,
+            "rewardRound": "building",
+            "time": 3.05,
+            "runId": "f6c6908a-ade1-45fe-9881-5fb5d8ba2dd0",
+            "paused": false,
+            "contextEpoch": 0,
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "assetsPending": 0,
+            "errors": [],
+            "frames": 14170,
+            "worldListeners": 6,
+            "profileListeners": 2,
+            "entities": 3,
+            "gpuModels": 58,
+            "geometry": 633,
+            "textures": 1246,
+            "programs": 474,
+            "backlog": 3.469446951953614e-18,
+            "discarded": 0,
+            "dom": 223,
+            "audio": {
+              "pcmBytes": 99970488,
+              "originalDecoded": 184,
+              "activeVoices": 1,
+              "decode": {
+                "active": 0,
+                "queued": 0,
+                "peak": 1,
+                "completed": 245,
+                "milliseconds": 1466.4000006318092
+              },
+              "errors": []
+            }
+          }
+        },
+        {
+          "name": "gamepad-policy-kills-raf",
+          "first": {
+            "frames": 51,
+            "time": 0,
+            "phase": "menu",
+            "gamepad": {
+              "name": "SecurityError",
+              "message": "Failed to execute 'getGamepads' on 'Navigator': Access to the feature \"gamepad\" is disallowed by permissions policy."
+            },
+            "policy": false
+          },
+          "second": {
+            "frames": 51,
+            "time": 0,
+            "phase": "menu",
+            "gamepad": {
+              "name": "SecurityError",
+              "message": "Failed to execute 'getGamepads' on 'Navigator': Access to the feature \"gamepad\" is disallowed by permissions policy."
+            },
+            "policy": false
+          },
+          "errors": [
+            "Failed to execute 'getGamepads' on 'Navigator': Access to the feature \"gamepad\" is disallowed by permissions policy."
+          ]
+        }
+      ],
+      "expectedPolicyErrors": [
+        {
+          "mode": "gamepad-policy",
+          "message": "Failed to execute 'getGamepads' on 'Navigator': Access to the feature \"gamepad\" is disallowed by permissions policy."
+        }
+      ],
+      "visibleScreensReviewed": [
+        "context-restored.png",
+        "intermission.png",
+        "policy-stopped.png"
+      ],
+      "physicalDevice": false,
+      "realVisibilityChange": false,
+      "fixtureCorrections": [
+        "building→random→battle requires two actions",
+        "D05 reload resumes latest reward checkpoint, not uncommitted next battle"
+      ],
+      "priorPassedGroupsReused": 7
+    },
+    "baselineEvidenceReused": {
+      "report": "docs/project/FULL_CODE_AUDIT_20261102.md",
+      "uniqueRegressionTests": 2909,
+      "typecheck": "previous same-source passed",
+      "docsCheck": "previous passed; final documentation check recorded separately",
+      "packedPayloads": 5138,
+      "fullSuiteRerun": false
+    },
+    "finalDocumentationCheck": {
+      "docsCheck": "passed: runtime data reference matches",
+      "localReportLinks": 11,
+      "sourceHashes": 7,
+      "scriptHashes": 6,
+      "browserScriptSyntax": "passed",
+      "productWorktreeDiff": "none in src/test/root package-lock/package/vite config"
+    }
+  },
+  "scripts": [
+    {
+      "file": "tools/inspect-runtime-persistence-20261102.mts",
+      "sha256": "a9cf5cb752ca487f323f798a02880f21cc7cfc7e1d228d29baa52029a1006978",
+      "purpose": "finite investigation; AUDIT asserts current defects, not desired behavior"
+    },
+    {
+      "file": "tools/inspect-runtime-hero-checkpoint-20261102.mts",
+      "sha256": "0d7d27d9bf59da5f5a486633b85bdd6ff8a2ac49246224b44cc9fba6c293fe71",
+      "purpose": "finite investigation; AUDIT asserts current defects, not desired behavior"
+    },
+    {
+      "file": "tools/inspect-runtime-rescue-save-20261102.mts",
+      "sha256": "b117dfd9549f35239a2efbe99afb95e1bfbe76cfd738bc62094ccfb9b218b09e",
+      "purpose": "finite investigation; AUDIT asserts current defects, not desired behavior"
+    },
+    {
+      "file": "tools/inspect-runtime-resources-20261102.mts",
+      "sha256": "a8123026ef0a8afd2a27415bb4b5d9a74db7eab5c9ec0e9a4f53151ae5deec8b",
+      "purpose": "finite investigation; AUDIT asserts current defects, not desired behavior"
+    },
+    {
+      "file": "tools/inspect-runtime-simulation-20261102.mts",
+      "sha256": "a9785fc06ce73d3a32e40a9384858389d2834d238b0a48673126f26a7b63ee2e",
+      "purpose": "finite investigation; AUDIT asserts current defects, not desired behavior"
+    },
+    {
+      "file": "tools/inspect-runtime-browser-20261102.mjs",
+      "sha256": "c6de433af925e50410a51f00655870b14daaf089ac3d42a3a026e0a17b1c62f1",
+      "purpose": "finite investigation; AUDIT asserts current defects, not desired behavior"
+    }
+  ],
+  "limits": [
+    "三族连续模拟有锁血和有限清敌，不是自然完整战役或性能测量",
+    "虫族固定路径真实恢复失败，不能计为全程通过",
+    "本机无头Chrome，不代表iPhone/Safari/真实切后台/OS杀页",
+    "CompressedTexture只确认对象状态及上传契约，未观察GPU画面",
+    "未检查线上服务或真实玩家档案，未测完整进程/GPU内存平台期",
+    "没有确认新的重复扣费、重复奖励或主档覆盖损坏；不保证穷尽"
+  ],
+  "delivery": {
+    "productionModified": false,
+    "committed": false,
+    "pushed": false,
+    "deployed": false,
+    "mainMerged": false
+  },
+  "report": "docs/project/RUNTIME_CODE_AUDIT_20261102.md",
+  "cleanup": {
+    "absoluteTarget": "D:/星际/reports/local/runtime-audit-20261102",
+    "generatedFilesRemoved": 34,
+    "bytesRemoved": 52400937,
+    "reparsePoints": 0,
+    "trackedFiles": 0,
+    "status": "completed",
+    "kept": [
+      "6 investigation scripts",
+      "runtime audit report",
+      "QA summary",
+      "board and navigation"
+    ]
+  }
+}

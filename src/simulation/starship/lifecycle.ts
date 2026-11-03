@@ -9,11 +9,21 @@ import {equipmentRosterMember} from './members';
 import {giveEquipmentBarrier,equipmentStageKey} from './defense';
 import {createEquipmentProjections,retireEquipmentProjection} from './projections';
 import {observeAmount} from '../observation';
+import {hasCombatPotential} from '../combat/combat-presence';
 
 export interface EquipmentRecovery {body:Entity;death:number;source:'native'|'phase'|'survivor'|'failed';backup?:ActiveEquipmentEffect;projections:number[];until:number;phaseWon?:Point;}
 export interface EquipmentLifeRuntime {roster:Map<number,Entity>;version:number;snapshot?:{version:number;time:number;members:Entity[]};pending:Map<number,EquipmentRecovery>;rewindUsed:boolean;}
 export function newEquipmentLife():EquipmentLifeRuntime{return {roster:new Map(),version:0,pending:new Map(),rewindUsed:false};}
 export function equipmentCanRevive(w:World,u:Entity){return permanentEquipmentBody(w,u)&&!w.starship.members.get(u.id)?.cannotRevive;}
+/** Retirement cancels recovery ownership; it is neither a death nor a new reward. */
+export function retireEquipmentFamily(w:World,family:UnitType){
+ const life=w.starship.life,retired=new Set<number>();
+ for(const u of [...life.roster.values(),...[...life.pending.values()].map(r=>r.body)])if(u.unitType===family&&!u.heroId&&equipmentRosterMember(w,u))retired.add(u.id);
+ if(!retired.size)return;
+ const version=life.version;life.version++;
+ for(const id of retired){const r=life.pending.get(id);if(r)for(const projection of r.projections)retireEquipmentProjection(w,projection);life.pending.delete(id);life.roster.delete(id);}
+ if(life.snapshot){life.snapshot.members=life.snapshot.members.filter(u=>!retired.has(u.id));if(life.snapshot.version===version)life.snapshot.version=life.version;}
+}
 function nativeWaiting(w:World,u:Entity){if(w.zergHeroes.revivals.some(r=>r.until>w.time&&r.charges>0&&r.seats.some(s=>!s.claimed&&s.members.some(v=>v.id===u.id&&v.bornAt===u.bornAt))))return true;
  const pair=u.pairId?w.expedition.zerglingPairs.find(p=>p.id===u.pairId):undefined;return !!pair&&pair.regrowAt!==null&&pair.members.some(id=>id!==u.id&&((w.entities.get(id)??w.specialStages.active?.evacuated.get(id))?.hp??0)>0);
 }
@@ -51,8 +61,8 @@ export function tickEquipmentLife(w:World){if(!w.starship.enabled)return;for(con
 export function equipmentReservedSeats(w:World,type:UnitType){const ids=new Set<string>();for(const r of w.starship.life.pending.values()){if(r.source==='failed'||r.source==='native'||r.body.unitType!==type||r.body.heroId||!equipmentRosterMember(w,r.body))continue;if(r.body.pairId&&w.allies().some(u=>u.pairId===r.body.pairId))continue;ids.add(r.body.pairId??'body:'+r.body.id);}return ids.size;}
 export function equipmentReservedPair(w:World,id:string){return [...w.starship.life.pending.values()].some(r=>r.source!=='failed'&&r.source!=='native'&&r.body.pairId===id);}
 /** Called immediately before native defeat. Pending lawful recoveries hold the run open. */
-export function equipmentSurvivesWipe(w:World){if(!w.starship.enabled)return false;tickEquipmentLife(w);if(w.starship.life.pending.size)return true;const life=w.starship.life;if([...life.roster.values()].some(u=>(w.entities.get(u.id)?.hp??0)>0))return true;
+export function equipmentSurvivesWipe(w:World){if(!w.starship.enabled)return false;tickEquipmentLife(w);const life=w.starship.life,potential=(u:Entity)=>hasCombatPotential(w,{...u,hp:Math.max(1,u.maxHp)});if([...life.pending.values()].some(r=>r.source!=='failed'&&equipmentCanRevive(w,r.body)&&potential(r.body)))return true;if([...life.roster.keys()].some(id=>{const u=w.entities.get(id);return !!u&&hasCombatPotential(w,u);}))return true;
  if(!equipmentValue(w,'rewind')||life.rewindUsed||!life.snapshot||life.snapshot.version!==life.version)return false;
- const snapshots=life.snapshot.members.filter(u=>equipmentCanRevive(w,u));if(!snapshots.length)return false;const points=landing(w,snapshots,snapshots);if(!points)return true;
+ const snapshots=life.snapshot.members.filter(u=>equipmentCanRevive(w,u));if(!snapshots.some(potential))return false;const points=landing(w,snapshots,snapshots);if(!points)return true;
  life.rewindUsed=true;for(let i=0;i<snapshots.length;i++){const s=snapshots[i];restore(w,s,points[i],s.hp/s.maxHp,(s.maxShield??0)>0?(s.shield??0)/s.maxShield!:0,true);}w.changed();return true;
 }

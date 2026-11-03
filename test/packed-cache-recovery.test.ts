@@ -21,10 +21,10 @@ function cacheFixture(mode='healthy',seed=false){
  };},async delete(name:string){deleted.push(name);if(mode==='clear-hang')return never();return spaces.delete(name);}};
  return {caches,spaces,deleted,calls};
 }
-function worker(disk=cacheFixture(),fetcher:typeof fetch=async()=>new Response(good)){
+function worker(disk=cacheFixture(),fetcher:typeof fetch=async()=>new Response(good),networkTimeout=45000){
  const listeners:Record<string,Function>={},requests:any[]=[],timers:number[]=[];
  const self:any={SC2_PACK_INDEX:{[key]:[pack,0,good.length,'application/octet-stream',false]},registration:{scope:base},location:{origin:new URL(base).origin},clients:{get:async()=>null,matchAll:async()=>[]},addEventListener:(type:string,fn:Function)=>listeners[type]=fn};
- const context=vm.createContext({self,importScripts:()=>{},URL,Request,Response,Blob,AbortController,DecompressionStream,performance,crypto:webcrypto,caches:disk.caches,setTimeout:(fn:any,ms:number)=>{timers.push(ms);return setTimeout(fn,ms===1000?10:ms);},clearTimeout,fetch:async(input:any,init:any)=>{requests.push({url:String(input),cache:init?.cache,signal:init?.signal});return fetcher(input,init);}});
+ const context=vm.createContext({self,importScripts:()=>{},URL,Request,Response,Blob,AbortController,DecompressionStream,performance,crypto:webcrypto,caches:disk.caches,setTimeout:(fn:any,ms:number)=>{timers.push(ms);return setTimeout(fn,ms===1000?10:ms===45000?networkTimeout:ms);},clearTimeout,fetch:async(input:any,init:any)=>{requests.push({url:String(input),cache:init?.cache,signal:init?.signal});return fetcher(input,init);}});
  vm.runInContext(text,context);
  const request:typeof fetch=async(input:any,init:any)=>{let result:Promise<Response>|undefined;listeners.fetch({request:new Request(input,init),respondWith:(p:Promise<Response>)=>result=p});assert.ok(result);return result;};
  const postMessage=(data:any,ports:MessagePort[])=>listeners.message({data,ports,waitUntil:(job:Promise<unknown>)=>{job.catch(()=>{});}});
@@ -79,4 +79,27 @@ test('the existing clear action clears both resource layers and cancels old infl
 test('failed clear reports failure while bypassing the stalled disk; an obsolete silent worker cannot claim success',async t=>{
  const sw=worker(cacheFixture('clear-hang'));withGlobals(t,sw);await assert.rejects(new ResourceCache(200).clear(),/未能清理/);assert.equal(sw.state().diskEnabled,false);assert.deepEqual(new Uint8Array(await sw.get()),good);
  Object.defineProperty(globalThis,'navigator',{configurable:true,value:{serviceWorker:{controller:{postMessage(){}}}}});await assert.rejects(new ResourceCache(10).clear(),/等待超时/);
+});
+
+
+test('a corrupted HTTP-cached pack is reloaded automatically and never published',async t=>{
+ const sw=worker(undefined,async(_input,init)=>new Response(init?.cache==='reload'?good:bad));withGlobals(t,sw);const client=store(sw);
+ await client.prepare(['one']);assert.deepEqual(sw.requests.map(r=>r.cache),['force-cache','reload']);
+ assert.deepEqual(new Uint8Array(await (await fetch(client.urls.one)).arrayBuffer()),good);URL.revokeObjectURL(client.urls.one);
+});
+for(const stalled of ['fetch','body'] as const)test(`index ${stalled} timeout is evicted and retries after transport recovers`,async()=>{
+ const indexName='sites-pack-index.'+'a'.repeat(20)+'.js',indexText='self.SC2_PACK_INDEX='+JSON.stringify({[key]:[pack,0,good.length,'application/octet-stream',false]})+';';let healthy=false;
+ const sw=worker(undefined,async(input)=>String(input).endsWith(indexName)?healthy?new Response(indexText):stalled==='fetch'?never():({ok:true,text:never} as unknown as Response):new Response(good),20);
+ const url=base+key+'?sc2-index='+indexName;assert.equal((await sw.request(url)).status,502);assert.equal(vm.runInContext('indexes.size',sw.context),0);assert.equal(sw.requests[0].signal.aborted,true);
+ healthy=true;assert.equal((await sw.request(url)).status,200);assert.equal(sw.requests.filter(r=>r.url.endsWith(indexName)).length,2);
+});
+test('clear or explicit reload supersedes a hanging index without letting its late result remove the replacement',async()=>{
+ for(const clear of [false,true]){
+  const indexName='sites-pack-index.'+'a'.repeat(20)+'.js',indexText='self.SC2_PACK_INDEX='+JSON.stringify({[key]:[pack,0,good.length,'application/octet-stream',false]})+';';let count=0,late!:(value:Response)=>void;
+  const sw=worker(undefined,async input=>String(input).endsWith(indexName)&&count++===0?new Promise(resolve=>{late=resolve;}):String(input).endsWith(indexName)?new Response(indexText):new Response(good));
+  const url=base+key+'?sc2-index='+indexName,first=sw.request(url);await new Promise<void>(resolve=>setImmediate(resolve));
+  if(clear)await vm.runInContext('clearPacks()',sw.context);
+  const second=await sw.request(url,{cache:'reload'});assert.equal(second.status,200);assert.equal((await first).status,502);late(new Response('invalid late response'));await new Promise<void>(resolve=>setImmediate(resolve));
+  assert.equal((await sw.request(url)).status,200);assert.equal(vm.runInContext('indexes.size',sw.context),1);assert.equal(sw.requests[0].signal.aborted,true);
+ }
 });

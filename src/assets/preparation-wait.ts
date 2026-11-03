@@ -23,7 +23,8 @@ export function waitForAsset<T>(work:PromiseLike<T>,label:string,timeoutMs=ASSET
 }
 /** Keep the abort controller alive through body consumption, including a stalled body. */
 export async function fetchAsset<T>(request:typeof fetch,input:RequestInfo|URL,init:RequestInit,consume:(response:Response)=>Promise<T>,timeoutMs=ASSET_REQUEST_TIMEOUT){
- const controller=new AbortController();
- try{return await waitForAsset(request(input,{...init,signal:controller.signal}).then(consume),'资源读取',timeoutMs);}
- finally{controller.abort();}
+ const controller=new AbortController(),abort=()=>controller.abort();
+ init.signal?.addEventListener('abort',abort,{once:true});if(init.signal?.aborted)controller.abort();
+ try{if(controller.signal.aborted)throw Error('资源准备已取消');return await waitForAsset(request(input,{...init,signal:controller.signal}).then(consume),'资源读取',timeoutMs,controller.signal);}
+ finally{init.signal?.removeEventListener('abort',abort);controller.abort();}
 }

@@ -1,3 +1,4 @@
+import {fetchAsset,waitForAsset,ASSET_REQUEST_TIMEOUT} from '../../assets/preparation-wait';
 import {optimizedGraphics,runtimeBudget} from '../../platform/graphics-profile';
 import {audioDecodeLane} from '../../platform/preparation-budget';
 import {prepareEmbeddedAssetIds} from '../../assets/offline-pack';
@@ -22,26 +23,51 @@ export class AudioEffects {
  private activeSources=new Set<AudioBufferSourceNode>();
  private equipmentAudio=new EquipmentLootAudio();private equipmentVoices=new Set<OscillatorNode>();
  reset(){for(const s of this.activeSources)s.stop();this.native.reset();this.channels.clear();this.router.reset();for(const s of this.equipmentVoices)s.stop();this.equipmentVoices.clear();this.equipmentAudio.reset();this.native.played.clear();this.native.rejected.clear();this.lastSerial=0;this.lastRescue=0;this.lastFailure=0;this.played.clear();}
- private decodedJobs=new Map<string,Promise<void>>();private touched=new Map<string,number>();private peakPcmBytes=0;
+ private decodedJobs=new Map<string,{job:Promise<void>;controller:AbortController;users:number}>();private touched=new Map<string,number>();private peakPcmBytes=0;
  // A successful decode validates this immutable clip for the audio session.
  // Preparing a broad bank again must not refill clips intentionally evicted by
  // the PCM budget. Actual playback still calls ensureDecoded for missing data.
  private preparedSamples=new Set<string>();
  pcmBytes(){return [...new Set(this.buffers.values())].reduce((n,b)=>n+b.length*b.numberOfChannels*4,0);}
  private trimAudio(){if(!optimizedGraphics())return;const live=new Set([...this.native.voices].map(v=>v.source.buffer));for(const source of this.activeSources)live.add(source.buffer);for(const [id,b]of [...this.buffers].sort((a,b)=>(this.touched.get(a[0])??0)-(this.touched.get(b[0])??0))){if(this.pcmBytes()<=runtimeBudget().pcmBytes)break;if(!live.has(b)&&!this.decodedJobs.has(id))this.buffers.delete(id);}}
- async ensureDecoded(id:string){this.context??=new AudioContext();this.touched.set(id,performance.now());if(this.buffers.has(id)){this.preparedSamples.add(id);return;}let job=this.decodedJobs.get(id);if(!job){job=audioDecodeLane.run(async()=>{await prepareEmbeddedAssetIds(['audio.'+id]);const url=assetUrl('audio.'+id);if(!url)throw Error('音效资源未就绪');const r=await fetch(url);if(!r.ok)throw Error('音效读取失败');const buffer=await this.context!.decodeAudioData(await r.arrayBuffer());this.buffers.set(id,buffer);this.peakPcmBytes=Math.max(this.peakPcmBytes,this.pcmBytes());this.trimAudio();});this.decodedJobs.set(id,job);job.finally(()=>this.decodedJobs.delete(id)).catch(()=>{});}try{await job;this.preparedSamples.add(id);}catch(error){this.preparedSamples.delete(id);throw error;}}
- async prepareBanks(plan:{combat:string[];dialogue:string[]},progress:(done:number,total:number,label:string)=>void=()=>{},cancelled:()=>boolean=()=>false){
+ async ensureDecoded(id:string,signal?:AbortSignal){
+  if(signal?.aborted)throw Error('音效准备已取消');this.context??=new AudioContext();this.touched.set(id,performance.now());
+  if(this.buffers.has(id)){this.preparedSamples.add(id);return;}
+  let record=this.decodedJobs.get(id);
+  if(!record||record.controller.signal.aborted){
+   const current={job:Promise.resolve(),controller:new AbortController(),users:0},control=current.controller.signal,context=this.context;
+   current.job=audioDecodeLane.run(async()=>{
+    if(control.aborted)throw Error('音效准备已取消');
+    await waitForAsset(prepareEmbeddedAssetIds(['audio.'+id]),'音效资源',ASSET_REQUEST_TIMEOUT,control);
+    const url=assetUrl('audio.'+id);if(!url)throw Error('音效资源未就绪');
+    const bytes=await fetchAsset(fetch,url,{signal:control},async r=>{if(!r.ok)throw Error('音效读取失败');return r.arrayBuffer();});
+    const buffer=await waitForAsset(context.decodeAudioData(bytes),'音效解码',30000,control);
+    if(control.aborted)throw Error('音效准备已取消');
+    this.buffers.set(id,buffer);this.preparedSamples.add(id);this.peakPcmBytes=Math.max(this.peakPcmBytes,this.pcmBytes());this.trimAudio();
+   }).catch(error=>{if(this.decodedJobs.get(id)===current)this.preparedSamples.delete(id);throw error;});
+   this.decodedJobs.set(id,current);record=current;
+   void current.job.finally(()=>{if(this.decodedJobs.get(id)===current)this.decodedJobs.delete(id);}).catch(()=>{});
+  }
+  record.users++;try{await waitForAsset(record.job,'音效准备',ASSET_REQUEST_TIMEOUT*2,signal);}
+  finally{if(--record.users===0)record.controller.abort();}
+ }
+ async prepareBanks(plan:{combat:string[];dialogue:string[]},progress:(done:number,total:number,label:string)=>void=()=>{},cancelled:()=>boolean=()=>false,signal?:AbortSignal){
   if(!optimizedGraphics())return this.preload(progress);
-  const ids=new Set(['alert','sc2.scv.ready',...plan.combat.flatMap(k=>this.native.previewAssets(k,false).slice(0,1)),...plan.dialogue.flatMap(k=>this.native.previewAssets(k,true))]);
-  this.trimAudio();await prepareEmbeddedAssetIds([...new Set([...ids,...plan.combat.flatMap(k=>SOUND_DATA.banks[k]?.samples.map(s=>s.asset)??[])])].map(id=>'audio.'+id));
-  let done=0;for(const id of ids){if(cancelled())throw Error('音效准备已取消');if(!this.preparedSamples.has(id))await this.ensureDecoded(id);progress(++done,ids.size,id);}
-  this.trimAudio();
+  const control=new AbortController(),abort=()=>control.abort();let timer:ReturnType<typeof setTimeout>|undefined;
+  const poll=()=>{if(cancelled())abort();else if(!signal)timer=setTimeout(poll,50);};
+  signal?.addEventListener('abort',abort,{once:true});if(signal?.aborted)abort();poll();
+  try{
+   const ids=new Set(['alert','sc2.scv.ready',...plan.combat.flatMap(k=>this.native.previewAssets(k,false).slice(0,1)),...plan.dialogue.flatMap(k=>this.native.previewAssets(k,true))]);
+   this.trimAudio();await waitForAsset(prepareEmbeddedAssetIds([...new Set([...ids,...plan.combat.flatMap(k=>SOUND_DATA.banks[k]?.samples.map(s=>s.asset)??[])])].map(id=>'audio.'+id)),'音效资源',ASSET_REQUEST_TIMEOUT,control.signal);
+   let done=0;for(const id of ids){if(cancelled()||control.signal.aborted)throw Error('音效准备已取消');if(!this.preparedSamples.has(id))await this.ensureDecoded(id,control.signal);progress(++done,ids.size,id);}
+   this.trimAudio();
+  }finally{clearTimeout(timer);signal?.removeEventListener('abort',abort);control.abort();}
  }
  async preload(progress:(done:number,total:number,label:string)=>void=()=>{}){this.context??=new AudioContext();if(optimizedGraphics())return;this.loading??=this.load(progress).catch(error=>{this.loading=null;throw error;});await this.loading;}
  async start(){try{await this.preload();await this.context!.resume();}catch(e){this.decodeErrors.push(String(e));}}
  private async load(progress:(done:number,total:number,label:string)=>void){
   const assets=[...ASSETS.values()].filter(a=>a.kind==='audio'&&a.status==='available'&&!this.buffers.has(a.id.replace('audio.',''))),decoded=new Map<string,Promise<AudioBuffer>>();let done=0,next=0;
-  const decode=(url:string)=>{let p=decoded.get(url);if(!p){p=(async()=>{const response=await fetch(url);if(!response.ok)throw Error(String(response.status));return this.context!.decodeAudioData(await response.arrayBuffer());})();decoded.set(url,p);}return p;};
+  const decode=(url:string)=>{let p=decoded.get(url);if(!p){p=(async()=>{const bytes=await fetchAsset(fetch,url,{},async response=>{if(!response.ok)throw Error(String(response.status));return response.arrayBuffer();});return waitForAsset(this.context!.decodeAudioData(bytes),'音效解码',30000);})();decoded.set(url,p);}return p;};
   const worker=async()=>{for(;;){const a=assets[next++];if(!a)return;try{const url=assetUrl(a.id);if(!url)throw Error('missing asset');this.buffers.set(a.id.replace('audio.',''),await decode(url));}catch(e){this.decodeErrors.push(a.id+': '+String(e));if(a.required)throw Error('必需音效未就绪：'+a.id);}progress(++done,assets.length,a.id);}};
   await Promise.all(Array.from({length:4},worker));
  }

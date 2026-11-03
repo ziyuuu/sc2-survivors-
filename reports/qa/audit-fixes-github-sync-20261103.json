@@ -1,0 +1,175 @@
+{
+  "date": "2026-11-03",
+  "id": "V06-AUDIT-FIXES-GITHUB-SYNC-20261103",
+  "repository": "ziyuuu/sc2-survivors-",
+  "branch": "体积优化版",
+  "baseline": "8d680aca1b3150b3faa0c9c170458d084c9a1a1e",
+  "status": "交付检查完成，待提交推送",
+  "sourceAppBuildId": "34408a35562ffdf62b278e8a310ae04d06515af98cee00f2c6ab61006922dbab",
+  "resourceRelease": "50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a",
+  "sourceFingerprintCheck": {
+    "matched": 33,
+    "mismatched": 0,
+    "sourceReport": "reports/qa/audit-fixes-20261102.json"
+  },
+  "reusedVerification": {
+    "date": "2026-11-02",
+    "full": {
+      "tests": 2957,
+      "pass": 2957,
+      "fail": 0,
+      "skip": 0,
+      "cancel": 0
+    },
+    "newTests": 48,
+    "typecheck": true,
+    "docsCheck": true,
+    "checkpoints": 60,
+    "browserScopes": [
+      "normal continuation",
+      "gamepad permission denied",
+      "actual GPU texture tier roundtrip"
+    ]
+  },
+  "newVerification": {
+    "sourceBuild": true,
+    "assetCount": 3847,
+    "fileCount": 3750,
+    "provenanceCheck": true,
+    "modelIdentityReferences": 205,
+    "browser": {
+      "executedDate": "2026-11-03",
+      "tool": "tools/verify-stability-browser-20261102.mjs",
+      "scope": "Real Windows Chrome on isolated loopback origin; scripted Cache API faults and real CacheStorage; packed first battle/refresh. No physical iPhone or production services.",
+      "cache": [
+        {
+          "mode": "healthy",
+          "statuses": [
+            200,
+            200,
+            200
+          ],
+          "networkRequests": 3,
+          "elapsedMs": 27,
+          "cacheCleared": true,
+          "playerStatePreserved": true
+        },
+        {
+          "mode": "open-hang",
+          "statuses": [
+            200,
+            200,
+            200
+          ],
+          "networkRequests": 3,
+          "elapsedMs": 2035,
+          "cacheCleared": true,
+          "playerStatePreserved": true
+        },
+        {
+          "mode": "keys-hang",
+          "statuses": [
+            200,
+            200,
+            200
+          ],
+          "networkRequests": 3,
+          "elapsedMs": 2030,
+          "cacheCleared": true,
+          "playerStatePreserved": true
+        },
+        {
+          "mode": "match-hang",
+          "statuses": [
+            200,
+            200,
+            200
+          ],
+          "networkRequests": 3,
+          "elapsedMs": 2031,
+          "cacheCleared": true,
+          "playerStatePreserved": true
+        },
+        {
+          "mode": "put-hang",
+          "statuses": [
+            200,
+            200,
+            200
+          ],
+          "networkRequests": 3,
+          "elapsedMs": 2038,
+          "cacheCleared": true,
+          "playerStatePreserved": true
+        }
+      ],
+      "game": {
+        "appBuildId": "34408a35562ffdf62b278e8a310ae04d06515af98cee00f2c6ab61006922dbab",
+        "release": "50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a",
+        "firstBattle": {
+          "stage": 1,
+          "time": 5.033333333333333,
+          "assetsPending": 0,
+          "missingEffects": 0
+        },
+        "resume": {
+          "stage": 1,
+          "time": 2.0166666666666666
+        },
+        "existingClearActionPassed": true,
+        "screens": [
+          "menu.png",
+          "battle.png",
+          "battle-mobile-layout.png"
+        ],
+        "physicalDevice": false
+      },
+      "errors": [],
+      "console": [],
+      "httpFailures": [],
+      "complete": true,
+      "visualReview": [
+        "menu",
+        "battle-mobile-layout"
+      ]
+    }
+  },
+  "files": [
+    {
+      "file": "sites/size-optimized-site/public/index.html",
+      "bytes": 955167,
+      "sha256": "29c7f58fab637c056e56b4720488c599a8928388cc237743ac55f95bb69f6170"
+    },
+    {
+      "file": "sites/size-optimized-site/public/sites-sw.js",
+      "bytes": 13508,
+      "sha256": "f74e4014798c71db4f286f7ba0c6272d46eff8283b609aee9d4b472f11111fcc"
+    },
+    {
+      "file": "sites/size-optimized-site/public/web-release.json",
+      "bytes": 1121,
+      "sha256": "a3a5b47e9744f609db7e0c3fcaa486d3e4965de5fe582cdb47c9279ab90aa046"
+    },
+    {
+      "file": "sites/size-optimized-site/public/assets/index-5af019d9833114b6.js",
+      "bytes": 4018,
+      "sha256": "5af019d9833114b69b4fe599dd9cf301e14fb3d50004c6009fca66fe41358fb7"
+    },
+    {
+      "file": "sites/size-optimized-site/public/assets/sc2-entry.fb6ca9fb439a1328.js.gz",
+      "bytes": 7679344,
+      "sha256": "fb6ca9fb439a132882bd1ed492c441499a7941736db8dc0111fc60d82193d63e"
+    }
+  ],
+  "delivery": {
+    "committed": false,
+    "pushed": false,
+    "mergedMain": false,
+    "deployed": false
+  },
+  "limitations": [
+    "原iPhone/Safari及物理手柄未验证",
+    "桌面浏览器调整视口不是手机实机",
+    "源码及压缩快照同步不代表线上部署"
+  ]
+}

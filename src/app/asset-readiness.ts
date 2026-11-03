@@ -97,7 +97,7 @@ export class AssetReadinessCoordinator {
    if(generation!==this.generation)return false;
    report('audio',.72,0)(0,1,'准备音效');
    if(optimizedGraphics()){const identities=[...this.world.entities.values(),...(request.hero?[{heroId:request.hero}]:[])];if(request.snapshot){const visit=(v:unknown)=>{if(!v||typeof v!=='object')return;if('unitType' in v||'heroId' in v)identities.push(v as typeof identities[number]);for(const child of Object.values(v))if(child&&typeof child==='object')visit(child);};visit(request.snapshot);}
-    await this.audio?.prepareBanks(audioPreloadBanks(rescueRace,kind==='new'?1:Math.max(1,this.world.stage),identities),report('audio',.72,.04),()=>generation!==this.generation);}
+    await this.audio?.prepareBanks(audioPreloadBanks(rescueRace,kind==='new'?1:Math.max(1,this.world.stage),identities),report('audio',.72,.04),()=>generation!==this.generation,entrance.signal);}
    const audioError=await audioReady;if(audioError)throw audioError;
    if(generation!==this.generation)return false;
    report('gpu',.76,0)(0,1,'准备战场');

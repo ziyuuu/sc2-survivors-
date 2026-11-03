@@ -1,6 +1,6 @@
 # 星际幸存者MVP收尾与性能看板
 
-更新：2026-11-02 · 修订 319 · 基线 main be9e2982944314194c6dcc9dcc535bc321749eb4
+更新：2026-11-03 · 修订 354 · 基线 main be9e2982944314194c6dcc9dcc535bc321749eb4
 
 覆盖既定八个MVP交付包的剩余整合、卡牌与装备加成、经济难度、全内容检测、收尾存档、性能、自然游玩、真实输入及正式交付。已完成批次和历史失败保留，不重复开发已接入功能或扩增玩法大系统。趣味分支完成后形成统一候选，存档仍后置到收尾；后台／微信及构建链额外性能工作D06继续另批，与既定生产B4验收V05区分。I01已于2026-10-22按用户授权开始；其他后续项尚未实施。 2026-10-22按用户第四轮反馈先做U05交互/说明与I03返修，再做G03已批准频次子项；完整G03经济/英雄平衡仍按G01/G02依赖。 用户随后将第四轮第8项英雄来源／前期强度及第12关Boss开放候选提前并入G01；G03承接整局平衡复核，避免重复挂账。 2026-10-22修订119：G01卡牌加成及最终12／9／6／6英雄门槛完成，第四轮第8项关闭；G02收益审查和持续伤害缺陷修复完成，四项新平衡方案待讨论，尚未改价格／新成长／新时序。 2026-10-22修订121：G02按用户批准完成四项平衡和核弹基础6000增强，2234唯一回归及最终本机／离线验证通过；下一项G03。 2026-10-22修订122：G03补入用户要求的简单／普通／困难与地狱趣味内容递增开放、独立虫群困难起、简单资源／弹幕关、全部道具，以及入口限制、事件与经济联动验证；仅计划，G03待办。 2026-10-23修订124：G03第1、2步内容分档及入口／道具联动已实现、测试并集成本地主线，G03整体仍进行中；2264回归通过，整局经济与最终难度平衡继续开放。 2026-10-23修订140：用户允许复杂种族精细平衡随1.1专属卡牌/特性迭代，并明确不再盲目追加自动游玩证明平衡；无效卡和确定机制故障仍需处理，G03与最终试玩不因此自动完成。 2026-10-23修订142：卡池有效性与折扣商品购买缺陷核验完成，G03按用户最终范围关闭；种族精细平衡留到1.1，停止追加自动游玩。U05进入具体范围讨论，尚未实施新引导。 2026-10-23修订144：U05按用户限定仅完成骰子/恢复卡文案，其他引导只读检查；语言面向玩家，简略/详细分层。进入D05收尾，再完成V01与V02/V03；T01动态及静态/UI独立HTML后置于优化完成、V04之前。 2026-10-27修订224：用户明确将体积优化与Sites发布纳入MVP既有第7/8包；V04记录衍生交付，V05承接私有站点/后台及开放项，V06负责最终版本与质量范围确认。原V04完成和V05进行中/V06待办保持，非新增第九包，也不作为D06延期工作。
 
@@ -14,7 +14,7 @@
 
 | 待办 | 进行中 | 待验证 | 待讨论 | 已完成 | 暂缓 |
 | --- | --- | --- | --- | --- | --- |
-| 0 | 1 | 2 | 0 | 60 | 1 |
+| 0 | 2 | 1 | 0 | 60 | 1 |
 
 共 64 项，其中 6 项为既有主线基础。任务数量不代表等权完成百分比。
 
@@ -28,10 +28,10 @@
 ### 进行中
 
 - [ ] [V05 完成既定正式环境与后台B4验收](#v05) · 随后 · 交付
+- [ ] [V06 MVP 1.0 缺陷复核与最终记录](#v06) · 收尾 · 交付
 
 ### 待验证
 
-- [ ] [V06 完成八包关闭表与MVP最终确认](#v06) · 收尾 · 交付
 - [ ] [PROMO-01 制作四分钟实机宣发视频第一版](#promo-01) · 用户授权 · 交付
 
 ### 待讨论
@@ -160,7 +160,7 @@
 | [T01 综合HTML：按单位查看动作与独立UI原型](#t01) | 已完成 | 验收／优先 | G02、I02、I03、G03、U05、D05、V01、V02、V03 | SC03、SC04、SC05、SC06、SC07、SC10、SC11、SC13、SC16 |
 | [V04 交付同版Web、离线HTML与既定应用包](#v04) | 已完成 | 交付／随后 | V02、V03、D05、T01 | SC09、SC10、SC13、SC17、SC18 |
 | [V05 完成既定正式环境与后台B4验收](#v05) | 进行中 | 交付／随后 | V04 | SC09、SC18 |
-| [V06 完成八包关闭表与MVP最终确认](#v06) | 待验证 | 交付／收尾 | V05 | SC18 |
+| [V06 MVP 1.0 缺陷复核与最终记录](#v06) | 进行中 | 交付／收尾 | V05 | SC18 |
 | [PROMO-01 制作四分钟实机宣发视频第一版](#promo-01) | 待验证 | 交付／用户授权 | 无 | 跨场景或文档 |
 | [D01 决定是否分帧释放积压敌人](#d01) | 已完成 | 决策／按测量 | B03 | SC08 |
 | [D02 决定画质分档与可见性取舍](#d02) | 已完成 | 决策／按测量 | R01 | SC02、SC03 |
@@ -1866,29 +1866,26 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
 - [sites-quality-deploy-20261028.json](../../reports/qa/sites-quality-deploy-20261028.json)
 
 <a id="v06"></a>
-### V06 完成八包关闭表与MVP最终确认
+### V06 MVP 1.0 缺陷复核与最终记录
 
-状态：待验证；优先级：收尾；阶段：交付；更新：2026-11-02。
+状态：进行中；优先级：收尾；阶段：交付；更新：2026-11-03。
 负责人：Codex。前置：V05。场景：SC18。
 
-单个任务完成数不能证明整个MVP结束，仍需将八包既定关闭条件、最终版本、用户体验确认和已知问题汇总为明确终点，防止漏项或无休止扩项。
+MVP功能范围已收束；需要如实记录已有具体故障的复核与实际交付状态，而不是继续扩充平衡、画质或优化任务。
 
 工作步骤：
 
-- 逐包整理MVP1–8最终版本、直接证据、已确认内容、未关闭缺口及对应任务；保留五图已确认结论，不以重新列检查表为由重做。
-- 汇总T01逐项覆盖、I02/I03缺陷、G01–G03平衡、D05存档、V01–V05验收和用户集中试玩反馈；检查没有挂在旧文档却未处置的阻断事项。
-- 确认阻断出征、崩溃、错误结算、物品复制、存档损坏和明显不可玩问题已解决；有限轻微限制单独列明，不把未通过项改名隐藏。
-- 明确本版支持范围、交付入口、版本、恢复方式和已知限制；确认八包关闭后宣布MVP完成，后续新玩法与额外润色进入1.1。
-- 1.1交接明确保留三族人口/补员与种族趣味卡牌、特性的精细平衡方向及G03失败线索；此为用户允许的后续迭代范围，不将实际机制缺陷或明显不可玩问题包装为延期平衡。
-- 八包关闭表纳入已完成的Sites体积优化、合包、有限音画对照、加载/首关帧率观察、私有部署与D1/R2后台适配；明确最终采用版本及访问范围，保留既有性能/质量限制，不自动追加完整战役或极限矩阵。
+- 仅接收实际bug反馈，核对版本、复现和影响；无bug时保持1.0冻结。
+- 已知原手机异常按有限复测处理；修复后执行相关验证，不重启全量矩阵。
+- 维护真实交付/部署与最终确认记录，非缺陷改进明确归1.1。
 
 完成标准：
 
-- 八包每项都有最终可追溯结论及同版证据，用户集中试玩已反馈并完成必要修复。
-- 所有阻断缺陷清零，剩余轻微问题和未支持范围透明，不以任务计数替代验收。
-- 交付入口与线上／本地状态真实明确，MVP结束点固定，不临时增加第九包。
+- 当前实际bug有可追溯处理结论；不能将尚未复核的问题伪称已解决，也不以未做过的组合测试扩展开发。
+- MVP正式版本1.0、后续1.1及已接受功能范围清晰；非bug改进不作为本版新增任务。
+- 源码、构建、部署和用户确认分别记录；未部署和原机未验证范围透明。
 
-当前结果：四项稳定性缺陷已修复：14项新增定向检查、2909项完整回归（6项沙箱本机网络失败所属文件15项复验通过）、类型检查及真实Chrome五组缓存/首战/刷新续局通过。3750份原始和5138份压缩资源来源验证通过；已随ffc2c2f推送GitHub并双重核验，未部署，原iPhone仍待验证。
+当前结果：两轮审查修复已通过2957项回归等本地验证；2026-11-03同版Web重建及压缩前端首战/续局/清缓存通过，33份验证输入指纹一致。按授权准备推送GitHub体积优化版；未部署，原iPhone待验。
 
 证据与代码入口：
 
@@ -1943,14 +1940,19 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
 - [growth-loot-replay-20261029.json](../../reports/qa/growth-loot-replay-20261029.json)
 - [LOCAL_FEEDBACK_GITHUB_SYNC_20261029.md](LOCAL_FEEDBACK_GITHUB_SYNC_20261029.md)
 - [local-feedback-github-sync-20261029.json](../../reports/qa/local-feedback-github-sync-20261029.json)
+- [COZE_FEEDBACK_BGM_UPDATE_20261029.md](COZE_FEEDBACK_BGM_UPDATE_20261029.md)
+- [coze-feedback-bgm-delivery-20261029.json](../../reports/qa/coze-feedback-bgm-delivery-20261029.json)
+- [MVP_1_0_HANDOFF_20261029.md](MVP_1_0_HANDOFF_20261029.md)
+- [mvp-1.0-handoff-20261029.json](../../reports/qa/mvp-1.0-handoff-20261029.json)
 - [QUEEN_UNLOCK_INSPECTION_20261029.md](QUEEN_UNLOCK_INSPECTION_20261029.md)
-- [UNLOCK_FEEDBACK_FIX_20261029.md](UNLOCK_FEEDBACK_FIX_20261029.md)
-- [ZERG_MELEE_EQUIPMENT_PROPOSAL_20261029.md](ZERG_MELEE_EQUIPMENT_PROPOSAL_20261029.md)
-- [ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md](ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md)
-- [ZERG_MELEE_EQUIPMENT_GITHUB_SYNC_20261029.md](ZERG_MELEE_EQUIPMENT_GITHUB_SYNC_20261029.md)
 - [queen-unlock-inspection-20261029.json](../../reports/qa/queen-unlock-inspection-20261029.json)
+- [UNLOCK_FEEDBACK_FIX_20261029.md](UNLOCK_FEEDBACK_FIX_20261029.md)
 - [unlock-feedback-fix-20261029.json](../../reports/qa/unlock-feedback-fix-20261029.json)
+- [ZERG_MELEE_EQUIPMENT_PROPOSAL_20261029.md](ZERG_MELEE_EQUIPMENT_PROPOSAL_20261029.md)
+- [SPECIAL_ROSTER_INSPECTION_20261029.md](SPECIAL_ROSTER_INSPECTION_20261029.md)
+- [ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md](ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md)
 - [zerg-melee-equipment-20261029.json](../../reports/qa/zerg-melee-equipment-20261029.json)
+- [ZERG_MELEE_EQUIPMENT_GITHUB_SYNC_20261029.md](ZERG_MELEE_EQUIPMENT_GITHUB_SYNC_20261029.md)
 - [zerg-github-sync-20261029.json](../../reports/qa/zerg-github-sync-20261029.json)
 - [SPECIAL_ROSTER_FIX_20261029.md](SPECIAL_ROSTER_FIX_20261029.md)
 - [special-roster-fix-20261029.json](../../reports/qa/special-roster-fix-20261029.json)
@@ -1963,10 +1965,18 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
 - [tank-audit-sync-20261030.json](../../reports/qa/tank-audit-sync-20261030.json)
 - [COZE_REPAIR_DEPLOY_20261030.md](COZE_REPAIR_DEPLOY_20261030.md)
 - [coze-repair-deploy-20261030.json](../../reports/qa/coze-repair-deploy-20261030.json)
-- [STABILITY_FIX_20261102.md](STABILITY_FIX_20261102.md)
 - [STABILITY_RECHECK_20261102.md](STABILITY_RECHECK_20261102.md)
-- [stability-fix-20261102.json](../../reports/qa/stability-fix-20261102.json)
 - [stability-recheck-20261102.json](../../reports/qa/stability-recheck-20261102.json)
+- [STABILITY_FIX_20261102.md](STABILITY_FIX_20261102.md)
+- [stability-fix-20261102.json](../../reports/qa/stability-fix-20261102.json)
+- [FULL_CODE_AUDIT_20261102.md](FULL_CODE_AUDIT_20261102.md)
+- [full-code-audit-20261102.json](../../reports/qa/full-code-audit-20261102.json)
+- [RUNTIME_CODE_AUDIT_20261102.md](RUNTIME_CODE_AUDIT_20261102.md)
+- [runtime-code-audit-20261102.json](../../reports/qa/runtime-code-audit-20261102.json)
+- [AUDIT_FIXES_20261102.md](AUDIT_FIXES_20261102.md)
+- [audit-fixes-20261102.json](../../reports/qa/audit-fixes-20261102.json)
+- [AUDIT_FIXES_GITHUB_SYNC_20261103.md](AUDIT_FIXES_GITHUB_SYNC_20261103.md)
+- [audit-fixes-github-sync-20261103.json](../../reports/qa/audit-fixes-github-sync-20261103.json)
 
 <a id="d01"></a>
 ### D01 决定是否分帧释放积压敌人
@@ -2607,6 +2617,22 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
 
 ## 更新记录
 
+- **2026-11-03 · V06**：用户明确要求推到远端GitHub；开始核对已验证33份源码/测试/工具指纹，构建同版压缩前端并只提交审查修复相关文件，保留其他工作区成果。
+  - [AUDIT_FIXES_20261102.md](AUDIT_FIXES_20261102.md)
+- **2026-11-02 · V06**：两轮审查15项产品缺陷与1项CI缺口已本地修复，另补正普通兵8级保存三条路径。48新增/2957全回归、类型/数据/正式Web构建、三族60检查点与真实Chrome首战/续局/权限拒绝/纹理GPU通过。未提交推送部署；原iPhone待验保持。
+  - [AUDIT_FIXES_20261102.md](AUDIT_FIXES_20261102.md)
+  - [audit-fixes-20261102.json](../../reports/qa/audit-fixes-20261102.json)
+- **2026-11-02 · V06**：用户要求修复聊天bug寻找分支发现的问题。已读取两轮报告和聊天结论，在8d680ac体积优化版开始处理15项产品缺陷及1项CI缺口；先保存阻断，再异步恢复及生命周期，逐项定向验证。当前src/test无已有差异，不改其他任务成果或部署。
+  - [FULL_CODE_AUDIT_20261102.md](FULL_CODE_AUDIT_20261102.md)
+  - [RUNTIME_CODE_AUDIT_20261102.md](RUNTIME_CODE_AUDIT_20261102.md)
+- **2026-11-02 · V06**：完成运行过程补查：新增营救跳虫、斯旺、尼亚德拉、六级英雄4项保存冲突，地图重试及手柄权限导致主循环停止2项恢复缺陷，另有窄范围压缩贴图切档状态问题。合计304200步、53次成功恢复、虫族1次真实失败；Chrome正常流程及故障反例完成。只报告调查，未改产品/部署；V06返回待验证。
+  - [RUNTIME_CODE_AUDIT_20261102.md](RUNTIME_CODE_AUDIT_20261102.md)
+  - [runtime-code-audit-20261102.json](../../reports/qa/runtime-code-audit-20261102.json)
+- **2026-11-02 · V06**：用户追加要求补运行过程审查；V06进入进行中，三路代码/受控模拟与主代理串行浏览器验证，不修改产品或部署。复用同基线全量回归，不重复堆测试数量。
+  - [FULL_CODE_AUDIT_20261102.md](FULL_CODE_AUDIT_20261102.md)
+- **2026-11-02 · V06**：完成体积优化版8d680ac四路代码审查及主代理复核：确认4项合法游戏状态冲突、4项故障恢复缺口和1项CI覆盖缺口，均登记待办。2909项全回归中6项EACCES已正常权限复验通过，类型/数据检查、隔离Vite构建、359包/5138载荷完整性核验通过。本轮只新增复现工具与报告，未改产品、提交、推送或部署；原手机与线上验收保持。
+  - [FULL_CODE_AUDIT_20261102.md](FULL_CODE_AUDIT_20261102.md)
+  - [full-code-audit-20261102.json](../../reports/qa/full-code-audit-20261102.json)
 - **2026-11-02 · V06**：四项稳定性修复及当前压缩快照已随ffc2c2f推送GitHub体积优化版；ls-remote与GitHub提交接口一致，main保持2924d9b，未部署。最终14项定向复验及docs:check通过。清理本批3777份可重建产物约1.46GB；原iPhone待验，其他任务改动保持。
   - [STABILITY_FIX_20261102.md](STABILITY_FIX_20261102.md)
   - [stability-fix-20261102.json](../../reports/qa/stability-fix-20261102.json)

@@ -9,7 +9,7 @@ export class SharedImageSources {
  readonly metrics={decodes:0,reuses:0};
  forget(keys:Iterable<string>){for(const key of keys)this.sources.delete(key);}
  keys(){return this.sources.keys();}
- invalidate(source:Texture['source']){for(const [key,ref]of this.sources)if(!ref.deref()||ref.deref()===source)this.sources.delete(key);}
+ invalidate(source:Texture['source']){for(const [key,ref]of this.sources)if(!ref.deref()||ref.deref()===source)this.sources.delete(key);this.prototypes.delete(source);}
  async texture(key:string,decode:()=>Promise<Texture>){
   let source=this.sources.get(key)?.deref();
   if(source)this.metrics.reuses++;

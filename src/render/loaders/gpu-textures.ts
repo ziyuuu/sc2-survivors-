@@ -1,10 +1,11 @@
 import type {Texture,WebGLRenderer} from 'three';
-import {KTX2Loader} from 'three/addons/loaders/KTX2Loader.js';
+import {GuardedKTX2Loader,GPU_DECODE_TIMEOUT} from './guarded-ktx2-loader';
+import {waitForAsset} from '../../assets/preparation-wait';
 import {httpStore} from '../../assets/http-store';
 import {optimizedGraphics} from '../../platform/graphics-profile';
 import {SharedImageSources} from './shared-image-sources';
 
-let renderer:WebGLRenderer|undefined,loader:KTX2Loader|undefined,supported=false,active=0;
+let renderer:WebGLRenderer|undefined,loader:GuardedKTX2Loader|undefined,supported=false,active=0;
 const images=new SharedImageSources(),failures=new Set<string>();
 export const gpuTextureMetrics={loaded:0,fallbacks:0,payloadBytes:0,transcodeMs:0,workerReleases:0};
 export function configureGpuTextures(value:WebGLRenderer){
@@ -15,7 +16,7 @@ export function configureGpuTextures(value:WebGLRenderer){
  const store=httpStore();if(store)store.gpuTexturesEnabled=supported;
 }
 function decoder(){
- if(!loader){loader=new KTX2Loader().setTranscoderPath(new URL('./basis/',document.baseURI).href).setWorkerLimit(1).detectSupport(renderer!);}
+ if(!loader||loader.disposed){loader=new GuardedKTX2Loader().setTranscoderPath(new URL('./basis/',document.baseURI).href).setWorkerLimit(1).detectSupport(renderer!);}
  return loader;
 }
 /** A missing/unsupported sidecar leaves the existing source image path intact. */
@@ -24,7 +25,9 @@ export async function gpuTexture(imageHash:string):Promise<Texture|null>{
  active++;
  try{return await images.texture(imageHash,async()=>{
   const bytes=await store.gpuTextureBytes(imageHash),at=performance.now();
-  const texture=await new Promise<Texture>((resolve,reject)=>decoder().parse(bytes,resolve,reject));
+  const current=decoder();let retired=false;
+  const parsed=new Promise<Texture>((resolve,reject)=>current.parse(bytes,texture=>{if(retired||current.disposed){texture.dispose();reject(Error('GPU decoder retired'));}else resolve(texture);},reject));
+  let texture:Texture;try{texture=await waitForAsset(parsed,'GPU贴图解码',GPU_DECODE_TIMEOUT,current.cancellation.signal);}catch(error){retired=true;current.dispose();if(loader===current)loader=undefined;throw error;}
   gpuTextureMetrics.loaded++;gpuTextureMetrics.transcodeMs+=performance.now()-at;
   gpuTextureMetrics.payloadBytes+=texture.mipmaps.reduce((n,m)=>n+('data' in m?(m.data as ArrayBufferView).byteLength:0),0);return texture;
  });}catch{failures.add(imageHash);gpuTextureMetrics.fallbacks++;return null;}finally{active--;}
@@ -32,3 +35,4 @@ export async function gpuTexture(imageHash:string):Promise<Texture|null>{
 /** Keep immutable pixels, release the WASM worker heap at safe entrance boundaries. */
 export function releaseGpuDecoder(){if(active||!loader)return false;loader.dispose();loader=undefined;gpuTextureMetrics.workerReleases++;return true;}
 export function gpuTextureReport(){return {...gpuTextureMetrics,supported,active,workerResident:!!loader,shared:images.metrics};}
+export function invalidateGpuTextureSource(source:Texture['source']){images.invalidate(source);}
