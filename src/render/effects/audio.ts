@@ -1,3 +1,4 @@
+import {fetchAsset,waitForAsset} from '../../assets/preparation-wait';
 import {CombatAudioRouter,type AudioChannel} from './combat-audio-router';
 import {NativeSoundPlayer,type SoundCue,type SoundVoice} from './native-sound-player';
 /** Original local imports when present; otherwise explicitly labeled local synthesis. */
@@ -20,7 +21,7 @@ export class AudioEffects {
  async start(){try{await this.preload();await this.context!.resume();}catch(e){this.decodeErrors.push(String(e));}}
  private async load(progress:(done:number,total:number,label:string)=>void){
   const assets=[...ASSETS.values()].filter(a=>a.kind==='audio'&&a.status==='available'&&!this.buffers.has(a.id.replace('audio.',''))),decoded=new Map<string,Promise<AudioBuffer>>();let done=0,next=0;
-  const decode=(url:string)=>{let p=decoded.get(url);if(!p){p=(async()=>{const response=await fetch(url);if(!response.ok)throw Error(String(response.status));return this.context!.decodeAudioData(await response.arrayBuffer());})();decoded.set(url,p);}return p;};
+  const decode=(url:string)=>{let p=decoded.get(url);if(!p){p=(async()=>{const bytes=await fetchAsset(fetch,url,{},async response=>{if(!response.ok)throw Error(String(response.status));return response.arrayBuffer();});return waitForAsset(this.context!.decodeAudioData(bytes),'音效解码');})();decoded.set(url,p);}return p;};
   const worker=async()=>{for(;;){const a=assets[next++];if(!a)return;try{const url=assetUrl(a.id);if(!url)throw Error('missing asset');this.buffers.set(a.id.replace('audio.',''),await decode(url));}catch(e){this.decodeErrors.push(a.id+': '+String(e));if(a.required)throw Error('必需音效未就绪：'+a.id);}progress(++done,assets.length,a.id);}};
   await Promise.all(Array.from({length:4},worker));
  }

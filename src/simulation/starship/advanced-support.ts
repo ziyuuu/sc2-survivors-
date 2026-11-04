@@ -49,7 +49,7 @@ export function advancedEquipmentDeath(w:World,u:Entity){const body=w.starship.a
  w.effect('explosion',u,u,body.radius,.6);w.visual('support-impact',u);
 }
 export function expireAdvancedEquipmentBody(w:World,u:Entity){const body=w.starship.advancedBodies.get(u.id);if(!body||body.kind==='ark'||w.time+1e-8<body.until)return false;
- if(u.hp>0){equipmentPresentation(w,'expiry',u,undefined,body.kind);w.hit(u,u.hp+u.armor+1,[],1,'zerg',0,0,undefined,true);}return true;
+ if(u.hp>0){equipmentPresentation(w,'expiry',u,undefined,body.kind);w.expireUnit(u);}return true;
 }
 export function clearAdvancedEquipmentTemporaries(w:World){for(const [id,body] of w.starship.advancedBodies)if(body.kind!=='ark'){body.exploded=true;const u=w.entities.get(id);if(u){u.hp=0;u.deadAt=w.time;u.pendingTarget=null;u.attackTarget=null;}}w.starship.yamatoSequences=[];}
 function ark(w:World,e:ActiveEquipmentEffect){const run=w.starship.account.run,receipt=e.source+':ark';if(!run||run.receipts.has(receipt))return;const type=w.expedition.race==='terran'?'yamato_battlecruiser':w.expedition.race==='zerg'?'hots_leviathan':'carrier',p=w.freePosition(type,w.anchor,1,10);if(!p)return;

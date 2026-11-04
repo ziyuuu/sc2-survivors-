@@ -14,7 +14,7 @@ import {rollRarity,type Rarity} from '../../data/rewards';
 import type {Reward} from '../types';
 import type {ExpeditionState} from '../expedition-state';
 import {buildingContext,readBuildingContext,resetBuildingWindow,selectedProductionFamilies,syncBuildingWindow} from '../building/expedition';
-import {PROJECTS,consumeRefresh,eligible,evolutionTargets,facilityCount,getOffers,linesFor,refreshCost as buildingRefreshCost,type Offer as BuildingOffer} from '../building/rules';
+import {PROJECTS,consumeRefresh,eligible,evolutionTargets,facilityCount,pruneBuildingOffers,getOffers,linesFor,refreshCost as buildingRefreshCost,type Offer as BuildingOffer} from '../building/rules';
 
 export type ExpeditionDraftRound='building'|'random';
 export type ExpeditionCardEffect='weapon'|'vitality'|'armor'|'recovery'|'energy'|'production'|'cultivation';
@@ -129,9 +129,26 @@ export function nativeBuildingQuote(ctx:ExpeditionDraftContext,offer:ExpeditionR
  const q=b.offers[b.direction]?.find(q=>q.id===offer.buildingQuoteId&&q.projectId===e.definitionId);
  return q?{...structuredClone(q),revision:b.revision}:null;
 }
+export function pruneExpeditionDevelopmentOffers(ctx:ExpeditionDraftContext,offers:readonly Reward[]):Reward[] {
+ const b=developmentState(ctx,true);if(!b)return offers.slice();
+ pruneBuildingOffers(b,{ready:ctx.developmentReady});
+ const quotes=new Map(Object.values(b.offers).flatMap(q=>q??[]).map(q=>[q.id,q]));
+ const valid=(r:Reward)=>{
+  if(!('expeditionEffect' in r))return true;
+  const offer=r as ExpeditionReward,e=offer.expeditionEffect;if(e.kind!=='development')return true;
+  const q=offer.buildingQuoteId?quotes.get(offer.buildingQuoteId):undefined;
+  if(!q||q.projectId!==e.definitionId||q.level!==e.expectedLevel)return false;
+  if(q.targets.length&&!b.groups.some(g=>q.targets.includes(g.id)&&g.ids.includes(e.targetFacilityId??-1)))e.targetFacilityId=b.groups.find(g=>q.targets.includes(g.id))!.ids[0];
+  return true;
+ };
+ for(const [line,items] of Object.entries(ctx.state.directionOffers))ctx.state.directionOffers[line as keyof typeof ctx.state.directionOffers]=items?.filter(valid);
+ for(const [id,r] of Object.entries(ctx.state.developmentQuotes))if(!valid(r))delete ctx.state.developmentQuotes[id];
+ return offers.filter(valid);
+}
 export function drawExpeditionDevelopment(ctx:ExpeditionDraftContext,reroll=false):ExpeditionReward[] {
  requireCurrent(ctx);const direction=ctx.state.developmentDirection,b=developmentState(ctx,true);if(ctx.state.developmentBought||!direction||!b)return [];
  if(reroll){ctx.state.directionOffers={};ctx.state.developmentQuotes={};b.offers={};b.quotes={};}
+ if(!reroll)pruneExpeditionDevelopmentOffers(ctx,[]);
  const quotes=getOffers(b,{random:ctx.random,related:ctx.state.familySlots,capabilities:f=>ctx.familyInfo(f).capabilities??[],ready:ctx.developmentReady,priceFactorFor:ctx.developmentPriceFactorFor??(ctx.developmentPriceFactor!==undefined?()=>ctx.developmentPriceFactor!:undefined)});
  const offers=quotes.map(q=>{
   const d=PROJECTS.find(d=>d.id===q.projectId)!;

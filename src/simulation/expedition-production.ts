@@ -1,3 +1,4 @@
+import {retireEquipmentFamily} from './starship/lifecycle';
 import {equipmentRecruitRank,directionMatches} from './starship/eligibility';
 import {equipmentPaidDelivery,equipmentRescuedMember} from './starship/members';
 import {activeEquipmentEffects} from './starship/modules';
@@ -131,6 +132,7 @@ export function commitReplacement(w:World,id:string,old:FamilyId,revision:number
 export function rejectReceipt(w:World,id:string,revision:number){const s=w.expedition,r=s?.pendingReceipt;if(!s||!r||w.phase!=='battle'||id!==r.id||revision!==w.revision||s.completedReceipts.includes(id))return false;const p=w.pods.find(p=>p.id===r.podId),j=deliveryJob(w,p?.jobId);if(!p||!j||p.status!=='opening'||p.passengers[r.passengerIndex]?.status!=='waiting')return false;for(const c of p.passengers)if(c.status==='waiting')c.status='lost';for(const c of j.passengers)if(c.status==='waiting')c.status='lost';j.state='settled';deliveryChanged(w,j);p.status='destroyed';p.resolvedAt=w.time;const b=s.building;if(b){const groups=b.groups.filter(g=>j.producerId===g.id||j.facilityIds.some(id=>g.ids.includes(id)));for(const g of groups){g.enabledFamilies??={};g.enabledFamilies[r.family]=false;if(!g.outputs.some(f=>g.enabledFamilies?.[f]!==false))g.enabled=false;}syncBuildingViews(s,b);}s.completedReceipts.push(id);s.pendingReceipt=null;w.changed();return true;}
 
 export function retireFamily(w:World,old:FamilyId,incoming:FamilyId){const s=w.expedition,preview=familyRetirementPreview(w,old);
+ retireEquipmentFamily(w,old);
  for(const r of w.zergHeroes.revivals)r.seats=r.seats.filter(seat=>seat.family!==old);
  for(const group of productionGroups(s)){group.outputs=group.outputs.filter(f=>f!==old);if(group.enabledFamilies)delete group.enabledFamilies[old];group.cursor%=Math.max(1,group.outputs.length);}syncBuildingViews(s);
  for(const j of deliveryJobs(w))if(j.family===old){for(const [i,c] of j.passengers.entries())if(c.status==='waiting'){c.status=j.state==='training'||j.state==='awaiting'?'refunded':'lost';const pod=w.pods.find(p=>p.id===j.podId);if(pod?.passengers[i])pod.passengers[i].status='lost';}j.state='settled';deliveryChanged(w,j);}

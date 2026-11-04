@@ -141,7 +141,7 @@ export class BattleRenderer {
  readonly nonHeroEffects:NonHeroEffects;readonly sourceCombatEffects:SourceCombatEffects;
  readonly protossEliteEffects:ProtossEliteEffects;readonly zergEliteEffects:ZergEliteEffects;readonly terranEliteEffects:TerranEliteEffects;readonly eliteSupportEffects:EliteSupportEffects;private shadows:THREE.InstancedMesh;readonly healthBars:HealthBars;selectedHealthBodies:()=>Set<number>=()=>new Set();private pickups:ResourceDrops;
  private lines:THREE.LineSegments;private linePositions=new Float32Array(6000);private lineColors=new Float32Array(6000);
- private podViews=new Map<number,PodView>();private podTemplates=new Map<Race,GLTF>();private terrainUpdate=()=>{};private mapView?:MapView;private mapTerrain?:TerrainQuery;private mapViews=new Map<TerrainQuery,MapView>();private mapSwitching=false;private hiveTemplate:THREE.Object3D|null=null;private hiveView:THREE.Object3D|null=null;private expansionViews=new Map<number,THREE.Object3D>();private fortViews=new Map<number,THREE.Group>();private fortTemplates=new Map<Fortification['kind'],THREE.Group>();private fortDeathTemplates=new Map<Fortification['kind'],THREE.Group>();private fortClips=new Map<string,THREE.AnimationClip>();private fortMixers=new Map<number,THREE.AnimationMixer>();private fortDeathViews=new Map<number,{group:THREE.Group;mixer:THREE.AnimationMixer;until:number}>();private fortVisualTime=0;
+ private podViews=new Map<number,PodView>();private podTemplates=new Map<Race,GLTF>();private terrainUpdate=()=>{};private mapView?:MapView;private mapTerrain?:TerrainQuery;private mapViews=new Map<TerrainQuery,MapView>();private mapSwitching=false;private mapJob?:Promise<void>;private failedMap?:TerrainQuery;private hiveTemplate:THREE.Object3D|null=null;private hiveView:THREE.Object3D|null=null;private expansionViews=new Map<number,THREE.Object3D>();private fortViews=new Map<number,THREE.Group>();private fortTemplates=new Map<Fortification['kind'],THREE.Group>();private fortDeathTemplates=new Map<Fortification['kind'],THREE.Group>();private fortClips=new Map<string,THREE.AnimationClip>();private fortMixers=new Map<number,THREE.AnimationMixer>();private fortDeathViews=new Map<number,{group:THREE.Group;mixer:THREE.AnimationMixer;until:number}>();private fortVisualTime=0;
  readonly equipmentDrops:EquipmentDrops;
  private lootLabels=new Map<number,HTMLElement>();
  private podLabels=new Map<number,HTMLElement>();private labelLayer=document.createElement('div');
@@ -175,7 +175,7 @@ export class BattleRenderer {
   this.labelLayer.id='pod-labels';canvas.parentElement!.append(this.labelLayer);this.friendlyLabels=new FriendlyLabels(this.labelLayer);this.equipmentDrops=new EquipmentDrops(this.scene,this.labelLayer);
   this.safeProbe.style.cssText='position:fixed;visibility:hidden;pointer-events:none;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)';canvas.parentElement!.append(this.safeProbe);
   this.resize();window.addEventListener('resize',this.resizeFromBrowser);this.viewportObserver=new ResizeObserver(this.resizeFromBrowser);this.viewportObserver.observe(canvas);
-  canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();this.adaptiveTimer?.clear();this.adaptive.suspend();this.contextEpoch++;this.screenWarmed.clear();this.validatedPrograms.clear();world.paused=true;world.announce('画面连接中断，正在等待恢复');});
+  canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();this.adaptiveTimer?.clear();this.adaptive.suspend();this.contextEpoch++;this.refraction.invalidatePreparation();this.screenWarmed.clear();this.validatedPrograms.clear();world.paused=true;world.announce('画面连接中断，正在等待恢复');});
   canvas.addEventListener('webglcontextrestored',()=>{restoreMaterialUploads();this.adaptiveTimer?.restore();this.adaptive.reset();this.resize();this.sceneShadows.restore();this.contact.restore();world.announce('画面连接已恢复，请准备画面后继续');});
  }
  /** Retain GPU programs, original map and decoded models when starting a fresh run. */
@@ -363,7 +363,7 @@ export class BattleRenderer {
     const cancelled=()=>epoch!==this.contextEpoch,wait=()=>checkpoint(cancelled);await wait();
     const anchor=cloneForPreparation(entry.root),root=new THREE.Scene(),meshes:THREE.Mesh[]=[];root.add(anchor.root);anchor.root.traverse(n=>{if(n instanceof THREE.Mesh)meshes.push(n);});
     try{
-     if(entry.displacement){root.environment=this.scene.environment;root.fog=this.scene.fog;this.scene.traverseVisible(n=>{if(n instanceof THREE.Light)root.add(n.clone());});await wait();await this.refraction.prepare(this.renderer,root);await this.waitForGpu();}
+     if(entry.displacement){root.environment=this.scene.environment;root.fog=this.scene.fog;this.scene.traverseVisible(n=>{if(n instanceof THREE.Light)root.add(n.clone());});await wait();await this.refraction.prepare(this.renderer,root,{cancelled});await this.waitForGpu();}
      else await this.warmDetachedBatches(root,meshes,wait);
      if(cancelled())throw Error('后台资源准备已取消');this.stageWarm.set(entry.key,anchor);anchor.root.removeFromParent();
     }catch(error){anchor.dispose();throw error;}
@@ -595,7 +595,7 @@ export class BattleRenderer {
  preparationControl?:PosePreparationControl;
  private createAnimatedBatch(gltf:GLTF,scene:THREE.Scene,height:number,normalization?:THREE.Matrix4,unitScale=1,profile?:string,referenceBodyHeight?:number){const epoch=this.contextEpoch,control=this.preparationControl;return AnimatedBatch.create(gltf,scene,height,normalization,unitScale,profile,referenceBodyHeight,{...control,cancelled:()=>this.contextEpoch!==epoch||!!control?.cancelled?.()}).then(batch=>{if(this.world.starship.enabled)batch.enableApparitions(scene);return batch;});}
  private variantLoads=new Map<string,Promise<boolean>>();private variantQueue=Promise.resolve();assetsPending=0;
- async waitForPendingAssets(){await this.variantQueue;if(this.assetsPending>0)throw Error('仍有资源未完成准备');}
+ async waitForPendingAssets(){await this.variantQueue;while(this.mapSwitching)await this.mapJob;if(this.assetsPending>0)throw Error('仍有资源未完成准备');}
  ensureUnitVariant(key:string,type:UnitType,optional=false):Promise<boolean>{const silent=optional||this.entryPreparation;key=displayLoadModelKey(key,type);if(key.startsWith('elite.')){if(!this.gpu.has(type))void this.ensureUnitVariant(type,type,optional);if(key.endsWith('.assault')&&!this.gpu.has('viking.assault'))void this.ensureUnitVariant('viking.assault','viking',optional);}const existing=this.variantLoads.get(key);if(existing){const stream=this.streamingLoads?.get(key);if(stream&&!optional&&!stream.promoted){stream.promoted=true;this.assetsPending++;}return existing;}if(this.gpu.has(key))return Promise.resolve(true);this.modelErrors=this.modelErrors.filter(error=>!error.startsWith(key+':'));
   // HUD listeners can request this same model synchronously. Publish both the promise and
   // queue entry before notifying them, so one arrival cannot recursively start more loads.
@@ -613,8 +613,22 @@ export class BattleRenderer {
  async prepareCampaignAssets(recipe:CampaignMapRecipe){const terrain=campaignTerrain(recipe);await prepareEmbeddedAssetIds([...campaignMapAssets(recipe),...fullEnvironmentModelIds(recipe.theme),...environmentAssetIds(recipe.theme)]);if(![...this.mapViews.keys()].some(t=>t.definition?.source.sha256===terrain.definition.source.sha256)){const view=await createCampaignMap(this.scene,terrain);this.mapViews.set(terrain,view);view.setVisible(true);try{const root=this.scene.getObjectByName(terrain.definition.source.sha256)!;this.filterTextures(root);this.preloadTextures(root);this.sceneShadows.prepare();this.contact.prepare(this.scene);await this.compilePresentation(this.scene,this.camera);}finally{view.setVisible(this.world.terrain===terrain);}}
   for(const [key,view] of this.mapViews)if(key instanceof RadialTerrain&&key.definition.source.sha256!==terrain.definition.source.sha256&&key!==this.world.terrain){view.dispose?.();this.mapViews.delete(key);}
  }
- private syncMap(){const terrain=this.world.terrain;if(this.mapSwitching||terrain===this.mapTerrain||!terrain)return;this.mapTerrain=terrain;const previous=[...this.mapViews.keys()].find(t=>t.definition?.source.sha256&&t.definition.source.sha256===terrain.definition?.source.sha256),cached=this.mapViews.get(terrain)??(previous?this.mapViews.get(previous):undefined);if(cached&&previous!==terrain){cached.bindTerrain?.(terrain);if(previous)this.mapViews.delete(previous);this.mapViews.set(terrain,cached);}for(const view of this.mapViews.values())view.setVisible(view===cached);if(cached){this.mapView=cached;this.cameraTarget.set(this.world.anchor.x,this.ground(this.world.anchor),this.world.anchor.z);this.terrainUpdate=()=>this.mapView?.update(this.camera,this.sceneShadows.enabled?this.sceneShadows.view:undefined);return;}
-  this.mapSwitching=true;this.assetsPending++;this.world.changed();void (terrain instanceof FlatTerrain?createFlatMap(this.scene,terrain):terrain instanceof RadialTerrain?createCampaignMap(this.scene,terrain):Promise.reject<MapView>(new Error('不支持的战役地图'))).then(view=>{this.mapViews.set(terrain,view);view.setVisible(this.world.terrain===terrain);if(this.world.terrain===terrain){this.mapView=view;this.cameraTarget.set(this.world.anchor.x,this.ground(this.world.anchor),this.world.anchor.z);this.terrainUpdate=()=>this.mapView?.update(this.camera,this.sceneShadows.enabled?this.sceneShadows.view:undefined);this.filterTextures(this.scene);}}).catch(error=>{this.modelErrors.push('map: '+String(error));this.world.paused=true;this.world.announce('无尽地图素材未能载入');}).finally(()=>{this.assetsPending--;this.mapSwitching=false;this.syncMap();this.world.changed();});
+ private syncMap(retry=false):Promise<void>|undefined {
+  const terrain=this.world.terrain;if(this.mapSwitching)return this.mapJob;if(!terrain)return;if(terrain===this.mapTerrain&&this.mapViews.has(terrain)){if(this.failedMap&&this.failedMap!==terrain){this.failedMap=undefined;this.modelErrors=this.modelErrors.filter(e=>!e.startsWith('map: '));}return;}
+  if(this.failedMap===terrain&&!retry)return;
+  const clearError=()=>{this.failedMap=undefined;this.modelErrors=this.modelErrors.filter(error=>!error.startsWith('map: '));};
+  const activate=(view:MapView)=>{clearError();this.mapTerrain=terrain;this.mapView=view;for(const map of this.mapViews.values())map.setVisible(map===view);this.cameraTarget.set(this.world.anchor.x,this.ground(this.world.anchor),this.world.anchor.z);this.terrainUpdate=()=>this.mapView?.update(this.camera,this.sceneShadows.enabled?this.sceneShadows.view:undefined);};
+  const previous=[...this.mapViews.keys()].find(t=>t.definition?.source.sha256&&t.definition.source.sha256===terrain.definition?.source.sha256),cached=this.mapViews.get(terrain)??(previous?this.mapViews.get(previous):undefined);
+  if(cached){if(previous!==terrain){cached.bindTerrain?.(terrain);if(previous)this.mapViews.delete(previous);this.mapViews.set(terrain,cached);}activate(cached);return;}
+  this.mapSwitching=true;this.assetsPending++;
+  // Publish the job before listeners can request the same terrain again.
+  this.mapJob=Promise.resolve().then(()=>terrain instanceof FlatTerrain?createFlatMap(this.scene,terrain):terrain instanceof RadialTerrain?createCampaignMap(this.scene,terrain):Promise.reject<MapView>(new Error('不支持的战役地图'))).then(view=>{
+   this.mapViews.set(terrain,view);view.setVisible(this.world.terrain===terrain);
+   if(this.world.terrain===terrain){activate(view);this.filterTextures(this.scene);}
+  }).catch(error=>{
+   this.failedMap=terrain;if(this.world.terrain===terrain){this.modelErrors=this.modelErrors.filter(e=>!e.startsWith('map: '));this.modelErrors.push('map: '+String(error));this.world.paused=true;this.world.announce('无尽地图素材未能载入');}
+  }).finally(()=>{this.assetsPending--;this.mapSwitching=false;if(this.world.terrain!==terrain)this.syncMap();this.world.changed();});
+  this.world.changed();return this.mapJob;
  }
  /** Required building models and the flat map must be GPU-ready before World may switch. */
  async prepareEndlessAssets(progress:(done:number,total:number,label:string)=>void=()=>{}){
@@ -725,6 +739,7 @@ export class BattleRenderer {
   return required;
  }
  async prepareCurrentAssets(progress:(done:number,total:number,label:string)=>void=()=>{}){
+  await this.syncMap(true);
   if(this.world.starship.enabled)await this.prepareEquipmentFortAssets();await this.prepareRescueAssets(this.world.expedition.race);await this.prepareMissionAssets();
   const required=this.currentModels();
   await prepareEmbeddedAssetIds(modelPreloadAssets([...required].filter(([key])=>!this.gpu.has(key)).map(([key,type])=>[displayAssetModelKey(key),type] as const)));

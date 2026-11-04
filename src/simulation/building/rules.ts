@@ -95,7 +95,22 @@ function sample<T>(s:BuildingState,pool:readonly T[],weight:(v:T)=>number,option
  let n=random(s,options)*pool.reduce((n,v)=>n+weight(v),0);for(const v of pool){n-=weight(v);if(n<0)return v;}return pool.at(-1)!;
 }
 function level(s:BuildingState,d:Project){return d.kind==='facility'?facilityCount(s,d.id):s.tech[d.id]??0;}
+export function pruneBuildingOffers(s:BuildingState,options:Pick<RuleOptions,'ready'>={}) {
+ const valid=(q:Offer,line?:ProductionLineId)=>{
+  const d=project(q.projectId);
+  if(!d||q.window!==s.window||line&&!inDirection(d,line)||!eligible(s,d)||level(s,d)!==q.level||options.ready?.(d)===false)return false;
+  if(d.kind==='evolution'){
+   const targets=new Set(evolutionTargets(s,d.id).map(g=>g.id));
+   q.targets=q.targets.filter(id=>targets.has(id));
+   if(!q.targets.length)return false;
+  }
+  return true;
+ };
+ for(const [line,offers] of Object.entries(s.offers))s.offers[line as ProductionLineId]=offers?.filter(q=>valid(q,line as ProductionLineId));
+ for(const [key,q] of Object.entries(s.quotes))if(!valid(q))delete s.quotes[key];
+}
 export function getOffers(s:BuildingState,options:RuleOptions={}):Offer[] {
+ pruneBuildingOffers(s,options);
  if(s.phase!=='building'||s.bought)return [];
  const cached=s.offers[s.direction];if(cached)return structuredClone(cached).map(q=>({...q,revision:s.revision}));
  const pool=candidates(s).filter(d=>options.ready?.(d)!==false),related=new Set([...(options.related??[]),...s.groups.flatMap(activeGroupOutputs)]),picked:Project[]=[];

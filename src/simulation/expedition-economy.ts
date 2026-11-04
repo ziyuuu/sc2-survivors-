@@ -5,7 +5,7 @@ import {buyFunShop} from './fun-shop/runtime';
 import {equipmentDevelopmentLegal,equipmentDevelopmentCompleted,equipmentPurchasePrice,recordEquipmentPurchase} from './starship/economy';
 import {worldBuildingContext,syncBuildingEffects,syncBuildingWindow} from './building/expedition';
 import {purchase as purchaseBuilding,refreshAtCost,project} from './building/rules';
-import {nativeBuildingQuote} from './progression/expedition-drafts';
+import {nativeBuildingQuote,pruneExpeditionDevelopmentOffers} from './progression/expedition-drafts';
 import {prepareEquipmentShelf,equipmentRefreshPrice,equipmentValue} from './starship/modules';
 import {canSupply,applySupply} from './progression/supply-cards';
 import {buySupport,supportLegal} from './combat/shop-support';
@@ -147,3 +147,5 @@ export interface RepairQuote {id:string;revision:number;targetIds:number[];miner
 export function previewRepair(w:World,ids:number[]):RepairQuote|null {if(!w.expedition||w.phase!=='reward'||new Set(ids).size!==ids.length)return null;let minerals=0,gas=0,health=0;for(const id of ids){const u=w.entities.get(id);if(!u||u.owner!=='terran'||u.hp<=0||u.temporary)return null;const missing=(u.maxHp-u.hp)/u.maxHp,base=u.heroId?w.revivalCost(u.rank):w.productionCost(u.unitType as UnitType);const factor=missing*.4*(u.heroId?1:u.rank);minerals+=Math.ceil(base.minerals*factor-1e-9);gas+=Math.ceil(base.gas*factor-1e-9);health+=u.maxHp-u.hp;}
  return {id:`repair:${w.revision}:${ids.join(',')}`,revision:w.revision,targetIds:[...ids],minerals,gas,health};}
 export function repair(w:World,quote:RepairQuote){if(quote.revision!==w.revision)return false;const fresh=previewRepair(w,quote.targetIds);if(!fresh||fresh.id!==quote.id||!fresh.health||w.wallet.minerals<fresh.minerals||w.wallet.gas<fresh.gas)return false;w.wallet.minerals-=fresh.minerals;w.wallet.gas-=fresh.gas;w.economyTotals.purchases.minerals+=fresh.minerals;w.economyTotals.purchases.gas+=fresh.gas;for(const id of fresh.targetIds){const u=w.entities.get(id)!;u.hp=u.maxHp;}w.changed();return true;}
+
+export function restoreDevelopmentOffers(w:World){if(w.phase==='reward'&&w.rewardRound==='building')w.rewards=pruneExpeditionDevelopmentOffers(draftContext(w),w.rewards);}

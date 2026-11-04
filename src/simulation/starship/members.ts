@@ -1,4 +1,5 @@
 import {identityReserved} from '../missions/rewards';
+import {canReceiveRecovery} from '../combat/support-targets';
 import {equipmentRecoveryPresentation} from './presentation';
 import {equipmentPresentation} from './presentation';
 import type {World} from '../world';
@@ -60,7 +61,7 @@ export function deliverEquipmentMembers(w:World){if(w.specialStages.active)retur
   for(const member of members){w.starship.members.set(member.id,{source:pending.source.source,items:pending.source.items,independent:pending.independent,cannotGrow:pending.cannotGrow,cannotRevive:pending.cannotRevive,origin:pending.origin,bound:pending.bound});if(pending.seconds){member.temporary=true;member.temporaryUntil=w.time+pending.seconds;}if(pending.burstSeconds)w.starship.numbers.set('drop-speed:'+member.id,w.time+pending.burstSeconds);if(elite){member.eliteId=elite;member.modelKey=ELITES[elite].model;}w.refreshStats(member,true);equipmentPresentation(w,'reinforcement',member,undefined,pending.origin);}
   if(pending.bound)w.starship.boundMembers.set(pending.source.source,u.id);
   pending.count--;lockEquipmentSource(w,pending.source);
-  if(pending.heal){for(const patient of w.allies())if(Math.hypot(patient.x-u.x,patient.z-u.z)<=4+patient.unitRadius){const gain=Math.min(patient.maxHp-patient.hp,patient.maxHp*pending.heal*(1+w.starship.totals.defense/1000));patient.hp+=gain;w.stats.healed+=gain;observeRecovery(w,u,patient,gain);equipmentRecoveryPresentation(w,patient,gain);}pending.heal=0;}
+  if(pending.heal){for(const patient of w.allies())if(canReceiveRecovery(patient)&&Math.hypot(patient.x-u.x,patient.z-u.z)<=4+patient.unitRadius){const gain=Math.min(patient.maxHp-patient.hp,patient.maxHp*pending.heal*(1+w.starship.totals.defense/1000));patient.hp+=gain;w.stats.healed+=gain;observeRecovery(w,u,patient,gain);equipmentRecoveryPresentation(w,patient,gain);}pending.heal=0;}
  }}w.starship.pendingMembers=w.starship.pendingMembers.filter(p=>p.count>0);for(const e of activeEquipmentEffects(w).filter(e=>e.key==='opening_hero'))grantHero(w,e);}
 export function inheritEquipmentMember(w:World,u:Entity,from:Entity){const member=w.starship.members.get(from.id);if(member)w.starship.members.set(u.id,{...member});}
 export function equipmentRosterMember(w:World,u:Entity){return !w.starship.members.get(u.id)?.independent;}
