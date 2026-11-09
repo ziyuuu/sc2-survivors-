@@ -35,3 +35,5 @@ assets/generated/tutorial-voices-20261109/*.wav filter=lfs diff=lfs merge=lfs -t
 
 # Keep the packed launch document byte-identical to the verified build.
 sites/size-optimized-site/public/index.html -text
+sites/size-optimized-site/public/assets/*.css text eol=lf
+sites/size-optimized-site/public/web-release.json text eol=lf

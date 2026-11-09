@@ -1,3 +1,5 @@
+2026-11-09 [1.1、1.2 和共同优化已合入两个 GitHub 分支](docs/project/V12_BRANCH_INTEGRATION_20261109.md)。原画质与压缩构建均通过首战、续局和完整回归。线上服务保持原发布版本。
+
 **MVP 1.0 暂按完成（2026-11-04）。** [进入游戏](https://sc-survivors.coze.site/) · [当前交接与保留事项](docs/project/MVP_1_0_HANDOFF_20261029.md)
 
 > 2026-10-30：[Coze v7已上线](docs/project/COZE_REPAIR_DEPLOY_20261030.md)。坦克修复与累计更新已推送GitHub“体积优化版”并部署至原Coze域名，程序/资源SHA及实际菜单核验通过；原iPhone待验，main未合并。
