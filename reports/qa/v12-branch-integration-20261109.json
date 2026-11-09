@@ -1,0 +1,144 @@
+{
+  "date": "2026-11-09",
+  "branches": {
+    "main": {
+      "commit": "3ec083afda5c3379d3914cfb976e1572967f8307",
+      "localTests": 3087,
+      "ci": "https://github.com/ziyuuu/sc2-survivors-/actions/runs/42579198509",
+      "ciResult": "success"
+    },
+    "体积优化版": {
+      "commit": "a2356a412e5d6baf6d7975c6109b29d845d8e1c4",
+      "localTests": 3087,
+      "ci": "https://github.com/ziyuuu/sc2-survivors-/actions/runs/42579198265",
+      "ciResult": "success"
+    }
+  },
+  "shared": {
+    "sourceTree": "3fbe3dfa9deba928ba31414b08c1d7f728097b89",
+    "runtimeTree": "9a14fea86dfd8290d8782c2c4ec92102db86baad",
+    "appBuildId": "56c108dffe830d2f441414742c0f235adb0d2941620777ba834090331860de39",
+    "runSchema": 26,
+    "rules": "mvp-1.0",
+    "originalManifest": "79973bae982586baff1fc4c8aed7f2b0cd7297ddc6f5e28cf47909be937d7d99",
+    "packedManifest": "896aa637c320cd765bc96a139a648c8d238caa3daa3eaed745aaaea02099930b",
+    "assets": 3932
+  },
+  "changes": [
+    "1.1 三族首局教学、顾问肖像、人神 82 条离线中文语音",
+    "1.2 自动战斗、无尽轮次、孤星精英与一键装备修复",
+    "种子预排任务、趣味关与英雄精英，分关准备、回收与资源预算",
+    "原画质按关准备音效并在首次播放时读取其他音效",
+    "Web 与离线 HTML 共用资源媒体类型判断"
+  ],
+  "checks": {
+    "typecheckAndGeneratedData": true,
+    "sourceBuildsMatch": true,
+    "gitSnapshotFilesVerified": 96,
+    "packed": {
+      "physicalFiles": 446,
+      "verifiedVariants": 5223,
+      "preservedLogicalRecords": 3847
+    },
+    "offline": {
+      "offlineBytes": 1332640835,
+      "assets": 3932,
+      "mp3": 82,
+      "portraits": 3,
+      "verifiedHashes": 85,
+      "realBrowser": {
+        "passed": true,
+        "external": [],
+        "errors": [],
+        "portrait": true,
+        "spoken": true,
+        "gate": {
+          "kind": "new",
+          "phase": "ready",
+          "done": 1,
+          "total": 1,
+          "label": "就绪 · 请确认继续",
+          "error": null,
+          "progress": 1
+        },
+        "phase": "battle"
+      }
+    },
+    "original": {
+      "initialFailure": "ERR_BLOB_OUT_OF_MEMORY after 620213409 bytes of resident Blobs with eager audio preparation",
+      "soundCatalogEntries": 1924,
+      "verifiedColdStart": {
+        "residentBlobBytes": 386436782,
+        "peakPcmSample": 101551304
+      },
+      "verifiedReload": {
+        "residentBlobBytes": 386326736,
+        "models": 13
+      },
+      "errors": [],
+      "cacheNote": "First entry reported partial local cache availability; a real reload restored the saved checkpoint."
+    },
+    "packedCache": {
+      "passed": true,
+      "reDownloadedWarmBundles": 0,
+      "currentRaceVoiceRequests": 1
+    },
+    "tutorial": {
+      "recovery": [
+        "first menu exit/reload retains eligibility without invitation",
+        "undecided invitation restores before battle assets",
+        "decline enters ordinary first campaign, no tutorial map",
+        "accepted departure reload auto-resumes into lesson without another invitation",
+        "battle skip then immediate reload retains choice and transfers same run/property to normal map",
+        "completed account reload has no invitation"
+      ],
+      "passed": true,
+      "inputs": 26,
+      "method": "Native highlighted clicks; bounded native fixed-step time compression for functional QA only. No damage/HP changes.",
+      "errors": []
+    },
+    "threeRaceCombat": [
+      {
+        "race": "terran",
+        "startHp": 1000,
+        "endHp": 910.397258666695,
+        "shots": 27,
+        "saved": true,
+        "errors": []
+      },
+      {
+        "race": "zerg",
+        "startHp": 1000,
+        "endHp": 823.8658515661639,
+        "shots": 52,
+        "saved": true,
+        "errors": []
+      },
+      {
+        "race": "protoss",
+        "startHp": 1000,
+        "endHp": 824.1612233333602,
+        "shots": 21,
+        "saved": true,
+        "errors": []
+      }
+    ],
+    "legacyArchive": {
+      "format": "Synthetic schema-26 reward checkpoint without a content plan",
+      "hash": "738894644bcdf023ec8dbff5086170e36be2f22aca053a355a5193da849aca56",
+      "stage": 2,
+      "followingFrameMs": 376.80000001192093,
+      "firstShotSimSeconds": 4.25,
+      "shots": 1,
+      "assetErrors": [],
+      "pageErrors": []
+    },
+    "windowsCheckedOutStaticFilesVerified": 96
+  },
+  "limits": [
+    "Windows Chrome，移动尺寸为模拟触屏。",
+    "原 iPhone 17 Pro 长局内存峰值、系统终止边界和实际听感仍待实机验证。",
+    "既有 1.2 无尽后段自动战斗 CPU 开销仍单列。",
+    "本次更新 GitHub 两分支，没有部署 Coze、Sites 或阿里云。"
+  ]
+}

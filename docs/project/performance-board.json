@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "title": "星际幸存者MVP收尾与性能看板",
-  "updated": "2026-10-27",
-  "revision": 219,
+  "updated": "2026-11-09",
+  "revision": 433,
   "baseline": {
     "branch": "main",
     "commit": "be9e2982944314194c6dcc9dcc535bc321749eb4",
@@ -3173,6 +3173,682 @@
       "result": "按逐项确认范围完成：指定冗余文案静默/删除，暂停四操作及指定两图标，存档集中设置；首页免责声明依用户纠正恢复原位。44相关既有测试/类型/数据通过，最终Web43+离线5记录错误0，三尺寸及鼠标/模拟触屏、失败恢复通过；832基线中820保持，Current保持，未扩大视觉设计或发布。",
       "owner": "Codex",
       "historical": false
+    },
+    {
+      "id": "PLAN-1X",
+      "title": "1.x玩法调研与逐版本任务规划",
+      "status": "已完成",
+      "phase": "决策",
+      "priority": "用户授权",
+      "depends": [],
+      "scenes": [],
+      "problem": "从首局教学、自动战斗、共同确定构筑到分族制作，维护连续版本任务清单及其依赖。1.1 按明确的首局资格、三族战役顾问、永久跳过和第三关首领教学掉装编制具体流程。",
+      "steps": [
+        "核对 1.0 的关间购买、实际抽取、恢复与现有游玩流程",
+        "按用户决定重排版本，保留常规兵种与战役合作身份的编号和来源",
+        "写出可逐步游玩的融合样例、完成条件和构筑讨论入口",
+        "查原版三族顾问定义、正常前三关排程、首次读档和真实装备结算，编制首局教学专项设计"
+      ],
+      "acceptance": [
+        "1.1 教学、1.2 自动战斗七项、1.3 共同确定九条构筑方向及三卡规则、1.4 至 1.6 分族实装在总表、正文、兵种目录和项目入口一致",
+        "同流派加权对象、已有报价、当局累计、选择权与待定规则可区分",
+        "正式构筑由双方讨论，精英本兵种增益与 V 以后晋升单列，后续单位与装备不另设成型门槛",
+        "每个融合样例含原机制出处、玩家动作、选择后果及验证方法，文档入口、版本和编号一致",
+        "1.1 方案覆盖无档首次入关邀请、任一步永久跳过、三族顾问、敌方工蜂与矿气、保护空投、关间运营、第三关首领掉装、首件穿戴、撤离和舰装"
+      ],
+      "evidence": [
+        "V1_1_FIRST_RUN_TUTORIAL_20261104.md",
+        "V1X_ROADMAP_20261104.md",
+        "V1X_ROSTER_20261104.md",
+        "../../reports/qa/v1x-roadmap-revision-20261104.json",
+        "V1X_RESEARCH_ROADMAP_20261030.md",
+        "V1X_ROSTER_AND_SOURCES_20261030.md",
+        "../../reports/qa/v1x-research-roadmap-20261030.json"
+      ],
+      "auditIds": [],
+      "updated": "2026-11-04",
+      "result": "1.1 首局教学设计已按用户最终决定补齐。无档新玩家进入第一关时自选接受或跳过，任一步跳过后不再出现。顾问为人族副官、虫族虫后、神族执行官，已核原版定义。教学覆盖移动、击杀敌方工蜂与采集矿气、保护空投、关间运营。奖励触发已澄清为第三关原有战役首领，其教学掉装合计 2–3 件，引导拾取、关间装散件、撤离及旗舰装模块。已核简单与普通前三关排程、装备目录、27 处本地链接和 docs:check。本次交付为规划，保留 1.2 自动战斗、1.3 共定构筑的顺序。 1.1 补充十个镜头与三族通讯字幕台本，已提取并目视核对三位顾问原版静态头像，提供并排预览；镜头待实装。 1.1 虫后教学统一使用腺体震动声与中文字幕，已同步十段分镜及首件装备插话。人族副官和神族执行官使用逐句对白。",
+      "owner": "Codex 1.0主线程",
+      "historical": false,
+      "next": "按 1.1 方案准备三族顾问通讯资源、具体页面与装备样本，按实际授权进入实现和验证。"
+    },
+    {
+      "id": "TUT-1.1",
+      "title": "1.1 首局战役教学本地候选",
+      "status": "已完成",
+      "phase": "整合",
+      "priority": "用户授权",
+      "depends": [
+        "PLAN-1X"
+      ],
+      "scenes": [],
+      "owner": "Codex 教学实现",
+      "updated": "2026-11-09",
+      "historical": false,
+      "problem": "按最新用户决定交付独立两段短教程、原UI覆盖层、精英双白装及可试玩本地候选。",
+      "steps": [
+        "TUT-01 出发前资格、邀请与持久化",
+        "TUT-02 救工人、跳虫、工蜂及采集",
+        "TUT-03 十秒扣费、守护并获得一批增援",
+        "TUT-04 发展说明、设施确认及卡牌购买",
+        "TUT-05 精英双白装、休整回血及散件装备",
+        "TUT-06 撤离旗舰安装、三族验证与录屏"
+      ],
+      "substeps": [
+        {
+          "id": "TUT-01",
+          "title": "出发前资格、邀请与持久化",
+          "status": "已完成",
+          "result": "原出发前资格和四态持久化保持，当前候选原生恢复复验。",
+          "evidence": [
+            "../../reports/qa/tutorial-short-1.1-20261105.json",
+            "../../reports/qa/tutorial-feedback-1.1-20261106.json",
+            "../../reports/qa/tutorial-polish-1.1-20261109.json"
+          ],
+          "previousImplementationStatus": "已完成（三关旧版）"
+        },
+        {
+          "id": "TUT-02",
+          "title": "救工人、跳虫、工蜂及采集",
+          "status": "已完成",
+          "result": "真实救援/击杀后结果停留；100矿50气入账高亮并展示约0.5秒再关间，恢复和跳过不重复结算。",
+          "evidence": [
+            "../../reports/qa/tutorial-short-1.1-20261105.json",
+            "../../reports/qa/tutorial-feedback-1.1-20261106.json",
+            "../../reports/qa/tutorial-polish-1.1-20261109.json"
+          ],
+          "previousImplementationStatus": "已完成（三关旧版）"
+        },
+        {
+          "id": "TUT-03",
+          "title": "十秒扣费、守护并获得一批增援",
+          "status": "已完成",
+          "result": "第10秒真实支付一席，原载体守护至入队；入队后展示结果，原训练参数保持。",
+          "evidence": [
+            "../../reports/qa/tutorial-short-1.1-20261105.json",
+            "../../reports/qa/tutorial-feedback-1.1-20261106.json",
+            "../../reports/qa/tutorial-polish-1.1-20261109.json"
+          ],
+          "previousImplementationStatus": "已完成（三关旧版）"
+        },
+        {
+          "id": "TUT-04",
+          "title": "发展说明、设施确认及卡牌购买",
+          "status": "已完成",
+          "result": "从正常关间首页经原设施调整和前往补给按钮导航，再购买与查看真实结果，不自动打开子页。",
+          "evidence": [
+            "../../reports/qa/tutorial-short-1.1-20261105.json",
+            "../../reports/qa/tutorial-feedback-1.1-20261106.json",
+            "../../reports/qa/tutorial-polish-1.1-20261109.json"
+          ],
+          "previousImplementationStatus": "已完成（三关旧版）"
+        },
+        {
+          "id": "TUT-05",
+          "title": "精英双白装、休整回血及散件装备",
+          "status": "已完成",
+          "result": "同批双白装真实拾取后展示入包结果；原休整/背包入口、真实修复和散件穿戴结果通过。",
+          "evidence": [
+            "../../reports/qa/tutorial-short-1.1-20261105.json",
+            "../../reports/qa/tutorial-feedback-1.1-20261106.json",
+            "../../reports/qa/tutorial-polish-1.1-20261109.json"
+          ],
+          "previousImplementationStatus": "已完成（三关旧版）"
+        },
+        {
+          "id": "TUT-06",
+          "title": "撤离旗舰安装、三族验证与录屏",
+          "status": "已完成",
+          "result": "三族同件模块带出安装，13处结果反馈、原UI及镜头生命周期通过；同版可读节奏录屏和本地候选交付。",
+          "evidence": [
+            "../../reports/qa/tutorial-short-1.1-20261105.json",
+            "../../reports/qa/tutorial-feedback-1.1-20261106.json",
+            "../../reports/qa/tutorial-polish-1.1-20261109.json"
+          ],
+          "previousImplementationStatus": "已完成（三关旧版）"
+        }
+      ],
+      "acceptance": [
+        "三族从无档出发选择，经两段训练到同件模块旗舰装备",
+        "资格、终态、奖励身份与检查点/失败/多页保护定向验证",
+        "三端实际画面，静音可完成，通讯/声音/镜头统一取消",
+        "相关回归及 npm test/typecheck/docs:check；独立本地构建与增量清单",
+        "人神声音未落实部分明确列出，用户试玩审阅与物理手机单列",
+        "桌面人族、模拟横屏虫族、模拟竖屏神族三份同版正常时钟录屏"
+      ],
+      "evidence": [
+        "V1_1_SHORT_TUTORIAL_DESIGN_20261105.md",
+        "V1_1_TUTORIAL_IMPLEMENTATION_20261105.md",
+        "../../reports/qa/tutorial-short-1.1-20261105.json",
+        "../../reports/qa/tutorial-feedback-1.1-20261106.json",
+        "../../reports/qa/tutorial-polish-1.1-20261109.json",
+        "V12_BRANCH_INTEGRATION_20261109.md"
+      ],
+      "result": "本地候选1.1.0-local.4／0d150284919f完成：成功结果0.5秒、删除掉落数量预告、批准的离线人神中文配音82条3378008字节；虫后短震动保持。3075回归、最终16定向、三族同版实时含音录屏、原UI/镜头/恢复/缓存/播放通过；模拟手机，待用户审阅。未提交推送发布。 11 月 9 日已随 V12-MERGE-01 合入两个 GitHub 分支。",
+      "next": "用户审阅本轮配音与录屏，物理手机另验。",
+      "reviewFeedback": {
+        "date": "2026-11-06",
+        "status": "已完成",
+        "findings": [
+          "TUT-REVIEW-PACING-006：录屏指令阅读与操作结果停留太短",
+          "TUT-REVIEW-RESULT-007：真实资源入账后应高亮并留1至2秒结果反馈",
+          "TUT-REVIEW-NAV-008：从正常关间页面引导点击原生入口，不自动打开子页面"
+        ],
+        "evidence": "../../reports/qa/tutorial-feedback-1.1-20261106.json",
+        "gameChanged": true,
+        "priorCandidateValidation": "原050f471270e7本地候选工程验证保留；不代表此次用户体验审阅通过。",
+        "humanAcceptance": false
+      },
+      "auditIds": [],
+      "resolvedFindings": [
+        {
+          "id": "TUT-UI-HUD-001",
+          "owner": "TUT-01",
+          "status": "已完成",
+          "result": "邀请空覆盖层触发旧CSS隐藏小地图；保留正常HUD，原布局几何/框体样式对照通过。"
+        },
+        {
+          "id": "TUT-RENDER-001",
+          "owner": "TUT-06",
+          "status": "已完成",
+          "result": "菜单暂停未就绪战场特效提交；真实战斗仍检查资源完整。"
+        },
+        {
+          "id": "TUT-UI-COMMS-004",
+          "owner": "TUT-01",
+          "status": "已完成",
+          "result": "自动收起策略作废；实际头像/姓名/指令可见、原矿气和当前操作零遮挡断言通过。"
+        },
+        {
+          "id": "TUT-REVIEW-PACING-006",
+          "owner": "TUT-06",
+          "status": "已完成",
+          "result": "三族正常时钟重录；新指令约5秒、发展8秒、导航3.5秒。",
+          "evidence": "../../reports/qa/tutorial-feedback-1.1-20261106.json"
+        },
+        {
+          "id": "TUT-REVIEW-RESULT-007",
+          "owner": "TUT-02",
+          "status": "已完成",
+          "result": "13处真实结果反馈；资源和装备拾取后约2秒再关间，恢复/跳过不重复结算。",
+          "evidence": "../../reports/qa/tutorial-feedback-1.1-20261106.json"
+        },
+        {
+          "id": "TUT-REVIEW-NAV-008",
+          "owner": "TUT-04",
+          "status": "已完成",
+          "result": "玩家从正常关间经原设施、休整、背包和旗舰仓库入口导航。",
+          "evidence": "../../reports/qa/tutorial-feedback-1.1-20261106.json"
+        },
+        {
+          "id": "TUT-UI-HIT-009",
+          "owner": "TUT-04",
+          "status": "已完成",
+          "result": "横屏休整入口被通讯遮挡已复现；仅教学层开局部透明窗口，原控件几何及正常点击通过。",
+          "evidence": "../../reports/qa/tutorial-feedback-1.1-20261106.json"
+        },
+        {
+          "id": "TUT-INPUT-010",
+          "owner": "TUT-02",
+          "status": "已完成",
+          "result": "移镜交还导致触屏目标漏点已复现；按压捕获修复，最终版聚焦中触屏点按到下一步通过。",
+          "evidence": "../../reports/qa/tutorial-feedback-1.1-20261106.json"
+        },
+        {
+          "id": "TUT-REVIEW-HOLD-011",
+          "owner": "TUT-02",
+          "result": "操作后短反馈0.5秒，操作前阅读不锁时长。",
+          "status": "已完成",
+          "evidence": "../../reports/qa/tutorial-polish-1.1-20261109.json"
+        },
+        {
+          "id": "TUT-REVIEW-COPY-012",
+          "owner": "TUT-05",
+          "result": "删除掉落数量/品质预告，固定真实奖励保持。",
+          "status": "已完成",
+          "evidence": "../../reports/qa/tutorial-polish-1.1-20261109.json"
+        },
+        {
+          "id": "TUT-VOICE-013",
+          "owner": "TUT-06",
+          "result": "用户批准试听路线，82条离线中文指令接入，三族含音录屏。",
+          "status": "已完成",
+          "evidence": "../../reports/qa/tutorial-polish-1.1-20261109.json"
+        }
+      ],
+      "presentationRevisions": [
+        {
+          "id": "TUT-UI-POS-002",
+          "owner": "TUT-01",
+          "status": "暂缓",
+          "implementation": "已完成并通过三端浏览器验证；待用户审阅",
+          "result": "该版工程检查通过，但56px顶距和下移策略被用户红框否定，已由TUT-UI-CORNER-003替代。",
+          "evidence": "../../reports/qa/tutorial-1.1-20261105.json"
+        },
+        {
+          "id": "TUT-UI-CORNER-003",
+          "owner": "TUT-01",
+          "status": "暂缓",
+          "implementation": "已完成并通过三端浏览器验证；待用户审阅",
+          "result": "贴顶与两行部分保留；自动收起导致指令/头像缺失、遮挡矿气，被用户指出后由TUT-UI-COMMS-004替代。",
+          "evidence": "../../reports/qa/tutorial-1.1-20261105.json"
+        },
+        {
+          "id": "TUT-UI-COMMS-004",
+          "owner": "TUT-01",
+          "status": "暂缓",
+          "implementation": "已完成并通过三端浏览器验证；待用户审阅",
+          "result": "用户明确要求撤销该版左移/横条，允许盖住矿气。",
+          "evidence": "../../reports/qa/tutorial-1.1-20261105.json"
+        },
+        {
+          "id": "TUT-UI-RESTORE-005",
+          "owner": "TUT-01",
+          "status": "已完成",
+          "result": "按明确指令恢复固定右上面板；单族真实页面三尺寸核对通过。",
+          "evidence": "../../reports/qa/tutorial-1.1-20261105.json"
+        }
+      ],
+      "designRevision": {
+        "id": "TUT-GUIDED-002",
+        "status": "已完成",
+        "implemented": true,
+        "document": "V1_1_GUIDED_TUTORIAL_DESIGN_20261105.md",
+        "arithmetic": "已通过当前报价/预算核对",
+        "naturalCombat": "三族各一次正常速度高亮点击全程录制，无额外伤害、保命或时间加速；正常难度seed17，模拟手机与物理设备分列。",
+        "skipRule": "当前关立即恢复全部普通规则；不等下一关，不重开，不回收已得财产/已付订单，账户永久跳过",
+        "userApproved": "2026-11-05：好的，你做完后，按现在这样，做三个的录屏。"
+      },
+      "delivery": {
+        "version": "1.1.0-local.4",
+        "appBuildId": "0d150284919fdc47f8e5d6845c52bf654697d8ce252fae95c1f0b2c6b1d01ab8",
+        "candidate": "dist/tutorial-1.1-polish-20261109/candidate",
+        "review": "http://127.0.0.1:18913/review/index.html?v=0d150284919f",
+        "recordings": [
+          "reports/local/tutorial-polish-20261109/review/recordings/terran.mp4",
+          "reports/local/tutorial-polish-20261109/review/recordings/zerg.mp4",
+          "reports/local/tutorial-polish-20261109/review/recordings/protoss.mp4"
+        ],
+        "physicalPhone": false,
+        "humanAcceptance": false,
+        "voiceGap": [],
+        "committed": false,
+        "pushed": false,
+        "merged": false,
+        "published": false
+      },
+      "previousEvidence": [
+        "V1_1_TUTORIAL_IMPLEMENTATION_20261105.md",
+        "V1_1_GUIDED_TUTORIAL_DESIGN_20261105.md",
+        "../../reports/qa/tutorial-guided-1.1-20261105.json",
+        "V1_1_SHORT_TUTORIAL_DESIGN_20261105.md"
+      ],
+      "previousDeliveries": [
+        {
+          "version": "1.1.0-local.1",
+          "appBuildId": "e58f638a8604c7baed4c9c75ef95cee42c8b84a855d434ad18de342220bd1411",
+          "candidate": "dist/tutorial-1.1-guided-20261105/candidate",
+          "review": "http://127.0.0.1:18912/review/index.html",
+          "recordings": [
+            "reports/local/tutorial-20261105/review/recordings/terran.mp4",
+            "reports/local/tutorial-20261105/review/recordings/zerg.mp4",
+            "reports/local/tutorial-20261105/review/recordings/protoss.mp4"
+          ],
+          "physicalPhone": false,
+          "humanAcceptance": false,
+          "voiceGap": [
+            "Adjutant新中文逐句录音",
+            "Executor新中文逐句录音"
+          ],
+          "committed": false,
+          "published": false
+        },
+        {
+          "version": "1.1.0-local.3",
+          "appBuildId": "d99d7626b48f4e33835dd80433620ce50c4c177d8fbdc4f5b7f8d15f6a542038",
+          "candidate": "dist/tutorial-1.1-feedback-20261106/candidate",
+          "review": "http://127.0.0.1:18913/review/index.html?v=d99d7626b48f",
+          "recordings": [
+            "reports/local/tutorial-feedback-20261106/review/recordings/terran.mp4",
+            "reports/local/tutorial-feedback-20261106/review/recordings/zerg.mp4",
+            "reports/local/tutorial-feedback-20261106/review/recordings/protoss.mp4"
+          ],
+          "physicalPhone": false,
+          "humanAcceptance": false,
+          "voiceGap": [
+            "Adjutant新中文逐句录音",
+            "Executor新中文逐句录音"
+          ],
+          "committed": false,
+          "pushed": false,
+          "merged": false,
+          "published": false
+        }
+      ]
+    },
+    {
+      "id": "AUTO-1.2",
+      "title": "1.2 自动战斗落地方案与实现",
+      "status": "已完成",
+      "phase": "整合",
+      "priority": "用户授权实现",
+      "depends": [
+        "PLAN-1X"
+      ],
+      "scenes": [],
+      "owner": "Codex 自动战斗实现",
+      "updated": "2026-11-09",
+      "historical": false,
+      "problem": "在既有移动、模式和技能命令约束下，按远近战职责、可达攻击位置与有效火力分配自动战斗。坦克架炮持续有效，须手动收炮后移动；普通近战首批不额外加速。已按用户授权完成本地实现；性能、真机/用户验收与发布分别记录。",
+      "steps": [
+        "A：命令约束、合法候选、职责与攻击位置分流",
+        "B：只读逐次伤害估算、真实在途收据与足量火力分配",
+        "C：现有自动技能、非坦克自动模式候选、召唤归属与当前兵种覆盖",
+        "合流后验证三族教学、检查点及同版有限性能对照"
+      ],
+      "acceptance": [
+        "已交付可追溯的三批方案、接口、并行边界与AC-01至AC-12验收设计",
+        "游戏实施后须通过玩家命令、职责/位置/火力、技能/模式/召唤和恢复的对应验证",
+        "完成最终同版测试与1.1集成验证前，不把方案完成记作1.2实现完成"
+      ],
+      "evidence": [
+        "V1_2_AUTO_COMBAT_IMPLEMENTATION_20261106.md",
+        "../../reports/qa/auto-combat-implementation-20261106.json",
+        "V1_2_AUTO_COMBAT_PLAN_20261106.md",
+        "../../reports/qa/auto-combat-plan-20261106.json",
+        "V1_2_AUTO_COMBAT_RESEARCH_20261105.md",
+        "../../reports/qa/auto-combat-research-20261105.json",
+        "V1X_ROADMAP_20261104.md",
+        "V12_BRANCH_INTEGRATION_20261109.md"
+      ],
+      "result": "A/B/C本地实现和候选1.2.0-local.1／0029cb551652完成；3075完整回归、最终30技能定向、类型/数据、三族教学与真实IndexedDB/正常时钟渲染通过。密集模拟p95增加约3%–4%，无尽第4轮仍增加约26%–34%，不代表FPS或真机达标。未提交、推送、部署或发布。 11 月 9 日已随 V12-MERGE-01 合入两个 GitHub 分支。",
+      "next": "试玩核对命令/火力/模式体验，跟进AUTO-1.2-PERF-01无尽额外CPU开销；真机与发布另行处理。",
+      "auditIds": [
+        "AUTO-1.2-PERF-01",
+        "AUTO-1.2-CONTACT-01"
+      ],
+      "implementationStarted": true,
+      "planning": {
+        "status": "已完成",
+        "authorized": "2026-11-06 用户要求设计1.2落地方案，并允许与1.1同步推进",
+        "scope": "设计与源码核对；未启动游戏实施、构建或发布",
+        "decisions": [
+          "坦克架炮持续有效，手动收炮后才移动",
+          "普通近战首批保持现有速度",
+          "玩家移动/模式/技能均优先于自动判断"
+        ],
+        "parallelWith": "TUT-1.1",
+        "integrationConstraints": [
+          "world.ts接入串行",
+          "保存校验接入串行",
+          "重型测量串行",
+          "合流复验1.1三族教学"
+        ]
+      },
+      "implementationAuthorization": "2026-11-06：请根据1.2落地方案，完成1.2的落地。",
+      "implementationComplete": true,
+      "humanAccepted": false
+    },
+    {
+      "phase": "验收",
+      "priority": "用户指定，已本地验证",
+      "depends": [],
+      "scenes": [],
+      "owner": "Codex 主线程",
+      "updated": "2026-11-09",
+      "historical": false,
+      "evidence": [
+        "PLAYER_FEEDBACK_20261105.md",
+        "ENDLESS_UPDATE_PLAN_20261106.md",
+        "../../reports/qa/endless-update-plan-20261106.json",
+        "ENDLESS_UPDATE_20261106.md",
+        "../../reports/qa/endless-update-20261106.json",
+        "V12_BRANCH_INTEGRATION_20261109.md"
+      ],
+      "auditIds": [],
+      "targetVersion": "本地候选10aa0650770b；规则mvp-1.0 / 存档26",
+      "implementationStarted": true,
+      "id": "FB-20261105-01",
+      "title": "无尽分段轮次时长与敌军递增",
+      "status": "已完成",
+      "problem": "无尽每组三轮分别60/90/120/180秒，13轮起每组每轮再加60秒；属性按轮次平滑成长，每组三轮增加主波和Boss/精英出场压力。",
+      "steps": [
+        "按已确认时长与轮次成长制定完整排程、经济、旧档和具体UI方案",
+        "确认候选提速幅度、经济同比和旧档/UI衔接后实施；统一成长进度与实际时钟的各消费方",
+        "验证分组/分钟/经济周期边界、重试积压、一次结算、恢复和既有界面"
+      ],
+      "acceptance": [
+        "实际轮长符合完整60/90/120/180/+60秒分组规则",
+        "属性每轮累计一档且轮内/跨轮连续，暂停/整备不增长，已出生及积压敌人的冻结属性不追改",
+        "主波和精英/Boss频率、经济与旧档切换按最终批准方案实现，保存恢复不重复刷新或结算"
+      ],
+      "result": "按批准方案完成分组轮长、轮次成长、15%提速、基础经济同比和旧档下一轮切换。3057完整回归、最后42定向、三端正式HUD/真实IndexedDB恢复、类型/文档与正式Web入口通过。高轮次一次性展开内存问题已修为128波窗口，保留完整排程/预算/RNG；原高轮次生命周期测试通过。候选10aa0650770b，未提交推送部署。 11 月 9 日已随 V12-MERGE-01 合入两个 GitHub 分支。",
+      "next": "用户体验复核长轮次节奏及物理手机；发布按后续明确授权。",
+      "planning": {
+        "status": "已批准",
+        "approved": {
+          "duration": "每组三轮；60/90/120/180秒，之后每组每轮+60秒",
+          "growth": "x=round-1+elapsedInRound/duration；每轮累计一档，轮内连续增长；沿用1.22、分段1.10/1.16及攻速上限",
+          "frequency": "F=1+0.15*(ceil(round/3)-1)；主波15/F、精英30/F、Boss90/F秒；简单精英间隔仍×2",
+          "economy": "普通波预算和基础过轮矿气按duration/60缩放，单次触发固定奖励不重复",
+          "legacy": "旧当前轮保持原已承诺排程/结算，下一轮切换",
+          "ui": "只更新原无尽整备时长/详情和实际倒计时/敌军轮次"
+        },
+        "evidence": "ENDLESS_UPDATE_PLAN_20261106.md",
+        "approvedDate": "2026-11-06"
+      },
+      "resolvedFindings": [
+        {
+          "id": "FB-20261105-01-MEM-001",
+          "owner": "FB-20261105-01",
+          "observed": "Initial full regression exhausted a 2 GiB Node heap when old high-identity lifecycle test migrated round 4097 and eagerly expanded a million-wave round.",
+          "fix": "128-wave generation window; analytical quantity sums and body counts; whole-round mineral/gas weights; local LCG jump; saved cursor and previous-wave lookup. No scheduled waves or pending admissions deleted.",
+          "verified": true
+        },
+        {
+          "id": "FB-20261105-01-BUILD-001",
+          "observed": "Initial build finished staging but rename failed because the independent parent directory was absent.",
+          "fix": "Verified both absolute paths inside workspace dist, created parent and finalized staging; final build reran successfully into the explicit output directory.",
+          "verified": true
+        }
+      ],
+      "delivery": {
+        "appBuildId": "10aa0650770b133097c15c2412054066d9c2f7dc38bb4cc40a3248ac0e7c04b8",
+        "candidate": "dist/endless-update-20261106/web",
+        "committed": false,
+        "pushed": false,
+        "deployed": false,
+        "humanAccepted": false
+      }
+    },
+    {
+      "phase": "修复",
+      "priority": "P1 已复现购买异常",
+      "depends": [],
+      "scenes": [],
+      "owner": "Codex 主线程",
+      "updated": "2026-11-09",
+      "historical": false,
+      "evidence": [
+        "PLAYER_FEEDBACK_20261105.md",
+        "PLAYER_FEEDBACK_REPRO_20261105.md",
+        "../../reports/qa/player-feedback-repro-20261105.json",
+        "PLAYER_FEEDBACK_FIX_20261106.md",
+        "../../reports/qa/player-feedback-fixes-20261106.json",
+        "V12_BRANCH_INTEGRATION_20261109.md"
+      ],
+      "auditIds": [],
+      "targetVersion": "待定",
+      "implementationStarted": true,
+      "id": "FB-20261105-02",
+      "title": "孤星死神获得后仍可购买精英死神用于提升",
+      "status": "已完成",
+      "problem": "获得孤星死神后，关间仍应能购买精英死神；购买只提升已有孤星死神能力，不新增独立精英死神身体。",
+      "steps": [
+        "结合10月29日既有重复吸收实现，复核当前候选池、购买资格、报价及购买/吸收回执",
+        "定位用户反馈路径后按已有成长规则处理，并核验单次扣费、成长及保存恢复"
+      ],
+      "acceptance": [
+        "已有孤星时精英死神仍能进入合法关间候选并购买",
+        "购买只提升同一孤星，不新增身体；重复事件和读档不重复扣费或成长"
+      ],
+      "result": "已本地修复目标军衔/吸收顺序，紫/橙购买、一次扣费/成长、替换取消、重复点击及真实IndexedDB恢复通过。14新增/3027回归含权限复验、63最终相关、31浏览器及类型/数据通过；未提交推送部署。 11 月 9 日已随 V12-MERGE-01 合入两个 GitHub 分支。",
+      "next": "原玩家与物理手机更新后对照。",
+      "reproduction": {
+        "status": "已完成",
+        "date": "2026-11-05",
+        "confirmed": true,
+        "scope": "本地合成状态与独立装备UI；未修复",
+        "evidence": "PLAYER_FEEDBACK_REPRO_20261105.md"
+      }
+    },
+    {
+      "phase": "修复",
+      "priority": "P2 已复现规则冲突",
+      "depends": [],
+      "scenes": [],
+      "owner": "Codex 主线程",
+      "updated": "2026-11-09",
+      "historical": false,
+      "evidence": [
+        "PLAYER_FEEDBACK_20261105.md",
+        "PLAYER_FEEDBACK_REPRO_20261105.md",
+        "../../reports/qa/player-feedback-repro-20261105.json",
+        "PLAYER_FEEDBACK_FIX_20261106.md",
+        "../../reports/qa/player-feedback-fixes-20261106.json",
+        "V12_BRANCH_INTEGRATION_20261109.md"
+      ],
+      "auditIds": [],
+      "targetVersion": "待定",
+      "implementationStarted": true,
+      "id": "FB-20261105-03",
+      "title": "一键装备已有装备时仍可合法替换且不应卡死",
+      "status": "已完成",
+      "problem": "一键装备不能仅因身上已有装备而卡死或阻止合法换装；用户允许提醒可能替换掉现有装备效果。",
+      "steps": [
+        "复核关间与局外现有一键入口，区分候选为空、保护规则阻挡和实际卡死；具体故障入口及配装待核对",
+        "按最新要求处理合法替换及必要提醒，保留独立装备资格和玩家主动锁定约束",
+        "核验已有装备、效果变化、无合法候选、重复点击和保存恢复"
+      ],
+      "acceptance": [
+        "有合法换装候选时，已有装备不使操作卡住或整体失效",
+        "效果替换的反馈清楚且可继续操作；提醒不擅自扩展为新的强制弹窗",
+        "装备不丢失或复制，原主动锁定与其他独立资格限制得到正确处理"
+      ],
+      "result": "已本地允许高品质合法散件替换旧功能装备，独立保护/同品质保持；原短提示说明效果变化。三尺寸31组含仓库、混合槽及真实恢复通过，3027回归含权限复验通过；未提交推送部署。 11 月 9 日已随 V12-MERGE-01 合入两个 GitHub 分支。",
+      "next": "原玩家与物理手机更新后对照。",
+      "reproduction": {
+        "status": "已完成",
+        "date": "2026-11-05",
+        "confirmed": true,
+        "scope": "本地合成状态与独立装备UI；未修复",
+        "evidence": "PLAYER_FEEDBACK_REPRO_20261105.md"
+      }
+    },
+    {
+      "id": "SAFARI-20261106",
+      "title": "iOS 长局持续游玩与 Safari 内存研究",
+      "status": "已完成",
+      "phase": "决策",
+      "priority": "用户要求核实与全网调研",
+      "depends": [],
+      "scenes": [],
+      "owner": "Codex Safari 研究",
+      "updated": "2026-11-09",
+      "historical": false,
+      "problem": "保障 iOS 连续跨关与无尽游玩，并让中断后的玩家继续同一局。首关续局属于其中一个资源加载样本。",
+      "steps": [
+        "检索Apple/WebKit、WebGL与Three.js原始资料",
+        "核对项目已有优化、运行路径与剩余缺口",
+        "区分证实结论、历史证据、风险和待验证建议",
+        "记录可执行方案与原机验证门槛"
+      ],
+      "acceptance": [
+        "每项外部说法有来源、日期与适用边界",
+        "优化建议对应当前源码，避免重复建设或擅自改变画质/玩法",
+        "保留简要报告与看板记录，未执行验证不冒称通过"
+      ],
+      "evidence": [
+        "SAFARI_MEMORY_RESEARCH_20261106.md",
+        "../../reports/qa/safari-memory-research-20261106.json",
+        "../../reports/qa/safari-restore-windows-20261109.json",
+        "../../reports/qa/stage-departure-windows-20261109.json",
+        "../../tools/probe-seeded-tickets.mjs"
+      ],
+      "implementationStarted": false,
+      "next": "将开局计划中的下次使用距离与运行时使用者一起用于准备/回收；优先核对特殊地图视图、共享包、迟到任务及换关耗时。",
+      "auditIds": [],
+      "result": "完成截图说法与Apple/WebKit、WebGL、Three.js、PlayCanvas及Web Audio原始资料核实。未支持iPhone17Pro固定1.5GB规格；找到原始2048MB日志及Apple工程师回应并限定适用范围。核对已有43张KTX2、受限PCM32MiB、闲置回收与动态分辨率；非压缩音效入口会尝试1895个唯一音频URL。形成SFR-01至07峰值/回收/音频/压缩/恢复建议。956份源码、测试、依赖文件内容SHA一致，静态导入核对与docs:check通过；未改游戏、测真机、构建或发布。原V06-SAFARI-001仍未归因/待验证。 11月9日同版Windows实测，首战与刷新续局均成功。续局动画图集14.1→25.3 MiB，WebGL缓冲34.1→50.1 MiB，Blob采样峰值81.2→108.2 MiB，两次就绪PCM均31.6 MiB。独立依赖夹具确认读档多请求13个模型键。 完成 iOS 长局方案研究，核对 Filament、Slow Roads、Endurance Racing 一手案例和平台资料。建议战中复用、关间回收与分批预热，复用现有暂停、图形恢复与关间存档，另评估长轮内快照，受控重载作条件后备。第16、31、61轮分别为5、10、20分钟。Windows一小时持续游玩列为后续验收设计。 1.2压缩版一次人族第1→2关的普通出发点击至随后战斗帧4.97秒，其中可选预热窗口4.49秒、30个任务。关间资源方案已修订为提前分批准备、保留跨关热资源，换关延迟与开战头10秒长帧共同验收。 用户确定把开局按种子预排本局任务、趣味关、精英英雄与苹果优化一起设计。已核对自然事件、特殊门票、首领奖励、货架与准备入口，明确战役小表、无尽按轮推导、显式玩家分支、保存及同步资源依赖。实际门票夹具四个种子各加23次战斗抽数，旧共享表4/4改变，隔离内容源4/4保持一致。此次为方案和定向试验。 核对趣味道具、特殊地图及跨场景存活单位的所有权。传送门独占几何/材质已释放，共享道具包保留，特殊地图按类型缓存。标出叠峰、持有累加、迟到加载与过早卸载风险。4项现有道具生命周期测试及docs:check通过。",
+      "relatedIssue": "V06-SAFARI-001"
+    },
+    {
+      "id": "IOS-CONTENT-01",
+      "title": "iOS 种子内容准备、资源回收与长局验证",
+      "status": "已完成",
+      "phase": "整合",
+      "priority": "用户授权实施",
+      "depends": [
+        "SAFARI-20261106"
+      ],
+      "scenes": [],
+      "owner": "Codex",
+      "updated": "2026-11-09",
+      "historical": false,
+      "problem": "减少本局用不到的内容加载与跨关驻留，监控实际开销并验证 Windows 长局和换关等待。",
+      "steps": [
+        "确定内容与恢复兼容",
+        "分关加载和退出回收",
+        "内存预算和长局对照"
+      ],
+      "acceptance": [
+        "实际玩法与资源清单同源",
+        "恢复及关键收益回归",
+        "Windows长局驻留和换关报告"
+      ],
+      "evidence": [
+        "IOS_SEEDED_CONTENT_20261109.md",
+        "../../tools/measure-stage-departure-windows.mjs",
+        "../../tools/measure-seeded-campaign-windows.mjs",
+        "../../test/seeded-run-content.test.ts",
+        "../../reports/qa/ios-seeded-content-20261109.json",
+        "../../tools/measure-safari-restore-windows.mjs",
+        "V12_BRANCH_INTEGRATION_20261109.md"
+      ],
+      "result": "本地候选 24182fb2a0a8 已接入种子内容清单、分关准备、按使用者回收及页内内存预算。3085 回归、类型与数据检查通过。Windows 同档首关出发随后一帧 3.140→0.394 秒，首发均为模拟 4.25 秒；从菜单开始、刷新及 IndexedDB 继续均通过。连续 15 关 1245.3 模拟秒，14 次换关中位 2.059 秒，最慢 6.189 秒。游戏估算 331→453 MiB，Chrome 专用字节 2.79→4.54 GiB；同状态三次资源估算 452.6 MiB，WebGL 缓冲 55.2 MiB。 11 月 9 日已随 V12-MERGE-01 合入两个 GitHub 分支。",
+      "next": "原 iPhone 与 V06-SAFARI-001 仍待实机复验，后期驻留与首领关换关耗时继续跟踪。",
+      "auditIds": []
+    },
+    {
+      "id": "V12-MERGE-01",
+      "title": "1.1、1.2 及共同优化双分支核验与合流",
+      "status": "已完成",
+      "phase": "整合",
+      "priority": "用户授权合流",
+      "depends": [
+        "IOS-CONTENT-01"
+      ],
+      "scenes": [],
+      "owner": "Codex",
+      "updated": "2026-11-09",
+      "historical": false,
+      "problem": "验证教程、自动战斗、无尽、玩家反馈与分关资源交互，合入原画质 main 与体积优化版。",
+      "steps": [
+        "核对来源和分支差异",
+        "锁定并验证实际入库内容与交付",
+        "合入两分支并查验远端"
+      ],
+      "acceptance": [
+        "原画质与压缩入口可从提交内容恢复、构建并游玩",
+        "存档、教程、战斗及资源关键路径通过",
+        "两分支提交和远端一致"
+      ],
+      "evidence": [
+        "V12_BRANCH_INTEGRATION_20261109.md",
+        "../../reports/qa/v12-branch-integration-20261109.json"
+      ],
+      "result": "1.1、1.2、无尽、玩家反馈与 iOS 优化已合入 GitHub main 3ec083a 和体积优化版 a2356a4。两个分支各 3087 项回归及 Actions 通过，原画质首战、教学语音、压缩入口与旧档换关通过。",
+      "next": "原 iPhone 长局继续按 V06 实机复测，线上部署另按授权处理。",
+      "auditIds": []
     }
   ],
   "auditRows": [
@@ -9290,6 +9966,441 @@
       "evidence": [
         "V04_DELIVERY_20261027.md",
         "../../reports/qa/v04-packaging-20261027.json"
+      ]
+    },
+    {
+      "date": "2026-10-30",
+      "tasks": [
+        "PLAN-1X"
+      ],
+      "change": "用户要求完整调研并给出1.1起连续版本的具体任务计划；开始核对最新实现与可融合玩法，保留V05/V06现状，不启动功能开发。",
+      "evidence": []
+    },
+    {
+      "date": "2026-10-30",
+      "tasks": [
+        "PLAN-1X"
+      ],
+      "change": "完成1.1至1.12十二版提案、84项编号任务、九构筑与九条传奇链；附常规20身份/19家族及战役合作目录、来源、依赖和验收。当前30家族/18英雄/90精英/210装备已核对。仅调研和规划，尚未批准实施；源代码与测试未改，未提交推送部署。",
+      "evidence": [
+        "V1X_RESEARCH_ROADMAP_20261030.md",
+        "V1X_ROSTER_AND_SOURCES_20261030.md",
+        "../../reports/qa/v1x-research-roadmap-20261030.json"
+      ]
+    },
+    {
+      "date": "2026-11-04",
+      "tasks": [
+        "PLAN-1X"
+      ],
+      "change": "按用户反馈修订版本规划。1.1教学、1.2关间三张同流派增益牌解锁核心选择权并提高该流派后续出牌概率。构筑留给共同设计，精英同兵种增益与V以后晋升单列讨论。",
+      "evidence": [
+        "V1X_RESEARCH_ROADMAP_20261030.md"
+      ]
+    },
+    {
+      "date": "2026-11-04",
+      "tasks": [
+        "PLAN-1X"
+      ],
+      "change": "规划修订完成，1.1 至 1.13 共 71 项任务。1.1 教学、1.2 关间选三张同一流派增益牌获一次核心技能选择权并提高该流派后续出牌概率，原 1.1 的七项自动战斗工作移至 1.3。保留三族各三条的共同设计空间，精英同兵种加成是候选，V 以后晋升待议。六个可游玩设计样例、19 个新家族及 38 个内容包已核对，docs:check 通过。本次交付为设计文档。",
+      "evidence": [
+        "V1X_ROADMAP_20261104.md",
+        "V1X_ROSTER_20261104.md",
+        "../../reports/qa/v1x-roadmap-revision-20261104.json"
+      ]
+    },
+    {
+      "date": "2026-11-04",
+      "tasks": [
+        "PLAN-1X"
+      ],
+      "change": "用户明确排期为 1.1 教学、1.2 自动战斗、1.3 共同定好构筑方向、1.4 起依次接入人族虫族神族。正在校正现行版本及依赖。",
+      "evidence": [
+        "V1X_ROADMAP_20261104.md"
+      ]
+    },
+    {
+      "date": "2026-11-04",
+      "tasks": [
+        "PLAN-1X"
+      ],
+      "change": "版本规划已按用户确认的顺序修订。1.1 教学、1.2 自动战斗、1.3 与用户共同定好三族九条构筑方向和三卡规则，1.4 人族、1.5 虫族、1.6 神族依次落实兵种、增益牌及核心技能。1.7 结合实际内容调整卡池和装备。13 个版本、71 项任务归属与依赖、兵种目录及文档链接核验通过，docs:check 通过。",
+      "evidence": [
+        "V1X_ROADMAP_20261104.md",
+        "V1X_ROSTER_20261104.md",
+        "../../reports/qa/v1x-roadmap-revision-20261104.json"
+      ]
+    },
+    {
+      "date": "2026-11-04",
+      "tasks": [
+        "PLAN-1X"
+      ],
+      "change": "按用户决定将 1.1 调整为无存档玩家首次入关的战役式指挥官教学。正在核对三族人选、任一步永久跳过、首个精英 2 至 3 件装备与关间及舰装流程。",
+      "evidence": [
+        "V1X_ROADMAP_20261104.md"
+      ]
+    },
+    {
+      "date": "2026-11-04",
+      "tasks": [
+        "PLAN-1X"
+      ],
+      "change": "1.1 首局教学设计已按用户最终决定补齐。无档新玩家进入第一关时自选接受或跳过，任一步跳过后不再出现。顾问为人族副官、虫族虫后、神族执行官，已核原版定义。教学覆盖移动、击杀敌方工蜂与采集矿气、保护空投、关间运营。奖励触发已澄清为第三关原有战役首领，其教学掉装合计 2–3 件，引导拾取、关间装散件、撤离及旗舰装模块。已核简单与普通前三关排程、装备目录、27 处本地链接和 docs:check。本次交付为规划，保留 1.2 自动战斗、1.3 共定构筑的顺序。",
+      "evidence": [
+        "V1_1_FIRST_RUN_TUTORIAL_20261104.md",
+        "V1X_ROADMAP_20261104.md",
+        "../../reports/qa/v1x-roadmap-revision-20261104.json"
+      ]
+    },
+    {
+      "date": "2026-11-04",
+      "tasks": [
+        "PLAN-1X"
+      ],
+      "change": "1.1 补充十个镜头与三族逐句配音字幕台本，已提取并目视核对三位顾问原版静态头像，提供并排预览；台词待录制、镜头待实装。",
+      "evidence": [
+        "V1_1_FIRST_RUN_TUTORIAL_20261104.md",
+        "../../reports/qa/v1x-roadmap-revision-20261104.json"
+      ]
+    },
+    {
+      "date": "2026-11-04",
+      "tasks": [
+        "PLAN-1X"
+      ],
+      "change": "按用户决定修订虫后教学声音。",
+      "evidence": [
+        "V1_1_FIRST_RUN_TUTORIAL_20261104.md"
+      ]
+    },
+    {
+      "date": "2026-11-04",
+      "tasks": [
+        "PLAN-1X"
+      ],
+      "change": "1.1 虫后教学统一使用腺体震动声与中文字幕，已同步十段分镜及首件装备插话。人族副官和神族执行官使用逐句对白。",
+      "evidence": [
+        "V1_1_FIRST_RUN_TUTORIAL_20261104.md",
+        "../../reports/qa/v1x-roadmap-revision-20261104.json"
+      ]
+    },
+    {
+      "date": "2026-11-05",
+      "tasks": [
+        "AUTO-1.2"
+      ],
+      "change": "用户要求先调研如何实现，不直接开始。登记待讨论方案，核对现有逻辑与可复用测试；保留V05、TUT-1.1当前状态，本轮不改游戏代码。",
+      "evidence": [
+        "V1X_ROADMAP_20261104.md"
+      ]
+    },
+    {
+      "date": "2026-11-05",
+      "tasks": [
+        "AUTO-1.2"
+      ],
+      "change": "只读实现调研收尾，方案保持待讨论。77项现有逻辑回归与docs:check通过，937份src/test/依赖输入SHA前后一致。明确复用与变更位置、伤害预测副作用风险、近战位置和火力联合分配、有限验收场景；1.2尚未实现或验收。",
+      "evidence": [
+        "V1_2_AUTO_COMBAT_RESEARCH_20261105.md",
+        "../../reports/qa/auto-combat-research-20261105.json",
+        "V1X_ROADMAP_20261104.md"
+      ]
+    },
+    {
+      "date": "2026-11-05",
+      "tasks": [
+        "TUT-1.1"
+      ],
+      "change": "1.1.0-local.1 本地候选 c4b530d0e898 已交付。三族各一次从空档入关至同件模块旗舰安装通过（有限辅助），2997项完整回归、100项分组定向、typecheck、docs:check通过。独立浮动教学不占布局；正式入口与1.0小地图/HUD几何和框体CSS一致，邀请隐藏小地图及神族菜单渲染生命周期问题已修复。新增三头像133554字节，旧3847资源ID保持、旧热包重传0。人神逐句配音缺来源，物理手机和用户试玩审阅未完成。未提交推送合并部署。",
+      "evidence": [
+        "V1_1_TUTORIAL_IMPLEMENTATION_20261105.md",
+        "../../reports/qa/tutorial-1.1-20261105.json"
+      ]
+    },
+    {
+      "date": "2026-11-05",
+      "tasks": [
+        "AUTO-1.2"
+      ],
+      "change": "用户新增远程先毒爆再杀伤中的近战、近战先高威胁远程再近战最后毒爆。完成官方指南/补丁与Clem原始采访核对，补充分工集火、威胁时限、可达性和未覆盖范围；方案待讨论，游戏实现未开始。",
+      "evidence": [
+        "V1_2_AUTO_COMBAT_RESEARCH_20261105.md"
+      ]
+    },
+    {
+      "date": "2026-11-05",
+      "tasks": [
+        "TUT-1.1"
+      ],
+      "change": "右上位置与手机缩小呈现修订 e4cf0b992c77 已更新本地候选和原审阅页。取消随世界目标跨画面择位，贴右侧上方并避开当前控件；手机横屏260px/竖屏244px，同一关间覆盖面积缩小约25%/38%，点击高度44px。27项相关回归、类型/文档检查、三族受控全流程、跳过恢复、小地图/原HUD几何和旧热包不重传复验通过。生产源码仅tutorial.ts/css相对前候选改变；2997项完整回归沿用c4b530d0e898，不声称本轮重跑全量。人神配音来源、物理手机及用户审阅仍开放；未提交推送发布。",
+      "evidence": [
+        "V1_1_TUTORIAL_IMPLEMENTATION_20261105.md",
+        "../../reports/qa/tutorial-1.1-20261105.json"
+      ]
+    },
+    {
+      "date": "2026-11-05",
+      "tasks": [
+        "TUT-1.1"
+      ],
+      "change": "按用户红框和竖屏要求交付修订 cb1b9de5b3a6：顶距4px固定，撤除56px空隙及所有下移；桌面邀请410×93px整体在顶边104px范围内。竖屏12px正文占整行，34条完整台词均自然排成最多两行。三族受控完整流程、27项相关回归、类型/文档、原HUD几何及旧缓存复验通过。横屏设施按钮遮挡已修复：锚点不动，仅临时收起正文，保留姓名和跳过。完整2997回归沿用c4b530d0e898，取消/隐藏生命周期证据沿用e4cf0b992c77；所属构建明确记录。人神配音、物理手机及用户审阅仍开放。未提交推送发布。",
+      "evidence": [
+        "V1_1_TUTORIAL_IMPLEMENTATION_20261105.md",
+        "../../reports/qa/tutorial-1.1-20261105.json"
+      ]
+    },
+    {
+      "date": "2026-11-05",
+      "tasks": [
+        "TUT-1.1"
+      ],
+      "change": "修订8aa666c38b5c修复用户截图中的自动收起与矿气遮挡：头像、姓名、当前指令始终完整显示。关间固定留出原资源区域，横屏为300×38px完整横条；战场红框4px贴顶及竖屏12px/34条完整指令最多两行保持。三族受控完整流程、实际内容可见/原矿气与当前操作零遮挡、27相关回归、类型/文档、原HUD几何和旧缓存复验通过。只改教学UI，完整2997沿用c4b530d0e898、取消生命周期沿用e4cf0b992c77并明确版本。用户画面审阅、人神配音及物理手机仍开放。未提交推送发布。",
+      "evidence": [
+        "V1_1_TUTORIAL_IMPLEMENTATION_20261105.md",
+        "../../reports/qa/tutorial-1.1-20261105.json"
+      ]
+    },
+    {
+      "date": "2026-11-05",
+      "tasks": [
+        "TUT-1.1"
+      ],
+      "change": "按用户要求恢复固定右上完整教学面板：撤销关间左移/300×38横条，允许遮矿气，保留竖屏12px两行；156bfb53341a本地构建，单族真实关间页面三尺寸/模拟触屏媒体检查通过，不冒称新玩法完整E2E。已交付固定资源/掉落/选项及逐步点击设计，预算按当前原价预检通过，新输入门控、固定计划和生产单席许可未实装。旧2997完整回归和8aa三族辅助E2E是旧实现证据。新方案及参数待审阅；人神声音与物理手机仍开放。未提交推送发布。",
+      "evidence": [
+        "V1_1_GUIDED_TUTORIAL_DESIGN_20261105.md",
+        "../../reports/qa/tutorial-guided-design-20261105.json"
+      ]
+    },
+    {
+      "date": "2026-11-05",
+      "tasks": [
+        "TUT-1.1"
+      ],
+      "change": "按用户澄清补齐新设计：跳过当前关立即恢复正常输入、收入、掉落、生产、货架和关末推进；取消未兑现教学计划，已有财产/已付订单保留，不重刷世界或重复奖励。仍为设计，玩法未实装。",
+      "evidence": [
+        "V1_1_GUIDED_TUTORIAL_DESIGN_20261105.md"
+      ]
+    },
+    {
+      "date": "2026-11-05",
+      "tasks": [
+        "TUT-1.1"
+      ],
+      "change": "用户明确缩短为两段独立教程，撤销三关长流程作为当前交付目标，重开实施与验证；跳过回归普通游戏，原UI布局不变。",
+      "evidence": [
+        "V1_1_SHORT_TUTORIAL_DESIGN_20261105.md"
+      ]
+    },
+    {
+      "date": "2026-11-05",
+      "tasks": [
+        "FB-20261105-01",
+        "FB-20261105-02",
+        "FB-20261105-03"
+      ],
+      "change": "按用户要求记录三项：无尽每三轮分段时长及敌军递增、孤星死神获得后的精英购买成长、一键装备已有装备时仍可替换并避免卡死。前12轮时长已明确，后续递推参数待细化；两项操作问题未复现。仅登记，未修改游戏、构建或发布，版本及排期待定。",
+      "evidence": [
+        "PLAYER_FEEDBACK_20261105.md"
+      ]
+    },
+    {
+      "date": "2026-11-05",
+      "tasks": [
+        "TUT-1.1"
+      ],
+      "change": "用户指出独立训练场格子地面过于花哨。定位为八层地形图集误整张重复铺设，改用现有原版单一无缝土壤；原HUD/教学框位置不改。停止旧录屏，修正后重录。",
+      "evidence": [
+        "V1_1_SHORT_TUTORIAL_DESIGN_20261105.md"
+      ]
+    },
+    {
+      "date": "2026-11-05",
+      "tasks": [
+        "FB-20261105-02",
+        "FB-20261105-03"
+      ],
+      "change": "完成两项受控复现：橙色精英死神购买在吸收后报错，未付款成长可重复并进入快照；一键装备为已有套装/特殊装备保护与同品质策略禁用按钮，未复现程序死循环。8购买+8装备模拟、9Chrome界面、4既有定向回归通过。仅调查，修复待办。",
+      "evidence": [
+        "PLAYER_FEEDBACK_REPRO_20261105.md",
+        "../../reports/qa/player-feedback-repro-20261105.json"
+      ]
+    },
+    {
+      "date": "2026-11-05",
+      "tasks": [
+        "TUT-1.1"
+      ],
+      "change": "两段短版本地候选完成工程验证。3013回归/类型/文档、真实刷新与跳过转普通地图、原HUD几何、三族同版录屏、5141载荷及旧缓存复用通过。选择前取消新客战役预载，接受前样本20,592,279B、入场累计189,476,092B，旧暖包重复下载0；不冒称总字节优化。人神配音/物理手机/用户审阅仍开放，无提交或发布。",
+      "evidence": [
+        "V1_1_TUTORIAL_IMPLEMENTATION_20261105.md",
+        "../../reports/qa/tutorial-short-1.1-20261105.json"
+      ]
+    },
+    {
+      "date": "2026-11-06",
+      "tasks": [
+        "FB-20261105-02",
+        "FB-20261105-03"
+      ],
+      "change": "按用户要求完成两项本地修复：橙色精英报价军衔先于吸收生效，合法高品质散件可替换旧功能装备并复用效果变化短提示。14新增、3027唯一回归含本机权限复验、63最终相关、31组Chrome与真实IndexedDB恢复、类型/数据检查通过。未提交推送部署，未更新既有成品；无尽参数保持待讨论。",
+      "evidence": [
+        "PLAYER_FEEDBACK_FIX_20261106.md",
+        "../../reports/qa/player-feedback-fixes-20261106.json"
+      ]
+    },
+    {
+      "date": "2026-11-06",
+      "tasks": [
+        "FB-20261105-01"
+      ],
+      "change": "用户要求规划无尽，明确第13轮起每组三轮的每轮时长增加1分钟，并选择按轮次平滑成长。已完成源码/前30轮算式核对及提速、经济、旧档和具体UI候选；15%提速等建议待确认，未实施游戏或发布。",
+      "evidence": [
+        "ENDLESS_UPDATE_PLAN_20261106.md",
+        "../../reports/qa/endless-update-plan-20261106.json"
+      ]
+    },
+    {
+      "date": "2026-11-06",
+      "tasks": [
+        "AUTO-1.2"
+      ],
+      "change": "2026-11-05研究及77项旧行为测试保留。2026-11-06完成落地方案：A命令与接敌、B有效火力、C技能/模式/召唤；新增接口、存档边界、1.1并行分工和12组有限验收场景。用户明确坦克架炮持续有效、须手动收炮后移动，普通近战首批保持速度，撤销旧研究移动自动收炮建议。946份源码/测试/依赖文件前后内容SHA一致，docs:check通过；无新游戏实现、构建、提交、推送或部署。",
+      "evidence": [
+        "V1_2_AUTO_COMBAT_PLAN_20261106.md",
+        "../../reports/qa/auto-combat-plan-20261106.json"
+      ]
+    },
+    {
+      "date": "2026-11-06",
+      "tasks": [
+        "TUT-1.1"
+      ],
+      "change": "按用户审阅修订完成本地候选1.1.0-local.3，构建d99d7626b48f4e33835dd80433620ce50c4c177d8fbdc4f5b7f8d15f6a542038。真实结果约2秒、原入口导航、安全短暂移镜及立即接管；横屏用教学层透明局部窗口露出原按钮。3030回归、类型/文档、三族同版实时录屏、原UI、镜头清理、恢复、资源/缓存与视频播放通过。用户审阅、物理手机与人神逐句配音仍开放；未提交推送发布。",
+      "evidence": [
+        "../../reports/qa/tutorial-feedback-1.1-20261106.json"
+      ]
+    },
+    {
+      "date": "2026-11-06",
+      "tasks": [
+        "AUTO-1.2"
+      ],
+      "change": "A/B/C本地实现和候选1.2.0-local.1／0029cb551652完成；3075完整回归、最终30技能定向、类型/数据、三族教学与真实IndexedDB/正常时钟渲染通过。密集模拟p95增加约3%–4%，无尽第4轮仍增加约26%–34%，不代表FPS或真机达标。未提交、推送、部署或发布。",
+      "evidence": [
+        "V1_2_AUTO_COMBAT_IMPLEMENTATION_20261106.md",
+        "../../reports/qa/auto-combat-implementation-20261106.json"
+      ]
+    },
+    {
+      "date": "2026-11-06",
+      "tasks": [
+        "SAFARI-20261106"
+      ],
+      "change": "完成截图说法与Apple/WebKit、WebGL、Three.js、PlayCanvas及Web Audio原始资料核实。未支持iPhone17Pro固定1.5GB规格；找到原始2048MB日志及Apple工程师回应并限定适用范围。核对已有43张KTX2、受限PCM32MiB、闲置回收与动态分辨率；非压缩音效入口会尝试1895个唯一音频URL。形成SFR-01至07峰值/回收/音频/压缩/恢复建议。956份源码、测试、依赖文件内容SHA一致，静态导入核对与docs:check通过；未改游戏、测真机、构建或发布。原V06-SAFARI-001仍未归因/待验证。",
+      "evidence": [
+        "SAFARI_MEMORY_RESEARCH_20261106.md",
+        "../../reports/qa/safari-memory-research-20261106.json"
+      ]
+    },
+    {
+      "date": "2026-11-09",
+      "tasks": [
+        "SAFARI-20261106"
+      ],
+      "change": "用户明确当前只有Windows验证环境。已通过游戏按钮完成首战和刷新续局，确认首关恢复资源增量，工程优化优先收紧恢复模型范围。",
+      "evidence": [
+        "SAFARI_MEMORY_RESEARCH_20261106.md",
+        "../../reports/qa/safari-restore-windows-20261109.json"
+      ]
+    },
+    {
+      "date": "2026-11-09",
+      "tasks": [
+        "SAFARI-20261106"
+      ],
+      "change": "完成 iOS 长局方案研究，核对 Filament、Slow Roads、Endurance Racing 一手案例和平台资料。建议战中复用、关间回收与分批预热，复用现有暂停、图形恢复与关间存档，另评估长轮内快照，受控重载作条件后备。第16、31、61轮分别为5、10、20分钟。Windows一小时持续游玩列为后续验收设计。",
+      "evidence": [
+        "SAFARI_MEMORY_RESEARCH_20261106.md",
+        "../../reports/qa/safari-memory-research-20261106.json"
+      ]
+    },
+    {
+      "date": "2026-11-09",
+      "tasks": [
+        "TUT-1.1"
+      ],
+      "change": "本地候选1.1.0-local.4／0d150284919f完成：成功结果0.5秒、删除掉落数量预告、批准的离线人神中文配音82条3378008字节；虫后短震动保持。3075回归、最终16定向、三族同版实时含音录屏、原UI/镜头/恢复/缓存/播放通过；模拟手机，待用户审阅。未提交推送发布。",
+      "evidence": [
+        "../../reports/qa/tutorial-polish-1.1-20261109.json"
+      ]
+    },
+    {
+      "date": "2026-11-09",
+      "tasks": [
+        "SAFARI-20261106"
+      ],
+      "change": "1.2压缩版一次人族第1→2关的普通出发点击至随后战斗帧4.97秒，其中可选预热窗口4.49秒、30个任务。关间资源方案已修订为提前分批准备、保留跨关热资源，换关延迟与开战头10秒长帧共同验收。",
+      "evidence": [
+        "SAFARI_MEMORY_RESEARCH_20261106.md",
+        "../../reports/qa/stage-departure-windows-20261109.json"
+      ]
+    },
+    {
+      "date": "2026-11-09",
+      "tasks": [
+        "SAFARI-20261106"
+      ],
+      "change": "用户确定把开局按种子预排本局任务、趣味关、精英英雄与苹果优化一起设计。已核对自然事件、特殊门票、首领奖励、货架与准备入口，明确战役小表、无尽按轮推导、显式玩家分支、保存及同步资源依赖。实际门票夹具四个种子各加23次战斗抽数，旧共享表4/4改变，隔离内容源4/4保持一致。此次为方案和定向试验。",
+      "evidence": [
+        "SAFARI_MEMORY_RESEARCH_20261106.md",
+        "../../reports/qa/safari-memory-research-20261106.json",
+        "../../tools/probe-seeded-tickets.mjs"
+      ]
+    },
+    {
+      "date": "2026-11-09",
+      "tasks": [
+        "SAFARI-20261106"
+      ],
+      "change": "核对趣味道具、特殊地图及跨场景存活单位的所有权。传送门独占几何/材质已释放，共享道具包保留，特殊地图按类型缓存。标出叠峰、持有累加、迟到加载与过早卸载风险。4项现有道具生命周期测试及docs:check通过。",
+      "evidence": [
+        "SAFARI_MEMORY_RESEARCH_20261106.md",
+        "../../reports/qa/safari-memory-research-20261106.json"
+      ]
+    },
+    {
+      "date": "2026-11-09",
+      "tasks": [
+        "IOS-CONTENT-01"
+      ],
+      "change": "本地候选 24182fb2a0a8 已接入种子内容清单、分关准备、按使用者回收及页内内存预算。3085 回归、类型与数据检查通过。Windows 同档首关出发随后一帧 3.140→0.394 秒，首发均为模拟 4.25 秒；从菜单开始、刷新及 IndexedDB 继续均通过。连续 15 关 1245.3 模拟秒，14 次换关中位 2.059 秒，最慢 6.189 秒。游戏估算 331→453 MiB，Chrome 专用字节 2.79→4.54 GiB；同状态三次资源估算 452.6 MiB，WebGL 缓冲 55.2 MiB。",
+      "evidence": [
+        "IOS_SEEDED_CONTENT_20261109.md",
+        "../../reports/qa/ios-seeded-content-20261109.json"
+      ]
+    },
+    {
+      "date": "2026-11-09",
+      "tasks": [
+        "V12-MERGE-01"
+      ],
+      "change": "已核验并推送 main 3ec083a 和体积优化版 a2356a4，本机两个分支各通过 3087 项回归。两种资源入口、教学与旧档已复测，远端 SHA 双重核对一致，GitHub Actions 正在执行。",
+      "evidence": [
+        "https://github.com/ziyuuu/sc2-survivors-/actions/runs/42579198509",
+        "https://github.com/ziyuuu/sc2-survivors-/actions/runs/42579198265"
+      ]
+    },
+    {
+      "date": "2026-11-09",
+      "tasks": [
+        "V12-MERGE-01"
+      ],
+      "change": "1.1、1.2、无尽、玩家反馈与 iOS 优化已合入 GitHub main 3ec083a 和体积优化版 a2356a4。两个分支各 3087 项回归及 Actions 通过，原画质首战、教学语音、压缩入口与旧档换关通过。",
+      "evidence": [
+        "V12_BRANCH_INTEGRATION_20261109.md",
+        "../../reports/qa/v12-branch-integration-20261109.json"
       ]
     }
   ],

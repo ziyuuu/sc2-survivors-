@@ -1,3 +1,5 @@
+2026-11-09 [1.1、1.2 和共同优化已合入两个 GitHub 分支](docs/project/V12_BRANCH_INTEGRATION_20261109.md)。原画质与压缩构建均通过首战、续局和完整回归。线上服务保持原发布版本。
+
 > 2026-10-22 I03完成：[当前内容可达性／生效核验](docs/project/INTEGRATION_I03_20261022.md) · [逐项清单](docs/project/INTEGRATION_I03_COVERAGE_20261022.md) · [本地候选入口](preview/integration-i03-20261022/index.html)。正式入口为旗舰配装，未恢复旧天赋；镜头和操作保持，下一项G01尚未开始。
 
 # SC2 SURVIVORS · 星际幸存小队
