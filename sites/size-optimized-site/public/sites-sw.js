@@ -1,4 +1,4 @@
-importScripts("./sites-pack-index.0bb43ff1011a0ab1462d.js");
+importScripts("./sites-pack-index.b33a4de0ca12379b04fe.js");
 // Inflight identities are separate from the evictable byte LRU.
 globalThis.performance?.setResourceTimingBufferSize?.(4096);
 const inflight=new Map(),bundles=new Map(),clientsBudget=new Map();

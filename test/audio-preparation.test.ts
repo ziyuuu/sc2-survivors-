@@ -4,9 +4,9 @@ import {configurePlatformAssetUrl} from '../src/assets/manifest';
 import {runtimeBudget} from '../src/platform/graphics-profile';
 import {SOUND_DATA} from '../src/render/effects/audio-source-data';
 
-function fixture(t:any){
+function fixture(t:any,packed=true){
  const g=globalThis as any,old={packed:g.__SC2_PACKED_GRAPHICS__,media:g.matchMedia,fetch:g.fetch};
- g.__SC2_PACKED_GRAPHICS__=true;g.matchMedia=()=>({matches:true});configurePlatformAssetUrl(id=>'https://audio.invalid/'+id);
+ g.__SC2_PACKED_GRAPHICS__=packed;g.matchMedia=()=>({matches:true});configurePlatformAssetUrl(id=>'https://audio.invalid/'+id);
  let decodes=0,fail=false;const fetched:string[]=[];
  g.fetch=async(url:string)=>{fetched.push(url);return {ok:true,arrayBuffer:async()=>new ArrayBuffer(4)};};
  const audio=new AudioEffects();audio.context={decodeAudioData:async()=>{decodes++;if(fail){fail=false;throw Error('injected decode failure');}return {length:6*1024**2,numberOfChannels:1};}} as any;
@@ -47,4 +47,15 @@ test('a failed later playback invalidates earlier preparation so the gate retrie
 test('run reset keeps audio validation while a fresh audio session verifies its own clips',async t=>{
  const f=fixture(t),plan={combat:[],dialogue:[]};await f.audio.prepareBanks(plan);f.audio.reset();await f.audio.prepareBanks(plan);assert.equal(f.decodes,2);
  const fresh=new AudioEffects();fresh.context=f.audio.context;await fresh.prepareBanks(plan);assert.equal(f.decodes,4);
+});
+
+test('original-quality entry and playback opening fetch only the selected sound banks',async t=>{
+ const f=fixture(t,false);
+ const context=f.audio.context!;let resumed=0;
+ context.resume=async()=>{resumed++;};
+ await f.audio.prepareBanks({combat:[],dialogue:[]});
+ await f.audio.start();
+ assert.equal(resumed,1);assert.equal(f.decodes,2);
+ assert.deepEqual([...f.audio.buffers.keys()].sort(),['alert','sc2.scv.ready']);
+ assert.deepEqual(f.fetched.sort(),['https://audio.invalid/audio.alert','https://audio.invalid/audio.sc2.scv.ready']);
 });

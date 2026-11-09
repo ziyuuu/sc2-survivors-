@@ -21,7 +21,7 @@ export class AudioEffects {
  masterVolume=1;battleVolume=1;interfaceVolume=.25;musicVolume=.15;
  readonly music=new BackgroundMusic(()=>{this.context??=new AudioContext();return {context:this.context,output:this.output('music')};});
  private masterBus:GainNode|null=null;private battleBus:GainNode|null=null;private interfaceBus:GainNode|null=null;private musicBus:GainNode|null=null;
- constructor(){if(optimizedGraphics()){this.native.ensureAsset=id=>this.ensureDecoded(id);this.native.onPreparedError=(id,error)=>this.decodeErrors.push(id+': '+String(error));}try{const p=JSON.parse(localStorage.getItem('sc2.audio-mix')??'{}');this.setMix(p.master??1,p.battle??1,p.interface??.25,p.music??.15);}catch{}}
+ constructor(){this.native.ensureAsset=id=>this.ensureDecoded(id);this.native.onPreparedError=(id,error)=>this.decodeErrors.push(id+': '+String(error));try{const p=JSON.parse(localStorage.getItem('sc2.audio-mix')??'{}');this.setMix(p.master??1,p.battle??1,p.interface??.25,p.music??.15);}catch{}}
  setMix(master:number,battle:number,ui:number,music=this.musicVolume){if(![master,battle,ui,music].every(n=>Number.isFinite(n)&&n>=0&&n<=1))return;this.masterVolume=master;this.battleVolume=battle;this.interfaceVolume=ui;this.musicVolume=music;this.music.setEnabled(master>0&&music>0);if(this.musicBus)this.musicBus.gain.value=music;if(this.masterBus)this.masterBus.gain.value=master;if(this.battleBus)this.battleBus.gain.value=battle;if(this.interfaceBus)this.interfaceBus.gain.value=ui;try{localStorage.setItem('sc2.audio-mix',JSON.stringify({master,battle,interface:ui,music}));}catch{}}
  private output(channel:'battle'|'interface'|'music'='battle'){const c=this.context!;if(!this.masterBus){this.masterBus=c.createGain();this.masterBus.gain.value=this.masterVolume;this.masterBus.connect(c.destination);this.battleBus=c.createGain();this.battleBus.gain.value=this.battleVolume;this.battleBus.connect(this.masterBus);this.interfaceBus=c.createGain();this.interfaceBus.gain.value=this.interfaceVolume;this.interfaceBus.connect(this.masterBus);this.musicBus=c.createGain();this.musicBus.gain.value=this.musicVolume;this.musicBus.connect(this.masterBus);}return channel==='music'?this.musicBus!:channel==='interface'?this.interfaceBus!:this.battleBus!;}
  /** Short interface feedback is independent of combat voices and World events. */
@@ -59,7 +59,6 @@ export class AudioEffects {
   finally{if(--record.users===0)record.controller.abort();}
  }
  async prepareBanks(plan:{combat:string[];dialogue:string[]},progress:(done:number,total:number,label:string)=>void=()=>{},cancelled:()=>boolean=()=>false,signal?:AbortSignal){
-  if(!optimizedGraphics())return this.preload(progress);
   const control=new AbortController(),abort=()=>control.abort();let timer:ReturnType<typeof setTimeout>|undefined;
   const poll=()=>{if(cancelled())abort();else if(!signal)timer=setTimeout(poll,50);};
   signal?.addEventListener('abort',abort,{once:true});if(signal?.aborted)abort();poll();
@@ -71,7 +70,7 @@ export class AudioEffects {
   }finally{clearTimeout(timer);signal?.removeEventListener('abort',abort);control.abort();}
  }
  async preload(progress:(done:number,total:number,label:string)=>void=()=>{}){this.context??=new AudioContext();if(optimizedGraphics())return;this.loading??=this.load(progress).catch(error=>{this.loading=null;throw error;});await this.loading;}
- async start(){try{await this.preload();await this.context!.resume();}catch(e){this.decodeErrors.push(String(e));}}
+ async start(){try{this.context??=new AudioContext();await this.context.resume();}catch(e){this.decodeErrors.push(String(e));}}
  private async load(progress:(done:number,total:number,label:string)=>void){
   const assets=[...ASSETS.values()].filter(a=>a.kind==='audio'&&a.status==='available'&&!this.buffers.has(a.id.replace('audio.',''))),decoded=new Map<string,Promise<AudioBuffer>>();let done=0,next=0;
   const decode=(url:string)=>{let p=decoded.get(url);if(!p){p=(async()=>{const bytes=await fetchAsset(fetch,url,{},async response=>{if(!response.ok)throw Error(String(response.status));return response.arrayBuffer();});return waitForAsset(this.context!.decodeAudioData(bytes),'音效解码',30000);})();decoded.set(url,p);}return p;};

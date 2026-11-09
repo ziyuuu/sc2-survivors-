@@ -36,7 +36,7 @@ export class AssetReadinessCoordinator {
  private nextMemorySample=0;
  memory={encodedBytes:0,atlasBytes:0,textureEstimate:0,pcmBytes:0,trackedBytes:0,peakTrackedBytes:0,pressure:false};
  sampleMemory(now:number){
-  if(now<this.nextMemorySample||!optimizedGraphics())return;
+  if(now<this.nextMemorySample)return;
   this.nextMemorySample=now+2000;
   const encodedBytes=httpStore()?.memoryReport().residentBlobBytes??0,atlasBytes=this.view.animationAtlasBytes;
   const textureEstimate=textureReport().residentEstimate,pcmBytes=this.audio?.pcmBytes()??0;
@@ -95,12 +95,27 @@ export class AssetReadinessCoordinator {
    if(!this.view.initialAssetsLoaded){
     const allMapAssets=[...campaignPreloadAssets(),...(Object.keys(MAP_VISUAL_PROFILES) as CampaignTheme[]).flatMap(environmentAssetIds)];
     const mapAssets=desiredMap?[...campaignMapAssets(desiredMap),...(lesson?[]:environmentAssetIds(desiredMap.theme))]:allMapAssets,otherMapAssets=new Set(allMapAssets.filter(id=>!mapAssets.includes(id)));
-    const common=[...ASSETS.values()].filter(asset=>asset.status==='available'&&(optimizedGraphics()?['texture','effect-texture']:['texture','effect-texture','audio']).includes(asset.kind)&&!otherMapAssets.has(asset.id)&&!(desiredMap&&optimizedGraphics()&&asset.id.startsWith('map.image.'))).map(asset=>asset.id);
+    const common=[...ASSETS.values()].filter(asset=>asset.status==='available'&&['texture','effect-texture'].includes(asset.kind)&&!otherMapAssets.has(asset.id)&&!(desiredMap&&optimizedGraphics()&&asset.id.startsWith('map.image.'))).map(asset=>asset.id);
     const fixed=['model.'+rescue.workerModel,'model.'+rescue.carrierModel,'model.'+rescue.carrierDeathModel,...(rescue.carrierBirthModel?['model.'+rescue.carrierBirthModel]:[]),'model.drone','model.egg','model.hive','model.loot.mineral','model.loot.gas','model.loot.large','model.projectile.marauder','model.projectile.hydralisk'];
     await prepareEmbeddedAssetIds([...common,...fixed,...mapAssets],report('models',.05,.1));
    }
    if(generation!==this.generation)return false;
-   const audioReady=optimizedGraphics()?undefined:this.audio?.preload((done,total,label)=>{if(this.state.phase==='audio')report('audio',.72,.04)(done,total,`解码音效 ${label}`);}).then(()=>null,error=>error as Error);
+   const prepareAudio=async()=>{
+    if(!this.audio)return;
+    const state=request.snapshot?.state??this.world;
+    const stage=kind==='new'?1:Math.min(18,state.stage+Number(state.phase==='reward'));
+    const identities=[...state.entities.values(),...(request.hero?[{heroId:request.hero}]:[])];
+    const plan=request.snapshot?.config.contentPlan??request.contentPlan??this.world.runConfig?.contentPlan;
+    const content=plan?stageContentAssets(plan,stage,state.endless?state.endless.round+Number(state.phase==='reward'):undefined,state.funShop.levels,state.expedition.familySlots,[]):undefined;
+    for(const heroId of content?.heroes??[])identities.push({heroId});
+    for(const hero of state.heroes?.values()??[])identities.push({heroId:hero.id});
+    const progress=report('audio',.72,.04);
+    await this.audio.prepareBanks(audioPreloadBanks(rescueRace,stage,identities,!!content),
+     (done,total,label)=>{if(this.state.phase==='audio')progress(done,total,label);},
+     ()=>generation!==this.generation,entrance.signal);
+   };
+   // The original renderer prepares audio alongside models. Both formats use only the stage's banks.
+   const audioReady=optimizedGraphics()?undefined:prepareAudio().then(()=>null,error=>error as Error);
    if(!this.view.initialAssetsLoaded){await this.view.load((label,done=0,total=0)=>report('models',.15,.2)(done,total,label),rescueRace,!!desiredMap,true);}
    if(generation!==this.generation)return false;
    const models=report('models',.35,.37);models(0,1,'准备部队');
@@ -112,16 +127,8 @@ export class AssetReadinessCoordinator {
    await this.view.waitForPendingAssets();
    if(generation!==this.generation)return false;
    report('audio',.72,0)(0,1,'准备音效');
-   if(optimizedGraphics()){
-    const state=request.snapshot?.state??this.world;
-    const stage=kind==='new'?1:Math.min(18,state.stage+Number(state.phase==='reward'));
-    const identities=[...state.entities.values(),...(request.hero?[{heroId:request.hero}]:[])];
-    const plan=request.snapshot?.config.contentPlan??request.contentPlan??this.world.runConfig?.contentPlan;
-    const content=plan?stageContentAssets(plan,stage,state.endless?state.endless.round+Number(state.phase==='reward'):undefined,state.funShop.levels,state.expedition.familySlots,[]):undefined;
-    for(const heroId of content?.heroes??[])identities.push({heroId});
-    for(const hero of state.heroes?.values()??[])identities.push({heroId:hero.id});
-    await this.audio?.prepareBanks(audioPreloadBanks(rescueRace,stage,identities,!!content),report('audio',.72,.04),()=>generation!==this.generation,entrance.signal);}
-   const audioError=await audioReady;if(audioError)throw audioError;
+   if(audioReady){const error=await audioReady;if(error)throw error;}
+   else await prepareAudio();
    if(generation!==this.generation)return false;
    report('gpu',.76,0)(0,1,'准备战场');
    if(desiredMap)await this.view.prepareCampaignAssets(desiredMap);
@@ -146,7 +153,7 @@ export class AssetReadinessCoordinator {
    if(kind==='load'&&request.snapshot)this.world.restoreRun(request.snapshot,true);
    if(this.view.modelErrors.length)throw Error(this.view.modelErrors.at(-1));
    this.update({phase:'ready',done:1,total:1,progress:1,label:(kind==='reinforcement'?'资源就绪':'就绪 · 请确认继续')+(httpAssetStatus()?.warning?' · 本次资源未能全部缓存，下次可能需补下载':'')});const token=this.readyToken;if(generation===this.generation&&token)this.onReady(kind,token);return true;
-  }catch(error){if(generation===this.generation){this.generation++;this.update({phase:'error',error:String((error as Error).message),label:'资源准备失败'});}return false;}finally{if(ownsView){if(generation!==this.generation)this.view.modelErrors=errorsBefore;this.view.preparationControl=undefined;this.view.entryPreparation=false;releaseGpuDecoder();}release?.();}
+  }catch(error){if(generation===this.generation){this.generation++;entrance.abort();this.update({phase:'error',error:String((error as Error).message),label:'资源准备失败'});}return false;}finally{if(ownsView){if(generation!==this.generation)this.view.modelErrors=errorsBefore;this.view.preparationControl=undefined;this.view.entryPreparation=false;releaseGpuDecoder();}release?.();}
  }
 }
 

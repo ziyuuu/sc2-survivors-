@@ -1,20 +1,20 @@
 {
-  "appBuildId": "1d1381952fb100213afc3f957f983beb936972d86998babd6a4e5ecfc87f3210",
+  "appBuildId": "56c108dffe830d2f441414742c0f235adb0d2941620777ba834090331860de39",
   "runSchema": 26,
   "rulesId": "mvp-1.0",
   "mapId": "campaign-five-v3",
-  "assetCount": 3847,
-  "fileCount": 5138,
-  "assetBytes": 824778460,
-  "logicalBytes": 827862182,
+  "assetCount": 3932,
+  "fileCount": 5223,
+  "assetBytes": 828290022,
+  "logicalBytes": 831373744,
   "sharedBytes": 3083722,
-  "manifest": "asset-manifest.50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a.json",
-  "release": "50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a",
+  "manifest": "asset-manifest.896aa637c320cd765bc96a139a648c8d238caa3daa3eaed745aaaea02099930b.json",
+  "release": "896aa637c320cd765bc96a139a648c8d238caa3daa3eaed745aaaea02099930b",
   "source": "reports/local/asset-reachability.json",
-  "sourceWebRelease": "c57126842b2eebe90f278e5dfe9c5ad54eaaec683b3e611e697abada0118fdad",
-  "compressedEntrySha256": "c3dff6d37875296d2603ecd04e077b2defc901aead25a5fe9e8ee12eeb82d0f1",
+  "sourceWebRelease": "79973bae982586baff1fc4c8aed7f2b0cd7297ddc6f5e28cf47909be937d7d99",
+  "compressedEntrySha256": "7539c18e9c4fef5cd6ba97bea3240d7c63368a9d83ccdd1603cd5ff8e282167a",
   "qualityVariants": true,
-  "packedBytes": 458346118,
+  "packedBytes": 461857680,
   "variantRecordCount": 1375,
   "sharedImageIdentities": 1,
   "gpuTextureSidecars": {
@@ -27,7 +27,8 @@
     "bytes": 4526957,
     "encoding": "Approved original MP3, unchanged; outside existing packed bundles"
   },
-  "packedWorker": "sites-sw.bd646d557a5dc16c1b8b.js",
-  "packedWorkerSha256": "bd646d557a5dc16c1b8b75f494c0d14d4d829873c734951153117bdc0ae2eeb8",
-  "packedWorkerProtocol": 1
+  "packedWorker": "sites-sw.f7927b7a5963cdfc99c1.js",
+  "packedWorkerSha256": "f7927b7a5963cdfc99c1959df2e3118945bfad3800872476a3a8d5d383b21a1b",
+  "packedWorkerProtocol": 1,
+  "applicationVersion": "1.2.0-local.ios.1"
 }

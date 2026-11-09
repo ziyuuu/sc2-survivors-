@@ -32,3 +32,6 @@ sites/size-optimized-site/public/basis/** -text
 
 # Preserve the recorded tutorial voice sources.
 assets/generated/tutorial-voices-20261109/*.wav filter=lfs diff=lfs merge=lfs -text
+
+# Keep the packed launch document byte-identical to the verified build.
+sites/size-optimized-site/public/index.html -text
