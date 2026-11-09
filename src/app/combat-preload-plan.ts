@@ -10,6 +10,7 @@ export interface CombatPreloadScope {
  models?:Iterable<readonly [string,string]>;
  /** Actual/restored identities, deferred orders, casts, receipts and equipment bindings. */
  identities?:unknown;
+ plannedHeroes?:Iterable<HeroId>;
 }
 const heroByModel=new Map(Object.entries(HEROES).map(([id,h])=>[h.model,id as HeroId]));
 const families=new Set<string>(Object.values(FAMILIES_BY_RACE).flat());
@@ -33,12 +34,13 @@ export function combatPreloadPlan(scope:CombatPreloadScope):CombatPreloadPlan {
   if(!value||typeof value!=='object'||seen.has(value))return;seen.add(value);
   if(value instanceof Map){for(const [key,child]of value){visit(key);visit(child);}}
   else if(value instanceof Set){for(const child of value)visit(child);}
-  else if(!ArrayBuffer.isView(value))for(const child of Object.values(value))visit(child);
+  else if(!ArrayBuffer.isView(value))for(const [key,child] of Object.entries(value))if(key!=='runConfig'&&key!=='contentPlan')visit(child);
  };
  visit(scope.identities);
  // At/after the first boss and mission window, rewards may legally introduce
  // any own-race hero without another pause. Preserve the entire candidate set.
- if(scope.stage>=3)for(const [id,hero]of Object.entries(HEROES))if(hero.race===scope.race)heroes.add(id as HeroId);
+ if(scope.plannedHeroes)for(const id of scope.plannedHeroes)heroes.add(id);
+ else if(scope.stage>=3)for(const [id,hero]of Object.entries(HEROES))if(hero.race===scope.race)heroes.add(id as HeroId);
  const sources=new Set(Object.keys(catalog).filter(id=>!routed.has(id)));
  // Equipment healing uses the native Medic layer even without a Medivac.
  sources.add('MedicHealModel');

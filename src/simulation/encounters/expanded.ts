@@ -1,3 +1,4 @@
+import {worldContent,contentRoll} from '../progression/run-content';
 import type {World} from '../world';
 import {encounterAllowed} from '../progression/fun-availability';
 import type {Body,Entity,Point} from '../types';
@@ -100,7 +101,7 @@ export function spawnFunEncounter(w:World,kind:FunKind,position?:Point,bait=fals
   for(const p of points){const u=spawn(w,m,'roach',p);u.maxHp*=1.5;u.hp=u.maxHp;u.moveSpeed*=.8;u.flying=true;u.winged=true;u.wingHeight=1;}
   m.phase='active';
  }else if(kind==='cruelQueen'){
-  const heroes=identityCandidates(w,2,'queen');m.hero=heroes[Math.floor(w.random()*heroes.length)] as NonNullable<FunRecord['hero']>;
+  const heroes=identityCandidates(w,2,'queen');const plan=worldContent(w);m.hero=heroes[Math.floor((plan?contentRoll(plan.salt,'queen/hero'):w.random())*heroes.length)] as NonNullable<FunRecord['hero']>;
   const u=spawn(w,m,'queen',point,'actor','queen',true);m.base={hp:u.maxHp,damage:u.weaponDamage,armor:u.armor,move:u.moveSpeed};u.maxHp*=2;u.hp=u.maxHp;u.moveSpeed*=.9;u.specialReady=Infinity;m.phase='active';m.next=360;
   m.plans.push(planSingleBossEncounterEquipment(w,{...context,stage:18,tier:'boss',endlessRound:1},id+':queen')!);
  }else if(kind==='infectedTerrans'){

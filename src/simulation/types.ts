@@ -32,6 +32,8 @@ export interface Entity extends Body {
  approachCharge?:{targetId:number;until:number;goal:Point;traveled:number};approachChargeReadyAt?:number;
  shieldArmor?:number;shieldRegen?:number;shieldDelay?:number;barrier?:number;barrierReady?:number;talentShield?:number;maxTalentShield?:number;
  nativeMode?:string;desiredNativeMode?:string;nativeModeUntil?:number;abilityReady?:number;cloaked?:boolean;
+ /** Optional current-schema provenance; absence conservatively preserves a legacy mode. */
+ autoMode?:{mode:string;since:number};
  activeWeapon?:string;
  enemyOrigin?:'regular'|'swarm'|'special';
  enemyResources?:import('../data/enemy-tuning').EnemyResourceScale;

@@ -1,0 +1,535 @@
+{
+  "retention": {
+    "removedFilesOrTrees": 20,
+    "removedBytes": 1680392331,
+    "protected": [
+      "Original 1.0",
+      "Shared dist/web",
+      "Prior UI candidate",
+      "All advisor DDS/source inputs",
+      "Unrelated dirty workspace files"
+    ]
+  },
+  "date": "2026-11-05",
+  "status": "local candidate delivered for user review",
+  "version": "1.1.0-local.1",
+  "packageVersion": "0.3.0",
+  "tutorialScriptVersion": 2,
+  "appBuildId": "e58f638a8604c7baed4c9c75ef95cee42c8b84a855d434ad18de342220bd1411",
+  "resourceRelease": "6da951a7231400302b216c2070d083fa6bf459fc3edd538333384f8ad6406025",
+  "runSchema": 26,
+  "profileSchema": 6,
+  "archiveSchema": 2,
+  "rules": "mvp-1.0",
+  "branch": "体积优化版",
+  "gitHead": "6510fb2a85a4140aecb6151ab0ab3132b42f239a",
+  "baselineHead": "6510fb2a85a4140aecb6151ab0ab3132b42f239a",
+  "sourceFiles": [
+    {
+      "file": "src/app/bootstrap.ts",
+      "bytes": 18668,
+      "sha256": "34eb023e8530d091d764d90ee63d49b8cc2c4e3c4b7f983ab6bc5bb0e1a2c011"
+    },
+    {
+      "file": "src/app/run-session.ts",
+      "bytes": 21265,
+      "sha256": "6c6a40bfea34233a4762483d660189248038411386d03a54a844551fe353db7b"
+    },
+    {
+      "file": "src/assets/manifest.ts",
+      "bytes": 2400,
+      "sha256": "6e956e8506966609760efd5c0e80b0a378baa24b679e2982f8114ae1a1e172ca"
+    },
+    {
+      "file": "src/assets/tutorial.ts",
+      "bytes": 808,
+      "sha256": "9958c3e00f6e8ced2f0efc59154ec15caf5e9a06e8ab349610547a00afecde00"
+    },
+    {
+      "file": "src/data/tutorial-script.ts",
+      "bytes": 4355,
+      "sha256": "cb013e24f326045b9fe548cf156ec7adb143f5a523bd5e26dd5a4d105c181285"
+    },
+    {
+      "file": "src/data/tutorial.ts",
+      "bytes": 2641,
+      "sha256": "4d45f15a9d2adaac551c0c697860d44a5e8c35c4405821d9c9999648e370518e"
+    },
+    {
+      "file": "src/persistence/save-repository.ts",
+      "bytes": 3817,
+      "sha256": "f5f5cd6bed15db2181d10d6f70bd746a43520bcf7e40fde6b4af01a4e7b8a809"
+    },
+    {
+      "file": "src/render/effects/audio.ts",
+      "bytes": 15852,
+      "sha256": "6526635e5e3f53da799959f2f082c85390790de7f831d4705f2a669e75d1218f"
+    },
+    {
+      "file": "src/render/effects/source-combat-effects.ts",
+      "bytes": 25268,
+      "sha256": "7319c048864ae24119993637a88ec1ac59582e357302b6266b8dc0c95cfa4b24"
+    },
+    {
+      "file": "src/render/scene/battle-renderer.ts",
+      "bytes": 163294,
+      "sha256": "682c45a8c20bb29cb2c3ae5f1d2a9c9f046ff6fd1839603796afe4a7922f5a89"
+    },
+    {
+      "file": "src/simulation/boss-loot.ts",
+      "bytes": 8400,
+      "sha256": "7d2bcf0b1fde1e67f2794fe668914d44a687fc409b01fdab27e122baa4ec6e70"
+    },
+    {
+      "file": "src/simulation/building/expedition.ts",
+      "bytes": 6880,
+      "sha256": "511eed72890577ac17df4a2b62ecd12cf4346d6bccc15ea2b65ef20b9e42c709"
+    },
+    {
+      "file": "src/simulation/building/rules.ts",
+      "bytes": 20164,
+      "sha256": "b2bb6071218e71e2154f9b21fbb36c73119d222ffb6e0d0b847672ea32e5e3f1"
+    },
+    {
+      "file": "src/simulation/expedition-economy.ts",
+      "bytes": 19950,
+      "sha256": "d02c02eee3bffdb2250d2fc9bcd0fdbc1e72d108ca6aea1d12fd1ee9c54d86d3"
+    },
+    {
+      "file": "src/simulation/expedition-production.ts",
+      "bytes": 21436,
+      "sha256": "e2bbb9a58e968bd413e1d97699538ac74a953b7cc3f12dfc3d8142dffe3a9260"
+    },
+    {
+      "file": "src/simulation/expedition-state.ts",
+      "bytes": 18266,
+      "sha256": "a7f44f555883cdfea275c57f9edb17587a8b224417a6eb9f59559909b9186ec5"
+    },
+    {
+      "file": "src/simulation/persistence/run-fields.ts",
+      "bytes": 26543,
+      "sha256": "11ebdc36766b080e43ac4573ec7dafb25872b0be5ab395274c86ed7d53ec8716"
+    },
+    {
+      "file": "src/simulation/persistence/starship-snapshot.ts",
+      "bytes": 10729,
+      "sha256": "133f14256194f246c41e27562f5e0dbe1fd40ed10ce9d38299f3539497ee0f29"
+    },
+    {
+      "file": "src/simulation/progression/expedition-drafts.ts",
+      "bytes": 42275,
+      "sha256": "4356e098b1e49a3cdfb611a239dd430269df4320fc7973cf5fb04de9280fd2fd"
+    },
+    {
+      "file": "src/simulation/starship/drops.ts",
+      "bytes": 17858,
+      "sha256": "4527c96e17eff373c783f3217b079b4b7b4d102771c3990c596803a32741c276"
+    },
+    {
+      "file": "src/simulation/starship/growth.ts",
+      "bytes": 11302,
+      "sha256": "e253f37f3b926177d323438e96b2fed53a17e3bb943cd0644d60c0508c0dc589"
+    },
+    {
+      "file": "src/simulation/starship/types.ts",
+      "bytes": 3360,
+      "sha256": "5bee5a8b391cf8f272d9457ff74a04b2e31c22460cdc409e1d808f0dab4af97c"
+    },
+    {
+      "file": "src/simulation/tutorial/guided-types.ts",
+      "bytes": 3085,
+      "sha256": "8e0d4c5145f0e2770efe64859898d3fd756609c6a6a7af6a7e9fa25a51591288"
+    },
+    {
+      "file": "src/simulation/tutorial/guided.ts",
+      "bytes": 15990,
+      "sha256": "497c77177033cff89118a6664b07f1e87ff030a7631946caea47cff5d0592abe"
+    },
+    {
+      "file": "src/simulation/tutorial/runtime.ts",
+      "bytes": 7201,
+      "sha256": "5503b555db72aeb0935c11e4c999ea54c98446cc768170968692ff8a80133405"
+    },
+    {
+      "file": "src/simulation/tutorial/types.ts",
+      "bytes": 2815,
+      "sha256": "e045a2a1c5c7cbbc810b2c2edb8fbd21a2bfe4d94414de3870f336835ee8b723"
+    },
+    {
+      "file": "src/simulation/world.ts",
+      "bytes": 179373,
+      "sha256": "2b6408d9af3bf2e3ca62550e23a80f0bdf145782ee4d6f4f2e3c537462ea3d1b"
+    },
+    {
+      "file": "src/ui/controls/battle-actions.ts",
+      "bytes": 11009,
+      "sha256": "2812fa5dd44393ebc76f65f31400fdb6b2ccc19cd7ad7c8fbecdc6384b566a76"
+    },
+    {
+      "file": "src/ui/hud.ts",
+      "bytes": 59372,
+      "sha256": "6e47d872c049e11ea3a018e455215b03345cc8142a8f0037a5e20b298a4edbd4"
+    },
+    {
+      "file": "src/ui/starship/legacy-view.ts",
+      "bytes": 57129,
+      "sha256": "fac264bc9eac4075c18566337a7a1b97f938959b97c2df960eca358b8d582ffc"
+    },
+    {
+      "file": "src/ui/tutorial-guided.ts",
+      "bytes": 6810,
+      "sha256": "f581bf9ee4249cde75b92a721ef6071de9a02667c67cb2b1e6142f3d56c9f17b"
+    },
+    {
+      "file": "src/ui/tutorial.css",
+      "bytes": 3741,
+      "sha256": "7592bfc90626d8a1cdfab2700f11ae92d48d438d302fb762a0d96516cce8f2e4"
+    },
+    {
+      "file": "src/ui/tutorial.ts",
+      "bytes": 7932,
+      "sha256": "97ec94f7da361f2fc0a7373c0371a06d460ae6932ce43a4a346e2a9805e4be9e"
+    },
+    {
+      "file": "test/first-run-tutorial.test.ts",
+      "bytes": 11678,
+      "sha256": "7e5aac7b78fa8d5e8571a91e72336fa380f712e9b8b18b42ca0d124123cd264d"
+    },
+    {
+      "file": "test/guided-tutorial.test.ts",
+      "bytes": 9149,
+      "sha256": "239b857ac2b3bc738c8abfe313fc20a5b25f1538e863cbc4f6057ecd567434f2"
+    },
+    {
+      "file": "test/tutorial-audio.test.ts",
+      "bytes": 1839,
+      "sha256": "1d1a0677242e0a340aa74307f2ba653bf779d777f7b85960c2ff930c46a6c65f"
+    },
+    {
+      "file": "test/tutorial-early-gear.test.ts",
+      "bytes": 2714,
+      "sha256": "7182044d97ba343e484fea8dd5c9fd45a71e30d9a4bbb2b4dc6e44b19bbed886"
+    },
+    {
+      "file": "test/tutorial-render-lifecycle.test.ts",
+      "bytes": 1016,
+      "sha256": "28c33c50d41116e7bacb1307e306a7ce5ab2c96b52b1159e9ef488435a538373"
+    }
+  ],
+  "source": "uncommitted tutorial implementation in shared checkout; unrelated changes left untouched",
+  "candidate": "D:\\星际\\dist\\tutorial-1.1-guided-20261105\\candidate",
+  "entry": "http://127.0.0.1:18912/",
+  "ui": "Original native geometry preserved. Advisor fixed top 4px, right 12px desktop / 8px mobile; portrait 12px/full text within two lines. Tutorial is an overlay.",
+  "mechanics": {
+    "newPlayerQualification": "successful empty main+two backup read, before first autosave",
+    "initialWallet": {
+      "minerals": 700,
+      "gas": 200
+    },
+    "dronePickups": {
+      "minerals": 100,
+      "gas": 50
+    },
+    "paidProductionSeats": 2,
+    "thirdOriginalBossItems": 2,
+    "skip": "immediately ordinary current-stage rules, preserving existing items/resources/units/paid orders",
+    "oldTutorial": "missing nested version continues legacy v1; old accounts do not regain eligibility"
+  },
+  "verification": {
+    "npmTest": {
+      "tests": 3006,
+      "pass": 3006,
+      "fail": 0
+    },
+    "typecheck": true,
+    "docsCheck": true,
+    "integrity": {
+      "appBuildId": "e58f638a8604c7baed4c9c75ef95cee42c8b84a855d434ad18de342220bd1411",
+      "release": "6da951a7231400302b216c2070d083fa6bf459fc3edd538333384f8ad6406025",
+      "logicalAssets": 3850,
+      "unchangedOldAssetRecords": 3847,
+      "uniquePayloadsChecked": 5141,
+      "physicalFilesChecked": 364,
+      "physicalBytes": 463006629,
+      "payloadBytes": 824912014,
+      "check": "Every actual high/medium/low and explicit GPU-sidecar slice SHA256/length validated; preceding packed records identical",
+      "passed": true
+    },
+    "nativeUI": {
+      "passed": true,
+      "scope": "Unmodified baseline and actual production candidate entry; separate fresh Chrome contexts, 1440x900; no diagnostic entry or source gameplay hooks",
+      "cases": [
+        "baseline",
+        "candidate",
+        "candidate-accepted"
+      ]
+    },
+    "playback": {
+      "origin": "http://127.0.0.1:18912",
+      "checks": [
+        {
+          "race": "terran",
+          "actual": {
+            "width": 1440,
+            "height": 900,
+            "duration": 344.2,
+            "time": 3.460761,
+            "ready": 4
+          }
+        },
+        {
+          "race": "zerg",
+          "actual": {
+            "width": 844,
+            "height": 390,
+            "duration": 316.96,
+            "time": 3.461173,
+            "ready": 4
+          }
+        },
+        {
+          "race": "protoss",
+          "actual": {
+            "width": 390,
+            "height": 844,
+            "duration": 334.68,
+            "time": 3.460017,
+            "ready": 4
+          }
+        },
+        {
+          "name": "normal candidate and all recordings have the same build",
+          "appBuildId": "e58f638a8604c7baed4c9c75ef95cee42c8b84a855d434ad18de342220bd1411"
+        },
+        {
+          "name": "audition and QA summary links respond correctly"
+        },
+        {
+          "name": "normal service does not expose the diagnostic entry"
+        }
+      ],
+      "errors": [],
+      "passed": true
+    },
+    "cancellation": {
+      "scope": "Isolated imported QA checkpoint; real native save/asset preparation; injected storage latency only for cancellation race. No real player data.",
+      "checks": [
+        {
+          "name": "skip cancels in-flight departure, stays in the same intermission",
+          "state": {
+            "status": "skipped",
+            "phase": "reward",
+            "stage": 2,
+            "ready": null,
+            "pending": false,
+            "comms": false
+          }
+        },
+        {
+          "name": "skipped account persists after reload",
+          "state": {
+            "status": "skipped",
+            "comms": false
+          }
+        }
+      ],
+      "errors": [],
+      "passed": true
+    },
+    "archive": {
+      "scope": "Native archive/checkpoint validation. Completed fixture comes from final normal-speed desktop recording; other states are isolated synthetic QA accounts.",
+      "checks": [
+        "v2 menu eligibility saved before departure",
+        "v2 unchosen invitation restores without wallet grant",
+        "v2 accepted waiting step and one-time fixed wallet restore",
+        "v2 skipped decision restores ordinary rules",
+        {
+          "name": "real recorded completed archive keeps the same equipped flagship module",
+          "id": "ship-item-4"
+        },
+        "completed archive does not invite on a new run with another race"
+      ],
+      "passed": true
+    },
+    "boundaryChecks": {
+      "count": 43,
+      "checks": [
+        "real defeat closes tutorial without revival",
+        "move:restore/skip/current-stage/property-preservation",
+        "drone:restore/skip/current-stage/property-preservation",
+        "resources:restore/skip/current-stage/property-preservation",
+        "train-1:restore/skip/current-stage/property-preservation",
+        "dispatch-1:restore/skip/current-stage/property-preservation",
+        "pause-1:restore/skip/current-stage/property-preservation",
+        "wait-1:restore/skip/current-stage/property-preservation",
+        "carrier loss preserves paid loss and resumes normal rules",
+        "landing-1:restore/skip/current-stage/property-preservation",
+        "boss-1:restore/skip/current-stage/property-preservation",
+        "loot-1:restore/skip/current-stage/property-preservation",
+        "card-1:restore/skip/current-stage/property-preservation",
+        "rally-1:restore/skip/current-stage/property-preservation",
+        "detail-1:restore/skip/current-stage/property-preservation",
+        "equip-1:restore/skip/current-stage/property-preservation",
+        "build:restore/skip/current-stage/property-preservation",
+        "train-2:restore/skip/current-stage/property-preservation",
+        "configure-2:restore/skip/current-stage/property-preservation",
+        "supply-round-1:restore/skip/current-stage/property-preservation",
+        "supply:restore/skip/current-stage/property-preservation",
+        "front-2:restore/skip/current-stage/property-preservation",
+        "pause-2:restore/skip/current-stage/property-preservation",
+        "wait-2:restore/skip/current-stage/property-preservation",
+        "landing-2:restore/skip/current-stage/property-preservation",
+        "boss-2:restore/skip/current-stage/property-preservation",
+        "loot-2:restore/skip/current-stage/property-preservation",
+        "card-2:restore/skip/current-stage/property-preservation",
+        "free-landing-2:restore/skip/current-stage/property-preservation",
+        "rally-2:restore/skip/current-stage/property-preservation",
+        "detail-2:restore/skip/current-stage/property-preservation",
+        "equip-2:restore/skip/current-stage/property-preservation",
+        "system:restore/skip/current-stage/property-preservation",
+        "supply-round-2:restore/skip/current-stage/property-preservation",
+        "front-3:restore/skip/current-stage/property-preservation",
+        "boss-3:restore/skip/current-stage/property-preservation",
+        "loot-3:restore/skip/current-stage/property-preservation",
+        "card-3:restore/skip/current-stage/property-preservation",
+        "free-landing-3:restore/skip/current-stage/property-preservation",
+        "rally-3:restore/skip/current-stage/property-preservation",
+        "detail-3:restore/skip/current-stage/property-preservation",
+        "equip-3:restore/skip/current-stage/property-preservation",
+        "extract:restore/skip/current-stage/property-preservation"
+      ],
+      "scope": "Primary native simulation replay; independent checkpoint clones exercise skip/restore, actual carrier loss and defeat with explicit fault damage. Not recording assistance."
+    },
+    "cache": {
+      "passed": true,
+      "payloadBytes": {
+        "baseline": 50753633,
+        "candidateWarmMenuAndPortrait": 13037707
+      },
+      "redownloadedWarmBundles": [],
+      "portraits": [
+        {
+          "phase": "candidate",
+          "file": "assets/tutorial-adjutant-d4932e06256d8fbcfb84.bin",
+          "bytes": 40480
+        }
+      ],
+      "scope": "Real Windows Chrome, isolated empty IDB, old menu warmed then same-origin candidate update. No player data, no deployment."
+    },
+    "recordings": [
+      {
+        "race": "terran",
+        "appBuildId": "e58f638a8604c7baed4c9c75ef95cee42c8b84a855d434ad18de342220bd1411",
+        "file": "reports/local/tutorial-20261105/review/recordings/terran.mp4",
+        "poster": "reports/local/tutorial-20261105/review/recordings/terran.png",
+        "bytes": 36345241,
+        "sha256": "6be082a40c9add020d7042ba534bf0786ecba7d67fe29def9903080f35015105",
+        "durationSeconds": 344.2,
+        "videoDimensions": {
+          "width": 1440,
+          "height": 900
+        },
+        "clicks": 44,
+        "gameAudio": true,
+        "audioLeadSilenceSeconds": 65.96999999999997,
+        "physicalPhone": false,
+        "assistance": "Native highlighted clicks and ordinary real-time game clock only. No damage/HP/advance injection.",
+        "sourceResult": "reports/local/tutorial-20261105/guided-recordings/terran/result.json",
+        "presentation": {
+          "fonts": [
+            15
+          ],
+          "maxLines": 2,
+          "allNativeControlsUnmoved": true
+        }
+      },
+      {
+        "race": "zerg",
+        "appBuildId": "e58f638a8604c7baed4c9c75ef95cee42c8b84a855d434ad18de342220bd1411",
+        "file": "reports/local/tutorial-20261105/review/recordings/zerg.mp4",
+        "poster": "reports/local/tutorial-20261105/review/recordings/zerg.png",
+        "bytes": 13397765,
+        "sha256": "8cdc1445b1d900176153b21d775e859fe8ebe6f36dcc808e3bcde62966bb0245",
+        "durationSeconds": 316.96,
+        "videoDimensions": {
+          "width": 844,
+          "height": 390
+        },
+        "clicks": 44,
+        "gameAudio": true,
+        "audioLeadSilenceSeconds": 46.23999999999995,
+        "physicalPhone": false,
+        "assistance": "Native highlighted clicks and ordinary real-time game clock only. No damage/HP/advance injection.",
+        "sourceResult": "reports/local/tutorial-20261105/guided-recordings/zerg/result.json",
+        "presentation": {
+          "fonts": [
+            13.25
+          ],
+          "maxLines": 2,
+          "allNativeControlsUnmoved": true
+        }
+      },
+      {
+        "race": "protoss",
+        "appBuildId": "e58f638a8604c7baed4c9c75ef95cee42c8b84a855d434ad18de342220bd1411",
+        "file": "reports/local/tutorial-20261105/review/recordings/protoss.mp4",
+        "poster": "reports/local/tutorial-20261105/review/recordings/protoss.png",
+        "bytes": 14026575,
+        "sha256": "ac1c7ad77ab40f974286c4a82019a2e1378f7d6f567e897942319705b3f60481",
+        "durationSeconds": 334.68,
+        "videoDimensions": {
+          "width": 390,
+          "height": 844
+        },
+        "clicks": 45,
+        "gameAudio": true,
+        "audioLeadSilenceSeconds": 62.04000000000002,
+        "physicalPhone": false,
+        "assistance": "Native highlighted clicks and ordinary real-time game clock only. No damage/HP/advance injection.",
+        "sourceResult": "reports/local/tutorial-20261105/guided-recordings/protoss/result.json",
+        "presentation": {
+          "fonts": [
+            12
+          ],
+          "maxLines": 1,
+          "allNativeControlsUnmoved": true
+        }
+      }
+    ],
+    "physicalPhones": false,
+    "humanUserAcceptance": false
+  },
+  "incremental": {
+    "baselineBuild": "1d1381952fb100213afc3f957f983beb936972d86998babd6a4e5ecfc87f3210",
+    "reusedResources": 3847,
+    "addedResourceTransferBytes": 133554,
+    "fileDelta": {
+      "added": {
+        "count": 9,
+        "bytes": 11590733
+      },
+      "changed": {
+        "count": 5,
+        "bytes": 2672366
+      },
+      "reused": {
+        "count": 366,
+        "bytes": 463470691
+      }
+    },
+    "manifest": "dist/tutorial-1.1-guided-20261105/candidate/incremental.json",
+    "checksums": "dist/tutorial-1.1-guided-20261105/candidate/CHECKSUMS.json"
+  },
+  "open": [
+    "副官与执行官的新中文逐句配音未落实；当前完整字幕。虫后使用已核实原版短震动。",
+    "手机横竖屏是 Chrome 模拟触屏；物理手机未执行。",
+    "候选与三个录屏待用户审阅。"
+  ],
+  "authorization": {
+    "committed": false,
+    "pushed": false,
+    "merged": false,
+    "deployed": false,
+    "published": false
+  }
+}

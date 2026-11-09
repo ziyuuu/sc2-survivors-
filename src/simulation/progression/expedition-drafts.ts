@@ -40,6 +40,7 @@ export interface ExpeditionFamilyDraftInfo {
 export interface ExpeditionHeroDraftInfo {id:string;race:Race;name:string;icon:string;rank:number;owned:boolean;eligible:boolean}
 export interface ExpeditionEliteDraftInfo {id:string;race:Race;family:FamilyId;name:string;icon:string;eligible:boolean}
 export interface ExpeditionDraftContext {
+ tutorialFixed?:boolean;tutorialSupplyCount?:1|2;
  difficulty?:import('../../data/stages').Difficulty;
  funShop?:FunShopLevels;
  wallet?:{minerals:number;gas:number};
@@ -111,7 +112,7 @@ function retainedOffers(ctx:ExpeditionDraftContext,round:ExpeditionDraftRound,re
 }
 function quote(ctx:ExpeditionDraftContext,c:Candidate,round:ExpeditionDraftRound,price={minerals:0,gas:0},factor=ctx.purchasePriceFactor??1):ExpeditionReward {
  if(c.effect.kind==='funShop')return {id:c.id,offerId:ctx.nextOfferId(c.id),sold:false,name:c.name,description:c.description,icon:c.icon,rarity:c.rarity,kind:c.kind,value:c.value,minerals:price.minerals,gas:price.gas,baseMinerals:price.minerals,baseGas:price.gas,discount:0,expeditionWindow:windowOf(ctx),expeditionRound:round,expeditionEffect:c.effect};
- const discount=price.minerals||price.gas?sample(DISCOUNTS,d=>d.weight,ctx.random)!.off:0;
+ const discount=ctx.tutorialFixed?0:price.minerals||price.gas?sample(DISCOUNTS,d=>d.weight,ctx.random)!.off:0;
  const cost=(base:number)=>base?Math.max(1,Math.ceil(base*(1-discount)*factor)):0;
  return {id:c.id,offerId:ctx.nextOfferId(c.id),sold:false,name:c.name,description:c.description,icon:c.icon,rarity:c.rarity,kind:c.kind,value:c.value,strength:c.strength,minerals:cost(price.minerals),gas:cost(price.gas),baseMinerals:price.minerals,baseGas:price.gas,discount,expeditionWindow:windowOf(ctx),expeditionRound:round,expeditionEffect:c.effect};
 }
@@ -160,7 +161,7 @@ export function drawExpeditionDevelopment(ctx:ExpeditionDraftContext,reroll=fals
  requireCurrent(ctx);const direction=ctx.state.developmentDirection,b=developmentState(ctx,true);if(ctx.state.developmentBought||!direction||!b)return [];
  if(reroll){ctx.state.directionOffers={};ctx.state.developmentQuotes={};b.offers={};b.quotes={};}
  else pruneExpeditionDevelopmentOffers(ctx,[]);
- const quotes=getOffers(b,{random:ctx.random,related:ctx.state.familySlots,capabilities:f=>ctx.familyInfo(f).capabilities??[],ready:ctx.developmentReady,priceFactorFor:ctx.developmentPriceFactorFor??(ctx.developmentPriceFactor!==undefined?()=>ctx.developmentPriceFactor!:undefined)});
+ const quotes=getOffers(b,{fixedDiscount:ctx.tutorialFixed?0:undefined,random:ctx.random,related:ctx.state.familySlots,capabilities:f=>ctx.familyInfo(f).capabilities??[],ready:ctx.developmentReady,priceFactorFor:ctx.developmentPriceFactorFor??(ctx.developmentPriceFactor!==undefined?()=>ctx.developmentPriceFactor!:undefined)});
  for(const q of getEvolutionOffers(b,{random:ctx.random,ready:ctx.developmentReady,priceFactorFor:ctx.developmentPriceFactorFor}))developmentReward(ctx,b,q);
  const offers=quotes.map(q=>developmentReward(ctx,b,q));
  ctx.state.directionOffers[direction]=offers;return offers;
@@ -296,7 +297,9 @@ export function canClaimTalentLoot(ctx:ExpeditionDraftContext,offer:ExpeditionRe
 }
 export function drawExpeditionReinforcements(ctx:ExpeditionDraftContext,reroll=false):ExpeditionReward[]{
  requireCurrent(ctx);if(ctx.state.draftTaken)return [];const retained=retainedOffers(ctx,'random',reroll);if(retained)return retained;
- const pool=reinforcementPool(ctx,true).filter(c=>shopEffectLegal(ctx,c.effect)),reference=shopReferencePool(ctx),firstWeights=shopWeights(ctx,reference,true),laterWeights=shopWeights(ctx,reference,false),picked:Candidate[]=[];
+ const pool=reinforcementPool(ctx,true).filter(c=>shopEffectLegal(ctx,c.effect));
+ if(ctx.tutorialFixed){const family=({terran:'marine',zerg:'zergling',protoss:'zealot'} as const)[ctx.state.race],target=pool.find(c=>c.id===`supply.direct.${family}.${ctx.tutorialSupplyCount??1}`);if(!target)throw Error('教学基础补给不可用');const picked=[target,...pool.filter(c=>c!==target).slice(0,2)];return picked.map(c=>quote(ctx,c,'random',shopPrice(c)));}
+ const reference=shopReferencePool(ctx),firstWeights=shopWeights(ctx,reference,true),laterWeights=shopWeights(ctx,reference,false),picked:Candidate[]=[];
  while(picked.length<3){const first=picked.length===0,next=pickShopCandidate(ctx,pool,picked,first?firstWeights:laterWeights,first);if(!next)break;picked.push(next);}
  for(const fallback of pool.filter(c=>c.kind==='economy')){if(picked.length>=3)break;if(!picked.some(c=>c.id===fallback.id))picked.push(fallback);}
  const history=ctx.state.draftHistory.at(-1)!;for(const c of picked)if(!history.shown.includes(c.id))history.shown.push(c.id);

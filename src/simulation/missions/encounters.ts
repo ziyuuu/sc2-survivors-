@@ -1,5 +1,6 @@
 import {MISSION_RULES,missionWaveTicks} from './config';
 import type {World} from '../world';
+import {worldContent,contentRoll} from '../progression/run-content';
 import type {MissionRecord,MissionBody} from './state';
 import {campaignProgress,continuousSpecialProfile} from '../../data/enemy-tuning';
 import {SC2_UNITS} from '../../data/sc2-units';
@@ -19,7 +20,8 @@ export function spawnIntel(w:World,m:MissionRecord){
  const p=intelPoint(w,m);if(!p)return false;
  const gear=w.starship.enabled&&!!w.starship.account.run&&!w.starship.account.run.ended;
  const tiers=([0,1,2] as const).filter(t=>gear||identityCandidates(w,t).length),sum=tiers.reduce<number>((s,t)=>s+MISSION_RULES.intel.weights[t],0);if(!sum)return false;
- let roll=w.random()*sum,tier=tiers[0];for(const t of tiers){roll-=MISSION_RULES.intel.weights[t];if(roll<0){tier=t;break;}}
+ const content=worldContent(w);
+ let roll=(content?contentRoll(content.salt,'intel/tier'):w.random())*sum,tier=tiers[0];for(const t of tiers){roll-=MISSION_RULES.intel.weights[t];if(roll<0){tier=t;break;}}
  if(!planIntelReward(w,m,tier))return false;
  m.intelTier=tier;m.total=MISSION_RULES.intel.counts[tier][0]+Math.floor(w.random()*(MISSION_RULES.intel.counts[tier][1]-MISSION_RULES.intel.counts[tier][0]+1));
  const b=makeMissionBody(w,m,'intel',p,1,'mission.intel','terran',.8,true);queueMissionGuards(w,m,b,tier===2?2:1,8);return true;

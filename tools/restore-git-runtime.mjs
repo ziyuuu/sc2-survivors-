@@ -1,3 +1,4 @@
+import {loadTutorialAssets} from './tutorial-assets.mjs';
 import {loadCombatAudio} from './combat-audio-assets.mjs';
 import {loadFunPropAssets} from './fun-prop-assets.mjs';
 import {loadMissionAssets} from './mission-assets.mjs';
@@ -72,3 +73,5 @@ await loadMissionAssets({restore:true,check:process.argv.includes('--check')});
 
 await loadCombatAudio({restore:true,check:process.argv.includes('--check')});
 await loadMusicAssets({restore:true,check:process.argv.includes('--check')});
+
+await loadTutorialAssets({restore:true,check:process.argv.includes('--check')});

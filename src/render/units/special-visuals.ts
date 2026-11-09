@@ -12,8 +12,8 @@ function box(w:number,h:number,d:number,color:number){return new THREE.Mesh(new 
 /** Small authored props accompany the original mineral/gas models and original combat units. */
 export class SpecialVisuals {
  private props=new Map<string,THREE.Group>();private labels=new Map<string,HTMLElement>();private projected=new THREE.Vector3();
- private fog:CrossingFog;
- constructor(private scene:THREE.Scene,private layer:HTMLElement,private assets:FunPropAssets){this.fog=new CrossingFog(scene);}
+ private fog?:CrossingFog;
+ constructor(private scene:THREE.Scene,private layer:HTMLElement,private assets:FunPropAssets){}
  private prop(id:string,build:()=>THREE.Group,seen:Set<string>){seen.add(id);let p=this.props.get(id);if(!p){p=build();this.scene.add(p);this.props.set(id,p);}return p;}
  private label(id:string,text:string,p:Point,y:number,camera:THREE.Camera,width:number,height:number,seen:Set<string>,pinned=false){
   this.projected.set(p.x,y,p.z).project(camera);const v=this.projected,off=Math.abs(v.x)>.82||Math.abs(v.y)>.7||v.z>1;if(off&&!pinned)return;
@@ -21,7 +21,9 @@ export class SpecialVisuals {
   el.textContent=(off?(Math.abs(v.y)>Math.abs(v.x)?v.y>0?'▲ ':'▼ ':v.x<0?'◀ ':'▶ '):'')+text;el.style.left=Math.max(90,Math.min(width-90,(v.x*.5+.5)*width))+'px';el.style.top=Math.max(110,Math.min(height-190,(.5-v.y*.5)*height))+'px';
  }
  update(w:World,camera:THREE.Camera,width:number,height:number,ground:(p:Point)=>number){
-  this.assets.updateTime(w.time);this.fog.update(w);
+  this.assets.updateTime(w.time);
+  if(w.specialStages.active?.kind==='crossing'){this.fog??=new CrossingFog(this.scene);this.fog.update(w);}
+  else if(this.fog){this.fog.dispose();this.fog=undefined;}
   const seen=new Set<string>(),labels=new Set<string>(),a=w.specialStages.active;
   for(const item of w.fieldEvents.pickups){
    const id='pickup:'+item.id,root=this.prop(id,()=>this.assets.create('pickup-'+item.kind as import('./fun-prop-assets').FunPropName),seen);
@@ -41,6 +43,6 @@ export class SpecialVisuals {
   for(const [id,p] of this.props)if(!seen.has(id)){release(p);this.props.delete(id);}
   for(const [id,el] of this.labels)if(!labels.has(id)){el.remove();this.labels.delete(id);}
  }
- reset(){this.fog.reset();for(const p of this.props.values())release(p);for(const el of this.labels.values())el.remove();this.props.clear();this.labels.clear();}
+ reset(){this.fog?.dispose();this.fog=undefined;for(const p of this.props.values())release(p);for(const el of this.labels.values())el.remove();this.props.clear();this.labels.clear();}
  report(){return {props:this.props.size,labels:this.labels.size};}
 }

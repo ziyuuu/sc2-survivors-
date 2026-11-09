@@ -1,3 +1,4 @@
+import {endlessRoundDuration,endlessRoundFrequency} from '../../src/data/endless';
 import {TEAM_CARD_VALUES,CARD_RARITIES} from '../../src/simulation/progression/team-cards';
 import {PLAYER_REAPER_DAMAGE_BONUS,PLAYER_COMBAT_FACTOR,PLAYER_BANELING,PLAYER_LURKER,PLAYER_ZERGLING_BANELING_REDUCTION,APPROACH_CHARGE} from '../../src/data/player-unit-adaptations';
 import fs from 'node:fs/promises';
@@ -80,8 +81,8 @@ text.push('## 普通敌军与混合投放 · R2',
  '普通／困难／地狱以 p=(关数−1＋关内战斗进度)/18 连续成长，旧军衔与章节属性倍率已合并；军衔只保留机制门槛，无尽固定III级。简单主力保留原战役强度。计划出生时刻与档位随队列固定，跨关不重算，不给存活敌人追溯加血。',
  table(['难度','开场→终点 HP倍率','伤害倍率','攻速倍率','跳虫开场→终点HP'],(['normal','hard','hell'] as const).map(d=>{const a=continuousOrdinaryGrowth(d,0),b=continuousOrdinaryGrowth(d,1);return [difficultyNames[d],`${n(a.health)}→${n(b.health)}`,`${n(a.damage)}→${n(b.damage)}`,`${n(a.attackSpeed)}→${n(b.attackSpeed)}`,`${n(continuousLingHp(0)*a.health)}→${n(continuousLingHp(1)*b.health)}`];})),
  '矿／气以旧主波和被替换虫海的每关总预算分配，按各兵种基础掉落与1／0.3／0.5档位加权。30%／50%弱兵只保留同比例矿气和战斗击杀统计，不进入装备、卡牌、天赋晋级、免费增援或装备／英雄击杀成长；已施加毒素、感染等死亡战斗效果照常结算。100%主力及特殊怪保持原奖励规则。300活跃敌人上限与首领留位保留，积压记录不删除。',
- '无尽每分钟0／15／30／45秒四个混合波。以累计战斗分钟x连续增长：HP×1.22^x、伤害×1.10^x、攻速×min(1.25,1.025^x)，出生序号不参与成长。数量和特殊怪频率×(1＋0.04×min(5,x))，最多增加20%。精英与首领使用独立连续模板。',
- table(['无尽关开场','累计分钟','HP倍率','伤害倍率','攻速倍率'],[1,3,6,12,24,30].map(r=>{const g=continuousEndlessGrowth((r-1)*60);return [r,r-1,n(g.health),n(g.damage),n(g.attackSpeed)];})));
+ '无尽第1—3轮每轮60秒，4—6轮90秒，7—9轮120秒，10—12轮180秒，之后每3轮增加60秒。以x=轮次−1＋轮内进度连续成长：HP×1.22^x、伤害×1.10^min(x,5)×1.16^max(0,x−5)、攻速×min(1.25,1.025^x)。每3轮一档，主波／精英／首领频率F=1＋0.15×floor((轮次−1)/3)，基础间隔15／30／90秒除以F，简单精英再乘2；进度跨轮承接。单波数量仍按实际分钟前5分钟累计最多增加20%，不再乘F。待出生敌军保存原出生轮号和成长进度。旧档本轮保留60秒及原排程，下一轮切换。',
+ table(['无尽轮开场','轮长（秒）','频率倍率','HP倍率','伤害倍率','攻速倍率'],[1,4,7,10,13,16,19,24,30].map(r=>{const g=continuousEndlessGrowth((r-1)*60);return [r,endlessRoundDuration(r),n(endlessRoundFrequency(r)),n(g.health),n(g.damage),n(g.attackSpeed)];})));
 
 text.push('## 新规则：持续生产和发展行动',
  '每个生产组最多配置两个产出，按顺序交替；开关只影响尚未付款的未来批次。每个组只允许一批在途。人族／神族同类建筑合组，折跃水晶独立合组；虫族每座孵化场独立，拥有基础输出及已付费的地面／天空方向，可保留两个方向，不能重复贡献产能。A16可把每家族身体与预付上限从5升至7，S14可把普通军衔升至7。',
@@ -143,7 +144,7 @@ for(const difficulty of difficulties)text.push(`### 新18关 · ${difficultyName
  table(['关','秒','波次数','总预算','普通波预算','普通兵量','预留：队长／Boss／主巢／扩张巢','首批守军兵量','奖励矿／气','Drone／虫卵'],CAMPAIGN18_STAGES.map(({id})=>{const s=campaign18StageConfig(id,difficulty);return [id,s.durationSeconds,s.waves,s.budget,s.waveBudget,CAMPAIGN18_ENEMIES.map(t=>s.ambient[t]).join('／'),Object.values(s.reserves).join('／'),CAMPAIGN18_ENEMIES.map(t=>s.guards[t]).join('／'),s.reward.join('／'),`${s.drones}／${s.eggs}`];})),
  table(['章节起始关','主力数量系数','波次数目标','守军数量系数'],[1,4,7,10,13,16].map((stage,i)=>[stage,CAMPAIGN_QUANTITY[difficulty][i],CAMPAIGN_WAVES[difficulty][i],campaign18EnemyPressure(difficulty,stage).guards])));
 text.push('第18关主巢全程可攻击、阶段切换不回血；提前摧毁停止其攻击与生产，仍需完成150秒时限。通关要求主巢摧毁和时限结束同时满足。第1—17关按时间推进，存活敵人与伤损跨关保留。24关只是后续独立战役接口，不是当前内容。',
- '普通／简单每3关获得1永久资源，困难每3关2资源，地狱每关1资源；完整18关分别6／12／18。无尽每完整60秒战斗按普通／简单1、困难／地狱2资源结算。无尽保留本局资产，每60秒结算300矿／250气并购物，每4轮先发展；经济事件保留四分钟循环，特殊敌人计时连续。');
+ '普通／简单每3关获得1永久资源，困难每3关2资源，地狱每关1资源；完整18关分别6／12／18。无尽每完整60秒战斗按普通／简单1、困难／地狱2资源结算。无尽保留本局资产，每轮购物，每4轮先发展与精英契约；普通混合波基础矿气总预算和每轮基础300矿／250气奖励均乘本轮秒数/60，固定装备关末收益仍只结算一次。经济事件与地狱扩张保留实际240秒循环，长轮次覆盖全部循环，生产／冷却使用实际战斗时间。');
 
 text.push('## 当前地图',
  `地图版本 ${CAMPAIGN_MAP_ID}，五张地图均为 ${CAMPAIGN_MAP_SIZE}×${CAMPAIGN_MAP_SIZE}，三族均从中心（0，0）出发，各关开放净面积相同。新局随机选择并避免与上一局重复；读档保留已选地图和随机种子。`,

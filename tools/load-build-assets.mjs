@@ -1,3 +1,4 @@
+import {loadTutorialAssets} from './tutorial-assets.mjs';
 import {loadCombatAudio} from './combat-audio-assets.mjs';
 import {loadMusicAssets} from './music-assets.mjs';
 import {loadFunPropAssets} from './fun-prop-assets.mjs';
@@ -10,7 +11,13 @@ import {loadEnvironmentScenery} from './environment-scenery.mjs';
 import {loadCombatEffects} from './combat-effects-assets.mjs';
 import {loadStarshipAssets} from './starship-assets.mjs';
 import fs from 'node:fs/promises';
+import path from 'node:path';
 import {createHash} from 'node:crypto';
+
+const mimeTypes={glb:'model/gltf-binary',gltf:'model/gltf+json',json:'application/json',svg:'image/svg+xml',webp:'image/webp',png:'image/png',jpg:'image/jpeg',ogg:'audio/ogg',mp3:'audio/mpeg',wav:'audio/wav'};
+export function releaseAssetMime(file){
+ return mimeTypes[path.extname(file).slice(1).toLowerCase()]??'application/octet-stream';
+}
 
 /** Build from the locked runtime files, without reviving obsolete conversion caches. */
 export async function loadBuildAssets(){
@@ -38,7 +45,7 @@ export async function loadBuildAssets(){
    if(!matches||r.sourceSha256!==r.packedSha256)throw Error('UI resource changed: '+file);
   }
  }
- const records=[...await loadFunPropAssets(),...await loadMissionAssets(),...metadata.records,...ui.records,...await loadIntermissionAssets(),...await loadNativeHudAssets(),...await loadMaterialTextures(),...await loadEnvironmentTextures(),...await loadEnvironmentScenery(),...await loadCombatEffects(),...await loadCombatAudio(),...await loadStarshipAssets(),...await loadMusicAssets()];
+ const records=[...await loadTutorialAssets(),...await loadFunPropAssets(),...await loadMissionAssets(),...metadata.records,...ui.records,...await loadIntermissionAssets(),...await loadNativeHudAssets(),...await loadMaterialTextures(),...await loadEnvironmentTextures(),...await loadEnvironmentScenery(),...await loadCombatEffects(),...await loadCombatAudio(),...await loadStarshipAssets(),...await loadMusicAssets()];
  if(new Set(records.map(r=>r.id)).size!==records.length)throw Error('Duplicate combined build asset ID');
  return records;
 }

@@ -1,3 +1,4 @@
+import {guided} from '../simulation/tutorial/guided';
 import {productionGroupJob} from '../simulation/production-queries';
 import {quitSpecialStage} from '../simulation/special-stages/runtime';
 import {collectSpecialRewards} from '../simulation/special-stages/rewards';
@@ -80,7 +81,7 @@ const cost=(m:number,g:number)=>`${m} 矿${g?' / '+g+' 气':''}`;
 export class HUD {
  private worldRefresh=new RefreshBatch(()=>this.update());
  advanceSimulation<T>(advance:()=>T){return this.worldRefresh.run(advance);}
- starship?:{open:()=>void;close:()=>void;sync:()=>void;readonly isOpen:boolean};
+ starship?:{open:()=>void;close:()=>void;sync:()=>void;readonly isOpen:boolean;ui:ReturnType<typeof import('./starship/view').mountStarshipUI>};
  playerServices?:import('./hud/player-services').PlayerServices;
  private battlePanel:'base'|'progress'|'talents'|null=null;
  private buildingDraft:PlacementDraft|null=null;private buildingDraftKey='';private buildingOpener='';private panelWasPaused=false;private progressTab:'summary'|'sources'='summary';
@@ -94,7 +95,7 @@ export class HUD {
  coverIndexes:Record<Race,number>={terran:0,zerg:0,protoss:0};readonly coverPreference:CoverPreference;private coverAt=0;
  private get coverRace(){return this.coverPreference.preferredRace(this.world.permanentProfile.activeRace);}
  loadingMapName='战役前线';menuPage:MenuPage='title';menuRace:Race='terran';menuDifficulty:Difficulty='normal';menuPreset:PresetSlot=0;loadPreview:LoadPreview|null=null;flowError='';pendingStageAdvance=false;
- onPrepareNew:()=>void=()=>{};onPrepareLoad:()=>void=()=>{};onPrepareEndless:()=>void=()=>{};onCommitFlow:()=>void=()=>{};onCancelFlow:()=>void=()=>{};onPrepareReinforcement:()=>void=()=>{};
+ onTutorialChoice:(accept:boolean)=>void=()=>{};onTutorialExit:()=>void=()=>{};onPrepareNew:()=>void=()=>{};onPrepareLoad:()=>void=()=>{};onPrepareEndless:()=>void=()=>{};onCommitFlow:()=>void=()=>{};onCancelFlow:()=>void=()=>{};onPrepareReinforcement:()=>void=()=>{};
  talentPage:TalentPage='races';talentRace:Race='terran';talentLine:TalentLine='resources';
  private commitGuard=new PointerCommitGuard();
  audio:AudioEffects|null=null;private uiMotion=true;private auxiliaryProduction=false;private productionTab:BaseTab='facilities';private importInput=document.createElement('input');
@@ -235,9 +236,29 @@ export class HUD {
   });controls.listeners.add(()=>this.update());world.listeners.add(()=>{shopProgress(world).observe();this.worldRefresh.request();});world.permanentProfile.listeners.add(()=>this.update());this.update();
  }
  graphicsControls(){return '<button class="small" data-action="settings">设置 · 操作与画面</button>';}
+ tutorialBuildingDraft(){return this.buildingDraft?structuredClone(this.buildingDraft):undefined;}
+ /** Prepare native pages without purchasing, equipping or applying a draft. */
+ prepareTutorialSurface(surface:'production'|'backpack'|'warehouse'|'rest'|'main',draft?:PlacementDraft,item?:string){
+  this.intermission.sync(this.world);
+  if(surface==='rest'){this.starship?.close();this.intermission.reset();this.intermission.push({page:'rest'});this.update();return;}
+  if(surface==='production'){
+   this.starship?.close();
+   if(this.world.phase==='battle'){this.panelWasPaused=false;this.battlePanel='base';this.world.paused=true;}
+   else {this.intermission.reset();this.intermission.push({page:'production'});}
+   this.productionTab='facilities';this.intermission.productionTab='facilities';this.openBuildingDraft('');if(draft)this.buildingDraft=structuredClone(draft);this.update();return;
+  }
+  if(this.battlePanel){this.battlePanel=null;this.world.paused=this.panelWasPaused;this.clearBuildingDraft();}
+  this.auxiliaryProduction=false;
+  if(surface==='backpack'||surface==='warehouse'){
+   if(!this.starship?.isOpen)this.starship?.open();
+   if(surface==='warehouse')this.starship?.ui.open('warehouse');
+   if(item)this.starship?.ui.prepareTutorialDetail(item);return;
+  }
+  this.starship?.close();if(this.world.phase==='reward')this.intermission.reset();this.update();
+ }
  private buildingKey(){return [this.world.runId,this.world.phase,this.world.draftWindowKey,this.world.rewardRound].join(':');}
  private clearBuildingDraft(){this.buildingDraft=null;this.buildingDraftKey='';}
- private visibleFocus(selector:string){return [...this.root.querySelectorAll<HTMLElement>(selector)].find(el=>el.getClientRects().length&&!el.closest('[inert]'));}
+ private visibleFocus(selector:string){if(!selector)return undefined;return [...this.root.querySelectorAll<HTMLElement>(selector)].find(el=>el.getClientRects().length&&!el.closest('[inert]'));}
  private openBuildingDraft(opener:string){this.buildingDraft=this.world.beginBuildingPlacement();this.buildingDraftKey=this.buildingKey();this.buildingOpener=opener;}
  private editBuildingDraft(button:HTMLButtonElement){
   const draft=this.buildingDraft,g=draft?.groups.find(g=>g.id===button.dataset.facility);if(!g)return;
@@ -274,7 +295,7 @@ export class HUD {
   pause(){if(this.starship?.isOpen){this.starship.close();return;}if(this.battlePanel&&!this.information){this.closeBattlePanel();return;}if(this.information){this.information=null;this.update();return;}if(this.talentRulesOpen){this.talentRulesOpen=false;this.update();return;}if(this.decisionDetail){this.decisionDetail=null;this.update();return;}if(this.playerServices?.close())return;if(this.squadConsole.close()){this.inputReset();return;}if(!this.carrierInspector.root.hidden){this.carrierInspector.close();return;}if(this.readiness?.state.kind){this.menuBack();return;}if(this.auxiliaryProduction){this.closeAuxiliaryProduction();return;}if(this.settingsOpen){this.settingsOpen=false;if(this.world.phase==='battle')this.world.paused=this.settingsWasPaused;this.inputReset();this.update();return;}if(this.talentOpen){this.talentBack();this.inputReset();this.update();return;}if(this.world.phase==='menu'){this.menuBack();return;}if(this.world.expedition.pendingShopSupply){this.world.cancelShopSupply();this.inputReset();this.update();return;}if(this.world.expedition.pendingShopElite){this.world.cancelShopElite();this.inputReset();this.update();return;}if(this.world.phase==='reward'&&this.intermission.depth){if(this.intermission.current.page==='production')this.clearBuildingDraft();const entry=this.intermission.back();this.update();if(entry?.focus)this.focusAfterUpdate(()=>this.root.querySelector<HTMLElement>(entry.focus));return;}if(this.world.phase==='reward'&&this.world.endlessEntry){this.world.backFromEndlessPreparation();return;}if(this.world.expedition.pendingReceipt||this.world.expedition.pendingTalentLoot||this.world.eliteRescueChoice||this.world.eliteChoice){this.root.querySelector<HTMLButtonElement>('#overlay [data-action=restart]')?.click();return;}if(this.world.phase==='battle'){this.world.paused=!this.world.paused;this.inputReset();this.world.changed();}}
  setLoading(text:string){this.loading=text;this.update();}
  finishLoading(){const missing=missingAssets();this.ready=this.view.initialAssetsLoaded&&missing.length===0&&this.view.modelErrors.length===0;this.loading=this.ready?'战场就绪':'缺少战场素材';this.update();this.root.querySelector<HTMLButtonElement>('[data-action=save-continue]:not(:disabled),[data-action=start]')?.focus();}
- update(){this.downloads.setAllowed(this.settingsOpen&&!this.readiness?.state.kind&&!document.hidden&&(this.world.phase!=='battle'||this.world.paused));shopProgress(this.world).observe();const w=this.world,decisionArchive=this.saveUI&&!this.session?.memoryOnly?decisionSaveActions(this.session?.busy??false):'';this.intermission.sync(w);if(this.buildingDraft&&this.buildingDraftKey!==this.buildingKey())this.clearBuildingDraft();document.body.dataset.rules='mvp';document.body.dataset.race=w.expedition.race;this.root.dataset.race=w.phase==='menu'?(this.menuPage==='title'?this.coverRace:this.menuRace):w.expedition.race;document.body.dataset.touchControls=this.controls.touch;document.body.dataset.desktopControls=this.controls.desktop;const battleUI=w.phase==='battle'&&!w.paused&&!w.requiresPlayerDecision&&!this.readiness?.state.kind&&!this.settingsOpen&&!this.talentOpen;const battleShell=w.phase==='battle'&&!this.readiness?.state.kind;this.root.classList.toggle('battle-page',battleShell);this.root.dataset.page=battleShell?'battle':w.phase;document.body.dataset.uiPhase=this.readiness?.state.kind?'loading':this.talentOpen?'talents':this.settingsOpen?'settings':w.phase==='battle'&&!battleUI?'pause':w.phase;this.nativeHud.update(this.squadConsole.mode);this.minimap.update(battleShell,this.preferences.mapCollapsed);
+ update(){this.downloads.setAllowed(this.settingsOpen&&!this.readiness?.state.kind&&!document.hidden&&(this.world.phase!=='battle'||this.world.paused));shopProgress(this.world).observe();const w=this.world,tutorialInvite=w.starship.account.tutorial?.status==='invited'&&w.starship.account.tutorial.run===w.runId,decisionArchive=this.saveUI&&!this.session?.memoryOnly?decisionSaveActions(this.session?.busy??false):'';this.intermission.sync(w);if(this.buildingDraft&&this.buildingDraftKey!==this.buildingKey())this.clearBuildingDraft();document.body.dataset.rules='mvp';document.body.dataset.race=w.expedition.race;this.root.dataset.race=w.phase==='menu'?(this.menuPage==='title'?this.coverRace:this.menuRace):w.expedition.race;document.body.dataset.touchControls=this.controls.touch;document.body.dataset.desktopControls=this.controls.desktop;const battleUI=w.phase==='battle'&&!w.paused&&(!w.requiresPlayerDecision||tutorialInvite||!!guided(w))&&!this.readiness?.state.kind&&!this.settingsOpen&&!this.talentOpen;const battleShell=w.phase==='battle'&&!this.readiness?.state.kind;this.root.classList.toggle('battle-page',battleShell);this.root.dataset.page=battleShell?'battle':w.phase;document.body.dataset.uiPhase=this.readiness?.state.kind?'loading':this.talentOpen?'talents':this.settingsOpen?'settings':w.phase==='battle'&&!battleUI?'pause':w.phase;this.nativeHud.update(this.squadConsole.mode);this.minimap.update(battleShell,this.preferences.mapCollapsed);
   this.put('minerals',String(Math.floor(w.wallet.minerals)));this.put('gas',String(Math.floor(w.wallet.gas)));this.put('stage',w.endless?`∞ ${w.endless.round}`:romanStage(w.stage));this.put('clock',w.specialStages.active?'挑战':clock(w.duration-w.stageElapsed));
   this.root.dataset.specialKind=w.specialStages.active?.kind??'';this.put('battle-location',esc(w.specialStages.active?SPECIAL_STAGE_NAMES[w.specialStages.active.kind]:w.terrain?.definition?.source.name??'战役前线'));this.put('mission',finalObjectives(w));this.put('random-mission',w.phase==='battle'?randomMissionMarkup(w):'');
   const routine=/守住小队|增援即将落地|已加入队伍|雇佣兵抵达|小队转移完成/.test(w.notice);this.put('notice',w.time<w.noticeUntil&&!routine?w.notice.split(' · ')[0]:'');document.querySelector<HTMLElement>('#notice')!.title=w.notice;this.put('stretch','');
@@ -284,7 +305,7 @@ export class HUD {
 
   if(!this.root.querySelector<HTMLElement>('#production-detail')?.hidden)this.put('production-detail',`<span>${RESCUE_PRESENTATION[w.expedition.race].workerName} ${w.workers}</span>${productionGroups(w.expedition).map(group=>{const job=productionGroupJob(w,group),name=group.kind==='hatchery'?'孵化场 '+group.ids[0]:group.kind==='crystal'?'折跃水晶':PRODUCTION_LINES[group.line].name;return `<span>${name} · ${job?SC2_UNITS[job.family].zh+' ×'+job.passengers.filter(p=>p.status==='waiting').length+' · '+(job.state==='training'?fmt(job.remaining)+'s':'救援中'):activeGroupOutputs(group).map(f=>SC2_UNITS[f].zh).join(' / ')||'已关闭'}</span>`;}).join('')}`);
   this.put('production-status',`<span>${RESCUE_PRESENTATION[w.expedition.race].workerName} ${w.workers}</span>`);
-  const overlay=document.querySelector<HTMLElement>('#overlay')!;overlay.hidden=!this.battlePanel&&!this.readiness?.state.kind&&!this.settingsOpen&&!this.talentOpen&&w.phase==='battle'&&!w.paused&&!w.requiresPlayerDecision;
+  const overlay=document.querySelector<HTMLElement>('#overlay')!;overlay.hidden=!this.battlePanel&&!this.readiness?.state.kind&&!this.settingsOpen&&!this.talentOpen&&w.phase==='battle'&&!w.paused&&(!w.requiresPlayerDecision||tutorialInvite||!!guided(w));
   if(this.saveUI?.failed&&!this.settingsOpen&&(!this.readiness?.showLoading||this.readiness.state.phase==='error')){this.starship?.close();overlay.hidden=false;this.put('overlay',this.saveUI.failureDialog());}
   else if(this.readiness?.showLoading)this.put('overlay',renderReadiness(this.readiness.state,{canExport:!this.session?.memoryOnly,race:this.readiness.state.kind==='load'?this.loadPreview?.snapshot?.config.race??w.expedition.race:this.readiness.state.kind==='new'?this.menuRace:w.expedition.race,difficulty:this.readiness.state.kind==='load'?this.loadPreview?.snapshot?.config.difficulty??w.difficulty:this.readiness.state.kind==='new'?this.menuDifficulty:w.difficulty,map:this.readiness.state.kind==='load'?savedRunInfo(this.loadPreview?.snapshot)?.mapName:this.readiness.state.kind==='endless'?'无尽战场':this.readiness.state.kind==='new'?this.loadingMapName:w.terrain?.definition?.source.name}));
 

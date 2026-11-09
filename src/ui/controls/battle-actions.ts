@@ -1,3 +1,4 @@
+import {guidedAllows} from '../../simulation/tutorial/guided';
 import type {BattleView} from '../../simulation/combat/battle-view';
 const battleContexts=new WeakMap<World,()=>BattleView|undefined>();
 export function bindBattleView(w:World,get:()=>BattleView|undefined){battleContexts.set(w,get);w.starship.battleView=get;}
@@ -86,6 +87,7 @@ export function battleActionState(w:World,id:BattleActionId,allowPanelPause=fals
 }
 
 export function activateBattleAction(w:World,id:BattleActionId):boolean{
+ if(!guidedAllows(w))return false;
  const state=battleActionState(w,id);
  if(!state.enabled||typeof document!=='undefined'&&document.body.dataset.battleActionsReady==='false'){if(id!=='airlift')w.announce(state.reason||'战场素材准备中');return false;}
  if(typeof document!=='undefined')document.dispatchEvent(new Event('sc2-target-cancel'));

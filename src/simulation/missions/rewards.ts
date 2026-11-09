@@ -2,6 +2,7 @@ import {MISSION_RULES} from './config';
 import {ordinaryHeroAllowed} from '../progression/hero-availability';
 import {activeEquipmentEffects} from '../starship/modules';
 import {notifyUnitArrival} from '../boss-loot';
+import {worldContent,contentStream} from '../progression/run-content';
 import type {World} from '../world';
 import type {MissionReward,MissionRecord} from './state';
 import {PROJECTS,eligible,unlockProductionFamily} from '../building/rules';
@@ -25,8 +26,9 @@ export function priorIdentityPromise(w:World,kind:'hero'|'elite',id:string){
 /** Distinguish a temporary mission reservation from a permanently invalid drop. */
 export function missionBlocksIdentity(w:World,kind:'hero'|'elite',id:string){const m=w.missions.active;if(!m?.reward)return false;if(identityReserved(w,kind,id))return true;const previous=w.missions.claiming;w.missions.claiming=m.id;try{return kind==='hero'?w.canAcquireHero(id as HeroId):w.canAcquireElite(id as EliteId);}finally{w.missions.claiming=previous;}}
 export function identityCandidates(w:World,tier:0|1|2,source:'ordinary'|'queen'='ordinary'):string[]{
+ const plan=worldContent(w);
  if(tier===0){const b=worldBuildingContext(w);return b?PROJECTS.filter(p=>p.kind==='technology'&&!(b.tech[p.id]>0)&&eligible(b,p)).map(p=>p.id).sort():[];}
- return tier===1?Object.keys(ELITES).filter(id=>!priorIdentityPromise(w,'elite',id)&&w.canAcquireElite(id as EliteId)).sort():Object.keys(HEROES).filter(id=>(source==='queen'||ordinaryHeroAllowed(w,id as HeroId))&&!priorIdentityPromise(w,'hero',id)&&w.canAcquireHero(id as HeroId)).sort();
+ return tier===1?Object.keys(ELITES).filter(id=>(!plan||plan.elites.includes(id as EliteId)||w.eliteOwned(id as EliteId))&&!priorIdentityPromise(w,'elite',id)&&w.canAcquireElite(id as EliteId)).sort():Object.keys(HEROES).filter(id=>(!plan||plan.heroes.includes(id as HeroId)||w.heroes.has(id as HeroId))&&(source==='queen'||ordinaryHeroAllowed(w,id as HeroId))&&!priorIdentityPromise(w,'hero',id)&&w.canAcquireHero(id as HeroId)).sort();
 }
 export function planIdentity(w:World,tier:0|1|2,id:string):MissionReward {
  if(tier===0)return {kind:'technology',id};if(tier===2)return {kind:'hero',id:id as HeroId};
@@ -37,7 +39,8 @@ export function planIdentity(w:World,tier:0|1|2,id:string):MissionReward {
 export function planIntelReward(w:World,m:MissionRecord,tier:0|1|2){
  const ids=identityCandidates(w,tier),gear=w.starship.enabled&&!!w.starship.account.run&&!w.starship.account.run.ended;
  if(!ids.length&&!gear)return false;
- if(ids.length&&(!gear||w.random()<MISSION_RULES.intel.identityChance))m.reward=planIdentity(w,tier,ids[Math.floor(w.random()*ids.length)]);
+ const plan=worldContent(w),roll=plan?contentStream(plan,'intel/reward'):w.random;
+ if(ids.length&&(!gear||roll()<MISSION_RULES.intel.identityChance))m.reward=planIdentity(w,tier,ids[Math.floor(roll()*ids.length)]);
  else {const plan=planTaskEquipment(w,{difficulty:w.difficulty,stage:w.stage,tier:tier===0?'elite':'boss',...(tier===2?{endlessRound:1}:{})},m.id+':intelReward');if(!plan)return false;m.reward={kind:'equipment',plan};}
  if(m.reward.kind==='technology'){const s=worldBuildingContext(w)!;s.missionTechnology=m.reward.id;s.revision++;syncBuildingWindow(w.expedition,s);}return true;
 }

@@ -1,4 +1,6 @@
+import {guidedPickup,guidedAllows} from '../tutorial/guided';
 import type {World} from '../world';
+import {tutorialBossEquipment,tutorialItemCollected} from '../tutorial/runtime';
 import {isDensityCompanion} from '../../data/enemy-tuning';
 import type {Entity} from '../types';
 import type {Difficulty} from '../../data/stages';
@@ -52,6 +54,7 @@ export function markDerivedEquipmentEnemy(w:World,u:Entity){w.starship.derivedEn
 export function equipmentBaseDropChance(w:World,chance:number){return Math.min(1,chance*(1+equipmentValue(w,'equipment_drop_chance')));}
 export function dropEnemyEquipment(w:World,u:Entity){if(u.fun||u.encounter||u.mission?.noLoot)return [];if(isDensityCompanion(u))return [];const a=w.starship.account,run=a.run;if(!w.starship.enabled||!run||run.ended||u.owner!=='zerg'||u.summonKind||u.temporary||u.attributes.includes('Structure')||w.starship.derivedEnemies.has(u.id))return [];
  const receipt='equipment-enemy:'+u.id+':'+u.bornAt;if(run.receipts.has(receipt))return [];run.receipts.add(receipt);
+ const tutorial=tutorialBossEquipment(w,u,receipt);if(tutorial!==null){w.changed();return tutorial;}
  const tier=u.enemyTier==='boss'||u.enemyTier==='lord'?'boss':u.enemyTier==='elite'?'elite':'regular',context={difficulty:w.difficulty,stage:w.stage,endlessRound:w.endless?.round,tier} as const,policy=equipmentDropPolicy(context),random=()=>equipmentRandom(a);
  // Arena rewards use cumulative defeated elites; repeated hits cannot advance the count.
  const arena=w.specialStages.active;
@@ -70,7 +73,7 @@ function equipmentRewardRow(w:World,context:EquipmentDropContext){
 }
 
 export function collectNearbyEquipment(w:World){
- if(!w.starship.enabled||w.phase!=='battle'||w.paused||w.requiresPlayerDecision)return;
+ if(!guidedPickup(w,'equipment')||!w.starship.enabled||w.phase!=='battle'||w.paused||w.requiresPlayerDecision)return;
  pruneEquipmentLoot(w);if(itemsAt(w.starship.account,'backpack').length<BACKPACK_CAPACITY)w.starship.loot.fullNotified=false;
  const serial=w.starship.loot.serial;for(const drop of equipmentGroundDrops(w)){
   if(Math.hypot(drop.x-w.anchor.x,drop.z-w.anchor.z)>EQUIPMENT_PICKUP_RADIUS||!equipmentPickupPathClear(w,drop))continue;
@@ -79,6 +82,7 @@ export function collectNearbyEquipment(w:World){
 }
 /** The UI host and automatic pickup share this port. An explicit UI action may run under its pause lease. */
 export function collectWorldEquipment(w:World,id:string){
+ if(!guidedAllows(w))return failure('请完成当前教学操作');
  const serial=w.starship.loot.serial,result=collectEquipmentAt(w,id);if(serial!==w.starship.loot.serial)w.changed();return result;
 }
 export function dropWorldEquipment(w:World,id:string,revision=w.starship.account.revision){
@@ -95,7 +99,7 @@ function collectEquipmentAt(w:World,id:string){
 /** Consume the just-validated synchronous candidate; inventory still validates location and capacity. */
 function collectReachableEquipment(w:World,drop:ReturnType<typeof equipmentGroundDrops>[number]){
  const result=collectEquipment(w.starship.account,drop.item.id);
- if(result.ok){w.starship.loot.fullNotified=false;recordEquipmentPickup(w,result.value,drop);}
+ if(result.ok){w.starship.loot.fullNotified=false;recordEquipmentPickup(w,result.value,drop);tutorialItemCollected(w,result.value.id);}
  else if(result.error==='背包已满')recordEquipmentBackpackFull(w,drop);
  return result;
 }

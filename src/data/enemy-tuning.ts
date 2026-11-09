@@ -11,7 +11,13 @@ export const CAMPAIGN_WAVES:Record<Difficulty,readonly number[]>={
 };
 export type EnemyDensity=1|0.3|0.5;
 /** The scheduled birth, not the eventual admission time. Kept on queued and living bodies. */
-export interface EnemySpawnStamp {stage:number;progress:number;endlessSeconds?:number;density:EnemyDensity}
+export interface EnemySpawnStamp {stage:number;progress:number;endlessSeconds?:number;endlessGrowthSeconds?:number;endlessRound?:number;density:EnemyDensity}
+/** New schedules separate the real clock from the round-normalized growth clock. */
+export const enemyGrowthSeconds=(stamp:EnemySpawnStamp)=>stamp.endlessGrowthSeconds??stamp.endlessSeconds??0;
+export function validateEndlessStamp(stamp?:EnemySpawnStamp){
+ if(!stamp||stamp.endlessRound===undefined&&stamp.endlessGrowthSeconds===undefined)return;
+ if(!Number.isSafeInteger(stamp.endlessRound)||stamp.endlessRound!<1||!Number.isFinite(stamp.endlessSeconds)||stamp.endlessSeconds!<0||!Number.isFinite(stamp.endlessGrowthSeconds)||stamp.endlessGrowthSeconds!<60*(stamp.endlessRound!-1)-1e-6||stamp.endlessGrowthSeconds!>60*stamp.endlessRound!+1e-6)throw Error('无尽出生进度无效');
+}
 export interface EnemyResourceScale {minerals:number;gas:number}
 /** Density companions only yield scaled resources; they never feed kill rewards or growth. */
 export const isDensityCompanion=(body:{enemySpawn?:EnemySpawnStamp})=>(body.enemySpawn?.density??1)<1;
@@ -43,7 +49,7 @@ export const ENDLESS_BOSS_HP:Record<SpecialType,number>={queen:18000,lurker:2160
 export const ENDLESS_ELITE_HP:Partial<Record<SpecialType,number>>={zergling:1600,roach:4200,hydralisk:2400,ravager:3000};
 /** Independent special-role curves. Ordinary rank/health is never multiplied into these. */
 export function continuousSpecialProfile(difficulty:Difficulty,type:SpecialType,tier:EnemyTier,stamp:EnemySpawnStamp,base:{hp:number;damage:number;period:number;armor:number}):{hp:number;damage:number;period:number;armor:number;skillDamage:number;level:number;move:number}{
- const p=clamp01(stamp.progress),g=continuousEndlessGrowth(stamp.endlessSeconds),easy=difficulty==='easy',f=difficulty==='normal'||easy?linear:geometric;
+ const p=clamp01(stamp.progress),g=continuousEndlessGrowth(enemyGrowthSeconds(stamp)),easy=difficulty==='easy',f=difficulty==='normal'||easy?linear:geometric;
  const intro=difficulty==='normal'?normalIntroPressure(p):{health:1,damage:1};
  const hpPressure=(easy?linear(1,1.35,p):f(difficulty==='normal'?1.05:difficulty==='hard'?2:4,difficulty==='normal'?1.3:difficulty==='hard'?5.2:12,p))*intro.health;
  const damagePressure=(easy?linear(1,1.3,p):f(difficulty==='normal'?1.05:difficulty==='hard'?1.35:2,difficulty==='normal'?1:difficulty==='hard'?2.6:5,p))*intro.damage;

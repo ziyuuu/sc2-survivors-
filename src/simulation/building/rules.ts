@@ -25,7 +25,7 @@ export interface BuildingState {
  frozenTarget?:string|null;
  researchLimit?:number;
 }
-export interface RuleOptions {random?:()=>number;related?:readonly FamilyId[];capabilities?:(family:FamilyId)=>readonly string[];ready?:(project:Project)=>boolean;priceFactorFor?:(project:Project)=>number;freeChance?:number;doubleChance?:number;researchChance?:number}
+export interface RuleOptions {fixedDiscount?:number;random?:()=>number;related?:readonly FamilyId[];capabilities?:(family:FamilyId)=>readonly string[];ready?:(project:Project)=>boolean;priceFactorFor?:(project:Project)=>number;freeChance?:number;doubleChance?:number;researchChance?:number}
 export interface PlacementDraft {revision:number; groups:{id:string; outputs:FamilyId[]; enabled:boolean}[]}
 export type Result = {ok:true; paid?:Cost; added?:number; firstFree?:boolean}|{ok:false; reason:string};
 export {TREE_STEPS} from '../../data/expedition-buildings';
@@ -125,7 +125,7 @@ export function pruneBuildingOffers(s:BuildingState,options:Pick<RuleOptions,'re
 function quoteProject(s:BuildingState,d:Project,options:RuleOptions):Offer {
   const key=d.id+':'+level(s,d);if(s.quotes[key])return s.quotes[key];
   const raw=d.kind==='research'?(level(s,d)===3?{minerals:developmentPrice(d as DevelopmentDefinition,2).minerals*2,gas:developmentPrice(d as DevelopmentDefinition,2).gas*2}:developmentPrice(d as DevelopmentDefinition,level(s,d))):{minerals:d.minerals,gas:d.gas};
-  const discount=sample(s,DISCOUNTS,d=>d.weight,options).off,factor=options.priceFactorFor?.(d)??(1-.1*s.talents.permanent_discount)*(1-(d.kind==='research'?0:.15*s.talents.frugal_build));
+  const discount=options.fixedDiscount??sample(s,DISCOUNTS,d=>d.weight,options).off,factor=options.priceFactorFor?.(d)??(1-.1*s.talents.permanent_discount)*(1-(d.kind==='research'?0:.15*s.talents.frugal_build));
   if(!Number.isFinite(factor)||factor<0)throw new RangeError('Invalid development price multiplier');
   const cost=(n:number)=>n?Math.max(1,Math.ceil(n*(1-discount)*factor)):0;
   return s.quotes[key]={id:`${s.window}:${s.revision}:${key}`,projectId:d.id,window:s.window,revision:s.revision,level:level(s,d),cost:{minerals:cost(raw.minerals),gas:cost(raw.gas)},baseCost:raw,discount,targets:d.kind==='evolution'?evolutionTargets(s,d.id).map(g=>g.id):[]};

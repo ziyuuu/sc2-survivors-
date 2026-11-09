@@ -2,6 +2,7 @@ import {funMedicalPatient} from '../encounters/relations';
 import {missionSupportAllowed} from '../missions/combat';
 import type {World} from '../world';
 import type {Entity} from '../types';
+import {healingOrder,healingNeed} from './tactics/abilities';
 
 /** Keep the first N of the same stable ordering without materializing/sorting every body.
  * Selection is local to one call: earlier heals, new wounds and conversions stay visible. */
@@ -18,7 +19,7 @@ export function medicalTargets(w:World,u:Entity,radius:number,limit:number,previ
  const selected=firstSupportTargets(w.entities.values(),p=>{
   if(!(canReceiveRecovery(p)&&(funMedicalPatient(w,u,p)??(p.owner===u.owner))&&missionSupportAllowed(u,p)&&p.id!==u.id&&p.hp>0&&p.hp<p.maxHp&&!p.attributes.includes('Structure')&&(p.attributes.includes('Biological')||p.attributes.includes('Mechanical'))&&w.edgeDistance(u,p)<=radius&&w.hasAttackLine(u,p)))return false;
   if(p.id===previous)retained=p;return true;
- },healthOrder,limit);
- if(retained&&selected[0]!==retained&&retained.hp/retained.maxHp<=selected[0].hp/selected[0].maxHp+.08){const at=selected.indexOf(retained);if(at>=0)selected.splice(at,1);selected.unshift(retained);if(selected.length>limit)selected.pop();}
+ },(a,b)=>healingOrder(w,u.healRate,a,b),limit);
+ if(retained&&selected[0]!==retained&&Math.min(u.healRate,healingNeed(w,retained))>=Math.min(u.healRate,healingNeed(w,selected[0]))&&retained.hp/retained.maxHp<=selected[0].hp/selected[0].maxHp+.08){const at=selected.indexOf(retained);if(at>=0)selected.splice(at,1);selected.unshift(retained);if(selected.length>limit)selected.pop();}
  return selected;
 }

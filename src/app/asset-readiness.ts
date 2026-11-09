@@ -1,6 +1,7 @@
-import {applyPendingTextureTier,pruneRetiredTextureBindings} from '../render/loaders/managed-textures';
+import {applyPendingTextureTier,pruneRetiredTextureBindings,textureReport} from '../render/loaders/managed-textures';
 import {releaseGpuDecoder} from '../render/loaders/gpu-textures';
 import {optimizedGraphics,runtimeBudget} from '../platform/graphics-profile';
+import {stageContentAssets} from './stage-content-assets';
 import {audioPreloadBanks} from './audio-preload-plan';
 import type {BackgroundPreparation} from './background-preparation';
 import {campaignMapAssets,campaignPreloadAssets,type CampaignMapRecipe} from '../data/campaign-map';
@@ -21,7 +22,7 @@ import {prepareEmbeddedAssetIds} from '../assets/offline-pack';
 
 export type ReadinessKind='new'|'load'|'endless'|'reinforcement';
 export type ReadinessState={kind:ReadinessKind|null;phase:'idle'|'read'|'models'|'audio'|'gpu'|'validate'|'ready'|'error';done:number;total:number;label:string;error:string|null;progress?:number};
-export type ReadinessRequest={snapshot?:RunSnapshot;race?:Race;hero?:HeroId|null;preset?:PresetSlot;difficulty?:Difficulty;campaignMap?:CampaignMapRecipe;stageAdvance?:boolean};
+export type ReadinessRequest={contentPlan?:import('../simulation/progression/run-content').RunContentPlan;snapshot?:RunSnapshot;race?:Race;hero?:HeroId|null;preset?:PresetSlot;difficulty?:Difficulty;campaignMap?:CampaignMapRecipe;stageAdvance?:boolean;tutorial?:boolean;tutorialExit?:boolean};
 
 /** A single entrance gate for every operation that can reveal new battle assets. */
 export class AssetReadinessCoordinator {
@@ -32,6 +33,19 @@ export class AssetReadinessCoordinator {
  private generation=0;private last:{kind:ReadinessKind;request:ReadinessRequest}|null=null;private reader:FileReader|null=null;private entrance:AbortController|null=null;
  onChange=()=>{};onReady:(kind:ReadinessKind,token:string)=>void=()=>{};
  constructor(private world:World,private view:BattleRenderer,private audio?:AudioEffects,private background?:BackgroundPreparation){}
+ private nextMemorySample=0;
+ memory={encodedBytes:0,atlasBytes:0,textureEstimate:0,pcmBytes:0,trackedBytes:0,peakTrackedBytes:0,pressure:false};
+ sampleMemory(now:number){
+  if(now<this.nextMemorySample||!optimizedGraphics())return;
+  this.nextMemorySample=now+2000;
+  const encodedBytes=httpStore()?.memoryReport().residentBlobBytes??0,atlasBytes=this.view.animationAtlasBytes;
+  const textureEstimate=textureReport().residentEstimate,pcmBytes=this.audio?.pcmBytes()??0;
+  const trackedBytes=encodedBytes+atlasBytes+textureEstimate+pcmBytes;
+  // A working-set policy for optional jobs. Safari does not expose its process limit.
+  const high=(runtimeBudget().recentOnly?256:512)*1024**2;
+  const pressure=trackedBytes>(this.memory.pressure?high*.8:high);
+  this.memory={encodedBytes,atlasBytes,textureEstimate,pcmBytes,trackedBytes,peakTrackedBytes:Math.max(trackedBytes,this.memory.peakTrackedBytes),pressure};
+ }
  get blocking(){return this.state.kind!==null&&this.state.phase!=='ready'&&this.state.phase!=='error';}
  get readyToken(){return this.state.kind&&this.state.phase==='ready'?`${this.state.kind}:${this.generation}`:null;}
  /** Quiet idle maintenance shares the entrance lock; a new entrance wins if
@@ -76,11 +90,12 @@ export class AssetReadinessCoordinator {
    if(optimizedGraphics())await applyPendingTextureTier(()=>generation!==this.generation);
    if(generation!==this.generation)return false;
    const desiredMap=request.snapshot?.config.campaignMap??request.campaignMap;
+   const lesson=!!(request.tutorial||desiredMap?.lesson||!request.tutorialExit&&this.world.campaignRecipe?.lesson);
    const rescueRace=request.snapshot?.config.race??request.race??this.world.expedition.race,rescue=RESCUE_PRESENTATION[rescueRace];
    if(!this.view.initialAssetsLoaded){
     const allMapAssets=[...campaignPreloadAssets(),...(Object.keys(MAP_VISUAL_PROFILES) as CampaignTheme[]).flatMap(environmentAssetIds)];
-    const mapAssets=desiredMap?[...campaignMapAssets(desiredMap),...environmentAssetIds(desiredMap.theme)]:allMapAssets,otherMapAssets=new Set(allMapAssets.filter(id=>!mapAssets.includes(id)));
-    const common=[...ASSETS.values()].filter(asset=>asset.status==='available'&&(optimizedGraphics()?['texture','effect-texture']:['texture','effect-texture','audio']).includes(asset.kind)&&!otherMapAssets.has(asset.id)).map(asset=>asset.id);
+    const mapAssets=desiredMap?[...campaignMapAssets(desiredMap),...(lesson?[]:environmentAssetIds(desiredMap.theme))]:allMapAssets,otherMapAssets=new Set(allMapAssets.filter(id=>!mapAssets.includes(id)));
+    const common=[...ASSETS.values()].filter(asset=>asset.status==='available'&&(optimizedGraphics()?['texture','effect-texture']:['texture','effect-texture','audio']).includes(asset.kind)&&!otherMapAssets.has(asset.id)&&!(desiredMap&&optimizedGraphics()&&asset.id.startsWith('map.image.'))).map(asset=>asset.id);
     const fixed=['model.'+rescue.workerModel,'model.'+rescue.carrierModel,'model.'+rescue.carrierDeathModel,...(rescue.carrierBirthModel?['model.'+rescue.carrierBirthModel]:[]),'model.drone','model.egg','model.hive','model.loot.mineral','model.loot.gas','model.loot.large','model.projectile.marauder','model.projectile.hydralisk'];
     await prepareEmbeddedAssetIds([...common,...fixed,...mapAssets],report('models',.05,.1));
    }
@@ -89,15 +104,23 @@ export class AssetReadinessCoordinator {
    if(!this.view.initialAssetsLoaded){await this.view.load((label,done=0,total=0)=>report('models',.15,.2)(done,total,label),rescueRace,!!desiredMap,true);}
    if(generation!==this.generation)return false;
    const models=report('models',.35,.37);models(0,1,'准备部队');
-   if(kind==='load'&&request.snapshot)await this.view.prepareSnapshotAssets(request.snapshot,models);
+   if(lesson)await this.view.prepareTutorialAssets(rescueRace,models);
+   else if(kind==='load'&&request.snapshot)await this.view.prepareSnapshotAssets(request.snapshot,models);
    else if(kind==='endless')await this.view.prepareEndlessAssets(models);
-   else if(kind==='new'&&request.race)await this.view.prepareNewRunAssets(request.race,request.hero??null,models,request.preset,request.difficulty);
-   else if(kind==='reinforcement')await this.view.prepareCurrentAssets(models);
+   else if(kind==='new'&&request.race)await this.view.prepareNewRunAssets(request.race,request.hero??null,models,request.preset,request.difficulty,request.contentPlan);
+   else if(kind==='reinforcement')await this.view.prepareCurrentAssets(models,!!request.stageAdvance);
    await this.view.waitForPendingAssets();
    if(generation!==this.generation)return false;
    report('audio',.72,0)(0,1,'准备音效');
-   if(optimizedGraphics()){const identities=[...this.world.entities.values(),...(request.hero?[{heroId:request.hero}]:[])];if(request.snapshot){const visit=(v:unknown)=>{if(!v||typeof v!=='object')return;if('unitType' in v||'heroId' in v)identities.push(v as typeof identities[number]);for(const child of Object.values(v))if(child&&typeof child==='object')visit(child);};visit(request.snapshot);}
-    await this.audio?.prepareBanks(audioPreloadBanks(rescueRace,kind==='new'?1:Math.max(1,this.world.stage),identities),report('audio',.72,.04),()=>generation!==this.generation,entrance.signal);}
+   if(optimizedGraphics()){
+    const state=request.snapshot?.state??this.world;
+    const stage=kind==='new'?1:Math.min(18,state.stage+Number(state.phase==='reward'));
+    const identities=[...state.entities.values(),...(request.hero?[{heroId:request.hero}]:[])];
+    const plan=request.snapshot?.config.contentPlan??request.contentPlan??this.world.runConfig?.contentPlan;
+    const content=plan?stageContentAssets(plan,stage,state.endless?state.endless.round+Number(state.phase==='reward'):undefined,state.funShop.levels,state.expedition.familySlots,[]):undefined;
+    for(const heroId of content?.heroes??[])identities.push({heroId});
+    for(const hero of state.heroes?.values()??[])identities.push({heroId:hero.id});
+    await this.audio?.prepareBanks(audioPreloadBanks(rescueRace,stage,identities,!!content),report('audio',.72,.04),()=>generation!==this.generation,entrance.signal);}
    const audioError=await audioReady;if(audioError)throw audioError;
    if(generation!==this.generation)return false;
    report('gpu',.76,0)(0,1,'准备战场');
@@ -113,9 +136,9 @@ export class AssetReadinessCoordinator {
    // The optional lane is drained and required models are already parsed. Drop
    // duplicate encoded Blob copies before starting any resumable stage job.
    if(optimizedGraphics()){httpStore()?.trimModelCache(runtimeBudget().recentOnly?12*1024**2:48*1024**2);pruneRetiredTextureBindings();releaseGpuDecoder();}
-   if(this.background&&(request.stageAdvance||kind==='endless')){
+   if(this.background&&!lesson&&(request.stageAdvance||kind==='endless')){
     const jobs=this.view.stagePreparationJobs(cancelled=>this.background!.checkpoint(cancelled,true,true));
-    await this.background.prepareStage(jobs,Math.max(0,5000-(performance.now()-this.beganAt)),entrance.signal);
+    await this.background.prepareStage(jobs,optimizedGraphics()?0:Math.max(0,5000-(performance.now()-this.beganAt)),entrance.signal);
     if(generation!==this.generation)return false;
    }
    report('validate',.98,0)(0,1,'校验战局与地图');

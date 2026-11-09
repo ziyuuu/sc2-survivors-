@@ -1,0 +1,80 @@
+{
+  "appBuildId": "0029cb55165281964a3d4c64dc9937614f332bef33b5da537c642ca9e1079329",
+  "chrome": "156.0.8078.81",
+  "method": "Windows Chrome, one paired human-race opening with seed 529, medium tier, coarse/unknown-memory desktop fixture, same checkpoint on reload and warm disk cache. Stage counters sampled at 500 ms.",
+  "entries": {
+    "fresh": {
+      "ready": {
+        "progress": 1,
+        "preparation": "ready",
+        "label": "就绪 · 请确认继续",
+        "phase": "menu",
+        "stage": 1,
+        "models": 13,
+        "atlas": 14784704,
+        "blob": 62240809,
+        "pcm": 33153448,
+        "pcmCachePeak": 36945148,
+        "gpuBuffers": 35747950,
+        "sourcePixels": 61322240,
+        "savedAt": 1794188937320
+      },
+      "samples": 74,
+      "modelStageSamples": 27,
+      "modelStageMaxBlob": 77463405,
+      "maxBlob": 85165229,
+      "maxPcm": 33269924,
+      "maxAtlas": 14784704,
+      "maxGpuBuffers": 35747950
+    },
+    "restore": {
+      "ready": {
+        "progress": 1,
+        "preparation": "ready",
+        "label": "就绪 · 请确认继续",
+        "phase": "menu",
+        "stage": 1,
+        "models": 22,
+        "atlas": 26485216,
+        "blob": 63110267,
+        "pcm": 33153448,
+        "pcmCachePeak": 36945148,
+        "gpuBuffers": 52582116,
+        "sourcePixels": 96211968,
+        "savedAt": 1794188980688
+      },
+      "samples": 69,
+      "modelStageSamples": 12,
+      "modelStageMaxBlob": 106032317,
+      "maxBlob": 113470799,
+      "maxPcm": 33487588,
+      "maxAtlas": 26485216,
+      "maxGpuBuffers": 52582116
+    }
+  },
+  "errors": [],
+  "date": "2026-11-09",
+  "scope": "单组 Windows 加载对照。首战空缓存，读档复用同一档案磁盘缓存。逐项资源读数，采样间隔500 ms。",
+  "reproduce": "node tools/measure-safari-restore-windows.mjs",
+  "preparationFixture": {
+    "scope": "独立Node首关夹具，调用prepareNewRunAssets和prepareSnapshotAssets，拦截ensureUnitVariant；种子529，人族，无英雄和装备。",
+    "freshKeys": 15,
+    "restoreKeys": 28,
+    "extraKeys": [
+      "ravager",
+      "hydralisk",
+      "queen",
+      "lurker",
+      "mutalisk",
+      "corruptor",
+      "ultralisk",
+      "fun-nydus",
+      "fun-infested-marine",
+      "fun-infested-marine.timeout",
+      "fun-cocoon",
+      "zealot",
+      "stalker"
+    ]
+  },
+  "observed": "通过真实继续游戏入口，恢复第一关暂停状态，截图显示一名战士。"
+}

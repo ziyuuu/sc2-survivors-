@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "generatedSha256": "9958c3e00f6e8ced2f0efc59154ec15caf5e9a06e8ab349610547a00afecde00",
+  "records": [
+    {
+      "id": "tutorial.portrait.adjutant",
+      "kind": "tutorial-portrait",
+      "required": false,
+      "status": "available",
+      "url": "assets/tutorial/d4932e06256d8fbcfb8491f1329fbd563480f85f004f6c2ac1205424dd78252f.png",
+      "gitPath": "deploy/runtime/assets/d4932e06256d8fbcfb8491f1329fbd563480f85f004f6c2ac1205424dd78252f.png",
+      "packedFile": "public/assets/tutorial/d4932e06256d8fbcfb8491f1329fbd563480f85f004f6c2ac1205424dd78252f.png",
+      "bytes": 40480,
+      "packedSha256": "d4932e06256d8fbcfb8491f1329fbd563480f85f004f6c2ac1205424dd78252f",
+      "sourceBuild": "B97563",
+      "sourcePath": "mods/core.sc2mod/base.sc2assets/Assets/Textures/adjutantportrait_static.dds",
+      "sourceSha256": "ced012dae6f2e2d80a068f33e77ef3a89015f94ab3505e90f44ada4d3dc626ff",
+      "conversion": "DDS to PNG; original 152x232 RGBA pixels"
+    },
+    {
+      "id": "tutorial.portrait.queen",
+      "kind": "tutorial-portrait",
+      "required": false,
+      "status": "available",
+      "url": "assets/tutorial/084d515453d32471153ae91b05025d0c02d41a477271551e099da4e47d48ff6d.png",
+      "gitPath": "deploy/runtime/assets/084d515453d32471153ae91b05025d0c02d41a477271551e099da4e47d48ff6d.png",
+      "packedFile": "public/assets/tutorial/084d515453d32471153ae91b05025d0c02d41a477271551e099da4e47d48ff6d.png",
+      "bytes": 45965,
+      "packedSha256": "084d515453d32471153ae91b05025d0c02d41a477271551e099da4e47d48ff6d",
+      "sourceBuild": "B97563",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/queenportrait_static.dds",
+      "sourceSha256": "080ea3be5659c45340af6fa5e880c3deb0847bcb4397af1553efdf9043a9e157",
+      "conversion": "DDS to PNG; original 152x232 RGBA pixels"
+    },
+    {
+      "id": "tutorial.portrait.executor",
+      "kind": "tutorial-portrait",
+      "required": false,
+      "status": "available",
+      "url": "assets/tutorial/9530d5e0d50926ab3b0668099d323a3ce969ebf08175cfcebd421a6077926c4d.png",
+      "gitPath": "deploy/runtime/assets/9530d5e0d50926ab3b0668099d323a3ce969ebf08175cfcebd421a6077926c4d.png",
+      "packedFile": "public/assets/tutorial/9530d5e0d50926ab3b0668099d323a3ce969ebf08175cfcebd421a6077926c4d.png",
+      "bytes": 47109,
+      "packedSha256": "9530d5e0d50926ab3b0668099d323a3ce969ebf08175cfcebd421a6077926c4d",
+      "sourceBuild": "B97563",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/executorportrait_static.dds",
+      "sourceSha256": "007121caf7117780505ad3c7bc5f541d855592e840a36dfaac82bf51166dabb4",
+      "conversion": "DDS to PNG; original 152x232 RGBA pixels"
+    }
+  ]
+}

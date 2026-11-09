@@ -3,6 +3,7 @@ import {notifyUnitArrival} from '../boss-loot';
 import {refreshExpeditionStats} from '../combat/expedition-combat';
 import {newExpedition} from '../expedition-state';
 import {newStarshipRuntime} from '../starship/runtime';
+import {worldContent,contentRoll} from '../progression/run-content';
 import type {World} from '../world';
 import type {MissionRecord} from './state';
 import type {Entity,Point} from '../types';
@@ -15,7 +16,7 @@ import {makeMissionBody,missionNear,missionPointLegal,missionAwayFromSquad,finis
 import {acquireEliteImmediately} from '../elite-claim';
 export function spawnRescue(w:World,m:MissionRecord){
  const ids=identityCandidates(w,1);if(!ids.length)return false;const p=nearbyMissionPoint(w,12,20);if(!p)return false;
- m.reward=planIdentity(w,1,ids[Math.floor(w.random()*ids.length)]);m.rescue={center:p,target:null,friends:[],initial:6+Math.floor(w.random()*5),escorts:w.expedition.race==='zerg'?4+2*Math.floor(w.random()*2):4+Math.floor(w.random()*3),signal:0,cycle:0};m.total=900;makeMissionBody(w,m,'signal',p,1,'mission.intel','terran',.5,true);return true;
+ const plan=worldContent(w);m.reward=planIdentity(w,1,ids[Math.floor((plan?contentRoll(plan.salt,'rescue/reward'):w.random())*ids.length)]);m.rescue={center:p,target:null,friends:[],initial:6+Math.floor(w.random()*5),escorts:w.expedition.race==='zerg'?4+2*Math.floor(w.random()*2):4+Math.floor(w.random()*3),signal:0,cycle:0};m.total=900;makeMissionBody(w,m,'signal',p,1,'mission.intel','terran',.5,true);return true;
 }
 function batch(w:World,m:MissionRecord,n:number){const r=m.rescue!,members=w.missionWaveMembers(),stamp=currentMissionStamp(w);return Array.from({length:n},(_,i)=>{const member=members[i%Math.max(1,members.length)];return {taskId:m.id,sourceId:r.target??m.bodyIds[0],type:member?.type??'zergling' as const,stamp:{...stamp,density:member?.stamp.density??1},resources:member?.resources,point:{x:r.center.x+6,z:r.center.z},readyAt:w.time+.5};});}
 function positions(w:World,center:Point,n:number,min:number,max:number){const points:Point[]=[];for(let i=0;i<160&&points.length<n;i++){const a=i*2.399963,r=min+(max-min)*(i%13)/12,p={x:center.x+Math.cos(a)*r,z:center.z+Math.sin(a)*r};if(missionPointLegal(w,p,.8)&&missionAwayFromSquad(w,p,.8)&&!points.some(q=>Math.hypot(p.x-q.x,p.z-q.z)<1.6))points.push(p);}return points.length===n?points:null;}

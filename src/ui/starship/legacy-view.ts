@@ -71,10 +71,11 @@ export function mountStarshipUI(root:HTMLElement,host:StarshipHost,options:Stars
  function announce(text:string,error=false){feedback(text,error);render(true);}
  function execute(command:ShipCommand,submitted?:CommandEnvelope){
   if(operation)return;
+  const changesEffects=command.type==='autoEquip'&&controller.previewAutoEquip().some(item=>{const id=account().equipped[host.race()][item.slot],old=id?account().items[id]:undefined;return old&&(equipmentTemplate(old.template)?.kind!=='attribute'||old.inherited.length>0);});
   const before=command.type==='cleanse'&&account().items[command.id]?structuredClone(account().items[command.id]):undefined,ids=command.type==='craft'?new Set(Object.keys(account().items)):undefined,capacity=WAREHOUSE_CAPACITIES[account().warehouseLevel];
   executing=true;let result;try{result=controller.execute(submitted??envelope(command));}finally{executing=false;}
   if(!result.ok){feedback(result.error,true);render(true);return result;}
-  selected.clear();feedback('');
+  selected.clear();feedback(changesEffects?'已换装，原装备效果可能变化':'');
   if(command.type==='begin'||command.type==='continue'){close();return result;}
   if(command.type==='extract')page='settlement';
   if(command.type==='craft'){const item=Object.values(account().items).find(i=>!ids!.has(i.id));if(item){detailId=item.id;detailAtlas=false;operation={kind:'craft',item:structuredClone(item),started:performance.now()};}}
@@ -225,5 +226,5 @@ export function mountStarshipUI(root:HTMLElement,host:StarshipHost,options:Stars
  function open(next:StarshipPage=page){if(disposed)return;if(page!==next){detailId='';resetFilters();}page=permittedPage(next);if(!visible){opener=document.activeElement as HTMLElement;visible=true;root.hidden=false;release=host.acquireWindow();}render(true);focusableWithin(root)[0]?.focus({preventScroll:true});}
  function close(){if(!visible)return;hideSummary();visible=false;listAccount=undefined;listKey='';listCache=[];currentList=[];root.hidden=true;cleanupFx();cleanupSlots();clearTimeout(operationTimer);operation=undefined;pending=undefined;renameIndex=undefined;dialog()?.close();release?.();release=undefined;opener?.isConnected&&opener.focus({preventScroll:true});options.onClose?.();}
  function dispose(){if(disposed)return;close();disposed=true;unsubscribe();abort.abort();cleanupFx();cleanupSlots();clearTimeout(feedbackTimer);clearTimeout(operationTimer);root.replaceChildren();if(ownsId)root.removeAttribute('id');root.classList.remove('starship-ui');delete root.dataset.capturesBattleInput;}
- if(options.startOpen!==false)open();return {open,close,dispose,controller,get page(){return page;},get isOpen(){return visible;}};
+ if(options.startOpen!==false)open();return {open,close,dispose,controller,prepareTutorialDetail(id:string){if(account().items[id]){detailId=id;detailAtlas=false;render(true);}},get detailId(){return detailId;},get page(){return page;},get isOpen(){return visible;}};
 }

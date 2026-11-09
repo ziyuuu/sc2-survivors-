@@ -1,3 +1,4 @@
+import {worldContent,contentRoll,arenaHeroPool} from '../progression/run-content';
 import type {World} from '../world';
 import type {Entity} from '../types';
 import {ALL_HERO_IDS,HEROES,type HeroId} from '../../data/heroes';
@@ -11,7 +12,7 @@ export const ARENA_ELITES:readonly EliteId[]=['marine.2','marauder.1','reaper.1'
 export function initializeArena(w:World,forcedHeroes?:HeroId[]){
  const a=w.specialStages.active!,chapter=Math.min(2,Math.floor((a.stage-1)/6)),counts=chapter===0?[1,6]:chapter===1?[2,8]:[2,10],stamp={stage:a.stage,progress:campaignProgress(a.stage,0,w.config.durationSeconds),density:1 as const};
  const air=w.allies().some(u=>w.targetAllowed(u,{id:-1,x:u.x+2,z:u.z,hp:1,maxHp:1,armor:0,unitRadius:1,flying:true,attributes:[],owner:'zerg'}));
- const pool=ALL_HERO_IDS.filter(id=>air||!HEROES[id].flying),heroes=forcedHeroes??Array.from({length:counts[0]},()=>pool[Math.floor(w.random()*pool.length)]);
+ const plan=worldContent(w),pool=ALL_HERO_IDS.filter(id=>air||!HEROES[id].flying),heroes=forcedHeroes??(plan?arenaHeroPool(plan,air,counts[0]):Array.from({length:counts[0]},()=>pool[Math.floor(w.random()*pool.length)]));
  const reference=SC2_UNITS.queen,boss=continuousSpecialProfile(w.difficulty,'queen','boss',stamp,{hp:reference.maxHp,damage:reference.attackDamage,period:reference.attackPeriod,armor:reference.armor});
  heroes.forEach((id,i)=>{
   const d=HEROES[id],u=w.addUnit(d.baseFamily,'zerg',(i-(heroes.length-1)/2)*8,-12),total=d.hp+d.shield,health=boss.hp*(i?1:.95),dps=boss.damage/boss.period;
@@ -19,7 +20,7 @@ export function initializeArena(w:World,forcedHeroes?:HeroId[]){
   a.enemies.push(u.id);a.heroIds.push(id);
  });
  for(let i=0;i<counts[1];i++){
-  const id=ARENA_ELITES[Math.floor(w.random()*ARENA_ELITES.length)],d=ELITES[id],base=SC2_UNITS[d.family],profile=continuousSpecialProfile(w.difficulty,'hydralisk','elite',stamp,{hp:base.maxHp,damage:base.attackDamage,period:base.attackPeriod,armor:base.armor}),source=sourceDetails(d.family),ratio=source.shields/(source.shields+base.maxHp),u=w.addUnit(d.family,'zerg',(i%5-2)*5,-5-Math.floor(i/5)*5,chapter+1);
+  const id=ARENA_ELITES[Math.floor((plan?contentRoll(plan.salt,'arena/elite',i):w.random())*ARENA_ELITES.length)],d=ELITES[id],base=SC2_UNITS[d.family],profile=continuousSpecialProfile(w.difficulty,'hydralisk','elite',stamp,{hp:base.maxHp,damage:base.attackDamage,period:base.attackPeriod,armor:base.armor}),source=sourceDetails(d.family),ratio=source.shields/(source.shields+base.maxHp),u=w.addUnit(d.family,'zerg',(i%5-2)*5,-5-Math.floor(i/5)*5,chapter+1);
   Object.assign(u,{eliteId:id,arenaElite:true,modelKey:d.model,enemyTier:'elite',enemyName:d.name+' · 竞技场精英',enemySpawn:stamp,hp:profile.hp*(1-ratio),maxHp:profile.hp*(1-ratio),shield:profile.hp*ratio,maxShield:profile.hp*ratio,armor:profile.armor,shieldArmor:profile.armor,weaponDamage:profile.damage,attackPeriod:profile.period,moveSpeed:base.movementSpeed,attackRange:base.attackRange,specialReady:Infinity});
   a.enemies.push(u.id);
  }

@@ -1,0 +1,109 @@
+{
+  "date": "2026-11-05",
+  "task": "AUTO-1.2",
+  "scope": "implementation research only; no game implementation",
+  "status": "待讨论",
+  "researchComplete": true,
+  "implementationStarted": false,
+  "baseline": {
+    "branch": "体积优化版",
+    "head": "6510fb2a85a4140aecb6151ab0ab3132b42f239a",
+    "source": "current working tree including existing 1.1 tutorial changes; not clean HEAD or live deployment",
+    "integrity": {
+      "roots": [
+        "src",
+        "test"
+      ],
+      "additionalFiles": [
+        "package.json",
+        "package-lock.json"
+      ],
+      "countBefore": 937,
+      "countAfter": 937,
+      "algorithm": "SHA-256 of sorted Windows relative path strings followed by each file's raw bytes",
+      "before": "2cdfc1fdc14e60a343a314d63926a9e37183db3318a6049539ecd4a43aa5bdba",
+      "after": "2cdfc1fdc14e60a343a314d63926a9e37183db3318a6049539ecd4a43aa5bdba",
+      "equal": true
+    }
+  },
+  "checks": [
+    {
+      "command": "node --import tsx --test --test-reporter=spec test/command-engagement.test.ts test/melee-zerg-feedback.test.ts test/baneling-approach.test.ts test/contacts.test.ts test/native-traversal.test.ts test/feedback-attack-playback.test.ts test/carriers.test.ts test/autonomous-controller.test.ts",
+      "tests": 77,
+      "passed": 77,
+      "failed": 0,
+      "skipped": 0,
+      "durationMs": 10066.807,
+      "meaning": "existing logic baseline, including diagnostic-controller observation tests; not validation of proposed 1.2 behavior"
+    },
+    {
+      "command": "npm run docs:check",
+      "exitCode": 0,
+      "result": "Game reference matches runtime data."
+    }
+  ],
+  "confirmedFindings": [
+    "Existing melee engagement slots, bounded local routing, approach charges, hard contacts and cancellation tests can be reused.",
+    "Current target choice does not allocate squad damage jointly with reachable attack-position capacity.",
+    "A current regression intentionally keeps a sieged tank stationary after a movement order; the new requirement changes that behavior contract.",
+    "Real attacks include immediate hits, weaponFlights and multiple delayed/area attack subsystems; visual projectiles are not a damage ledger.",
+    "Existing approach charges can ignore both friendly and hostile live-body contact; a new ordinary melee speed bonus must not silently inherit or remove that approved behavior.",
+    "Current mode fields do not distinguish manual preference from automatic choice; player Lurker underground movement already exists.",
+    "Carrier children, stationary mission allies and autonomous equipment bodies have separate behavior/ownership scopes."
+  ],
+  "recommendation": "Retain fixed-step simulation, terrain routing and contact solver. Add hard command arbitration and bounded deterministic joint target/position/firepower allocation with side-effect-free estimates and rebuildable reservations.",
+  "openDecisions": [
+    "short-horizon kill threshold and confidence margin",
+    "whether tanks resume previous manual siege preference on arrival",
+    "whether ordinary melee needs a speed bonus after slot and routing improvements",
+    "manual mode preference lifetime and persistence semantics"
+  ],
+  "sources": [
+    "https://www.red3d.com/cwr/steer/gdc99/",
+    "https://www.guerrilla-games.com/read/killzones-ai-dynamic-procedural-tactics",
+    "https://gamma.cs.unc.edu/ORCA/"
+  ],
+  "changedByThisTask": [
+    "docs/project/V1_2_AUTO_COMBAT_RESEARCH_20261105.md",
+    "reports/qa/auto-combat-research-20261105.json",
+    "docs/project/performance-board.json",
+    "docs/project/PERFORMANCE_BOARD.html",
+    "docs/project/PERFORMANCE_TODO.md",
+    "docs/project/README.md",
+    "docs/project/V1X_ROADMAP_20261104.md"
+  ],
+  "notPerformed": [
+    "production code or test edits",
+    "candidate implementation or parameter tuning",
+    "UI, asset, save-format or gameplay-rule changes",
+    "full regression, browser/GPU tests, automatic playthrough or physical-device measurements",
+    "build, commit, push, merge, deployment or public release"
+  ],
+  "next": "Review the implementation research and finalize behavior/first implementation scope before changing the game.",
+  "focusFireRevision": {
+    "date": "2026-11-05",
+    "kind": "design-and-source-review-only",
+    "userPriorities": {
+      "ranged": [
+        "baneling",
+        "melee actively harming allies"
+      ],
+      "melee": [
+        "high-threat ranged",
+        "melee",
+        "baneling last"
+      ]
+    },
+    "sources": [
+      "https://news.blizzard.com/en-us/article/4552958/game-guide-common-mistakes",
+      "https://news.blizzard.com/en-us/article/5740270/game-guide-terran-medivac-drops",
+      "https://news.blizzard.com/en-us/article/23893118/starcraft-ii-5-0-11-patch-notes",
+      "https://teamliquid.com/news/2021/07/02/clem-versus-the-world"
+    ],
+    "proEvidence": "Clem directly discusses focus-firing Banelings and favorable trades; not a universal target order.",
+    "sourceLimitations": "uThermal video bodies could not be retrieved; no video observation, captions or timestamp claims. Dignitas author identified as Master, not pro.",
+    "implementationStarted": false,
+    "newTestsRun": false,
+    "previousTests": "77 checks above are prior baseline only; they do not validate the new target policy."
+  }
+}

@@ -1,5 +1,8 @@
+import {identityRoll,plannedElites,worldContent} from '../progression/run-content';
+import {guided} from '../tutorial/guided';
 import {equipmentArkKill} from './advanced-support';
 import type {World} from '../world';
+import {tutorialResourceCollected} from '../tutorial/runtime';
 import {isDensityCompanion} from '../../data/enemy-tuning';
 import type {Entity,Point} from '../types';
 import {ELITES,type EliteId} from '../../data/elites';
@@ -18,7 +21,7 @@ import {dropPlunderEquipment} from './drops';
 
 export interface EquipmentBounty {source:string;elite:EliteId;hero:HeroId;body:number|null;issued:boolean;progress:number;phase:'elite'|'hero';}
 const roll=(w:World)=>equipmentRandom(w.starship.account);
-const choose=<T>(w:World,pool:readonly T[])=>pool.length?pool[Math.floor(roll(w)*pool.length)]:undefined;
+const choose=<T>(w:World,pool:readonly T[])=>pool.length?pool[Math.floor(identityRoll(w,'bounty',()=>roll(w))*pool.length)]:undefined;
 const cap=(w:World,u:Entity)=>u.heroId?Math.max(5,equipmentValue(w,'hero_cap')):u.eliteId?5:w.soldierCap(u.unitType as never);
 const growingOrdinary=(w:World)=>rosterMembers(w,w.allies().filter(u=>!u.heroId&&!u.eliteId&&equipmentCanGrow(w,u))).sort((a,b)=>a.rank-b.rank||a.id-b.id);
 function promote(w:World,u:Entity){if(!equipmentCanGrow(w,u)||u.rank>=cap(w,u))return false;refreshEquipmentMember(w,u,()=>{u.rank++;});if(u.heroId)w.heroes.get(u.heroId)!.rank=u.rank;evolveEquipmentMembers(w);return true;}
@@ -35,7 +38,7 @@ function bountyEvolution(w:World){const b=w.starship.bounty,e=activeEquipmentEff
  b.phase='hero';b.progress=0;w.starship.numbers.set('bounty-hero-id',ALL_HERO_IDS.indexOf(b.hero));lockEquipmentSource(w,e);return true;
 }
 function bountyPickup(w:World,minerals:number){const effect=activeEquipmentEffects(w).find(e=>e.key==='bounty');if(!effect||minerals<=0)return;let b=w.starship.bounty;
- if(!b){const elite=choose(w,Object.values(ELITES).filter(e=>familyRace(e.family)===w.expedition.race));if(!elite)return;const heroes=ALL_HERO_IDS.filter(id=>HEROES[id].race===w.expedition.race&&HERO_DIRECTIONS[id]===familyLine(elite.family)),hero=choose(w,heroes);if(!hero)return;b=w.starship.bounty={source:effect.source,elite:elite.id,hero,body:null,issued:false,progress:0,phase:'elite'};w.starship.numbers.set('bounty-hero-id',ALL_HERO_IDS.indexOf(hero));}
+ if(!b){const elite=choose(w,plannedElites(worldContent(w),Object.values(ELITES).filter(e=>familyRace(e.family)===w.expedition.race)));if(!elite)return;const heroes=ALL_HERO_IDS.filter(id=>HEROES[id].race===w.expedition.race&&HERO_DIRECTIONS[id]===familyLine(elite.family)),hero=choose(w,heroes);if(!hero)return;b=w.starship.bounty={source:effect.source,elite:elite.id,hero,body:null,issued:false,progress:0,phase:'elite'};w.starship.numbers.set('bounty-hero-id',ALL_HERO_IDS.indexOf(hero));}
  if(bountyEvolution(w))return;
  if(b.body!==null&&(!w.entities.get(b.body)||w.entities.get(b.body)!.hp<=0))return;
  if(b.phase==='hero'){const hero=w.heroes.get(b.hero),body=hero&&w.heroEntity(b.hero),next=equipmentValue(w,'bounty_hero');if(!hero||!body||body.hp<=0||hero.rank>=5||!next)return;b.progress+=minerals;while(b.progress>=next&&hero.rank<5){b.progress-=next;refreshEquipmentMember(w,body,()=>{hero.rank++;body.rank=hero.rank;});}if(hero.rank>=5)b.progress=0;return;}
@@ -45,13 +48,14 @@ function bountyPickup(w:World,minerals:number){const effect=activeEquipmentEffec
 }
 /** One completed pickup receipt is the only source for wallet, bounty and devour accounting. */
 export function collectEquipmentResource(w:World,p:{id:number;minerals:number;gas:number},extraReceipt='pickup'){
- const run=w.starship.account.run,key=extraReceipt+':'+p.id;if(run?.receipts.has(key))return {minerals:0,gas:0};run?.receipts.add(key);const factor=(1+.25*w.talent('recycle'))*equipmentPickupFactor(w),minerals=p.minerals*factor,gas=p.gas*factor;
+ tutorialResourceCollected(w,p.id);
+ const run=w.starship.account.run,key=extraReceipt+':'+p.id;if(run?.receipts.has(key))return {minerals:0,gas:0};run?.receipts.add(key);const factor=guided(w)?1:(1+.25*w.talent('recycle'))*equipmentPickupFactor(w),minerals=p.minerals*factor,gas=p.gas*factor;
  w.wallet.minerals+=minerals;w.wallet.gas+=gas;w.economyTotals.drops.minerals+=minerals;w.economyTotals.drops.gas+=gas;bountyPickup(w,minerals);return {minerals,gas};
 }
 function devour(w:World,points:number){const effect=activeEquipmentEffects(w).find(e=>e.key==='devour');if(!effect)return;let progress=(w.starship.numbers.get('devour-progress')??0)+points;if(progress>=effect.values[0]){progress%=effect.values[0];const pickups=w.pickups;w.pickups=[];let value=0;for(const pickup of pickups){const received=collectEquipmentResource(w,pickup);value+=received.minerals+received.gas*2;}const total=(w.starship.numbers.get('devour-value')??0)+value,growth=Math.floor(total/effect.values[1]);w.starship.numbers.set('devour-value',total%effect.values[1]);if(growth){w.starship.numbers.set('devour-growth',(w.starship.numbers.get('devour-growth')??0)+growth*effect.values[2]);for(const u of w.allies())refreshEquipmentMember(w,u,()=>{});}lockEquipmentSource(w,effect);}w.starship.numbers.set('devour-progress',progress);}
 export function equipmentEnemyDied(w:World,enemy:Entity,sourceId?:number){if(isDensityCompanion(enemy)||!realEquipmentEnemy(w,enemy))return;const run=w.starship.account.run,key='gear-death:'+enemy.id+':'+enemy.bornAt;if(!run||run.receipts.has(key))return;run.receipts.add(key);equipmentArkKill(w,sourceId);const points=equipmentEnemyPoints(enemy),killer=equipmentKillSource(w,sourceId),effects=activeEquipmentEffects(w);
  if(w.starship.numbers.has('bounty-mark:'+enemy.id)){const e=effects.find(e=>e.key==='bounty_order');if(e){const boss=points===50;w.wallet.minerals+=e.values[boss?4:2];w.wallet.gas+=e.values[boss?5:3];}w.starship.numbers.delete('bounty-mark:'+enemy.id);}
- if(!enemy.mission?.noLoot&&equipmentValue(w,'plunder')){if(points===50)dropPlunderEquipment(w,enemy);else if(points===10){const receipt=w.runId+':plunder:'+enemy.id,reward=drawEquipmentUnitLoot(draftContext(w),receipt);if(reward){w.expedition.bossLootReceipts.push(receipt);w.rewardDrops.push({id:w.nextId++,x:enemy.x,z:enemy.z,reward,bossLootReceipt:receipt,bossLootVariant:freezeLootVariant(w,reward,receipt)});}}}
+ if(!enemy.mission?.noLoot&&equipmentValue(w,'plunder')){if(points===50)dropPlunderEquipment(w,enemy);else if(points===10){const receipt=w.runId+':plunder:'+enemy.id,reward=drawEquipmentUnitLoot(draftContext(w,'plunder/'+w.expedition.bossLootReceipts.length),receipt);if(reward){w.expedition.bossLootReceipts.push(receipt);w.rewardDrops.push({id:w.nextId++,x:enemy.x,z:enemy.z,reward,bossLootReceipt:receipt,bossLootVariant:freezeLootVariant(w,reward,receipt)});}}}
  if(!killer)return;
  for(const e of effects){
   if(e.key==='hero_growth'&&e.binding?.hero){const hero=w.heroes.get(e.binding.hero);if(!hero)continue;const body=w.heroEntity(hero.id);if(!body||body.hp<=0)continue;let progress=(w.starship.numbers.get(e.source+':hero-points')??0)+points,g=w.starship.numbers.get(e.source+':hero-gains')??0;while(progress>=e.values[0]+e.values[1]*g){progress-=e.values[0]+e.values[1]*g;g++;refreshEquipmentMember(w,body,()=>{hero.rank++;body.rank=hero.rank;});}w.starship.numbers.set(e.source+':hero-points',progress);w.starship.numbers.set(e.source+':hero-gains',g);}

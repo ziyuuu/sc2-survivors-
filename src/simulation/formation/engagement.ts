@@ -4,10 +4,19 @@ import type {Obstacle} from '../../data/game';
 import {distance,blocked} from '../movement/steering';
 /** Weapon-based contact rings; movement follows normal traversal, never a raycast shortcut. */
 export class EngagementSlots {
+ private reservations=new Map<number,{unit:Entity;target:Body;point:Point;until:number}>();
+ clear(){this.cache.clear();this.deferred.clear();this.reservations.clear();}
+ available(u:Entity,p:Point,time:number){
+  for(const [id,r] of this.reservations){if(r.until<=time||r.unit.hp<=0||r.target.hp<=0||r.unit.attackTarget!==r.target.id){this.reservations.delete(id);continue;}
+   if(id!==u.id&&r.unit.flying===u.flying&&distance(r.point,p)<r.unit.unitRadius+u.unitRadius+.04)return false;
+  }return true;
+ }
+ reserve(u:Entity,target:Body,point:Point,time:number){if(!this.available(u,point,time))return false;this.reservations.set(u.id,{unit:u,target,point:{...point},until:time+.4});return true;}
+ release(id:number){this.reservations.delete(id);}
  private cache=new Map<number,{until:number;target:Point;peers:{id:number;range:number;flying:boolean}[];goals:Map<number,Point>;blocked:Set<number>}>();
  private deferred=new Map<number,Map<number,number>>();
  unavailable(unitId:number,targetId:number,time:number){const e=this.cache.get(targetId);return (this.deferred.get(unitId)?.get(targetId)??0)>time||!!e&&e.until>time&&e.blocked.has(unitId);}
- defer(unitId:number,targetId:number,time:number){for(const [id,targets]of this.deferred){for(const [target,until]of targets)if(until<=time)targets.delete(target);if(!targets.size)this.deferred.delete(id);}const targets=this.deferred.get(unitId)??new Map<number,number>();targets.set(targetId,time+.75);this.deferred.set(unitId,targets);}
+ defer(unitId:number,targetId:number,time:number){this.release(unitId);for(const [id,targets]of this.deferred){for(const [target,until]of targets)if(until<=time)targets.delete(target);if(!targets.size)this.deferred.delete(id);}const targets=this.deferred.get(unitId)??new Map<number,number>();targets.set(targetId,time+.75);this.deferred.set(unitId,targets);}
  goal(u:Entity,target:Body,allies:Entity[],anchor:Point,time:number,half:number,obstacles:Obstacle[],terrain?:TerrainQuery):Point {
   const eligible=(a:Entity)=>a.hp>0&&a.weaponDamage>0&&a.mode!=='siege'&&a.modeTimer<=0&&(a.id===u.id||a.attackTarget===target.id);
   let entry=this.cache.get(target.id),same=!!entry;
@@ -22,7 +31,7 @@ export class EngagementSlots {
     let goal:Point|undefined;
     for(const offset of [0,.3,-.3,.6,-.6,.9,-.9,1.25,-1.25,1.6,-1.6,2,-2,2.5,-2.5,Math.PI]){
      const theta=bearing+offset,p={x:target.x+Math.sin(theta)*radius,z:target.z+Math.cos(theta)*radius};
-     if(Math.abs(p.x)+a.unitRadius>=half||Math.abs(p.z)+a.unitRadius>=half||terrain?.isOpen&&!terrain.isOpen(p)||!a.flying&&(blocked(p,a.unitRadius,obstacles)||terrain&&!terrain.canOccupy(p,a.unitRadius))||terrain&&!terrain.lineOfFire(p,target,a.flying,target.flying,a.attackRange<1.5)||placed.some(b=>b.flying===a.flying&&distance(b.p,p)<b.r+a.unitRadius+.04))continue;
+     if(!this.available(a,p,time)||Math.abs(p.x)+a.unitRadius>=half||Math.abs(p.z)+a.unitRadius>=half||terrain?.isOpen&&!terrain.isOpen(p)||!a.flying&&(blocked(p,a.unitRadius,obstacles)||terrain&&!terrain.canOccupy(p,a.unitRadius))||terrain&&!terrain.lineOfFire(p,target,a.flying,target.flying,a.attackRange<1.5)||placed.some(b=>b.flying===a.flying&&distance(b.p,p)<b.r+a.unitRadius+.04))continue;
      goal=p;break;
     }
     // Blocked contact rings never send bodies into the target center.
@@ -31,6 +40,9 @@ export class EngagementSlots {
    entry={until:time+.4,target:{x:target.x,z:target.z},peers:peers.map(a=>({id:a.id,range:a.attackRange,flying:a.flying})),goals,blocked:unavailable};this.cache.set(target.id,entry);
    if(this.cache.size>64)for(const [id,c] of this.cache)if(c.until<time)this.cache.delete(id);
   }
-  return entry.goals.get(u.id)??u;
+  const goal=entry.goals.get(u.id)??u;
+  if(entry.blocked.has(u.id))return u;
+  if(this.reserve(u,target,goal,time))return goal;
+  entry.blocked.add(u.id);entry.until=Math.min(entry.until,time+1/60);return u;
  }
 }

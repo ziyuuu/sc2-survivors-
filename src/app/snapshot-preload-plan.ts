@@ -1,3 +1,4 @@
+import {plannedStage} from '../simulation/progression/run-content';
 import {racePreloadModels} from './race-preload';
 import {openingPreloadModels} from './battle-preload-plan';
 import {ALL_FAMILIES,isAirHeroType,type CombatUnitType} from '../data/races';
@@ -24,7 +25,7 @@ export function snapshotEquipmentEffects(snapshot:RunSnapshot){
 /** Keep ordinary production/enemy/encounter closure, then only saved special
  * identities and equipped future deliveries. Never roll RNG or mutate a save. */
 export function snapshotIdentityModels(snapshot:RunSnapshot){
- const models=racePreloadModels(snapshot.config.race,false);
+ const models=snapshot.config.contentPlan?new Map<string,CombatUnitType>():racePreloadModels(snapshot.config.race,false);
  for(const entry of openingPreloadModels(snapshot.config.race,snapshot.config.frozenTalents.levels))models.set(...entry);
  const add=(key:string,type:CombatUnitType)=>{
   if(!isAirHeroType(type))models.set(type,type);
@@ -40,7 +41,7 @@ export function snapshotIdentityModels(snapshot:RunSnapshot){
  const seen=new WeakSet<object>();
  const visit=(value:unknown):void=>{
   if(typeof value==='string'){identity(value);return;}
-  if(!value||typeof value!=='object'||seen.has(value))return;seen.add(value);
+  if(!value||typeof value!=='object'||value===snapshot.state.runConfig||seen.has(value))return;seen.add(value);
   if(value instanceof Map)for(const [key,child]of value){visit(key);visit(child);}
   else if(value instanceof Set)for(const child of value)visit(child);
   else if(!ArrayBuffer.isView(value))for(const child of Object.values(value))visit(child);
@@ -52,7 +53,7 @@ export function snapshotIdentityModels(snapshot:RunSnapshot){
   // orders and weak receipts do, including bodies whose source has died.
   const {account,...runtime}=gear;visit(runtime);visit(snapshot.starship?.weak);
   visit(snapshotEquipmentEffects(snapshot));
-  for(const model of equipmentAccountModels(account,snapshot.config.race)){add(model.key,model.type);identity(model.key);}
+  for(const model of equipmentAccountModels(account,snapshot.config.race,plannedStage(snapshot.config.contentPlan,Math.min(18,snapshot.state.stage+Number(snapshot.state.phase==='reward')),snapshot.state.endless?snapshot.state.endless.round+Number(snapshot.state.phase==='reward'):undefined))){add(model.key,model.type);identity(model.key);}
  }
  return models;
 }

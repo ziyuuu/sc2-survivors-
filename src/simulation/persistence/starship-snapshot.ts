@@ -1,4 +1,5 @@
 import {newStarshipRuntime,type StarshipRuntime} from '../starship/runtime';
+import {validateTutorialAccount} from '../tutorial/types';
 import {newEquipmentAccount,validateItem,equipmentRecipeKey,WAREHOUSE_CAPACITIES,BACKPACK_CAPACITY} from '../starship/inventory';
 import {EQUIPMENT_SLOTS,type EquipmentAccount} from '../starship/types';
 import {equipmentTemplate} from '../starship/catalog';
@@ -30,6 +31,7 @@ function restoreLoot(loot:LootSnapshot,terrain:TerrainQuery|undefined):Equipment
  return {serial:loot.serial,fullNotified:loot.fullNotified,events:loot.events.map(event=>({...event,terrain:resolve(event.terrain)})),ground:new Map([...loot.ground].map(([id,mark])=>[id,{...mark,terrain:resolve(mark.terrain)}]))};
 }
 export function validateEquipmentAccount(a:EquipmentAccount){
+ validateTutorialAccount(a?.tutorial);
  if(!record(a)||!(['revision','serial','rng','dust','warehouseLevel'] as const).every(k=>natural(a[k]))||a.rng>0xffffffff||a.warehouseLevel>3)throw Error('装备账户数值无效');
  for(const key of ['items','locations','acquired','equipped','pity','receipts'] as const)if(!record(a[key]))throw Error('装备账户字段不完整');
  const ids=Object.keys(a.items);if(ids.length>16000||Object.keys(a.locations).length!==ids.length)throw Error('装备位置记录不完整');

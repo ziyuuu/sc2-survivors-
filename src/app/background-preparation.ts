@@ -50,10 +50,10 @@ export class BackgroundPreparation{
  get pending(){return this.jobs.filter(j=>!this.completed.has(j.key)&&!this.failed.has(j.key)).length;}
  get busy(){return this.active!==null;}
  report(){return {pending:this.pending,busy:this.busy,held:this.held,completed:this.completed.size,failed:[...this.failed],opened:this.opened,stageWindow:this.lastWindow,events:this.events.slice(-120)};}
- tick(){
+ tick(priorityOnly=false){
   if(this.active||this.held||!this.visible()||this.now()>=this.deadline)return;
   const pending=this.jobs.filter(j=>!this.completed.has(j.key)&&!this.failed.has(j.key));
-  const job=pending.find(j=>j.priority)??pending[0];if(!job)return;
+  const job=pending.find(j=>j.priority)??(priorityOnly?undefined:pending[0]);if(!job)return;
   if(this.opened&&this.frameCost>24&&!job.paced)return;
   if(!job.paced&&!job.priority&&this.now()-this.lastInput<250)return;
   this.start(job);

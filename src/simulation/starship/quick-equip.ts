@@ -3,14 +3,14 @@ import {EQUIPMENT_SLOTS,failure,success,type EquipmentAccount,type EquipmentItem
 import {equipmentTemplate} from './catalog';
 import {canEquip,itemsAt} from './inventory';
 
-/** Quality alone decides; existing equal-quality gear and all non-ordinary pieces stay. */
+/** Upgrade with ordinary pieces; equal quality stays, legal functional replacements may change effects. */
 export function quickEquipPlan(a:EquipmentAccount,race:Race,protectedIds:ReadonlySet<string>=new Set()){
  const run=a.run&&!a.run.ended?a.run:null;if(run&&run.race!==race||a.modification)return [];
- const safe=(i:EquipmentItem)=>equipmentTemplate(i.template)?.kind==='attribute'&&!protectedIds.has(i.id)&&!run?.locked.has(i.id);
- const candidates=itemsAt(a,run?'backpack':'warehouse').filter(i=>safe(i)&&canEquip(a,race,i.id,i.slot).ok),plan:EquipmentItem[]=[];
+ const protectedItem=(i:EquipmentItem)=>protectedIds.has(i.id)||!!run?.locked.has(i.id);
+ const candidates=itemsAt(a,run?'backpack':'warehouse').filter(i=>equipmentTemplate(i.template)?.kind==='attribute'&&!protectedItem(i)&&canEquip(a,race,i.id,i.slot).ok),plan:EquipmentItem[]=[];
  for(const slot of EQUIPMENT_SLOTS){
   const oldId=a.equipped[race][slot],old=oldId?a.items[oldId]:undefined;
-  if(old&&!safe(old))continue;
+  if(old&&protectedItem(old))continue;
   let best=old;
   for(const i of candidates)if(i.slot===slot&&(!best||i.quality>best.quality))best=i;
   if(best&&best!==old)plan.push(best);

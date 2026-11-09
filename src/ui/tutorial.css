@@ -1,0 +1,33 @@
+.tutorial-comms{position:fixed;z-index:900;right:max(12px,env(safe-area-inset-right));top:max(4px,env(safe-area-inset-top));display:flex;gap:8px;width:min(410px,calc(100vw - 32px));padding:6px;color:#e6f7ff;background:linear-gradient(135deg,#112734f5,#060e16f5);border:1px solid #5f9caf;box-shadow:inset 0 0 14px #315e6d70,0 4px 18px #0008;clip-path:polygon(0 9px,9px 0,100% 0,100% calc(100% - 9px),calc(100% - 9px) 100%,0 100%);font-family:inherit;pointer-events:none}
+.tutorial-comms[hidden],.tutorial-actions button[hidden],.tutorial-mark[hidden]{display:none}
+.tutorial-comms[data-race=zerg]{background:linear-gradient(135deg,#302236f5,#120d19f5);border-color:#ad87b4}.tutorial-comms[data-race=protoss]{border-color:#c4ad70;background:linear-gradient(135deg,#22323bf5,#101c28f5)}
+.tutorial-comms img{width:48px;height:73px;object-fit:cover;align-self:flex-start;border:1px solid #6c8e99}.tutorial-message{flex:1;min-width:0;line-height:1.2}.tutorial-message strong{font-size:14px;line-height:1.2;color:#c8e8f6}.tutorial-message p{font-size:15px;line-height:1.35;margin:2px 0 4px}.tutorial-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}.tutorial-comms .tutorial-actions button{min-width:0;width:auto;flex:0 0 auto;min-height:36px;font-size:14px;padding:6px 12px;pointer-events:auto}.tutorial-comms button:focus-visible{outline:2px solid #f9d67b;outline-offset:2px}
+.tutorial-highlight,.tutorial-resource-focus,.tutorial-result-focus{outline:2px solid #f6d47b!important;outline-offset:2px;box-shadow:0 0 12px #f0c64b80!important}
+.tutorial-mark{position:fixed;width:30px;height:30px;margin:-15px;border:2px solid #ffdc7f;border-radius:50%;box-shadow:0 0 10px #f5d580;pointer-events:none;z-index:180;color:#ffdc7f;font-size:28px;line-height:26px;text-align:center}.tutorial-mark.is-direction{border:0;box-shadow:none}
+.tutorial-comms:not([data-beat=invite]) img{width:40px;height:61px}.tutorial-comms:not([data-beat=invite]) .tutorial-message{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:8px}.tutorial-comms:not([data-beat=invite]) strong{grid-column:1}.tutorial-comms:not([data-beat=invite]) p{grid-column:1;margin-bottom:0}.tutorial-comms:not([data-beat=invite]) .tutorial-actions{grid-column:2;grid-row:1/3;align-items:center}
+@media(pointer:coarse){
+ .tutorial-comms{right:max(8px,env(safe-area-inset-right));width:min(260px,calc(100vw - 24px));gap:6px;padding:6px;box-sizing:border-box}
+ .tutorial-comms img,.tutorial-comms:not([data-beat=invite]) img{width:30px;height:46px}
+ .tutorial-message strong{font-size:12px;line-height:1.2}
+ .tutorial-message p{font-size:13.25px;line-height:1.3;margin:2px 0 5px}
+ .tutorial-comms:not([data-beat=invite]) .tutorial-message{column-gap:6px}
+ .tutorial-actions{gap:6px}
+ .tutorial-comms .tutorial-actions button{min-height:44px;font-size:12px;padding:4px 6px}
+}
+@media(pointer:coarse) and (orientation:portrait){
+ .tutorial-comms{width:min(244px,calc(100vw - 24px));display:grid;grid-template-columns:24px minmax(0,1fr) auto;align-items:center;row-gap:2px}
+ .tutorial-comms img,.tutorial-comms:not([data-beat=invite]) img{width:24px;height:36px;grid-column:1;grid-row:1}
+ .tutorial-comms .tutorial-message,.tutorial-comms:not([data-beat=invite]) .tutorial-message{display:contents}
+ .tutorial-comms .tutorial-message strong{grid-column:2;grid-row:1;font-size:12px}
+ .tutorial-comms .tutorial-message p{grid-column:1/-1;grid-row:2;font-size:12px;line-height:1.3;margin:0}
+ .tutorial-comms .tutorial-message .tutorial-actions{grid-column:3;grid-row:1;align-items:center}
+}
+@media(pointer:coarse) and (orientation:landscape){
+ .tutorial-comms:not([data-beat=invite]) .tutorial-actions{align-items:flex-start}
+ .tutorial-comms:not([data-beat=invite]) .tutorial-actions button{min-height:30px}
+ .tutorial-comms[data-state=navigation] .tutorial-message p{margin:0;line-height:1}
+}
+
+/* Temporary world target only; the existing HUD keeps its geometry. */
+.tutorial-mark.is-actionable{pointer-events:auto;cursor:pointer;touch-action:manipulation}
+.tutorial-mark:disabled{opacity:.65}

@@ -9,6 +9,7 @@ import type {FrozenTalentAllocation} from '../progression/permanent-profile';
 export const RUN_SCHEMA=26;
 export const RUN_RULES=MVP_RULES;
 export interface RunConfig {
+ contentPlan?:import('../progression/run-content').RunContentPlan;
  rulesId:typeof RUN_RULES;race:Race;difficulty:Difficulty;campaignId:'campaign-18';
  seed:number;mapId:'campaign-kairos-v1'|'campaign-five-v3';campaignMap?:CampaignMapRecipe;mapHash:string;frozenTalents:FrozenTalentAllocation;
 }

@@ -11,6 +11,13 @@ import type {World} from '../../simulation/world';
 import {EquipmentLootAudio,type EquipmentLootCue} from './equipment-loot-audio';
 import {BackgroundMusic} from './background-music';
 export class AudioEffects {
+ /** Advisor speech or original gland vibration; cancellable, independent of game progression. */
+ tutorialCue(id:string,duration:number,volume=.6){
+  if(this.masterVolume<=0||this.interfaceVolume<=0)return ()=>{};
+  let source:AudioBufferSourceNode|undefined,cancelled=false;
+  const play=async()=>{try{await this.ensureDecoded(id);if(cancelled||!this.context||this.masterVolume<=0||this.interfaceVolume<=0)return;await this.context.resume();if(cancelled)return;const c=this.context,b=this.buffers.get(id);if(!b)return;source=c.createBufferSource();source.buffer=b;const g=c.createGain(),end=c.currentTime+Math.min(duration,b.duration);g.gain.setValueAtTime(volume,c.currentTime);g.gain.setValueAtTime(volume,Math.max(c.currentTime,end-.04));g.gain.linearRampToValueAtTime(0,end);source.connect(g).connect(this.output('interface'));source.onended=()=>{source?.disconnect();g.disconnect();};source.start(0,0,Math.min(duration,b.duration));this.played.set('tutorial:'+id,(this.played.get('tutorial:'+id)??0)+1);}catch{}};
+  void play();return ()=>{cancelled=true;try{source?.stop();}catch{}};
+ }
  masterVolume=1;battleVolume=1;interfaceVolume=.25;musicVolume=.15;
  readonly music=new BackgroundMusic(()=>{this.context??=new AudioContext();return {context:this.context,output:this.output('music')};});
  private masterBus:GainNode|null=null;private battleBus:GainNode|null=null;private interfaceBus:GainNode|null=null;private musicBus:GainNode|null=null;

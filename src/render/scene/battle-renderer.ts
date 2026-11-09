@@ -1,3 +1,7 @@
+import {SpecialTerrain} from '../../simulation/special-stages/terrain';
+import {stageContentAssets} from '../../app/stage-content-assets';
+import {plannedStage} from '../../simulation/progression/run-content';
+import {preferredSpecialKinds,specialStageAvailable} from '../../simulation/special-stages/runtime';
 import {textureTierPending,textureReport} from '../loaders/managed-textures';
 import {ManagedGLTFLoader} from '../loaders/managed-textures';
 import {graphicsPreferences,saveGraphics,optimizedGraphics,TIER_LABELS,type GraphicsPreset,type GraphicsTier,runtimeBudget} from '../../platform/graphics-profile';
@@ -48,7 +52,7 @@ import {racePreloadModels,modelPreloadAssets} from '../../app/race-preload';
 import {RESCUE_PRESENTATION} from '../../data/economy';
 import {preparePylonBirthMaterials} from '../units/pylon-birth-materials';
 import {BOSSES} from '../../data/enemies';
-import {ENDLESS} from '../../data/endless';
+import {ENDLESS,ENDLESS_MIX} from '../../data/endless';
 import {cliffRenderPosition} from '../../simulation/movement/native-traversal';
 import {FriendlyLabels} from '../units/friendly-labels';
 import {EquipmentDrops} from '../units/equipment-drops';
@@ -367,19 +371,29 @@ export class BattleRenderer {
  private backgroundModels=new Set<string>();
  private backgroundDesired=new Set<string>();
  private retainedRequired=new Set<string>();private unitUseSerial=0;private unitLastUsed=new Map<string,number>();
+ get animationAtlasBytes(){return [...this.gpu.values()].reduce((bytes,batch)=>bytes+batch.textureBytes,0);}
  cacheEpoch=0;
+ lastStageRetirement?:ReturnType<typeof retainedUnitEvictions>;
  private touchUnit(key:string){(this.unitLastUsed??=new Map()).set(key,this.unitUseSerial=(this.unitUseSerial??0)+1);}
- private retainRequiredUnits(keys:Iterable<string>){this.retainedRequired=new Set(keys);for(const key of this.retainedRequired)this.touchUnit(key);if(this.world.phase==='menu')this.trimIdleUnitAssets();}
+ private retainRequiredUnits(keys:Iterable<string>){this.retainedRequired=new Set(keys);for(const key of this.retainedRequired)this.touchUnit(key);if(this.world.phase==='menu'||this.entryPreparation&&this.world.phase==='reward'&&this.world.runConfig?.contentPlan)this.trimIdleUnitAssets();}
  /** Caller owns the drained preparation lane. Keep the last required roster,
   * visible/paused bodies and delayed corpses; evict only excess unused groups. */
  trimIdleUnitAssets(){
-  if(this.world.phase!=='menu'||this.assetsPending||this.streamingLoads.size)return;
-  const pins=new Set(this.retainedRequired);for(const u of this.world.entities.values())for(const key of [displayModelKey(u),displayActiveModelKey(u),displayDeathModelKey(u)])pins.add(key);
+  const boundary=this.world.phase==='reward'&&this.entryPreparation&&!!this.world.runConfig?.contentPlan;
+  if(this.world.phase!=='menu'&&!boundary||this.assetsPending||this.streamingLoads.size)return;
+  const pins=new Set(this.retainedRequired);
+  if(boundary){
+   // Next stage's required roster is already pinned by the entrance. Retain
+   // the following stage too to avoid evicting next intermission's warm work.
+   for(const key of this.stageContent(Math.min(18,this.world.stage+2),this.world.endless?this.world.endless.round+2:undefined)?.models.keys()??[])pins.add(key);
+  }
+  for(const u of this.world.entities.values())for(const key of [displayModelKey(u),displayActiveModelKey(u),displayDeathModelKey(u)])pins.add(key);
   for(const corpse of this.corpses.values())pins.add(corpse.type);
   const roots=[...this.variantLoads.keys()].filter(key=>this.gpu.has(key)).sort((a,b)=>a.length-b.length),groups=new Map<string,RetainedModel>();
   for(const [id,batch]of this.gpu){const root=roots.find(key=>id===key||id.startsWith(key+'.')),key=root??id;let group=groups.get(key);if(!group){group={key,lastUsed:this.unitLastUsed.get(key)??0,pinned:!root||[...pins].some(p=>p===key||p.startsWith(key+'.')),resources:new Map()};groups.set(key,group);}if(batch.count>0||batch.allMeshes.some(m=>m.count>0))group.pinned=true;batch.retainedResources(group.resources as Map<object,number>);}
-  const mib=1024**2,result=retainedUnitEvictions([...groups.values()],(this.memoryConstrainedPreload?64:192)*mib,(this.memoryConstrainedPreload?48:144)*mib);
+  const mib=1024**2,result=retainedUnitEvictions([...groups.values()],boundary?0:(this.memoryConstrainedPreload?64:192)*mib,boundary?0:(this.memoryConstrainedPreload?48:144)*mib);
   for(const key of result.evicted)this.retireOptional(key);
+  if(boundary)this.lastStageRetirement=result;
   if(result.evicted.length){this.cacheEpoch++;this.stillPresentation=null;}
   return result;
  }
@@ -519,10 +533,17 @@ export class BattleRenderer {
  /** Required entrances still prepare every actual unit, form and reward before
   * use. Only speculative future GPU work is narrower on touch devices. */
  backgroundPreloadModels(){
-  if(!this.memoryConstrainedPreload)return this.completePreloadModels();
+  if(!this.memoryConstrainedPreload&&!this.world.runConfig?.contentPlan)return this.completePreloadModels();
   const w=this.world,models=this.currentModels();
-  for(const entry of openingPreloadModels(w.expedition.race,w.runConfig?.frozenTalents.levels))models.set(...entry);
-  for(const entry of campaignPreloadModels(w.endless?1:Math.max(1,w.stage),w.endless?18:Math.min(18,w.stage+1)))models.set(...entry);
+  if(!w.runConfig?.contentPlan)for(const entry of openingPreloadModels(w.expedition.race,w.runConfig?.frozenTalents.levels))models.set(...entry);
+  if(w.endless&&w.runConfig?.contentPlan){
+   for(const [key,share] of Object.entries(ENDLESS_MIX))if(share>0)models.set(key,key as UnitType);
+   for(const key of ENDLESS.bossTypes)models.set(key,key);
+  }else for(const entry of campaignPreloadModels(w.endless?1:Math.max(1,w.stage),w.endless?18:Math.min(18,w.stage+1)))models.set(...entry);
+  if(w.runConfig?.contentPlan){
+   const stage=Math.min(18,w.stage+1),prediction=this.stageContent(stage,w.endless?w.endless.round+1:undefined);
+   for(const entry of prediction?.models??[])models.set(...entry);
+  }
   for(const entry of plannedBossPreloadModels(w.expedition.firstBossLoot))models.set(...entry);
   return models;
  }
@@ -578,7 +599,7 @@ export class BattleRenderer {
   for(const [key,type] of models)for(const id of modelPreloadAssets([[displayAssetModelKey(key),type]]))for(const texture of unitMaterialDependencies(id.slice(6)))ids.add(texture);
   const modelJob=(key:string,type:UnitType,priority=false):PreparationJob=>({key:`${priority?'boss':'roster'}:${epoch}:${runId}:${key}`,priority,paced:true,isReady:()=>this.gpu.has(displayLoadModelKey(key,type)),run:async()=>{if(!await this.streamUnitVariant(key,type,cancelled=>checkpoint(cancelled,priority)))throw Error('后台模型准备未完成：'+key);}});
   const jobs:PreparationJob[]=[...[...plannedBossPreloadModels(this.world.expedition.firstBossLoot)].map(([key,type])=>modelJob(key,type,true)),...[...models].map(([key,type])=>modelJob(key,type))];
-  if(!this.memoryConstrainedPreload||this.world.endless||this.world.stage>=17)for(const id of ['model.fort.bunker','model.fort.bunker.death','model.fort.repair','model.fort.repair.death','map.endless'])jobs.push({key:`template:${epoch}:${runId}:${id}`,paced:true,isReady:()=>this.staticTemplateReady(id),run:()=>this.streamEndlessTemplate(id,checkpoint)});
+  if(!this.memoryConstrainedPreload&&!this.world.runConfig?.contentPlan||this.world.endless||this.world.stage>=17)for(const id of ['model.fort.bunker','model.fort.bunker.death','model.fort.repair','model.fort.repair.death','map.endless'])jobs.push({key:`template:${epoch}:${runId}:${id}`,paced:true,isReady:()=>this.staticTemplateReady(id),run:()=>this.streamEndlessTemplate(id,checkpoint)});
   return [...jobs,...[...ids].filter(id=>!fileReady(id)).map(id=>({key:`file:${epoch}:${runId}:${id}`,paced:true,isReady:()=>fileReady(id),run:async()=>{await checkpoint(cancelled);if(!fileReady(id))await prepareEmbeddedAssetIds([id]);}}))];
  }
  private async commonTask(key:string,run:()=>Promise<unknown>){const epoch=this.contextEpoch,token=epoch+':'+key;if(this.preparedCommon.has(token))return;await run();if(this.contextEpoch!==epoch)throw Error('画面资源已失效，请重试');if(key==='effects'&&this.fx.errors.length||key==='pickups'&&this.pickups.errors.length)throw Error('公共资源未完成：'+key);this.preparedCommon.add(token);}
@@ -620,7 +641,7 @@ export class BattleRenderer {
   if(this.world.phase==='reward')for(const entry of this.currentModels())models.set(...entry);
   for(const entry of openingPreloadModels(race))models.set(...entry);
   for(const model of equipmentRuntimeModels(this.world,race))models.set(model.key,model.type);
-  const combat= combatPreloadPlan({race,stage:snapshot?.state.stage??1,difficulty:snapshot?.config.difficulty??this.world.difficulty,models,identities:[hero,snapshot,selectEquipmentEffects(equippedItems(this.world.starship.account,race))]});
+  const combat= combatPreloadPlan({race,stage:snapshot?.state.stage??1,difficulty:snapshot?.config.difficulty??this.world.difficulty,plannedHeroes:snapshot?.config.contentPlan?[]:undefined,models,identities:[hero,snapshot?.state,selectEquipmentEffects(equippedItems(this.world.starship.account,race))]});
   const commonAssets=this.commonAssetIds(combat);
   const selectedModels=[...models].slice(0,24);this.backgroundDesired=new Set(selectedModels.map(([key])=>key));
   const addModel=(key:string,type:UnitType)=>jobs.push({key:'unit:'+key,isReady:()=>this.gpu.has(key),run:async()=>{
@@ -692,19 +713,23 @@ export class BattleRenderer {
    for(const suffix of ['.death',...(type==='tank'&&!key.startsWith('hero.')?['.siege','.morph']:[])]){const path=assetUrl('model.'+assetKey+suffix);if(!path){if(suffix!=='.death')throw Error('missing original tank form '+suffix);continue;}const form=await loadUnitMaterialGltf(loader,path,assetKey+suffix);if(key.startsWith('fun-'))await prepareFortMaterials(form);this.gpu.set(key+suffix,await this.createAnimatedBatch(form,this.scene,heights[type],base.normalization,1,key.startsWith('fun-')?key+suffix:undefined));}for(const [id,b] of this.gpu)if(id===key||id.startsWith(key+'.'))for(const mesh of b.allMeshes)this.filterTextures(mesh);const hidden:THREE.Object3D[]=[],inactive:THREE.InstancedMesh[]=[];for(const [id,b] of this.gpu)if(id===key||id.startsWith(key+'.'))for(const m of b.allMeshes){if(!m.visible){hidden.push(m);m.visible=true;}if(m.count===0)inactive.push(m);}try{if(!silent){await this.prewarmBatches(inactive);await this.finishProgramWarmup();}}finally{for(const m of hidden)m.visible=false;}ok=true;
    }catch(e){for(const [id,batch] of this.gpu)if(!existingKeys.has(id)&&(id===key||id.startsWith(key+'.'))){batch.dispose();this.gpu.delete(id);}if(!existingKeys.has(key)&&this.batches.delete(key as UnitType))this.loadedModels--;if(!optional)this.modelErrors.push(key+': '+String(e));if(!silent){this.world.paused=true;this.world.announce('增援素材未能载入，请重新载入战场');}}finally{this.assetsPending--;if(ok)this.modelErrors=this.modelErrors.filter(error=>!error.startsWith(key+':'));else this.variantLoads.delete(key);finish(ok);if(!silent)this.world.changed();}});if(!silent)this.world.changed();return result;
  }
- async prepareCampaignAssets(recipe:CampaignMapRecipe){const terrain=campaignTerrain(recipe);await prepareEmbeddedAssetIds([...campaignMapAssets(recipe),...fullEnvironmentModelIds(recipe.theme),...environmentAssetIds(recipe.theme)]);if(![...this.mapViews.keys()].some(t=>t.definition?.source.sha256===terrain.definition.source.sha256)){const view=await createCampaignMap(this.scene,terrain);this.mapViews.set(terrain,view);view.setVisible(true);try{const root=this.scene.getObjectByName(terrain.definition.source.sha256)!;this.filterTextures(root);await this.preloadTextures(root);this.sceneShadows.prepare();this.contact.prepare(this.scene);await this.compilePresentation(this.scene,this.camera);}finally{view.setVisible(this.world.terrain===terrain);}}
+ async prepareCampaignAssets(recipe:CampaignMapRecipe){const terrain=campaignTerrain(recipe);await prepareEmbeddedAssetIds([...campaignMapAssets(recipe),...(recipe.lesson?[]:[...fullEnvironmentModelIds(recipe.theme),...environmentAssetIds(recipe.theme)])]);if(![...this.mapViews.keys()].some(t=>t.definition?.source.sha256===terrain.definition.source.sha256)){const view=await createCampaignMap(this.scene,terrain);this.mapViews.set(terrain,view);view.setVisible(true);try{const root=this.scene.getObjectByName(terrain.definition.source.sha256)!;this.filterTextures(root);await this.preloadTextures(root);this.sceneShadows.prepare();this.contact.prepare(this.scene);await this.compilePresentation(this.scene,this.camera);}finally{view.setVisible(this.world.terrain===terrain);}}
   for(const [key,view] of this.mapViews)if(key instanceof RadialTerrain&&key.definition.source.sha256!==terrain.definition.source.sha256&&key!==this.world.terrain){view.dispose?.();this.mapViews.delete(key);}
  }
  private syncMap(retry=false):Promise<void>|undefined {
   const terrain=this.world.terrain;if(this.mapSwitching)return this.mapJob;if(!terrain)return;if(terrain===this.mapTerrain&&this.mapViews.has(terrain)){if(this.failedMap&&this.failedMap!==terrain){this.failedMap=undefined;this.modelErrors=this.modelErrors.filter(e=>!e.startsWith('map: '));}return;}
   if(this.failedMap===terrain&&!retry)return;
   const clearError=()=>{this.failedMap=undefined;this.modelErrors=this.modelErrors.filter(error=>!error.startsWith('map: '));};
-  const activate=(view:MapView)=>{clearError();this.mapTerrain=terrain;this.mapView=view;for(const map of this.mapViews.values())map.setVisible(map===view);this.cameraTarget.set(this.world.anchor.x,this.ground(this.world.anchor),this.world.anchor.z);this.terrainUpdate=()=>this.mapView?.update(this.camera,this.sceneShadows.enabled?this.sceneShadows.view:undefined);};
+  const activate=(view:MapView)=>{clearError();this.mapTerrain=terrain;this.mapView=view;for(const [key,map] of this.mapViews){
+   if(key!==terrain&&key instanceof SpecialTerrain){map.dispose?.();this.mapViews.delete(key);}
+   else map.setVisible(map===view);
+  }this.cameraTarget.set(this.world.anchor.x,this.ground(this.world.anchor),this.world.anchor.z);this.terrainUpdate=()=>this.mapView?.update(this.camera,this.sceneShadows.enabled?this.sceneShadows.view:undefined);};
   const previous=[...this.mapViews.keys()].find(t=>t.definition?.source.sha256&&t.definition.source.sha256===terrain.definition?.source.sha256),cached=this.mapViews.get(terrain)??(previous?this.mapViews.get(previous):undefined);
   if(cached){if(previous!==terrain){cached.bindTerrain?.(terrain);if(previous)this.mapViews.delete(previous);this.mapViews.set(terrain,cached);}activate(cached);return;}
   this.mapSwitching=true;this.assetsPending++;
   // Publish the job before listeners can request the same terrain again.
   this.mapJob=Promise.resolve().then(()=>terrain instanceof FlatTerrain?createFlatMap(this.scene,terrain):terrain instanceof RadialTerrain?createCampaignMap(this.scene,terrain):Promise.reject<MapView>(new Error('不支持的战役地图'))).then(view=>{
+   if(this.world.terrain!==terrain&&terrain instanceof SpecialTerrain){view.dispose?.();return;}
    this.mapViews.set(terrain,view);view.setVisible(this.world.terrain===terrain);
    if(this.world.terrain===terrain){activate(view);this.filterTextures(this.scene);}
   }).catch(error=>{
@@ -747,6 +772,27 @@ export class BattleRenderer {
  private missionDeaths=new Map<number,{root:THREE.Object3D;mixer:THREE.AnimationMixer;clip:THREE.AnimationClip;at:number}>();
  private async prepareMissionAssets(scope:BattleSceneScope){
   const plan=battleScenePreload(scope);
+  if(scope.content&&this.entryPreparation&&this.world.phase==='reward'&&!this.missionViews.size&&!this.missionDeaths.size){
+   const next=Math.min(18,scope.stage+1),near=battleScenePreload({...scope,stage:next,content:this.stageContent(next)});
+   const keep=new Set([...plan.buildings,...near.buildings]);
+   for(const templates of [this.missionTemplates,this.missionDeathTemplates])for(const [key,template] of templates){
+    if(keep.has(key))continue;
+    // Each parsed template owns its wrappers. Shared image sources remain valid.
+    const textures=new Set<THREE.Texture>();
+    template.root.traverse(node=>{
+     if(node instanceof THREE.SkinnedMesh)node.skeleton.dispose();
+     if(!(node instanceof THREE.Mesh))return;
+     node.geometry.dispose();
+     for(const m of Array.isArray(node.material)?node.material:[node.material]){
+      for(const value of Object.values(m))if(value instanceof THREE.Texture)textures.add(value);
+      for(const t of [...unitMaterialTextures(m),...sceneMaterialTextures(m)])textures.add(t);
+      m.dispose();
+     }
+    });
+    for(const t of textures)t.dispose();
+    templates.delete(key);
+   }
+  }
   if(plan.hive){
    const loader=new ManagedGLTFLoader();await prepareEmbeddedAssetIds(['model.hive','model.hatchery.death']);
    if(!this.hiveDeathTemplate){const url=assetUrl('model.hatchery.death');if(!url)throw Error('主巢死亡资源未就绪');this.hiveDeathTemplate=await restoreSc2Materials(await loader.loadAsync(url));await this.compilePresentation(this.hiveDeathTemplate.scene,this.camera,this.scene);await this.preloadTextures(this.hiveDeathTemplate.scene);}
@@ -804,10 +850,19 @@ export class BattleRenderer {
    if(kind!=='cover')await prepareFortMaterials(gltf);const box=new THREE.Box3().setFromObject(gltf.scene),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3()),scale=EQUIPMENT_FORTS[kind as EquipmentFortKind].width/Math.max(size.x,size.z),group=new THREE.Group(),model=clone(gltf.scene);model.position.set(-center.x*scale,-box.min.y*scale,-center.z*scale);model.scale.setScalar(scale);group.add(model);updateFortMaterials(group,clip.name,0);(death?this.fortDeathTemplates:this.fortTemplates).set(kind,group);this.fortClips.set(kind+':'+(death?'death':'stand'),clip);const attack=gltf.animations.find(c=>c.name==='Attack');if(!death&&kind!=='cover'){if(!attack)throw Error('舰装炮台攻击动作缺失：'+id);this.fortClips.set(kind+':attack',attack);}await this.compilePresentation(group,this.camera,this.scene);await this.preloadTextures(group);await this.prewarmBatches([],false,[group]);
   }
  }
- async prepareNewRunAssets(race:Race,hero:HeroId|null,progress:(done:number,total:number,label:string)=>void=()=>{},preset?:PresetSlot,difficulty:Difficulty=this.world.difficulty){
+ async prepareTutorialAssets(race:Race,progress:(done:number,total:number,label:string)=>void=()=>{}){
+  await this.prepareRescueAssets(race);
+  const family=({terran:'marine',zerg:'zergling',protoss:'zealot'} as const)[race],required=new Map<string,UnitType>([[family,family],['zergling','zergling'],['roach','roach']]);
+  for(const unit of this.world.entities.values())if(unit.hp>0){required.set(displayModelKey(unit),unit.unitType);required.set(displayActiveModelKey(unit),unit.unitType);}
+  this.retainRequiredUnits(required.keys());
+  await this.prepareCommonAssets(combatPreloadPlan({race,stage:1,difficulty:this.world.difficulty,models:required}));
+  await prepareEmbeddedAssetIds(modelPreloadAssets([...required].filter(([key])=>!this.gpu.has(key)).map(([key,type])=>[displayAssetModelKey(key),type] as const)));
+  let done=0;for(const [key,type] of required){if(!this.gpu.has(key)&&!await this.ensureUnitVariant(key,type))throw Error('教学模型未就绪：'+key);progress(++done,required.size,key);}
+ }
+ async prepareNewRunAssets(race:Race,hero:HeroId|null,progress:(done:number,total:number,label:string)=>void=()=>{},preset?:PresetSlot,difficulty:Difficulty=this.world.difficulty,plan?:import('../../simulation/progression/run-content').RunContentPlan){
   await this.prepareRescueAssets(race);await this.prepareMissionAssets({race,difficulty,stage:1});
   const levels=this.world.permanentProfile.getPreset(race,preset??this.world.permanentProfile.activePresetFor(race))?.levels;
-  const required=openingPreloadModels(race,levels);for(const model of equipmentOpeningModels(this.world,race,hero,preset)){if(!isAirHeroType(model.type))required.set(model.type,model.type);required.set(displayLoadModelKey(model.key,model.type),model.type);}
+  const required=openingPreloadModels(race,levels);for(const model of equipmentOpeningModels(this.world,race,hero,preset,plan)){if(!isAirHeroType(model.type))required.set(model.type,model.type);required.set(displayLoadModelKey(model.key,model.type),model.type);}
   if(hero){const data=HEROES[hero];if(!data||data.race!==race)throw Error('开局英雄与种族不符');required.set(displayLoadModelKey(data.model,data.baseFamily),data.baseFamily);}
   this.retainRequiredUnits(required.keys());
   await this.prepareCommonAssets(combatPreloadPlan({race,stage:1,difficulty,models:required,identities:[hero,selectEquipmentEffects(equippedItems(this.world.starship.account,race))]}));
@@ -815,36 +870,70 @@ export class BattleRenderer {
   let done=0;for(const [key,type] of required){const missing=!this.gpu.has(key);if(missing&&!await this.ensureUnitVariant(key,type))throw Error('开局模型未就绪：'+key);progress(++done,required.size,key);if(missing)await new Promise<void>(resolve=>requestAnimationFrame(()=>resolve()));}
   if(this.world.starship.enabled)await this.prepareEquipmentFortAssets(race);
  }
- private currentModels(){
+ private stageContent(stage:number,round=this.world.endless?.round){
+  const w=this.world,content=plannedStage(w.runConfig?.contentPlan,stage,round);
+  if(!content)return undefined;
+  const special:string[]=[];
+  if(round===undefined&&specialStageAvailable(w,stage)){
+   const kinds=preferredSpecialKinds(w);
+   const portal=content.portal.find(kind=>kinds.includes(kind));
+   if(portal)special.push(portal);
+   const ticket=w.specialStages.ticket;
+   if(ticket?.stage===stage&&ticket.claimed)special.push(ticket.kind);
+  }
+  if(w.specialStages.active)special.push(w.specialStages.active.kind);
+  return stageContentAssets(w.runConfig?.contentPlan,stage,round,w.funShop.levels,w.expedition.familySlots,special);
+ }
+ private currentModels(leavingShelf=false){
   const required=new Map<string,UnitType>();for(const type of this.requiredFamilies())required.set(type,type);
   for(const model of equipmentRuntimeModels(this.world,this.world.expedition.race)){if(!isAirHeroType(model.type))required.set(model.type,model.type);required.set(displayLoadModelKey(model.key,model.type),model.type);}
   for(const hero of this.world.heroes.values()){const data=HEROES[hero.id];required.set(displayLoadModelKey(data.model,data.baseFamily),data.baseFamily);}
   for(const unit of this.world.entities.values())if(unit.hp>0){required.set(displayModelKey(unit),unit.unitType);required.set(displayActiveModelKey(unit),unit.unitType);}
-  if(this.world.eliteChoice){const elite=ELITES[this.world.eliteChoice];required.set(elite.model,elite.family);}
-  for(const offer of this.world.rewards){if(offer.kind==='hero'&&Object.hasOwn(HEROES,offer.value)){const hero=HEROES[offer.value as HeroId];required.set(displayLoadModelKey(hero.model,hero.baseFamily),hero.baseFamily);}else if(offer.kind==='elite'&&Object.hasOwn(ELITES,offer.value)){const elite=ELITES[offer.value as EliteId];required.set(elite.model,elite.family);}}
+  for(const id of [...this.world.pendingElites,...this.world.expedition.eliteRescueRights.map(r=>r.eliteId as EliteId)]){
+   const elite=ELITES[id];required.set(elite.model,elite.family);
+  }
+  for(const member of this.world.starship.pendingMembers){
+   if(member.count<=0)continue;
+   if(member.eliteId){const elite=ELITES[member.eliteId];required.set(elite.model,elite.family);}
+   else required.set(member.type,member.type);
+  }
+  if(!leavingShelf)for(const offer of this.world.rewards){if(offer.kind==='hero'&&Object.hasOwn(HEROES,offer.value)){const hero=HEROES[offer.value as HeroId];required.set(displayLoadModelKey(hero.model,hero.baseFamily),hero.baseFamily);}else if(offer.kind==='elite'&&Object.hasOwn(ELITES,offer.value)){const elite=ELITES[offer.value as EliteId];required.set(elite.model,elite.family);}}
   for(const entry of this.world.expedition.bossLootQueue){const effect=entry.reward.expeditionEffect;if(effect.kind==='elite')for(const elite of this.world.eliteVariants(effect.family))required.set(elite.model,elite.family);else if(effect.kind==='hero'){const hero=HEROES[effect.heroId as HeroId];required.set(displayLoadModelKey(hero.model,hero.baseFamily),hero.baseFamily);}}
-  for(const offer of this.world.rewards)if(offer.kind==='elite'&&Object.hasOwn(ELITES,offer.value))for(const elite of this.world.eliteVariants(ELITES[offer.value as EliteId].family))required.set(elite.model,elite.family);
-  for(const contract of this.world.expedition.eliteContracts)if(!contract.purchased)for(const elite of this.world.eliteVariants(contract.family))required.set(elite.model,elite.family);
+  if(!leavingShelf)for(const offer of this.world.rewards)if(offer.kind==='elite'&&Object.hasOwn(ELITES,offer.value))for(const elite of this.world.eliteVariants(ELITES[offer.value as EliteId].family))required.set(elite.model,elite.family);
+  if(!leavingShelf)for(const contract of this.world.expedition.eliteContracts)if(!contract.purchased)for(const elite of this.world.eliteVariants(contract.family))required.set(elite.model,elite.family);
+  const mission=this.world.missions.active?.reward,queen=this.world.encounters.expanded.queen?.hero;
+  if(mission?.kind==='elite'){const elite=ELITES[mission.id];required.set(elite.model,elite.family);}
+  for(const id of [mission?.kind==='hero'?mission.id:undefined,queen])if(id){const hero=HEROES[id];required.set(displayLoadModelKey(hero.model,hero.baseFamily),hero.baseFamily);}
   if(this.world.expedition.pendingShopElite){const elite=ELITES[this.world.expedition.pendingShopElite.variantId];required.set(elite.model,elite.family);}
   return required;
  }
- async prepareCurrentAssets(progress:(done:number,total:number,label:string)=>void=()=>{}){
+ async prepareCurrentAssets(progress:(done:number,total:number,label:string)=>void=()=>{},leavingShelf=false){
   await this.syncMap(true);
-  if(this.world.starship.enabled)await this.prepareEquipmentFortAssets();await this.prepareRescueAssets(this.world.expedition.race);await this.prepareMissionAssets({race:this.world.expedition.race,difficulty:this.world.difficulty,stage:Math.min(18,this.world.stage+(this.world.phase==='reward'?1:0)),endless:!!this.world.endless,bodyModels:[...this.world.missions.bodies.values(),...corruptSiteBodies(this.world)].map(b=>b.model),hasHive:!!this.world.hive||this.world.expansionHives.size>0});
-  const required=this.currentModels();
+  const stage=Math.min(18,this.world.stage+(this.world.phase==='reward'?1:0));
+  const content=this.world.runConfig?.contentPlan?this.stageContent(stage,this.world.endless?this.world.endless.round+Number(this.world.phase==='reward'):undefined):undefined;
+  if(this.world.starship.enabled)await this.prepareEquipmentFortAssets();await this.prepareRescueAssets(this.world.expedition.race);await this.prepareMissionAssets({race:this.world.expedition.race,difficulty:this.world.difficulty,stage,content,endless:!!this.world.endless,bodyModels:[...this.world.missions.bodies.values(),...corruptSiteBodies(this.world)].map(b=>b.model),hasHive:!!this.world.hive||this.world.expansionHives.size>0});
+  const required=this.currentModels(leavingShelf&&!!content);
+  for(const entry of content?.models??[])required.set(...entry);
+  if(content)completeSnapshotModelForms(required);
   this.retainRequiredUnits(required.keys());
-  await this.prepareCommonAssets(combatPreloadPlan({race:this.world.expedition.race,stage:this.world.stage+(this.world.phase==='reward'?1:0),difficulty:this.world.difficulty,models:required,identities:[this.world.heroes,this.world.heroCasts,this.world.expedition,this.world.heroAttacks,selectEquipmentEffects(equippedItems(this.world.starship.account,this.world.expedition.race))]}));
+  await this.prepareCommonAssets(combatPreloadPlan({race:this.world.expedition.race,stage:this.world.stage+(this.world.phase==='reward'?1:0),difficulty:this.world.difficulty,plannedHeroes:content?.heroes,models:required,identities:[this.world.heroes,this.world.heroCasts,this.world.expedition,this.world.heroAttacks,selectEquipmentEffects(equippedItems(this.world.starship.account,this.world.expedition.race))]}));
   await prepareEmbeddedAssetIds(modelPreloadAssets([...required].filter(([key])=>!this.gpu.has(key)).map(([key,type])=>[displayAssetModelKey(key),type] as const)));
   let done=0;for(const [key,type] of required){if(!this.gpu.has(key)&&!await this.ensureUnitVariant(key,type))throw Error('增援模型未就绪：'+key);progress(++done,required.size,key);}
  }
  async prepareSnapshotAssets(snapshot:RunSnapshot,progress:(done:number,total:number,label:string)=>void=()=>{}){
-  await this.prepareRescueAssets(snapshot.state.expedition.race);await this.prepareMissionAssets({race:snapshot.config.race,difficulty:snapshot.config.difficulty,stage:Math.min(18,snapshot.state.stage+(snapshot.state.phase==='reward'?1:0)),endless:snapshot.state.battlefield.mode==='endless',bodyModels:[...[...(snapshot.state.missions?.bodies.values()??[])].map(b=>b.model),...(snapshot.state.encounters?.expanded.short?.corrupt?[snapshot.state.encounters.expanded.short.corrupt.site.model]:[])],hasHive:!!snapshot.state.hive||(snapshot.state.expansionHives?.size??0)>0});
+  const stage=snapshot.state.battlefield.mode==='endless'?18:Math.min(18,snapshot.state.stage+Number(snapshot.state.phase==='reward'));
+  const round=snapshot.state.endless?snapshot.state.endless.round+Number(snapshot.state.phase==='reward'):undefined;
+  const planned=plannedStage(snapshot.config.contentPlan,stage,round);
+  const special=snapshot.state.specialStages;
+  const content=planned?stageContentAssets(snapshot.config.contentPlan,stage,round,snapshot.state.funShop.levels,snapshot.state.expedition.familySlots,
+   stage>=4&&round===undefined?[...(special?.ticket?.claimed?[special.ticket.kind]:[]),...planned.portal]:[]):undefined;
+  await this.prepareRescueAssets(snapshot.state.expedition.race);await this.prepareMissionAssets({race:snapshot.config.race,difficulty:snapshot.config.difficulty,stage,content,endless:snapshot.state.battlefield.mode==='endless',bodyModels:[...[...(snapshot.state.missions?.bodies.values()??[])].map(b=>b.model),...(snapshot.state.encounters?.expanded.short?.corrupt?[snapshot.state.encounters.expanded.short.corrupt.site.model]:[])],hasHive:!!snapshot.state.hive||(snapshot.state.expansionHives?.size??0)>0});
   const required:Map<string,UnitType>=snapshotIdentityModels(snapshot);
+  for(const entry of content?.models??[])required.set(...entry);
   for(const family of snapshot.state.expedition.familySlots)required.set(family,family);
   for(const entry of snapshot.state.expedition.bossLootQueue){const effect=entry.reward.expeditionEffect;if(effect.kind==='elite')for(const elite of Object.values(ELITES).filter(e=>e.family===effect.family))required.set(elite.model,elite.family);else if(effect.kind==='hero'){const hero=HEROES[effect.heroId as HeroId];required.set(displayLoadModelKey(hero.model,hero.baseFamily),hero.baseFamily);}}
   for(const family of selectedProductionFamilies(snapshot.state.expedition))required.set(family,family);
   for(const job of snapshot.state.expedition.ledger)if(job.state!=='settled')required.set(job.family,job.family);
-  const stage=snapshot.state.battlefield.mode==='endless'?18:Math.min(18,snapshot.state.stage+(snapshot.state.phase==='reward'?1:0));
   for(const [family,share] of Object.entries(CAMPAIGN18_STAGES[stage-1].mix))if(share>0)required.set(family as UnitType,family as UnitType);
   for(const type of snapshot.state.battlefield.mode==='endless'?ENDLESS.bossTypes:BOSSES[stage]?[BOSSES[stage].type]:[])required.set(type,type);
   for(const unit of snapshot.state.entities.values())if(unit.hp>0){if(!isAirHeroType(unit.unitType))required.set(unit.unitType,unit.unitType);required.set(displayModelKey(unit),unit.unitType);required.set(displayActiveModelKey(unit),unit.unitType);}
@@ -856,7 +945,7 @@ export class BattleRenderer {
   if(snapshot.state.expedition.pendingShopElite){const elite=ELITES[snapshot.state.expedition.pendingShopElite.variantId];required.set(elite.model,elite.family);}
   completeSnapshotModelForms(required);
   this.retainRequiredUnits(required.keys());
-  await this.prepareCommonAssets(combatPreloadPlan({race:snapshot.config.race,stage,difficulty:snapshot.config.difficulty,models:required,identities:[snapshot.state,snapshotEquipmentEffects(snapshot)]}));
+  await this.prepareCommonAssets(combatPreloadPlan({race:snapshot.config.race,stage,difficulty:snapshot.config.difficulty,plannedHeroes:content?.heroes,models:required,identities:[snapshot.state,snapshotEquipmentEffects(snapshot)]}));
   await prepareEmbeddedAssetIds(modelPreloadAssets([...required].filter(([key])=>!this.gpu.has(key)).map(([key,type])=>[displayAssetModelKey(key),type] as const)));
   let done=0;for(const [key,type] of required){if(!this.gpu.has(key)&&!await this.ensureUnitVariant(key,type))throw Error('必需单位模型未就绪：'+key);progress(++done,required.size,key);}
   if(snapshot.state.battlefield.mode==='endless'||snapshot.state.endlessEntry)await this.prepareEndlessAssets((n,total,label)=>progress(required.size+n,required.size+total,label));
@@ -911,10 +1000,13 @@ export class BattleRenderer {
   return {active,bodies,occluded,moving:w.order?.kind==='move'&&Math.hypot(w.order.point.x-w.anchor.x,w.order.point.z-w.anchor.z)>.5,combat:mains.some(u=>w.time-u.lastShotAt<2||w.time-(u.lastDamagedAt??-Infinity)<2)};
  }
  private bodyVisible(p:Point){return this.visible(p)||this.sceneShadows.enabled&&this.sceneShadows.view.body(p,this.ground(p));}
+ tutorialFocus:Point|null=null;
+ tutorialDeathFinished(id:number){const corpse=this.corpses.get(id),u=this.world.entities.get(id);if(!corpse&&!u)return true;const at=corpse?.at??u?.deadAt;if(at===null||at===undefined)return false;const key=corpse?.type??(u?displayModelKey(u):''),model=this.gpu.get(key+'.death')??this.gpu.get(key),life=Math.min(5,Math.max(1.5,model?.pose('dead')?.duration??1.5));return this.world.time-at>=life;}
+ clearTutorialFocus(){if(!this.tutorialFocus)return;this.tutorialFocus=null;this.cameraController.target.set(this.world.anchor.x,this.ground(this.world.anchor),this.world.anchor.z);}
  private visible(p:Point){return this.cameraController.visible(p,this.ground(p));}
  render(dt:number,alpha:number){if(this.backgroundBusy||this.entryPreparation){this.stillPresentation=null;return;}const world=this.world;const sceneKey=world.specialStages.active?.id??null;if(sceneKey!==this.specialSceneKey){this.specialSceneKey=sceneKey;this.resetRun();}this.frames++;this.tickTime+=dt;if(this.tickTime>=.5){this.fps=this.frames/this.tickTime;this.frames=0;this.tickTime=0;}this.frameMs=dt*1000;this.frameTimes.push(this.frameMs);if(this.frameTimes.length>240)this.frameTimes.shift();
   const low=this.combatDetail==='low';resetUploadStats();const motion=!matchMedia('(prefers-reduced-motion: reduce)').matches&&!document.querySelector('#interface.ui-reduced-motion');
-  this.lighting.bind(world.terrain);this.cameraController.update({x:world.anchor.x,y:this.ground(world.anchor),z:world.anchor.z},dt,!motion,this.cameraFrame());
+  this.lighting.bind(world.terrain);const cameraAnchor=this.tutorialFocus??world.anchor;this.cameraController.update({x:cameraAnchor.x,y:this.ground(cameraAnchor),z:cameraAnchor.z},dt,!motion,this.tutorialFocus?undefined:this.cameraFrame());
   const selected=this.selectedHealthBodies();
   // Only reuse stopped battle presentation. A live frame without a fixed step can
   // still have a new interpolation alpha, camera pose or effect sample.
@@ -1123,6 +1215,6 @@ export class BattleRenderer {
  setCameraZoom(value:number){this.cameraController.setZoom(value);}
  adjustCameraZoom(delta:number){this.cameraController.adjustZoom(delta);}
  resetCameraZoom(){this.cameraController.resetZoom();}
- report(){return {special:this.specialVisuals?.report(),fun:this.funVisuals?.report(),encounters:this.encounterVisuals?.report(),graphics:optimizedGraphics()?{...graphicsPreferences(),budget:runtimeBudget(),textures:textureReport()}:null,combatPreset:this.combatPreset,combatDetail:this.combatDetail,materialUploads:{...materialUploadTotals},refraction:this.refraction.report(),sourceCombat:this.sourceCombatEffects.report(),healthBars:this.healthBars.report(),camera:{...this.cameraController.report(),targetPreview:this.targetPreview?{...this.targetPreview}:null},lighting:this.lighting.report(),shadows:this.sceneShadows.report(),contact:this.contact.report(),distress:{...this.distress.frame},nonHeroes:this.nonHeroEffects.report(),protossElites:this.protossEliteEffects.report(),zergElites:this.zergEliteEffects.report(),terranElites:{...this.terranEliteEffects.report(),medical:this.eliteSupportEffects.report()},protossHeroes:this.protossHeroes.report(),zergHeroes:this.zergHeroes.report(),confirmedHeroes:this.confirmedHeroes.report(),animationMode:this.animationMode,map:this.mapView?.report(),order:this.world.order?.kind==='move'?{...this.world.order,point:{...this.world.order.point}}:this.world.order?{...this.world.order}:null,resolution:{quality:this.quality,adaptive:this.adaptiveQuality,devicePixelRatio:window.devicePixelRatio||1,renderPixelRatio:this.renderer.getPixelRatio(),width:this.canvas.width,height:this.canvas.height,cssWidth:this.viewportWidth,cssHeight:this.viewportHeight,antialias:this.renderer.getContext().getContextAttributes()?.antialias},models:this.loadedModels,variantModels:[...this.gpu.keys()].filter(k=>(k.startsWith('elite.')||k.startsWith('hero.'))&&!k.endsWith('.death')&&!k.endsWith('.siege')&&!k.endsWith('.morph')),assetsPending:this.assetsPending,economicModels:['scv','drone','probe','egg'].filter(k=>this.gpu.has(k)).length,podModel:this.podTemplates.has(this.world.expedition.race),carrierModels:[...this.podTemplates.keys()],resourceModels:this.pickups.batches.size,resourceInstances:this.pickups.visible,errors:[...this.modelErrors,...this.fx.errors,...this.pickups.errors],originalAnimationModels:[...this.batches.values()].filter(b=>b.gltf.animations.length>0).length,proceduralAnimationModels:[...this.batches.values()].filter(b=>!b.gltf.animations.length).length,originalDeathModels:[...this.gpu.keys()].filter(k=>k.endsWith('.death')).length,animationAtlasBytes:[...this.gpu.values()].reduce((n,b)=>n+b.textureBytes,0),lodRatios:Object.fromEntries([...this.gpu].filter(([k])=>ordinaryLodKeys.has(k)).map(([k,b])=>[k,b.lodRatio])),effectTextures:this.fx.loaded,effects:this.fx.stats,sculptedEffects:this.fx.sculptures.stats,textures:this.loadedTextures,fps:this.fps,requestedInstanceUploadBytes:requestedUploadBytes,drawCalls:this.renderer.info.render.calls,triangles:this.renderer.info.render.triangles,entities:this.world.entities.size,maxStretch:this.world.maxStretch,spatialVisits:this.world.distancePairs,collisionContacts:this.world.collisionContacts};}
+ report(){return {lastStageRetirement:this.lastStageRetirement,special:this.specialVisuals?.report(),fun:this.funVisuals?.report(),encounters:this.encounterVisuals?.report(),graphics:optimizedGraphics()?{...graphicsPreferences(),budget:runtimeBudget(),textures:textureReport()}:null,combatPreset:this.combatPreset,combatDetail:this.combatDetail,materialUploads:{...materialUploadTotals},refraction:this.refraction.report(),sourceCombat:this.sourceCombatEffects.report(),healthBars:this.healthBars.report(),camera:{...this.cameraController.report(),targetPreview:this.targetPreview?{...this.targetPreview}:null},lighting:this.lighting.report(),shadows:this.sceneShadows.report(),contact:this.contact.report(),distress:{...this.distress.frame},nonHeroes:this.nonHeroEffects.report(),protossElites:this.protossEliteEffects.report(),zergElites:this.zergEliteEffects.report(),terranElites:{...this.terranEliteEffects.report(),medical:this.eliteSupportEffects.report()},protossHeroes:this.protossHeroes.report(),zergHeroes:this.zergHeroes.report(),confirmedHeroes:this.confirmedHeroes.report(),animationMode:this.animationMode,map:this.mapView?.report(),order:this.world.order?.kind==='move'?{...this.world.order,point:{...this.world.order.point}}:this.world.order?{...this.world.order}:null,resolution:{quality:this.quality,adaptive:this.adaptiveQuality,devicePixelRatio:window.devicePixelRatio||1,renderPixelRatio:this.renderer.getPixelRatio(),width:this.canvas.width,height:this.canvas.height,cssWidth:this.viewportWidth,cssHeight:this.viewportHeight,antialias:this.renderer.getContext().getContextAttributes()?.antialias},models:this.loadedModels,variantModels:[...this.gpu.keys()].filter(k=>(k.startsWith('elite.')||k.startsWith('hero.'))&&!k.endsWith('.death')&&!k.endsWith('.siege')&&!k.endsWith('.morph')),assetsPending:this.assetsPending,economicModels:['scv','drone','probe','egg'].filter(k=>this.gpu.has(k)).length,podModel:this.podTemplates.has(this.world.expedition.race),carrierModels:[...this.podTemplates.keys()],resourceModels:this.pickups.batches.size,resourceInstances:this.pickups.visible,errors:[...this.modelErrors,...this.fx.errors,...this.pickups.errors],originalAnimationModels:[...this.batches.values()].filter(b=>b.gltf.animations.length>0).length,proceduralAnimationModels:[...this.batches.values()].filter(b=>!b.gltf.animations.length).length,originalDeathModels:[...this.gpu.keys()].filter(k=>k.endsWith('.death')).length,animationAtlasBytes:[...this.gpu.values()].reduce((n,b)=>n+b.textureBytes,0),lodRatios:Object.fromEntries([...this.gpu].filter(([k])=>ordinaryLodKeys.has(k)).map(([k,b])=>[k,b.lodRatio])),effectTextures:this.fx.loaded,effects:this.fx.stats,sculptedEffects:this.fx.sculptures.stats,textures:this.loadedTextures,fps:this.fps,requestedInstanceUploadBytes:requestedUploadBytes,drawCalls:this.renderer.info.render.calls,triangles:this.renderer.info.render.triangles,entities:this.world.entities.size,maxStretch:this.world.maxStretch,spatialVisits:this.world.distancePairs,collisionContacts:this.world.collisionContacts};}
 }
 import {corruptSiteBodies} from '../../simulation/encounters/corrupted-protoss';

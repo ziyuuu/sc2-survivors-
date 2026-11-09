@@ -5,7 +5,7 @@ export type {CampaignTheme} from './campaign-landscape';
 
 export const CAMPAIGN_MAP_ID='campaign-five-v3' as const;
 export const CAMPAIGN_MAP_SIZE=160;
-export interface CampaignMapRecipe {version:3;seed:number;theme:CampaignTheme;}
+export interface CampaignMapRecipe {version:3;seed:number;theme:CampaignTheme;lesson?:3;}
 export const MAP_STAGE_AREAS=[741.75,995.25,1248.5,1540.25,1831.75,2558.5,3015.75,3473,4375.25,4951.5,5527.5,6718.5,7363.75,8008.75,9510.25,9872.5,10234.5,11869.5] as const;
 export const MAP_THEMES=CAMPAIGN_ENVIRONMENTS;
 
@@ -15,7 +15,7 @@ export function chooseCampaignMap(seed:number,previous?:CampaignTheme):CampaignM
  return {version:3,seed:n,theme:themes[n%themes.length]};
 }
 export function validateMapRecipe(r:CampaignMapRecipe){
- if(!r||r.version!==3||!Number.isSafeInteger(r.seed)||r.seed<0||r.seed>0xffffffff||!Object.hasOwn(MAP_THEMES,r.theme)||Object.keys(r).some(k=>!['version','seed','theme'].includes(k)))throw Error('地图配方无效');
+ if(!r||r.version!==3||!Number.isSafeInteger(r.seed)||r.seed<0||r.seed>0xffffffff||!Object.hasOwn(MAP_THEMES,r.theme)||Object.keys(r).some(k=>!['version','seed','theme','lesson'].includes(k)))throw Error('地图配方无效');if(r.lesson!==undefined&&r.lesson!==3)throw Error('教学地图版本无效');
 }
 const cache=new Map<string,MapDefinition>();
 export class RadialTerrain extends MapTerrain {
@@ -32,13 +32,14 @@ export function campaignTerrain(recipe:CampaignMapRecipe){
  return new RadialTerrain(recipe,campaignDefinition(recipe));
 }
 export const CHAR_CAMPAIGN_TEXTURES=['terrain.char','terrain.rock','terrain.cracked','terrain.char.normal','terrain.rock.normal'] as const;
-export function campaignMapAssets(r:CampaignMapRecipe){return [...MAP_THEMES[r.theme].props,'map.terrain.diffuse','map.terrain.normal',...(r.theme==='char'?CHAR_CAMPAIGN_TEXTURES:[])];}
+export function campaignMapAssets(r:CampaignMapRecipe){if(r.lesson)return ['terrain.char'];return [...MAP_THEMES[r.theme].props,'map.terrain.diffuse','map.terrain.normal',...(r.theme==='char'?CHAR_CAMPAIGN_TEXTURES:[])];}
 /** Shared campaign bytes are prepared once; only the selected layout is instantiated. */
 export function campaignPreloadAssets(){return [...new Set([...Object.values(MAP_THEMES).flatMap(theme=>[...theme.props]),...CHAR_CAMPAIGN_TEXTURES,'map.terrain.diffuse','map.terrain.normal'])];}
 
 /** Independent seeded stream. Never consumes combat, shop, loot or talent RNG. */
 export function makeCampaignDefinition(recipe:CampaignMapRecipe):MapDefinition{
  validateMapRecipe(recipe);
+ if(recipe.lesson)return makeLessonDefinition(recipe);
  const size=CAMPAIGN_MAP_SIZE,half=size/2,W=size*2,N=W*W,origin=[half,half],theme=MAP_THEMES[recipe.theme];
  const {blockers,placements}=createCampaignLandscape(recipe.theme,recipe.seed);
  const walk=new Array<number>(N),clearance=new Array<number>(N),cost=new Float64Array(N),order:number[]=[];
@@ -72,4 +73,10 @@ export function makeCampaignDefinition(recipe:CampaignMapRecipe):MapDefinition{
  const heights=Array.from({length:size*size},(_,i)=>campaignElevation(recipe.theme,i%size-half,half-Math.floor(i/size)));
  let hash=2166136261;for(const n of [...opening,...walk,...heights.map(h=>Math.round(h*100000))])hash=Math.imul(hash^n,16777619)>>>0;
  return {version:1,source:{name:theme.name,sha256:`${CAMPAIGN_MAP_ID}:${recipe.theme}:${recipe.seed}:${hash.toString(16)}`,worldUnitsPerSc2Unit:1},width:size,height:size,bounds:[0,0,size,size],origin,start:{x:0,z:0},hive:{x:0,z:-59},heights,syncHeights:heights.slice(),levels:new Array(size*size).fill(0),walkWidth:W,walkHeight:W,cellSize:.5,walk,opening,reveal,clearance,placements,ramps:[],stageAreas:[...MAP_STAGE_AREAS],cliffs:[]};
+}
+
+/** Small independent lesson arena: no campaign props, blockers or frontier generation. */
+function makeLessonDefinition(recipe:CampaignMapRecipe):MapDefinition{
+ const size=96,half=size/2,W=size*2,N=W*W,heights=new Array(size*size).fill(0),walk=new Array(N).fill(1),opening=new Array(N).fill(1),clearance=Array.from({length:N},(_,i)=>Math.max(0,Math.min(i%W,W-1-i%W,Math.floor(i/W),W-1-Math.floor(i/W))*.5));
+ return {version:1,source:{name:'基础训练场',sha256:`tutorial-arena-v3:${recipe.theme}:${recipe.seed}`,worldUnitsPerSc2Unit:1},width:size,height:size,bounds:[0,0,size,size],origin:[half,half],start:{x:0,z:0},hive:{x:0,z:0},heights,syncHeights:heights.slice(),levels:new Array(size*size).fill(0),walkWidth:W,walkHeight:W,cellSize:.5,walk,opening,reveal:opening.slice(),clearance,placements:[],ramps:[],stageAreas:new Array(18).fill(size*size),cliffs:[]};
 }

@@ -34,14 +34,14 @@ test('quick equip applies only higher-quality ordinary run gear and preserves ev
  assert.ok(f.c.execute(command).ok);assert.equal(a.revision,revision+1);assert.equal(f.run({type:'autoEquip'}).ok,false);f.host.dispose!();
 });
 
-test('quick equip never replaces equal-quality gear, special gear or a rewarded source; full backpack can swap',()=>{
+test('quick equip preserves equal-quality gear and rejects stale revisions; full backpack can fill an empty slot',()=>{
  const w=make(),a=w.starship.account,old=gear(a,'offense1','attribute.3');assert.ok(w.equipItem(old.id,old.slot).ok);w.start();
  const equal=gear(a,'offense1','attribute.3'),upgrade=gear(a,'offense2','attribute.4');for(let i=2;i<64;i++)gear(a,'offense1','attribute.1');w.endStage();
  assert.deepEqual(quickEquipPlan(a,'terran').map(i=>i.id),[upgrade.id]);assert.ok(w.autoEquipItems(new Set()).ok);assert.equal(a.equipped.terran.offense1,old.id);assert.equal(a.locations[equal.id].kind,'backpack');
  const frozen=structuredClone(a);assert.equal(w.autoEquipItems(new Set(),a.revision-1).ok,false);assert.deepEqual(a,frozen);
 });
 
-test('outside quick equip uses warehouse gear, keeps protected/equal/special pieces and survives account restoration',()=>{
+test('outside quick equip uses warehouse gear, keeps protected and equal-quality pieces and survives account restoration',()=>{
  const w=make(),a=w.starship.account,old=gear(a,'offense1','attribute.1'),set=gear(a,'offense2','set.orange.elite.4');
  w.equipItem(old.id,old.slot);w.equipItem(set.id,set.slot);
  const high=gear(a,'offense1','attribute.3'),equal=gear(a,'offense1','attribute.1'),blocked=gear(a,'offense2','attribute.4'),fav=gear(a,'defense1','attribute.4'),tainted=gear(a,'defense2','attribute.4',true);

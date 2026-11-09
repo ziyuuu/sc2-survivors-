@@ -3,8 +3,9 @@ import {unitData} from '../combat/expedition-combat';
 import type {World} from '../world';
 import type {Body,Entity,Point} from '../types';
 import {clearLine,distance,translate} from './steering';
+import {movementIntent} from '../combat/tactics/intent';
 
-export const manualMovement=(w:World)=>Math.hypot(w.input.x,w.input.z)>.01||w.order?.kind==='move'&&!w.order.arrived;
+export const manualMovement=movementIntent;
 export const meleeAttacker=(u:Entity)=>u.weaponDamage>0&&u.attackRange<1.5;
 /** Size and current weapon reach both matter: long-range large bodies never charge. */
 export function approachChargeProfile(u:Entity){
@@ -26,7 +27,7 @@ function clearStructures(w:World,u:Entity,p:Point){
 }
 export function tickApproachCharge(w:World,u:Entity,target:Body|undefined,dt:number,speed=u.moveSpeed){
  const profile=approachChargeProfile(u),cancel=()=>{u.approachCharge=undefined;return false;};
- if(!profile||dt<=0||u.hp<=0||manualMovement(w)||u.nativeModeUntil||u.modeTimer>0||u.windup>0||(u.recoveryUntil??0)>w.time||(u.stoppedUntil??0)>w.time||u.heldBy||u.zergEliteCombat?.dash)return cancel();
+ if(!profile||dt<=0||u.hp<=0||manualMovement(w,u)||u.nativeModeUntil||u.modeTimer>0||u.windup>0||(u.recoveryUntil??0)>w.time||(u.stoppedUntil??0)>w.time||u.heldBy||u.zergEliteCombat?.dash)return cancel();
  // The researched Zealot retains its native charge timing and elite landing effect.
  if(u.unitType==='zealot'&&w.expedition.tech.charge)return cancel();
  let state=u.approachCharge;

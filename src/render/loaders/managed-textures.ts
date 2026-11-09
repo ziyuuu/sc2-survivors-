@@ -13,7 +13,16 @@ const bindings=new Map<THREE.Texture['source'],Binding>(),gltfUrls=new WeakMap<G
 const externalImages=new SharedImageSources();
 export const textureMetrics={decodedPixels:0,swaps:0,rollbacks:0};
 export function pruneRetiredTextureBindings(){for(const [source,b]of bindings){b.textures=b.textures.filter(r=>r.deref());if(!b.textures.length)bindings.delete(source);}}
-export function textureReport(){pruneRetiredTextureBindings();let liveVariantPixels=0,liveVariantSources=0;for(const [source]of bindings){const im=source.data as {width?:number;height?:number};liveVariantPixels+=(im?.width??0)*(im?.height??0);liveVariantSources++;}return {...textureMetrics,gpu:gpuTextureReport(),externalImages:{...externalImages.metrics},liveVariantPixels,liveVariantSources,rgbaMipEstimate:Math.round(liveVariantPixels*4*4/3)};}
+export function textureReport(){
+ pruneRetiredTextureBindings();let liveVariantPixels=0,residentEstimate=0;
+ for(const [source,binding] of bindings){
+  const im=source.data as {width?:number;height?:number},pixels=(im?.width??0)*(im?.height??0);
+  const texture=binding.textures[0]?.deref();
+  const payload=texture?.mipmaps?.reduce((sum,mip)=>sum+('data' in mip&&ArrayBuffer.isView(mip.data)?mip.data.byteLength:0),0);
+  liveVariantPixels+=pixels;residentEstimate+=payload||Math.ceil(pixels*4*(texture?.generateMipmaps?4/3:1));
+ }
+ return {...textureMetrics,gpu:gpuTextureReport(),externalImages:{...externalImages.metrics},liveVariantPixels,liveVariantSources:bindings.size,residentEstimate,rgbaMipEstimate:Math.round(liveVariantPixels*4*4/3)};
+}
 export function trackTexture<T extends THREE.Texture>(texture:T,id:string,image?:number){
  if(!optimizedGraphics()||!httpStore()?.manifest.assets[id]?.variants||texture instanceof THREE.CubeTexture)return texture;
  let binding=bindings.get(texture.source);if(!binding){binding={id,image,source:texture.source,textures:[]};bindings.set(texture.source,binding);const im=texture.image as {width?:number;height?:number}|undefined;textureMetrics.decodedPixels+=(im?.width??0)*(im?.height??0);}

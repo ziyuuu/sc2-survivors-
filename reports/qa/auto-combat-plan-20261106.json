@@ -1,0 +1,95 @@
+{
+  "date": "2026-11-06",
+  "task": "AUTO-1.2",
+  "status": "方案完成，待审阅；游戏实现未开始",
+  "scope": "设计落地方案、核对源码和1.1并行边界；未实施游戏、构建、提交、推送或部署",
+  "baseline": {
+    "branch": "体积优化版",
+    "head": "6510fb2a85a4140aecb6151ab0ab3132b42f239a",
+    "workingTree": "包含既有未提交改动；HEAD不等于当前源码",
+    "rulesId": "mvp-1.0",
+    "runSchema": 26,
+    "lastEndlessCandidate": "10aa0650770b133097c15c2412054066d9c2f7dc38bb4cc40a3248ac0e7c04b8"
+  },
+  "decisions": {
+    "parallelWithTutorial": true,
+    "manualCommands": "移动、模式、技能均是玩家命令，自动判断不得覆盖；冲突不能统一由最新命令决定",
+    "tank": "架炮持续生效，必须手动收炮后才执行移动；不自动收炮或到位架炮",
+    "ordinaryMeleeSpeed": "首批保持当前速度，先验证分流、位置与让路",
+    "rangedPriority": "毒爆→正在伤害友军的近战→其他合法目标",
+    "meleePriority": "可达高威胁远程/施法者→非毒爆近战→其余合法非毒爆目标→毒爆"
+  },
+  "deliverables": [
+    "docs/project/V1_2_AUTO_COMBAT_PLAN_20261106.md",
+    "docs/project/V1_2_AUTO_COMBAT_RESEARCH_20261105.md",
+    "docs/project/V1X_ROADMAP_20261104.md",
+    "docs/project/README.md",
+    "docs/project/MVP_1_0_HANDOFF_20261029.md",
+    "docs/project/performance-board.json",
+    "docs/project/PERFORMANCE_BOARD.html",
+    "docs/project/PERFORMANCE_TODO.md",
+    "reports/qa/auto-combat-plan-20261106.json"
+  ],
+  "checks": {
+    "runtimeDataReference": {
+      "command": "npm run docs:check",
+      "exitCode": 0,
+      "result": "Game reference matches runtime data."
+    },
+    "sourceIntegrity": {
+      "beforeCount": 946,
+      "afterCount": 946,
+      "beforeSha": "59e521bb1b19dfa3cd36af5787c4a191f3077d55f6cc194568458f684fa27af5",
+      "afterSha": "59e521bb1b19dfa3cd36af5787c4a191f3077d55f6cc194568458f684fa27af5",
+      "changed": [],
+      "added": [],
+      "scope": "src、test、package.json、package-lock.json、vite.config.ts；按路径与内容SHA聚合",
+      "result": "946份文件内容前后一致，无新增或删除"
+    },
+    "planLocalLinks": {
+      "status": "passed",
+      "count": 2,
+      "broken": []
+    },
+    "board": {
+      "status": "passed",
+      "command": "node tools/render-performance-board.mjs",
+      "revision": 414,
+      "active": [
+        "TUT-1.1"
+      ],
+      "autoStatus": "待讨论",
+      "planningStatus": "已完成",
+      "outputs": [
+        "docs/project/PERFORMANCE_BOARD.html",
+        "docs/project/PERFORMANCE_TODO.md"
+      ]
+    }
+  },
+  "historicalEvidence": [
+    {
+      "report": "reports/qa/auto-combat-research-20261105.json",
+      "scope": "旧行为及基础能力77项测试，仅作既有实现依据，不代表1.2通过",
+      "rerun": false
+    }
+  ],
+  "notRun": [
+    "npm test",
+    "npm run typecheck",
+    "新自动战斗行为验证",
+    "浏览器/性能/物理设备验证",
+    "构建与发布"
+  ],
+  "implementationStarted": false,
+  "proposedStages": [
+    "A：命令服从、职责与攻击位置",
+    "B：逐次伤害估算和有效火力分配",
+    "C：现有自动技能、其余模式、召唤归属与集成"
+  ],
+  "open": [
+    "三批实施方案待审阅并授权实现",
+    "2秒击杀窗口、候选/路径预算、其他族系自动模式收益/保持门槛尚待实施对照",
+    "共享world.ts/保存校验接入及重型测量串行，最终须复验1.1三族教学"
+  ],
+  "next": "方案审阅后从A批开始；1.1配音/物理设备未完成不阻塞独立模块开发"
+}

@@ -1,0 +1,498 @@
+{
+  "date": "2026-11-09",
+  "authorization": "User approved offline Huihui/Kangkang samples in chat; Queen remains nonverbal.",
+  "rows": [
+    {
+      "race": "terran",
+      "text": "首次出征，是否先学习移动、发展、增援和装备？",
+      "key": "87d151999d35a5e988d1",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "这是旗舰模块，撤离后可以安装。",
+      "key": "4cebd114fca9da9d440c",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "部队生命已满，无需修复。受伤时可在休整里恢复生命。",
+      "key": "10efd4e89cf28ceb237c",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "关闭详情，继续关间整备。",
+      "key": "fbbad0632d7365bae293",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "点击设施调整。",
+      "key": "f10ee41fafe1ba67152c",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "点击休整，恢复生命。",
+      "key": "19ecb53ded176f0fed0e",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "返回关间，再打开背包查看装备。",
+      "key": "d7ee12871678b2e9451d",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "点击背包，查看装备。",
+      "key": "650aaa1ea453b8e91fe1",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "散件已穿上。返回关间，带着模块撤离。",
+      "key": "560bf76271ccc4045aa5",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "点击返回入口，前往旗舰安装模块。",
+      "key": "228cb4250fdbaff5ef22",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "点击刚带回的模块，查看安装位置。",
+      "key": "fbeec28bcb74f25b595c",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "点击装备，把模块安装到旗舰。",
+      "key": "c4f02233eb3eec50ae77",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "模块已安装，教学完成。",
+      "key": "6f0b4b7ec9d1701da115",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "点击旗舰，找到刚带回的模块。",
+      "key": "0dd2d8ec5d51788e1ccd",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "点击仓库，查看成功带回的装备。",
+      "key": "1ad41b5cf326cc937b56",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "移动到虫卵旁，小队会自动攻击，救出这名SCV。",
+      "key": "e31efe41874e8c58581b",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "移动到跳虫旁，小队会自动攻击附近敌人。",
+      "key": "b6adc2f41c6204e8c380",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "移动并击败敌方工蜂，取得它携带的资源。",
+      "key": "a2711c35219cdf6daf06",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "靠近收集矿物和瓦斯，它们用于建设、生产和补给。",
+      "key": "5225a11762d1a18908f0",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "扩建设施、研究科技，强化本局部队。先留够训练矿气，再选购。",
+      "key": "b4e34b2c77b228acca0f",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "设施调整可安排生产兵种。基础兵已选好，点击应用确认。",
+      "key": "8383ca0661116d443695",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "战备卡消耗矿气，直接补充部队。购买高亮的基础兵补给。",
+      "key": "497e6bc487939a117b93",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "战备卡可直接补充部队，也会消耗矿气。购买高亮的基础兵补给。",
+      "key": "c7c77cc50dd9cf5867d1",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "进入下一段，十秒后支付训练费用并准备增援。",
+      "key": "0e419fdf6584a88951ea",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "前往高亮落点，守护载体，直到增援士兵入队。",
+      "key": "a33ce58651233c81151b",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "前往目标位置，消灭敌方精英。",
+      "key": "649dba5dc0a1e2fee416",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "靠近拾取战利品，再进行关间休整。",
+      "key": "a37b3d53246624a2bfc8",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "先在休整中修复受伤部队，费用按当前缺失生命计算。",
+      "key": "6ed811ef6ea09f929134",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "这件散件可在关间更换。查看后，点击装备穿上。",
+      "key": "33e93867a6557d6bab41",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "另一件是旗舰模块，撤离后才能安装。现在把它带回旗舰。",
+      "key": "678c8323452f5d2a40ef",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "指挥官，战场链路已接通。需要我协助指挥吗？",
+      "key": "38124d871931f89a47a1",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "向标记处移动。进入射程后，小队会自动开火。",
+      "key": "457f3e4dc6c2229b3419",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "发现敌方工蜂。带队接近，击毁目标。",
+      "key": "25d57de11c4a0176f317",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "矿物和瓦斯已散落。靠近，把资源收回来。",
+      "key": "f438936a89dd105c0f2e",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "空投已着陆。清除落点附近的敌军，护住增援。",
+      "key": "c2377ea7586b4d31b432",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "先看生产安排。买补给前，给下一批援兵留够矿气。",
+      "key": "03014df37b4a081ad566",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "装备已入包，关间可以整备。",
+      "key": "677aee24990269189b21",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "打开本局背包，把这件散件装进亮起的槽位。",
+      "key": "19033eb313b703f361b6",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "首领已清除。靠近战利品，把装备带上。",
+      "key": "42c3c451d503f8281068",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "这个模块要回旗舰安装。准备好后，选择撤离。",
+      "key": "6ea2e2a82fddf0a505b0",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "terran",
+      "text": "找到刚带回的模块，将它装上旗舰。",
+      "key": "df6d7a04528a9bf2e7bd",
+      "voice": "Microsoft Huihui"
+    },
+    {
+      "race": "protoss",
+      "text": "首次出征，是否先学习移动、发展、增援和装备？",
+      "key": "87d151999d35a5e988d1",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "这是旗舰模块，撤离后可以安装。",
+      "key": "4cebd114fca9da9d440c",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "部队生命已满，无需修复。受伤时可在休整里恢复生命。",
+      "key": "10efd4e89cf28ceb237c",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "关闭详情，继续关间整备。",
+      "key": "fbbad0632d7365bae293",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "点击设施调整。",
+      "key": "f10ee41fafe1ba67152c",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "点击休整，恢复生命。",
+      "key": "19ecb53ded176f0fed0e",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "返回关间，再打开背包查看装备。",
+      "key": "d7ee12871678b2e9451d",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "点击背包，查看装备。",
+      "key": "650aaa1ea453b8e91fe1",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "散件已穿上。返回关间，带着模块撤离。",
+      "key": "560bf76271ccc4045aa5",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "点击返回入口，前往旗舰安装模块。",
+      "key": "228cb4250fdbaff5ef22",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "点击刚带回的模块，查看安装位置。",
+      "key": "fbeec28bcb74f25b595c",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "点击装备，把模块安装到旗舰。",
+      "key": "c4f02233eb3eec50ae77",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "模块已安装，教学完成。",
+      "key": "6f0b4b7ec9d1701da115",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "点击旗舰，找到刚带回的模块。",
+      "key": "0dd2d8ec5d51788e1ccd",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "点击仓库，查看成功带回的装备。",
+      "key": "1ad41b5cf326cc937b56",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "移动到虫卵旁，小队会自动攻击，救出这个探机。",
+      "key": "a223565c92563b8a04ee",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "移动到跳虫旁，小队会自动攻击附近敌人。",
+      "key": "b6adc2f41c6204e8c380",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "移动并击败敌方工蜂，取得它携带的资源。",
+      "key": "a2711c35219cdf6daf06",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "靠近收集矿物和瓦斯，它们用于建设、生产和补给。",
+      "key": "5225a11762d1a18908f0",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "扩建设施、研究科技，强化本局部队。先留够训练矿气，再选购。",
+      "key": "b4e34b2c77b228acca0f",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "设施调整可安排生产兵种。基础兵已选好，点击应用确认。",
+      "key": "8383ca0661116d443695",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "战备卡消耗矿气，直接补充部队。购买高亮的基础兵补给。",
+      "key": "497e6bc487939a117b93",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "战备卡可直接补充部队，也会消耗矿气。购买高亮的基础兵补给。",
+      "key": "c7c77cc50dd9cf5867d1",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "进入下一段，十秒后支付训练费用并准备增援。",
+      "key": "0e419fdf6584a88951ea",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "前往高亮落点，守护载体，直到增援士兵入队。",
+      "key": "a33ce58651233c81151b",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "前往目标位置，消灭敌方精英。",
+      "key": "649dba5dc0a1e2fee416",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "靠近拾取战利品，再进行关间休整。",
+      "key": "a37b3d53246624a2bfc8",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "先在休整中修复受伤部队，费用按当前缺失生命计算。",
+      "key": "6ed811ef6ea09f929134",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "这件散件可在关间更换。查看后，点击装备穿上。",
+      "key": "33e93867a6557d6bab41",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "另一件是旗舰模块，撤离后才能安装。现在把它带回旗舰。",
+      "key": "678c8323452f5d2a40ef",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "通讯已接通。需要我协助你指挥这支部队吗？",
+      "key": "c6a6bf585c3dc6251573",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "率队前往标记处。战士们会自行迎敌。",
+      "key": "296f43d7dd76f4897e54",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "敌方工蜂就在前方。率队截击。",
+      "key": "1e23f4111f5ada911d64",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "收集落点处的矿物与瓦斯，为增援作准备。",
+      "key": "c78c2fe8472320003cd3",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "折跃信号已锁定。守住落点，接应我们的战士。",
+      "key": "456f74d60febddee7f28",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "查看折跃部队的生产安排，权衡增援和眼前的补给。",
+      "key": "2282f281a5ce1401a468",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "装备已入包，关间可以整备。",
+      "key": "677aee24990269189b21",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "打开背包，将这件散件装入对应槽位。",
+      "key": "3bb637af6da28f2373cd",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "首领已被击败。率队收取它留下的装备。",
+      "key": "40524901f31e16bb782a",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "模块需要在旗舰上整备。准备妥当后，选择撤离。",
+      "key": "043884587680a7f38381",
+      "voice": "Microsoft Kangkang"
+    },
+    {
+      "race": "protoss",
+      "text": "选中刚带回的模块，完成旗舰配装。",
+      "key": "a9689a6e9e1d627f2304",
+      "voice": "Microsoft Kangkang"
+    }
+  ]
+}
