@@ -1,4 +1,8 @@
+import {validContentPlan} from '../progression/run-content';
 import {validateFunShop} from '../fun-shop/state';
+import {validateEndlessState} from '../../data/endless';
+import {validateEndlessStamp} from '../../data/enemy-tuning';
+import {validateTutorialRun} from '../tutorial/types';
 import {validateEventPacing,HORDE_RULES} from '../field-events/state';
 import {validateEncounterState} from '../encounters/state';
 import {validateMissionState} from '../missions/state';
@@ -13,6 +17,7 @@ import {validateProtossHeroRun,validateProtossCombat} from '../combat/protoss-he
 import {validateZergHeroRun} from '../combat/zerg-hero-passives';
 import {validateHeroAttacks} from '../combat/hero-attack-upgrades';
 import {validateWeaponFlights} from '../combat/weapon-flight';
+import {FAMILY_MODES,type ModeFamily} from '../combat/family-actions';
 import {validateSwarm} from '../../data/swarm';
 import type {RunState} from '../run-state';
 import {validateExpedition} from '../expedition-state';
@@ -27,11 +32,29 @@ import type {StarshipSnapshot} from './starship-snapshot';
 export const RUN_FIELDS=[
  'funShop','specialStages','fieldEvents',
  'encounters','missions',
+ // encounters.expanded: optional equipmentMilestones + existing paid receipts.
+ // missions.active.hiveEquipment: frozen first/completion plans. Missing keeps old per-hive rewards.
+ // Golden repeat count derives from delivered account.run.receipts; no resettable counter.
+ // expedition.tutorial persists progress, same-drone pickup IDs and frozen boss item identities.
+ // Optional guided.feedback is a settled-result presentation receipt; missing means no hold.
+ // Advisor UI/audio/temporary camera focus are rebuilt outside simulation.
  'protossElites','teamAuras','zergElites','terranElites','eliteSupport',
+ // Frozen nativeFactor and pool MaxHp live in zerg elite receipts; hero casts
+ // keep supportTier and revival windows keep bonusCharges across stage cleanup.
+ // Lone hunter effective growth/cache rebuilds from raw absorptions; stored contributions stay unchanged.
  // Saved inside entities.heroCombat / heroCasts: cycle, warmup, cloak episode/charge, protection expiry, cast rank/targets/view.
  // Saved in expedition.support.mines: phase, stable target, emergence timer, point/facing. Routes/poses rebuild.
  'expedition','runConfig','campaign18Runtime','swarm',
  'podSerial','time','tick','stage','stageElapsed','stageStartedAt','phase','paused','battlefield','endlessEntry','endlessTransitionReceipt','endlessRoundReceipts','runId','endlessAwardedMinutes','endless',
+ // endless.pacing is optional for current-schema legacy saves; switch only on the next round.
+ // pacing.nextWaveIndex/resourceWeights retain bounded generation and whole-round economy;
+ // previousWave retains encounter lookups; consumed windows are discarded only after
+ // every member enters ambientBacklog.
+ // Frozen birth round/growth persist in entities, waves, ambientBacklog, pending specials/hives.
+ // entities.approachCharge/approachChargeReadyAt persist bounded movement intent and spent cooldown.
+ // entities.autoMode preserves automatic-mode provenance and last transition time; absent legacy state stays manual.
+ // Tactical assignments/flight estimates are WeakMap caches rebuilt from authoritative receipts.
+ // Melee path/engagement caches rebuild; restoring never grants a fresh charge or repeats a hit.
  'entities','pods','upgrades','wallet','anchor','marchDirection','order','movePending','commandRoute','trail','effects','pickups','rewardDrops','visualSerial',
  'offerSerial','rewards','rewardClaimed','rewardRound','clearReceipt','rerolls','nextWave','wave','stageWave','nextId','nextJob',
  'nextFreePodAt','nextEliteGrowthAt','nextMercenaryAt','nextTankSupportAt','supportUntil','nextSupportTick','talentSupportImpacts','dashUntil','dashReady','hive',
@@ -45,6 +68,7 @@ export const RUN_REBUILT_FIELDS=['input','directionRoute','hash','visualEvents',
 export type RunData=ReturnType<RunState['snapshotData']>;
 export function selectRunData(state:RunState):RunData {return state.snapshotData();}
 export function validateRunData(data:RunData,defaults:object,equipment?:StarshipSnapshot){
+ validateTutorialRun(data?.expedition?.tutorial,data?.runId);
  if(!data||typeof data!=='object'||Object.keys(data).length!==RUN_FIELDS.length)throw Error('续局字段不完整');
  if(!data.expedition||typeof data.expedition!=='object')throw Error('三族状态缺失');
  if(!data.specialStages||data.specialStages.active||!(data.specialStages.used instanceof Set))throw Error('特殊关运行状态无效');
@@ -62,7 +86,16 @@ export function validateRunData(data:RunData,defaults:object,equipment?:Starship
  for(const key of RUN_FIELDS){if(!Object.hasOwn(data,key))throw Error('续局字段缺失：'+key);const a=template[key],b=data[key];
   if(a instanceof Map?!(b instanceof Map):a instanceof Set?!(b instanceof Set):Array.isArray(a)?!Array.isArray(b):a!==null&&a!==undefined&&typeof a!==typeof b)throw Error('续局字段类型错误：'+key);
  }
+ validateEndlessState(data.endless);
+ if(data.endless?.pacing?.nextWaveIndex!==undefined&&(data.endless.pacing.nextWaveIndex<data.waves.length||!Number.isSafeInteger(data.stageWave)||data.stageWave<0||data.stageWave>data.waves.length))throw Error('无尽波次窗口无效');
+ for(const unit of data.entities.values())validateEndlessStamp(unit.enemySpawn);
+ for(const wave of data.waves)for(const member of wave.members??[])validateEndlessStamp(member.stamp);
+ for(const member of data.endless?.pacing?.previousWave?.members??[])validateEndlessStamp(member.stamp);
+ for(const member of data.ambientBacklog)validateEndlessStamp(member.stamp);
+ for(const hive of data.expansionHives.values())validateEndlessStamp(hive.pendingStamp);
+ for(const stamp of Object.values(data.endless?.pending??{}))validateEndlessStamp(stamp);
  if(!data.runConfig)throw Error('战局配置缺失');
+ if(!validContentPlan(data.runConfig.contentPlan,data.runConfig.seed,data.runConfig.race,data.runConfig.difficulty))throw Error('战局内容计划无效');
  if(![data.workers,data.stats?.workersRescued,data.stats?.workersLost].every(n=>Number.isSafeInteger(n)&&n>=0))throw Error('续局工人数量或救援统计无效');
  const campaign=data.campaign18Runtime;
  if(campaign&&(typeof campaign.finalBossKilled!=='boolean'||campaign.finalBossId!==null&&(!Number.isSafeInteger(campaign.finalBossId)||campaign.finalBossId<1)||campaign.finalBossKilled&&(campaign.stage!==18||campaign.finalBossId===null)))throw Error('最终首领击杀收据无效');
@@ -81,6 +114,9 @@ export function validateRunData(data:RunData,defaults:object,equipment?:Starship
  // Saved: pair identity/rank/regrowth tick, queen cooldown, per-carrier injection receipt.
  // Rebuilt: console selection/pages and engagement positions. No view objects in these DTOs.
  for(const u of data.entities.values()){
+  if(u.autoMode){const a=u.autoMode,choices=FAMILY_MODES[u.unitType as ModeFamily];if(!choices||u.unitType==='tank'||Object.keys(a).length!==2||!choices.some(([mode])=>mode===a.mode)||!Number.isFinite(a.since)||a.since<0||a.since>data.time+1e-6)throw Error('自动模式来源无效');}
+  if(u.approachChargeReadyAt!==undefined&&(!Number.isFinite(u.approachChargeReadyAt)||u.approachChargeReadyAt<0))throw Error('接敌冲锋冷却无效');
+  if(u.approachCharge){const c=u.approachCharge;if(u.team!=='player'||!Number.isSafeInteger(c.targetId)||c.targetId<1||![c.until,c.goal?.x,c.goal?.z,c.traveled].every(Number.isFinite)||c.traveled<0||c.traveled>4.000001||c.until>data.time+1.000001||!Number.isFinite(u.approachChargeReadyAt))throw Error('接敌冲锋状态无效');}
   // Saved per-body combat receipts and protection expiry; render layers rebuild independently.
   if(u.protossEliteCombat){if(!revisedProtossElite(u))throw Error('神族循环归属无效');validateProtossEliteCombat(u.protossEliteCombat);}
   if(u.teamAuraFactors&&(![u.teamAuraFactors.hp,u.teamAuraFactors.shield].every(n=>Number.isFinite(n)&&n>=1&&n<=12)||Object.keys(u.teamAuraFactors).length!==2))throw Error('团队最大值倍率无效');

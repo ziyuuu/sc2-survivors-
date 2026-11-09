@@ -1,0 +1,6 @@
+{
+  "approval": "USER_GROWTH_LOOT_20261029",
+  "scope": "Only approved elite descriptions alter these definition hashes. Friendly stat hashes remain checked against the historical fixture; actual absorption growth is covered by growth-loot-20261029.test.ts.",
+  "legacyEliteDefinitions": "1ef8e6faa04f7bd0ad1c1c740d84a5a03d79d25aae2bb7d4d998e8c6ccbfb59f",
+  "currentEliteDefinitions": "1c7d5b64cf2d5a77dd31c89cf82552dc2fa6f0d084fc5bec3942f313dcf070cf"
+}

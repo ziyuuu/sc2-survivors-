@@ -1,4 +1,5 @@
 import {MISSION_RULES} from './config';
+import {worldContent,contentRoll} from '../progression/run-content';
 import type {World} from '../world';
 import type {MissionRecord,MissionBody} from './state';
 import {makeMissionBody,missionNear,missionPointLegal,finishMission,releaseMissionQueue} from './runtime';
@@ -11,7 +12,7 @@ export function repairCandidates(w:World){const s=worldBuildingContext(w);return
 export function spawnRepair(w:World,m:MissionRecord){
  const kinds=repairCandidates(w);if(!kinds.length)return false;let p;
  for(let i=0;i<32;i++){const q=w.eventPoint(12,20);if(missionPointLegal(w,q,2.4)){p=q;break;}}if(!p)return false;
- const kind=kinds[Math.floor(w.random()*kinds.length)],s=worldBuildingContext(w)!;
+ const plan=worldContent(w),kind=kinds[Math.floor((plan?contentRoll(plan.salt,'repair/site'):w.random())*kinds.length)],s=worldBuildingContext(w)!;
  s.missionReserved??={};s.missionReserved[kind]=(s.missionReserved[kind]??0)+1;
  m.repair={kind,waves:0};m.total=1;
  const b=makeMissionBody(w,m,'repair',p,HP[kind]!,kind,'terran',2.4,true);b.armor=1;b.hp=b.maxHp*MISSION_RULES.repair.initialHp;return true;

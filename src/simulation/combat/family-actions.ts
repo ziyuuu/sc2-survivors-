@@ -28,7 +28,9 @@ export function vikingLandingBlocked(w:World,u:Entity):string|null{
 
 export function familyModeState(w:World,family:ModeFamily){
  const units=familyActionBodies(w,family),choices=FAMILY_MODES[family];
- const requested=family==='tank'?w.tankCommand:w.expedition.familyModes[family]??choices[0][0];
+ const accepted=units.map(u=>u.desiredNativeMode??currentFamilyMode(u));
+ const actual=accepted.length&&accepted.every(mode=>mode===accepted[0])?accepted[0]:choices[0][0];
+ const requested=family==='tank'?w.tankCommand:w.expedition.familyModes[family]??actual;
  const next=requested===choices[0][0]?choices[1][0]:choices[0][0];
  const modes=units.map(currentFamilyMode),moving=units.filter(u=>family==='tank'?u.modeTimer>0:u.nativeModeUntil!==undefined);
  const waiting=family==='viking'?moving.filter(u=>u.desiredNativeMode==='viking_assault'&&w.time+1e-8>=(u.nativeModeUntil??Infinity)&&vikingLandingBlocked(w,u)):[];

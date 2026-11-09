@@ -5,7 +5,7 @@ import {FlatTerrain} from '../src/simulation/movement/flat-terrain';
 import {newEquipmentAccount} from '../src/simulation/starship/inventory';
 import {beginSpecialStage,markSpecialReady,quitSpecialStage} from '../src/simulation/special-stages/runtime';
 import {stepDodge} from '../src/simulation/special-stages/dodge';
-import {FUN_SHOP_IDS,funShopCatalogue,funShopDescription,funShopSummary,shopRarityWeights} from '../src/simulation/fun-shop/state';
+import {FUN_SHOP_IDS,DICE_BONUSES,funShopCatalogue,funShopDescription,funShopSummary,shopRarityWeights} from '../src/simulation/fun-shop/state';
 import {expeditionRarityWeights} from '../src/simulation/progression/expedition-drafts';
 import {taskEntries,randomMissionMarkup} from '../src/ui/hud/random-mission';
 import {fieldInteractionEntries} from '../src/ui/hud/field-interactions';
@@ -43,11 +43,11 @@ test('infection progress changes model presentation without mutating the simulat
 });
 test('all shop tiers populate the existing distinct summary and detail fields',()=>{
  const w=fixture(),cards=catalogueCards(w).filter(c=>c.group==='funShop'&&c.race==='terran');assert.equal(cards.length,funShopCatalogue().length);
- for(const c of cards){const p=cardPresentation(w,c);assert.notEqual(p.simple,p.detail,c.id);assert.ok(p.simple.length<=32,c.id);assert.doesNotMatch(p.simple+p.detail,c.id.includes('tavern')?/归一|原生判定|队列|事务/:/权重|归一|原生判定|队列|事务/);if(c.id.includes('tavern')){assert.match(p.detail,/权重/);assert.doesNotMatch(p.detail,/每次尝试|间隔30秒/);}}
+ for(const c of cards){const p=cardPresentation(w,c);assert.notEqual(p.simple,p.detail,c.id);assert.ok(p.simple.length<=32,c.id);assert.doesNotMatch(p.simple+p.detail,/tavern|dice/.test(c.id)?/归一|原生判定|队列|事务/:/权重|归一|原生判定|队列|事务/);if(c.id.includes('tavern')){assert.match(p.detail,/权重/);assert.doesNotMatch(p.detail,/每次尝试|间隔30秒/);}}
  for(const id of FUN_SHOP_IDS)assert.ok(funShopSummary(id,1));assert.match(funShopSummary('pandora',1),/后续敌军更强/);assert.match(funShopDescription('pandora',1),/25%.*15%/);
 });
-for(let level=1;level<=5;level++)test('dice '+level+': displayed percentages match base quality sampling in all stage bands',()=>{
- const copy=funShopDescription('dice',level);for(const stage of [1,6,12]){const weights=shopRarityWeights(expeditionRarityWeights(stage),level),sum=weights.reduce((a,b)=>a+b,0);assert.ok(copy.includes('紫'+(100*weights[3]/sum).toFixed(1)+'%、橙'+(100*weights[4]/sum).toFixed(1)+'%'));}assert.doesNotMatch(copy,/天赋|保底/);assert.match(copy,/装备.*免费刷新/);assert.match(copy,/无可售商品时改选其他品质/);
+for(let level=1;level<=5;level++)test('dice '+level+': displays exact weight increments and explains the changing legal pool',()=>{
+ const copy=funShopDescription('dice',level),[purple,orange]=DICE_BONUSES[level];assert.ok(copy.includes('紫色增加'+purple+'、橙色增加'+orange));for(const stage of [1,6,12]){const base=expeditionRarityWeights(stage),weights=shopRarityWeights(base,level);assert.equal(weights[3]-base[3],purple);assert.equal(weights[4]-base[4],orange);}assert.doesNotMatch(copy,/天赋|保底|\d+(?:\.\d+)?%/);assert.match(copy,/装备.*免费刷新/);assert.match(copy,/实际概率随可售商品变化/);assert.match(copy,/每组最多一张/);
 });
 
 test('only a real mission keeps its name and one objective while concurrent encounters stay absent',()=>{

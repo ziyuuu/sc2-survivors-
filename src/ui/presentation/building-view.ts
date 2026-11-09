@@ -6,7 +6,7 @@ export interface FacilityView {id:string;name:string;line:ProductionLineId;direc
 import {getOffers, groupFamilies, project, TREE_STEPS, type BuildingState, type Offer} from '../../simulation/building/rules';
 
 export function facilityViews(s:BuildingState):FacilityView[] {
- return s.groups.map(g=>({id:g.id,name:g.kind==='hatchery'?'孵化场 '+g.ids[0]:g.kind==='crystal'?'折跃水晶 ×'+g.ids.length:PRODUCTION_LINES[g.line].name,line:g.line,directions:g.kind==='hatchery'?g.directions.length?g.directions.map(d=>d==='ground'?'地面':'天空'):['基础']:[],families:groupFamilies(g),outputs:[...g.outputs],enabled:g.enabled,count:g.ids.length}));
+ return s.groups.map(g=>({id:g.id,name:g.kind==='hatchery'?'孵化场 '+g.ids[0]:g.kind==='crystal'?'折跃水晶 ×'+g.ids.length:PRODUCTION_LINES[g.line].name,line:g.line,directions:g.kind==='hatchery'?[g.directions.includes('ground')?'地面 ✓':'地面未进化',g.directions.includes('air')?'天空 ✓':'天空未进化']:[],families:groupFamilies(g),outputs:[...g.outputs],enabled:g.enabled,count:g.ids.length}));
 }
 export function presentation(s:BuildingState) {
  const completed=new Set<string>();for(const [id,level] of Object.entries(s.tech))if(level>0){if(id.startsWith('research.'))for(let i=1;i<=level;i++)completed.add(id+'.'+i);else completed.add(id);}

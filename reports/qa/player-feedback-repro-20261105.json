@@ -1,0 +1,896 @@
+{
+  "date": "2026-11-05",
+  "status": "reproduction completed; product unchanged; fixes pending",
+  "branch": "体积优化版",
+  "gitHead": "6510fb2",
+  "scope": "Current local source; synthetic isolated World; finite native candidate draws, not natural play or player save.",
+  "browserScope": "Windows Chrome isolated UI-only fixture, production StarshipUI/WorldHost; blank artwork, no battle renderer or player data.",
+  "shopCases": [
+    {
+      "rank": 1,
+      "rarity": "purple",
+      "variant": "reaper.1",
+      "draws": 222,
+      "price": {
+        "minerals": 250,
+        "gas": 250
+      },
+      "before": {
+        "wallet": {
+          "minerals": 100150,
+          "gas": 100097
+        },
+        "hunter": 2,
+        "rank": 1,
+        "growth": 0,
+        "damage": 32.34375,
+        "receipts": 0,
+        "bodies": [
+          {
+            "id": 2,
+            "elite": "reaper.3",
+            "hp": 869.4000000000001
+          }
+        ],
+        "sold": []
+      },
+      "attempts": [
+        {
+          "returned": true,
+          "after": {
+            "wallet": {
+              "minerals": 99900,
+              "gas": 99847
+            },
+            "hunter": 2,
+            "rank": 1,
+            "growth": 15.98,
+            "damage": 80.60731668635353,
+            "receipts": 1,
+            "bodies": [
+              {
+                "id": 2,
+                "elite": "reaper.3",
+                "hp": 2552.856190038911
+              }
+            ],
+            "sold": [
+              "7:0:672:elite.reaper.1"
+            ]
+          },
+          "offerSold": true,
+          "paid": {
+            "minerals": 250,
+            "gas": 250,
+            "freeSource": null
+          }
+        },
+        {
+          "returned": false,
+          "after": {
+            "wallet": {
+              "minerals": 99900,
+              "gas": 99847
+            },
+            "hunter": 2,
+            "rank": 1,
+            "growth": 15.98,
+            "damage": 80.60731668635353,
+            "receipts": 1,
+            "bodies": [
+              {
+                "id": 2,
+                "elite": "reaper.3",
+                "hp": 2552.856190038911
+              }
+            ],
+            "sold": [
+              "7:0:672:elite.reaper.1"
+            ]
+          },
+          "offerSold": true,
+          "paid": {
+            "minerals": 250,
+            "gas": 250,
+            "freeSource": null
+          }
+        }
+      ],
+      "snapshotRestoresUnpaidGrowth": false
+    },
+    {
+      "rank": 1,
+      "rarity": "purple",
+      "variant": "reaper.2",
+      "draws": 222,
+      "price": {
+        "minerals": 250,
+        "gas": 250
+      },
+      "before": {
+        "wallet": {
+          "minerals": 100150,
+          "gas": 100097
+        },
+        "hunter": 2,
+        "rank": 1,
+        "growth": 0,
+        "damage": 32.34375,
+        "receipts": 0,
+        "bodies": [
+          {
+            "id": 2,
+            "elite": "reaper.3",
+            "hp": 869.4000000000001
+          }
+        ],
+        "sold": []
+      },
+      "attempts": [
+        {
+          "returned": true,
+          "after": {
+            "wallet": {
+              "minerals": 99900,
+              "gas": 99847
+            },
+            "hunter": 2,
+            "rank": 1,
+            "growth": 16.14,
+            "damage": 80.89785457595461,
+            "receipts": 1,
+            "bodies": [
+              {
+                "id": 2,
+                "elite": "reaper.3",
+                "hp": 2562.805388002214
+              }
+            ],
+            "sold": [
+              "7:0:672:elite.reaper.1"
+            ]
+          },
+          "offerSold": true,
+          "paid": {
+            "minerals": 250,
+            "gas": 250,
+            "freeSource": null
+          }
+        },
+        {
+          "returned": false,
+          "after": {
+            "wallet": {
+              "minerals": 99900,
+              "gas": 99847
+            },
+            "hunter": 2,
+            "rank": 1,
+            "growth": 16.14,
+            "damage": 80.89785457595461,
+            "receipts": 1,
+            "bodies": [
+              {
+                "id": 2,
+                "elite": "reaper.3",
+                "hp": 2562.805388002214
+              }
+            ],
+            "sold": [
+              "7:0:672:elite.reaper.1"
+            ]
+          },
+          "offerSold": true,
+          "paid": {
+            "minerals": 250,
+            "gas": 250,
+            "freeSource": null
+          }
+        }
+      ],
+      "snapshotRestoresUnpaidGrowth": false
+    },
+    {
+      "rank": 1,
+      "rarity": "orange",
+      "variant": "reaper.1",
+      "draws": 231,
+      "price": {
+        "minerals": 750,
+        "gas": 750
+      },
+      "before": {
+        "wallet": {
+          "minerals": 100150,
+          "gas": 100097
+        },
+        "hunter": 2,
+        "rank": 1,
+        "growth": 0,
+        "damage": 32.34375,
+        "receipts": 0,
+        "bodies": [
+          {
+            "id": 2,
+            "elite": "reaper.3",
+            "hp": 869.4000000000001
+          }
+        ],
+        "sold": []
+      },
+      "attempts": [
+        {
+          "error": "TypeError: Cannot set properties of undefined (setting 'rank')",
+          "after": {
+            "wallet": {
+              "minerals": 100150,
+              "gas": 100097
+            },
+            "hunter": 2,
+            "rank": 1,
+            "growth": 15.98,
+            "damage": 80.60731668635353,
+            "receipts": 1,
+            "bodies": [
+              {
+                "id": 2,
+                "elite": "reaper.3",
+                "hp": 2552.856190038911
+              }
+            ],
+            "sold": []
+          },
+          "offerSold": false
+        },
+        {
+          "error": "TypeError: Cannot set properties of undefined (setting 'rank')",
+          "after": {
+            "wallet": {
+              "minerals": 100150,
+              "gas": 100097
+            },
+            "hunter": 2,
+            "rank": 1,
+            "growth": 31.96,
+            "damage": 102.36362139145497,
+            "receipts": 2,
+            "bodies": [
+              {
+                "id": 2,
+                "elite": "reaper.3",
+                "hp": 3286.2921106697463
+              }
+            ],
+            "sold": []
+          },
+          "offerSold": false
+        }
+      ],
+      "snapshotRestoresUnpaidGrowth": true
+    },
+    {
+      "rank": 1,
+      "rarity": "orange",
+      "variant": "reaper.2",
+      "draws": 231,
+      "price": {
+        "minerals": 750,
+        "gas": 750
+      },
+      "before": {
+        "wallet": {
+          "minerals": 100150,
+          "gas": 100097
+        },
+        "hunter": 2,
+        "rank": 1,
+        "growth": 0,
+        "damage": 32.34375,
+        "receipts": 0,
+        "bodies": [
+          {
+            "id": 2,
+            "elite": "reaper.3",
+            "hp": 869.4000000000001
+          }
+        ],
+        "sold": []
+      },
+      "attempts": [
+        {
+          "error": "TypeError: Cannot set properties of undefined (setting 'rank')",
+          "after": {
+            "wallet": {
+              "minerals": 100150,
+              "gas": 100097
+            },
+            "hunter": 2,
+            "rank": 1,
+            "growth": 16.14,
+            "damage": 80.89785457595461,
+            "receipts": 1,
+            "bodies": [
+              {
+                "id": 2,
+                "elite": "reaper.3",
+                "hp": 2562.805388002214
+              }
+            ],
+            "sold": []
+          },
+          "offerSold": false
+        },
+        {
+          "error": "TypeError: Cannot set properties of undefined (setting 'rank')",
+          "after": {
+            "wallet": {
+              "minerals": 100150,
+              "gas": 100097
+            },
+            "hunter": 2,
+            "rank": 1,
+            "growth": 32.28,
+            "damage": 102.69572699885232,
+            "receipts": 2,
+            "bodies": [
+              {
+                "id": 2,
+                "elite": "reaper.3",
+                "hp": 3297.267415638868
+              }
+            ],
+            "sold": []
+          },
+          "offerSold": false
+        }
+      ],
+      "snapshotRestoresUnpaidGrowth": true
+    },
+    {
+      "rank": 5,
+      "rarity": "purple",
+      "variant": "reaper.1",
+      "draws": 222,
+      "price": {
+        "minerals": 250,
+        "gas": 250
+      },
+      "before": {
+        "wallet": {
+          "minerals": 100150,
+          "gas": 100097
+        },
+        "hunter": 2,
+        "rank": 5,
+        "growth": 0,
+        "damage": 77.625,
+        "receipts": 0,
+        "bodies": [
+          {
+            "id": 2,
+            "elite": "reaper.3",
+            "hp": 1912.68
+          }
+        ],
+        "sold": []
+      },
+      "attempts": [
+        {
+          "returned": true,
+          "after": {
+            "wallet": {
+              "minerals": 99900,
+              "gas": 99847
+            },
+            "hunter": 2,
+            "rank": 5,
+            "growth": 15.98,
+            "damage": 193.45756004724845,
+            "receipts": 1,
+            "bodies": [
+              {
+                "id": 2,
+                "elite": "reaper.3",
+                "hp": 5616.283618085604
+              }
+            ],
+            "sold": [
+              "7:0:672:elite.reaper.1"
+            ]
+          },
+          "offerSold": true,
+          "paid": {
+            "minerals": 250,
+            "gas": 250,
+            "freeSource": null
+          }
+        },
+        {
+          "returned": false,
+          "after": {
+            "wallet": {
+              "minerals": 99900,
+              "gas": 99847
+            },
+            "hunter": 2,
+            "rank": 5,
+            "growth": 15.98,
+            "damage": 193.45756004724845,
+            "receipts": 1,
+            "bodies": [
+              {
+                "id": 2,
+                "elite": "reaper.3",
+                "hp": 5616.283618085604
+              }
+            ],
+            "sold": [
+              "7:0:672:elite.reaper.1"
+            ]
+          },
+          "offerSold": true,
+          "paid": {
+            "minerals": 250,
+            "gas": 250,
+            "freeSource": null
+          }
+        }
+      ],
+      "snapshotRestoresUnpaidGrowth": false
+    },
+    {
+      "rank": 5,
+      "rarity": "purple",
+      "variant": "reaper.2",
+      "draws": 222,
+      "price": {
+        "minerals": 250,
+        "gas": 250
+      },
+      "before": {
+        "wallet": {
+          "minerals": 100150,
+          "gas": 100097
+        },
+        "hunter": 2,
+        "rank": 5,
+        "growth": 0,
+        "damage": 77.625,
+        "receipts": 0,
+        "bodies": [
+          {
+            "id": 2,
+            "elite": "reaper.3",
+            "hp": 1912.68
+          }
+        ],
+        "sold": []
+      },
+      "attempts": [
+        {
+          "returned": true,
+          "after": {
+            "wallet": {
+              "minerals": 99900,
+              "gas": 99847
+            },
+            "hunter": 2,
+            "rank": 5,
+            "growth": 16.14,
+            "damage": 194.15485098229107,
+            "receipts": 1,
+            "bodies": [
+              {
+                "id": 2,
+                "elite": "reaper.3",
+                "hp": 5638.17185360487
+              }
+            ],
+            "sold": [
+              "7:0:672:elite.reaper.1"
+            ]
+          },
+          "offerSold": true,
+          "paid": {
+            "minerals": 250,
+            "gas": 250,
+            "freeSource": null
+          }
+        },
+        {
+          "returned": false,
+          "after": {
+            "wallet": {
+              "minerals": 99900,
+              "gas": 99847
+            },
+            "hunter": 2,
+            "rank": 5,
+            "growth": 16.14,
+            "damage": 194.15485098229107,
+            "receipts": 1,
+            "bodies": [
+              {
+                "id": 2,
+                "elite": "reaper.3",
+                "hp": 5638.17185360487
+              }
+            ],
+            "sold": [
+              "7:0:672:elite.reaper.1"
+            ]
+          },
+          "offerSold": true,
+          "paid": {
+            "minerals": 250,
+            "gas": 250,
+            "freeSource": null
+          }
+        }
+      ],
+      "snapshotRestoresUnpaidGrowth": false
+    },
+    {
+      "rank": 5,
+      "rarity": "orange",
+      "variant": "reaper.1",
+      "draws": 231,
+      "price": {
+        "minerals": 750,
+        "gas": 750
+      },
+      "before": {
+        "wallet": {
+          "minerals": 100150,
+          "gas": 100097
+        },
+        "hunter": 2,
+        "rank": 5,
+        "growth": 0,
+        "damage": 77.625,
+        "receipts": 0,
+        "bodies": [
+          {
+            "id": 2,
+            "elite": "reaper.3",
+            "hp": 1912.68
+          }
+        ],
+        "sold": []
+      },
+      "attempts": [
+        {
+          "error": "TypeError: Cannot set properties of undefined (setting 'rank')",
+          "after": {
+            "wallet": {
+              "minerals": 100150,
+              "gas": 100097
+            },
+            "hunter": 2,
+            "rank": 5,
+            "growth": 15.98,
+            "damage": 193.45756004724845,
+            "receipts": 1,
+            "bodies": [
+              {
+                "id": 2,
+                "elite": "reaper.3",
+                "hp": 5616.283618085604
+              }
+            ],
+            "sold": []
+          },
+          "offerSold": false
+        },
+        {
+          "error": "TypeError: Cannot set properties of undefined (setting 'rank')",
+          "after": {
+            "wallet": {
+              "minerals": 100150,
+              "gas": 100097
+            },
+            "hunter": 2,
+            "rank": 5,
+            "growth": 31.96,
+            "damage": 245.67269133949193,
+            "receipts": 2,
+            "bodies": [
+              {
+                "id": 2,
+                "elite": "reaper.3",
+                "hp": 7229.842643473442
+              }
+            ],
+            "sold": []
+          },
+          "offerSold": false
+        }
+      ],
+      "snapshotRestoresUnpaidGrowth": true
+    },
+    {
+      "rank": 5,
+      "rarity": "orange",
+      "variant": "reaper.2",
+      "draws": 231,
+      "price": {
+        "minerals": 750,
+        "gas": 750
+      },
+      "before": {
+        "wallet": {
+          "minerals": 100150,
+          "gas": 100097
+        },
+        "hunter": 2,
+        "rank": 5,
+        "growth": 0,
+        "damage": 77.625,
+        "receipts": 0,
+        "bodies": [
+          {
+            "id": 2,
+            "elite": "reaper.3",
+            "hp": 1912.68
+          }
+        ],
+        "sold": []
+      },
+      "attempts": [
+        {
+          "error": "TypeError: Cannot set properties of undefined (setting 'rank')",
+          "after": {
+            "wallet": {
+              "minerals": 100150,
+              "gas": 100097
+            },
+            "hunter": 2,
+            "rank": 5,
+            "growth": 16.14,
+            "damage": 194.15485098229107,
+            "receipts": 1,
+            "bodies": [
+              {
+                "id": 2,
+                "elite": "reaper.3",
+                "hp": 5638.17185360487
+              }
+            ],
+            "sold": []
+          },
+          "offerSold": false
+        },
+        {
+          "error": "TypeError: Cannot set properties of undefined (setting 'rank')",
+          "after": {
+            "wallet": {
+              "minerals": 100150,
+              "gas": 100097
+            },
+            "hunter": 2,
+            "rank": 5,
+            "growth": 32.28,
+            "damage": 246.4697447972456,
+            "receipts": 2,
+            "bodies": [
+              {
+                "id": 2,
+                "elite": "reaper.3",
+                "hp": 7253.988314405508
+              }
+            ],
+            "sold": []
+          },
+          "offerSold": false
+        }
+      ],
+      "snapshotRestoresUnpaidGrowth": true
+    }
+  ],
+  "equipmentCases": [
+    {
+      "phase": "outside",
+      "oldTemplate": "attribute.1",
+      "candidate": "attribute.4",
+      "manualLegal": true,
+      "plan": [
+        "ship-item-2"
+      ],
+      "result": {
+        "ok": true,
+        "value": [
+          "ship-item-2"
+        ]
+      },
+      "elapsedMs": 0.4786000000003696,
+      "revisionDelta": 1
+    },
+    {
+      "phase": "outside",
+      "oldTemplate": "attribute.3",
+      "candidate": "attribute.3",
+      "manualLegal": true,
+      "plan": [],
+      "result": {
+        "ok": false,
+        "error": "没有更高品质的可用散件"
+      },
+      "elapsedMs": 0.041800000000876025,
+      "revisionDelta": 0
+    },
+    {
+      "phase": "outside",
+      "oldTemplate": "set.training.2",
+      "candidate": "attribute.4",
+      "manualLegal": true,
+      "plan": [],
+      "result": {
+        "ok": false,
+        "error": "没有更高品质的可用散件"
+      },
+      "elapsedMs": 0.016400000000430737,
+      "revisionDelta": 0
+    },
+    {
+      "phase": "outside",
+      "oldTemplate": "special.doom.3",
+      "candidate": "attribute.4",
+      "manualLegal": true,
+      "plan": [],
+      "result": {
+        "ok": false,
+        "error": "没有更高品质的可用散件"
+      },
+      "elapsedMs": 0.016200000000026193,
+      "revisionDelta": 0
+    },
+    {
+      "phase": "intermission",
+      "oldTemplate": "attribute.1",
+      "candidate": "attribute.4",
+      "manualLegal": true,
+      "plan": [
+        "ship-item-2"
+      ],
+      "result": {
+        "ok": true,
+        "value": [
+          "ship-item-2"
+        ]
+      },
+      "elapsedMs": 0.25269999999909487,
+      "revisionDelta": 1
+    },
+    {
+      "phase": "intermission",
+      "oldTemplate": "attribute.3",
+      "candidate": "attribute.3",
+      "manualLegal": true,
+      "plan": [],
+      "result": {
+        "ok": false,
+        "error": "没有更高品质的可用散件"
+      },
+      "elapsedMs": 0.015600000000631553,
+      "revisionDelta": 0
+    },
+    {
+      "phase": "intermission",
+      "oldTemplate": "set.training.2",
+      "candidate": "attribute.4",
+      "manualLegal": false,
+      "manualError": "模块与套装只能局外更换",
+      "plan": [],
+      "result": {
+        "ok": false,
+        "error": "没有更高品质的可用散件"
+      },
+      "elapsedMs": 0.01569999999992433,
+      "revisionDelta": 0
+    },
+    {
+      "phase": "intermission",
+      "oldTemplate": "special.doom.3",
+      "candidate": "attribute.4",
+      "manualLegal": true,
+      "plan": [],
+      "result": {
+        "ok": false,
+        "error": "没有更高品质的可用散件"
+      },
+      "elapsedMs": 0.01900000000023283,
+      "revisionDelta": 0
+    }
+  ],
+  "browser": {
+    "passed": true,
+    "cases": 9,
+    "errors": [],
+    "checks": [
+      "outside loadout and warehouse disabled with set gear",
+      "unequip same set enables quick equip of same candidate",
+      "special gear manually replaceable in outside and intermission",
+      "ordinary higher-quality upgrade works",
+      "protected slot does not block other empty slot"
+    ],
+    "screenshotInspected": true
+  },
+  "existingTests": {
+    "pass": 4,
+    "fail": 0,
+    "scope": "Selected existing quick-equip and direct elite-acquisition tests; not a fix validation"
+  },
+  "findings": [
+    {
+      "id": "FB-20261105-02",
+      "severity": "P1",
+      "confirmed": true,
+      "summary": "Orange rank-V reaper purchase dereferences absorbed body, leaves unpaid repeatable permanent growth; purple controls succeed."
+    },
+    {
+      "id": "FB-20261105-03",
+      "severity": "P2 rule conflict",
+      "confirmed": true,
+      "summary": "Existing set/special/equal-quality exclusion disables empty-plan button despite certain manual replacements being legal.",
+      "runtimeHangReproduced": false
+    }
+  ],
+  "sourceAtInspection": [
+    {
+      "file": "src/simulation/expedition-economy.ts",
+      "sha256": "097957fba9b6b5d44e45bee2ba855fb4f2a76fb2e1b33dc2d630fe4992711a43"
+    },
+    {
+      "file": "src/simulation/elite-claim.ts",
+      "sha256": "41382d5bb1a281825bed3a216c56d494bd816a0239448dee9e487e20a81886bb"
+    },
+    {
+      "file": "src/simulation/world.ts",
+      "sha256": "de4008785118667f5cfe5482c9f513375b0a4b44d36511837bb4693bfcaa51f2"
+    },
+    {
+      "file": "src/simulation/progression/expedition-drafts.ts",
+      "sha256": "75451a0c01848e8702d3173f063795f02b59983430fe8de4d9d3d9f459c19f4d"
+    },
+    {
+      "file": "src/simulation/combat/expedition-elites.ts",
+      "sha256": "d108089c1f8bf2dde13d16895f361f7430c35df7ab3531eea10e150876995422"
+    },
+    {
+      "file": "src/simulation/combat/terran-elite-runtime.ts",
+      "sha256": "e20749ee395a733f9039c212c1fa2399c5b312cb67dec01f4b5a00eed39cecfa"
+    },
+    {
+      "file": "src/simulation/starship/quick-equip.ts",
+      "sha256": "5caf8b20e912035261a45b0a598860a4aaf6d5fee25b2aad551f9ad094f29a19"
+    },
+    {
+      "file": "src/simulation/starship/inventory.ts",
+      "sha256": "2f35b4b82f0b57f6ce1ff2d9101ee147b230e8873076a228bd83c21238c92ebb"
+    },
+    {
+      "file": "src/ui/starship/controller.ts",
+      "sha256": "a831f4b53b5b65ed2e9ceb34c70ab5f9a7b00f945896e574e23dd3d96bdbb513"
+    },
+    {
+      "file": "src/ui/starship/world-host.ts",
+      "sha256": "2471aa6c993ba80a228e3fe25daf3b658b57ced6fbe33164bdbab38140630a45"
+    },
+    {
+      "file": "src/ui/starship/legacy-view.ts",
+      "sha256": "fac264bc9eac4075c18566337a7a1b97f938959b97c2df960eca358b8d582ffc"
+    }
+  ],
+  "limitations": [
+    "Synthetic local World and UI fixture; no original player save or live deployed version",
+    "No physical-phone or whole-game rendering validation",
+    "Unpaid growth persists through native snapshot restore; real browser save not tested"
+  ],
+  "authorization": {
+    "fixed": false,
+    "committed": false,
+    "pushed": false,
+    "deployed": false
+  },
+  "retention": "Brief results and reproduction tools retained; reconstructible screenshot/log/details removed at closeout"
+}

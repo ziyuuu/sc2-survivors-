@@ -4,7 +4,7 @@ export interface SaveBackend {read():Promise<(string|null)[]>;commit(raw:string,
 export class IndexedSaveBackend implements SaveBackend {
  private db:Promise<IDBDatabase>;
  constructor(factory:IDBFactory){this.db=new Promise((resolve,reject)=>{const request=factory.open('sc2-survivors-saves',1);request.onupgradeneeded=()=>request.result.createObjectStore('snapshots');request.onsuccess=()=>{request.result.onversionchange=()=>request.result.close();resolve(request.result);};request.onerror=()=>reject(request.error??Error('无法打开本地存档'));request.onblocked=()=>reject(Error('存档被其他窗口占用，请关闭其他游戏窗口'));});}
- async read(){const db=await this.db;return new Promise<(string|null)[]>((resolve,reject)=>{const tx=db.transaction('snapshots','readonly'),store=tx.objectStore('snapshots'),keys=['current','backup1','backup2'],values:(string|null)[]=[null,null,null];keys.forEach((key,i)=>{const req=store.get(key);req.onsuccess=()=>values[i]=typeof req.result==='string'?req.result:null;});tx.oncomplete=()=>resolve(values);tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error);});}
+ async read(){const db=await this.db;return new Promise<(string|null)[]>((resolve,reject)=>{const tx=db.transaction('snapshots','readonly'),store=tx.objectStore('snapshots'),keys=['current','backup1','backup2'],values:(string|null)[]=[null,null,null];keys.forEach((key,i)=>{const req=store.get(key);req.onsuccess=()=>{if(req.result!==undefined&&req.result!==null&&typeof req.result!=='string'){reject(Error('存档槽位无法读取'));return;}values[i]=req.result??null;};});tx.oncomplete=()=>resolve(values);tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error);});}
  async commit(raw:string,expected?:string|null){readArchive(raw);const db=await this.db;return new Promise<void>((resolve,reject)=>{
   const tx=db.transaction('snapshots','readwrite'),store=tx.objectStore('snapshots');
   const names=['current','backup1','backup2'] as const,values:(string|null)[]=[null,null,null];
@@ -33,7 +33,7 @@ export class SaveRepository {
    try{const current=readArchive(raw);return {...current,raw,notice:i?'主存档不可用；已找到上一份有效备份。':''};}
    catch(e){error=String((e as Error).message);}
   }
-  this.unreadable=!!error;return {bundle:null,savedAt:0,raw:null,notice:error?'当前版本存档无法读取，原文件已保留。请导入有效备份：'+error:''};
+  this.unreadable=!!error;return {bundle:null,savedAt:0,raw:null,empty:slots.length>=3&&slots.every(slot=>slot===null),notice:error?'当前版本存档无法读取，原文件已保留。请导入有效备份：'+error:''};
  }
  allowRecovery(){this.unreadable=false;}
  preserveUnreadable(){this.unreadable=true;}

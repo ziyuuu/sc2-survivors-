@@ -1,3 +1,4 @@
+import {loadTutorialAssets} from './tutorial-assets.mjs';
 import {loadCombatAudio} from './combat-audio-assets.mjs';
 import {loadFunPropAssets} from './fun-prop-assets.mjs';
 import {loadMissionAssets} from './mission-assets.mjs';
@@ -9,6 +10,7 @@ import {loadEnvironmentScenery} from './environment-scenery.mjs';
 import {loadCombatEffects} from './combat-effects-assets.mjs';
 import {loadStarshipAssets} from './starship-assets.mjs';
 import fs from 'node:fs/promises';
+import {loadMusicAssets} from './music-assets.mjs';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 
@@ -70,3 +72,6 @@ await loadFunPropAssets({restore:true,check:process.argv.includes('--check')});
 await loadMissionAssets({restore:true,check:process.argv.includes('--check')});
 
 await loadCombatAudio({restore:true,check:process.argv.includes('--check')});
+await loadMusicAssets({restore:true,check:process.argv.includes('--check')});
+
+await loadTutorialAssets({restore:true,check:process.argv.includes('--check')});

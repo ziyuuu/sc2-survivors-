@@ -668,9 +668,9 @@
 .starship-ui .ship-diagram{width:min(100cqw,calc((100cqh - 60px)*1.6));bottom:26px}
 .starship-ui .stage-selected{bottom:0;font-size:calc(13px * var(--text-scale,1))}
 .starship-ui .ship-stage .ship-diagram .legacy-ship-image{filter:drop-shadow(0 8px 9px #0004)}
-.starship-ui[data-race] .ship-slots .game-button.slot{width:40px;height:40px;min-height:40px;padding:7px;background:transparent!important;border:0!important;box-shadow:none!important;clip-path:none;overflow:visible;transition:none}
-.starship-ui .ship-slots .slot:before{content:'';position:absolute;inset:3px;border:1px solid #b5cbd04d;background:#0614210d;clip-path:polygon(4px 0,100% 0,100% calc(100% - 4px),calc(100% - 4px) 100%,0 100%,0 4px);pointer-events:none}
-.starship-ui .ship-slots .slot .icon{position:relative;width:26px;height:26px;opacity:.48;color:#d5e1e7}
+.starship-ui[data-race] .ship-slots .game-button.slot{width:56px;height:56px;min-height:56px;padding:6px;background:transparent!important;border:0!important;box-shadow:none!important;clip-path:none;overflow:visible;transition:none}
+.starship-ui .ship-slots .slot:before{content:'';position:absolute;inset:1px;border:2px solid #819cae;background:#0a1724f2;clip-path:polygon(4px 0,100% 0,100% calc(100% - 4px),calc(100% - 4px) 100%,0 100%,0 4px);pointer-events:none}
+.starship-ui .ship-slots .slot .icon{position:relative;width:38px;height:38px;opacity:.9;color:#d5e1e7}
 .starship-ui .ship-slots .slot:hover:before,.starship-ui .ship-slots .slot.selected:before,.starship-ui .ship-slots .slot:focus-visible:before{border-color:#edd49fb3;background:#14344926}
 .starship-ui .ship-slots .slot:hover .icon,.starship-ui .ship-slots .slot.selected .icon,.starship-ui .ship-slots .slot:focus-visible .icon{opacity:.9;color:#f1dfba}
 .starship-ui .ship-slots .slot:focus-visible{outline:1px solid #eed095;outline-offset:1px}
@@ -789,9 +789,9 @@
 .starship-ui .flagship-view .ship-stage{height:230px}
 .starship-ui .ship-diagram{width:min(100%,320px);bottom:22px}
 .starship-ui .ship-stage[data-group] .ship-slots .slot{display:flex!important}
-.starship-ui[data-race] .ship-slots .game-button.slot{width:40px;height:40px;min-height:40px;padding:7px}
-.starship-ui .ship-slots .slot:before{inset:4px}
-.starship-ui .ship-slots .slot .icon{width:26px;height:26px}
+.starship-ui[data-race] .ship-slots .game-button.slot{width:56px;height:56px;min-height:56px;padding:6px}
+.starship-ui .ship-slots .slot:before{inset:1px;background:#0a1724f2;border:2px solid #819cae}
+.starship-ui .ship-slots .slot .icon{width:38px;height:38px;opacity:.9}
 .starship-ui .flagship-view .inspector-scroll{max-height:190px}
 .starship-ui .flagship-view .equipment-inspector{margin-top:6px}
 .starship-ui .flagship-view .inspector-empty{display:none}
@@ -866,10 +866,16 @@
 .starship-ui .equipment-icon img{display:block;width:100%;height:100%;object-fit:contain;opacity:1;filter:none}
 .starship-ui .quality-pips{position:absolute;bottom:0;right:1px;padding:0 1px;background:#030911bc;color:var(--rarity,#c9dbe4);font-size:calc(6px * var(--text-scale,1));line-height:8px;letter-spacing:0;white-space:nowrap;text-shadow:0 1px #000}
 .starship-ui[data-race] .ship-slots .slot.occupied{padding:4px}
-.starship-ui .ship-slots .slot.occupied .equipment-icon{width:32px;height:32px;opacity:1;border-color:var(--rarity);box-shadow:0 1px 4px #000a}
-.starship-ui .ship-slots .slot.occupied:before{background:#06142108;border-color:#b5cbd02b}
-.starship-ui .ship-slots .slot.empty .icon{opacity:.25}
-.starship-ui .ship-slots .slot.selected .equipment-icon{outline:1px solid #efd8a2;outline-offset:2px}
+.starship-ui .ship-slots .slot.occupied .equipment-icon{width:44px;height:44px;opacity:1;border-color:var(--rarity);box-shadow:0 1px 4px #000a}
+.starship-ui .ship-slots .slot.occupied:before{background:color-mix(in srgb,var(--rarity) 22%,#091723);border-color:var(--rarity)}
+.starship-ui .ship-slots .slot.empty .icon{opacity:.9}
+.starship-ui .ship-slots .slot.selected:before,.starship-ui .ship-slots .slot:focus-visible:before{border-color:#fff0c5;box-shadow:inset 0 0 0 1px #fff0c5}
+.starship-ui .ship-slots .slot.selected .equipment-icon{outline:2px solid #efd8a2;outline-offset:2px}
+@media(max-width:850px),(pointer:coarse){
+ .starship-ui[data-race] .ship-slots .game-button.slot{width:48px;height:48px;min-height:48px;padding:4px}
+ .starship-ui .ship-slots .slot.occupied .equipment-icon{width:38px;height:38px}
+ .starship-ui .ship-slots .slot .icon{width:32px;height:32px}
+}
 .starship-ui .item-picture>.equipment-icon{width:33px;height:33px}
 .starship-ui .flagship-view .item-picture{height:38px}
 .starship-ui .inspect-names{gap:9px;align-items:center}

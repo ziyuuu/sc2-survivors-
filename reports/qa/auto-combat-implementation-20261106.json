@@ -1,0 +1,1441 @@
+{
+  "date": "2026-11-06",
+  "task": "AUTO-1.2",
+  "status": "Implemented locally; finite functional checks passed. Performance results and unaccepted device/user experience are separate.",
+  "branch": "体积优化版",
+  "head": "6510fb2a85a4140aecb6151ab0ab3132b42f239a",
+  "build": "0029cb55165281964a3d4c64dc9937614f332bef33b5da537c642ca9e1079329",
+  "applicationVersion": "1.2.0-local.1",
+  "rulesId": "mvp-1.0",
+  "runSchema": 26,
+  "output": "dist/auto-combat-1.2-20261106/candidate",
+  "sourceHashes": {
+    "src/simulation/combat/damage-packet.ts": {
+      "before": null,
+      "after": "7bb6a22e7de888cbbb35bf7935bfd84c46c073a42087310f5421a3fec899c184"
+    },
+    "src/simulation/combat/expedition-combat.ts": {
+      "before": "34c9230d49beefdc40e938128d318a6c881527c38a27a897a42b571ed2816c5d",
+      "after": "af95bb2667d096b02281828034d579baded08b1bc8418e9334e4420a2daae03e"
+    },
+    "src/simulation/combat/family-actions.ts": {
+      "before": "5a096b8372159b11f277c8bc39fa0d2be8822b14be0e291cdb716d4505c5a055",
+      "after": "846e5f974177247bf3025ff22b42fc2535679654ec68880145c6229ece690c97"
+    },
+    "src/simulation/combat/support-targets.ts": {
+      "before": "a5b4c4b36eee28bc8ed92884fb572da6789c79f5c2482e11cb2d93c721109181",
+      "after": "4bcc17346cf5ba71cf8e32590042ea4d2e38f3262176caf47f3bd0e738390418"
+    },
+    "src/simulation/combat/tactics/abilities.ts": {
+      "before": null,
+      "after": "18c7715fc73951aaac8fe8435b8d690875f744fadbd3a9017022372d9bbd17a7"
+    },
+    "src/simulation/combat/tactics/candidates.ts": {
+      "before": null,
+      "after": "f95a207cb5fbc6408a4c63392240f144a29e8b72f333bb7d1f68fb3524459a75"
+    },
+    "src/simulation/combat/tactics/commitments.ts": {
+      "before": null,
+      "after": "6c8b9d449119f3f468e18d5000edc5d2f15caef1ec545c56220fc8f1fe828814"
+    },
+    "src/simulation/combat/tactics/estimates.ts": {
+      "before": null,
+      "after": "e52dc220de64226433df9bb976480bed64efb5eafde16be696ceeb65af878084"
+    },
+    "src/simulation/combat/tactics/intent.ts": {
+      "before": null,
+      "after": "980bbff773be5a5d17c9657b79b7334d149cb0e7fa79f66d46a0955fc7c27faa"
+    },
+    "src/simulation/combat/tactics/modes.ts": {
+      "before": null,
+      "after": "761e2348470af26a9a101fa68eb0ca56003687fcfe24a112e8bdb7364361a2c4"
+    },
+    "src/simulation/combat/tactics/planner.ts": {
+      "before": null,
+      "after": "0a275049b1bddab406fd0ce1898302fef31822a485faff76cbfca840e92eb928"
+    },
+    "src/simulation/combat/tactics/positions.ts": {
+      "before": null,
+      "after": "fc6cc815448161de09c246c3acb178b3e359ee3444602605ca800f8dfbf2050f"
+    },
+    "src/simulation/formation/engagement.ts": {
+      "before": "c021b30c6d85c75ef3a10d3ae591980c8220967c39b20e63e110b124a507e817",
+      "after": "28ed631d54022daeac3348e2040b8ade471e3f96d95f2aaacb3cc76d323c8f63"
+    },
+    "src/simulation/movement/approach-charge.ts": {
+      "before": "8c2cedf3cc204cce380b9f5783b635a3572647a057fe8d7b3846246641ad7b83",
+      "after": "2dc0014ee3390c710ceb91c9dd8184f35e81adc5624a652de25a1f2c55c5aef2"
+    },
+    "src/simulation/movement/melee-approach.ts": {
+      "before": "3a6bb4264c73d649f41c346d4d4a6bf48faf7950c24c8247c9e24db0a8743a92",
+      "after": "ffcd1bb74a73ba5e55764002fda70bd5a3b649ea59dc5faec76d27d9a8dabb82"
+    },
+    "src/simulation/persistence/run-fields.ts": {
+      "before": "99fe0e3de42159ee13c759134fcdcad038144beee0f94b9e8be2cdd9733b5ea8",
+      "after": "ef0ea18f620f2f05d235dfb68375e418bfaf1e5f5d20889d1971172777772a3a"
+    },
+    "src/simulation/types.ts": {
+      "before": "12d7ab52ef2fc42c2fdce39bfcfd59ccb3bfac39f7a0123e23f749566822511f",
+      "after": "bd31010cea4cee4ce66e4b26f9dbd22883a5ea4575925fc3d1f6541eb3469fd4"
+    },
+    "src/simulation/world.ts": {
+      "before": "7de4ce396ac15460f2877fab2f7865b8a67a886aaead2baa7f14f65ffc8ebb07",
+      "after": "945b42950e8992cace5834d71cfba81f498e74e05668f0409343da169b49fdce"
+    }
+  },
+  "decisions": [
+    "Manual move/mode/ability constraints stay authoritative; siege requires manual unsiege.",
+    "No additional ordinary melee speed, damage/cooldown/reward changes, new units, UI layout or automatic-combat switch.",
+    "Only fresh ordinary hellion/viking/thor/lurker entities have automatic mode provenance; manual family lock persists. Legacy missing provenance is preserved.",
+    "Automatic modes compare conservative local output after transform cost, require 25% advantage and one second hold; move/landing illegality bypasses ordinary holding.",
+    "Exact fire commitments support deterministic ordinary defenses; unknown special absorption earns zero confidence. Existing attacks still settle exactly once."
+  ],
+  "validation": {
+    "full": {
+      "tests": 3075,
+      "passed": 3075,
+      "failed": 0
+    },
+    "finalAbilities": {
+      "tests": 30,
+      "passed": 30,
+      "failed": 0
+    },
+    "finalTargeted": {
+      "tests": 61,
+      "passed": 61,
+      "failed": 0
+    },
+    "typecheck": "passed in final Web build",
+    "docsData": "generated",
+    "docsCheck": "passed",
+    "browser": {
+      "scope": "Synthetic production HUD with renderer stub and blank assets; native mode buttons, actual IndexedDB rotation/write failure/reload. Simulated touch, no physical phone.",
+      "bundle": "75e363bd7e379c704294969406d5a02b4b7ef4044cd92c6b8b9f2fc5f3653306",
+      "cases": [
+        {
+          "name": "desktop",
+          "touch": false,
+          "passed": true,
+          "slots": [
+            6,
+            4,
+            2
+          ]
+        },
+        {
+          "name": "landscape",
+          "touch": true,
+          "passed": true,
+          "slots": [
+            6,
+            4,
+            2
+          ]
+        },
+        {
+          "name": "portrait",
+          "touch": true,
+          "passed": true,
+          "slots": [
+            6,
+            4,
+            2
+          ]
+        }
+      ],
+      "errors": [],
+      "passed": true
+    },
+    "tutorials": [
+      {
+        "race": "terran",
+        "reportedAppBuildId": "765e1674d482ee16d701bd28dd95fbaca79d67e742f2fcf44077f18a2e3a2a90",
+        "finalAppBuildId": "0029cb55165281964a3d4c64dc9937614f332bef33b5da537c642ca9e1079329",
+        "verifiedSameDiagnosticCodeSHA": "628a5913e1204e21f96dcbf475c91927ee58ae76325922578b1f00fb3a37410c",
+        "passed": true,
+        "clicks": 26,
+        "assistance": "Native highlighted clicks; bounded native fixed-step time compression for functional QA only. No damage/HP changes.",
+        "errors": []
+      },
+      {
+        "race": "zerg",
+        "reportedAppBuildId": "765e1674d482ee16d701bd28dd95fbaca79d67e742f2fcf44077f18a2e3a2a90",
+        "finalAppBuildId": "0029cb55165281964a3d4c64dc9937614f332bef33b5da537c642ca9e1079329",
+        "verifiedSameDiagnosticCodeSHA": "628a5913e1204e21f96dcbf475c91927ee58ae76325922578b1f00fb3a37410c",
+        "passed": true,
+        "clicks": 26,
+        "assistance": "Native highlighted clicks; bounded native fixed-step time compression for functional QA only. No damage/HP changes.",
+        "errors": []
+      },
+      {
+        "race": "protoss",
+        "reportedAppBuildId": "0029cb55165281964a3d4c64dc9937614f332bef33b5da537c642ca9e1079329",
+        "finalAppBuildId": "0029cb55165281964a3d4c64dc9937614f332bef33b5da537c642ca9e1079329",
+        "verifiedSameDiagnosticCodeSHA": "628a5913e1204e21f96dcbf475c91927ee58ae76325922578b1f00fb3a37410c",
+        "passed": true,
+        "clicks": 25,
+        "assistance": "Native highlighted clicks; bounded native fixed-step time compression for functional QA only. No damage/HP changes.",
+        "errors": []
+      }
+    ],
+    "field": {
+      "scope": "Full renderer and original game clock; synthetic stationary 1000-HP roach near the starting squad, twelve wall-clock seconds per race. No injected hits/time advances or combat stat buffs after setup. Not balance or device acceptance.",
+      "entry": {
+        "unmodifiedProductionMenu": true,
+        "errors": []
+      },
+      "rows": [
+        {
+          "race": "terran",
+          "initial": {
+            "time": 0.016666666666666666,
+            "hp": 1000,
+            "shots": 0
+          },
+          "final": {
+            "time": 12.166666666666666,
+            "hp": 916.0366484603446,
+            "shots": 26,
+            "modelErrors": [],
+            "saveFailed": false,
+            "phase": "battle"
+          },
+          "errors": [],
+          "passed": true
+        },
+        {
+          "race": "zerg",
+          "initial": {
+            "time": 0.016666666666666666,
+            "hp": 1000,
+            "shots": 0
+          },
+          "final": {
+            "time": 12.15,
+            "hp": 823.8020582328302,
+            "shots": 52,
+            "modelErrors": [],
+            "saveFailed": false,
+            "phase": "battle"
+          },
+          "errors": [],
+          "passed": true
+        },
+        {
+          "race": "protoss",
+          "initial": {
+            "time": 0.1,
+            "hp": 1000,
+            "shots": 0
+          },
+          "final": {
+            "time": 12.283333333333333,
+            "hp": 824.0610683174857,
+            "shots": 21,
+            "modelErrors": [],
+            "saveFailed": false,
+            "phase": "battle"
+          },
+          "errors": [],
+          "passed": true
+        }
+      ]
+    },
+    "modes": [
+      {
+        "family": "hellion",
+        "results": [
+          {
+            "automatic": false,
+            "damage": 248.55410533264148,
+            "transitions": [],
+            "mode": "hellion"
+          },
+          {
+            "automatic": true,
+            "damage": 514.3020159988846,
+            "transitions": [
+              {
+                "at": 3.8666666666666667,
+                "mode": "hellbat"
+              }
+            ],
+            "mode": "hellbat"
+          }
+        ]
+      },
+      {
+        "family": "viking",
+        "results": [
+          {
+            "automatic": false,
+            "damage": 0,
+            "transitions": [],
+            "mode": "viking"
+          },
+          {
+            "automatic": true,
+            "damage": 175.7487806663903,
+            "transitions": [
+              {
+                "at": 2.683333333333333,
+                "mode": "viking_assault"
+              }
+            ],
+            "mode": "viking_assault"
+          }
+        ]
+      },
+      {
+        "family": "thor",
+        "results": [
+          {
+            "automatic": false,
+            "damage": 113.29394999967008,
+            "transitions": [],
+            "mode": "thor"
+          },
+          {
+            "automatic": true,
+            "damage": 282.79394999966826,
+            "transitions": [
+              {
+                "at": 2.8,
+                "mode": "thor_high_impact"
+              }
+            ],
+            "mode": "thor_high_impact"
+          }
+        ]
+      },
+      {
+        "family": "lurker",
+        "results": [
+          {
+            "automatic": false,
+            "damage": 192.52170799966188,
+            "transitions": [],
+            "mode": "lurker"
+          },
+          {
+            "automatic": true,
+            "damage": 249.72170799965534,
+            "transitions": [
+              {
+                "at": 2.8,
+                "mode": "lurker_burrowed"
+              }
+            ],
+            "mode": "lurker_burrowed"
+          }
+        ]
+      }
+    ],
+    "contactBefore": [
+      {
+        "kind": "mixed-zergling",
+        "seconds": 10,
+        "first": [
+          1.9833333333333334
+        ],
+        "shots": [
+          18
+        ],
+        "damage": [
+          3000.16809001565
+        ],
+        "wallOverlaps": 0
+      },
+      {
+        "kind": "mixed-zealot",
+        "seconds": 10,
+        "first": [
+          1.05
+        ],
+        "shots": [
+          12
+        ],
+        "damage": [
+          3111.468090015929
+        ],
+        "wallOverlaps": 0
+      },
+      {
+        "kind": "mixed-ultralisk",
+        "seconds": 10,
+        "first": [
+          0.6666666666666666
+        ],
+        "shots": [
+          17
+        ],
+        "damage": [
+          3581.91809001565
+        ],
+        "wallOverlaps": 0
+      },
+      {
+        "kind": "wall",
+        "seconds": 10,
+        "first": [
+          1.2666666666666666
+        ],
+        "shots": [
+          20
+        ],
+        "damage": [
+          91.65084999687679
+        ],
+        "wallOverlaps": 0
+      },
+      {
+        "kind": "neighbor",
+        "seconds": 10,
+        "first": [
+          0.6833333333333333,
+          1.4,
+          1.4333333333333333,
+          2.2333333333333334,
+          2.75,
+          3.533333333333333,
+          3.6
+        ],
+        "shots": [
+          20,
+          13,
+          20,
+          9,
+          15,
+          10,
+          0,
+          11
+        ],
+        "damage": [
+          634.877573329868,
+          325.02085133043875
+        ],
+        "wallOverlaps": 0
+      },
+      {
+        "kind": "unreachable",
+        "seconds": 10,
+        "first": [
+          1.1666666666666667
+        ],
+        "shots": [
+          20
+        ],
+        "damage": [
+          0,
+          91.61257399684109
+        ],
+        "wallOverlaps": 0
+      }
+    ],
+    "contactAfter": [
+      {
+        "kind": "mixed-zergling",
+        "seconds": 10,
+        "first": [
+          2.05
+        ],
+        "shots": [
+          18
+        ],
+        "damage": [
+          3000.16809001565
+        ],
+        "wallOverlaps": 0,
+        "units": [
+          {
+            "id": 3,
+            "x": 0.4979571267654586,
+            "z": 5.412063421889884,
+            "target": 4,
+            "action": "idle",
+            "unavailable": [
+              false
+            ]
+          }
+        ]
+      },
+      {
+        "kind": "mixed-zealot",
+        "seconds": 10,
+        "first": [
+          1.8666666666666667
+        ],
+        "shots": [
+          11
+        ],
+        "damage": [
+          3095.068090015906
+        ],
+        "wallOverlaps": 0,
+        "units": [
+          {
+            "id": 3,
+            "x": -0.054136780291074216,
+            "z": 5.140145366702296,
+            "target": 4,
+            "action": "idle",
+            "unavailable": [
+              false
+            ]
+          }
+        ]
+      },
+      {
+        "kind": "mixed-ultralisk",
+        "seconds": 10,
+        "first": [
+          0.6666666666666666
+        ],
+        "shots": [
+          17
+        ],
+        "damage": [
+          3581.91809001565
+        ],
+        "wallOverlaps": 0,
+        "units": [
+          {
+            "id": 3,
+            "x": -0.013350233690083467,
+            "z": 3.993253924142298,
+            "target": 4,
+            "action": "attack",
+            "unavailable": [
+              false
+            ]
+          }
+        ]
+      },
+      {
+        "kind": "wall",
+        "seconds": 10,
+        "first": [
+          1.2833333333333332
+        ],
+        "shots": [
+          20
+        ],
+        "damage": [
+          91.65722933021607
+        ],
+        "wallOverlaps": 0,
+        "units": [
+          {
+            "id": 2,
+            "x": 3.445873152903538,
+            "z": 0.5583021396191197,
+            "target": 3,
+            "action": "idle",
+            "unavailable": [
+              false
+            ]
+          }
+        ]
+      },
+      {
+        "kind": "neighbor",
+        "seconds": 10,
+        "first": [
+          0.8,
+          1.8,
+          2.1333333333333333,
+          3.183333333333333,
+          3.5833333333333335,
+          4.283333333333333,
+          5.266666666666667
+        ],
+        "shots": [
+          21,
+          11,
+          13,
+          0,
+          18,
+          9,
+          11,
+          10
+        ],
+        "damage": [
+          243.47222866337688,
+          541.1049886635592
+        ],
+        "wallOverlaps": 0,
+        "units": [
+          {
+            "id": 2,
+            "x": 3.205341569645842,
+            "z": -0.000775686806886183,
+            "target": 10,
+            "action": "idle",
+            "unavailable": [
+              false,
+              false
+            ]
+          },
+          {
+            "id": 3,
+            "x": 3.130126022609432,
+            "z": 1.399443612860021,
+            "target": 11,
+            "action": "idle",
+            "unavailable": [
+              false,
+              false
+            ]
+          },
+          {
+            "id": 4,
+            "x": 4.614986369770087,
+            "z": -0.3343527553303696,
+            "target": 10,
+            "action": "attack",
+            "unavailable": [
+              false,
+              false
+            ]
+          },
+          {
+            "id": 5,
+            "x": -3.1316929665366704,
+            "z": 0.0163709654624573,
+            "target": null,
+            "action": "idle",
+            "unavailable": [
+              true,
+              true
+            ]
+          },
+          {
+            "id": 6,
+            "x": 4.126579519685576,
+            "z": -0.7253206052886416,
+            "target": 10,
+            "action": "idle",
+            "unavailable": [
+              false,
+              false
+            ]
+          },
+          {
+            "id": 7,
+            "x": 4.64415847320702,
+            "z": 0.6728902573813149,
+            "target": 11,
+            "action": "idle",
+            "unavailable": [
+              false,
+              false
+            ]
+          },
+          {
+            "id": 8,
+            "x": 4.665578302398412,
+            "z": 1.516807572230417,
+            "target": 11,
+            "action": "idle",
+            "unavailable": [
+              false,
+              false
+            ]
+          },
+          {
+            "id": 9,
+            "x": 4.011283164716815,
+            "z": 2.191514687566815,
+            "target": 11,
+            "action": "idle",
+            "unavailable": [
+              false,
+              false
+            ]
+          }
+        ]
+      },
+      {
+        "kind": "unreachable",
+        "seconds": 10,
+        "first": [
+          1.15
+        ],
+        "shots": [
+          20
+        ],
+        "damage": [
+          0,
+          91.60619466350181
+        ],
+        "wallOverlaps": 0,
+        "units": [
+          {
+            "id": 2,
+            "x": -8.519738679620984e-17,
+            "z": 5.2250718868148,
+            "target": 4,
+            "action": "idle",
+            "unavailable": [
+              false,
+              false
+            ]
+          }
+        ]
+      }
+    ],
+    "performance": [
+      {
+        "scene": "mixed",
+        "race": "terran",
+        "before": {
+          "p50": 1.4423999999999069,
+          "p95": 2.6245000000001255,
+          "runs": [
+            {
+              "shots": 367,
+              "damage": 83637.26172666646,
+              "alive": 24,
+              "decisions": 1661,
+              "decisionMs": 46.20980000000827,
+              "paths": null,
+              "idleUnitSteps": 6771,
+              "switches": null
+            },
+            {
+              "shots": 367,
+              "damage": 83637.26172666646,
+              "alive": 24,
+              "decisions": 1661,
+              "decisionMs": 38.619999999993524,
+              "paths": null,
+              "idleUnitSteps": 6771,
+              "switches": null
+            },
+            {
+              "shots": 367,
+              "damage": 83637.26172666646,
+              "alive": 24,
+              "decisions": 1661,
+              "decisionMs": 41.5920999999953,
+              "paths": null,
+              "idleUnitSteps": 6771,
+              "switches": null
+            }
+          ]
+        },
+        "after": {
+          "p50": 1.456000000000131,
+          "p95": 2.7088999999998578,
+          "runs": [
+            {
+              "shots": 381,
+              "damage": 82332.6015926666,
+              "alive": 24,
+              "decisions": 2248,
+              "decisionMs": 143.06569999999522,
+              "paths": 0,
+              "idleUnitSteps": 6714,
+              "switches": 141
+            },
+            {
+              "shots": 381,
+              "damage": 82332.6015926666,
+              "alive": 24,
+              "decisions": 2248,
+              "decisionMs": 122.11240000000498,
+              "paths": 0,
+              "idleUnitSteps": 6714,
+              "switches": 141
+            },
+            {
+              "shots": 381,
+              "damage": 82332.6015926666,
+              "alive": 24,
+              "decisions": 2248,
+              "decisionMs": 115.88899999999967,
+              "paths": 0,
+              "idleUnitSteps": 6714,
+              "switches": 141
+            }
+          ]
+        },
+        "p95ChangePercent": 3.215850638206441
+      },
+      {
+        "scene": "mixed",
+        "race": "zerg",
+        "before": {
+          "p50": 2.1673000000000684,
+          "p95": 3.724699999999757,
+          "runs": [
+            {
+              "shots": 316,
+              "damage": 85721.1490493331,
+              "alive": 20,
+              "decisions": 2278,
+              "decisionMs": 96.1666000000314,
+              "paths": null,
+              "idleUnitSteps": 5586,
+              "switches": null
+            },
+            {
+              "shots": 316,
+              "damage": 85721.1490493331,
+              "alive": 20,
+              "decisions": 2278,
+              "decisionMs": 78.38870000001953,
+              "paths": null,
+              "idleUnitSteps": 5586,
+              "switches": null
+            },
+            {
+              "shots": 316,
+              "damage": 85721.1490493331,
+              "alive": 20,
+              "decisions": 2278,
+              "decisionMs": 85.15150000000813,
+              "paths": null,
+              "idleUnitSteps": 5586,
+              "switches": null
+            }
+          ]
+        },
+        "after": {
+          "p50": 1.743199999999888,
+          "p95": 3.8463000000001557,
+          "runs": [
+            {
+              "shots": 317,
+              "damage": 85109.32442866683,
+              "alive": 19,
+              "decisions": 2226,
+              "decisionMs": 187.14789999998584,
+              "paths": 103,
+              "idleUnitSteps": 4506,
+              "switches": 153
+            },
+            {
+              "shots": 317,
+              "damage": 85109.32442866683,
+              "alive": 19,
+              "decisions": 2226,
+              "decisionMs": 154.36740000000236,
+              "paths": 103,
+              "idleUnitSteps": 4506,
+              "switches": 153
+            },
+            {
+              "shots": 317,
+              "damage": 85109.32442866683,
+              "alive": 19,
+              "decisions": 2226,
+              "decisionMs": 148.57309999998506,
+              "paths": 103,
+              "idleUnitSteps": 4506,
+              "switches": 153
+            }
+          ]
+        },
+        "p95ChangePercent": 3.264692458463947
+      },
+      {
+        "scene": "mixed",
+        "race": "protoss",
+        "before": {
+          "p50": 1.6724000000003798,
+          "p95": 3.330300000000534,
+          "runs": [
+            {
+              "shots": 314,
+              "damage": 84462.84165666642,
+              "alive": 24,
+              "decisions": 2331,
+              "decisionMs": 91.35199999998531,
+              "paths": null,
+              "idleUnitSteps": 5965,
+              "switches": null
+            },
+            {
+              "shots": 314,
+              "damage": 84462.84165666642,
+              "alive": 24,
+              "decisions": 2331,
+              "decisionMs": 62.50069999998232,
+              "paths": null,
+              "idleUnitSteps": 5965,
+              "switches": null
+            },
+            {
+              "shots": 314,
+              "damage": 84462.84165666642,
+              "alive": 24,
+              "decisions": 2331,
+              "decisionMs": 61.10080000000107,
+              "paths": null,
+              "idleUnitSteps": 5965,
+              "switches": null
+            }
+          ]
+        },
+        "after": {
+          "p50": 1.7502999999996973,
+          "p95": 3.460399999999936,
+          "runs": [
+            {
+              "shots": 313,
+              "damage": 83549.87276199985,
+              "alive": 24,
+              "decisions": 2328,
+              "decisionMs": 182.80039999996643,
+              "paths": 219,
+              "idleUnitSteps": 5443,
+              "switches": 164
+            },
+            {
+              "shots": 313,
+              "damage": 83549.87276199985,
+              "alive": 24,
+              "decisions": 2328,
+              "decisionMs": 157.4779000000026,
+              "paths": 219,
+              "idleUnitSteps": 5443,
+              "switches": 164
+            },
+            {
+              "shots": 313,
+              "damage": 83549.87276199985,
+              "alive": 24,
+              "decisions": 2328,
+              "decisionMs": 160.7770999999857,
+              "paths": 219,
+              "idleUnitSteps": 5443,
+              "switches": 164
+            }
+          ]
+        },
+        "p95ChangePercent": 3.9065549649995868
+      },
+      {
+        "scene": "first",
+        "race": "terran",
+        "before": {
+          "p50": 0.0807999999999538,
+          "p95": 0.23670000000015534,
+          "runs": [
+            {
+              "shots": 14,
+              "damage": 32.723786762606565,
+              "alive": 1,
+              "decisions": 265,
+              "decisionMs": 3.254600000000437,
+              "paths": null,
+              "idleUnitSteps": 872,
+              "switches": null
+            },
+            {
+              "shots": 14,
+              "damage": 32.723786762606565,
+              "alive": 1,
+              "decisions": 265,
+              "decisionMs": 1.2397999999977856,
+              "paths": null,
+              "idleUnitSteps": 872,
+              "switches": null
+            },
+            {
+              "shots": 14,
+              "damage": 32.723786762606565,
+              "alive": 1,
+              "decisions": 265,
+              "decisionMs": 1.0098999999995613,
+              "paths": null,
+              "idleUnitSteps": 872,
+              "switches": null
+            }
+          ]
+        },
+        "after": {
+          "p50": 0.08259999999995671,
+          "p95": 0.23020000000008167,
+          "runs": [
+            {
+              "shots": 14,
+              "damage": 32.723786762606565,
+              "alive": 1,
+              "decisions": 281,
+              "decisionMs": 7.563300000000254,
+              "paths": 0,
+              "idleUnitSteps": 872,
+              "switches": 4
+            },
+            {
+              "shots": 14,
+              "damage": 32.723786762606565,
+              "alive": 1,
+              "decisions": 281,
+              "decisionMs": 3.1192000000005464,
+              "paths": 0,
+              "idleUnitSteps": 872,
+              "switches": 4
+            },
+            {
+              "shots": 14,
+              "damage": 32.723786762606565,
+              "alive": 1,
+              "decisions": 281,
+              "decisionMs": 3.2288000000002057,
+              "paths": 0,
+              "idleUnitSteps": 872,
+              "switches": 4
+            }
+          ]
+        },
+        "p95ChangePercent": -2.746092099733588
+      },
+      {
+        "scene": "first",
+        "race": "zerg",
+        "before": {
+          "p50": 0.0829999999998563,
+          "p95": 0.22649999999998727,
+          "runs": [
+            {
+              "shots": 18,
+              "damage": 36.44784370907999,
+              "alive": 2,
+              "decisions": 443,
+              "decisionMs": 1.7277000000003682,
+              "paths": null,
+              "idleUnitSteps": 1646,
+              "switches": null
+            },
+            {
+              "shots": 18,
+              "damage": 36.44784370907999,
+              "alive": 2,
+              "decisions": 443,
+              "decisionMs": 1.4348999999988337,
+              "paths": null,
+              "idleUnitSteps": 1646,
+              "switches": null
+            },
+            {
+              "shots": 18,
+              "damage": 36.44784370907999,
+              "alive": 2,
+              "decisions": 443,
+              "decisionMs": 1.2950999999975465,
+              "paths": null,
+              "idleUnitSteps": 1646,
+              "switches": null
+            }
+          ]
+        },
+        "after": {
+          "p50": 0.09389999999984866,
+          "p95": 0.294399999999996,
+          "runs": [
+            {
+              "shots": 19,
+              "damage": 37.87762633407998,
+              "alive": 2,
+              "decisions": 440,
+              "decisionMs": 11.947400000001835,
+              "paths": 24,
+              "idleUnitSteps": 1589,
+              "switches": 11
+            },
+            {
+              "shots": 19,
+              "damage": 37.87762633407998,
+              "alive": 2,
+              "decisions": 440,
+              "decisionMs": 7.9730999999958385,
+              "paths": 24,
+              "idleUnitSteps": 1589,
+              "switches": 11
+            },
+            {
+              "shots": 19,
+              "damage": 37.87762633407998,
+              "alive": 2,
+              "decisions": 440,
+              "decisionMs": 6.692699999998922,
+              "paths": 24,
+              "idleUnitSteps": 1589,
+              "switches": 11
+            }
+          ]
+        },
+        "p95ChangePercent": 29.9779249448179
+      },
+      {
+        "scene": "first",
+        "race": "protoss",
+        "before": {
+          "p50": 0.06039999999984502,
+          "p95": 0.1281000000003587,
+          "runs": [
+            {
+              "shots": 14,
+              "damage": 28.66716323482879,
+              "alive": 1,
+              "decisions": 292,
+              "decisionMs": 1.0574000000001433,
+              "paths": null,
+              "idleUnitSteps": 781,
+              "switches": null
+            },
+            {
+              "shots": 14,
+              "damage": 28.66716323482879,
+              "alive": 1,
+              "decisions": 292,
+              "decisionMs": 0.8085000000023683,
+              "paths": null,
+              "idleUnitSteps": 781,
+              "switches": null
+            },
+            {
+              "shots": 14,
+              "damage": 28.66716323482879,
+              "alive": 1,
+              "decisions": 292,
+              "decisionMs": 0.8099999999963075,
+              "paths": null,
+              "idleUnitSteps": 781,
+              "switches": null
+            }
+          ]
+        },
+        "after": {
+          "p50": 0.06600000000003092,
+          "p95": 0.14030000000002474,
+          "runs": [
+            {
+              "shots": 14,
+              "damage": 28.667163234828788,
+              "alive": 1,
+              "decisions": 293,
+              "decisionMs": 3.1742000000001553,
+              "paths": 0,
+              "idleUnitSteps": 796,
+              "switches": 5
+            },
+            {
+              "shots": 14,
+              "damage": 28.667163234828788,
+              "alive": 1,
+              "decisions": 293,
+              "decisionMs": 2.403200000000197,
+              "paths": 0,
+              "idleUnitSteps": 796,
+              "switches": 5
+            },
+            {
+              "shots": 14,
+              "damage": 28.667163234828788,
+              "alive": 1,
+              "decisions": 293,
+              "decisionMs": 2.411599999998998,
+              "paths": 0,
+              "idleUnitSteps": 796,
+              "switches": 5
+            }
+          ]
+        },
+        "p95ChangePercent": 9.523809523522143
+      },
+      {
+        "scene": "endless4",
+        "race": "terran",
+        "before": {
+          "p50": 1.3270000000002256,
+          "p95": 2.8697000000001935,
+          "runs": [
+            {
+              "shots": 409,
+              "damage": 47014.48231805408,
+              "alive": 0,
+              "decisions": 8611,
+              "decisionMs": 79.62959999999248,
+              "paths": null,
+              "idleUnitSteps": 11131,
+              "switches": null
+            },
+            {
+              "shots": 409,
+              "damage": 47014.48231805408,
+              "alive": 0,
+              "decisions": 8611,
+              "decisionMs": 77.44090000001961,
+              "paths": null,
+              "idleUnitSteps": 11131,
+              "switches": null
+            },
+            {
+              "shots": 416,
+              "damage": 46534.49792820508,
+              "alive": 0,
+              "decisions": 8712,
+              "decisionMs": 67.44740000005368,
+              "paths": null,
+              "idleUnitSteps": 11131,
+              "switches": null
+            }
+          ]
+        },
+        "after": {
+          "p50": 1.5700000000006185,
+          "p95": 3.7689000000000306,
+          "runs": [
+            {
+              "shots": 476,
+              "damage": 47098.2832901843,
+              "alive": 0,
+              "decisions": 10149,
+              "decisionMs": 267.189900000006,
+              "paths": 0,
+              "idleUnitSteps": 11897,
+              "switches": 186
+            },
+            {
+              "shots": 477,
+              "damage": 46707.47568199211,
+              "alive": 0,
+              "decisions": 9916,
+              "decisionMs": 277.81370000000334,
+              "paths": 0,
+              "idleUnitSteps": 12160,
+              "switches": 212
+            },
+            {
+              "shots": 449,
+              "damage": 46519.826273775776,
+              "alive": 0,
+              "decisions": 9873,
+              "decisionMs": 214.5810999999594,
+              "paths": 0,
+              "idleUnitSteps": 12108,
+              "switches": 188
+            }
+          ]
+        },
+        "p95ChangePercent": 31.334285813840346
+      },
+      {
+        "scene": "endless4",
+        "race": "zerg",
+        "before": {
+          "p50": 1.3965000000007421,
+          "p95": 2.9998000000014144,
+          "runs": [
+            {
+              "shots": 415,
+              "damage": 47790.53894660179,
+              "alive": 0,
+              "decisions": 9641,
+              "decisionMs": 82.80180000001292,
+              "paths": null,
+              "idleUnitSteps": 12645,
+              "switches": null
+            },
+            {
+              "shots": 403,
+              "damage": 47598.31186106447,
+              "alive": 0,
+              "decisions": 8970,
+              "decisionMs": 70.78619999998955,
+              "paths": null,
+              "idleUnitSteps": 13459,
+              "switches": null
+            },
+            {
+              "shots": 415,
+              "damage": 47790.53894660179,
+              "alive": 0,
+              "decisions": 9641,
+              "decisionMs": 82.75110000008317,
+              "paths": null,
+              "idleUnitSteps": 12645,
+              "switches": null
+            }
+          ]
+        },
+        "after": {
+          "p50": 1.6334999999999127,
+          "p95": 3.7820000000010623,
+          "runs": [
+            {
+              "shots": 387,
+              "damage": 49004.07237990069,
+              "alive": 5,
+              "decisions": 10755,
+              "decisionMs": 307.3981999999796,
+              "paths": 223,
+              "idleUnitSteps": 13568,
+              "switches": 293
+            },
+            {
+              "shots": 416,
+              "damage": 48727.76565972239,
+              "alive": 6,
+              "decisions": 10686,
+              "decisionMs": 238.11910000011267,
+              "paths": 162,
+              "idleUnitSteps": 13338,
+              "switches": 234
+            },
+            {
+              "shots": 416,
+              "damage": 48727.76565972239,
+              "alive": 6,
+              "decisions": 10686,
+              "decisionMs": 231.33160000006137,
+              "paths": 162,
+              "idleUnitSteps": 13338,
+              "switches": 234
+            }
+          ]
+        },
+        "p95ChangePercent": 26.075071671420737
+      },
+      {
+        "scene": "endless4",
+        "race": "protoss",
+        "before": {
+          "p50": 1.412899999999354,
+          "p95": 2.761000000000422,
+          "runs": [
+            {
+              "shots": 502,
+              "damage": 49440.06247582042,
+              "alive": 10,
+              "decisions": 10009,
+              "decisionMs": 85.57600000004277,
+              "paths": null,
+              "idleUnitSteps": 12296,
+              "switches": null
+            },
+            {
+              "shots": 529,
+              "damage": 49268.611860139245,
+              "alive": 10,
+              "decisions": 10052,
+              "decisionMs": 80.83619999996881,
+              "paths": null,
+              "idleUnitSteps": 12441,
+              "switches": null
+            },
+            {
+              "shots": 529,
+              "damage": 49268.611860139245,
+              "alive": 10,
+              "decisions": 10052,
+              "decisionMs": 80.45590000019729,
+              "paths": null,
+              "idleUnitSteps": 12441,
+              "switches": null
+            }
+          ]
+        },
+        "after": {
+          "p50": 1.483700000000681,
+          "p95": 3.6944000000003143,
+          "runs": [
+            {
+              "shots": 457,
+              "damage": 49190.31272353366,
+              "alive": 9,
+              "decisions": 10465,
+              "decisionMs": 332.6425000001509,
+              "paths": 321,
+              "idleUnitSteps": 10295,
+              "switches": 386
+            },
+            {
+              "shots": 475,
+              "damage": 49459.79546472973,
+              "alive": 9,
+              "decisions": 10440,
+              "decisionMs": 283.6283000002004,
+              "paths": 227,
+              "idleUnitSteps": 9983,
+              "switches": 349
+            },
+            {
+              "shots": 457,
+              "damage": 49190.31272353366,
+              "alive": 9,
+              "decisions": 10465,
+              "decisionMs": 311.2768999999862,
+              "paths": 321,
+              "idleUnitSteps": 10295,
+              "switches": 386
+            }
+          ]
+        },
+        "p95ChangePercent": 33.80659181455088
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "AUTO-1.2-PERF-01",
+      "owner": "AUTO-1.2",
+      "status": "measured; remaining cost disclosed",
+      "detail": "Initial dense p95 exceeded investigation threshold. Profiles and decision timings identified repeated threat/mode/planning/defense queries; cached threat/mode checks, conservative kill screen and cheap lifecycle cleanup reduce dense final increases to about 3–4%. Endless round 4 still costs about 26–34% (roughly +0.8–0.9 ms p95); extra decisions/path allocation and changed combat populations remain. No fixed steps, attacks or backlog dropped. This is not device FPS acceptance."
+    },
+    {
+      "id": "AUTO-1.2-CONTACT-01",
+      "owner": "AUTO-1.2",
+      "status": "explicit scope limit",
+      "detail": "Eight mixed-size melee around two adjacent small targets saturate contact positions: seven attackers output in both baselines, with a different waiting member. A free slot is required; neither all-unit contact nor universal time-to-first-hit improvement is claimed."
+    }
+  ],
+  "resolved": [
+    "Stationary blocked rear members wrongly treated as moving fire; movement intent and actual movement separated.",
+    "Crowded slot block cache preserved while global reservations are shared.",
+    "Storm score originally subtracted armor although actual storm penetrates armor; corrected and high-armor target regression passed.",
+    "Restricted child-process launches failed with EPERM; approved local test/build/browser executions reran successfully.",
+    "Initial campaign baseline used foreign FlatTerrain class identity; corrected to matching source class and sandbox isolation before comparison."
+  ],
+  "limits": [
+    "Synthetic fixed-seed scenes and finite normal-clock renderer cases; not natural long campaign or balance acceptance.",
+    "Browser phones are emulated; no physical mobile or user acceptance.",
+    "Shared checkout includes existing tutorial/endless/player-feedback work; only listed source changes belong to this batch.",
+    "Areas credit only currently covered authoritative receipts; unknown heroes/elites/shared absorption are conservative zero, not full predictive coverage.",
+    "Automatic-mode benefit comparison is four bounded cases, not a promise of optimal behavior in every battle."
+  ],
+  "delivery": {
+    "implemented": true,
+    "localBuild": true,
+    "committed": false,
+    "pushed": false,
+    "deployed": false,
+    "published": false,
+    "humanAccepted": false
+  },
+  "retention": {
+    "keep": [
+      "concise report and implementation document",
+      "current independent packed candidate",
+      "source/tests/reproduction tools",
+      "baseline reconstruction patch"
+    ],
+    "remove": [
+      "temporary logs/screenshots/profiles/synthetic saves",
+      "superseded original Web output and test diagnostic bundle",
+      "duplicated baseline source after reconstruction patch is verified"
+    ],
+    "completed": true
+  },
+  "localEntry": {
+    "url": "http://127.0.0.1:18916/",
+    "build": "0029cb55165281964a3d4c64dc9937614f332bef33b5da537c642ca9e1079329",
+    "servedEntrySHA": "13ecdd37238a1b5bc4d682155e469f7ffe6c9e1bc04c040cfebbeec46e7576d3",
+    "verified": true
+  }
+}

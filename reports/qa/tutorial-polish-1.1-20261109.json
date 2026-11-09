@@ -1,0 +1,3019 @@
+{
+  "date": "2026-11-09",
+  "status": "local candidate ready for user review",
+  "version": "1.1.0-local.4",
+  "appBuildId": "0d150284919fdc47f8e5d6845c52bf654697d8ce252fae95c1f0b2c6b1d01ab8",
+  "resourceRelease": "896aa637c320cd765bc96a139a648c8d238caa3daa3eaed745aaaea02099930b",
+  "branch": "体积优化版",
+  "head": "6510fb2a85a4140aecb6151ab0ab3132b42f239a",
+  "candidate": "D:\\星际\\dist\\tutorial-1.1-polish-20261109\\candidate",
+  "sourceFiles": [
+    {
+      "file": "src/simulation/tutorial/guided.ts",
+      "bytes": 19426,
+      "sha256": "a5a87fb60a2ec55053dc641e565c71c779431d6e0039869ffe77a2d41d7e1c44"
+    },
+    {
+      "file": "src/data/tutorial-script.ts",
+      "bytes": 6926,
+      "sha256": "2b6890c92d0b97bbb242080fb9f8a5e2984a2116de88bae60961bcc8ce0c5aa5"
+    },
+    {
+      "file": "src/ui/tutorial.ts",
+      "bytes": 11865,
+      "sha256": "21f5413c330f7a174ba66f73e768a04e9385a8784f4c86c1b2f831b6a976f0b2"
+    },
+    {
+      "file": "src/ui/tutorial-guided.ts",
+      "bytes": 10684,
+      "sha256": "cb7d10ac51399dbd6c70076288a4d28dcc72876e9ff64fc976289227c1bd370a"
+    },
+    {
+      "file": "src/ui/tutorial.css",
+      "bytes": 4098,
+      "sha256": "d6b290b8f17e6cb6405a7b7820f2d359e6a6277a9e9bacf593bb41cc63c5fd92"
+    },
+    {
+      "file": "src/render/effects/audio.ts",
+      "bytes": 15879,
+      "sha256": "457110c730a3419baa85a2d7fc871a2e4196f2bea8fbf0f52381cef1475f2b21"
+    },
+    {
+      "file": "src/assets/manifest.ts",
+      "bytes": 2482,
+      "sha256": "3bf63a2f3a8036b5126ecdf1c285744b9037ff49b6312854e684c0c8736552c3"
+    },
+    {
+      "file": "src/assets/tutorial-voice.ts",
+      "bytes": 18123,
+      "sha256": "2750f2645ffeae5d6b536fa10534be67a453b1e29f7677f25fc1b59ae56b5710"
+    },
+    {
+      "file": "src/data/tutorial-voice.ts",
+      "bytes": 9301,
+      "sha256": "3cb85857ae49a9abc3181584cb87e8c17e95998c3fa96f57fb811d7e8b3c54b1"
+    },
+    {
+      "file": "test/short-tutorial.test.ts",
+      "bytes": 12597,
+      "sha256": "88ed2300d6e6e7063ce6d82c3c7f502b3bcb670da1672a2cc34d143ed158aeb4"
+    },
+    {
+      "file": "test/tutorial-audio.test.ts",
+      "bytes": 1839,
+      "sha256": "1d1a0677242e0a340aa74307f2ba653bf779d777f7b85960c2ff930c46a6c65f"
+    },
+    {
+      "file": "test/tutorial-voice.test.ts",
+      "bytes": 948,
+      "sha256": "267820d86c554197ce87d61d1140306d827aaaab95e8feed9374796113c020dc"
+    },
+    {
+      "file": "deploy/runtime/tutorial-voices.json",
+      "bytes": 82595,
+      "sha256": "0b5122a5eaa5abc9937ada6bbb35843d90531da8c7f2cd0695eedc0ed7eeed89"
+    },
+    {
+      "file": "assets/generated/tutorial-voices-20261109/plan.json",
+      "bytes": 15168,
+      "sha256": "277c5edbb5ab5e0b8f44bcd3e8427c4ff19c0bcc308e5e0e91b26e910c33dbe4"
+    }
+  ],
+  "sourceHashScope": "Shared uncommitted workspace snapshot; build ID and CHECKSUMS identify this artifact. Other tasks retain their own validation scope.",
+  "changes": [
+    "成功操作后的强制结果反馈由2秒缩为0.5秒；操作前可自行阅读，配音不锁输入。",
+    "删除精英掉落数量/品质预告；实际双白装计划及物品身份不变。",
+    "用户明确批准离线试听音色后录制完整指令，副官女声Huihui、执行官男声Kangkang；虫后仍为原版短震动。",
+    "原UI几何、覆盖层右上锚点及手机两行字幕保持。"
+  ],
+  "narration": {
+    "clips": 82,
+    "bytes": 3378008,
+    "source": "Installed offline Windows Chinese TTS, user-approved samples; not original SC2 actor recordings.",
+    "authorization": "User: 按这组音色录制完整台词",
+    "externalUploads": false,
+    "paidServices": false,
+    "loading": "Only current race and caption; no cross-race preload. Start after scene readiness; cancel on caption/page/skip. Short success feedback stays visual.",
+    "sourceRegistry": "deploy/runtime/tutorial-voices.json",
+    "missing": []
+  },
+  "compatibility": {
+    "runSchema": 26,
+    "profileSchema": 6,
+    "archiveSchema": 2,
+    "rewards": "Same 100/50 pickup, paid production and same two white item identities; no schema change or settlement change."
+  },
+  "verification": {
+    "npmTest": {
+      "count": 3075,
+      "pass": 3075,
+      "fail": 0,
+      "scope": "Full regression after core voice/timing changes; final readiness and brief-text edits additionally covered by 16 targeted tests, typecheck and final same-build browser checks."
+    },
+    "targetedTests": 16,
+    "typecheck": true,
+    "docsCheck": true,
+    "integrity": {
+      "appBuildId": "0d150284919fdc47f8e5d6845c52bf654697d8ce252fae95c1f0b2c6b1d01ab8",
+      "release": "896aa637c320cd765bc96a139a648c8d238caa3daa3eaed745aaaea02099930b",
+      "logicalAssets": 3932,
+      "unchangedOldAssetRecords": 3847,
+      "uniquePayloadsChecked": 5223,
+      "physicalFilesChecked": 446,
+      "physicalBytes": 466384637,
+      "payloadBytes": 828290022,
+      "check": "Every actual high/medium/low and explicit GPU-sidecar slice SHA256/length validated; preceding packed records identical",
+      "passed": true
+    },
+    "nativeUI": {
+      "scope": "Unmodified baseline and actual production candidate entry; separate fresh Chrome contexts, 1440x900; no diagnostic entry or source gameplay hooks",
+      "cases": [
+        {
+          "name": "baseline",
+          "uiPhase": "battle",
+          "overlayHidden": true,
+          "geometry": {
+            "#minimap": {
+              "x": 0,
+              "y": 593.71875,
+              "width": 300.515625,
+              "height": 306.28125,
+              "visible": true
+            },
+            "#minimap-canvas": {
+              "x": 20.3125,
+              "y": 670.65625,
+              "width": 225.015625,
+              "height": 217.765625,
+              "visible": true
+            },
+            "#battle-console .army-row": {
+              "x": 297.5625,
+              "y": 673.546875,
+              "width": 821.65625,
+              "height": 226.453125,
+              "visible": true
+            },
+            ".native-army-parts": {
+              "x": 297.5625,
+              "y": 441.296875,
+              "width": 821.65625,
+              "height": 458.703125,
+              "visible": true
+            },
+            "#battle-console .command-row": {
+              "x": 1119.171875,
+              "y": 627.125,
+              "width": 320.828125,
+              "height": 272.875,
+              "visible": true
+            },
+            "#console-commands": {
+              "x": 1127.828125,
+              "y": 708.4375,
+              "width": 289.71875,
+              "height": 168.375,
+              "visible": true
+            }
+          },
+          "armyFrames": [
+            "205 0 35 316",
+            "240 0 400 316",
+            "640 0 41 316"
+          ]
+        },
+        {
+          "name": "candidate",
+          "uiPhase": "battle",
+          "overlayHidden": true,
+          "geometry": {
+            "#minimap": {
+              "x": 0,
+              "y": 593.71875,
+              "width": 300.515625,
+              "height": 306.28125,
+              "visible": true
+            },
+            "#minimap-canvas": {
+              "x": 20.3125,
+              "y": 670.65625,
+              "width": 225.015625,
+              "height": 217.765625,
+              "visible": true
+            },
+            "#battle-console .army-row": {
+              "x": 297.5625,
+              "y": 673.546875,
+              "width": 821.65625,
+              "height": 226.453125,
+              "visible": true
+            },
+            ".native-army-parts": {
+              "x": 297.5625,
+              "y": 441.296875,
+              "width": 821.65625,
+              "height": 458.703125,
+              "visible": true
+            },
+            "#battle-console .command-row": {
+              "x": 1119.171875,
+              "y": 627.125,
+              "width": 320.828125,
+              "height": 272.875,
+              "visible": true
+            },
+            "#console-commands": {
+              "x": 1127.828125,
+              "y": 708.4375,
+              "width": 289.71875,
+              "height": 168.375,
+              "visible": true
+            }
+          },
+          "armyFrames": [
+            "205 0 35 316",
+            "240 0 400 316",
+            "640 0 41 316"
+          ]
+        },
+        {
+          "name": "candidate-accepted",
+          "uiPhase": "battle",
+          "overlayHidden": true,
+          "geometry": {
+            "#minimap": {
+              "x": 0,
+              "y": 593.71875,
+              "width": 300.515625,
+              "height": 306.28125,
+              "visible": true
+            },
+            "#minimap-canvas": {
+              "x": 20.3125,
+              "y": 670.65625,
+              "width": 225.015625,
+              "height": 217.765625,
+              "visible": true
+            },
+            "#battle-console .army-row": {
+              "x": 297.5625,
+              "y": 673.546875,
+              "width": 821.65625,
+              "height": 226.453125,
+              "visible": true
+            },
+            ".native-army-parts": {
+              "x": 297.5625,
+              "y": 441.296875,
+              "width": 821.65625,
+              "height": 458.703125,
+              "visible": true
+            },
+            "#battle-console .command-row": {
+              "x": 1119.171875,
+              "y": 627.125,
+              "width": 320.828125,
+              "height": 272.875,
+              "visible": true
+            },
+            "#console-commands": {
+              "x": 1127.828125,
+              "y": 708.4375,
+              "width": 289.71875,
+              "height": 168.375,
+              "visible": true
+            }
+          },
+          "armyFrames": [
+            "205 0 35 316",
+            "240 0 400 316",
+            "640 0 41 316"
+          ]
+        }
+      ],
+      "errors": [],
+      "battleFrameCss": {
+        "baseline": "37abe5577e63105a804ee7316d749706040fb107f6ca97f1f46677dce02a2ac2",
+        "candidate": "37abe5577e63105a804ee7316d749706040fb107f6ca97f1f46677dce02a2ac2"
+      },
+      "passed": true
+    },
+    "recovery": {
+      "passed": true,
+      "scope": "Native Chrome UI, isolated empty storage; real reload and asset preparation, no player saves or injected damage.",
+      "cases": [
+        "first menu exit/reload retains eligibility without invitation",
+        "undecided invitation restores before battle assets",
+        "decline enters ordinary first campaign, no tutorial map",
+        "accepted departure reload auto-resumes into lesson without another invitation",
+        "battle skip then immediate reload retains choice and transfers same run/property to normal map",
+        "completed account reload has no invitation"
+      ],
+      "errors": []
+    },
+    "camera": {
+      "passed": true,
+      "build": {
+        "appBuildId": "0d150284919fdc47f8e5d6845c52bf654697d8ce252fae95c1f0b2c6b1d01ab8",
+        "sha256": "8daebed5012075aeaf9d578efd720066837f3c8378d18204e710f66e838a4f0b",
+        "onlyChanges": "Fixed startup and new-run map seed 17; exposed returned app; gameplay and UI use production modules",
+        "assistance": "None in the build. New guided replay uses native clicks and the ordinary clock, without direct damage or HP changes. Browser phones are emulated."
+      },
+      "cases": [
+        {
+          "name": "real camera pan with fixed zoom/pitch and one cue per continuous subtitle",
+          "first": {
+            "focus": {
+              "x": 0,
+              "z": 0
+            },
+            "zoom": 1.1,
+            "pitch": 52.5,
+            "camera": [
+              0,
+              24.52183051809272,
+              18.816262351178636
+            ],
+            "anchor": {
+              "x": 0,
+              "z": 0,
+              "facing": 1.5707963267948966
+            },
+            "step": "rescue-worker",
+            "status": "active",
+            "prefs": "{\"landscape\":{\"zoom\":1.1,\"pitch\":52.5,\"mode\":\"fixed\"},\"portrait\":{\"zoom\":1,\"pitch\":50,\"mode\":\"fixed\"}}",
+            "comms": true,
+            "marks": true,
+            "highlights": 0
+          },
+          "during": {
+            "focus": {
+              "x": 4,
+              "z": 0
+            },
+            "zoom": 1.1,
+            "pitch": 52.5,
+            "camera": [
+              3.7871310560218703,
+              24.52183051809272,
+              18.816262351178636
+            ],
+            "anchor": {
+              "x": 0,
+              "z": 0,
+              "facing": 1.5707963267948966
+            },
+            "step": "rescue-worker",
+            "status": "active",
+            "prefs": "{\"landscape\":{\"zoom\":1.1,\"pitch\":52.5,\"mode\":\"fixed\"},\"portrait\":{\"zoom\":1,\"pitch\":50,\"mode\":\"fixed\"}}",
+            "comms": true,
+            "marks": true,
+            "highlights": 0
+          }
+        },
+        {
+          "name": "movement key cancels focus immediately without replay"
+        },
+        {
+          "name": "settings/page transition clears temporary focus and active narration"
+        },
+        {
+          "name": "skip clears narration and all presentation, leaves camera preference unchanged",
+          "skipped": {
+            "focus": null,
+            "zoom": 1.1,
+            "pitch": 52.5,
+            "camera": [
+              10.074492562469619,
+              24.52183051809272,
+              18.816262351178636
+            ],
+            "anchor": {
+              "x": 9.80000000000002,
+              "z": 0,
+              "facing": 1.5707963267948966
+            },
+            "step": "defeat-drone",
+            "status": "skipped",
+            "prefs": "{\"landscape\":{\"zoom\":1.1,\"pitch\":52.5,\"mode\":\"fixed\"},\"portrait\":{\"zoom\":1,\"pitch\":50,\"mode\":\"fixed\"}}",
+            "comms": false,
+            "marks": false,
+            "highlights": 0
+          }
+        }
+      ],
+      "errors": [],
+      "physicalPhone": false,
+      "audio": [
+        {
+          "id": "tutorial.voice.terran.87d151999d35a5e988d1",
+          "stopped": true
+        },
+        {
+          "id": "tutorial.voice.terran.e31efe41874e8c58581b",
+          "stopped": true
+        },
+        {
+          "id": "tutorial.voice.terran.b6adc2f41c6204e8c380",
+          "stopped": true
+        },
+        {
+          "id": "tutorial.voice.terran.b6adc2f41c6204e8c380",
+          "stopped": true
+        },
+        {
+          "id": "tutorial.voice.terran.a2711c35219cdf6daf06",
+          "stopped": true
+        }
+      ]
+    },
+    "cache": {
+      "scope": "Real Windows Chrome, isolated empty IDB, old menu warmed then same-origin candidate update. No player data, no deployment.",
+      "requests": [
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-0d72305b77a1745bc663.bin",
+          "bytes": 1903080
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-26dbf702c5a228803ee1.bin",
+          "bytes": 1838902
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-448366ab4b0919fc9d0b.bin",
+          "bytes": 2088798
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-48c1f2938720ee7469c7.bin",
+          "bytes": 2034872
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-4e1c9e6dcc7693679df9.bin",
+          "bytes": 2093640
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-78a22e04996ae218619b.bin",
+          "bytes": 1997420
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-7d0aba76e6257d348db0.bin",
+          "bytes": 1919324
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-7d356c5d7423b800df75.bin",
+          "bytes": 2075772
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-844d5026b33637c1896c.bin",
+          "bytes": 2043990
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-d0efeb37c34909a6b98b.bin",
+          "bytes": 2083468
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-d7a2416699345f4081c0.bin",
+          "bytes": 1846180
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-dbcca4ab449fd91b652d.bin",
+          "bytes": 2036274
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-efdb5f7f1535b33e0b6c.bin",
+          "bytes": 2043974
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-f07ade418f61dd7ec0e8.bin",
+          "bytes": 2067070
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-fdfbbf40e5b04bc650d1.bin",
+          "bytes": 2081250
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-medium-c535a251391f45c0f458.bin",
+          "bytes": 1832439
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-common-f747d244832dd13e92d9.bin",
+          "bytes": 2063741
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-medium-68dfc0f74ca7ff1cf473.bin",
+          "bytes": 2028028
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/gpu-textures-cb20ce485bf9214154e0.bin",
+          "bytes": 1698469
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-common-8690609d39f3386d1159.bin",
+          "bytes": 1729284
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-common-ed66187aedfbf4d560fc.bin",
+          "bytes": 1899511
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-common-e7a5cf69de1e44b9e1af.bin",
+          "bytes": 1933174
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/tutorial-adjutant-d4932e06256d8fbcfb84.bin",
+          "bytes": 40480
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/tutorial-87d151999d35a5e988d1-5627fcdb9e7184f7067a.bin",
+          "bytes": 51308
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-common-17a6adb552290fe295c6.bin",
+          "bytes": 1814340
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-common-6ff89d78fdabece08a4a.bin",
+          "bytes": 2062392
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-common-7f0833e87a315cb1fb92.bin",
+          "bytes": 1923899
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-common-85dadccbb719d0d18f74.bin",
+          "bytes": 2088791
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-common-d3defa63a49ea7f6a221.bin",
+          "bytes": 2091355
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-common-ff5ddf7c3b14bee39512.bin",
+          "bytes": 2086455
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-0695ba499cc9d012c273.bin",
+          "bytes": 1577480
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-06e7d23448c6b82933e0.bin",
+          "bytes": 623542
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-0edef685586d465cb4da.bin",
+          "bytes": 1835835
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-10b49719de254028b2fa.bin",
+          "bytes": 2028243
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-124d9813d1dfea91771a.bin",
+          "bytes": 1924520
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-1771f96888f1272c702b.bin",
+          "bytes": 2077523
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-1ca2ecd7e013a44fcfa1.bin",
+          "bytes": 1066067
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-1f6781caa228f4d8841b.bin",
+          "bytes": 1913514
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-29ee96f6fb2de5e53895.bin",
+          "bytes": 2033959
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-2a484372c44689948027.bin",
+          "bytes": 1828325
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-2f253acfba6d56d09d7a.bin",
+          "bytes": 832237
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-37d51c351557f808f3a5.bin",
+          "bytes": 1237181
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-3688ddb08ebba8f297fe.bin",
+          "bytes": 1759965
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-39605d2f623e9987afed.bin",
+          "bytes": 1832827
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-39344d25a049c5c2a7d0.bin",
+          "bytes": 1983586
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-3e90932bf51921fc1df5.bin",
+          "bytes": 2047116
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-399704c7ca7bdaecb9f3.bin",
+          "bytes": 1778315
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-4db46f4f8b0d175b83cc.bin",
+          "bytes": 2084010
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-597d1ae9f4540d51a972.bin",
+          "bytes": 1845397
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-5a502cf88d20e53fcf59.bin",
+          "bytes": 1934780
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-6112ae81213ae33a8314.bin",
+          "bytes": 1932349
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-65b86b0c87be4e274692.bin",
+          "bytes": 2020376
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-71206a989c00d7ac8d9b.bin",
+          "bytes": 1826122
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-71f077803c88692f1a22.bin",
+          "bytes": 1700882
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-7ba28b526c857f2d72e8.bin",
+          "bytes": 861183
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-846668815b2706c19d0b.bin",
+          "bytes": 1755795
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-85475283edc2ed75861e.bin",
+          "bytes": 1914544
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-8615f1090edc5949003f.bin",
+          "bytes": 1767489
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-87cc3d77fca135df4525.bin",
+          "bytes": 2059891
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-9afbe514b87f4ce8736e.bin",
+          "bytes": 1809778
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-b100ff65e20360131969.bin",
+          "bytes": 1932662
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-b51cc240cf4fb7195367.bin",
+          "bytes": 1400028
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-bf8a4d481be10cb94742.bin",
+          "bytes": 1989500
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-c3f1dfc63a1ee5f610af.bin",
+          "bytes": 1671457
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-c2c90790668e8a97ad29.bin",
+          "bytes": 2041181
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-ca92cb9a8f2e4fd43b08.bin",
+          "bytes": 1678321
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-cc8cfe78d75e54d218be.bin",
+          "bytes": 1772099
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-d0dfd28963dd2445ac4e.bin",
+          "bytes": 1508732
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-d25b98544103e7d59ab5.bin",
+          "bytes": 2053898
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-d24e29b8c955522ff4eb.bin",
+          "bytes": 1993413
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-d3bf838110cd5131989a.bin",
+          "bytes": 1910975
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-dda3d2ca5ec8d7403c1a.bin",
+          "bytes": 1568536
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-ddffac44d2fb94d0daa0.bin",
+          "bytes": 1941051
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-de0ea1bd1918bdeb932e.bin",
+          "bytes": 1996593
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-e462c8a1d4a5055e98f8.bin",
+          "bytes": 1896542
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-e625d683d2a084d89937.bin",
+          "bytes": 2055281
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-ec1768ed84f5160df58f.bin",
+          "bytes": 1578857
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-ecaee042feaf50bfe70a.bin",
+          "bytes": 2065772
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-ef3c781a3ac0fad6603f.bin",
+          "bytes": 1863370
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-f0041ce9fae352f8ba3c.bin",
+          "bytes": 1958089
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-f51d5557d188e5add37a.bin",
+          "bytes": 2039330
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-fc64aed071d7a556b09f.bin",
+          "bytes": 2080589
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-fe81d44eee1eb555e95e.bin",
+          "bytes": 1887096
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-feb4ebc74963ac58978c.bin",
+          "bytes": 1572798
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/gpu-textures-d9fb5b66a9b688ff811a.bin",
+          "bytes": 1948892
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/gpu-textures-ae15c2df783b0b9408eb.bin",
+          "bytes": 1420663
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-common-4fe9780acc86d6900ca7.bin",
+          "bytes": 2093323
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-low-169fd9f6960a6e49e780.bin",
+          "bytes": 1230678
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-low-0ff10f6a5c00793cf0fa.bin",
+          "bytes": 1885737
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-low-3588cdad8a49936fbc23.bin",
+          "bytes": 2002022
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-low-1e68949433f59fe6bf23.bin",
+          "bytes": 1897546
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-low-3bcc284346ee59247bc5.bin",
+          "bytes": 1306045
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-low-5083b90e00d4cc0e9068.bin",
+          "bytes": 2058818
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-low-6694c5d1bc20b540a444.bin",
+          "bytes": 2020571
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-low-c539aca3327ce1697112.bin",
+          "bytes": 1991024
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-low-d4e83bff57195fcafea8.bin",
+          "bytes": 1957687
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-362342fd0acf7e9f8bf4.bin",
+          "bytes": 1509493
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-6723bc02d0543c73e991.bin",
+          "bytes": 1823783
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-6d2e6f7fa9fd035c9df7.bin",
+          "bytes": 1777540
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-6e881df9111ea27d774b.bin",
+          "bytes": 1187402
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-eeeff40eb0dec15dd7bf.bin",
+          "bytes": 871777
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/gpu-textures-533c6e019164840b90b0.bin",
+          "bytes": 1559508
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-02f8d9f027d11b0acecd.bin",
+          "bytes": 247681
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-0364f242c340750fe723.bin",
+          "bytes": 247435
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-062c534f85d166b30ac2.bin",
+          "bytes": 256485
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-07f6e4d0b9069fb613bc.bin",
+          "bytes": 255459
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-0830804b18f3fffbc6b2.bin",
+          "bytes": 260026
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-08fc153dac07a27185cb.bin",
+          "bytes": 234915
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-0d8abe15a1a3a1a8cbff.bin",
+          "bytes": 244490
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-105af9c2d2e29e767c0c.bin",
+          "bytes": 260591
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-10d0169723879a11cc65.bin",
+          "bytes": 255803
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-11a4247f30b1ea6840b8.bin",
+          "bytes": 257082
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-1b9257fd1b6edfda4467.bin",
+          "bytes": 251078
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-1ef7ef1c1f34c5ed3600.bin",
+          "bytes": 258771
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-1f4f3db4a72c71a84480.bin",
+          "bytes": 258403
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-2420e25a67871264f363.bin",
+          "bytes": 256592
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-24bd286a1f3f5f7e228f.bin",
+          "bytes": 261069
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-25cef3b57d11b727b8b0.bin",
+          "bytes": 248110
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-2ade3723fe04934d21dc.bin",
+          "bytes": 223312
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-2b85a3652801e190317e.bin",
+          "bytes": 249765
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-2e7c0f07d1e96e971208.bin",
+          "bytes": 258932
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-31cdd7ef3834bf1575e6.bin",
+          "bytes": 243318
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-321d267f1e8f6d619eb2.bin",
+          "bytes": 241564
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-37823d1e3eb5bf1477f4.bin",
+          "bytes": 253460
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-37cfa49720cc105de0db.bin",
+          "bytes": 260332
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-380eb656e172edc75c2c.bin",
+          "bytes": 255598
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-38160d0b7281af000d42.bin",
+          "bytes": 253742
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-384b039074f8dd6e8583.bin",
+          "bytes": 252349
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-389a2145f6f19d8ee96e.bin",
+          "bytes": 244090
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-395a242cb1bf8f6b1db4.bin",
+          "bytes": 246865
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-3a6f8b9d317f49182919.bin",
+          "bytes": 257620
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-40f2549c3b7acfd6c1ae.bin",
+          "bytes": 248146
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-428c43944ab3f44b8b25.bin",
+          "bytes": 251320
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-4392b1f9ebe2172c7fa5.bin",
+          "bytes": 242670
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-45b7a3be840b962bcefa.bin",
+          "bytes": 94545
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-4c8ee4b2c7f902336e03.bin",
+          "bytes": 231430
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-5063d1a702970e750ec7.bin",
+          "bytes": 254204
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-5134f5a0fa13629fc1ba.bin",
+          "bytes": 257245
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-519ca2115b3e31e6014f.bin",
+          "bytes": 218981
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-5478d7fd1565ecd53e1d.bin",
+          "bytes": 254541
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-59e69a192d386eb51017.bin",
+          "bytes": 259002
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-5a0c1c2f9c5d041635a3.bin",
+          "bytes": 248799
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-5afbb120634e6394417c.bin",
+          "bytes": 260110
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-5b4ba6673eaec252ad1d.bin",
+          "bytes": 245946
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-5b536d5298c5d04e4351.bin",
+          "bytes": 246681
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-5d10a740e71be7b8e5ce.bin",
+          "bytes": 254675
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-5df6c05e4cb6f601cb60.bin",
+          "bytes": 240837
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-5ff34db444dc4231b900.bin",
+          "bytes": 257722
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-6088c9e3acb212392656.bin",
+          "bytes": 243558
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-60b52312dabce9433235.bin",
+          "bytes": 259205
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-6142bcde432ab84ada4f.bin",
+          "bytes": 254682
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-6332d025434256e44345.bin",
+          "bytes": 249780
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-635b360123846a41669f.bin",
+          "bytes": 257532
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-6764c630219249d5c537.bin",
+          "bytes": 260539
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-6836824a23edf30e2532.bin",
+          "bytes": 260656
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-6afd49e0271efcdd5296.bin",
+          "bytes": 255331
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-6c2dcb24a3d05117a3fb.bin",
+          "bytes": 218849
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-6c3ed0d24e09598ba2c3.bin",
+          "bytes": 252246
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-6d263f9044202139912e.bin",
+          "bytes": 241020
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-6ed2b1d9329206a26601.bin",
+          "bytes": 252042
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-7335e5b943e963fba6d9.bin",
+          "bytes": 240447
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-75015b312b8c5bd8fcd8.bin",
+          "bytes": 252160
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-759ecbb16cf250e43ce1.bin",
+          "bytes": 251593
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-776a3931bd1046ad900c.bin",
+          "bytes": 227894
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-7a298076253769109bf0.bin",
+          "bytes": 243766
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-7c6b343190d8a8881369.bin",
+          "bytes": 260975
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-7db2f13fa1d3f75c3bab.bin",
+          "bytes": 250400
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-7e5657c33f59344b3e97.bin",
+          "bytes": 247803
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-7e7d8c252c8ddba1a739.bin",
+          "bytes": 252023
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-86d60823e56edc415ccd.bin",
+          "bytes": 258737
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-8740bde9def153973035.bin",
+          "bytes": 246892
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-881fe296d788cd8f2452.bin",
+          "bytes": 257375
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-89588b37b5774ff19b4b.bin",
+          "bytes": 257100
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-89d4abc2aba60370f640.bin",
+          "bytes": 253617
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-8b4b44a0244d16b654be.bin",
+          "bytes": 258325
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-8c09981bc15dd7fca865.bin",
+          "bytes": 253725
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-8dc3e6c896fcecce2c02.bin",
+          "bytes": 260776
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-8fe28357b08130353710.bin",
+          "bytes": 250641
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-9426b9ebb39f93bb76eb.bin",
+          "bytes": 256221
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-9b86f76785393a77c1a4.bin",
+          "bytes": 247359
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-9d29f0429a612872d012.bin",
+          "bytes": 259671
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-a01e78451fbfd568c4f4.bin",
+          "bytes": 252222
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-9fee41b130d7c4e3bb93.bin",
+          "bytes": 246003
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-9e2b565006188d21e718.bin",
+          "bytes": 246870
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-a104b358d6b330adea18.bin",
+          "bytes": 253130
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-a12d0e2e1b7193fb0b88.bin",
+          "bytes": 253972
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-a1cbff7417d3daeea6a7.bin",
+          "bytes": 254704
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-a5f6f7da7f49ced1d281.bin",
+          "bytes": 221738
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-a843f43d16fd90664494.bin",
+          "bytes": 261045
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-b4f538d76823e9f93577.bin",
+          "bytes": 240591
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-b7ff98bd26a0a29f7220.bin",
+          "bytes": 261502
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-bbcc9578f00580c5a3d7.bin",
+          "bytes": 259988
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-bc6f1dc9ce2b321ebcb8.bin",
+          "bytes": 258271
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-c1b9512bf115dc92dfdf.bin",
+          "bytes": 241799
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-c1dacc5ea4095bb397f7.bin",
+          "bytes": 227142
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-c2e5a0c5a20ccc274f2e.bin",
+          "bytes": 260050
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-c4ee6a02549f91db59ae.bin",
+          "bytes": 254539
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-c63d4a10153a16815852.bin",
+          "bytes": 252068
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-cb52d5a11f42f3513881.bin",
+          "bytes": 249701
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-c9f28f96cee6238449d5.bin",
+          "bytes": 245333
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-cd7ba89fd75b4d78a9bd.bin",
+          "bytes": 258749
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-d39cbf4880b6b570edf0.bin",
+          "bytes": 248522
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-d7ceb48c366db7879978.bin",
+          "bytes": 223145
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-d99bb51789ee8a0061e8.bin",
+          "bytes": 256745
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-da051e682eba601d6a54.bin",
+          "bytes": 259538
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-dfa1d3587e9ef1b6cacc.bin",
+          "bytes": 260065
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-e0b9f2f1577e4a368634.bin",
+          "bytes": 261668
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-e29a84b9f6d6ef4be164.bin",
+          "bytes": 253856
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-e467c447fb029d69dae3.bin",
+          "bytes": 239142
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-e52bd7d654d0451442c5.bin",
+          "bytes": 262045
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-e5fdc0ffe005dcffc79a.bin",
+          "bytes": 243041
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-e67ffd64efddcbbd240c.bin",
+          "bytes": 256698
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-e78d464a2771f14ffbaf.bin",
+          "bytes": 228219
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-e7989943c18e80490149.bin",
+          "bytes": 206257
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-e85d6a18a80a401c487c.bin",
+          "bytes": 239079
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-ebeb70428ef5178e342a.bin",
+          "bytes": 245734
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-f2a8e6e914a00f094307.bin",
+          "bytes": 261084
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-f4758023cad49ae1f694.bin",
+          "bytes": 235773
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-fd0e5854e24a91ed950e.bin",
+          "bytes": 250602
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-fec2f0f8b1f115e5c7d3.bin",
+          "bytes": 254848
+        }
+      ],
+      "responses": [
+        {
+          "phase": "baseline",
+          "file": "index.html",
+          "bytes": 955167
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/index-d014d7f22dd8d499.js",
+          "bytes": 5408
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/index-Bz6c-d6s.css",
+          "bytes": 645821
+        },
+        {
+          "phase": "baseline",
+          "file": "sites-sw.bd646d557a5dc16c1b8b.js",
+          "bytes": 13637
+        },
+        {
+          "phase": "baseline",
+          "file": "sites-pack-index.0bb43ff1011a0ab1462d.js",
+          "bytes": 782043
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/sc2-entry.c3dff6d37875296d.js.gz",
+          "bytes": 7680211
+        },
+        {
+          "phase": "baseline",
+          "file": "asset-manifest.50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a.json",
+          "bytes": 2309774
+        },
+        {
+          "phase": "baseline",
+          "file": "runtime-config.json",
+          "bytes": 19
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-0d72305b77a1745bc663.bin",
+          "bytes": 1903080
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-26dbf702c5a228803ee1.bin",
+          "bytes": 1838902
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-448366ab4b0919fc9d0b.bin",
+          "bytes": 2088798
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-48c1f2938720ee7469c7.bin",
+          "bytes": 2034872
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-4e1c9e6dcc7693679df9.bin",
+          "bytes": 2093640
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-78a22e04996ae218619b.bin",
+          "bytes": 1997420
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-7d0aba76e6257d348db0.bin",
+          "bytes": 1919324
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-7d356c5d7423b800df75.bin",
+          "bytes": 2075772
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-844d5026b33637c1896c.bin",
+          "bytes": 2043990
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-d0efeb37c34909a6b98b.bin",
+          "bytes": 2083468
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-d7a2416699345f4081c0.bin",
+          "bytes": 1846180
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-dbcca4ab449fd91b652d.bin",
+          "bytes": 2036274
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-efdb5f7f1535b33e0b6c.bin",
+          "bytes": 2043974
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-f07ade418f61dd7ec0e8.bin",
+          "bytes": 2067070
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-menu-fdfbbf40e5b04bc650d1.bin",
+          "bytes": 2081250
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-medium-c535a251391f45c0f458.bin",
+          "bytes": 1832439
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-common-f747d244832dd13e92d9.bin",
+          "bytes": 2063741
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/bundle-medium-68dfc0f74ca7ff1cf473.bin",
+          "bytes": 2028028
+        },
+        {
+          "phase": "baseline",
+          "file": "assets/gpu-textures-cb20ce485bf9214154e0.bin",
+          "bytes": 1698469
+        },
+        {
+          "phase": "baseline",
+          "file": "basis/basis_transcoder.js",
+          "bytes": 57529
+        },
+        {
+          "phase": "baseline",
+          "file": "basis/basis_transcoder.wasm",
+          "bytes": 527333
+        },
+        {
+          "phase": "candidate",
+          "file": "index.html",
+          "bytes": 955167
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/index-d6651e8511790c03.js",
+          "bytes": 5408
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/index-CK2C16QO.css",
+          "bytes": 649697
+        },
+        {
+          "phase": "candidate",
+          "file": "sites-sw.f7927b7a5963cdfc99c1.js",
+          "bytes": 13637
+        },
+        {
+          "phase": "candidate",
+          "file": "sites-pack-index.b33a4de0ca12379b04fe.js",
+          "bytes": 795432
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/sc2-entry.b4b7adba7e8425df.js.gz",
+          "bytes": 7717488
+        },
+        {
+          "phase": "candidate",
+          "file": "asset-manifest.896aa637c320cd765bc96a139a648c8d238caa3daa3eaed745aaaea02099930b.json",
+          "bytes": 2330738
+        },
+        {
+          "phase": "candidate",
+          "file": "runtime-config.json",
+          "bytes": 19
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/a8b4c87df6e68a28e834bf81595453dcfb7a24c19c4fe1dea2fbd43b17453ca0.mp3",
+          "bytes": 2573610
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-common-8690609d39f3386d1159.bin",
+          "bytes": 1729284
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-common-ed66187aedfbf4d560fc.bin",
+          "bytes": 1899511
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-common-e7a5cf69de1e44b9e1af.bin",
+          "bytes": 1933174
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/tutorial-adjutant-d4932e06256d8fbcfb84.bin",
+          "bytes": 40480
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/tutorial-87d151999d35a5e988d1-5627fcdb9e7184f7067a.bin",
+          "bytes": 51308
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-common-17a6adb552290fe295c6.bin",
+          "bytes": 1814340
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-common-6ff89d78fdabece08a4a.bin",
+          "bytes": 2062392
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-common-7f0833e87a315cb1fb92.bin",
+          "bytes": 1923899
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-common-85dadccbb719d0d18f74.bin",
+          "bytes": 2088791
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-common-d3defa63a49ea7f6a221.bin",
+          "bytes": 2091355
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-common-ff5ddf7c3b14bee39512.bin",
+          "bytes": 2086455
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-0695ba499cc9d012c273.bin",
+          "bytes": 1577480
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-06e7d23448c6b82933e0.bin",
+          "bytes": 623542
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-0edef685586d465cb4da.bin",
+          "bytes": 1835835
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-10b49719de254028b2fa.bin",
+          "bytes": 2028243
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-124d9813d1dfea91771a.bin",
+          "bytes": 1924520
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-1771f96888f1272c702b.bin",
+          "bytes": 2077523
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-1ca2ecd7e013a44fcfa1.bin",
+          "bytes": 1066067
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-1f6781caa228f4d8841b.bin",
+          "bytes": 1913514
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-29ee96f6fb2de5e53895.bin",
+          "bytes": 2033959
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-2a484372c44689948027.bin",
+          "bytes": 1828325
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-2f253acfba6d56d09d7a.bin",
+          "bytes": 832237
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-37d51c351557f808f3a5.bin",
+          "bytes": 1237181
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-3688ddb08ebba8f297fe.bin",
+          "bytes": 1759965
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-39605d2f623e9987afed.bin",
+          "bytes": 1832827
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-39344d25a049c5c2a7d0.bin",
+          "bytes": 1983586
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-3e90932bf51921fc1df5.bin",
+          "bytes": 2047116
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-399704c7ca7bdaecb9f3.bin",
+          "bytes": 1778315
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-4db46f4f8b0d175b83cc.bin",
+          "bytes": 2084010
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-597d1ae9f4540d51a972.bin",
+          "bytes": 1845397
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-5a502cf88d20e53fcf59.bin",
+          "bytes": 1934780
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-6112ae81213ae33a8314.bin",
+          "bytes": 1932349
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-65b86b0c87be4e274692.bin",
+          "bytes": 2020376
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-71206a989c00d7ac8d9b.bin",
+          "bytes": 1826122
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-71f077803c88692f1a22.bin",
+          "bytes": 1700882
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-7ba28b526c857f2d72e8.bin",
+          "bytes": 861183
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-846668815b2706c19d0b.bin",
+          "bytes": 1755795
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-85475283edc2ed75861e.bin",
+          "bytes": 1914544
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-8615f1090edc5949003f.bin",
+          "bytes": 1767489
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-87cc3d77fca135df4525.bin",
+          "bytes": 2059891
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-9afbe514b87f4ce8736e.bin",
+          "bytes": 1809778
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-b100ff65e20360131969.bin",
+          "bytes": 1932662
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-b51cc240cf4fb7195367.bin",
+          "bytes": 1400028
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-bf8a4d481be10cb94742.bin",
+          "bytes": 1989500
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-c3f1dfc63a1ee5f610af.bin",
+          "bytes": 1671457
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-c2c90790668e8a97ad29.bin",
+          "bytes": 2041181
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-ca92cb9a8f2e4fd43b08.bin",
+          "bytes": 1678321
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-cc8cfe78d75e54d218be.bin",
+          "bytes": 1772099
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-d0dfd28963dd2445ac4e.bin",
+          "bytes": 1508732
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-d25b98544103e7d59ab5.bin",
+          "bytes": 2053898
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-d24e29b8c955522ff4eb.bin",
+          "bytes": 1993413
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-d3bf838110cd5131989a.bin",
+          "bytes": 1910975
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-dda3d2ca5ec8d7403c1a.bin",
+          "bytes": 1568536
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-ddffac44d2fb94d0daa0.bin",
+          "bytes": 1941051
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-de0ea1bd1918bdeb932e.bin",
+          "bytes": 1996593
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-e462c8a1d4a5055e98f8.bin",
+          "bytes": 1896542
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-e625d683d2a084d89937.bin",
+          "bytes": 2055281
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-ec1768ed84f5160df58f.bin",
+          "bytes": 1578857
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-ecaee042feaf50bfe70a.bin",
+          "bytes": 2065772
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-ef3c781a3ac0fad6603f.bin",
+          "bytes": 1863370
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-f0041ce9fae352f8ba3c.bin",
+          "bytes": 1958089
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-f51d5557d188e5add37a.bin",
+          "bytes": 2039330
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-fc64aed071d7a556b09f.bin",
+          "bytes": 2080589
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-fe81d44eee1eb555e95e.bin",
+          "bytes": 1887096
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-feb4ebc74963ac58978c.bin",
+          "bytes": 1572798
+        },
+        {
+          "phase": "candidate",
+          "file": "basis/basis_transcoder.js",
+          "bytes": 57529
+        },
+        {
+          "phase": "candidate",
+          "file": "basis/basis_transcoder.wasm",
+          "bytes": 527333
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/gpu-textures-d9fb5b66a9b688ff811a.bin",
+          "bytes": 1948892
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/gpu-textures-ae15c2df783b0b9408eb.bin",
+          "bytes": 1420663
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-common-4fe9780acc86d6900ca7.bin",
+          "bytes": 2093323
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-low-169fd9f6960a6e49e780.bin",
+          "bytes": 1230678
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-low-0ff10f6a5c00793cf0fa.bin",
+          "bytes": 1885737
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-low-3588cdad8a49936fbc23.bin",
+          "bytes": 2002022
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-low-1e68949433f59fe6bf23.bin",
+          "bytes": 1897546
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-low-3bcc284346ee59247bc5.bin",
+          "bytes": 1306045
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-low-5083b90e00d4cc0e9068.bin",
+          "bytes": 2058818
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-low-6694c5d1bc20b540a444.bin",
+          "bytes": 2020571
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-low-c539aca3327ce1697112.bin",
+          "bytes": 1991024
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-low-d4e83bff57195fcafea8.bin",
+          "bytes": 1957687
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-362342fd0acf7e9f8bf4.bin",
+          "bytes": 1509493
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-6723bc02d0543c73e991.bin",
+          "bytes": 1823783
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-6d2e6f7fa9fd035c9df7.bin",
+          "bytes": 1777540
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-6e881df9111ea27d774b.bin",
+          "bytes": 1187402
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-medium-eeeff40eb0dec15dd7bf.bin",
+          "bytes": 871777
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/gpu-textures-533c6e019164840b90b0.bin",
+          "bytes": 1559508
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-02f8d9f027d11b0acecd.bin",
+          "bytes": 247681
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-0364f242c340750fe723.bin",
+          "bytes": 247435
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-062c534f85d166b30ac2.bin",
+          "bytes": 256485
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-07f6e4d0b9069fb613bc.bin",
+          "bytes": 255459
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-0830804b18f3fffbc6b2.bin",
+          "bytes": 260026
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-08fc153dac07a27185cb.bin",
+          "bytes": 234915
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-0d8abe15a1a3a1a8cbff.bin",
+          "bytes": 244490
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-105af9c2d2e29e767c0c.bin",
+          "bytes": 260591
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-10d0169723879a11cc65.bin",
+          "bytes": 255803
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-11a4247f30b1ea6840b8.bin",
+          "bytes": 257082
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-1b9257fd1b6edfda4467.bin",
+          "bytes": 251078
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-1ef7ef1c1f34c5ed3600.bin",
+          "bytes": 258771
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-1f4f3db4a72c71a84480.bin",
+          "bytes": 258403
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-2420e25a67871264f363.bin",
+          "bytes": 256592
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-24bd286a1f3f5f7e228f.bin",
+          "bytes": 261069
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-25cef3b57d11b727b8b0.bin",
+          "bytes": 248110
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-2ade3723fe04934d21dc.bin",
+          "bytes": 223312
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-2b85a3652801e190317e.bin",
+          "bytes": 249765
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-2e7c0f07d1e96e971208.bin",
+          "bytes": 258932
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-31cdd7ef3834bf1575e6.bin",
+          "bytes": 243318
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-321d267f1e8f6d619eb2.bin",
+          "bytes": 241564
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-37823d1e3eb5bf1477f4.bin",
+          "bytes": 253460
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-37cfa49720cc105de0db.bin",
+          "bytes": 260332
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-380eb656e172edc75c2c.bin",
+          "bytes": 255598
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-38160d0b7281af000d42.bin",
+          "bytes": 253742
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-384b039074f8dd6e8583.bin",
+          "bytes": 252349
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-389a2145f6f19d8ee96e.bin",
+          "bytes": 244090
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-395a242cb1bf8f6b1db4.bin",
+          "bytes": 246865
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-3a6f8b9d317f49182919.bin",
+          "bytes": 257620
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-40f2549c3b7acfd6c1ae.bin",
+          "bytes": 248146
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-428c43944ab3f44b8b25.bin",
+          "bytes": 251320
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-4392b1f9ebe2172c7fa5.bin",
+          "bytes": 242670
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-45b7a3be840b962bcefa.bin",
+          "bytes": 94545
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-4c8ee4b2c7f902336e03.bin",
+          "bytes": 231430
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-5063d1a702970e750ec7.bin",
+          "bytes": 254204
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-5134f5a0fa13629fc1ba.bin",
+          "bytes": 257245
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-519ca2115b3e31e6014f.bin",
+          "bytes": 218981
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-5478d7fd1565ecd53e1d.bin",
+          "bytes": 254541
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-59e69a192d386eb51017.bin",
+          "bytes": 259002
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-5a0c1c2f9c5d041635a3.bin",
+          "bytes": 248799
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-5afbb120634e6394417c.bin",
+          "bytes": 260110
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-5b4ba6673eaec252ad1d.bin",
+          "bytes": 245946
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-5b536d5298c5d04e4351.bin",
+          "bytes": 246681
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-5d10a740e71be7b8e5ce.bin",
+          "bytes": 254675
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-5df6c05e4cb6f601cb60.bin",
+          "bytes": 240837
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-5ff34db444dc4231b900.bin",
+          "bytes": 257722
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-6088c9e3acb212392656.bin",
+          "bytes": 243558
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-60b52312dabce9433235.bin",
+          "bytes": 259205
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-6142bcde432ab84ada4f.bin",
+          "bytes": 254682
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-6332d025434256e44345.bin",
+          "bytes": 249780
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-635b360123846a41669f.bin",
+          "bytes": 257532
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-6764c630219249d5c537.bin",
+          "bytes": 260539
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-6836824a23edf30e2532.bin",
+          "bytes": 260656
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-6afd49e0271efcdd5296.bin",
+          "bytes": 255331
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-6c2dcb24a3d05117a3fb.bin",
+          "bytes": 218849
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-6c3ed0d24e09598ba2c3.bin",
+          "bytes": 252246
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-6d263f9044202139912e.bin",
+          "bytes": 241020
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-6ed2b1d9329206a26601.bin",
+          "bytes": 252042
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-7335e5b943e963fba6d9.bin",
+          "bytes": 240447
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-75015b312b8c5bd8fcd8.bin",
+          "bytes": 252160
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-759ecbb16cf250e43ce1.bin",
+          "bytes": 251593
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-776a3931bd1046ad900c.bin",
+          "bytes": 227894
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-7a298076253769109bf0.bin",
+          "bytes": 243766
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-7c6b343190d8a8881369.bin",
+          "bytes": 260975
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-7db2f13fa1d3f75c3bab.bin",
+          "bytes": 250400
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-7e5657c33f59344b3e97.bin",
+          "bytes": 247803
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-7e7d8c252c8ddba1a739.bin",
+          "bytes": 252023
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-86d60823e56edc415ccd.bin",
+          "bytes": 258737
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-8740bde9def153973035.bin",
+          "bytes": 246892
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-881fe296d788cd8f2452.bin",
+          "bytes": 257375
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-89588b37b5774ff19b4b.bin",
+          "bytes": 257100
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-89d4abc2aba60370f640.bin",
+          "bytes": 253617
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-8b4b44a0244d16b654be.bin",
+          "bytes": 258325
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-8c09981bc15dd7fca865.bin",
+          "bytes": 253725
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-8dc3e6c896fcecce2c02.bin",
+          "bytes": 260776
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-8fe28357b08130353710.bin",
+          "bytes": 250641
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-9426b9ebb39f93bb76eb.bin",
+          "bytes": 256221
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-9b86f76785393a77c1a4.bin",
+          "bytes": 247359
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-9d29f0429a612872d012.bin",
+          "bytes": 259671
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-a01e78451fbfd568c4f4.bin",
+          "bytes": 252222
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-9fee41b130d7c4e3bb93.bin",
+          "bytes": 246003
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-9e2b565006188d21e718.bin",
+          "bytes": 246870
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-a104b358d6b330adea18.bin",
+          "bytes": 253130
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-a12d0e2e1b7193fb0b88.bin",
+          "bytes": 253972
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-a1cbff7417d3daeea6a7.bin",
+          "bytes": 254704
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-a5f6f7da7f49ced1d281.bin",
+          "bytes": 221738
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-a843f43d16fd90664494.bin",
+          "bytes": 261045
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-b4f538d76823e9f93577.bin",
+          "bytes": 240591
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-b7ff98bd26a0a29f7220.bin",
+          "bytes": 261502
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-bbcc9578f00580c5a3d7.bin",
+          "bytes": 259988
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-bc6f1dc9ce2b321ebcb8.bin",
+          "bytes": 258271
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-c1b9512bf115dc92dfdf.bin",
+          "bytes": 241799
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-c1dacc5ea4095bb397f7.bin",
+          "bytes": 227142
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-c2e5a0c5a20ccc274f2e.bin",
+          "bytes": 260050
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-c4ee6a02549f91db59ae.bin",
+          "bytes": 254539
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-c63d4a10153a16815852.bin",
+          "bytes": 252068
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-cb52d5a11f42f3513881.bin",
+          "bytes": 249701
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-c9f28f96cee6238449d5.bin",
+          "bytes": 245333
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-cd7ba89fd75b4d78a9bd.bin",
+          "bytes": 258749
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-d39cbf4880b6b570edf0.bin",
+          "bytes": 248522
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-d7ceb48c366db7879978.bin",
+          "bytes": 223145
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-d99bb51789ee8a0061e8.bin",
+          "bytes": 256745
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-da051e682eba601d6a54.bin",
+          "bytes": 259538
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-dfa1d3587e9ef1b6cacc.bin",
+          "bytes": 260065
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-e0b9f2f1577e4a368634.bin",
+          "bytes": 261668
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-e29a84b9f6d6ef4be164.bin",
+          "bytes": 253856
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-e467c447fb029d69dae3.bin",
+          "bytes": 239142
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-e52bd7d654d0451442c5.bin",
+          "bytes": 262045
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-e5fdc0ffe005dcffc79a.bin",
+          "bytes": 243041
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-e67ffd64efddcbbd240c.bin",
+          "bytes": 256698
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-e78d464a2771f14ffbaf.bin",
+          "bytes": 228219
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-e7989943c18e80490149.bin",
+          "bytes": 206257
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-e85d6a18a80a401c487c.bin",
+          "bytes": 239079
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-ebeb70428ef5178e342a.bin",
+          "bytes": 245734
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-f2a8e6e914a00f094307.bin",
+          "bytes": 261084
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-f4758023cad49ae1f694.bin",
+          "bytes": 235773
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-fd0e5854e24a91ed950e.bin",
+          "bytes": 250602
+        },
+        {
+          "phase": "candidate",
+          "file": "assets/bundle-audio-fec2f0f8b1f115e5c7d3.bin",
+          "bytes": 254848
+        }
+      ],
+      "errors": [],
+      "before": {
+        "worker": "http://127.0.0.1:9474/sites-sw.bd646d557a5dc16c1b8b.js",
+        "packs": [
+          "http://127.0.0.1:9474/assets/bundle-menu-0d72305b77a1745bc663.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-26dbf702c5a228803ee1.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-448366ab4b0919fc9d0b.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-48c1f2938720ee7469c7.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-4e1c9e6dcc7693679df9.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-78a22e04996ae218619b.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-7d0aba76e6257d348db0.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-7d356c5d7423b800df75.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-844d5026b33637c1896c.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-d0efeb37c34909a6b98b.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-d7a2416699345f4081c0.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-dbcca4ab449fd91b652d.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-efdb5f7f1535b33e0b6c.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-f07ade418f61dd7ec0e8.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-fdfbbf40e5b04bc650d1.bin"
+        ],
+        "resourceIdb": 2
+      },
+      "after": {
+        "worker": "http://127.0.0.1:9474/sites-sw.f7927b7a5963cdfc99c1.js",
+        "packs": [
+          "http://127.0.0.1:9474/assets/bundle-menu-0d72305b77a1745bc663.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-26dbf702c5a228803ee1.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-448366ab4b0919fc9d0b.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-48c1f2938720ee7469c7.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-4e1c9e6dcc7693679df9.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-78a22e04996ae218619b.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-7d0aba76e6257d348db0.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-7d356c5d7423b800df75.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-844d5026b33637c1896c.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-d0efeb37c34909a6b98b.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-d7a2416699345f4081c0.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-dbcca4ab449fd91b652d.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-efdb5f7f1535b33e0b6c.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-f07ade418f61dd7ec0e8.bin",
+          "http://127.0.0.1:9474/assets/bundle-menu-fdfbbf40e5b04bc650d1.bin",
+          "http://127.0.0.1:9474/assets/bundle-medium-c535a251391f45c0f458.bin",
+          "http://127.0.0.1:9474/assets/bundle-common-f747d244832dd13e92d9.bin",
+          "http://127.0.0.1:9474/assets/bundle-medium-68dfc0f74ca7ff1cf473.bin",
+          "http://127.0.0.1:9474/assets/gpu-textures-cb20ce485bf9214154e0.bin"
+        ]
+      },
+      "invitation": {
+        "phase": "menu",
+        "assetsReady": false,
+        "readiness": null
+      },
+      "beforeAcceptBytes": 20694953,
+      "afterAcceptBytes": 189578766,
+      "portraits": [
+        {
+          "phase": "candidate",
+          "file": "assets/tutorial-adjutant-d4932e06256d8fbcfb84.bin",
+          "bytes": 40480
+        }
+      ],
+      "voices": [
+        {
+          "phase": "candidate",
+          "file": "assets/tutorial-87d151999d35a5e988d1-5627fcdb9e7184f7067a.bin",
+          "bytes": 51308,
+          "id": "audio.tutorial.voice.terran.87d151999d35a5e988d1"
+        }
+      ],
+      "newVoiceTransferBytes": 51308,
+      "redownloadedWarmBundles": [],
+      "payloadBytes": {
+        "baseline": 50753633,
+        "candidateWarmMenuAndPortrait": 189578766
+      },
+      "passed": true
+    },
+    "playback": {
+      "passed": true,
+      "scope": "Actual MP4 files: Chromium native video/audio metadata, play, seek, HTTP byte ranges. Full ffmpeg decode also performed during packaging.",
+      "cases": [
+        {
+          "race": "terran",
+          "width": 1440,
+          "height": 900,
+          "duration": 283.68,
+          "mp4": "probably",
+          "range": true,
+          "playedAndSeeked": true
+        },
+        {
+          "race": "zerg",
+          "width": 844,
+          "height": 390,
+          "duration": 199.52,
+          "mp4": "probably",
+          "range": true,
+          "playedAndSeeked": true
+        },
+        {
+          "race": "protoss",
+          "width": 390,
+          "height": 844,
+          "duration": 237.92,
+          "mp4": "probably",
+          "range": true,
+          "playedAndSeeked": true
+        }
+      ],
+      "errors": []
+    },
+    "recordings": [
+      {
+        "race": "terran",
+        "appBuildId": "0d150284919fdc47f8e5d6845c52bf654697d8ce252fae95c1f0b2c6b1d01ab8",
+        "file": "reports/local/tutorial-polish-20261109/review/recordings/terran.mp4",
+        "poster": "reports/local/tutorial-polish-20261109/review/recordings/terran.png",
+        "bytes": 40734324,
+        "sha256": "544afaf030b74b42f1ebd6dbaf3ce5ec9146caf77b9dbd92d30e7d18faed4d95",
+        "durationSeconds": 283.68,
+        "videoDimensions": {
+          "width": 1440,
+          "height": 900
+        },
+        "clicks": 26,
+        "gameAudio": true,
+        "audioLeadSilenceSeconds": 9.060000000000002,
+        "physicalPhone": false,
+        "assistance": "Native highlighted clicks and ordinary real-time game clock only. No damage/HP/advance injection.",
+        "sourceResult": "reports/local/tutorial-polish-20261109/short-recordings/terran/result.json",
+        "spokenInstructions": 26,
+        "feedbacks": 13
+      },
+      {
+        "race": "zerg",
+        "appBuildId": "0d150284919fdc47f8e5d6845c52bf654697d8ce252fae95c1f0b2c6b1d01ab8",
+        "file": "reports/local/tutorial-polish-20261109/review/recordings/zerg.mp4",
+        "poster": "reports/local/tutorial-polish-20261109/review/recordings/zerg.png",
+        "bytes": 12107220,
+        "sha256": "b0b6bc8ba3fad111850e4c0ec7070aee03d98dedf54851af4bae9cc4d43b7b68",
+        "durationSeconds": 199.52,
+        "videoDimensions": {
+          "width": 844,
+          "height": 390
+        },
+        "clicks": 26,
+        "gameAudio": true,
+        "audioLeadSilenceSeconds": 8.360000000000014,
+        "physicalPhone": false,
+        "assistance": "Native highlighted clicks and ordinary real-time game clock only. No damage/HP/advance injection.",
+        "sourceResult": "reports/local/tutorial-polish-20261109/short-recordings/zerg/result.json",
+        "spokenInstructions": 0,
+        "feedbacks": 13
+      },
+      {
+        "race": "protoss",
+        "appBuildId": "0d150284919fdc47f8e5d6845c52bf654697d8ce252fae95c1f0b2c6b1d01ab8",
+        "file": "reports/local/tutorial-polish-20261109/review/recordings/protoss.mp4",
+        "poster": "reports/local/tutorial-polish-20261109/review/recordings/protoss.png",
+        "bytes": 13428809,
+        "sha256": "0f1bedefe53ef30909733058b5c164c62bef8df10dd9c302f12383b4cc2449a1",
+        "durationSeconds": 237.92000000000002,
+        "videoDimensions": {
+          "width": 390,
+          "height": 844
+        },
+        "clicks": 25,
+        "gameAudio": true,
+        "audioLeadSilenceSeconds": 6.800000000000011,
+        "physicalPhone": false,
+        "assistance": "Native highlighted clicks and ordinary real-time game clock only. No damage/HP/advance injection.",
+        "sourceResult": "reports/local/tutorial-polish-20261109/short-recordings/protoss/result.json",
+        "spokenInstructions": 25,
+        "feedbacks": 13
+      }
+    ],
+    "physicalPhone": false,
+    "humanAcceptance": false,
+    "priorAcceptance": "User accepted local.3 subject to these two small changes and narration.",
+    "entry": {
+      "passed": true,
+      "appBuildId": "0d150284919fdc47f8e5d6845c52bf654697d8ce252fae95c1f0b2c6b1d01ab8",
+      "entry": "http://127.0.0.1:18913/",
+      "review": "http://127.0.0.1:18913/review/index.html?v=0d150284919f",
+      "cases": [
+        "actual port serves expected appBuildId",
+        "review entry has three final-version videos, no-cache",
+        "terran actual MP4 range and uncached poster",
+        "zerg actual MP4 range and uncached poster",
+        "protoss actual MP4 range and uncached poster",
+        "production port does not expose diagnostic entry"
+      ]
+    }
+  },
+  "incremental": {
+    "from10": {
+      "added": {
+        "count": 91,
+        "bytes": 15023962
+      },
+      "changed": {
+        "count": 5,
+        "bytes": 2705617
+      },
+      "reused": {
+        "count": 366,
+        "bytes": 463470691
+      }
+    },
+    "fromPrevious": {
+      "added": {
+        "count": 87,
+        "bytes": 14240711
+      },
+      "changed": {
+        "count": 5,
+        "bytes": 2705617
+      },
+      "reused": {
+        "count": 370,
+        "bytes": 464253942
+      }
+    },
+    "newVoiceBytes": 3378008,
+    "newArtBytes": 0,
+    "manifest": "dist/tutorial-1.1-polish-20261109/candidate/incremental.json"
+  },
+  "open": [
+    "用户审阅本轮完整配音和最终三族录屏。",
+    "手机横竖为Chrome模拟触屏，未做物理手机验证。"
+  ],
+  "authorization": {
+    "committed": false,
+    "pushed": false,
+    "merged": false,
+    "deployed": false,
+    "published": false
+  },
+  "entry": "http://127.0.0.1:18913/",
+  "review": "http://127.0.0.1:18913/review/index.html?v=0d150284919f",
+  "retention": {
+    "date": "2026-11-09",
+    "retired": [
+      {
+        "path": "D:\\星际\\dist\\tutorial-1.1-polish-20261109\\web",
+        "logicalBytes": 1462103030
+      },
+      {
+        "path": "D:\\星际\\reports\\local\\tutorial-polish-20261109\\browser\\build",
+        "logicalBytes": 36726837
+      },
+      {
+        "path": "D:\\星际\\reports\\local\\tutorial-polish-20261109\\short-recordings\\terran\\screen.webm",
+        "logicalBytes": 26514808
+      },
+      {
+        "path": "D:\\星际\\reports\\local\\tutorial-polish-20261109\\short-recordings\\terran\\game-audio.webm",
+        "logicalBytes": 4011373
+      },
+      {
+        "path": "D:\\星际\\reports\\local\\tutorial-polish-20261109\\short-recordings\\zerg\\screen.webm",
+        "logicalBytes": 16345681
+      },
+      {
+        "path": "D:\\星际\\reports\\local\\tutorial-polish-20261109\\short-recordings\\zerg\\game-audio.webm",
+        "logicalBytes": 2479889
+      },
+      {
+        "path": "D:\\星际\\reports\\local\\tutorial-polish-20261109\\short-recordings\\protoss\\screen.webm",
+        "logicalBytes": 16851216
+      },
+      {
+        "path": "D:\\星际\\reports\\local\\tutorial-polish-20261109\\short-recordings\\protoss\\game-audio.webm",
+        "logicalBytes": 3449935
+      }
+    ],
+    "kept": "Current packed candidate and diagnostic entry, review MP4/posters, current QA, formal narration WAV/MP3 and plan; retained 1.0/local.3/shared dist/web untouched",
+    "physicalFreedBytes": "Not measured; logical sizes may include hardlinks"
+  }
+}

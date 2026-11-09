@@ -1,0 +1,38 @@
+{
+  "appBuildId": "0029cb55165281964a3d4c64dc9937614f332bef33b5da537c642ca9e1079329",
+  "chrome": "156.0.8078.81",
+  "scope": "One human race stage 1→2 departure from a restored synthetic reward checkpoint. Timed from capture-phase skip click to observing battle and the following rAF. Phase samples can omit short phases.",
+  "errors": [],
+  "observedBattleMs": 4924.5999999940395,
+  "followingFrameMs": 4968.9000000059605,
+  "phaseSamples": [
+    {
+      "phase": "models",
+      "elapsedMs": 40.5
+    },
+    {
+      "phase": "gpu",
+      "elapsedMs": 230.30000001192093
+    },
+    {
+      "phase": "ready",
+      "elapsedMs": 4740.300000011921
+    },
+    {
+      "phase": "idle",
+      "elapsedMs": 4924.5999999940395
+    }
+  ],
+  "stageWindow": {
+    "budgetMs": 4777.4000000059605,
+    "elapsedMs": 4486.200000017881,
+    "completed": 30,
+    "remaining": 0,
+    "failed": 0,
+    "reason": "ready"
+  },
+  "stage": 2,
+  "reproduce": "node --import tsx tools/measure-stage-departure-windows.mjs",
+  "screenshotReviewed": "第二关战场、倒计时与HUD可见",
+  "optionalWindowFraction": 0.9028557628474109
+}

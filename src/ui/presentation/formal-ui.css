@@ -204,3 +204,7 @@ dialog.modal-window:not([open]){display:none}
 #interface.native-hud[data-hud-mode=portrait] #random-mission{top:max(110px,41cqw);right:calc(13cqw + 12px);width:54cqw;font-size:12px}
 .checkpoint-status{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 12px;margin:6px 0;color:var(--muted,#aebfd0);font-size:12px;line-height:1.5;overflow-wrap:anywhere}
 .checkpoint-status button{min-height:30px}
+
+.settings-links { display: flex; flex-wrap: wrap; gap: .4em 1.25em; margin-top: 1em; }
+.settings-links a { display: inline-flex; align-items: center; gap: .4em; padding-block: .35em; color: inherit; text-underline-offset: .2em; }
+.settings-links svg { width: 1em; height: 1em; }

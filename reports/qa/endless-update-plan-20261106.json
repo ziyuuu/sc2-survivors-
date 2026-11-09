@@ -1,0 +1,312 @@
+{
+  "date": "2026-11-06",
+  "task": "FB-20261105-01",
+  "status": "规划完成，建议参数待讨论",
+  "branch": "体积优化版",
+  "head": "6510fb2a85a4140aecb6151ab0ab3132b42f239a",
+  "approved": {
+    "duration": "每组三轮；60/90/120/180秒，之后每组每轮+60秒",
+    "growth": "x=round-1+elapsedInRound/duration；每轮累计一档，轮内连续增长；沿用1.22、分段1.10/1.16及攻速上限"
+  },
+  "proposals": {
+    "frequency": "F=1+0.15*(ceil(round/3)-1)；主波15/F、精英30/F、Boss90/F秒；简单精英间隔仍×2",
+    "economy": "普通波预算和基础过轮矿气按duration/60缩放，单次触发固定奖励不重复",
+    "legacy": "旧当前轮保持原已承诺排程/结算，下一轮切换",
+    "ui": "只更新原无尽整备时长/详情和实际倒计时/敌军轮次"
+  },
+  "groups": [
+    {
+      "rounds": [
+        1,
+        3
+      ],
+      "secondsPerRound": 60,
+      "openingActualMinutes": 0,
+      "proposedFrequency": 1,
+      "intervals": {
+        "wave": 15,
+        "elite": 30,
+        "boss": 90
+      },
+      "proposedBaseRoundReward": {
+        "minerals": 300,
+        "gas": 250
+      }
+    },
+    {
+      "rounds": [
+        4,
+        6
+      ],
+      "secondsPerRound": 90,
+      "openingActualMinutes": 3,
+      "proposedFrequency": 1.15,
+      "intervals": {
+        "wave": 13.043478260869566,
+        "elite": 26.086956521739133,
+        "boss": 78.26086956521739
+      },
+      "proposedBaseRoundReward": {
+        "minerals": 450,
+        "gas": 375
+      }
+    },
+    {
+      "rounds": [
+        7,
+        9
+      ],
+      "secondsPerRound": 120,
+      "openingActualMinutes": 7.5,
+      "proposedFrequency": 1.3,
+      "intervals": {
+        "wave": 11.538461538461538,
+        "elite": 23.076923076923077,
+        "boss": 69.23076923076923
+      },
+      "proposedBaseRoundReward": {
+        "minerals": 600,
+        "gas": 500
+      }
+    },
+    {
+      "rounds": [
+        10,
+        12
+      ],
+      "secondsPerRound": 180,
+      "openingActualMinutes": 13.5,
+      "proposedFrequency": 1.45,
+      "intervals": {
+        "wave": 10.344827586206897,
+        "elite": 20.689655172413794,
+        "boss": 62.06896551724138
+      },
+      "proposedBaseRoundReward": {
+        "minerals": 900,
+        "gas": 750
+      }
+    },
+    {
+      "rounds": [
+        13,
+        15
+      ],
+      "secondsPerRound": 240,
+      "openingActualMinutes": 22.5,
+      "proposedFrequency": 1.6,
+      "intervals": {
+        "wave": 9.375,
+        "elite": 18.75,
+        "boss": 56.25
+      },
+      "proposedBaseRoundReward": {
+        "minerals": 1200,
+        "gas": 1000
+      }
+    },
+    {
+      "rounds": [
+        16,
+        18
+      ],
+      "secondsPerRound": 300,
+      "openingActualMinutes": 34.5,
+      "proposedFrequency": 1.75,
+      "intervals": {
+        "wave": 8.571428571428571,
+        "elite": 17.142857142857142,
+        "boss": 51.42857142857143
+      },
+      "proposedBaseRoundReward": {
+        "minerals": 1500,
+        "gas": 1250
+      }
+    },
+    {
+      "rounds": [
+        19,
+        21
+      ],
+      "secondsPerRound": 360,
+      "openingActualMinutes": 49.5,
+      "proposedFrequency": 1.9,
+      "intervals": {
+        "wave": 7.894736842105264,
+        "elite": 15.789473684210527,
+        "boss": 47.36842105263158
+      },
+      "proposedBaseRoundReward": {
+        "minerals": 1800,
+        "gas": 1500
+      }
+    },
+    {
+      "rounds": [
+        22,
+        24
+      ],
+      "secondsPerRound": 420,
+      "openingActualMinutes": 67.5,
+      "proposedFrequency": 2.05,
+      "intervals": {
+        "wave": 7.317073170731708,
+        "elite": 14.634146341463415,
+        "boss": 43.90243902439025
+      },
+      "proposedBaseRoundReward": {
+        "minerals": 2100,
+        "gas": 1750
+      }
+    },
+    {
+      "rounds": [
+        25,
+        27
+      ],
+      "secondsPerRound": 480,
+      "openingActualMinutes": 88.5,
+      "proposedFrequency": 2.2,
+      "intervals": {
+        "wave": 6.8181818181818175,
+        "elite": 13.636363636363635,
+        "boss": 40.90909090909091
+      },
+      "proposedBaseRoundReward": {
+        "minerals": 2400,
+        "gas": 2000
+      }
+    },
+    {
+      "rounds": [
+        28,
+        30
+      ],
+      "secondsPerRound": 540,
+      "openingActualMinutes": 112.5,
+      "proposedFrequency": 2.3499999999999996,
+      "intervals": {
+        "wave": 6.382978723404256,
+        "elite": 12.765957446808512,
+        "boss": 38.297872340425535
+      },
+      "proposedBaseRoundReward": {
+        "minerals": 2700,
+        "gas": 2250
+      }
+    }
+  ],
+  "comparisons": [
+    {
+      "round": 12,
+      "actualMinutesAtOpening": 19.5,
+      "approvedGrowthProgress": 11,
+      "approvedGrowth": {
+        "health": 8.911650326822057,
+        "damage": 3.923840641858396,
+        "attackSpeed": 1.25
+      },
+      "rejectedActualTimeGrowth": {
+        "health": 48.30773754902957,
+        "damage": 13.854927883827068,
+        "attackSpeed": 1.25
+      }
+    },
+    {
+      "round": 16,
+      "actualMinutesAtOpening": 34.5,
+      "approvedGrowthProgress": 15,
+      "approvedGrowth": {
+        "health": 19.742286955644197,
+        "damage": 7.104660308516473,
+        "attackSpeed": 1.25
+      },
+      "rejectedActualTimeGrowth": {
+        "health": 953.7052168708898,
+        "damage": 128.37312339740822,
+        "attackSpeed": 1.25
+      }
+    },
+    {
+      "round": 24,
+      "actualMinutesAtOpening": 81.5,
+      "approvedGrowthProgress": 23,
+      "approvedGrowth": {
+        "health": 96.88936408800818,
+        "damage": 23.29202415790821,
+        "attackSpeed": 1.25
+      },
+      "rejectedActualTimeGrowth": {
+        "health": 10922604.28768938,
+        "damage": 137404.0714695239,
+        "attackSpeed": 1.25
+      }
+    },
+    {
+      "round": 30,
+      "actualMinutesAtOpening": 130.5,
+      "approvedGrowthProgress": 29,
+      "approvedGrowth": {
+        "health": 319.47368380245825,
+        "damage": 56.74860200926897,
+        "attackSpeed": 1.25
+      },
+      "rejectedActualTimeGrowth": {
+        "health": 186190664995.47052,
+        "damage": 197897848.99545008,
+        "attackSpeed": 1.25
+      }
+    }
+  ],
+  "total30RoundMinutes": 139.5,
+  "verification": {
+    "sourceInspected": [
+      {
+        "file": "src/data/endless.ts",
+        "sha256": "9471a67cc97274dec7dcce051261c8c1eb072116403f436c6d1a9f31450c4d07"
+      },
+      {
+        "file": "src/data/enemy-tuning.ts",
+        "sha256": "5d308d1233b3a53b4120e50e299f1f8f35a0f0ce655ed6e15e92a687464b02dc"
+      },
+      {
+        "file": "src/data/mixed-waves.ts",
+        "sha256": "541aa80a48e7f869ef7055e727000d8c95ec18384b78ec59e0f60f0b3fd2082d"
+      },
+      {
+        "file": "src/simulation/world.ts",
+        "sha256": "7b634e75a99c33e64fea8efa60b6574c5d9d39c416c6523d078f65327e581217"
+      },
+      {
+        "file": "src/simulation/persistence/run-fields.ts",
+        "sha256": "11ebdc36766b080e43ac4573ec7dafb25872b0be5ab395274c86ed7d53ec8716"
+      },
+      {
+        "file": "src/simulation/expedition-economy.ts",
+        "sha256": "b4a70d7e25c6ec8b5d2946b75d319473b115b7289a903f9618533a2b0b7eb5fc"
+      },
+      {
+        "file": "src/ui/presentation/end-screens.ts",
+        "sha256": "37041ba69007771c3110546c2c30e372a3481fa80f0c010569d835d977f0f799"
+      },
+      {
+        "file": "tools/docs/export-game-reference.mts",
+        "sha256": "b6d42b843cc4c201ead99d0a17a79e5a3a8982a8d1cc2c238f96d18e76ac3fbc"
+      }
+    ],
+    "math": "前30轮长度、分组递推、成长端点连续、候选间隔倍率和总时长核对通过；比较采用当前源码同式计算",
+    "gameTestsRun": false,
+    "balancedGameplay": false,
+    "docsCheck": "passed after allowing local esbuild child process; initial sandbox spawn EPERM",
+    "boardRender": "passed",
+    "localLinks": "passed"
+  },
+  "sourceCaveat": "数据生成器的无尽伤害叙述仍写单段1.10^x，实际源码和动态表已是前5档1.10、后续1.16；实施需同步叙述",
+  "delivery": {
+    "productionCodeChanged": false,
+    "buildCreated": false,
+    "committed": false,
+    "pushed": false,
+    "deployed": false
+  }
+}

@@ -36,8 +36,9 @@ export class SourceCombatEffects {
  private weaponChannels=new SourceWeaponChannels();private nukes=new Map<number,VisualEvent>();
  private enemySpecials=new EnemySpecialSource();
  private stim=new StimPresentation();private stimCues=new Map<string,StimCue>();
+ private menuSuspended=false;
  constructor(scene:THREE.Scene,camera:THREE.Camera,private fx:BattleEffects){this.player=new SourceEffectPlayer(scene,camera);this.equipment=new EquipmentEffects(scene);}
- load(){return this.player.load();}
+ load(models?:readonly string[]){return this.player.load(models);}
  resumeAt(w:World){this.serial=w.visualEvents.at(-1)?.serial??0;this.time=w.time;this.run=w.runId??'';this.enemySpecials.resumeAt(w);this.weaponChannels.resumeAt(w);this.stim.resumeAt(w);this.stimCues.clear();}
  reset(){this.serial=0;this.time=0;this.run='';this.echoes=[];this.mounts.clear();this.launched.clear();this.hologramDeaths.clear();this.lifecycle.clear();this.nukes.clear();this.weaponChannels.reset();this.player.reset();this.equipment.reset();this.enemySpecials.reset();this.stim.reset();this.stimCues.clear();}
  report(){return {routes:[...this.routes],events:this.events,flights:this.flights,echoes:this.echoes.length,source:this.player.report()};}
@@ -48,6 +49,9 @@ export class SourceCombatEffects {
   const a=point(w,u),b=point(w,end);return {serial:0,time,kind,x:u.x,z:u.z,y:a.y,endY:b.y,end:{x:end.x,z:end.z},entityId:u.id,unitType:u.unitType,modelKey:u.modelKey,heroId:u.heroId,eliteId:u.eliteId,rank:u.rank,race:u.race,nativeMode:u.nativeMode,activeWeapon:u.activeWeapon,sourceTeam:u.team,enemyTier:u.enemyTier,summonKind:u.summonKind,rewardSourceKind:u.rewardSourceKind,visualScale:u.visualScale,shotSequence:u.shotSequence,attackId:`${u.id}:${u.shotSequence}`,projectileSpeed:weaponFlightSpeed(u),flying:u.flying,facing:u.attackFacing??u.facing,siege:u.mode==='siege',targetFlying:end.flying};
  }
  render(w:World,muzzle:Mount,bodyPose:BodyPose,shieldBounds?:ShieldBounds,equipmentMount?:(event:import('../../simulation/starship/presentation').EquipmentPresentationReceipt)=>P|undefined,funMatrix?:(u:Entity)=>number[]|undefined,overhead?:(u:Entity)=>P|undefined){
+  // Menus prepare source models incrementally; retained combat bodies are not
+  // a visible battlefield and cannot request a not-yet-prepared live ribbon.
+  if(w.phase==='menu'){if(!this.menuSuspended)this.reset();this.menuSuspended=true;return;}this.menuSuspended=false;
   if(!this.player.ready)return;if(w.time<this.time||this.run!==(w.runId??''))this.reset();this.time=w.time;this.run=w.runId??'';this.routes.clear();this.flights=this.events=0;this.player.begin(w.time);const ground=(p:Point)=>w.terrain?.height(p)??0;
   this.fx.sourceEventIds.clear();let eventIndex:SourceEventIndex|undefined;const indexedEvents=()=>eventIndex??=new SourceEventIndex(w.visualEvents);
   for(const cue of this.stim.update(w))this.stimCues.set(`stim:${cue.unit.id}:${cue.kind}:${cue.at}`,cue);

@@ -1,3 +1,4 @@
+import {ManagedTextureLoader,ManagedGLTFLoader} from '../loaders/managed-textures';
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {restoreSc2Materials} from '../loaders/sc2-materials';
@@ -7,7 +8,7 @@ import {assetUrl} from '../../assets/manifest';
 import type {World} from '../../simulation/world';
 /** Original Char DDS layers and doodad meshes, with an authored expandable Survivors layout. */
 export async function createTerrain(scene:THREE.Scene,w:World){
- const texture=async(id:string,linear=false)=>{const url=assetUrl(id);if(!url)throw Error('Missing terrain '+id);const t=await new THREE.TextureLoader().loadAsync(url);t.colorSpace=linear?THREE.NoColorSpace:THREE.SRGBColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.anisotropy=8;return t;};
+ const texture=async(id:string,linear=false)=>{const url=assetUrl(id);if(!url)throw Error('Missing terrain '+id);const t=await new ManagedTextureLoader().loadAsync(url);t.colorSpace=linear?THREE.NoColorSpace:THREE.SRGBColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.anisotropy=8;return t;};
  const [dirt,normal,rock,rockNormal,cracked,cliff,cliffNormal,cliffEmissive]=await Promise.all([texture('terrain.char'),texture('terrain.char.normal',true),texture('terrain.rock'),texture('terrain.rock.normal',true),texture('terrain.cracked'),texture('terrain.cliff'),texture('terrain.cliff.normal',true),texture('terrain.cliff.emissive')]);
  dirt.repeat.set(28,28);normal.repeat.copy(dirt.repeat);rock.repeat.set(2,2);rockNormal.repeat.copy(rock.repeat);
  const half={value:w.mapHalf},material=new THREE.MeshStandardMaterial({map:dirt,normalMap:normal,normalScale:new THREE.Vector2(.65,.65),roughness:.97,color:0xc3b9a7,vertexColors:true});
@@ -35,7 +36,7 @@ export async function createTerrain(scene:THREE.Scene,w:World){
    diffuseColor.rgb*=mix(1.0,0.13,locked);diffuseColor.rgb+=vec3(.2,.08,.015)*(1.0-smoothstep(.04,.18,abs(edge-openHalf)));`);
  };
  const geometry=charGeometry(),ground=new THREE.Mesh(geometry.floor,material);ground.position.y=-.018;scene.add(ground);ground.name='char-traversable-ground';const cliffs=new THREE.Mesh(geometry.cliffs,new THREE.MeshStandardMaterial({map:cliff,normalMap:cliffNormal,emissiveMap:cliffEmissive,emissive:0x6f2410,emissiveIntensity:.25,roughness:.96,side:THREE.DoubleSide,color:0x887b6f,vertexColors:true}));cliffs.name='char-solid-cliff-faces';scene.add(cliffs);
- const loader=new GLTFLoader(),props:THREE.Object3D[]=[];
+ const loader=new ManagedGLTFLoader(),props:THREE.Object3D[]=[];
  for(const [id,placements] of [['model.terrain.rock',w.obstacles.flatMap((o,index)=>{const count=Math.ceil(Math.max(o.w,o.h)/3.2);return Array.from({length:count},(_,i)=>({x:o.x+(o.w>o.h?(i/(count-1)-.5)*(o.w-2):0),z:o.z+(o.h>o.w?(i/(count-1)-.5)*(o.h-2):0),width:3.9,height:1.4+(i%3)*.35,angle:(i+index)*2.399}));})],['model.terrain.wreck',[{x:33,z:14,width:7,height:3,angle:.5}]]] as const){
   const url=assetUrl(id);if(!url)continue;const g=await restoreSc2Materials(await loader.loadAsync(url)),mixer=new THREE.AnimationMixer(g.scene),stand=g.animations.find(c=>/^stand$/i.test(c.name));if(stand){mixer.clipAction(stand).play();mixer.setTime(0);}g.scene.updateMatrixWorld(true);
   const box=new THREE.Box3().setFromObject(g.scene),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3()),sx=1/Math.max(size.x,size.z);

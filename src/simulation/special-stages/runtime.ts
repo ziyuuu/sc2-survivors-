@@ -1,3 +1,4 @@
+import {worldContent} from '../progression/run-content';
 import type {World} from '../world';
 import {specialAllowed} from '../progression/fun-availability';
 import type {Body,Entity} from '../types';
@@ -20,7 +21,7 @@ export function constrainSpecialAnchor(w:World){
 }
 export function legalSpecialKinds(w:World){return specialMembers(w).length?SPECIAL_STAGE_KINDS.filter(k=>specialAllowed(w.difficulty,k)&&(k!=='dodge'||canSelectFour(w))):[];}
 export function specialStageAvailable(w:World,stage=w.stage){const used=w.specialStages.used;return stage>=4&&stage<=18&&used.size<3&&!used.has(stage)&&(!used.size||stage>=Math.max(...used)+3);}
-function preferredSpecialKinds(w:World){const kinds=legalSpecialKinds(w),other=kinds.filter(k=>k!==w.specialStages.lastEnteredKind);return other.length?other:kinds;}
+export function preferredSpecialKinds(w:World){const kinds=legalSpecialKinds(w),other=kinds.filter(k=>k!==w.specialStages.lastEnteredKind);return other.length?other:kinds;}
 export function beginSpecialStage(w:World,kind:SpecialStageKind,source:'ticket'|'portal'|'fixture'='portal'){
  const s=w.specialStages;
  if(w.phase!=='battle'||w.paused||w.requiresPlayerDecision||s.active||!specialStageAvailable(w)||w.endless||!legalSpecialKinds(w).includes(kind))return false;
@@ -88,7 +89,9 @@ export function specialCardPickup(w:World,id:number){
 }
 export function offerSpecialTicket(w:World){
  const s=w.specialStages,stage=w.stage+1;if(w.phase!=='reward'||stage<4||stage>18||w.endless||s.offerChecked===stage)return;
- s.offerChecked=stage;if(s.ticket?.claimed||!specialStageAvailable(w,stage))return;const kinds=preferredSpecialKinds(w);if(kinds.length&&w.random()<.25)s.ticket={stage,kind:kinds[Math.floor(w.random()*kinds.length)],claimed:false};
+ s.offerChecked=stage;if(s.ticket?.claimed||!specialStageAvailable(w,stage))return;const kinds=preferredSpecialKinds(w);const plan=worldContent(w,stage);
+ if(plan){const kind=plan.ticket.find(k=>kinds.includes(k));if(kind)s.ticket={stage,kind,claimed:false};return;}
+ if(kinds.length&&w.random()<.25)s.ticket={stage,kind:kinds[Math.floor(w.random()*kinds.length)],claimed:false};
 }
 export function claimSpecialTicket(w:World){const t=w.specialStages.ticket;if(w.phase!=='reward'||!t||t.claimed||t.stage!==w.stage+1||!specialStageAvailable(w,t.stage)||w.endless||!legalSpecialKinds(w).includes(t.kind))return false;t.claimed=true;w.announce('已领取免费门票 · 下一关先进入'+SPECIAL_STAGE_NAMES[t.kind]);w.changed();return true;}
 export function enterSpecialTicket(w:World){
@@ -106,8 +109,10 @@ export function tickSpecialEntrance(w:World){
  if(w.diagnosticRun)return;
  if(s.used.has(w.stage)||s.portal||s.portalChecked===w.stage||w.stageElapsed<20||w.stageElapsed>w.duration*.6)return;
  const kinds=preferredSpecialKinds(w);if(!kinds.length)return;const candidates=w.spawnLocations.filter(p=>distance(p,w.anchor)>=8&&distance(p,w.anchor)<=18&&w.terrain?.canOccupy(p,1)!==false&&clearLine(w.anchor,p,.8,w.obstacles,w.terrain));if(!candidates.length)return;
- s.portalChecked=w.stage;if(w.random()>=.2)return;
- const point=candidates[Math.floor(w.random()*candidates.length)],kind=kinds[Math.floor(w.random()*kinds.length)];s.portal={kind,point:{...point},until:w.time+30};w.announce(SPECIAL_STAGE_NAMES[kind]+'传送门出现 · 靠近自动进入');
+ s.portalChecked=w.stage;const plan=worldContent(w);
+ const planned=plan?.portal.find(k=>kinds.includes(k));
+ if(plan?!planned:w.random()>=.2)return;
+ const point=candidates[Math.floor(w.random()*candidates.length)],kind=planned??kinds[Math.floor(w.random()*kinds.length)];s.portal={kind,point:{...point},until:w.time+30};w.announce(SPECIAL_STAGE_NAMES[kind]+'传送门出现 · 靠近自动进入');
 }
 export function specialStatus(w:World){
  const a=w.specialStages.active;if(!a)return '';

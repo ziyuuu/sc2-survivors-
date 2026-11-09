@@ -3,6 +3,13 @@ import assert from 'node:assert/strict';
 import {AnimationClip,NumberKeyframeTrack} from 'three';
 import {mapAnimations,attackAction,weaponAttachmentNames,selectAttackPresentation,sourceAnimationName} from '../src/render/loaders/animations.ts';
 
+test('Lurker surface and underground attacks select the same authored burrow attack and timing',()=>{
+ const a=mapAnimations([new AnimationClip('Stand',1,[]),new AnimationClip('Attack',.2,[]),new AnimationClip('Attack Burrow',1.5,[])],'lurker');
+ const base={unitType:'lurker' as const,action:'idle' as const,hp:100,lastShotAt:1,shotSequence:1,shotInterval:1.4,windup:0,modeTimer:0};
+ const surface=selectAttackPresentation({...base,nativeMode:'lurker'},1.2,a),underground=selectAttackPresentation({...base,nativeMode:'lurker_burrowed'},1.2,a);
+ assert.ok(surface);assert.equal(surface.action,'burrowAttack');assert.deepEqual(surface,underground);
+});
+
 test('Thor high-impact walking retains the native leg motion and deployed cannon tracks',()=>{
  const leg=new NumberKeyframeTrack('Bone_Leg_Upper_L.position[x]',[0,1],[0,2]);
  const ordinaryCannon=new NumberKeyframeTrack('CannonMount_L.position[x]',[0,1],[1,2]);

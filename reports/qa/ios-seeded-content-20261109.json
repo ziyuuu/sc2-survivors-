@@ -1,0 +1,593 @@
+{
+  "date": "2026-11-09",
+  "task": "IOS-CONTENT-01",
+  "scope": "本地压缩候选；Windows Chrome，模拟 844×390 触屏、DPR 3、中档。未在 iPhone 或 Safari 真机运行。",
+  "build": {
+    "appBuildId": "24182fb2a0a877b5097592408bca7ed5f914f57a58a9fecaf55426363c72cfb2",
+    "applicationVersion": "1.2.0-local.ios.1",
+    "release": "896aa637c320cd765bc96a139a648c8d238caa3daa3eaed745aaaea02099930b",
+    "assetCount": 3932,
+    "runSchema": 26,
+    "rulesId": "mvp-1.0",
+    "candidate": "dist/ios-content-20261109/candidate",
+    "sourceBranch": "体积优化版",
+    "sourceHead": "6510fb2 + uncommitted workspace"
+  },
+  "verification": {
+    "full": {
+      "command": "npm test",
+      "tests": 3085,
+      "pass": 3085,
+      "fail": 0,
+      "skipped": 0
+    },
+    "focusedSeedTests": 7,
+    "typecheck": "pass",
+    "docsCheck": "pass",
+    "entry": "Verified packed build, new game + tutorial skip + real IndexedDB save, reload, continue, rendered battle, and actual shot after stage departure."
+  },
+  "pairedDeparture": {
+    "fixtureSha256": "20d9837362df43000776cd4e6880605a220ed5e2fc2cf86f56a02b47fd527d63",
+    "old": {
+      "appBuildId": "0029cb55165281964a3d4c64dc9937614f332bef33b5da537c642ca9e1079329",
+      "archiveSha256": "20d9837362df43000776cd4e6880605a220ed5e2fc2cf86f56a02b47fd527d63",
+      "chrome": "156.0.8078.81",
+      "scope": "One human race stage 1→2 departure from a restored synthetic reward checkpoint. Timed from capture-phase skip click to observing battle and the following rAF. Phase samples can omit short phases.",
+      "pageErrors": [],
+      "observedBattleMs": 3094.199999988079,
+      "followingFrameMs": 3139.9000000059605,
+      "phaseSamples": [
+        {
+          "phase": "models",
+          "elapsedMs": 40.099999994039536
+        },
+        {
+          "phase": "gpu",
+          "elapsedMs": 206.90000000596046
+        },
+        {
+          "phase": "ready",
+          "elapsedMs": 2979.9000000059605
+        },
+        {
+          "phase": "idle",
+          "elapsedMs": 3094.199999988079
+        }
+      ],
+      "stageWindow": {
+        "budgetMs": 4800.799999982119,
+        "elapsedMs": 2754.9000000059605,
+        "completed": 30,
+        "remaining": 0,
+        "failed": 0,
+        "reason": "ready"
+      },
+      "stage": 2,
+      "errors": [],
+      "attack": {
+        "time": 4.25,
+        "shots": 1,
+        "pending": 0,
+        "errors": []
+      }
+    },
+    "new": {
+      "appBuildId": "24182fb2a0a877b5097592408bca7ed5f914f57a58a9fecaf55426363c72cfb2",
+      "archiveSha256": "20d9837362df43000776cd4e6880605a220ed5e2fc2cf86f56a02b47fd527d63",
+      "chrome": "156.0.8078.81",
+      "scope": "One human race stage 1→2 departure from a restored synthetic reward checkpoint. Timed from capture-phase skip click to observing battle and the following rAF. Phase samples can omit short phases.",
+      "pageErrors": [],
+      "observedBattleMs": 354.59999999403954,
+      "followingFrameMs": 394,
+      "phaseSamples": [
+        {
+          "phase": "models",
+          "elapsedMs": 37.19999998807907
+        },
+        {
+          "phase": "ready",
+          "elapsedMs": 270.09999999403954
+        },
+        {
+          "phase": "idle",
+          "elapsedMs": 354.59999999403954
+        }
+      ],
+      "stageWindow": {
+        "budgetMs": 0,
+        "elapsedMs": 0.30000001192092896,
+        "completed": 0,
+        "remaining": 30,
+        "failed": 0,
+        "reason": "budget"
+      },
+      "stage": 2,
+      "errors": [],
+      "attack": {
+        "time": 4.25,
+        "shots": 1,
+        "pending": 0,
+        "errors": []
+      }
+    },
+    "followingFrameReductionPercent": 87.5
+  },
+  "restore": {
+    "historicalBaselineBuild": "0029cb55165281964a3d4c64dc9937614f332bef33b5da537c642ca9e1079329",
+    "historicalBaseline": {
+      "fresh": {
+        "models": 13,
+        "atlasMiB": 14.1,
+        "maxBlobMiB": 81.2,
+        "glBufferMiB": 34.1,
+        "pcmMiB": 31.6
+      },
+      "restore": {
+        "models": 22,
+        "atlasMiB": 25.3,
+        "maxBlobMiB": 108.2,
+        "glBufferMiB": 50.1,
+        "pcmMiB": 31.6
+      }
+    },
+    "candidate": {
+      "fresh": {
+        "models": 13,
+        "atlasMiB": 14.1,
+        "maxBlobMiB": 79.5,
+        "glBufferMiB": 34.1,
+        "pcmMiB": 31.6
+      },
+      "restore": {
+        "models": 13,
+        "atlasMiB": 14.1,
+        "maxBlobMiB": 79.4,
+        "glBufferMiB": 34.1,
+        "pcmMiB": 31.6
+      }
+    },
+    "scope": "Windows Chrome, one paired human-race opening with seed 529, medium tier, coarse/unknown-memory desktop fixture, same checkpoint on reload and warm disk cache. Stage counters sampled at 500 ms.",
+    "errors": []
+  },
+  "longCampaign": {
+    "candidate": "24182fb2a0a877b5097592408bca7ed5f914f57a58a9fecaf55426363c72cfb2",
+    "complete": true,
+    "fixture": "Seven additional rank-five allies at start. Test medic restores surviving allies below 60% health. Normal waves, simulation ticks, rendering, stage gates and checkpoint transactions. Accelerated fixed-step sampling, Windows touch emulation.",
+    "seed": 529,
+    "chrome": "156.0.8078.81",
+    "wallSeconds": 437.695,
+    "simulatedSeconds": 1245.3,
+    "shots": 47114,
+    "fixtureHeals": 2319,
+    "departures": [
+      {
+        "from": 1,
+        "ms": 1142.7999999821186
+      },
+      {
+        "from": 2,
+        "ms": 1793.300000011921
+      },
+      {
+        "from": 3,
+        "ms": 2048.2000000178814
+      },
+      {
+        "from": 4,
+        "ms": 1874.2000000178814
+      },
+      {
+        "from": 5,
+        "ms": 722.4000000059605
+      },
+      {
+        "from": 6,
+        "ms": 2114.2999999821186
+      },
+      {
+        "from": 7,
+        "ms": 1786.2999999821186
+      },
+      {
+        "from": 8,
+        "ms": 6188.800000011921
+      },
+      {
+        "from": 9,
+        "ms": 2405.699999988079
+      },
+      {
+        "from": 10,
+        "ms": 2069.7000000178814
+      },
+      {
+        "from": 11,
+        "ms": 5496.9000000059605
+      },
+      {
+        "from": 12,
+        "ms": 3777.5
+      },
+      {
+        "from": 13,
+        "ms": 3440.5
+      },
+      {
+        "from": 14,
+        "ms": 2047.300000011921
+      }
+    ],
+    "departureMs": {
+      "min": 722.4000000059605,
+      "median": 2059,
+      "max": 6188.800000011921
+    },
+    "sampleCount": 53,
+    "missingProcessSamples": 0,
+    "privateMiB": {
+      "min": 2860.4,
+      "median": 3793.1,
+      "max": 4646.9
+    },
+    "workingSetMiB": {
+      "min": 669.4,
+      "median": 2103.4,
+      "max": 3008.2
+    },
+    "peakTrackedMiB": 455.8,
+    "first": {
+      "stage": 1,
+      "t": 0,
+      "privateMiB": 2860.4,
+      "workingSetMiB": 2550.8,
+      "trackedMiB": 331.3,
+      "textureEstimateMiB": 204.7,
+      "blobMiB": 80.8,
+      "atlasMiB": 14.1,
+      "pcmMiB": 31.6,
+      "glBuffersMiB": 35.5,
+      "models": 38,
+      "shots": 0,
+      "retired": []
+    },
+    "stageBoundary": [
+      {
+        "stage": 1,
+        "t": 60,
+        "privateMiB": 2917.1,
+        "workingSetMiB": 2609,
+        "trackedMiB": 311.2,
+        "textureEstimateMiB": 204.7,
+        "blobMiB": 60.9,
+        "atlasMiB": 14.1,
+        "pcmMiB": 31.5,
+        "glBuffersMiB": 35.6,
+        "models": 38,
+        "shots": 44,
+        "retired": []
+      },
+      {
+        "stage": 2,
+        "t": 120,
+        "privateMiB": 3103.1,
+        "workingSetMiB": 689,
+        "trackedMiB": 295.8,
+        "textureEstimateMiB": 196.4,
+        "blobMiB": 60.5,
+        "atlasMiB": 7.1,
+        "pcmMiB": 31.8,
+        "glBuffersMiB": 28.7,
+        "models": 24,
+        "shots": 122,
+        "retired": [
+          "reaper",
+          "hellion",
+          "thor",
+          "banshee",
+          "science_vessel",
+          "baneling"
+        ]
+      },
+      {
+        "stage": 3,
+        "t": 180,
+        "privateMiB": 3158.1,
+        "workingSetMiB": 1287.7,
+        "trackedMiB": 272,
+        "textureEstimateMiB": 170.4,
+        "blobMiB": 61.9,
+        "atlasMiB": 7.9,
+        "pcmMiB": 31.8,
+        "glBuffersMiB": 32.1,
+        "models": 28,
+        "shots": 295,
+        "retired": []
+      },
+      {
+        "stage": 4,
+        "t": 255,
+        "privateMiB": 3303.5,
+        "workingSetMiB": 1541.3,
+        "trackedMiB": 299.7,
+        "textureEstimateMiB": 197.1,
+        "blobMiB": 62.6,
+        "atlasMiB": 8.4,
+        "pcmMiB": 31.7,
+        "glBuffersMiB": 33.4,
+        "models": 30,
+        "shots": 1662,
+        "retired": []
+      },
+      {
+        "stage": 5,
+        "t": 330,
+        "privateMiB": 3438.3,
+        "workingSetMiB": 1715.1,
+        "trackedMiB": 303.4,
+        "textureEstimateMiB": 199.7,
+        "blobMiB": 63.1,
+        "atlasMiB": 8.6,
+        "pcmMiB": 32,
+        "glBuffersMiB": 33.5,
+        "models": 30,
+        "shots": 2652,
+        "retired": [
+          "elite.marine.2"
+        ]
+      },
+      {
+        "stage": 6,
+        "t": 405,
+        "privateMiB": 3384,
+        "workingSetMiB": 1672,
+        "trackedMiB": 287.5,
+        "textureEstimateMiB": 183.7,
+        "blobMiB": 63.3,
+        "atlasMiB": 8.6,
+        "pcmMiB": 31.8,
+        "glBuffersMiB": 33.5,
+        "models": 30,
+        "shots": 3736,
+        "retired": []
+      },
+      {
+        "stage": 7,
+        "t": 495,
+        "privateMiB": 3458.1,
+        "workingSetMiB": 1756.8,
+        "trackedMiB": 310.8,
+        "textureEstimateMiB": 206.7,
+        "blobMiB": 63.4,
+        "atlasMiB": 9,
+        "pcmMiB": 31.7,
+        "glBuffersMiB": 35.4,
+        "models": 32,
+        "shots": 5724,
+        "retired": []
+      },
+      {
+        "stage": 8,
+        "t": 585,
+        "privateMiB": 3552.1,
+        "workingSetMiB": 1848,
+        "trackedMiB": 326.7,
+        "textureEstimateMiB": 221.1,
+        "blobMiB": 64.4,
+        "atlasMiB": 9.3,
+        "pcmMiB": 31.9,
+        "glBuffersMiB": 36.3,
+        "models": 32,
+        "shots": 7974,
+        "retired": [
+          "baneling"
+        ]
+      },
+      {
+        "stage": 9,
+        "t": 675,
+        "privateMiB": 3857,
+        "workingSetMiB": 2063.5,
+        "trackedMiB": 412.7,
+        "textureEstimateMiB": 301.6,
+        "blobMiB": 66,
+        "atlasMiB": 13.2,
+        "pcmMiB": 31.9,
+        "glBuffersMiB": 44.7,
+        "models": 39,
+        "shots": 10702,
+        "retired": []
+      },
+      {
+        "stage": 10,
+        "t": 780,
+        "privateMiB": 3801.9,
+        "workingSetMiB": 2103.4,
+        "trackedMiB": 365.7,
+        "textureEstimateMiB": 254.8,
+        "blobMiB": 68.2,
+        "atlasMiB": 11.1,
+        "pcmMiB": 31.6,
+        "glBuffersMiB": 43.8,
+        "models": 38,
+        "shots": 14586,
+        "retired": [
+          "ravager",
+          "hero.swann",
+          "hero.raynor",
+          "hero.nova"
+        ]
+      },
+      {
+        "stage": 11,
+        "t": 885,
+        "privateMiB": 3882.4,
+        "workingSetMiB": 2240.9,
+        "trackedMiB": 366.7,
+        "textureEstimateMiB": 256.8,
+        "blobMiB": 67.5,
+        "atlasMiB": 10.6,
+        "pcmMiB": 31.7,
+        "glBuffersMiB": 44.1,
+        "models": 38,
+        "shots": 18105,
+        "retired": [
+          "queen",
+          "baneling"
+        ]
+      },
+      {
+        "stage": 12,
+        "t": 990,
+        "privateMiB": 3924.9,
+        "workingSetMiB": 2263.5,
+        "trackedMiB": 412.3,
+        "textureEstimateMiB": 296.8,
+        "blobMiB": 70,
+        "atlasMiB": 13.8,
+        "pcmMiB": 31.8,
+        "glBuffersMiB": 51,
+        "models": 42,
+        "shots": 23834,
+        "retired": [
+          "mutalisk",
+          "baneling"
+        ]
+      },
+      {
+        "stage": 13,
+        "t": 1110,
+        "privateMiB": 4229.3,
+        "workingSetMiB": 2645.9,
+        "trackedMiB": 398.2,
+        "textureEstimateMiB": 283.6,
+        "blobMiB": 69.5,
+        "atlasMiB": 14.2,
+        "pcmMiB": 30.8,
+        "glBuffersMiB": 51.5,
+        "models": 42,
+        "shots": 37043,
+        "retired": [
+          "hero.tychus",
+          "hero.yamato_battlecruiser",
+          "hero.tosh",
+          "baneling"
+        ]
+      },
+      {
+        "stage": 14,
+        "t": 1230,
+        "privateMiB": 4353.6,
+        "workingSetMiB": 2728.8,
+        "trackedMiB": 421.1,
+        "textureEstimateMiB": 309.5,
+        "blobMiB": 66.7,
+        "atlasMiB": 13.5,
+        "pcmMiB": 31.4,
+        "glBuffersMiB": 52.6,
+        "models": 43,
+        "shots": 46570,
+        "retired": [
+          "ultralisk",
+          "baneling"
+        ]
+      },
+      {
+        "stage": 15,
+        "t": 1245.3,
+        "privateMiB": 4646.9,
+        "workingSetMiB": 3008.2,
+        "trackedMiB": 453.4,
+        "textureEstimateMiB": 336.1,
+        "blobMiB": 69.8,
+        "atlasMiB": 15.8,
+        "pcmMiB": 31.7,
+        "glBuffersMiB": 55.2,
+        "models": 46,
+        "shots": 47114,
+        "retired": []
+      }
+    ],
+    "sameContent": [
+      {
+        "stage": 15,
+        "t": 1245.3,
+        "privateMiB": 4686.6,
+        "workingSetMiB": 3067.8,
+        "trackedMiB": 452.6,
+        "textureEstimateMiB": 336.1,
+        "blobMiB": 68.9,
+        "atlasMiB": 15.8,
+        "pcmMiB": 31.8,
+        "glBuffersMiB": 55.2,
+        "models": 46,
+        "shots": 47114,
+        "retired": []
+      },
+      {
+        "stage": 15,
+        "t": 1245.3,
+        "privateMiB": 4341.4,
+        "workingSetMiB": 2652.8,
+        "trackedMiB": 452.6,
+        "textureEstimateMiB": 336.1,
+        "blobMiB": 68.9,
+        "atlasMiB": 15.8,
+        "pcmMiB": 31.8,
+        "glBuffersMiB": 55.2,
+        "models": 46,
+        "shots": 47114,
+        "retired": []
+      },
+      {
+        "stage": 15,
+        "t": 1245.3,
+        "privateMiB": 4427.5,
+        "workingSetMiB": 2780.8,
+        "trackedMiB": 452.6,
+        "textureEstimateMiB": 336.1,
+        "blobMiB": 68.9,
+        "atlasMiB": 15.8,
+        "pcmMiB": 31.8,
+        "glBuffersMiB": 55.2,
+        "models": 46,
+        "shots": 47114,
+        "retired": []
+      }
+    ],
+    "events": [
+      "mission:intel",
+      "encounter:golden",
+      "mission:escort"
+    ],
+    "errors": [],
+    "saveFailureObserved": false,
+    "guardReached": true
+  },
+  "iterations": [
+    {
+      "build": "1991500d9fc8eb1d5958826a8fb5652c1449fff495803b2d85fe69f5e61eacc8",
+      "observation": "初测固定队伍在第7关战败，发现存档中的未来内容表被当作当前身份扫描，已排除。"
+    },
+    {
+      "build": "bd7e0ea159b3ae233ffdb70b053c7f904025cd864b9bbdc75518da0adeed57f2",
+      "observation": "同一测试方法下，第10关整备时驻留三个未购买英雄模型，后续将仅由货架引入的模型延后到确认选择。",
+      "baselineStage10HeroModels": 3,
+      "candidateStage10HeroModels": 0
+    },
+    {
+      "observation": "一次 Windows 枚举时，9个 Chrome PID 中1个在读取前退出，初测采样器因此中断。最终采样会再次核对存活 PID 并重试，缺样不会终止战局。最终有效进程采样齐全。"
+    }
+  ],
+  "limits": [
+    "长局计时包含加载和准备；固定步加速，额外7名 V 级队员、测试补血，不衡量正常难度或真机持续时间。",
+    "Windows 进程组专用字节、工作集与页内分项估算口径不同。第15关仍高于开局，重复准备仅能说明同内容的三次观测。",
+    "暖机高轮次、真机后台切换、iOS 系统实际终止线与原始 V06-SAFARI-001 故障待实机验证。",
+    "仅本地实现、构建与验证，未提交、推送或发布。"
+  ],
+  "reproduce": [
+    "tools/measure-seeded-campaign-windows.mjs",
+    "tools/measure-stage-departure-windows.mjs",
+    "tools/measure-safari-restore-windows.mjs",
+    "test/seeded-run-content.test.ts"
+  ]
+}

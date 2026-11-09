@@ -28,6 +28,7 @@ export function readArchive(raw:string):{bundle:SaveBundle;savedAt:number}{
  if(bundle.run!==null){
   if(!bundle.run||bundle.run.schema!==RUN_SCHEMA||bundle.run.rules!==RUN_RULES||bundle.run.config?.rulesId!==RUN_RULES)throw Error('续局版本不兼容');
   validateRunData(bundle.run.state,new RunState(),bundle.run.starship);
+  if(JSON.stringify(bundle.run.config.contentPlan)!==JSON.stringify(bundle.run.state.runConfig?.contentPlan))throw Error('续局内容计划与状态不一致');
   if(bundle.run.starship){const runtime=restoreStarship(bundle.run.starship);if(!runtime.enabled||!bundle.equipment||runtime.account.run?.id!==bundle.run.state.runId||runtime.account.run.race!==bundle.run.config.race||runtime.account.run.ended!==['lost','finished'].includes(bundle.run.state.phase)||runtime.account!==bundle.equipment&&checksum(JSON.stringify(encodeGraph(runtime.account)))!==checksum(JSON.stringify(encodeGraph(bundle.equipment))))throw Error('账户与检查点不一致');}
   if(bundle.run.config.difficulty!==bundle.run.state.difficulty||bundle.run.config.race!==bundle.run.state.expedition.race)throw Error('续局配置与状态不一致');
  }

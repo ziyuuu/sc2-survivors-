@@ -18,6 +18,8 @@ export interface FunIdentity {
 }
 export interface FunRecord {
  bait?:boolean;
+ /** Absent in older frozen events, whose per-body plans remain deliverable. */
+ equipmentMilestones?:true;
  id:string;kind:FunKind;stage:number;stamp:EnemySpawnStamp;point:Point;
  phase:'offered'|'active'|'emerging'|'swallowing'|'rescue'|'cocoon'|'departing';
  clock:number;age:number;next:number;actors:number[];guards:number[];
@@ -47,6 +49,7 @@ export function validateExpandedEncounters(s:ExpandedEncounters,entities:Map<num
  if([...s.infections.values()].reduce((n,x)=>n+x.ids.length,0)>10||[...s.infections.values()].some(x=>x.children.length!==x.ids.length)||!Array.isArray(s.bursts))throw Error('寄生身体预算无效');
  for(const m of [s.short,s.queen]){
   if(!m)continue;
+  if(m.equipmentMilestones!==undefined&&m.equipmentMilestones!==true)throw Error('遭遇装备节点无效');
   if(!FUN_KINDS.includes(m.kind)||!(m.paid instanceof Set)||!Array.isArray(m.actors)||!Array.isArray(m.held)||!Array.isArray(m.queue)||m.queue.length>40||![m.clock,m.age,m.next,m.kills,m.tier,m.claimed,m.eliteChildren,m.ordinaryChildren].every(v=>Number.isSafeInteger(v)&&v>=0)||m.claimed>10||m.eliteChildren>5||m.ordinaryChildren>5)throw Error('趣味遭遇事务无效');
   for(const seat of m.held)if(seat.swallowed)for(const id of seat.ids)if(entities.get(id)?.heldBy!==m.id)throw Error('吞噬编制身份无效');
   if(m.corrupt&&(m.kind!=='corruptedProtoss'||!Number.isSafeInteger(m.corrupt.spawned)||m.corrupt.spawned<1||m.corrupt.spawned>40||m.corrupt.reinforceAt!==undefined&&(!Number.isSafeInteger(m.corrupt.reinforceAt)||m.corrupt.reinforceAt<0)||m.actors.filter(id=>(entities.get(id)?.hp??0)>0).length>20||m.corrupt.site.missionId!==m.id||m.corrupt.site.model!=='gateway'))throw Error('腐化星灵据点状态无效');

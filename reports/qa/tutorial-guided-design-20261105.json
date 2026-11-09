@@ -1,0 +1,316 @@
+{
+  "date": "2026-11-05",
+  "scope": "Design arithmetic and current native base quotations only; proposed 700/200 grant, fixed drops/options and one-seat production gate are NOT implemented.",
+  "implemented": false,
+  "cases": [
+    {
+      "race": "terran",
+      "family": "marine",
+      "priceMode": "proposed fixed 0% discount / native base price",
+      "quotes": {
+        "perBody": {
+          "minerals": 50,
+          "gas": 0
+        },
+        "bodiesPerSeat": 1,
+        "oneSeat": {
+          "minerals": 50,
+          "gas": 0
+        },
+        "facility": {
+          "id": "barracks",
+          "name": "建造兵营（第2座）",
+          "minerals": 150,
+          "gas": 0
+        },
+        "system": {
+          "id": "system.barracks",
+          "minerals": 100,
+          "gas": 50
+        },
+        "directSupply": {
+          "minerals": 75,
+          "gas": 0
+        }
+      },
+      "ledger": [
+        {
+          "step": "accept",
+          "minerals": 700,
+          "gas": 200
+        },
+        {
+          "step": "drone-pickup",
+          "delta": {
+            "minerals": 100,
+            "gas": 50
+          },
+          "minerals": 800,
+          "gas": 250
+        },
+        {
+          "step": "first-one-seat-job",
+          "delta": {
+            "minerals": -50,
+            "gas": 0
+          },
+          "minerals": 750,
+          "gas": 250
+        },
+        {
+          "step": "first-facility",
+          "delta": {
+            "minerals": -150,
+            "gas": 0
+          },
+          "minerals": 600,
+          "gas": 250
+        },
+        {
+          "step": "direct-supply",
+          "delta": {
+            "minerals": -75,
+            "gas": 0
+          },
+          "minerals": 525,
+          "gas": 250
+        },
+        {
+          "step": "second-one-seat-job",
+          "delta": {
+            "minerals": -50,
+            "gas": 0
+          },
+          "minerals": 475,
+          "gas": 250
+        },
+        {
+          "step": "second-window-system",
+          "delta": {
+            "minerals": -100,
+            "gas": -50
+          },
+          "minerals": 375,
+          "gas": 200
+        }
+      ]
+    },
+    {
+      "race": "zerg",
+      "family": "zergling",
+      "priceMode": "proposed fixed 0% discount / native base price",
+      "quotes": {
+        "perBody": {
+          "minerals": 25,
+          "gas": 0
+        },
+        "bodiesPerSeat": 2,
+        "oneSeat": {
+          "minerals": 50,
+          "gas": 0
+        },
+        "facility": {
+          "id": "hatchery",
+          "name": "建造孵化场（第2座）",
+          "minerals": 150,
+          "gas": 0
+        },
+        "system": {
+          "id": "system.zerg.basic",
+          "minerals": 100,
+          "gas": 50
+        },
+        "directSupply": {
+          "minerals": 75,
+          "gas": 0
+        }
+      },
+      "ledger": [
+        {
+          "step": "accept",
+          "minerals": 700,
+          "gas": 200
+        },
+        {
+          "step": "drone-pickup",
+          "delta": {
+            "minerals": 100,
+            "gas": 50
+          },
+          "minerals": 800,
+          "gas": 250
+        },
+        {
+          "step": "first-one-seat-job",
+          "delta": {
+            "minerals": -50,
+            "gas": 0
+          },
+          "minerals": 750,
+          "gas": 250
+        },
+        {
+          "step": "first-facility",
+          "delta": {
+            "minerals": -150,
+            "gas": 0
+          },
+          "minerals": 600,
+          "gas": 250
+        },
+        {
+          "step": "direct-supply",
+          "delta": {
+            "minerals": -75,
+            "gas": 0
+          },
+          "minerals": 525,
+          "gas": 250
+        },
+        {
+          "step": "second-one-seat-job",
+          "delta": {
+            "minerals": -50,
+            "gas": 0
+          },
+          "minerals": 475,
+          "gas": 250
+        },
+        {
+          "step": "second-window-system",
+          "delta": {
+            "minerals": -100,
+            "gas": -50
+          },
+          "minerals": 375,
+          "gas": 200
+        }
+      ]
+    },
+    {
+      "race": "protoss",
+      "family": "zealot",
+      "priceMode": "proposed fixed 0% discount / native base price",
+      "quotes": {
+        "perBody": {
+          "minerals": 100,
+          "gas": 0
+        },
+        "bodiesPerSeat": 1,
+        "oneSeat": {
+          "minerals": 100,
+          "gas": 0
+        },
+        "facility": {
+          "id": "crystal",
+          "name": "建造折跃水晶 ×2",
+          "minerals": 300,
+          "gas": 0
+        },
+        "system": {
+          "id": "system.gateway",
+          "minerals": 100,
+          "gas": 50
+        },
+        "directSupply": {
+          "minerals": 150,
+          "gas": 0
+        }
+      },
+      "ledger": [
+        {
+          "step": "accept",
+          "minerals": 700,
+          "gas": 200
+        },
+        {
+          "step": "drone-pickup",
+          "delta": {
+            "minerals": 100,
+            "gas": 50
+          },
+          "minerals": 800,
+          "gas": 250
+        },
+        {
+          "step": "first-one-seat-job",
+          "delta": {
+            "minerals": -100,
+            "gas": 0
+          },
+          "minerals": 700,
+          "gas": 250
+        },
+        {
+          "step": "first-facility",
+          "delta": {
+            "minerals": -300,
+            "gas": 0
+          },
+          "minerals": 400,
+          "gas": 250
+        },
+        {
+          "step": "direct-supply",
+          "delta": {
+            "minerals": -150,
+            "gas": 0
+          },
+          "minerals": 250,
+          "gas": 250
+        },
+        {
+          "step": "second-one-seat-job",
+          "delta": {
+            "minerals": -100,
+            "gas": 0
+          },
+          "minerals": 150,
+          "gas": 250
+        },
+        {
+          "step": "second-window-system",
+          "delta": {
+            "minerals": -100,
+            "gas": -50
+          },
+          "minerals": 50,
+          "gas": 200
+        }
+      ]
+    }
+  ],
+  "source": [
+    {
+      "file": "src/simulation/world.ts",
+      "sha256": "e230d362d4fe464312407fd4d5b17d365579dc6fd69d39fc35c0ca97a0b43203"
+    },
+    {
+      "file": "src/simulation/expedition-production.ts",
+      "sha256": "789e4f3f51ca91ae6565c9120670b0687ac1c880ebfb791bbb18c5b24f04b8fe"
+    },
+    {
+      "file": "src/simulation/expedition-economy.ts",
+      "sha256": "a1a36e8edc88dc1be597f097b21d18d7099be0291d3e41bbaee2b794e70f8e2a"
+    },
+    {
+      "file": "src/data/expedition-buildings.ts",
+      "sha256": "89ca563b6b62e1a1cb9b229c9d61266590de3a25bf92a029c77018a39429b2c5"
+    },
+    {
+      "file": "src/data/expansion-units.ts",
+      "sha256": "6748082fdfe815cc52c811460db2fe4ccfccd5b5e8341ec5122eed96c19e2ba7"
+    },
+    {
+      "file": "src/simulation/progression/supply-cards.ts",
+      "sha256": "5ede35eb19f5f916266333d8aeeb73313c9bfa8277484105c5c96081b13aa442"
+    }
+  ],
+  "passed": true,
+  "notVerified": [
+    "New action gate / receipt implementation",
+    "Complete fixed script and legal reward branches",
+    "Natural combat completion without protection or damage assistance",
+    "Physical devices"
+  ]
+}

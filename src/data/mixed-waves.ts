@@ -20,7 +20,7 @@ export function baselineCampaignResources(stage:number,difficulty:Difficulty){
 }
 export function campaignMainBefore(stage:number,difficulty:Difficulty,seed?:number){let count=0;for(let s=1;s<stage;s++){const config=campaign18StageConfig(s,difficulty);count+=seed===undefined?Object.values(config.ambient).reduce((a,b)=>a+b,0):campaign18Schedule(config,seed).waves.reduce((n,w)=>n+w.types.length,0);}return count;}
 /** Exact 4:4:1 cumulative body ratio. Companions share their primary's due time and approach. */
-export function mixWaves(waves:readonly Campaign18Wave[],options:{stage:number;difficulty:Difficulty;seed:number;duration:number;spacing:number;mainBefore:number;budget:EnemyResourceScale;endlessStart?:number}):Campaign18Wave[]{
+export function mixWaves(waves:readonly Campaign18Wave[],options:{stage:number;difficulty:Difficulty;seed:number;duration:number;spacing:number;mainBefore:number;budget:EnemyResourceScale;endlessStart?:number;endlessRound?:number;resourceWeights?:EnemyResourceScale}):Campaign18Wave[]{
  const {stage,difficulty,seed,duration,spacing,budget,endlessStart}=options;
  const unlocked=new Set<Campaign18Enemy>(endlessStart===undefined?CAMPAIGN18_ENEMIES.filter(type=>CAMPAIGN18_STAGES.findIndex(s=>s.mix[type]>0)+1<stage):CAMPAIGN18_ENEMIES);
  let serial=options.mainBefore;
@@ -35,14 +35,21 @@ export function mixWaves(waves:readonly Campaign18Wave[],options:{stage:number;d
   const members:MixedWaveMember[]=[];
   wave.types.forEach((type,i)=>{
    const lane=serial++,offset=i*spacing,elapsed=Math.min(duration,wave.at+offset),progress=endlessStart===undefined?campaignProgress(stage,elapsed,duration):1;
-   const base={stage,progress,...endlessStart===undefined?{}:{endlessSeconds:endlessStart+elapsed}};
+   const base={stage,progress,...endlessStart===undefined?{}:{endlessSeconds:endlessStart+elapsed},...options.endlessRound===undefined?{}:{endlessRound:options.endlessRound,endlessGrowthSeconds:60*(options.endlessRound-1+elapsed/duration)}};
    const put=(type:Campaign18Enemy,density:1|.3|.5)=>members.push({type,offset,lane,stamp:{...base,density},resources:{minerals:1,gas:1}});
    put(type,1);put(weak(lane,17),.3);if((lane+1)%4===0)put(weak(lane,71),.5);
   });
   return {...wave,members};
  });
- const weight={minerals:0,gas:0};for(const wave of result)for(const member of wave.members)addResources(weight,member.type,member.stamp.density);
+ const weight=options.resourceWeights??{minerals:0,gas:0};if(!options.resourceWeights)for(const wave of result)for(const member of wave.members)addResources(weight,member.type,member.stamp.density);
  for(const wave of result)for(const member of wave.members)member.resources={minerals:weight.minerals?budget.minerals/weight.minerals*member.stamp.density:0,gas:weight.gas?budget.gas/weight.gas*member.stamp.density:0};
  return result;
+}
+/** Same endless companion hash as mixWaves, accumulated without retaining bodies. */
+export function endlessResourceWeights(counts:Record<Campaign18Enemy,number>,mainBefore:number,seed:number):EnemyResourceScale {
+ const total={minerals:0,gas:0};let count=0;for(const type of CAMPAIGN18_ENEMIES){count+=counts[type];addResources(total,type,counts[type]);}
+ const companions=[0,0,0],salt30=Math.imul(seed+17,1013904223),salt50=Math.imul(seed+71,1013904223);
+ for(let lane=mainBefore;lane<mainBefore+count;lane++){const hash=Math.imul(lane+1,1664525),n=((hash^salt30)>>>0)/4294967296;companions[n<.7?0:n<.9?1:2]+=.3;if((lane+1)%4===0){const n=((hash^salt50)>>>0)/4294967296;companions[n<.7?0:n<.9?1:2]+=.5;}}
+ weakTypes.forEach((type,i)=>addResources(total,type,companions[i]));return total;
 }
 export function mixCampaignWaves(waves:readonly Campaign18Wave[],stage:number,difficulty:Difficulty,seed:number){const config=campaign18StageConfig(stage,difficulty);return mixWaves(waves,{stage,difficulty,seed,duration:config.durationSeconds,spacing:config.entranceSpacing,mainBefore:campaignMainBefore(stage,difficulty,seed),budget:baselineCampaignResources(stage,difficulty)});}

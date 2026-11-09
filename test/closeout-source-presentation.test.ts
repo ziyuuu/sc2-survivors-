@@ -10,8 +10,8 @@ import {AssetReadinessCoordinator} from '../src/app/asset-readiness';
 
 test('late audio progress cannot replace a required-model failure and remove Retry',async()=>{
  let progress:((done:number,total:number,label:string)=>void)|undefined,finish:()=>void=()=>{};
- const world={expedition:{race:'protoss'}},view={initialAssetsLoaded:false,load:async()=>{throw Error('cold birth blocked');}};
- const audio={preload:(notify:any)=>{progress=notify;return new Promise<void>(resolve=>{finish=resolve;});}};
+ const world={expedition:{race:'protoss'},entities:new Map()},view={initialAssetsLoaded:false,load:async()=>{throw Error('cold birth blocked');}};
+ const audio={prepareBanks:(_plan:any,notify:any)=>{progress=notify;return new Promise<void>(resolve=>{finish=resolve;});}};
  const gate=new AssetReadinessCoordinator(world as any,view as any,audio as any);
  assert.equal(await gate.prepare('new',{race:'protoss'}),false);assert.equal(gate.state.phase,'error');
  progress!(1,2,'late decoded audio');assert.equal(gate.state.phase,'error');assert.equal(gate.state.error,'cold birth blocked');finish();

@@ -8,6 +8,7 @@ import type {FamilyId} from '../../data/races';
 import {supplyEligibility} from '../../simulation/progression/supply-cards';
 import {teamCardKey} from '../../simulation/progression/team-cards';
 import {supplyPlan} from '../../simulation/progression/supply-plan';
+import {eliteSummary} from '../presentation/elite-copy';
 
 export const lineRows:Record<string,ProductionLineId[]>={terran:['barracks','factory','starport'],protoss:['gateway','robotics','stargate'],zerg:['zerg.basic','zerg.evolution','zerg.air']};
 export const roundCopy=(text:string)=>text.replace(/\d+\.\d{2,}/g,n=>String(Number(Number(n).toFixed(1))));
@@ -65,12 +66,12 @@ export function cardPresentation(w:World,c:CardView,r?:ExpeditionReward){
  }else if(e?.kind==='resource'){
   simple='回收补给，补充作战资源';
  }else if(e?.kind==='hero'||c.identity&&c.identity in HEROES){const id=(e?.kind==='hero'?e.heroId:c.identity)as HeroId,owned=w.heroes.get(id);current=owned?level(owned.rank):'';gain=c.kicker==='英雄复活'?'':owned?(owned.rank<5?'↗':''):'NEW';simple=c.kicker==='英雄复活'?c.stat:owned?'提升英雄军衔':'招募英雄加入战斗';}
- else if(e?.kind==='elite'||c.identity&&c.identity in ELITES){const id=(e?.kind==='elite'?e.eliteId:c.identity)as EliteId,owned=w.eliteOwned(id);current=owned?level(owned.rank):'';gain=owned?(owned.rank<5?'↗':''):'NEW';simple=owned?'提升精锐军衔':'挑选精锐与专属战法';}
+ else if(e?.kind==='elite'||c.identity&&c.identity in ELITES){const id=(e?.kind==='elite'?e.eliteId:c.identity)as EliteId,owned=w.eliteOwned(id);current=owned?level(owned.rank):'';gain=owned?(owned.rank<5?'↗':''):'NEW';simple=id==='reaper.3'?eliteSummary(id,c.detail):owned?'提升精锐军衔':'挑选精锐与专属战法';}
  if(!e&&!c.identity?.includes('.')&&c.art==='supply'){gain='+'+c.count;simple=c.kicker.includes('空投')?'空投增援，抵达后接收':'增援立即加入小队';}
  if(!e&&(catalogueEffect||source.startsWith('team.'))){const kind=catalogueEffect??source.split('.')[1];simple=kind==='production'?'缩短后续训练耗时':kind==='cultivation'?'培养军衔最低的普通士兵':strength+({weapon:'武器伤害',vitality:'最大生命',armor:'护甲',recovery:'恢复效率',energy:'能量恢复',firepower:'全军伤害与攻击速度',defense:'全军生命、护盾与护甲'}as Record<string,string>)[kind];}
  if(!e&&source.startsWith('economy.'))simple='回收补给，补充作战资源';
  if(!e&&source.startsWith('training.')){gain='↗';simple='提升普通士兵军衔';}
  if(!e&&equipment(c)){simple=equipment(c)!.kind===0?'提高对应生产线的武器伤害':'提高对应生产线的防护能力';}
  if(c.progress)detail+=' '+c.progress.purchases+'。'+c.progress.total;
- return {current,gain,simple:roundCopy(simple),detail:roundCopy(detail),equipment:equipment(c,r)};
+ return {current,gain,simple:roundCopy(simple),detail:(e?.kind==='elite'?e.eliteId:c.identity)==='reaper.3'?detail:roundCopy(detail),equipment:equipment(c,r)};
 }

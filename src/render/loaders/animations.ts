@@ -50,7 +50,7 @@ export function selectAttackPresentation(unit:ShootingUnit,time:number,actions:R
  const overlay=!unit.heroId&&(unit.unitType==='marine'||unit.unitType==='marauder');
  const deployedThor=unit.unitType==='thor'&&!unit.heroId&&unit.nativeMode==='thor_high_impact';
  const modeAttack=unit.activeWeapon==='LanceMissileLaunchers'?'highImpactAttack':'highImpactGroundAttack';
- const action=deployedThor&&actions[modeAttack]?modeAttack:attackAction(unit.unitType,unit.shotSequence),clip=actions[action];
+ const action=unit.unitType==='lurker'&&actions.burrowAttack?'burrowAttack':deployedThor&&actions[modeAttack]?modeAttack:attackAction(unit.unitType,unit.shotSequence),clip=actions[action];
  if(!clip||clip===actions.idle)return null;
  const rate=1.4,marker=Math.min(clip.duration,SC2_UNITS[unit.unitType].damagePoint*rate);
  const age=time-unit.lastShotAt;
@@ -67,7 +67,7 @@ export function selectAttackPresentation(unit:ShootingUnit,time:number,actions:R
   return actions.attackEnd&&end<actions.attackEnd.duration?{action:'attackEnd',seconds:end,once:true,overlay:false}:null;
  }
  const seconds=marker+age*rate,window=Math.min((clip.duration-marker)/rate,Math.max(.12,unit.shotInterval*.9));
- return age<window?{action:unit.nativeMode==='lurker_burrowed'&&actions.burrowAttack?'burrowAttack':action,seconds,once:true,overlay}:null;
+ return age<window?{action,seconds,once:true,overlay}:null;
 }
 
 /** SC2 Marauder Actor increments WeaponNext: 1 selects Right, 0 selects Left. */

@@ -1,7 +1,7 @@
 import {escortSpawnClear,escortSpawnPoint} from './escort-spawn';
 import {missionAllowed} from '../progression/fun-availability';
 import {cancelEncounters} from '../encounters/runtime';
-import {MISSION_RULES} from './config';
+import {MISSION_RULES,missionWaveTicks} from './config';
 import {spawnFleet,tickFleetMission,tickFleetCall,clearFleet} from './fleet';
 import {spawnRescue,tickRescue,cleanupRescue} from './rescue';
 import {spawnEggs,tickEggs,createPulseBaneling,tickPulseBaneling} from './eggs';
@@ -50,7 +50,7 @@ export function spawnMission(w:World,kind:MissionKind):boolean {
  let start:Point|null=null,path:Point[]|null=null;
  for(let n=0;n<32&&!path;n++){const p=w.eventPoint(8,24);if(!missionPointLegal(w,p,2.5)||!missionAwayFromSquad(w,p,2.5,12))continue;const candidate=escortRoute(w,p);if(candidate){const end=candidate.at(-1)!,prev=candidate.at(-2)!,angle=Math.atan2(end.x-prev.x,end.z-prev.z);if(missionPointLegal(w,{x:end.x+Math.sin(angle)*4.4,z:end.z+Math.cos(angle)*4.4},2.4)){start=p;path=candidate;}}}
  if(!start||!path)return false;
- const id=`${w.runId}:mission:${++w.missions.serial}`,m:MissionRecord={id,kind,phase:'offered',stage:w.stage,age:0,bodyIds:[],enemyIds:[],queue:[],progress:0,completed:0,total:MISSION_RULES.escort.workersMin+Math.floor(w.random()*(MISSION_RULES.escort.workersMax-MISSION_RULES.escort.workersMin+1)),nextSpawn:MISSION_RULES.escort.waveTicks,receipts:[]};
+ const id=`${w.runId}:mission:${++w.missions.serial}`,m:MissionRecord={id,kind,phase:'offered',stage:w.stage,age:0,bodyIds:[],enemyIds:[],queue:[],progress:0,completed:0,total:MISSION_RULES.escort.workersMin+Math.floor(w.random()*(MISSION_RULES.escort.workersMax-MISSION_RULES.escort.workersMin+1)),nextSpawn:missionWaveTicks(MISSION_RULES.escort.waveTicks,w.stage),receipts:[]};
  w.missions.active=m;w.missions.stage=w.stage;
  const race=w.expedition.race,presentation=RESCUE_PRESENTATION[race],baseModel=race==='terran'?'command_center':race==='zerg'?'hatchery':'nexus';
  const end=path.at(-1)!,before=path.at(-2)!,heading=Math.atan2(end.x-before.x,end.z-before.z),basePoint={x:end.x+Math.sin(heading)*4.4,z:end.z+Math.cos(heading)*4.4};
@@ -126,7 +126,7 @@ export function tickMissions(w:World){
   const path=b.path!,i=b.pathIndex!,goal=path[i];if(!goal){rewardWorker(w,m,b);continue;}
   const d=distance(b,goal),step=b.speed!/60;if(d<=step){b.x=goal.x;b.z=goal.z;b.pathIndex=i+1;if(i===path.length-1)rewardWorker(w,m,b);}else{const next=steerGoal(b,goal,b.unitRadius,w.obstacles,w.terrain,w.mapHalf),n=distance(b,next);if(n>.001){b.facing=Math.atan2(next.x-b.x,next.z-b.z);translate(b,{x:(next.x-b.x)/n*step,z:(next.z-b.z)/n*step},b.unitRadius,false,w.obstacles,w.mapHalf,w.terrain);}}
  }
- if(m.age>=m.nextSpawn&&!m.queue.length){queueEscort(w,m);m.nextSpawn=m.age+MISSION_RULES.escort.waveTicks;}
+ if(m.age>=m.nextSpawn&&!m.queue.length){queueEscort(w,m);m.nextSpawn=m.age+missionWaveTicks(MISSION_RULES.escort.waveTicks,w.stage);}
  releaseMissionQueue(w);
  if(!missionBodies(w).some(b=>b.role==='worker'))finishMission(w,m.completed>0?'succeeded':'failed');
 }

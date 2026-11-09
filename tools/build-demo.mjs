@@ -2,7 +2,7 @@ import {createAssetPack} from './offline-pack.mjs';
 import fs from 'node:fs/promises';
 import {build} from 'esbuild';
 import {createHash} from 'node:crypto';
-import {loadBuildAssets} from './load-build-assets.mjs';
+import {loadBuildAssets,releaseAssetMime} from './load-build-assets.mjs';
 await import('./import-opening-reference.mjs');
 const records=await loadBuildAssets();
 const reachability=JSON.parse(await fs.readFile('reports/local/asset-reachability.json','utf8'));
@@ -27,11 +27,13 @@ const closureById=new Map(reachability.rows.map(row=>[row.id,row]));
 const resources=[];for(const r of records.filter(r=>selectedIds.has(r.id))){
  const bytes=await fs.readFile(r.packedFile),closure=closureById.get(r.id);
  if(!closure||closure.packedFile!==r.packedFile||closure.bytes!==bytes.length||closure.sha256!==createHash('sha256').update(bytes).digest('hex'))throw Error('M6 release resource changed after reachability audit: '+r.id);
- const mime=r.kind==='map-data'?'application/json':r.kind==='map-model'?'model/gltf+json':(r.kind==='model'||r.kind==='combat-effect-model')?'model/gltf-binary':r.kind==='audio'?(r.packedFile.endsWith('.ogg')?'audio/ogg':'audio/wav'):r.packedFile.endsWith('.svg')?'image/svg+xml':r.packedFile.endsWith('.webp')?'image/webp':r.packedFile.endsWith('.jpg')?'image/jpeg':'image/png';resources.push({id:r.id,mime,bytes});
+ resources.push({id:r.id,mime:releaseAssetMime(r.packedFile),bytes});
 }
 if(resources.length!==selectedIds.size)throw Error('M6 release asset selection mismatch');
 const {pack,stats}=createAssetPack(resources);
-const result=await build({entryPoints:['src/main.ts'],bundle:true,format:'iife',target:'es2022',minify:true,write:false,outfile:'demo.js',define:{'import.meta.env.DEV':'false','import.meta.env.PROD':'true'}});
+// Libraries can resolve module-relative defaults at import time even when their
+// optional decoder is unused offline. The single document owns that base URL.
+const result=await build({entryPoints:['src/main.ts'],bundle:true,format:'iife',target:'es2022',minify:true,write:false,outfile:'demo.js',define:{'import.meta.env.DEV':'false','import.meta.env.PROD':'true','import.meta.url':'document.baseURI'}});
 const js=result.outputFiles.find(f=>f.path.endsWith('.js')).text.replace(/<\/script/gi,'<\\/script');const css=result.outputFiles.find(f=>f.path.endsWith('.css'))?.text??'';
 const opening=await fs.readFile('src/ui/presentation/opening.generated.html','utf8');
 const metadata={version:pack.version,container:'chunks-v1',assets:pack.assets,chunks:pack.chunks.map(({data,...meta})=>({...meta,data:''}))};

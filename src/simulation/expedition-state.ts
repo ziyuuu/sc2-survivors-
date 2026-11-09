@@ -18,6 +18,7 @@ export interface TacticalPlan {targetEntityId:number;targetGeneration:number;dir
 export interface TalentLootChoice {receipt:string;rarity:'purple'|'orange';offers:ExpeditionReward[];}
 export interface EliteRescueRight {receipt:string;eliteId:string;}
 export interface ExpeditionState {
+ tutorial?:import('./tutorial/types').TutorialRun;
  /** New-run building package. Legacy player archives are not converted by this integration. */
  building?:BuildingState;
  support:ShopSupportState;

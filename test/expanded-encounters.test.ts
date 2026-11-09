@@ -38,7 +38,7 @@ for(const difficulty of ['easy','normal','hard','hell'] as const)test(difficulty
  assert.equal(m.phase,'active');assert.ok(units.every(u=>u.enemyTier==='elite'&&u.fun?.mode==='morph'));assert.equal(first.hp,first.maxHp-1);assert.notEqual(old,first.maxHp);
  const before={x:first.x,z:first.z};assert.equal(tickFunUnit(w,first,1/60),true);assert.deepEqual({x:first.x,z:first.z},before);
  for(const u of units)kill(w,u);flushEncounterRewards(w);
- assert.equal(items(w).length,m.plans.reduce((n,p)=>n+p.items.length,0));assert.equal(m.plans.length,6);
+ assert.equal(items(w).length,m.plans.reduce((n,p)=>n+p.items.length,0));assert.equal(m.plans.length,2);
  const rng=w.starship.account.rng;for(const u of units)kill(w,u);flushEncounterRewards(w);assert.equal(w.starship.account.rng,rng);
  assert.equal(w.pickups.length,0);ticks(w);assert.equal(w.encounters.expanded.short,null);
 });
@@ -128,23 +128,23 @@ for(const difficulty of ['easy','normal','hard','hell'] as const)test(difficulty
  u.fun!.mode='charging';u.fun!.faction='hostile';u.fun!.until=w.time-1;tickFunUnit(w,u,1/60);
  assert.equal(packets.length,1);assert.deepEqual(packets[0],expected);
 });
-for(const race of ['terran','zerg','protoss'] as const)test(race+': ten infected marines can be killed and each guarantees offensive equipment',()=>{
+for(const race of ['terran','zerg','protoss'] as const)test(race+': ten infected marines can be killed give offensive equipment at cumulative 3/6/10',()=>{
  const w=world();w.expedition.race=race;if(race==='terran')w.addUnit('medivac','terran',0,4);
  const m=start(w,'infectedTerrans'),units=bodies(w,m.actors);assert.equal(units.length,10);
- for(const u of units)kill(w,u);flushEncounterRewards(w);assert.equal(items(w).length,10);assert.ok(items(w).every(i=>i.slot.startsWith('offense')));
- for(const u of units)kill(w,u);flushEncounterRewards(w);assert.equal(items(w).length,10);
+ for(const u of units)kill(w,u);flushEncounterRewards(w);assert.equal(items(w).length,3);assert.ok(items(w).every(i=>i.slot.startsWith('offense')));
+ for(const u of units)kill(w,u);flushEncounterRewards(w);assert.equal(items(w).length,3);
 });
 test('actual Terran medical output cleanses at 30% maximum and produces a ninety-second ally, without double reward at death',()=>{
  const w=world(),healer=w.addUnit('medivac','terran',0,4),m=start(w,'infectedTerrans'),u=bodies(w,m.actors)[0];
  for(const other of bodies(w,m.actors).slice(1)){other.x=60;other.z=60;}healer.x=u.x;healer.z=u.z+1;healer.healRate=u.maxHp;healer.energy=1e6;
  for(let i=0;i<30&&u.fun!.mode!=='friend';i++)healExpedition(w,healer,.1);
- assert.equal(u.fun!.mode,'friend');assert.equal(u.owner,'terran');assert.equal(u.fun!.until,w.time+90);assert.ok(expandedLabel(w).includes('待处理 9'));flushEncounterRewards(w);assert.equal(items(w).length,1);
- const enemy=w.addUnit('roach','zerg',u.x+1,u.z);kill(w,u,enemy);flushEncounterRewards(w);assert.equal(items(w).length,1);
+ assert.equal(u.fun!.mode,'friend');assert.equal(u.owner,'terran');assert.equal(u.fun!.until,w.time+90);assert.ok(expandedLabel(w).includes('待处理 9'));flushEncounterRewards(w);assert.equal(items(w).length,0);
+ const enemy=w.addUnit('roach','zerg',u.x+1,u.z);kill(w,u,enemy);flushEncounterRewards(w);assert.equal(items(w).length,0);
 });
 test('infected marines start twelve seconds on proximity, swell for 1.5 seconds and use a bounded charge',()=>{
  const w=world();w.expedition.race='zerg';const m=start(w,'infectedTerrans'),u=bodies(w,m.actors)[0];ticks(w,120);assert.equal(m.phase,'offered');
  w.anchor.x=u.x;w.anchor.z=u.z;ticks(w);assert.equal(m.phase,'active');ticks(w,719);assert.equal(u.fun!.mode,'passive');ticks(w);assert.equal(u.fun!.mode,'swelling');
- tickFunUnit(w,u,1/60);assert.equal(u.fun!.mode,'swelling');w.time+=1.5;tickFunUnit(w,u,1/60);assert.equal(u.fun!.mode,'charging');w.time+=8;tickFunUnit(w,u,1/60);flushEncounterRewards(w);assert.equal(u.hp,0);assert.equal(items(w).length,1);
+ tickFunUnit(w,u,1/60);assert.equal(u.fun!.mode,'swelling');w.time+=1.5;tickFunUnit(w,u,1/60);assert.equal(u.fun!.mode,'charging');w.time+=8;tickFunUnit(w,u,1/60);flushEncounterRewards(w);assert.equal(u.hp,0);assert.equal(items(w).length,0);
 });
 test('corrupted protoss has bug hostility, 20 initial bodies, a 40 total cap and one final package',()=>{
  const w=world(),m=start(w,'corruptedProtoss'),p=bodies(w,m.actors)[0],enemy=w.addUnit('roach','zerg',p.x+1,p.z),friend=w.allies()[0];

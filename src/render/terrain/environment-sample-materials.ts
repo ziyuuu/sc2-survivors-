@@ -1,3 +1,4 @@
+import {ManagedTextureLoader} from '../loaders/managed-textures';
 import * as THREE from 'three';
 import {prepareEmbeddedAssetIds} from '../../assets/offline-pack';
 import type {GLTF} from 'three/addons/loaders/GLTFLoader.js';
@@ -17,7 +18,7 @@ const textureCache=new WeakMap<LandscapeResources,Map<string,Promise<THREE.Textu
 export {data as environmentSampleAssets};
 export function sampleTexture(filename:string,resources:LandscapeResources){
  filename=filename.toLowerCase();let cache=textureCache.get(resources);if(!cache){cache=new Map();textureCache.set(resources,cache)}const prior=cache.get(filename);if(prior)return prior;
- const promise=(async()=>{const id=files[filename]?.[0],record=data.records.find(r=>r.id===id);if(!record)throw Error('Missing source-bound scenery texture '+filename);await prepareEmbeddedAssetIds([id]);const url=assetUrl(id);if(!url)throw Error('Source scenery texture is not prepared: '+id);const t=await new THREE.TextureLoader().loadAsync(url);resources.textures.push(t);t.name=id;t.colorSpace=record.linear?THREE.NoColorSpace:THREE.SRGBColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.anisotropy=8;return t})();cache.set(filename,promise);return promise;
+ const promise=(async()=>{const id=files[filename]?.[0],record=data.records.find(r=>r.id===id);if(!record)throw Error('Missing source-bound scenery texture '+filename);await prepareEmbeddedAssetIds([id]);const url=assetUrl(id);if(!url)throw Error('Source scenery texture is not prepared: '+id);const t=await new ManagedTextureLoader().loadAsync(url);resources.textures.push(t);t.name=id;t.colorSpace=record.linear?THREE.NoColorSpace:THREE.SRGBColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.anisotropy=8;return t})();cache.set(filename,promise);return promise;
 }
 const channel=(expression:string,layer:Layer)=>`clamp(${layer.channel>=2?expression+'.'+(['a','r','g','b'][layer.channel-2]??'r'):expression+'.r'}*${layer.multiply.toFixed(6)}+${layer.add.toFixed(6)},0.0,1.0)`;
 /** Static source channels omitted by the old map export. Matches the existing unit PBR adaptation. */

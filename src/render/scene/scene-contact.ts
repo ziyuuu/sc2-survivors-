@@ -51,7 +51,7 @@ export class SceneContact {
  private material=new THREE.ShaderMaterial({name:'posed-contact-12',depthTest:false,depthWrite:false,blending:THREE.NoBlending,toneMapped:false,uniforms:{sceneDepth:{value:null},projection:{value:new THREE.Matrix4()},inverseProjection:{value:new THREE.Matrix4()},depthSize:{value:new THREE.Vector2(1,1)},sampleCount:{value:12},kernel:{value:contactKernel()},radius:{value:CONTACT_RADIUS},strength:{value:CONTACT_STRENGTH}},vertexShader,fragmentShader});
  private quad=new FullScreenQuad(this.material);private width=0;private height=0;private occluders=0;
  constructor(private renderer:THREE.WebGLRenderer,private registry:PosedDepthRegistry){this.white.needsUpdate=true;this.depthTarget.depthTexture=new THREE.DepthTexture(1,1,THREE.UnsignedIntType);this.depthTarget.texture.name='posed-contact-depth-colour-unused';this.depthTarget.depthTexture.name='posed-contact-depth';this.target.texture.name='ambient-contact-and-depth';}
- setEnabled(enabled:boolean){this.enabled=enabled&&!this.fallback;if(!this.enabled){this.uniforms.sceneContactEnabled.value=0;this.ready=false;this.occluders=0;}}
+ setEnabled(enabled:boolean){this.enabled=enabled&&!this.fallback;if(!this.enabled)this.restore();}
  prepare(root:THREE.Object3D){if(!this.enabled)return;for(const node of sceneRenderables(root)){if(!(node instanceof THREE.Mesh))continue;for(const material of Array.isArray(node.material)?node.material:[node.material])if(material instanceof THREE.MeshStandardMaterial&&physicalSurface(material)&&!this.bound.has(material)){bindAmbientContact(material,this.uniforms);this.bound.add(material);}}}
  render(scene:THREE.Scene,camera:THREE.OrthographicCamera|THREE.PerspectiveCamera,width:number,height:number){
   if(!this.enabled){this.uniforms.sceneContactEnabled.value=0;this.ready=false;return;}if(this.renderer.getContext().isContextLost())return;
@@ -76,6 +76,6 @@ export class SceneContact {
    scene.background=background;scene.overrideMaterial=override;renderer.shadowMap.autoUpdate=autoUpdate;renderer.shadowMap.needsUpdate=needsUpdate;renderer.setClearColor(clear,alpha);renderer.setRenderTarget(previous);
   }
  }
- restore(){this.depthTarget.dispose();this.target.dispose();this.uniforms.sceneContactMap.value=this.white;this.uniforms.sceneContactEnabled.value=0;this.ready=false;}
+ restore(){this.uniforms.sceneContactMap.value=this.white;this.uniforms.sceneContactEnabled.value=0;this.material.uniforms.sceneDepth.value=null;this.depthTarget.dispose();this.target.dispose();this.ready=false;this.occluders=0;}
  report(){return {enabled:this.enabled,ready:this.ready,fallback:this.fallback,samples:this.samples,radius:CONTACT_RADIUS,strength:CONTACT_STRENGTH,scope:'opaque-indirect-diffuse',depthSize:[this.width,this.height],size:[this.target.width,this.target.height],occluders:this.occluders,sharedPoseDepth:true,emissionUntouched:true};}
 }

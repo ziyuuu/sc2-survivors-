@@ -1,3 +1,4 @@
+import {ManagedGLTFLoader} from '../loaders/managed-textures';
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
 import {assetUrl} from '../../assets/manifest';
@@ -19,7 +20,7 @@ export class FunPropAssets {
   if(this.loading)return this.loading;
   this.loading=(async()=>{
    await prepareEmbeddedAssetIds([ID]);const url=assetUrl(ID);if(!url)throw Error('趣味道具模型未就绪');
-   const gltf=await new GLTFLoader().loadAsync(url);
+   const gltf=await new ManagedGLTFLoader().loadAsync(url);
    for(const name of FUN_PROP_NAMES)if(!gltf.scene.getObjectByName(name))throw Error('趣味道具模型缺少节点：'+name);
    const replacements=new Map<THREE.Material,THREE.ShaderMaterial>();
    gltf.scene.traverse(o=>{if(o instanceof THREE.Mesh){o.castShadow=true;o.receiveShadow=true;

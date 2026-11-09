@@ -1,6 +1,9 @@
+import {guided,guidedBossCard,noteGuidedCard} from './tutorial/guided';
+import {canSupply,applySupply} from './progression/supply-cards';
 import {missionBlocksIdentity} from './missions/rewards';
 import {ordinaryHeroAllowed,ordinaryHeroUnlockStage,unlockOrdinaryHeroRewards} from './progression/hero-availability';
 import {acquireEliteImmediately} from './elite-claim';
+import {worldContent,contentStream} from './progression/run-content';
 import type {World} from './world';
 import type {Entity,RewardDrop} from './types';
 import {ELITES,type EliteId} from '../data/elites';
@@ -18,7 +21,9 @@ function receiptRandom(receipt:string){let seed=2166136261;for(const c of receip
 /** Freeze the actual elite identity without consuming the combat/draft RNG. */
 export function freezeLootVariant(w:World,reward:ExpeditionReward,receipt:string):EliteId|undefined{
  const e=reward.expeditionEffect;if(e.kind!=='elite')return;
- const choices=w.eliteVariants(e.family);return choices[Math.floor(receiptRandom(receipt)()*choices.length)]?.id;
+ const choices=w.eliteVariants(e.family),plan=worldContent(w);
+ if(plan)return choices.find(choice=>plan.elites.includes(choice.id))?.id??choices[Math.floor(contentStream(plan,'boss/variant/'+e.family)()*choices.length)]?.id;
+ return choices[Math.floor(receiptRandom(receipt)()*choices.length)]?.id;
 }
 /** Decide the first campaign Boss reward at stage entry. This separate receipt
  * stream never advances combat RNG or allocates a live offer/entity ID. */
@@ -27,24 +32,24 @@ export function planFirstBossLoot(w:World){
  const receipt=`${w.runId}:planned-boss:3`,context=draftContext(w);
  // Prewarm the pool that will be legal after this Boss dies, without opening
  // ordinary reward sources before the kill or changing the frozen reward later.
- if(w.stage>=ordinaryHeroUnlockStage(w.difficulty))context.heroes=context.heroes.map(h=>({...h,eligible:w.canAcquireHero(h.id as HeroId)}));
- const reward=drawBossLoot({...context,random:receiptRandom(receipt),nextOfferId:()=>receipt},receipt);
+ if(w.stage>=ordinaryHeroUnlockStage(w.difficulty))context.heroes=context.heroes.map(h=>({...h,eligible:(!worldContent(w)||worldContent(w)!.heroes.includes(h.id as HeroId))&&w.canAcquireHero(h.id as HeroId)}));
+ const reward=drawBossLoot({...context,random:worldContent(w)?contentStream(worldContent(w)!,'boss/first'):receiptRandom(receipt),nextOfferId:()=>receipt},receipt);
  delete reward.talentLootReceipt;reward.minerals=reward.gas=reward.baseMinerals=reward.baseGas=0;
  w.expedition.firstBossLoot={reward,variant:freezeLootVariant(w,reward,receipt)??null,consumed:false};
 }
 export function dropBossLoot(w:World,enemy:Entity){
- const s=w.expedition;if(!enemy||enemy.mission?.noLoot||enemy.owner!=='zerg'||!['boss','lord'].includes(enemy.enemyTier??'')||enemy.hp>0||enemy.deadAt===null||!w.entities.has(enemy.id))return false;
+ const s=w.expedition;if(!enemy||enemy.mission?.noLoot||enemy.owner!=='zerg'||!['boss','lord'].includes(enemy.enemyTier??'')&&!guidedBossCard(w,enemy,'check')||enemy.hp>0||enemy.deadAt===null||!w.entities.has(enemy.id))return false;
  const receipt=`${w.runId}:boss:${enemy.id}:${enemy.bornAt}`;if(s.bossLootReceipts.includes(receipt))return false;
  unlockOrdinaryHeroRewards(w,enemy);
  // Keep the original death-time RNG/offer allocation for the rest of combat.
- const rolled=drawBossLoot(draftContext(w),receipt),planned=s.firstBossLoot;
+ const rolled=drawBossLoot(draftContext(w,'boss/'+s.bossLootReceipts.length),receipt),planned=s.firstBossLoot;
  const usePlan=planned&&!planned.consumed&&!w.endless&&enemy.enemyTier==='boss'&&enemy.enemySpawn?.stage===3;
- const reward=usePlan?{...planned.reward,offerId:receipt}:rolled;delete reward.talentLootReceipt;reward.minerals=reward.gas=reward.baseMinerals=reward.baseGas=0;
- const variant=usePlan?planned.variant??undefined:freezeLootVariant(w,reward,receipt);if(usePlan)planned.consumed=true;
- s.bossLootReceipts.push(receipt);w.rewardDrops.push({id:w.nextId++,x:enemy.x,z:enemy.z,reward,bossLootReceipt:receipt,bossLootVariant:variant});return true;
+ const fixed=guidedBossCard(w,enemy,receipt);const reward=fixed?fixed.reward as ExpeditionReward:usePlan?{...planned.reward,offerId:receipt}:rolled;delete reward.talentLootReceipt;reward.minerals=reward.gas=reward.baseMinerals=reward.baseGas=0;
+ const variant=fixed?fixed.variant:usePlan?planned.variant??undefined:freezeLootVariant(w,reward,receipt);if(usePlan)planned.consumed=true;
+ s.bossLootReceipts.push(receipt);w.rewardDrops.push({id:w.nextId++,x:enemy.x,z:enemy.z,reward,bossLootReceipt:receipt,bossLootVariant:variant});if(fixed)noteGuidedCard(w,w.rewardDrops.at(-1)!.id);return true;
 }
 type Entry=World['expedition']['bossLootQueue'][number];
-function legal(w:World,entry:Entry){const e=entry.reward.expeditionEffect;return e.kind==='resource'||e.kind==='hero'&&ordinaryHeroAllowed(w,e.heroId as HeroId)&&w.canAcquireHero(e.heroId as HeroId)||e.kind==='elite'&&!!entry.variant&&w.canAcquireElite(entry.variant);}
+function legal(w:World,entry:Entry){const e=entry.reward.expeditionEffect;return e.kind==='supply'&&canSupply(w,e.family,e.count,e.mode)||e.kind==='resource'||e.kind==='hero'&&ordinaryHeroAllowed(w,e.heroId as HeroId)&&w.canAcquireHero(e.heroId as HeroId)||e.kind==='elite'&&!!entry.variant&&w.canAcquireElite(entry.variant);}
 function settle(w:World,entry:Entry){
  const s=w.expedition;if(s.bossLootClaimed.includes(entry.receipt))return true;
  // Existing schema-26 saves can contain a family choice without a frozen variant.
@@ -52,7 +57,7 @@ function settle(w:World,entry:Entry){
  if(!legal(w,entry)){
   const pending=entry.reward.expeditionEffect;if(pending.kind==='hero'&&ordinaryHeroAllowed(w,pending.heroId as HeroId)&&missionBlocksIdentity(w,'hero',pending.heroId)||pending.kind==='elite'&&entry.variant&&missionBlocksIdentity(w,'elite',entry.variant))return false;
   if(entry.reward.mapSource){entry.reward.expeditionEffect={kind:'resource',minerals:entry.reward.baseMinerals,gas:entry.reward.baseGas,fallback:true};entry.variant=null;}
-  else{const reward=drawBossLoot({...draftContext(w),random:receiptRandom(entry.receipt+':fallback')},entry.receipt,entry.reward.rarity==='orange'?'orange':'purple');delete reward.talentLootReceipt;reward.minerals=reward.gas=reward.baseMinerals=reward.baseGas=0;entry.reward=reward;entry.variant=freezeLootVariant(w,reward,entry.receipt)??null;}
+  else{const reward=drawBossLoot({...draftContext(w),random:worldContent(w)?contentStream(worldContent(w)!,'boss/fallback/'+s.bossLootReceipts.indexOf(entry.receipt)):receiptRandom(entry.receipt+':fallback')},entry.receipt,entry.reward.rarity==='orange'?'orange':'purple');delete reward.talentLootReceipt;reward.minerals=reward.gas=reward.baseMinerals=reward.baseGas=0;entry.reward=reward;entry.variant=freezeLootVariant(w,reward,entry.receipt)??null;}
  }
  const e=entry.reward.expeditionEffect;let arrival:UnitArrival|undefined;
  if(e.kind==='hero'){
@@ -64,6 +69,7 @@ function settle(w:World,entry:Entry){
   if(!acquireEliteImmediately(w,id,target?.id))return false;
   const member=w.eliteOwned(id),hunter=!member&&ELITES[id].family==='reaper'?w.eliteOwned('reaper.3'):undefined;
   arrival={identity:id,name:ELITES[id].name,kind:'elite',rank:member?.rank??1,promoted,...(hunter?{absorbedBy:ELITES['reaper.3'].name}:{})};
+ }else if(e.kind==='supply'){if(!applySupply(w,e.family,e.count,e.mode,{minerals:0,gas:0}))return false;const g=guided(w);if(g){g.freeJobs??={};g.freeJobs[String(w.stage)]=w.expedition.ledger.at(-1)!.id;}
  }else if(e.kind==='resource'){w.wallet.minerals+=e.minerals;w.wallet.gas+=e.gas;w.economyTotals.cards.minerals+=e.minerals;w.economyTotals.cards.gas+=e.gas;w.announce(`补给回收 · ${e.minerals} 矿 / ${e.gas} 气`);}
  else return false;
  entry.reward.sold=true;s.bossLootClaimed.push(entry.receipt);if(arrival)notifyUnitArrival(w,arrival);return true;

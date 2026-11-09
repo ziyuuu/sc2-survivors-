@@ -1,3 +1,4 @@
+import {ManagedGLTFLoader} from '../loaders/managed-textures';
 import * as THREE from 'three';
 import {firstSourceAttackIds} from './source/event-index';
 import {sourceOwnsFlight} from './combat-fx-profile';
@@ -21,7 +22,7 @@ export class ZergEliteEffects {
  private counts={flights:0,biles:0,spines:0,healStreams:0,poisonHosts:0,claws:0,fields:0};
  constructor(private scene:THREE.Scene,private fx:BattleEffects,camera:THREE.Camera){this.material=new ZergEliteMaterials(scene,camera,fx);}
  async load(){if(this.ready)return;await prepareEmbeddedAssetIds(['model.baneling']);this.material.prepare();const scene=this.scene;
-  const url=assetUrl('model.baneling');if(!url)throw Error('Missing original acid-sac body');const g=await restoreSc2Materials(await new GLTFLoader().loadAsync(url));g.scene.updateMatrixWorld(true);const box=sc2BodyBounds(g.scene),center=box.getCenter(new THREE.Vector3()),size=box.getSize(new THREE.Vector3()),scale=.55/Math.max(size.x,size.y,size.z);
+  const url=assetUrl('model.baneling');if(!url)throw Error('Missing original acid-sac body');const g=await restoreSc2Materials(await new ManagedGLTFLoader().loadAsync(url));g.scene.updateMatrixWorld(true);const box=sc2BodyBounds(g.scene),center=box.getCenter(new THREE.Vector3()),size=box.getSize(new THREE.Vector3()),scale=.55/Math.max(size.x,size.y,size.z);
   g.scene.traverse(n=>{if(!(n instanceof THREE.Mesh)||n.userData.sc2Role!=='body')return;const geom=n.geometry.clone(),attr=geom.getAttribute('position'),p=new THREE.Vector3();for(let i=0;i<attr.count;i++){n.getVertexPosition(i,p).applyMatrix4(n.matrixWorld).sub(center).multiplyScalar(scale);attr.setXYZ(i,p.x,p.y,p.z);}geom.deleteAttribute('skinIndex');geom.deleteAttribute('skinWeight');geom.computeVertexNormals();const mesh=new THREE.InstancedMesh(geom,n.material,256);mesh.count=0;mesh.frustumCulled=false;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);scene.add(mesh);this.sacs.push({mesh,count:0});});
   for(const b of this.fx.projectiles.batches.get('hydralisk')??[]){const geometry=b.geometry.clone();geometry.computeBoundingBox();const extent=geometry.boundingBox!.getSize(new THREE.Vector3());if(extent.x>extent.y&&extent.x>extent.z)geometry.rotateY(Math.PI/2);else if(extent.y>extent.z)geometry.rotateX(Math.PI/2);const mesh=new THREE.InstancedMesh(geometry,b.material,1024);mesh.count=0;mesh.frustumCulled=false;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);scene.add(mesh);this.bones.push({mesh,count:0});}if(!this.sacs.length||!this.bones.length)throw Error('Original Zerg weapon mesh unavailable');
   // Authored curved ground thorn, using the original bone surface. Its world-Y shaft is independent of missile orientation.

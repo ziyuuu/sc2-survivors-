@@ -7,11 +7,11 @@ test('one uniform menu scale preserves landscape desktop proportions and reflows
 });
 test('parallel audio and model batches produce ordered steps and one monotonic entrance progress',async()=>{
  let sound:((done:number,total:number,label:string)=>void)|undefined,rendered=0;const seen:{phase:string;progress:number}[]=[],calls:string[]=[];
- const audio={preload:async(cb:any)=>{sound=cb;cb(0,1,'音效');}};
+ const audio={prepareBanks:async(_plan:any,cb:any)=>{sound=cb;cb(0,1,'音效');}};
  const view:any={initialAssetsLoaded:true,modelErrors:[],preparationKey:'same-roster',
   prepareNewRunAssets:async(_:any,_hero:any,cb:any)=>{calls.push('troops');for(let i=0;i<=999;i++){sound!(1,1,'音效');cb(i,999,'body');}cb(0,4,'forts');cb(4,4,'forts');},
   prepareCampaignAssets:async()=>{calls.push('field');},waitForPendingAssets:async()=>{},compilePresentation:async()=>{calls.push('compile');},warmPresentationBatches:async(cb:any)=>{cb(1,1,'mesh');return 0;}};
- const gate=new AssetReadinessCoordinator({expedition:{race:'terran'}}as any,view,audio as any);
+ const gate=new AssetReadinessCoordinator({expedition:{race:'terran'},entities:new Map()}as any,view,audio as any);
  gate.onChange=()=>{rendered++;seen.push({phase:gate.state.phase,progress:gate.state.progress??0});};
  assert.ok(await gate.prepare('new',{race:'terran',campaignMap:{version:3,seed:1,theme:'industrial'}}));
  assert.deepEqual(calls,['troops','field','compile']);assert.equal(gate.state.progress,1);assert.ok(rendered<60,'unchanged displayed percent should not rebuild the HUD');

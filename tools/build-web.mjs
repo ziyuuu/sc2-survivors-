@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {build} from 'vite';
-import {loadBuildAssets} from './load-build-assets.mjs';
+import {loadBuildAssets,releaseAssetMime} from './load-build-assets.mjs';
 await import('./import-opening-reference.mjs');
 // Read the authoritative constant without requiring native TypeScript loading on Node 22.
 const schemaSource=await fs.readFile(new URL('../src/simulation/persistence/run-snapshot.ts',import.meta.url),'utf8');
@@ -11,7 +11,7 @@ if(!schemaMatch)throw Error('Cannot resolve runtime save schema');
 const RUN_SCHEMA=Number(schemaMatch[1]);
 
 const root=process.cwd(),dist=path.resolve(root,'dist');
-const staging=path.resolve(dist,`web-staging-${process.pid}`),published=path.resolve(dist,'web'),backup=path.resolve(dist,'web-previous');
+const staging=path.resolve(dist,`web-staging-${process.pid}`),published=path.resolve(root,process.env.SC2_WEB_OUTPUT??'dist/web'),backup=published+'-previous';
 const inside=(base,target)=>{const relative=path.relative(base,target);return relative!==''&&!relative.startsWith('..')&&!path.isAbsolute(relative);};
 for(const target of [staging,published,backup])if(!inside(dist,target))throw Error('Web build destination escapes dist: '+target);
 const records=await loadBuildAssets();
@@ -23,14 +23,13 @@ const rows=new Map(reachability.rows.map(row=>[row.id,row]));
 if(rows.size!==selected.size||[...selected].some(id=>!rows.has(id)))throw Error('Release resource rows do not match selection');
 const byId=new Map(records.map(record=>[record.id,record]));
 const files=new Map(),assets={},sharing=new Map();
-const mime=ext=>({glb:'model/gltf-binary',gltf:'model/gltf+json',json:'application/json',svg:'image/svg+xml',webp:'image/webp',png:'image/png',jpg:'image/jpeg',ogg:'audio/ogg',mp3:'audio/mpeg',wav:'audio/wav'}[ext]??'application/octet-stream');
 for(const id of selected){
  const record=byId.get(id),row=rows.get(id);
  if(!record||record.status!=='available'||record.packedFile!==row.packedFile||!/^assets\/[A-Za-z0-9._/-]+$/.test(record.url)||record.url.split('/').includes('..'))throw Error('Invalid web resource: '+id);
  const source=path.resolve(root,record.packedFile),publicRoot=path.resolve(root,'public');
  if(!inside(publicRoot,source))throw Error('Web resource source escapes public: '+id);
  const ext=path.extname(record.url).slice(1).toLowerCase(),url=sharing.get(row.sha256)??`assets/${row.sha256}.${ext}`;
- sharing.set(row.sha256,url);assets[id]={url,bytes:row.bytes,sha256:row.sha256,mime:mime(ext)};
+ sharing.set(row.sha256,url);assets[id]={url,bytes:row.bytes,sha256:row.sha256,mime:releaseAssetMime(record.url)};
  files.set(url,{source,bytes:row.bytes,sha256:row.sha256});
 }
 await fs.mkdir(dist,{recursive:true});

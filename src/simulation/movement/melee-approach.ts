@@ -6,6 +6,9 @@ import {equipmentIgnoreContact} from '../starship/controls';
 interface Route {target:number;goal:Point;terrain:World['terrain'];stage:number;until:number;points:Point[];}
 // Derived movement intent only. New bodies/restored runs have no inherited route.
 const routes=new WeakMap<Entity,Route>();
+const budgets=new WeakMap<World,{tick:number;searches:number}>();
+export function approachRoute(w:World,u:Entity){const r=routes.get(u);if(!r||r.stage!==w.stage||r.terrain!==w.terrain||r.until<=w.time||!r.points.length)return;let length=0,from:Point=u;for(const p of r.points){length+=distance(from,p);from=p;}return {point:r.points.at(-1)!,length};}
+export function approachSearches(w:World){return budgets.get(w)?.tick===w.tick?budgets.get(w)!.searches:0;}
 const STEP=.5,PADDING=4,LIMIT=2048;
 const NEIGHBORS=[[0,1],[1,0],[0,-1],[-1,0],[1,1],[1,-1],[-1,1],[-1,-1]] as const;
 /** Reach a melee contact slot around a group of allies, without walking through them. */
@@ -25,21 +28,24 @@ export function meleeApproachGoal(w:World,u:Entity,target:Body,goal:Point):Point
   }
   return true;
  };
- if(clear(u,goal)){routes.delete(u);return goal;}
+ if(clear(u,goal)&&w.combatSlots.reserve(u,target,goal,w.time)){routes.delete(u);return goal;}
  let route=routes.get(u);
  if(route&&(route.target!==target.id||route.terrain!==w.terrain||route.stage!==w.stage||distance(route.goal,goal)>.5||route.until<=w.time)){routes.delete(u);route=undefined;}
  if(route){
   while(route.points.length&&distance(u,route.points[0])<.12)route.points.shift();
   if(!route.points.length)return u;
-  if(clear(u,route.points[0]))return route.points[0];
+  if(clear(u,route.points[0])&&w.combatSlots.reserve(u,target,route.points.at(-1)!,w.time))return route.points[0];
   routes.delete(u);
  }
+ let budget=budgets.get(w);if(!budget||budget.tick!==w.tick){budget={tick:w.tick,searches:0};budgets.set(w,budget);}
+ if(budget.searches>=8)return u;
+ budget.searches++;
  const reach=u.unitRadius+target.unitRadius+u.attackRange*.85,contact=distance(goal,target)<=reach+.3;
  const goals=[goal];
  // The formation slot can itself be boxed in by a larger firing line.
  // Search other actual melee contact positions, keeping the weapon range unchanged.
  if(contact){const bearing=Math.atan2(u.x-target.x,u.z-target.z);for(let i=0;i<16;i++){const a=bearing+i*Math.PI/8;goals.push({x:target.x+Math.sin(a)*reach,z:target.z+Math.cos(a)*reach});}}
- const legalGoals=goals.filter(p=>clear(p,p)&&(!contact||distance(p,target)<=u.unitRadius+target.unitRadius+u.attackRange&&clearLine(p,target,0,w.obstacles)&&(!w.terrain||w.terrain.lineOfFire(p,target,false,target.flying,true))));
+ const legalGoals=goals.filter(p=>w.combatSlots.available(u,p,w.time)&&clear(p,p)&&(!contact||distance(p,target)<=u.unitRadius+target.unitRadius+u.attackRange&&clearLine(p,target,0,w.obstacles)&&(!w.terrain||w.terrain.lineOfFire(p,target,false,target.flying,true))));
  const center=contact?target:goal,padding=PADDING+(contact?reach:0);
  const minX=Math.max(-w.mapHalf+u.unitRadius,Math.min(u.x,center.x)-padding),minZ=Math.max(-w.mapHalf+u.unitRadius,Math.min(u.z,center.z)-padding);
  const width=Math.ceil((Math.min(w.mapHalf-u.unitRadius,Math.max(u.x,center.x)+padding)-minX)/STEP)+1;
@@ -60,7 +66,7 @@ export function meleeApproachGoal(w:World,u:Entity,target:Body,goal:Point):Point
    const q=point(next),g=cost[id]+distance(p,q);if(g>=cost[next]||!clear(p,q))continue;parent[next]=id;push(next,g);
   }
  }
- if(found>=0&&endGoal){for(let id=found;id>=0;id=parent[id])points.push(point(id));points.reverse();points.push({...endGoal});
+ if(found>=0&&endGoal&&w.combatSlots.reserve(u,target,endGoal,w.time)){for(let id=found;id>=0;id=parent[id])points.push(point(id));points.reverse();points.push({...endGoal});
   // Remove grid stair steps only where the full segment remains traversable.
   let from:Point=u;for(let i=0;i<points.length;i++){let end=i;while(end+1<points.length&&clear(from,points[end+1]))end++;if(end>i)points.splice(i,end-i);from=points[i];}
  }

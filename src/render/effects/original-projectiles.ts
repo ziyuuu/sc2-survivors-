@@ -1,3 +1,4 @@
+import {ManagedGLTFLoader} from '../loaders/managed-textures';
 import {sourceOwnsFlight} from './combat-fx-profile';
 import type {VisualFlight} from './hero-basic-effects';
 import type {World} from '../../simulation/world';
@@ -12,7 +13,7 @@ const transform=new THREE.Object3D();
 export class OriginalProjectiles {
  batches=new Map<string,THREE.InstancedMesh[]>();errors:string[]=[];
  constructor(private scene:THREE.Scene){}
- async load(){this.errors=[];for(const type of ['marauder','hydralisk'])try{if(this.batches.has(type))continue;const url=assetUrl('model.projectile.'+type);if(!url)throw Error('missing original projectile');const g=await restoreSc2Materials(await new GLTFLoader().loadAsync(url));g.scene.updateMatrixWorld(true);const box=sc2BodyBounds(g.scene),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3()),scale=.65/Math.max(size.x,size.y,size.z),meshes:THREE.InstancedMesh[]=[];
+ async load(){this.errors=[];for(const type of ['marauder','hydralisk'])try{if(this.batches.has(type))continue;const url=assetUrl('model.projectile.'+type);if(!url)throw Error('missing original projectile');const g=await restoreSc2Materials(await new ManagedGLTFLoader().loadAsync(url));g.scene.updateMatrixWorld(true);const box=sc2BodyBounds(g.scene),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3()),scale=.65/Math.max(size.x,size.y,size.z),meshes:THREE.InstancedMesh[]=[];
    g.scene.traverse(n=>{if(!(n instanceof THREE.Mesh))return;const geometry=n.geometry.clone();geometry.applyMatrix4(n.matrixWorld);geometry.translate(-center.x,-center.y,-center.z);geometry.scale(scale,scale,scale);const mesh=new THREE.InstancedMesh(geometry,n.material,256);mesh.frustumCulled=false;mesh.matrixAutoUpdate=false;mesh.matrixWorldAutoUpdate=false;mesh.count=0;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);this.scene.add(mesh);meshes.push(mesh);});this.batches.set(type,meshes);
   }catch(e){this.errors.push(type+': '+String(e));}}
  renderFlights(w:World,visible:(p:Point)=>boolean,mounts:ReadonlyMap<string,{x:number;y:number;z:number}>,visualFlights:readonly VisualFlight[]=[]){

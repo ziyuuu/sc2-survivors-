@@ -11,7 +11,7 @@ const difficulties:Difficulty[]=['easy','normal','hard','hell'];
 const near=(actual:number,expected:number)=>assert.ok(Math.abs(actual-expected)<1e-8,`expected ${expected}, got ${actual}`);
 // Current approved ordinary rank curve replaces the F01 chapter multiplier.
 const stages=[1,2,3,4,7,10,13,18];
-const expectedHp=(difficulty:Difficulty,stage:number)=>(difficulty==='easy'?([18,24,30][stage-1]??35):continuousLingHp((stage-1)/18))*enemySpawnGrowth(difficulty,stage,'regular').health;
+const expectedHp=(difficulty:Difficulty,stage:number)=>continuousLingHp((stage-1)/18)*enemySpawnGrowth(difficulty,stage,'regular').health;
 
 for(const difficulty of difficulties)test(`F01 ${difficulty}: wave and pod ling HP use current approved spawn profile and survive current archive`,()=>{
  const world=new World({difficulty,terrain:new FlatTerrain(),waves:false});world.start();

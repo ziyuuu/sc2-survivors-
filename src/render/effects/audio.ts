@@ -1,32 +1,84 @@
-import {fetchAsset,waitForAsset} from '../../assets/preparation-wait';
+import {fetchAsset,waitForAsset,ASSET_REQUEST_TIMEOUT} from '../../assets/preparation-wait';
+import {optimizedGraphics,runtimeBudget} from '../../platform/graphics-profile';
+import {audioDecodeLane} from '../../platform/preparation-budget';
+import {prepareEmbeddedAssetIds} from '../../assets/offline-pack';
+import {SOUND_DATA} from './audio-source-data';
 import {CombatAudioRouter,type AudioChannel} from './combat-audio-router';
 import {NativeSoundPlayer,type SoundCue,type SoundVoice} from './native-sound-player';
 /** Original local imports when present; otherwise explicitly labeled local synthesis. */
 import {assetUrl,ASSETS} from '../../assets/manifest';
 import type {World} from '../../simulation/world';
 import {EquipmentLootAudio,type EquipmentLootCue} from './equipment-loot-audio';
+import {BackgroundMusic} from './background-music';
 export class AudioEffects {
- masterVolume=1;battleVolume=1;interfaceVolume=0;
- private masterBus:GainNode|null=null;private battleBus:GainNode|null=null;private interfaceBus:GainNode|null=null;
- constructor(){try{const p=JSON.parse(localStorage.getItem('sc2.audio-mix')??'{}');this.setMix(p.master??1,p.battle??1,p.interface??0);}catch{}}
- setMix(master:number,battle:number,ui:number){if(![master,battle,ui].every(n=>Number.isFinite(n)&&n>=0&&n<=1))return;this.masterVolume=master;this.battleVolume=battle;this.interfaceVolume=ui;if(this.masterBus)this.masterBus.gain.value=master;if(this.battleBus)this.battleBus.gain.value=battle;if(this.interfaceBus)this.interfaceBus.gain.value=ui;try{localStorage.setItem('sc2.audio-mix',JSON.stringify({master,battle,interface:ui}));}catch{}}
- private output(channel:'battle'|'interface'='battle'){const c=this.context!;if(!this.masterBus){this.masterBus=c.createGain();this.masterBus.gain.value=this.masterVolume;this.masterBus.connect(c.destination);this.battleBus=c.createGain();this.battleBus.gain.value=this.battleVolume;this.battleBus.connect(this.masterBus);this.interfaceBus=c.createGain();this.interfaceBus.gain.value=this.interfaceVolume;this.interfaceBus.connect(this.masterBus);}return channel==='interface'?this.interfaceBus!:this.battleBus!;}
+ /** Advisor speech or original gland vibration; cancellable, independent of game progression. */
+ tutorialCue(id:string,duration:number,volume=.6){
+  if(this.masterVolume<=0||this.interfaceVolume<=0)return ()=>{};
+  let source:AudioBufferSourceNode|undefined,cancelled=false;
+  const play=async()=>{try{await this.ensureDecoded(id);if(cancelled||!this.context||this.masterVolume<=0||this.interfaceVolume<=0)return;await this.context.resume();if(cancelled)return;const c=this.context,b=this.buffers.get(id);if(!b)return;source=c.createBufferSource();source.buffer=b;const g=c.createGain(),end=c.currentTime+Math.min(duration,b.duration);g.gain.setValueAtTime(volume,c.currentTime);g.gain.setValueAtTime(volume,Math.max(c.currentTime,end-.04));g.gain.linearRampToValueAtTime(0,end);source.connect(g).connect(this.output('interface'));source.onended=()=>{source?.disconnect();g.disconnect();};source.start(0,0,Math.min(duration,b.duration));this.played.set('tutorial:'+id,(this.played.get('tutorial:'+id)??0)+1);}catch{}};
+  void play();return ()=>{cancelled=true;try{source?.stop();}catch{}};
+ }
+ masterVolume=1;battleVolume=1;interfaceVolume=.25;musicVolume=.15;
+ readonly music=new BackgroundMusic(()=>{this.context??=new AudioContext();return {context:this.context,output:this.output('music')};});
+ private masterBus:GainNode|null=null;private battleBus:GainNode|null=null;private interfaceBus:GainNode|null=null;private musicBus:GainNode|null=null;
+ constructor(){this.native.ensureAsset=id=>this.ensureDecoded(id);this.native.onPreparedError=(id,error)=>this.decodeErrors.push(id+': '+String(error));try{const p=JSON.parse(localStorage.getItem('sc2.audio-mix')??'{}');this.setMix(p.master??1,p.battle??1,p.interface??.25,p.music??.15);}catch{}}
+ setMix(master:number,battle:number,ui:number,music=this.musicVolume){if(![master,battle,ui,music].every(n=>Number.isFinite(n)&&n>=0&&n<=1))return;this.masterVolume=master;this.battleVolume=battle;this.interfaceVolume=ui;this.musicVolume=music;this.music.setEnabled(master>0&&music>0);if(this.musicBus)this.musicBus.gain.value=music;if(this.masterBus)this.masterBus.gain.value=master;if(this.battleBus)this.battleBus.gain.value=battle;if(this.interfaceBus)this.interfaceBus.gain.value=ui;try{localStorage.setItem('sc2.audio-mix',JSON.stringify({master,battle,interface:ui,music}));}catch{}}
+ private output(channel:'battle'|'interface'|'music'='battle'){const c=this.context!;if(!this.masterBus){this.masterBus=c.createGain();this.masterBus.gain.value=this.masterVolume;this.masterBus.connect(c.destination);this.battleBus=c.createGain();this.battleBus.gain.value=this.battleVolume;this.battleBus.connect(this.masterBus);this.interfaceBus=c.createGain();this.interfaceBus.gain.value=this.interfaceVolume;this.interfaceBus.connect(this.masterBus);this.musicBus=c.createGain();this.musicBus.gain.value=this.musicVolume;this.musicBus.connect(this.masterBus);}return channel==='music'?this.musicBus!:channel==='interface'?this.interfaceBus!:this.battleBus!;}
  /** Short interface feedback is independent of combat voices and World events. */
- interfaceCue(){if(this.interfaceVolume<=0||this.masterVolume<=0)return;try{this.context??=new AudioContext();void this.context.resume();const c=this.context,o=c.createOscillator(),g=c.createGain(),at=c.currentTime;o.type='sine';o.frequency.setValueAtTime(620,at);o.frequency.exponentialRampToValueAtTime(780,at+.045);g.gain.setValueAtTime(.0001,at);g.gain.exponentialRampToValueAtTime(.035,at+.005);g.gain.exponentialRampToValueAtTime(.0001,at+.07);o.connect(g).connect(this.output('interface'));o.start(at);o.stop(at+.075);o.onended=()=>{o.disconnect();g.disconnect();};}catch{}}
+ interfaceCue(){if(this.interfaceVolume<=0||this.masterVolume<=0)return;try{this.context??=new AudioContext();void this.context.resume().catch(()=>{});const c=this.context,o=c.createOscillator(),g=c.createGain(),at=c.currentTime;o.type='sine';o.frequency.setValueAtTime(620,at);o.frequency.exponentialRampToValueAtTime(780,at+.045);g.gain.setValueAtTime(.0001,at);g.gain.exponentialRampToValueAtTime(.035,at+.005);g.gain.exponentialRampToValueAtTime(.0001,at+.07);o.connect(g).connect(this.output('interface'));o.start(at);o.stop(at+.075);o.onended=()=>{o.disconnect();g.disconnect();};}catch{}}
  context:AudioContext|null=null;buffers=new Map<string,AudioBuffer>();lastSerial=0;lastRescue=0;lastFailure=0;voices=0;loading:Promise<void>|null=null;decodeErrors:string[]=[];played=new Map<string,number>();private router=new CombatAudioRouter();private native=new NativeSoundPlayer(()=>this.context,()=>this.output(),this.buffers);private channels=new Map<string,{spec:AudioChannel;voice?:SoundVoice}>();private resumeChannels=false;
  private activeSources=new Set<AudioBufferSourceNode>();
  private equipmentAudio=new EquipmentLootAudio();private equipmentVoices=new Set<OscillatorNode>();
  reset(){for(const s of this.activeSources)s.stop();this.native.reset();this.channels.clear();this.router.reset();for(const s of this.equipmentVoices)s.stop();this.equipmentVoices.clear();this.equipmentAudio.reset();this.native.played.clear();this.native.rejected.clear();this.lastSerial=0;this.lastRescue=0;this.lastFailure=0;this.played.clear();}
- async preload(progress:(done:number,total:number,label:string)=>void=()=>{}){this.context??=new AudioContext();this.loading??=this.load(progress).catch(error=>{this.loading=null;throw error;});await this.loading;}
- async start(){try{await this.preload();await this.context!.resume();}catch(e){this.decodeErrors.push(String(e));}}
+ private decodedJobs=new Map<string,{job:Promise<void>;controller:AbortController;users:number}>();private touched=new Map<string,number>();private peakPcmBytes=0;
+ // A successful decode validates this immutable clip for the audio session.
+ // Preparing a broad bank again must not refill clips intentionally evicted by
+ // the PCM budget. Actual playback still calls ensureDecoded for missing data.
+ private preparedSamples=new Set<string>();
+ pcmBytes(){return [...new Set(this.buffers.values())].reduce((n,b)=>n+b.length*b.numberOfChannels*4,0);}
+ private trimAudio(){if(!optimizedGraphics())return;const live=new Set([...this.native.voices].map(v=>v.source.buffer));for(const source of this.activeSources)live.add(source.buffer);for(const [id,b]of [...this.buffers].sort((a,b)=>(this.touched.get(a[0])??0)-(this.touched.get(b[0])??0))){if(this.pcmBytes()<=runtimeBudget().pcmBytes)break;if(!live.has(b)&&!this.decodedJobs.has(id))this.buffers.delete(id);}}
+ async ensureDecoded(id:string,signal?:AbortSignal){
+  if(signal?.aborted)throw Error('音效准备已取消');this.context??=new AudioContext();this.touched.set(id,performance.now());
+  if(this.buffers.has(id)){this.preparedSamples.add(id);return;}
+  let record=this.decodedJobs.get(id);
+  if(!record||record.controller.signal.aborted){
+   const current={job:Promise.resolve(),controller:new AbortController(),users:0},control=current.controller.signal,context=this.context;
+   current.job=audioDecodeLane.run(async()=>{
+    if(control.aborted)throw Error('音效准备已取消');
+    await waitForAsset(prepareEmbeddedAssetIds(['audio.'+id]),'音效资源',ASSET_REQUEST_TIMEOUT,control);
+    const url=assetUrl('audio.'+id);if(!url)throw Error('音效资源未就绪');
+    const bytes=await fetchAsset(fetch,url,{signal:control},async r=>{if(!r.ok)throw Error('音效读取失败');return r.arrayBuffer();});
+    const buffer=await waitForAsset(context.decodeAudioData(bytes),'音效解码',30000,control);
+    if(control.aborted)throw Error('音效准备已取消');
+    this.buffers.set(id,buffer);this.preparedSamples.add(id);this.peakPcmBytes=Math.max(this.peakPcmBytes,this.pcmBytes());this.trimAudio();
+   }).catch(error=>{if(this.decodedJobs.get(id)===current)this.preparedSamples.delete(id);throw error;});
+   this.decodedJobs.set(id,current);record=current;
+   void current.job.finally(()=>{if(this.decodedJobs.get(id)===current)this.decodedJobs.delete(id);}).catch(()=>{});
+  }
+  record.users++;try{await waitForAsset(record.job,'音效准备',ASSET_REQUEST_TIMEOUT*2,signal);}
+  finally{if(--record.users===0)record.controller.abort();}
+ }
+ async prepareBanks(plan:{combat:string[];dialogue:string[]},progress:(done:number,total:number,label:string)=>void=()=>{},cancelled:()=>boolean=()=>false,signal?:AbortSignal){
+  const control=new AbortController(),abort=()=>control.abort();let timer:ReturnType<typeof setTimeout>|undefined;
+  const poll=()=>{if(cancelled())abort();else if(!signal)timer=setTimeout(poll,50);};
+  signal?.addEventListener('abort',abort,{once:true});if(signal?.aborted)abort();poll();
+  try{
+   const ids=new Set(['alert','sc2.scv.ready',...plan.combat.flatMap(k=>this.native.previewAssets(k,false).slice(0,1)),...plan.dialogue.flatMap(k=>this.native.previewAssets(k,true))]);
+   this.trimAudio();await waitForAsset(prepareEmbeddedAssetIds([...new Set([...ids,...plan.combat.flatMap(k=>SOUND_DATA.banks[k]?.samples.map(s=>s.asset)??[])])].map(id=>'audio.'+id)),'音效资源',ASSET_REQUEST_TIMEOUT,control.signal);
+   let done=0;for(const id of ids){if(cancelled()||control.signal.aborted)throw Error('音效准备已取消');if(!this.preparedSamples.has(id))await this.ensureDecoded(id,control.signal);progress(++done,ids.size,id);}
+   this.trimAudio();
+  }finally{clearTimeout(timer);signal?.removeEventListener('abort',abort);control.abort();}
+ }
+ async preload(progress:(done:number,total:number,label:string)=>void=()=>{}){this.context??=new AudioContext();if(optimizedGraphics())return;this.loading??=this.load(progress).catch(error=>{this.loading=null;throw error;});await this.loading;}
+ async start(){try{this.context??=new AudioContext();await this.context.resume();}catch(e){this.decodeErrors.push(String(e));}}
  private async load(progress:(done:number,total:number,label:string)=>void){
   const assets=[...ASSETS.values()].filter(a=>a.kind==='audio'&&a.status==='available'&&!this.buffers.has(a.id.replace('audio.',''))),decoded=new Map<string,Promise<AudioBuffer>>();let done=0,next=0;
-  const decode=(url:string)=>{let p=decoded.get(url);if(!p){p=(async()=>{const bytes=await fetchAsset(fetch,url,{},async response=>{if(!response.ok)throw Error(String(response.status));return response.arrayBuffer();});return waitForAsset(this.context!.decodeAudioData(bytes),'音效解码');})();decoded.set(url,p);}return p;};
+  const decode=(url:string)=>{let p=decoded.get(url);if(!p){p=(async()=>{const bytes=await fetchAsset(fetch,url,{},async response=>{if(!response.ok)throw Error(String(response.status));return response.arrayBuffer();});return waitForAsset(this.context!.decodeAudioData(bytes),'音效解码',30000);})();decoded.set(url,p);}return p;};
   const worker=async()=>{for(;;){const a=assets[next++];if(!a)return;try{const url=assetUrl(a.id);if(!url)throw Error('missing asset');this.buffers.set(a.id.replace('audio.',''),await decode(url));}catch(e){this.decodeErrors.push(a.id+': '+String(e));if(a.required)throw Error('必需音效未就绪：'+a.id);}progress(++done,assets.length,a.id);}};
   await Promise.all(Array.from({length:4},worker));
  }
 
- report(){return {contextState:this.context?.state??'uninitialized',originalDecoded:[...this.buffers.keys()].filter(id=>id.startsWith('sc2.')).length,decoded:[...this.buffers].map(([id,b])=>({id,duration:b.duration,channels:b.numberOfChannels,sampleRate:b.sampleRate})),errors:this.decodeErrors,played:Object.fromEntries(this.played),activeHealers:[...this.channels.keys()].filter(k=>k.startsWith('heal:')).length,activeChannels:[...this.channels].map(([key,c])=>({key,bank:c.spec.bank,playing:!!c.voice&&!c.voice.ended})),nativePlayed:Object.fromEntries(this.native.played),nativeRejected:Object.fromEntries(this.native.rejected),nativeRoutes:[...this.router.routes],activeVoices:this.native.voices.size};}
+ report(){return {music:{...this.music.report(),volume:this.musicVolume},pcmBytes:this.pcmBytes(),peakPcmBytes:this.peakPcmBytes,pcmBudget:runtimeBudget().pcmBytes,pcmBudgetExceeded:this.pcmBytes()>runtimeBudget().pcmBytes,decode:audioDecodeLane.report(),contextState:this.context?.state??'uninitialized',originalDecoded:[...this.buffers.keys()].filter(id=>id.startsWith('sc2.')).length,decoded:[...this.buffers].map(([id,b])=>({id,duration:b.duration,channels:b.numberOfChannels,sampleRate:b.sampleRate})),errors:this.decodeErrors,played:Object.fromEntries(this.played),activeHealers:[...this.channels.keys()].filter(k=>k.startsWith('heal:')).length,activeChannels:[...this.channels].map(([key,c])=>({key,bank:c.spec.bank,playing:!!c.voice&&!c.voice.ended})),nativePlayed:Object.fromEntries(this.native.played),nativeRejected:Object.fromEntries(this.native.rejected),nativeRoutes:[...this.router.routes],activeVoices:this.native.voices.size};}
  play(id:string,volume:number){const b=this.buffers.get(id);if(!b||!this.context||this.voices>=12&&id!=='sc2.scv.ready')return;const source=this.context.createBufferSource(),gain=this.context.createGain();source.buffer=b;gain.gain.value=volume;source.connect(gain).connect(this.output());this.voices++;this.activeSources.add(source);source.onended=()=>{this.activeSources.delete(source);this.voices--;source.disconnect();gain.disconnect();};source.start();this.played.set(id,(this.played.get(id)??0)+1);}
  /** Local synthesized equipment tones; volume follows the existing battle effects bus. */
  private equipmentCue(cue:EquipmentLootCue){
@@ -42,6 +94,7 @@ export class AudioEffects {
  resumeAt(w:World){this.reset();this.router.resumeAt(w);this.resumeChannels=true;this.lastSerial=w.visualEvents.at(-1)?.serial??0;this.lastRescue=w.stats.rescued;this.lastFailure=w.stats.failed;}
  playBank(cue:SoundCue,loop=false){return this.native.play(cue,loop);}
  update(w:World){
+  this.music.setPhase(w.phase);
   const equipmentCue=this.equipmentAudio.update(w);if(equipmentCue)this.equipmentCue(equipmentCue);
   const frame=this.router.update(w),live=new Set(frame.channels.map(c=>c.key));
   if(frame.silentStop){this.native.reset();for(const s of [...this.activeSources])s.stop();this.channels.clear();this.resumeChannels=true;}

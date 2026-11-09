@@ -1,3 +1,4 @@
+import {ManagedGLTFLoader} from '../loaders/managed-textures';
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
 import {assetUrl} from '../../assets/manifest';
@@ -10,7 +11,7 @@ import type {LandscapeResources} from './campaign-ground';
 export async function addCrossingRocks(root:THREE.Group,terrain:SpecialTerrain,resources:LandscapeResources){
  if(terrain.kind!=='crossing')return;
  const id='model.terrain.rock';await prepareEmbeddedAssetIds([id]);const url=assetUrl(id);if(!url)throw Error('缺少穿越关岩壁资源');
- const gltf=await restoreSc2Materials(await new GLTFLoader().loadAsync(url));
+ const gltf=await restoreSc2Materials(await new ManagedGLTFLoader().loadAsync(url));
  const mixer=new THREE.AnimationMixer(gltf.scene),stand=gltf.animations.find(c=>/^stand$/i.test(c.name));if(stand){mixer.clipAction(stand).play();mixer.setTime(0);}gltf.scene.updateMatrixWorld(true);
  const bounds=new THREE.Box3().setFromObject(gltf.scene),size=bounds.getSize(new THREE.Vector3()),center=bounds.getCenter(new THREE.Vector3());
  const normal=new THREE.Matrix4().makeScale(1/Math.max(.01,size.x),1/Math.max(.01,size.y),1/Math.max(.01,size.z)).multiply(new THREE.Matrix4().makeTranslation(-center.x,-bounds.min.y,-center.z));

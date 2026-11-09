@@ -1,3 +1,4 @@
+import {ManagedTextureLoader} from '../loaders/managed-textures';
 import * as THREE from 'three';
 import {assetUrl} from '../../assets/manifest';
 import type {World} from '../../simulation/world';
@@ -14,7 +15,7 @@ export class EliteSupportEffects {
  private flareMaterial=new THREE.SpriteMaterial({color:0xc6ffe0,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending});
  private healMaterial=new THREE.SpriteMaterial({color:0xe4fff0,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending});
  private fogMaterial=new THREE.ShaderMaterial({transparent:true,depthWrite:false,side:THREE.DoubleSide,uniforms:{clock:{value:0}},vertexShader:'varying vec2 v;void main(){v=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',fragmentShader:`uniform float clock;varying vec2 v;float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}float fbm(vec2 p){return noise(p)*.55+noise(p*2.1)*.28+noise(p*4.3)*.17;}void main(){vec2 p=(v-.5)*2.;float edge=pow(max(0.,1.-dot(p,p)),1.6);float cloud=fbm(v*5.+vec2(clock*.18,-clock*.12));float wisps=fbm(v*9.+vec2(-clock*.12,clock*.15));float a=edge*smoothstep(.24,.72,cloud)*(.25+wisps*.27);gl_FragColor=vec4(mix(vec3(.16,.60,.29),vec3(.60,1.,.70),cloud),a);}`});
- async loadMedicalTextures(){const loader=new THREE.TextureLoader();for(const [id,mat] of [['p4.texture.beam',this.beamMaterial],['p4.texture.flare',this.flareMaterial],['p4.texture.heal',this.healMaterial]] as const){const url=assetUrl(id);if(!url)continue;const tex=await loader.loadAsync(url);if(mat instanceof THREE.ShaderMaterial)mat.uniforms.sourceMap={value:tex};else mat.map=tex;mat.needsUpdate=true;}}
+ async loadMedicalTextures(){const loader=new ManagedTextureLoader();for(const [id,mat] of [['p4.texture.beam',this.beamMaterial],['p4.texture.flare',this.flareMaterial],['p4.texture.heal',this.healMaterial]] as const){const url=assetUrl(id);if(!url)continue;const tex=await loader.loadAsync(url);if(mat instanceof THREE.ShaderMaterial)mat.uniforms.sourceMap={value:tex};else mat.map=tex;mat.needsUpdate=true;}}
  private plane=new THREE.PlaneGeometry(1,1);private sphere=new THREE.SphereGeometry(1,32,20);
  constructor(scene:THREE.Scene,private fx:BattleEffects){scene.add(this.group);}
  reset(){this.emitted.clear();this.phases.clear();this.tick=-1;for(const m of [...this.beams,...this.shields,...this.fogs,...this.nodes])m.visible=false;}

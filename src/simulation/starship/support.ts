@@ -1,3 +1,4 @@
+import {identityRoll,plannedElites,worldContent} from '../progression/run-content';
 import {equipmentBurnZone,equipmentPresentation} from './presentation';
 import type {World} from '../world';
 import type {Body,Point} from '../types';
@@ -16,7 +17,7 @@ export interface EquipmentSupportSequence {effect:ActiveEquipmentEffect;next:num
 const source=(p:Point):Body=>({...p,id:0,owner:'terran',hp:0,maxHp:0,armor:0,unitRadius:0,flying:false,attributes:[]});
 function warn(w:World,p:Point,radius:number,seconds:number){w.effect('hero-warning',source(p),p,radius,seconds);}
 const core=(w:World):UnitType=>w.expedition.race==='terran'?'marine':w.expedition.race==='zerg'?'zergling':'zealot';
-function extraElite(w:World,e:ActiveEquipmentEffect,rank:number,seconds:number,burstSeconds?:number):PendingEquipmentMember|undefined{const pool=Object.values(ELITES).filter(elite=>familyRace(elite.family)===w.expedition.race),elite=pool[Math.floor(equipmentRandom(w.starship.account)*pool.length)];return elite?{source:e,type:elite.family,rank,count:1,independent:true,seconds,eliteId:elite.id,origin:e.key,burstSeconds}:undefined;}
+function extraElite(w:World,e:ActiveEquipmentEffect,rank:number,seconds:number,burstSeconds?:number):PendingEquipmentMember|undefined{const pool=plannedElites(worldContent(w),Object.values(ELITES).filter(elite=>familyRace(elite.family)===w.expedition.race)),elite=pool[Math.floor(identityRoll(w,e.key,()=>equipmentRandom(w.starship.account))*pool.length)];return elite?{source:e,type:elite.family,rank,count:1,independent:true,seconds,eliteId:elite.id,origin:e.key,burstSeconds}:undefined;}
 function launch(w:World,e:ActiveEquipmentEffect,target:Point){const v=e.values;
  if(e.key==='bombardment'){w.starship.strikes.push({at:w.time+v[1],x:target.x,z:target.z,radius:v[2],damage:v[3],slow:v[4]??0,slowSeconds:v[5]??0,source:e.source});warn(w,target,v[2],v[1]);}
  if(e.key==='incendiary'){const length=Math.hypot(target.x-w.anchor.x,target.z-w.anchor.z)||1,axis={x:(target.x-w.anchor.x)/length,z:(target.z-w.anchor.z)/length};for(let n=0;n<v[7];n++){const point={x:target.x+axis.x*n*v[8],z:target.z+axis.z*n*v[8]};w.starship.strikes.push({...point,at:w.time+v[1],radius:v[2],damage:v[3],slow:0,slowSeconds:0,source:e.source,burn:{damage:v[4],seconds:v[5]}});warn(w,point,v[2],v[1]);}w.wallet.gas+=v[6];}

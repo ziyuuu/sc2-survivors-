@@ -1,3 +1,5 @@
+import {guidedProductionQuota,guidedProductionCreated,guidedTrainingSeconds,guidedAllows} from './tutorial/guided';
+import {PLAYER_BANELING} from '../data/player-unit-adaptations';
 import {retireEquipmentFamily} from './starship/lifecycle';
 import {equipmentRecruitRank,directionMatches} from './starship/eligibility';
 import {equipmentPaidDelivery,equipmentRescuedMember} from './starship/members';
@@ -53,7 +55,7 @@ export function cancelTacticalPlan(w:World,f:FamilyId,expectedRevision:number){c
 function reconcileTacticalPlans(w:World){const s=w.expedition;
  for(const [f,plan] of Object.entries(s.tacticalPlans) as [FamilyId,TacticalPlan][])if(!validTacticalTarget(w,f,plan))cancelTacticalPlan(w,f,w.revision);
 }
-export function productionQuote(w:World,f:UnitType,purpose:DeliveryPassenger['purpose']='body'){const d=f==='science_vessel'?CAMPAIGN_SCIENCE_VESSEL_RECIPE:SOURCE_PRODUCTION_RECIPES[f],s=w.expedition!,factor=Math.max(0,1-.1*w.talent('permanent_discount')-activeEquipmentEffects(w).filter(e=>(e.key==='recruit_discount'||purpose==='rankTraining'&&e.key==='rank_discount')&&directionMatches(e.binding,f)).reduce((n,e)=>n+e.values[0],0));if(!d)throw Error('Unverified production recipe');return {minerals:d.mineralCost?Math.max(1,Math.ceil(d.mineralCost*factor)):0,gas:d.gasCost?Math.max(1,Math.ceil(d.gasCost*factor)):0,seconds:d.productionTime*(1-Math.min(.25,s.cardTotals['production.'+f]??0))};}
+export function productionQuote(w:World,f:UnitType,purpose:DeliveryPassenger['purpose']='body'){const d=f==='science_vessel'?CAMPAIGN_SCIENCE_VESSEL_RECIPE:SOURCE_PRODUCTION_RECIPES[f],s=w.expedition!,factor=Math.max(0,1-.1*w.talent('permanent_discount')-activeEquipmentEffects(w).filter(e=>(e.key==='recruit_discount'||purpose==='rankTraining'&&e.key==='rank_discount')&&directionMatches(e.binding,f)).reduce((n,e)=>n+e.values[0],0));if(!d)throw Error('Unverified production recipe');return {minerals:d.mineralCost?Math.max(1,Math.ceil(d.mineralCost*factor)):0,gas:d.gasCost?Math.max(1,Math.ceil(d.gasCost*factor)):0,seconds:(f==='baneling'?PLAYER_BANELING.productionSeconds:d.productionTime)*(1-Math.min(.25,s.cardTotals['production.'+f]??0))};}
 export function updateExpeditionProduction(w:World,dt:number,automatic=true){const s=w.expedition!;
  reconcileTacticalPlans(w);
  for(const delivery of [...s.pendingFreeDeliveries])if(w.time>=delivery.retryAt){if(w.trySpawnPod(delivery.family,undefined,delivery.jobId,1,true))s.pendingFreeDeliveries=s.pendingFreeDeliveries.filter(d=>d!==delivery);else delivery.retryAt=w.time+1;}
@@ -71,11 +73,11 @@ export function updateExpeditionProduction(w:World,dt:number,automatic=true){con
    const eligible=facilities;if(!eligible.length)continue;
    const waiting=waitingReservations(w,f),normalCapacity=s.familySlots.includes(f)?w.availableCapacity(f):w.familyMemberCap(f)-waiting,plan=s.tacticalPlans[f],ticket=normalCapacity<=0&&!!plan?.enabled&&validTacticalTarget(w,f,plan),capacity=ticket?5-plan!.bank-tacticalReservations(w,f):normalCapacity;
    const width=f==='zergling'?2:1,quote=productionQuote(w,f),waitingBodies=waitingBodySeats(w,f,width),bodySeats=Math.max(0,w.familyMemberCap(f)-w.familySeatCount(f)-waitingBodies),seats:{purpose:DeliveryPassenger['purpose'];quote:ReturnType<typeof productionQuote>}[]=[];let minerals=0,gas=0;
-   for(let seat=0;seat<Math.min(5,capacity,eligible.length);seat++){const purpose:DeliveryPassenger['purpose']=ticket?'tacticalProgress':seat<bodySeats?'body':'rankTraining',price=productionQuote(w,f,purpose);if(minerals+price.minerals*width>w.wallet.minerals+1e-8||gas+price.gas*width>w.wallet.gas+1e-8)break;seats.push({purpose,quote:price});minerals+=price.minerals*width;gas+=price.gas*width;}const count=seats.length;if(!count)continue;
+   for(let seat=0;seat<Math.min(guidedProductionQuota(w,p.id),capacity,eligible.length);seat++){const purpose:DeliveryPassenger['purpose']=ticket?'tacticalProgress':seat<bodySeats?'body':'rankTraining',price=productionQuote(w,f,purpose);if(minerals+price.minerals*width>w.wallet.minerals+1e-8||gas+price.gas*width>w.wallet.gas+1e-8)break;seats.push({purpose,quote:price});minerals+=price.minerals*width;gas+=price.gas*width;}const count=seats.length;if(!count)continue;
    const participants=eligible.slice(0,count),id=w.nextJob++;w.wallet.minerals-=minerals;w.wallet.gas-=gas;w.economyTotals.production.minerals+=minerals;w.economyTotals.production.gas+=gas;
    const passengers:DeliveryPassenger[]=[];
    for(let seat=0;seat<count;seat++)for(let half=0;half<(ticket?1:width);half++)passengers.push({paid:{minerals:seats[seat].quote.minerals*(ticket?width:1),gas:seats[seat].quote.gas*(ticket?width:1)},status:'waiting',entityId:null,purpose:seats[seat].purpose,...(!ticket&&width===2?{pairId:`paid:${id}:${seat}`,pairHalf:half as 0|1}:{}),...(ticket?{targetEntityId:plan!.targetEntityId,targetGeneration:plan!.targetGeneration,tacticalTierAtOrder:w.entities.get(plan!.targetEntityId)?.tacticalTier??0,direction:plan!.direction}:{})});
-   s.ledger.push({id,producerId:p.id,family:f,line,facilityIds:participants.map(b=>b.id),remaining:quote.seconds,state:'training',podId:null,passengers});p.cursor=(at+1)%p.outputs.length;syncBuildingViews(s,b);w.stats.started+=passengers.length;w.changed();break;
+   s.ledger.push({id,producerId:p.id,family:f,line,facilityIds:participants.map(b=>b.id),remaining:guidedTrainingSeconds(w,quote.seconds),state:'training',podId:null,passengers});guidedProductionCreated(w,p.id,id);p.cursor=(at+1)%p.outputs.length;syncBuildingViews(s,b);w.stats.started+=passengers.length;w.changed();break;
   }
  }
 }

@@ -1,0 +1,189 @@
+{
+  "date": "2026-11-06",
+  "task": "FB-20261105-01",
+  "status": "passed locally",
+  "branch": "体积优化版",
+  "head": "6510fb2",
+  "sharedWorktree": true,
+  "sourceHashes": {
+    "src/data/endless.ts": "c568edf2d5d8612a5d02e5dc783278dcfe7d3b0c7f1445a3692171346c0fcca0",
+    "src/data/enemy-tuning.ts": "e84f86f03e760c3bcdfc17ec5efbec77ff61048a26a6e8a4b998cc7796efdd09",
+    "src/data/mixed-waves.ts": "2bbd67c594b83d84ddebbca96cf2e3edc41f48f8124f6827d40939c3c9cc6315",
+    "src/simulation/world.ts": "7de4ce396ac15460f2877fab2f7865b8a67a886aaead2baa7f14f65ffc8ebb07",
+    "src/simulation/persistence/run-fields.ts": "99fe0e3de42159ee13c759134fcdcad038144beee0f94b9e8be2cdd9733b5ea8",
+    "src/ui/presentation/end-screens.ts": "9e2ad59a91a83757963e77b88e2abbddba0e09bd4a18741ff4dbccdeab9ada61",
+    "tools/docs/export-game-reference.mts": "70d38ed612bfe6de536a36994db30d9807a4911d90f892a37ce284961a379378",
+    "test/endless-update.test.ts": "2a5159b31f4d31d2f6f7f9cfe5bb68aa1c7fed25c9b687ec3b4613fd6c85f2a8",
+    "test/m3-endless.test.ts": "13a80a3800309cfd3b32221987d3d61065fd039418a71643641ab7c10dcf2adc",
+    "tools/qa-endless-update-20261106.mjs": "f4ce9ddf2f44802e8b8700278bfeed7829f1721bde64594d4f6ce8741956cdc3"
+  },
+  "rulesId": "mvp-1.0",
+  "runSchema": 26,
+  "build": {
+    "appBuildId": "10aa0650770b133097c15c2412054066d9c2f7dc38bb4cc40a3248ac0e7c04b8",
+    "runSchema": 26,
+    "rulesId": "mvp-1.0",
+    "mapId": "campaign-five-v3",
+    "assetCount": 3850,
+    "fileCount": 3753,
+    "assetBytes": 1421057612,
+    "logicalBytes": 1443664803,
+    "sharedBytes": 22607191,
+    "manifest": "asset-manifest.b154d8cfea787914a895fff892f8200ea3d7115105c9abe2379052efa787f5a6.json",
+    "release": "b154d8cfea787914a895fff892f8200ea3d7115105c9abe2379052efa787f5a6",
+    "source": "reports/local/asset-reachability.json"
+  },
+  "output": "dist/endless-update-20261106/web",
+  "decisions": {
+    "durationSecondsByThreeRoundGroup": [
+      60,
+      90,
+      120,
+      180,
+      240,
+      300,
+      360,
+      420,
+      480,
+      540
+    ],
+    "frequency": "1 + 0.15 * floor((round - 1) / 3)",
+    "growth": "round - 1 + elapsedThisRound / duration",
+    "economy": "ordinary budget and base round reward multiply duration / 60; fixed gear grants once",
+    "legacy": "current saved round stays legacy; next round migrates without recalculating old elapsed time"
+  },
+  "validation": {
+    "fullRegression": {
+      "command": "npm test",
+      "passed": 3057,
+      "failed": 0,
+      "durationMs": 373261.8402
+    },
+    "finalTargeted": {
+      "command": "node --import tsx --test test/endless-update.test.ts test/stage-loot-retention.test.ts",
+      "passed": 42,
+      "failed": 0,
+      "newEndlessTests": 27
+    },
+    "typecheck": "passed",
+    "docsData": "generated",
+    "docsCheck": "passed",
+    "browser": {
+      "scope": "Production HUD, minimal renderer stub and blank asset fixtures; isolated synthetic states, mouse/simulated touch, actual IndexedDB reload/backup rotation/write failure. No natural survival, GPU benchmark or physical phone.",
+      "bundleHash": "0be64d613a7bdbef67d0890e71f03bbaaa2b86272deff6232daad84190a7e256",
+      "cases": [
+        {
+          "name": "desktop",
+          "race": "terran",
+          "checks": [
+            "preparation/details geometry",
+            "round 4/7/10/13/16 HUD",
+            "three-slot rotation",
+            "write failure preserves all slots",
+            "page reload preserves pending/waves/resources",
+            "one next-round payout and second reload"
+          ],
+          "passed": true
+        },
+        {
+          "name": "landscape",
+          "race": "zerg",
+          "checks": [
+            "preparation/details geometry",
+            "round 4/7/10/13/16 HUD",
+            "three-slot rotation",
+            "write failure preserves all slots",
+            "page reload preserves pending/waves/resources",
+            "one next-round payout and second reload"
+          ],
+          "passed": true
+        },
+        {
+          "name": "portrait",
+          "race": "protoss",
+          "checks": [
+            "preparation/details geometry",
+            "round 4/7/10/13/16 HUD",
+            "three-slot rotation",
+            "write failure preserves all slots",
+            "page reload preserves pending/waves/resources",
+            "one next-round payout and second reload"
+          ],
+          "passed": true
+        },
+        {
+          "name": "legacy battle",
+          "passed": true
+        },
+        {
+          "name": "legacy intermission",
+          "passed": true
+        }
+      ],
+      "errors": [],
+      "passed": true
+    },
+    "productionEntry": {
+      "build": "10aa0650770b133097c15c2412054066d9c2f7dc38bb4cc40a3248ac0e7c04b8",
+      "scope": "Unmodified local Web build, isolated Chrome menu and race-choice entry only; no natural endless play.",
+      "errors": [],
+      "failures": [],
+      "passed": true
+    },
+    "visualInspection": [
+      "desktop details",
+      "landscape details",
+      "portrait details"
+    ],
+    "scope": [
+      "four difficulties, first 30 round budgets and wave phase",
+      "three race archive restore and actual-minute/round payouts",
+      "legacy battle and intermission next-round migration",
+      "actual mixed kills and fixed/percentage equipment payouts",
+      "300-body backlog and hell hive frozen birth stamps",
+      "round 43 window transition agrees with full plan and survives restore",
+      "round 4097 migration retains million-wave total with 128 materialized waves",
+      "original high-round stage-loot-retention test passes unchanged"
+    ]
+  },
+  "resolvedFindings": [
+    {
+      "id": "FB-20261105-01-MEM-001",
+      "owner": "FB-20261105-01",
+      "observed": "Initial full regression exhausted a 2 GiB Node heap when old high-identity lifecycle test migrated round 4097 and eagerly expanded a million-wave round.",
+      "fix": "128-wave generation window; analytical quantity sums and body counts; whole-round mineral/gas weights; local LCG jump; saved cursor and previous-wave lookup. No scheduled waves or pending admissions deleted.",
+      "verified": true
+    },
+    {
+      "id": "FB-20261105-01-BUILD-001",
+      "observed": "Initial build finished staging but rename failed because the independent parent directory was absent.",
+      "fix": "Verified both absolute paths inside workspace dist, created parent and finalized staging; final build reran successfully into the explicit output directory.",
+      "verified": true
+    }
+  ],
+  "limits": [
+    "Synthetic state and accelerated deterministic replay, not natural long-session survival or balance acceptance.",
+    "Mobile input is simulated Chrome touch; no physical phone validation.",
+    "Shared checkout includes preceding tutorial and player-feedback work; this report does not accept unrelated features."
+  ],
+  "delivery": {
+    "implemented": true,
+    "localBuild": true,
+    "committed": false,
+    "pushed": false,
+    "deployed": false,
+    "published": false,
+    "humanAccepted": false
+  },
+  "retention": {
+    "kept": [
+      "this concise report",
+      "implementation/plan documents",
+      "regression and browser reproduction code",
+      "current independent Web candidate"
+    ],
+    "removedAfterVerification": [
+      "reports/local/endless-update-20261106 (baseline copies, screenshots, detailed logs and transient reports)"
+    ]
+  }
+}

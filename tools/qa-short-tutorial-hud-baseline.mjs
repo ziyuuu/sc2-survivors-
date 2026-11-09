@@ -1,0 +1,27 @@
+import {tutorialDistRoot,tutorialWorkRoot} from './tutorial-candidate-paths.mjs';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import {createServer} from 'node:http';
+import {chromium} from '@playwright/test';
+import {execFileSync} from 'node:child_process';
+import {createHash} from 'node:crypto';
+import {createBackend} from './backend/service.mjs';
+const out=tutorialWorkRoot+'/hud-baseline';await fs.mkdir(out,{recursive:true});
+let root=path.resolve('sites/size-optimized-site/public');const backend=createBackend({config:{enabled:false},maintenance:false}),mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml','.mp3':'audio/mpeg','.wasm':'application/wasm'};
+const report={scope:'Unmodified baseline and actual production candidate entry; separate fresh Chrome contexts, 1440x900; no diagnostic entry or source gameplay hooks',cases:[],errors:[]};
+const server=createServer(async(req,res)=>{if(backend.handle(req,res))return;try{const name=decodeURIComponent(new URL(req.url,'http://localhost').pathname).slice(1)||'index.html';if(name.split('/').some(x=>x==='..'||x.startsWith('.')||x.includes('\\')))throw Error();const b=await fs.readFile(path.join(root,name));res.setHeader('Content-Type',mime[path.extname(name)]??'application/octet-stream');res.setHeader('Cache-Control','no-cache');res.end(b);}catch{res.writeHead(404).end();}});await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;let browser,context;
+try{
+ browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true,args:['--no-proxy-server','--disable-background-timer-throttling']});
+ for(const name of ['baseline','candidate']){
+  root=path.resolve(name==='baseline'?'sites/size-optimized-site/public':tutorialDistRoot+'/candidate');context=await browser.newContext({viewport:{width:1440,height:900},deviceScaleFactor:1});await context.addInitScript(()=>localStorage.setItem('sc2.graphics.v1',JSON.stringify({version:1,preset:'medium',tier:'medium',texture:'medium',probeVersion:1})));const page=await context.newPage();page.on('pageerror',e=>report.errors.push({name,message:e.message}));
+  const click=async a=>page.locator('[data-action="'+a+'"]:visible').first().click();await page.goto(origin);await page.waitForSelector('[data-action="menu-new"]:visible',{timeout:240000});await click('menu-new');await page.locator('[data-action="menu-race"][data-race="terran"]:visible').click();await click('menu-race-next');await page.locator('[data-action="menu-difficulty"][data-difficulty="easy"]:visible').click();await click('menu-difficulty-next');await click('menu-start');if(name==='candidate'){await page.locator('[data-tutorial=accept]:visible').click();}await page.waitForFunction(()=>globalThis.__SC2_REPORT__?.().readiness?.phase==='ready'||globalThis.__SC2_REPORT__?.().phase==='battle',null,{timeout:240000});if(name==='baseline')await click('flow-continue');await page.waitForFunction(()=>globalThis.__SC2_REPORT__?.().phase==='battle'&&!globalThis.__SC2_REPORT__().assetsPending);await page.waitForTimeout(500);
+  const geometry=()=>page.evaluate(()=>{const result={};for(const selector of ['#minimap','#minimap-canvas','#battle-console .army-row','.native-army-parts','#battle-console .command-row','#console-commands']){const e=document.querySelector(selector),r=e.getBoundingClientRect();result[selector]={x:r.x,y:r.y,width:r.width,height:r.height,visible:!!e.getClientRects().length&&getComputedStyle(e).display!=='none'&&!e.hidden};}return {uiPhase:document.body.dataset.uiPhase,overlayHidden:document.querySelector('#overlay').hidden,geometry:result,armyFrames:[...document.querySelectorAll('.native-army-parts svg')].map(e=>e.getAttribute('viewBox'))};});
+  await page.screenshot({path:out+'/'+name+'.png'});const result=await geometry();assert.equal(result.geometry['#minimap'].visible,true);assert.equal(result.geometry['#minimap-canvas'].visible,true);report.cases.push({name,...result});
+  if(name==='candidate'){
+   await page.waitForTimeout(200);await page.screenshot({path:out+'/candidate-accepted.png'});report.cases.push({name:'candidate-accepted',...await geometry()});
+  }await context.close();context=null;
+ }
+ const old=report.cases[0];for(const current of report.cases.slice(1)){for(const [selector,rect] of Object.entries(old.geometry))for(const field of ['x','y','width','height'])assert.ok(Math.abs(rect[field]-current.geometry[selector][field])<.1,selector+' '+field);assert.deepEqual(current.armyFrames,old.armyFrames);}
+ const file='src/ui/native-hud/battle.css',sha=b=>createHash('sha256').update(b.toString().replace(/\r\n/g,'\n')).digest('hex');report.battleFrameCss={baseline:sha(execFileSync('git',['show','HEAD:'+file])),candidate:sha(await fs.readFile(file))};assert.equal(report.battleFrameCss.baseline,report.battleFrameCss.candidate);assert.deepEqual(report.errors,[]);report.passed=true;
+}catch(error){report.failure=error.stack;console.error(error);process.exitCode=1;}finally{await fs.writeFile(out+'/result.json',JSON.stringify(report,null,2));await context?.close();await browser?.close();await new Promise(r=>server.close(r));console.log(JSON.stringify({passed:report.passed,failure:report.failure,cases:report.cases.length,errors:report.errors}));}

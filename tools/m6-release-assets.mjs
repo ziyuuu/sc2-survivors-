@@ -19,6 +19,8 @@ const requireAsset=(id,reason)=>{
  if(!byId.has(id))throw Error(`M6 release asset missing: ${id} (${reason})`);
  const list=reasons.get(id)??[];if(!list.includes(reason))list.push(reason);reasons.set(id,list);
 };
+for(const r of available.filter(r=>r.kind==='tutorial-portrait'))requireAsset(r.id,'First campaign advisor communication');
+for(const r of available.filter(r=>r.kind==='tutorial-voice'))requireAsset(r.id,'User-approved offline Chinese tutorial narration; loaded per current subtitle/race');
 requireAsset('model.fun-props','SC2-derived and authored props for missions, special stages and pickups');
 for(const r of JSON.parse(await fs.readFile('deploy/runtime/mission-assets.json','utf8')).records)requireAsset(r.id,'Random mission original model');
 const useIfPresent=(id,reason)=>{if(byId.has(id))requireAsset(id,reason);};
@@ -77,6 +79,7 @@ for(const record of available){
  if(mention)useIfPresent(record.id,`runtime source ${mention.file.replaceAll('\\','/')}`);
  if(record.kind==='effect-texture'&&!Object.hasOwn(RETIRED_ASSETS,record.id))requireAsset(record.id,'BattleEffects loads active effect texture catalog');
  if(record.kind==='audio')requireAsset(record.id,'AudioEffects loads audio catalog');
+ if(record.kind==='music')requireAsset(record.id,'BackgroundMusic streams the approved menu/intermission loops');
 }
 
 // Icons used through data-driven cards and the four talent icon arrays are

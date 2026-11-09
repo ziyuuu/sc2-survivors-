@@ -1,5 +1,5 @@
-export function openingProgress(value:number|null,phase:'initializing'|'loading'|'ready'='initializing'){
- document.dispatchEvent(new CustomEvent('sc2-opening-progress',{detail:{value,phase}}));
+export function openingProgress(value:number|null,phase:'initializing'|'loading'|'ready'='initializing',message?:string){
+ document.dispatchEvent(new CustomEvent('sc2-opening-progress',{detail:{value,phase,message}}));
 }
 export function finishOpening(){document.dispatchEvent(new Event('sc2-opening-finish'));}
 export async function prepareOpeningMenu(root:HTMLElement,preparation:Promise<unknown>=Promise.resolve()){

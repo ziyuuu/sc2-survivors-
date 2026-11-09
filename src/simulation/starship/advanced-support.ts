@@ -1,3 +1,4 @@
+import {identityRoll,plannedElites,worldContent} from '../progression/run-content';
 import {equipmentPresentation} from './presentation';
 import type {World} from '../world';
 import type {Body,Entity,HeroRecord,Point} from '../types';
@@ -68,7 +69,7 @@ export function tickAdvancedEquipmentSupport(w:World){for(const e of activeEquip
   const target=equipmentEngagementTarget(w);if(!target)continue;const elapsed=(w.starship.numbers.get(key+':elapsed')??0)+Math.max(0,now-last);w.starship.numbers.set(key+':elapsed',elapsed);if(elapsed+1e-8<e.values[0])continue;w.starship.numbers.set(key+':elapsed',0);if(equipmentRandom(w.starship.account)>=e.values[1])continue;
   let success=false;if(e.key==='yamato_support'){const sequence:EquipmentYamatoSequence={effect:e,next:now,remaining:e.values[4],targets:[]};success=yamato(w,sequence);if(success){sequence.remaining--;sequence.next=now+e.values[3]/e.values[4];w.starship.yamatoSequences.push(sequence);}}
   else {let spawns:Spawn[]=[];if(e.key==='swarm'||e.key==='plague'){const types:CombatUnitType[]=e.key==='swarm'?['zergling','mutalisk']:['ultralisk','hots_leviathan'];spawns=[...Array.from({length:e.values[5]},()=>({type:types[0],rank:e.values[4]})),...Array.from({length:e.values[6]},()=>({type:types[1],rank:e.values[4]}))];}
-   else {const leviathan=equipmentRandom(w.starship.account)>=.5,variants=Object.values(ELITES).filter(v=>v.family==='ultralisk');spawns=[leviathan?{type:'hots_leviathan',rank:5,eliteLeviathan:true}:{type:'ultralisk',rank:5,elite:variants[Math.floor(equipmentRandom(w.starship.account)*variants.length)].id}];}
+   else {const leviathan=identityRoll(w,'behemoth/form',()=>equipmentRandom(w.starship.account))>=.5,variants=plannedElites(worldContent(w),Object.values(ELITES).filter(v=>v.family==='ultralisk'));spawns=[leviathan?{type:'hots_leviathan',rank:5,eliteLeviathan:true}:{type:'ultralisk',rank:5,elite:variants[Math.floor(identityRoll(w,'behemoth/elite',()=>equipmentRandom(w.starship.account))*variants.length)].id}];}
    success=spawnAdvancedEquipmentGroup(w,e,spawns,w.anchor,e.values[3],e.key==='behemoth'?e.values[5]:e.values[7],e.key==='behemoth'?e.values[6]:e.values[8]).length===spawns.length;
   }if(success){w.starship.numbers.set(key+':ready',now+e.values[2]);lockEquipmentSource(w,e);}
  }

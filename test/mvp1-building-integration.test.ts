@@ -10,7 +10,7 @@ import type {ExpeditionReward} from '../src/simulation/progression/expedition-dr
 import type {Race,FamilyId} from '../src/data/races';
 
 const world=(race:Race='terran',sandbox=true)=>{const w=new World({race,sandbox,waves:false,terrain:false,obstacles:[],difficulty:'easy',seed:529});w.start();w.wallet.minerals=10000;w.wallet.gas=10000;return w;};
-function window(w:World,id:string){w.expedition.developmentTarget=id;w.endStage();const d=PROJECTS.find(d=>d.id===id)!;assert.ok(w.setDevelopmentDirection(d.line!));const offer=w.rewards.find(r=>(r as ExpeditionReward).expeditionEffect.kind==='development'&&(r as ExpeditionReward).expeditionEffect.definitionId===id);assert.ok(offer,'draw '+id);return offer as ExpeditionReward;}
+function window(w:World,id:string){w.expedition.developmentTarget=id;w.endStage();const d=PROJECTS.find(d=>d.id===id)!;assert.ok(w.setDevelopmentDirection(d.line!));const offer=(d.kind==='evolution'?Object.values(w.expedition.developmentQuotes):w.rewards).find(r=>(r as ExpeditionReward).expeditionEffect.kind==='development'&&(r as ExpeditionReward).expeditionEffect.definitionId===id);assert.ok(offer,'draw '+id);return offer as ExpeditionReward;}
 function next(w:World){if(w.rewardRound==='building')w.skipReward();if(w.phase==='reward')w.skipReward();}
 
 for(const [race,kind,family,producer,hero] of [

@@ -20,5 +20,5 @@ test('Baneling building damage uses its independent source upgrade and ignores a
  const ordinary=target(w.addUnit('zergling','zerg',1.5,0)),hive=w.hive={id:w.nextId++,x:1,z:0,hp:10000,maxHp:10000,armor:25,unitRadius:.5,flying:false,attributes:['Armored','Light','Biological','Structure'],owner:'zerg'};
  w.hash.rebuild([...w.entities.values(),hive]);const factor=w.growth(u).damage*1.45*1.2*1.15;w.fire(u,hive);settleWeaponFlights(w);
  assert.equal(SOURCE_WEAPON_PATTERNS.baneling.structureDamage,80);assert.equal(SOURCE_WEAPON_PATTERNS.baneling.structureArmorReduction,0);assert.equal(sourceWeaponUpgradeDelta('VolatileBurstU2',3).damage,15);
- close(10000-hive.hp,95*factor);close(10000-ordinary.hp,(16+6+19)*factor);assert.ok(u.hp>0);assert.equal(u.recoveryUntil,w.time+5);
+ close(10000-hive.hp,95*factor);close(10000-ordinary.hp,(16+6+19)*factor);assert.ok(u.hp>0);assert.equal(u.recoveryUntil,w.time+1.5);
 });

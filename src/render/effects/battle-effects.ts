@@ -1,3 +1,4 @@
+import {ManagedTextureLoader} from '../loaders/managed-textures';
 import {isProtossEliteId} from '../../data/protoss-elites';
 import {isTerranEliteId} from '../../data/terran-elites';
 import {isProtossHero} from '../../data/protoss-heroes';
@@ -41,7 +42,7 @@ export class BattleEffects {
  constructor(private scene:THREE.Scene){this.projectiles=new OriginalProjectiles(scene);this.sculptures=new CombatSculptures(scene);this.heroBasic=new HeroBasicEffects(scene,this);}
  reset(){this.heroBasic.reset();this.sculptures.reset();this.pool.push(...this.particles);this.particles.length=0;this.steps.clear();this.lastSerial=0;this.stats={attack:0,hit:0,death:0,movement:0,bile:0,active:0,pending:0,dropped:0,droppedByClass:counters(),culledByClass:counters(),projectileCulled:0};}
  async load(){this.errors.length=0;await this.projectiles.load();this.errors.push(...this.projectiles.errors);for(const a of ASSETS.values()){if(a.kind!=='effect-texture'||this.batches.has(a.id))continue;const url=assetUrl(a.id);if(!url)continue;try{
-   const texture=await new THREE.TextureLoader().loadAsync(url);texture.colorSpace=THREE.SRGBColorSpace;
+   const texture=await new ManagedTextureLoader().loadAsync(url);texture.colorSpace=THREE.SRGBColorSpace;
    const sprite=(a as unknown as {sprite?:{columns:number;rows:number;startFrame?:number;endFrame?:number}}).sprite??{columns:1,rows:1};
    const geometry=new THREE.PlaneGeometry(1,1),data=new THREE.InstancedBufferAttribute(new Float32Array(CAPACITY*3),3).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('spriteFrame',data);
    const material=new THREE.ShaderMaterial({transparent:true,depthWrite:false,forceSinglePass:true,blending:additive.has(a.id)||(a.id.startsWith('fx.hero-basic.')||a.id.startsWith('fx.hero-skill.'))&&!a.id.includes('smoke')?THREE.AdditiveBlending:THREE.NormalBlending,side:THREE.DoubleSide,uniforms:{map:{value:texture},grid:{value:new THREE.Vector2(sprite.columns,sprite.rows)}},

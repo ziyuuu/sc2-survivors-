@@ -83,7 +83,7 @@ test('difficulty availability never removes stage, roster, endless or quota rest
 
 test('category weights and natural probability remain unchanged; quantify the unfilled low-tier horde share',()=>{
  for(let tavern=0;tavern<=3;tavern++){const weights=eventCategoryWeights(tavern),total=weights.mission+weights.encounter+weights.horde;for(const stage of [4,7,13]){const chance=naturalEventChance(stage);rows.push({category:'analytical-admission-ceiling',stage,tavern,assumption:'All original physical categories eligible, no placement failure',high:chance,low:chance*(total-weights.horde)/total,hordeShare:weights.horde/total});}}
- assert.deepEqual([4,7,13].map(naturalEventChance),[.6,.7,.8]);assert.deepEqual(eventCategoryWeights(0),{mission:45,encounter:35,horde:20});
+ assert.deepEqual([4,7,13].map(naturalEventChance),[.3,.35,.4]);assert.deepEqual(eventCategoryWeights(0),{mission:45,encounter:35,horde:20});
 });
 
 for(const difficulty of difficulties)test(`${difficulty}: natural mission/encounter lottery and extra bait use only the allowed stage pool`,()=>{

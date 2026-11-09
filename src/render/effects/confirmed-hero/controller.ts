@@ -13,10 +13,10 @@ export class ConfirmedHeroEffects {
  private attacks=new Map<HeroId,AttackEffects>();private skills=new Map<HeroId,SkillEffects>();private casts=new Set<number>();private lastEvent=0;private generation='';private lastTime=0;
  private aura:HeroAuraEffects;ready=false;
  constructor(private view:BattleRenderer,private w:World){this.aura=new HeroAuraEffects(view,w);}
- async prepare(){if(this.ready)return;await prepareEmbeddedAssetIds(['model.hero-upgrade.vikingfightermissile']);
-  for(const hero of TERRAN_HERO_IDS){const frame:AttackFrame={get packets(){return world.heroAttacks.packets.filter(p=>p.hero===hero&&!p.lost);},get dots(){return world.heroAttacks.dots.filter(d=>d.source.heroId===hero);},get lines(){return world.heroAttacks.lines.filter(l=>l.packet.hero===hero);},takeEvents:()=>world.heroAttackEvents.filter(e=>e.packet.hero===hero)},world=this.w;
+ async prepare(heroes:readonly HeroId[]=TERRAN_HERO_IDS){if(heroes.every(id=>this.attacks.has(id)))return;await prepareEmbeddedAssetIds(['model.hero-upgrade.vikingfightermissile']);
+  for(const hero of heroes){if(!isRevisedHero(hero)||this.attacks.has(hero))continue;const frame:AttackFrame={get packets(){return world.heroAttacks.packets.filter(p=>p.hero===hero&&!p.lost);},get dots(){return world.heroAttacks.dots.filter(d=>d.source.heroId===hero);},get lines(){return world.heroAttacks.lines.filter(l=>l.packet.hero===hero);},takeEvents:()=>world.heroAttackEvents.filter(e=>e.packet.hero===hero)},world=this.w;
    const attack=new AttackEffects(this.view,this.w,frame,hero);await attack.prepare();this.attacks.set(hero,attack);const skill=new SkillEffects(this.view,this.w);skill.prepareGrenade();this.skills.set(hero,skill);
-  }this.aura.prepare();this.ready=true;this.view.fx.confirmedHeroes=true;
+  }if(!this.ready)this.aura.prepare();this.ready=true;this.view.fx.confirmedHeroes=true;
  }
  resumeAt(w:World){this.lastEvent=w.visualEvents.at(-1)?.serial??0;this.lastTime=w.time;this.generation=w.runId??'';}
  reset(){for(const a of this.attacks.values())a.reset();for(const s of this.skills.values())s.reset();this.casts.clear();this.lastEvent=0;this.lastTime=this.w.time;this.aura.reset();this.generation=this.w.runId??'';}

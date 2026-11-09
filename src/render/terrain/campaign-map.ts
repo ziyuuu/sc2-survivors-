@@ -1,4 +1,6 @@
 import * as THREE from 'three';
+import {ManagedTextureLoader} from '../loaders/managed-textures';
+import {assetUrl} from '../../assets/manifest';
 import type {ShadowViewContext} from '../scene/scene-shadows';
 import {loadSemanticGltf} from '../loaders/semantic-gltf';
 import {CAMPAIGN_MAP_SIZE,MAP_THEMES,RadialTerrain} from '../../data/campaign-map';
@@ -32,8 +34,9 @@ export interface CampaignMapPresentation {
 
 /** Original SC2 scenery, authored ground paint and shared, traversable relief. */
 export async function createCampaignMap(scene:THREE.Scene,terrain:RadialTerrain,presentation?:CampaignMapPresentation):Promise<MapView>{
- const d=terrain.definition,theme=MAP_THEMES[terrain.recipe.theme],root=new THREE.Group(),half=CAMPAIGN_MAP_SIZE/2;
- const placements=presentation?.placements??d.placements,assetIds=presentation?.assetIds??theme.props,groundOptions={placements,height:presentation?.groundHeight,softenPads:presentation?.softenPads};
+ if(terrain.recipe.lesson)return createLessonMap(scene,terrain);
+ const d=terrain.definition,theme=MAP_THEMES[terrain.recipe.theme],root=new THREE.Group(),half=terrain.definition.width/2;
+ const placements=presentation?.placements??d.placements,assetIds=presentation?.assetIds??(terrain.recipe.lesson?[]:theme.props),groundOptions={placements,height:presentation?.groundHeight,softenPads:presentation?.softenPads};
  root.name=d.source.sha256;root.visible=false;scene.add(root);
  const resources:LandscapeResources={textures:[],geometries:[],materials:[]};
  const {textures,geometries,materials}=resources;
@@ -123,4 +126,15 @@ export async function createCampaignMap(scene:THREE.Scene,terrain:RadialTerrain,
    report:()=>({name:theme.name,models:assetIds.length,placements:placements.length,visibleInstances:visible,visibleMeshes:batches.filter(b=>b.mesh.count>0).length,area:d.stageAreas[terrain.stage-1],scale:1,sourceSha256:d.source.sha256,environment:{features:{...features},ground:features.ground?visual?.report():{legacy:true},bases:bases.report(),emissionRepairs,samplers:textures.filter(t=>t.name.startsWith('terrain.visual.')).map(t=>({name:t.name,width:(t.image as {width?:number})?.width,height:(t.image as {height?:number})?.height,anisotropy:t.anisotropy,mipmaps:t.generateMipmaps,colorSpace:t.colorSpace})),atmosphere:atmosphere.report(),...(presentation?{sample:{fits:fits.map(({asset,type,fit:{matrix,hull,...fit}})=>({asset,type,...fit,hull})),decoration:decoration?.report()}}:{})}}),
   };
  }catch(error){dispose();throw error;}
+}
+
+/** Small level arena using the shipped SC2 ground, without five-map scenery dependencies. */
+async function createLessonMap(scene:THREE.Scene,terrain:RadialTerrain):Promise<MapView>{
+ // This is a single seamless SC2 soil texture. map.terrain.diffuse is an
+ // eight-surface atlas and must never be repeated as one plane texture.
+ const source=assetUrl('terrain.char');if(!source)throw Error('缺少训练场地表贴图');
+ const texture=await new ManagedTextureLoader().loadAsync(source);texture.colorSpace=THREE.SRGBColorSpace;texture.wrapS=texture.wrapT=THREE.RepeatWrapping;texture.repeat.set(16,16);texture.anisotropy=4;
+ const material=new THREE.MeshStandardMaterial({map:texture,roughness:.96}),geometry=new THREE.PlaneGeometry(terrain.definition.width,terrain.definition.height),ground=new THREE.Mesh(geometry,material),root=new THREE.Group();
+ root.name=terrain.definition.source.sha256;root.visible=false;ground.rotation.x=-Math.PI/2;ground.position.y=-.018;ground.receiveShadow=true;root.add(ground);scene.add(root);
+ return {update:()=>{},setVisible:visible=>{root.visible=visible;},dispose:()=>{root.removeFromParent();geometry.dispose();material.dispose();texture.dispose();},report:()=>({name:'基础训练场',models:0,placements:0,visibleInstances:0,visibleMeshes:root.visible?1:0,area:terrain.definition.width,scale:1,sourceSha256:root.name})};
 }

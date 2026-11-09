@@ -1,0 +1,136 @@
+{
+  "date": "2026-11-04",
+  "task": "PLAN-1X",
+  "scope": "roadmap-revision",
+  "baseline": "43ef159808248f9c2819b08addd8f87209ef8fb0",
+  "versions": [
+    "1.1",
+    "1.2",
+    "1.3",
+    "1.4",
+    "1.5",
+    "1.6",
+    "1.7",
+    "1.8",
+    "1.9",
+    "1.10",
+    "1.11",
+    "1.12",
+    "1.13"
+  ],
+  "counts": {
+    "1.1": 6,
+    "1.2": 7,
+    "1.3": 7,
+    "1.4": 5,
+    "1.5": 6,
+    "1.6": 5,
+    "1.7": 5,
+    "1.8": 5,
+    "1.9": 5,
+    "1.10": 5,
+    "1.11": 5,
+    "1.12": 5,
+    "1.13": 5
+  },
+  "taskCount": 71,
+  "fusionScenarios": 6,
+  "ordinaryFamiliesPlanned": 19,
+  "ordinarySourceIdentities": 20,
+  "campaignCoopPacks": 38,
+  "localLinksChecked": 28,
+  "sourceUrlsReferenced": 9,
+  "documents": [
+    {
+      "path": "docs/project/V1X_ROADMAP_20261104.md",
+      "sha256": "19ee704acb76fa889fd8904fbcce467c53f721565ebe22a7410285a75782647e"
+    },
+    {
+      "path": "docs/project/V1X_ROSTER_20261104.md",
+      "sha256": "04b13388b69e94d5bc7e0dab07e9aa830075ffd1affd48aa209fc899ccbae9a7"
+    },
+    {
+      "path": "docs/project/V1_1_FIRST_RUN_TUTORIAL_20261104.md",
+      "sha256": "c64d4cad586b87420e9f9580467c34e195fd5c681724b96a55d4b60994e101a6"
+    }
+  ],
+  "checks": {
+    "versionOrder": true,
+    "dependencyOrder": true,
+    "autoTasksAt1_2": true,
+    "jointNineDirectionMilestoneAt1_3": true,
+    "firstCampaignTutorialReferencesAndAdvisorIdentities": true,
+    "taskIds": true,
+    "unitCoverage": true,
+    "historicalBodyHashes": true,
+    "navigation": true,
+    "gameSourceAndTestsClean": true,
+    "docsCheck": "通过，参考数据与当前运行时一致",
+    "trackedDocumentWhitespace": "通过"
+  },
+  "decisions": [
+    "1.1 在确认无存档的玩家首次真实入关时邀请。接受后由人族副官、虫族虫后或神族执行官进行战役式引导。任一步跳过即永久关闭该账户的教程",
+    "接受教学后，在第三关原有战役首领真实死亡时，该笔装备掉落合计 2–3 件。首次拾取后引导合法穿戴，再教正常撤离与旗舰配装",
+    "1.2 承接原自动战斗的全部七项任务",
+    "1.3 与用户共同定好三族各三条构筑方向及关间规则。取得三张同流派增益牌后获得一次该流派核心技能选择权，并提高后续该流派的出牌概率",
+    "1.4 人族、1.5 虫族、1.6 神族依次接入各族兵种和已商定的构筑",
+    "可选精英强化只影响本兵种，V 以后晋升另行讨论"
+  ],
+  "sequenceSource": "2026-11-04 用户明确排期，教学后先做自动战斗，先共同定好构筑方向再分族制作",
+  "open": [
+    "1.1 三端顾问通讯的具体摆位、原版素材接入、教学装备模板与第三件比例",
+    "在 1.3 共同确定的三族九条方向、各自的核心取舍，以及分族阶段的正式卡牌与配套装备",
+    "正式加权幅度、重复模板、多标签及再次达标规则",
+    "精英本兵种加成的触发、属性与叠加",
+    "V 以后的晋升议题"
+  ],
+  "tutorialBaselineProbe": {
+    "seed": 17,
+    "difficulties": [
+      "easy",
+      "normal"
+    ],
+    "stage1ScheduledDrones": 4,
+    "stage3ScheduledBoss": {
+      "type": "zergling",
+      "tier": "boss",
+      "atSeconds": 30
+    },
+    "currentBossBaseDropChance": 1,
+    "existingCatalogueExamples": [
+      "attribute.1",
+      "module.logistics.1"
+    ],
+    "advisorSources": [
+      "AdjutantPortrait",
+      "QueenPortrait",
+      "ExecutorPortrait",
+      "MarSaratutorialAdjutant"
+    ]
+  },
+  "verificationScope": "核对当前源码的原版通讯定义、存档入口、装备资格与战役排程。执行的是前 3 关种子 17 的只读排程与目录探查，并校验版本、文档和来源。1.1 教学流程、2–3 件首领掉装与其玩家体验均属于设计，待实现后实战验证。",
+  "tutorialPortraitPreview": {
+    "build": "B97563",
+    "images": [
+      {
+        "id": "adjutant",
+        "source": "mods/core.sc2mod/base.sc2assets/Assets/Textures/adjutantportrait_static.dds",
+        "ddsSha256": "ced012dae6f2e2d80a068f33e77ef3a89015f94ab3505e90f44ada4d3dc626ff"
+      },
+      {
+        "id": "queen",
+        "source": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/queenportrait_static.dds",
+        "ddsSha256": "080ea3be5659c45340af6fa5e880c3deb0847bcb4397af1553efdf9043a9e157"
+      },
+      {
+        "id": "executor",
+        "source": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/executorportrait_static.dds",
+        "ddsSha256": "007121caf7117780505ad3c7bc5f541d855592e840a36dfaac82bf51166dabb4"
+      }
+    ],
+    "preview": "reports/local/tutorial-advisors/three-advisors.png",
+    "previewSha256": "1e735545e9a28fc518b2f997b3bca1b8a69b791c63182f5f2d2d741de1319c51",
+    "storyboardBeats": 10,
+    "voiceStatus": "人族和神族的逐句对白待录制；虫族只显示字幕并播放腺体震动声，音效待试听。"
+  }
+}

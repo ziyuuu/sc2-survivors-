@@ -9,6 +9,7 @@ import {racePreloadModels,modelPreloadAssets} from '../src/app/race-preload';
 import {RESCUE_PRESENTATION} from '../src/data/economy';
 import {RACES} from '../src/data/races';
 import {displayAssetModelKey} from '../src/render/materials/elite-visual';
+import {PackedWorkerUpdateError} from '../src/assets/packed-cache';
 
 const flush=()=>new Promise<void>(resolve=>setTimeout(resolve,0));
 async function until(check:()=>boolean){for(let i=0;i<200&&!check();i++)await flush();assert.ok(check(),'asynchronous resource operation settled');}
@@ -55,5 +56,14 @@ test('each race bundle includes real roster forms/deaths, rescue lifecycles, map
   for(const id of modelPreloadAssets(models))assert.ok(selected.has(id),race+': '+id);
   for(const key of [rescue.workerModel,rescue.workerModel+'.death',rescue.carrierModel,rescue.carrierBirthModel,rescue.carrierDeathModel])if(key)assert.ok(selected.has('model.'+key),race+': '+key);
   for(const id of ids.filter(id=>id.startsWith('combat-fx.')||ASSETS.get(id)?.kind==='map-model'||id.startsWith('model.fort.')))assert.ok(selected.has(id),race+': '+id);
+ }
+});
+
+test('cache clear distinguishes worker update failure, releases preparation holds and can retry',async()=>{
+ for(const [error,message]of [[new PackedWorkerUpdateError(),'资源服务更新失败，请刷新后重试。'],[Error('underlying storage operation failed'),'资源缓存清理失败，请稍后重试。']] as const){
+  const h=downloadStore(),task=new ResourceDownloads(()=>h.store);task.setAllowed(true);let held=0;
+  task.holdOptional=async()=>{held++;return ()=>{held--;};};h.store.cache.clear=async()=>{throw error;};
+  await task.clear();assert.equal(task.state.phase,'error');assert.equal(task.state.message,message);assert.equal(held,0);assert.equal(task.canStart,true);
+  h.store.cache.clear=async()=>{h.disk.clear();};await task.clear();assert.equal(task.state.phase,'idle');assert.match(task.state.message,/资源缓存已清理/);assert.equal(held,0);
  }
 });

@@ -4,11 +4,13 @@ import {HEROES} from '../data/heroes';
 import {ASSETS} from '../assets/manifest';
 
 /** Complete selected-race roster plus the fixed enemy roster. Values are body types, not family slots. */
-export function racePreloadModels(race:Race){
+export function racePreloadModels(race:Race,includeVariants=true){
  const models=new Map<string,CombatUnitType>();
  for(const family of [...FAMILIES_BY_RACE[race],...FAMILIES_BY_RACE.zerg])models.set(family,family);
- for(const elite of Object.values(ELITES))if((FAMILIES_BY_RACE[race] as readonly string[]).includes(elite.family))models.set(elite.model,elite.family);
- for(const hero of Object.values(HEROES))if(hero.race===race)models.set(hero.model,hero.baseFamily);
+ if(includeVariants){
+  for(const elite of Object.values(ELITES))if((FAMILIES_BY_RACE[race] as readonly string[]).includes(elite.family))models.set(elite.model,elite.family);
+  for(const hero of Object.values(HEROES))if(hero.race===race)models.set(hero.model,hero.baseFamily);
+ }
  if(race==='terran'){models.set('hellion.hellbat','hellion');models.set('viking.assault','viking');}
  if(race==='protoss')models.set('interceptor','marine');
  models.set('fun-nydus','roach');models.set('fun-infested-marine','marine');models.set('fun-infested-marine.timeout','marine');models.set('fun-cocoon','queen');models.set('zealot','zealot');models.set('stalker','stalker');

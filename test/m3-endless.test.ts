@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
 import {FlatTerrain} from '../src/simulation/movement/flat-terrain';
-import {ENDLESS_ENTRANCES,endlessConfig,endlessWaveTemplate} from '../src/data/endless';
+import {ENDLESS_ENTRANCES,endlessConfig,endlessWaveTemplate,endlessRoundDuration} from '../src/data/endless';
 import {writeArchive,readArchive} from '../src/persistence/archive';
 import {SaveRepository,type SaveBackend} from '../src/persistence/save-repository';
 import {campaign18Schedule,campaign18StageConfig} from '../src/data/campaign18';
@@ -32,15 +32,15 @@ test('multiple unresolved pods and their guards receive distinct legal flat-map 
  for(const point of positions)assert.ok(flat.canOccupy(point,1));
  for(let i=0;i<positions.length;i++)for(let j=i+1;j<positions.length;j++)assert.ok(Math.hypot(positions[i].x-positions[j].x,positions[i].z-positions[j].z)>2);
 });
-test('60-second round windows, minute awards and fourth-round development pay only once',()=>{
+test('grouped round windows, actual minute awards and fourth-round development pay only once',()=>{
  const w=prepared();enter(w);const principal=w.permanentProfile.balance;
  for(let round=1;round<=5;round++){
-  const start=w.time;w.tick=Math.round((start+59.9)*60);w.time=w.tick/60;w.stageElapsed=59.9;
+  const duration=endlessRoundDuration(round),start=w.time;w.tick=Math.round((start+duration-.1)*60);w.time=w.tick/60;w.stageElapsed=duration-.1;
   for(let i=0;i<5;i++)w.step();assert.equal(w.phase,'battle');w.step();assert.equal(w.phase,'reward');
-  assert.equal(w.permanentProfile.balance,principal+round);assert.equal(w.endlessRoundReceipts.length,round);assert.equal(w.clearReceipt?.minerals,300);assert.equal(w.clearReceipt?.gas,250);
+  assert.equal(w.permanentProfile.balance,principal+Math.floor(w.endlessElapsed/60));assert.equal(w.endlessRoundReceipts.length,round);assert.equal(w.clearReceipt?.minerals,300*duration/60);assert.equal(w.clearReceipt?.gas,250*duration/60);
   const wallet={...w.wallet};w.endStage();assert.deepEqual(w.wallet,wallet);
   assert.equal(w.rewardRound,round%4===0?'building':'random');if(round%4===0)assert.ok(w.skipReward());
-  assert.ok(w.skipReward());assert.equal(w.endless?.round,round+1);assert.equal(w.duration,60);assert.equal(w.stageElapsed,0);
+  assert.ok(w.skipReward());assert.equal(w.endless?.round,round+1);assert.equal(w.duration,endlessRoundDuration(round+1));assert.equal(w.stageElapsed,0);
  }
 });
 

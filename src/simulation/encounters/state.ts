@@ -8,7 +8,7 @@ export const ENCOUNTER_NAMES:Record<EncounterKind,string>={golden:'黄金工蜂'
 export type EncounterStats=Pick<Entity,'maxHp'|'armor'|'weaponDamage'|'attackPeriod'|'moveSpeed'|'attackRange'|'unitRadius'>;
 export interface EncounterIdentity {
  id:string;kind:EncounterKind;role:'subject'|'attacker'|'friend';
- base?:EncounterStats;distractedUntil?:number;distractedBy?:number;
+ base?:EncounterStats;distractedUntil?:number;distractedBy?:number;engaged?:boolean;
 }
 export interface EncounterRecord {
  bait?:boolean;

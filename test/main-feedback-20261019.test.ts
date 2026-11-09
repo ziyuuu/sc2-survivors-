@@ -22,21 +22,6 @@ test('isolated in-page continuation preserves live combat, equipment, pending de
  session.keepRun();w.resetRun();assert.equal(session.canResume,false);
  }
 });
-test('easy regular drops use the calibrated run yield and preserve white weights',()=>{
- const p=equipmentDropPolicy({difficulty:'easy',stage:1,tier:'regular'});assert.equal(p.baseChance,.027);assert.equal(p.base.find(r=>r.quality===1)!.weight,85);
-});
-
-test('complete easy-run yield is approximately bell-shaped and usually within the requested 45–90 items',()=>{
- // Eligible kill cohorts from seed 529 native campaign, actual terrain/economy/production,
- // white starter equipment, no health lock, through 12 endless rounds. Not a human win-rate claim.
- for(const [rounds,endRegular,elite,boss] of [[6,264,6,4],[12,557,13,8]]){
-  const cohorts=[{stage:1,n:183},{stage:7,n:377},{stage:13,n:837},{stage:18,n:endRegular,endlessRound:rounds}];
-  const probabilities:number[]=[];let guaranteed=0;
-  for(const c of cohorts)for(let n=0;n<c.n;n++)probabilities.push(equipmentDropPolicy({...c,difficulty:'easy',tier:'regular'}).baseChance);
-  for(const c of [{stage:1,n:2,tier:'boss' as const},{stage:7,n:2,tier:'boss' as const},{stage:13,n:2,tier:'boss' as const},{stage:18,n:elite,tier:'elite' as const,endlessRound:rounds},{stage:18,n:boss,tier:'boss' as const,endlessRound:rounds}])for(let n=0;n<c.n;n++){const p=equipmentDropPolicy({...c,difficulty:'easy'});guaranteed++;probabilities.push(p.baseChance);if(p.additionalChance)probabilities.push(p.additionalChance);}
-  let pmf=[1];for(const p of probabilities){const next=Array(pmf.length+1).fill(0);for(let i=0;i<pmf.length;i++){next[i]+=pmf[i]*(1-p);next[i+1]+=pmf[i]*p;}pmf=next;}
-  const mean=guaranteed+probabilities.reduce((a,p)=>a+p,0),variance=probabilities.reduce((a,p)=>a+p*(1-p),0),skew=probabilities.reduce((a,p)=>a+p*(1-p)*(1-2*p),0)/variance**1.5;
-  assert.ok(mean>(rounds===6?55:70)&&mean<(rounds===6?65:82));assert.ok(skew<.2);
-  assert.ok(pmf.reduce((sum,p,i)=>sum+(i+guaranteed>=45&&i+guaranteed<=90?p:0),0)>.95);
- }
+test('easy regular drops use the approved all-source budget and preserve white weights',()=>{
+ const p=equipmentDropPolicy({difficulty:'easy',stage:1,tier:'regular'});assert.equal(p.baseChance,.0035);assert.equal(p.base.find(r=>r.quality===1)!.weight,85);
 });

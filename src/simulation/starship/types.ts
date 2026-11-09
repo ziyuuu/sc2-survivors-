@@ -28,6 +28,7 @@ export interface EquipmentRun {
  id:string;race:Race;locked:Set<string>;receipts:Set<string>;started:boolean;ended:boolean;
 }
 export interface EquipmentAccount {
+ tutorial?:import('../tutorial/types').TutorialAccount;
  revision:number;serial:number;rng:number;dust:number;warehouseLevel:0|1|2|3;
  items:Record<string,EquipmentItem>;locations:Record<string,ItemLocation>;
  acquired:Record<string,AcquiredEquipment>;

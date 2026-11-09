@@ -1,0 +1,329 @@
+{
+  "date": "2026-11-06",
+  "task": "SAFARI-20261106",
+  "scope": "截图说法核实、跨公开原始资料检索、当前源码与静态清单检查及优化建议；未修改游戏",
+  "baseline": {
+    "branch": "体积优化版",
+    "head": "6510fb2a85a4140aecb6151ab0ab3132b42f239a",
+    "workingTree": "含既有1.1、1.2、无尽等未提交成果",
+    "localAutoCandidate": "0029cb55165281964a3d4c64dc9937614f332bef33b5da537c642ca9e1079329",
+    "onlineAppBuildId": "本轮未读取，不以本地候选代替线上"
+  },
+  "claims": [
+    {
+      "id": "memory-limit",
+      "result": "Apple确认Jetsam可因进程限制或系统内存压力终止；不能仅凭页面重载认定OOM"
+    },
+    {
+      "id": "iphone17pro-1.5gb",
+      "result": "未核实为固定规格；Apple论坛2026年4月原始报告日志为ActiveHard2048MB，Apple工程师确认iPhone限制严于iPad，不推广成通用数值"
+    },
+    {
+      "id": "progressive-blur",
+      "result": "截图为推测；本项目有1至0.75动态分辨率，须核对原机启用和尺寸，不等于Safari自动降频降画质"
+    },
+    {
+      "id": "recovery",
+      "result": "GPU上下文恢复与整页终止不同；后者只可依靠此前已提交检查点，pagehide不可靠"
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://developer.apple.com/documentation/xcode/identifying-high-memory-use-with-jetsam-event-reports",
+      "type": "Apple官方诊断文档"
+    },
+    {
+      "url": "https://developer.apple.com/forums/thread/823061",
+      "type": "原始设备日志报告与Apple工程师回复",
+      "date": "2026-04",
+      "scope": "作者报告iPhone17Pro/iOS26.3至26.4.1，不是统一规格"
+    },
+    {
+      "url": "https://groups.google.com/g/webgl-dev-list/c/gJ8qeoiiTuc",
+      "type": "WebKit工程师邮件",
+      "date": "2023-02-22",
+      "scope": "历史设备预算与GPU归属说明"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_best_practices",
+      "type": "WebGL API文档"
+    },
+    {
+      "url": "https://threejs.org/manual/pages/how-to-dispose-of-objects.html",
+      "type": "Three.js官方文档"
+    },
+    {
+      "url": "https://threejs.org/docs/pages/KTX2Loader.html",
+      "type": "Three.js官方文档"
+    },
+    {
+      "url": "https://developer.playcanvas.com/user-manual/optimization/texture-compression/",
+      "type": "PlayCanvas官方引擎文档"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer",
+      "type": "Web Audio API文档"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/Window/pagehide_event",
+      "type": "浏览器生命周期API文档"
+    },
+    {
+      "url": "https://wikis.khronos.org/webgl/HandlingContextLost",
+      "type": "Khronos官方wiki",
+      "access": "搜索索引可读，直接打开403；未据此补造正文"
+    },
+    {
+      "url": "https://webkit.org/blog/14403/updates-to-storage-policy/",
+      "type": "WebKit官方",
+      "date": "2023-08-10",
+      "scope": "磁盘存储额度，不是RAM"
+    },
+    {
+      "url": "https://webkit.org/web-inspector/timelines-tab/",
+      "type": "WebKit工具文档"
+    },
+    {
+      "url": "https://bugs.webkit.org/show_bug.cgi?id=291677",
+      "type": "原始缺陷报告",
+      "scope": "iOS18.4大型Wasm编译，已标重复；不是本项目复现"
+    },
+    {
+      "url": "https://bugs.webkit.org/show_bug.cgi?id=299731",
+      "type": "原始缺陷报告及工程师回应",
+      "scope": "Safari26多线程Wasm；NEW；原因解释仍为推测，不是本项目复现"
+    }
+  ],
+  "checks": {
+    "sourceIntegrity": {
+      "beforeCount": 956,
+      "afterCount": 956,
+      "beforeSha": "40ec65ba8a014818aa1e9879a8ad4d1f820d055e0046c07dbafa3e1820763e51",
+      "afterSha": "40ec65ba8a014818aa1e9879a8ad4d1f820d055e0046c07dbafa3e1820763e51",
+      "changed": [],
+      "added": [],
+      "digestMethod": "SHA256 of sorted path + NUL + fileSHA256 + newline; en locale ordering"
+    },
+    "staticAudit": {
+      "method": "node --import tsx：只导入资产与预算纯模块；读取本地资源清单",
+      "availableAudioIds": 1924,
+      "uniqueAudioUrls": 1895,
+      "musicExcludedFromAudioPreload": true,
+      "gpuTextureManifest": "sites/size-optimized-site/public/asset-manifest.ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2.json",
+      "gpuTextureCount": 43,
+      "touchUnknownMemoryBudget": {
+        "network": 2,
+        "decode": 1,
+        "audio": 1,
+        "packBytes": 12582912,
+        "pcmBytes": 33554432,
+        "recentOnly": true
+      },
+      "meaning": "清单/纯函数结果，不是实际解码完成量、Safari或RAM测量"
+    },
+    "docsCheck": {
+      "status": "passed",
+      "command": "npm run docs:check",
+      "exitCode": 0,
+      "result": "Game reference matches runtime data."
+    },
+    "localLinks": {
+      "status": "passed",
+      "count": 5,
+      "missing": []
+    },
+    "board": {
+      "status": "passed",
+      "command": "node tools/render-performance-board.mjs",
+      "revision": 417,
+      "taskStatus": "已完成",
+      "active": []
+    }
+  },
+  "proposals": [
+    {
+      "id": "SFR-01",
+      "priority": "first",
+      "topic": "同版分阶段峰值与持有者账本"
+    },
+    {
+      "id": "SFR-02",
+      "priority": "first",
+      "topic": "模型/图片/PCM/转码联合峰值准入，避免父子锁死锁"
+    },
+    {
+      "id": "SFR-03",
+      "priority": "first",
+      "topic": "合法关间边界闲置回收与公共资源覆盖"
+    },
+    {
+      "id": "SFR-04",
+      "priority": "conditional-first",
+      "topic": "按实际入口复用按需音频与PCM预算"
+    },
+    {
+      "id": "SFR-05",
+      "priority": "after-measurement",
+      "topic": "验证43张KTX2命中与未覆盖高占用贴图的样本"
+    },
+    {
+      "id": "SFR-06",
+      "priority": "separate-decision",
+      "topic": "画质取舍与CPU性能分别讨论，不改敌军和结算"
+    },
+    {
+      "id": "SFR-07",
+      "priority": "separate-decision",
+      "topic": "验证现有恢复；战斗中检查点另行设计"
+    }
+  ],
+  "historicalEvidence": [
+    {
+      "file": "reports/qa/runtime-memory-lifecycle-20261028.json",
+      "scope": "Windows/Chrome历史测量，仅作定位，不复用为当前Safari通过"
+    },
+    {
+      "file": "reports/qa/safari-restore-20261029.json",
+      "scope": "已修复旧读档依赖范围；原机终止原因未定"
+    },
+    {
+      "file": "reports/qa/auto-combat-implementation-20261106.json",
+      "scope": "1.2隔离模拟CPU开销，不是Safari内存证据"
+    }
+  ],
+  "limitations": [
+    "未获得本轮原机日志/最新iOS版本及触发路径",
+    "未运行浏览器、物理iPhone或压力测试",
+    "未新增或重跑游戏回归，未做本轮运行内存/性能测量",
+    "候选优化没有经过本轮对照实验，未承诺节省幅度",
+    "未构建、提交、推送、部署或发布"
+  ],
+  "files": [
+    "docs/project/SAFARI_MEMORY_RESEARCH_20261106.md",
+    "docs/project/README.md",
+    "docs/project/MVP_1_0_HANDOFF_20261029.md",
+    "docs/project/performance-board.json",
+    "docs/project/PERFORMANCE_BOARD.html",
+    "docs/project/PERFORMANCE_TODO.md",
+    "reports/qa/safari-memory-research-20261106.json"
+  ],
+  "implementationStarted": false,
+  "relatedIssue": "V06-SAFARI-001",
+  "relatedIssueResolved": false,
+  "next": "先以SFR-01固定实际入口及同版峰值，再选择SFR-02/03/04；原机归因保持待验证",
+  "reproduction": {
+    "staticAudio": "node --import tsx --input-type=module -e 'import {ASSETS} from \"./src/assets/manifest.ts\";const a=[...ASSETS.values()].filter(a=>a.kind===\"audio\"&&a.status===\"available\");console.log(a.length,new Set(a.map(a=>a.url)).size);'",
+    "gpuTextures": "Read the gpuTextures key count in the recorded local asset manifest",
+    "docs": "npm run docs:check",
+    "board": "node tools/render-performance-board.mjs"
+  },
+  "continuousPlayResearch": {
+    "date": "2026-11-09",
+    "objective": "iOS 跨关与无尽长局、系统中断及返回同一战局",
+    "document": "docs/project/SAFARI_MEMORY_RESEARCH_20261106.md#8-ios-持续游玩的方案选择",
+    "primaryCases": [
+      "https://www.filamentgames.com/blog/optimizing-your-html5-video-game-a-case-study",
+      "https://web.dev/case-studies/slow-roads",
+      "https://andersonmancini.dev/blog/endurance-racing-iphone-gpu-memory"
+    ],
+    "engineeringSources": [
+      "https://developer.playcanvas.com/user-manual/assets/loading-unloading/",
+      "https://webkit.org/blog/8970/how-web-content-can-affect-power-usage/",
+      "https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/state",
+      "https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/webglcontextrestored_event",
+      "https://www.w3.org/TR/IndexedDB/",
+      "https://developer.chrome.com/docs/web-platform/page-lifecycle-api",
+      "https://developer.chrome.com/docs/workbox/service-worker-lifecycle",
+      "https://registry.khronos.org/webgl/extensions/WEBGL_lose_context/"
+    ],
+    "observed": {
+      "normalEndlessIntermission": "endStage进入reward，RunSession提交关间检查点",
+      "endlessRoundSeconds": {
+        "16": 300,
+        "31": 600,
+        "61": 1200
+      },
+      "existingWindowsComparison": "reports/qa/safari-restore-windows-20261109.json"
+    },
+    "proposed": [
+      "战中复用、关间释放与分批预热",
+      "后台、音频与上下文恢复",
+      "长轮内安全检查点，按实际回退时长与写入代价定频率",
+      "当前局固定资源版本，弱网时在关间恢复",
+      "条件式关间重载只作经验证的后备"
+    ],
+    "futureValidation": "Windows同版60分钟、跨关/换轮、重复同内容、后台与context loss注入、刷新与写失败，尚未执行本组实验",
+    "checks": {
+      "localReferences": 7,
+      "docsCheck": "passed"
+    },
+    "researchOnly": true
+  },
+  "seededContentDesign": {
+    "date": "2026-11-09",
+    "decision": "开局确定本局会出现的任务、趣味遭遇、特殊关、英雄和精英，玩法与苹果资源准备共用计划，按关展开资产。",
+    "scope": "已完成方案与门票隔离试验，产品接入尚待实施",
+    "sourceFindings": [
+      "现有门票与自然事件使用共享World.random",
+      "现有第3关首领奖励在第3关进入时按含runId的回执冻结",
+      "当前第3关起公共准备含本族所有英雄，压缩入口首入场筛选前的texture/effect-texture目录为192/60"
+    ],
+    "probe": {
+      "command": "node --import tsx tools/probe-seeded-tickets.mjs",
+      "seeds": [
+        529,
+        530,
+        531,
+        532
+      ],
+      "extraCombatRngCallsBeforeEachStage": 23,
+      "sharedSchedulesChanged": 4,
+      "independentSchedulesIdentical": 4,
+      "independentDidNotAdvanceCombatRng": true,
+      "seed529": [
+        {
+          "stage": 5,
+          "kind": "crossing"
+        },
+        {
+          "stage": 9,
+          "kind": "resources"
+        },
+        {
+          "stage": 16,
+          "kind": "crossing"
+        }
+      ],
+      "conditions": "人族普通、一名陆军、固定领取每张出现的门票，无传送门。"
+    },
+    "acceptedChecks": [
+      "docs:check",
+      "probe assertions",
+      "links"
+    ],
+    "next": "按预定内容生成游戏事件、奖励身份和分关依赖，保护既有领取/付费/恢复，再同档复测加载、内存与首个动作。"
+  },
+  "specialAssetLifetime": {
+    "date": "2026-11-09",
+    "confirmed": [
+      "SpecialVisuals释放退出的独占实例；releaseFunVisual保留共享模板",
+      "model.fun-props为九类共享节点的单包，编码体积1905384字节",
+      "特殊地图按kind复用地形，视图在切场时隐藏缓存；平地视图有dispose；40×108雾图reset隐藏",
+      "真实主场状态在特殊关期间暂存，返回时合并战损与回执"
+    ],
+    "riskConditions": [
+      "跨类型缓存累加",
+      "新旧场景与解码/上传叠峰",
+      "迟到结果重新入缓存",
+      "过早卸载导致共享对象受损或重复加载"
+    ],
+    "test": {
+      "command": "node --import tsx --test --test-reporter=spec test/fun-prop-visuals.test.ts",
+      "passed": 4,
+      "failed": 0,
+      "scope": "代码与Three.js对象生命周期"
+    },
+    "docsCheck": "passed",
+    "implementationStarted": false
+  }
+}

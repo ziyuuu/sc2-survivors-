@@ -94,3 +94,10 @@ test('mission worker, hive and egg death snapshots retain audio identity after t
  }
 });
 
+
+test('late decoded cues do not replay after reset, and looping voices wait for a live channel',async()=>{
+ const c=fakeContext(),buffers=new Map<string,AudioBuffer>(),p=new NativeSoundPlayer(()=>c,()=>c.createGain(),buffers);
+ const pending:{id:string;resolve:()=>void}[]=[];p.ensureAsset=id=>new Promise<void>(resolve=>pending.push({id,resolve:()=>{buffers.set(id,{} as AudioBuffer);resolve();}}));
+ const cue={bank:'melee:Marine_AttackLaunch',priority:1};p.play(cue);assert.equal(p.voices.size,0);p.reset();pending.splice(0).forEach(x=>x.resolve());await new Promise(r=>setTimeout(r,0));assert.equal(p.voices.size,0);
+ buffers.clear();p.play(cue,true);const before=pending.length;p.play(cue,true);assert.equal(pending.length,before);pending.splice(0).forEach(x=>x.resolve());await new Promise(r=>setTimeout(r,0));assert.equal(p.voices.size,0);assert.ok(p.play(cue,true));assert.equal(p.voices.size,1);p.reset();
+});

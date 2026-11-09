@@ -65,6 +65,18 @@ test('required entrance drains optional work even while frame budget and input g
  await assert.rejects(lane.checkpoint(()=>true),/取消/);
 });
 
+test('background file jobs do not refill retired encoded models after their batches are ready',async()=>{
+ const w=new World({race:'terran',seed:529,terrain:false,waves:false});w.start();
+ const gpu=new Map(),view=Object.assign(Object.create(BattleRenderer.prototype),{world:w,contextEpoch:0,gpu,backgroundPreloadModels:()=>new Map([['marine','marine']])});
+ try{configurePlatformAssetUrl(()=>null);const jobs=view.battleBackgroundJobs(async()=>{}),modelFiles=jobs.filter((j:{key:string})=>j.key.includes(':model.marine'));
+  assert.ok(modelFiles.length>0);gpu.set('marine',{});
+  assert.ok(modelFiles.every((j:{isReady:()=>boolean})=>j.isReady()));
+  // No platform URL exists; run() must avoid entering the file loader anyway.
+  for(const job of modelFiles)await job.run();
+  assert.equal(view.battleBackgroundJobs(async()=>{}).filter((j:{key:string})=>j.key.includes(':model.marine')).length,0);
+ }finally{configurePlatformAssetUrl(null);}
+});
+
 test('first menu retains shared frames and faction icons while catalog icons wait for their pages',()=>{
  const ids=['ui.cover.nova','ui.native.frame','building.barracks','unit.marine','unit.zergling','unit.zealot','unit.thor','hero.raynor','tech.stim','skill.blink','model.thor'];assert.deepEqual(initialMenuAssetIds(ids),ids.slice(0,6));
 });

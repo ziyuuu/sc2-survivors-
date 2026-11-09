@@ -1,0 +1,1681 @@
+{
+  "date": "2026-11-05",
+  "task": "TUT-1.1",
+  "status": "UI restored; new guided tutorial design pending review, NOT implemented",
+  "version": "1.1.0-local.1",
+  "appBuildId": "156bfb53341a05f63b486c015f57978b13a61ae9ab6d586d0e3b0e331f09ac63",
+  "release": "6da951a7231400302b216c2070d083fa6bf459fc3edd538333384f8ad6406025",
+  "branch": "体积优化版",
+  "head": "6510fb2a85a4140aecb6151ab0ab3132b42f239a",
+  "baseCommit": "6510fb2a85a4140aecb6151ab0ab3132b42f239a",
+  "source": [
+    {
+      "file": "src/app/bootstrap.ts",
+      "sha256": "3bcbdefd7a70ae598476c3002cf21c566f07d2ae258e05b299b608080bb04583"
+    },
+    {
+      "file": "src/app/run-session.ts",
+      "sha256": "5ab25db9d5a06004aab6e5605a6d49002519abea0589edeabcb08e009ffe47af"
+    },
+    {
+      "file": "src/assets/manifest.ts",
+      "sha256": "6e956e8506966609760efd5c0e80b0a378baa24b679e2982f8114ae1a1e172ca"
+    },
+    {
+      "file": "src/assets/tutorial.ts",
+      "sha256": "9958c3e00f6e8ced2f0efc59154ec15caf5e9a06e8ab349610547a00afecde00"
+    },
+    {
+      "file": "src/data/tutorial.ts",
+      "sha256": "4d45f15a9d2adaac551c0c697860d44a5e8c35c4405821d9c9999648e370518e"
+    },
+    {
+      "file": "src/persistence/save-repository.ts",
+      "sha256": "f5f5cd6bed15db2181d10d6f70bd746a43520bcf7e40fde6b4af01a4e7b8a809"
+    },
+    {
+      "file": "src/render/effects/audio.ts",
+      "sha256": "6526635e5e3f53da799959f2f082c85390790de7f831d4705f2a669e75d1218f"
+    },
+    {
+      "file": "src/render/effects/source-combat-effects.ts",
+      "sha256": "7319c048864ae24119993637a88ec1ac59582e357302b6266b8dc0c95cfa4b24"
+    },
+    {
+      "file": "src/render/scene/battle-renderer.ts",
+      "sha256": "682c45a8c20bb29cb2c3ae5f1d2a9c9f046ff6fd1839603796afe4a7922f5a89"
+    },
+    {
+      "file": "src/simulation/expedition-state.ts",
+      "sha256": "a7f44f555883cdfea275c57f9edb17587a8b224417a6eb9f59559909b9186ec5"
+    },
+    {
+      "file": "src/simulation/persistence/run-fields.ts",
+      "sha256": "11ebdc36766b080e43ac4573ec7dafb25872b0be5ab395274c86ed7d53ec8716"
+    },
+    {
+      "file": "src/simulation/persistence/starship-snapshot.ts",
+      "sha256": "133f14256194f246c41e27562f5e0dbe1fd40ed10ce9d38299f3539497ee0f29"
+    },
+    {
+      "file": "src/simulation/starship/drops.ts",
+      "sha256": "80e7eb314e849952f05abfdce583c1a1eff3a24356e2105d73dfe365139f96fe"
+    },
+    {
+      "file": "src/simulation/starship/growth.ts",
+      "sha256": "9297540ddbd4ef02cdd91a26b3f6f10992bbc9052e9d033f3baf5505082a5a09"
+    },
+    {
+      "file": "src/simulation/starship/types.ts",
+      "sha256": "5bee5a8b391cf8f272d9457ff74a04b2e31c22460cdc409e1d808f0dab4af97c"
+    },
+    {
+      "file": "src/simulation/tutorial/runtime.ts",
+      "sha256": "3ce9d160d7538a3624571af1e02ca6f37f3ecd121a1ffbf61df7cbab8c2cf1a8"
+    },
+    {
+      "file": "src/simulation/tutorial/types.ts",
+      "sha256": "38eed847b0fbf85d8f915b30842767424dcf52f680a6dc6c799a866c63b0b554"
+    },
+    {
+      "file": "src/simulation/world.ts",
+      "sha256": "e230d362d4fe464312407fd4d5b17d365579dc6fd69d39fc35c0ca97a0b43203"
+    },
+    {
+      "file": "src/ui/hud.ts",
+      "sha256": "8b701ebbe525de9a0129478ece3fb883485f2e0b994a63b689922daf47b49f78"
+    },
+    {
+      "file": "src/ui/tutorial.css",
+      "sha256": "101004bdc139034a58005196db9d9ad1dc6365b43623730e3bb3170e40283d26"
+    },
+    {
+      "file": "src/ui/tutorial.ts",
+      "sha256": "29c7f2b69910502e6ec7fcafa8a1085119217514eb8690887172a222bdb05377"
+    }
+  ],
+  "save": {
+    "runSchema": 26,
+    "profileVersion": 6,
+    "archiveVersion": 2,
+    "rules": "mvp-1.0",
+    "migration": "optional account.tutorial and expedition.tutorial; absent means existing player"
+  },
+  "assets": {
+    "added": [
+      {
+        "id": "tutorial.portrait.adjutant",
+        "url": "assets/d4932e06256d8fbcfb8491f1329fbd563480f85f004f6c2ac1205424dd78252f.png",
+        "bytes": 40480,
+        "sha256": "d4932e06256d8fbcfb8491f1329fbd563480f85f004f6c2ac1205424dd78252f",
+        "mime": "image/png"
+      },
+      {
+        "id": "tutorial.portrait.executor",
+        "url": "assets/9530d5e0d50926ab3b0668099d323a3ce969ebf08175cfcebd421a6077926c4d.png",
+        "bytes": 47109,
+        "sha256": "9530d5e0d50926ab3b0668099d323a3ce969ebf08175cfcebd421a6077926c4d",
+        "mime": "image/png"
+      },
+      {
+        "id": "tutorial.portrait.queen",
+        "url": "assets/084d515453d32471153ae91b05025d0c02d41a477271551e099da4e47d48ff6d.png",
+        "bytes": 45965,
+        "sha256": "084d515453d32471153ae91b05025d0c02d41a477271551e099da4e47d48ff6d",
+        "mime": "image/png"
+      }
+    ],
+    "unchangedIds": 3847,
+    "addedResourceBytes": 133554,
+    "bundles": [
+      {
+        "id": "tutorial.portrait.adjutant",
+        "bundle": "tutorial-adjutant-d4932e06256d8fbcfb84.bin",
+        "bytes": 40480
+      },
+      {
+        "id": "tutorial.portrait.executor",
+        "bundle": "tutorial-executor-9530d5e0d50926ab3b06.bin",
+        "bytes": 47109
+      },
+      {
+        "id": "tutorial.portrait.queen",
+        "bundle": "tutorial-queen-084d515453d32471153a.bin",
+        "bytes": 45965
+      }
+    ],
+    "fileDelta": {
+      "added": 9,
+      "changed": 5,
+      "reused": 366,
+      "bytes": {
+        "added": 11578985,
+        "changed": 2672366,
+        "reused": 463470691
+      }
+    }
+  },
+  "uiRestore": {
+    "build": {
+      "appBuildId": "156bfb53341a05f63b486c015f57978b13a61ae9ab6d586d0e3b0e331f09ac63",
+      "sha256": "48d6b3b6cfdab99f2f11c68b74fee7050fd07d31761452d4293d5f4948bf7fe1",
+      "onlyChanges": "Fixed startup and new-run map seed 17; exposed returned app; gameplay and UI use production modules",
+      "assistance": "Finite step, protected allies/carriers and nearby threat clearing by direct hit through real damage port. Not natural difficulty or physical-device evidence."
+    },
+    "scope": "UI restoration only. One isolated Zerg account, real entry and endStage port to prepare intermission; saved/reopened at three viewport sizes with Chrome touch media emulation. No campaign-completion, new guided-mechanics or physical-device claim.",
+    "cases": [
+      {
+        "name": "desktop",
+        "width": 1440,
+        "height": 900,
+        "touch": false,
+        "panel": 410,
+        "metrics": {
+          "touch": false,
+          "panel": {
+            "x": 1018,
+            "y": 4,
+            "right": 1428,
+            "width": 410,
+            "height": 75
+          },
+          "textVisible": true,
+          "portraitVisible": true,
+          "nameVisible": true,
+          "font": 15,
+          "layout": {
+            "visible": {
+              ".im-heading": {
+                "x": 43.1875,
+                "y": 28,
+                "width": 1353.625,
+                "height": 69.03125
+              },
+              ".im-choice-grid": {
+                "x": 180,
+                "y": 307.03125,
+                "width": 1080,
+                "height": 511.96875
+              },
+              ".im-footer": {
+                "x": 43.1875,
+                "y": 831,
+                "width": 1353.625,
+                "height": 55
+              }
+            },
+            "hidden": {
+              ".im-heading": {
+                "x": 43.1875,
+                "y": 28,
+                "width": 1353.625,
+                "height": 69.03125
+              },
+              ".im-choice-grid": {
+                "x": 180,
+                "y": 307.03125,
+                "width": 1080,
+                "height": 511.96875
+              },
+              ".im-footer": {
+                "x": 43.1875,
+                "y": 831,
+                "width": 1353.625,
+                "height": 55
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "landscape",
+        "width": 844,
+        "height": 390,
+        "touch": true,
+        "panel": 260,
+        "metrics": {
+          "touch": true,
+          "panel": {
+            "x": 576,
+            "y": 4,
+            "right": 836,
+            "width": 260,
+            "height": 82.046875
+          },
+          "textVisible": true,
+          "portraitVisible": true,
+          "nameVisible": true,
+          "font": 13.25,
+          "layout": {
+            "visible": {
+              ".im-heading": {
+                "x": 15.166666984558105,
+                "y": 7.583333492279053,
+                "width": 813.6594848632812,
+                "height": 31.49283790588379
+              },
+              ".im-choice-grid": {
+                "x": 118.65885925292969,
+                "y": 108.95117950439453,
+                "width": 606.6666870117188,
+                "height": 241.50717163085938
+              },
+              ".im-footer": {
+                "x": 15.166666984558105,
+                "y": 354.79168701171875,
+                "width": 813.6594848632812,
+                "height": 29.791656494140625
+              }
+            },
+            "hidden": {
+              ".im-heading": {
+                "x": 15.166666984558105,
+                "y": 7.583333492279053,
+                "width": 813.6594848632812,
+                "height": 31.49283790588379
+              },
+              ".im-choice-grid": {
+                "x": 118.65885925292969,
+                "y": 108.95117950439453,
+                "width": 606.6666870117188,
+                "height": 241.50717163085938
+              },
+              ".im-footer": {
+                "x": 15.166666984558105,
+                "y": 354.79168701171875,
+                "width": 813.6594848632812,
+                "height": 29.791656494140625
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "portrait",
+        "width": 390,
+        "height": 844,
+        "touch": true,
+        "panel": 244,
+        "metrics": {
+          "touch": true,
+          "panel": {
+            "x": 138,
+            "y": 4,
+            "right": 382,
+            "width": 244,
+            "height": 91.1875
+          },
+          "textVisible": true,
+          "portraitVisible": true,
+          "nameVisible": true,
+          "font": 12,
+          "layout": {
+            "visible": {
+              ".im-heading": {
+                "x": 13,
+                "y": 11.375,
+                "width": 364,
+                "height": 42.986328125
+              },
+              ".im-choice-grid": {
+                "x": 13,
+                "y": 217.673828125,
+                "width": 364,
+                "height": 562.1357421875
+              },
+              ".im-footer": {
+                "x": 13,
+                "y": 787.9345703125,
+                "width": 364,
+                "height": 44.6875
+              }
+            },
+            "hidden": {
+              ".im-heading": {
+                "x": 13,
+                "y": 11.375,
+                "width": 364,
+                "height": 42.986328125
+              },
+              ".im-choice-grid": {
+                "x": 13,
+                "y": 217.673828125,
+                "width": 364,
+                "height": 562.1357421875
+              },
+              ".im-footer": {
+                "x": 13,
+                "y": 787.9345703125,
+                "width": 364,
+                "height": 44.6875
+              }
+            }
+          }
+        }
+      }
+    ],
+    "errors": [],
+    "portraitSubtitles": [
+      {
+        "text": "指挥官，战场链路已接通。需要我协助指挥吗？",
+        "font": 12,
+        "lines": 2,
+        "clamped": false
+      },
+      {
+        "text": "向标记处移动。进入射程后，小队会自动开火。",
+        "font": 12,
+        "lines": 2,
+        "clamped": false
+      },
+      {
+        "text": "发现敌方工蜂。带队接近，击毁目标。",
+        "font": 12,
+        "lines": 1,
+        "clamped": false
+      },
+      {
+        "text": "矿物和瓦斯已散落。靠近，把资源收回来。",
+        "font": 12,
+        "lines": 1,
+        "clamped": false
+      },
+      {
+        "text": "空投已着陆。清除落点附近的敌军，护住增援。",
+        "font": 12,
+        "lines": 2,
+        "clamped": false
+      },
+      {
+        "text": "先看生产安排。买补给前，给下一批援兵留够矿气。",
+        "font": 12,
+        "lines": 2,
+        "clamped": false
+      },
+      {
+        "text": "装备已入包，关间可以整备。",
+        "font": 12,
+        "lines": 1,
+        "clamped": false
+      },
+      {
+        "text": "打开本局背包，把这件散件装进亮起的槽位。",
+        "font": 12,
+        "lines": 2,
+        "clamped": false
+      },
+      {
+        "text": "首领已清除。靠近战利品，把装备带上。",
+        "font": 12,
+        "lines": 1,
+        "clamped": false
+      },
+      {
+        "text": "这个模块要回旗舰安装。准备好后，选择撤离。",
+        "font": 12,
+        "lines": 2,
+        "clamped": false
+      },
+      {
+        "text": "找到刚带回的模块，将它装上旗舰。",
+        "font": 12,
+        "lines": 1,
+        "clamped": false
+      },
+      {
+        "text": "虫群已就位。需要我引导它们行动吗？",
+        "font": 12,
+        "lines": 1,
+        "clamped": false
+      },
+      {
+        "text": "让虫群向标记处前进。靠近敌人，它们就会攻击。",
+        "font": 12,
+        "lines": 2,
+        "clamped": false
+      },
+      {
+        "text": "那只工蜂属于敌群。接近它，消灭它。",
+        "font": 12,
+        "lines": 1,
+        "clamped": false
+      },
+      {
+        "text": "靠近那些资源。虫群需要矿物和瓦斯。",
+        "font": 12,
+        "lines": 1,
+        "clamped": false
+      },
+      {
+        "text": "援兵抵达了。扫清周围的敌人，让它们归队。",
+        "font": 12,
+        "lines": 2,
+        "clamped": false
+      },
+      {
+        "text": "查看孵化安排。留下下一批虫群所需的资源，再选补给。",
+        "font": 12,
+        "lines": 2,
+        "clamped": false
+      },
+      {
+        "text": "装备已入包，关间可以整备。",
+        "font": 12,
+        "lines": 1,
+        "clamped": false
+      },
+      {
+        "text": "打开背包。把刚取得的散件装上，强化虫群。",
+        "font": 12,
+        "lines": 2,
+        "clamped": false
+      },
+      {
+        "text": "首领倒下了。让虫群靠近，收回战利品。",
+        "font": 12,
+        "lines": 1,
+        "clamped": false
+      },
+      {
+        "text": "把模块带回旗舰。准备好就撤离。",
+        "font": 12,
+        "lines": 1,
+        "clamped": false
+      },
+      {
+        "text": "找到带回的模块，把它装进旗舰的对应槽位。",
+        "font": 12,
+        "lines": 2,
+        "clamped": false
+      },
+      {
+        "text": "通讯已接通。需要我协助你指挥这支部队吗？",
+        "font": 12,
+        "lines": 2,
+        "clamped": false
+      },
+      {
+        "text": "率队前往标记处。战士们会自行迎敌。",
+        "font": 12,
+        "lines": 1,
+        "clamped": false
+      },
+      {
+        "text": "敌方工蜂就在前方。率队截击。",
+        "font": 12,
+        "lines": 1,
+        "clamped": false
+      },
+      {
+        "text": "收集落点处的矿物与瓦斯，为增援作准备。",
+        "font": 12,
+        "lines": 1,
+        "clamped": false
+      },
+      {
+        "text": "折跃信号已锁定。守住落点，接应我们的战士。",
+        "font": 12,
+        "lines": 2,
+        "clamped": false
+      },
+      {
+        "text": "查看折跃部队的生产安排，权衡增援和眼前的补给。",
+        "font": 12,
+        "lines": 2,
+        "clamped": false
+      },
+      {
+        "text": "装备已入包，关间可以整备。",
+        "font": 12,
+        "lines": 1,
+        "clamped": false
+      },
+      {
+        "text": "打开背包，将这件散件装入对应槽位。",
+        "font": 12,
+        "lines": 1,
+        "clamped": false
+      },
+      {
+        "text": "首领已被击败。率队收取它留下的装备。",
+        "font": 12,
+        "lines": 1,
+        "clamped": false
+      },
+      {
+        "text": "模块需要在旗舰上整备。准备妥当后，选择撤离。",
+        "font": 12,
+        "lines": 2,
+        "clamped": false
+      },
+      {
+        "text": "选中刚带回的模块，完成旗舰配装。",
+        "font": 12,
+        "lines": 1,
+        "clamped": false
+      },
+      {
+        "text": "这是旗舰模块，撤离后可以安装。",
+        "font": 12,
+        "lines": 1,
+        "clamped": false
+      }
+    ],
+    "passed": true
+  },
+  "tests": {
+    "full": {
+      "tests": 2997,
+      "passed": 2997,
+      "failed": 0,
+      "verifiedBuild": "c4b530d0e8986d7f8ac278593f4ee9bf8de2a41cd3b85bde65bab07430f52d5f",
+      "scope": "Previous full regression; recorded production source outside tutorial.ts/tutorial.css compared unchanged. Not rerun for this presentation-only revision."
+    },
+    "directed": {
+      "coreAudioCameraPersistence": 81,
+      "sourcePresentation": 17,
+      "earlyGear": 2,
+      "passed": true,
+      "verifiedBuild": "c4b530d0e8986d7f8ac278593f4ee9bf8de2a41cd3b85bde65bab07430f52d5f"
+    },
+    "typecheck": "passed in current web build",
+    "docsCheck": "passed",
+    "presentation": {
+      "tests": 27,
+      "passed": 27,
+      "failed": 0,
+      "verifiedBuild": "8aa666c38b5c48e50662cab51c85a12fe911a73e9bceb3f825660460f6c160ed",
+      "scope": "Tutorial state, audio cancellation, early equipment and menu presentation regressions"
+    },
+    "uiRestore": {
+      "passed": true,
+      "cases": 3,
+      "scope": "UI restoration only. One isolated Zerg account, real entry and endStage port to prepare intermission; saved/reopened at three viewport sizes with Chrome touch media emulation. No campaign-completion, new guided-mechanics or physical-device claim."
+    }
+  },
+  "priorFunctionalVerification": {
+    "verifiedBuild": "8aa666c38b5c48e50662cab51c85a12fe911a73e9bceb3f825660460f6c160ed",
+    "scope": "Previous three-race assisted complete-run evidence; not rerun or claimed for this UI restoration / unimplemented new design",
+    "browser": [
+      {
+        "race": "terran",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "checks": [
+          "empty menu qualifies before departure",
+          "complete communication, fixed position and clear original UI: invitation",
+          "ready invitation and original portrait",
+          "real squad movement",
+          "scheduled enemy drone and same resource pickup; damage assisted",
+          "first landing observed or normally deferred until affordable; carrier protected",
+          "communication physical text and touch dimensions",
+          "floating communication never moves original intermission controls",
+          "normal intermission with original prices and development/supply",
+          "real paid passengers released by the third stage, including delayed affordable production",
+          "scheduled third campaign boss: frozen identities actually picked up",
+          "complete communication, fixed position and clear original UI: intermission extraction",
+          "intermission attribute equipped",
+          "complete communication, fixed position and clear original UI: flagship installation",
+          "same module extracted, warehoused and equipped through real UI",
+          "completed terminal restores silently"
+        ],
+        "metrics": [
+          {
+            "context": "battle",
+            "compactStrip": false,
+            "textVisible": true,
+            "portraitVisible": true,
+            "nameVisible": true,
+            "walletVisible": false,
+            "walletOverlap": 0,
+            "actionOverlap": 0,
+            "panel": {
+              "x": 1018,
+              "y": 4,
+              "width": 410,
+              "height": 93.046875,
+              "right": 1428
+            },
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "font": 15,
+            "buttonHeight": 36
+          },
+          {
+            "context": "intermission",
+            "compactStrip": false,
+            "textVisible": true,
+            "portraitVisible": true,
+            "nameVisible": true,
+            "walletVisible": true,
+            "walletOverlap": 0,
+            "actionOverlap": 0,
+            "panel": {
+              "x": 790,
+              "y": 4,
+              "width": 410,
+              "height": 75,
+              "right": 1200
+            },
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "font": 15,
+            "buttonHeight": 36
+          },
+          {
+            "context": "starship",
+            "compactStrip": false,
+            "textVisible": true,
+            "portraitVisible": true,
+            "nameVisible": true,
+            "walletVisible": false,
+            "walletOverlap": 0,
+            "actionOverlap": 0,
+            "panel": {
+              "x": 1018,
+              "y": 4,
+              "width": 410,
+              "height": 75,
+              "right": 1428
+            },
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "font": 15,
+            "buttonHeight": 36
+          },
+          {
+            "context": "starship",
+            "compactStrip": false,
+            "textVisible": true,
+            "portraitVisible": true,
+            "nameVisible": true,
+            "walletVisible": false,
+            "walletOverlap": 0,
+            "actionOverlap": 0,
+            "panel": {
+              "x": 1018,
+              "y": 4,
+              "width": 410,
+              "height": 75,
+              "right": 1428
+            },
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "font": 15,
+            "buttonHeight": 36
+          }
+        ],
+        "itemProof": {
+          "run": "e4541dc8-9d2a-43d6-bbee-abd2ba7e82b6",
+          "firstPicked": "ship-item-1",
+          "attribute": "ship-item-1",
+          "module": "ship-item-2",
+          "bossItems": [
+            {
+              "id": "ship-item-1",
+              "template": "attribute.1",
+              "race": "terran",
+              "slot": "offense1",
+              "quality": 1,
+              "allocation": 0,
+              "affixes": [],
+              "binding": {},
+              "pollution": "none",
+              "inherited": []
+            },
+            {
+              "id": "ship-item-2",
+              "template": "module.logistics.1",
+              "race": "terran",
+              "slot": "logistics",
+              "quality": 1,
+              "allocation": 2,
+              "affixes": [],
+              "binding": {},
+              "pollution": "none",
+              "inherited": []
+            }
+          ],
+          "finalStatus": "completed"
+        },
+        "errors": [],
+        "passed": true,
+        "build": "8aa666c38b5c48e50662cab51c85a12fe911a73e9bceb3f825660460f6c160ed"
+      },
+      {
+        "race": "zerg",
+        "viewport": {
+          "width": 844,
+          "height": 390
+        },
+        "checks": [
+          "empty menu qualifies before departure",
+          "complete communication, fixed position and clear original UI: invitation",
+          "ready invitation and original portrait",
+          "real squad movement",
+          "scheduled enemy drone and same resource pickup; damage assisted",
+          "first landing observed or normally deferred until affordable; carrier protected",
+          "communication physical text and touch dimensions",
+          "floating communication never moves original intermission controls",
+          "normal intermission with original prices and development/supply",
+          "real paid passengers released by the third stage, including delayed affordable production",
+          "scheduled third campaign boss: frozen identities actually picked up",
+          "complete communication, fixed position and clear original UI: intermission extraction",
+          "intermission attribute equipped",
+          "complete communication, fixed position and clear original UI: flagship installation",
+          "same module extracted, warehoused and equipped through real UI",
+          "completed terminal restores silently"
+        ],
+        "metrics": [
+          {
+            "context": "battle",
+            "compactStrip": false,
+            "textVisible": true,
+            "portraitVisible": true,
+            "nameVisible": true,
+            "walletVisible": false,
+            "walletOverlap": 0,
+            "actionOverlap": 0,
+            "panel": {
+              "x": 576,
+              "y": 4,
+              "width": 260,
+              "height": 116.234375,
+              "right": 836
+            },
+            "viewport": {
+              "width": 844,
+              "height": 390
+            },
+            "font": 13.25,
+            "buttonHeight": 44
+          },
+          {
+            "context": "intermission",
+            "compactStrip": true,
+            "textVisible": true,
+            "portraitVisible": true,
+            "nameVisible": true,
+            "walletVisible": true,
+            "walletOverlap": 0,
+            "actionOverlap": 0,
+            "panel": {
+              "x": 432,
+              "y": 4,
+              "width": 300,
+              "height": 38,
+              "right": 732
+            },
+            "viewport": {
+              "width": 844,
+              "height": 390
+            },
+            "font": 12,
+            "buttonHeight": 36
+          },
+          {
+            "context": "starship",
+            "compactStrip": false,
+            "textVisible": true,
+            "portraitVisible": true,
+            "nameVisible": true,
+            "walletVisible": false,
+            "walletOverlap": 0,
+            "actionOverlap": 0,
+            "panel": {
+              "x": 576,
+              "y": 4,
+              "width": 260,
+              "height": 64.828125,
+              "right": 836
+            },
+            "viewport": {
+              "width": 844,
+              "height": 390
+            },
+            "font": 13.25,
+            "buttonHeight": 44
+          },
+          {
+            "context": "starship",
+            "compactStrip": false,
+            "textVisible": true,
+            "portraitVisible": true,
+            "nameVisible": true,
+            "walletVisible": false,
+            "walletOverlap": 0,
+            "actionOverlap": 0,
+            "panel": {
+              "x": 576,
+              "y": 4,
+              "width": 260,
+              "height": 64.828125,
+              "right": 836
+            },
+            "viewport": {
+              "width": 844,
+              "height": 390
+            },
+            "font": 13.25,
+            "buttonHeight": 44
+          }
+        ],
+        "itemProof": {
+          "run": "d053946f-7b80-4df9-b1f7-b2b8de0ac8f7",
+          "firstPicked": "ship-item-1",
+          "attribute": "ship-item-1",
+          "module": "ship-item-2",
+          "bossItems": [
+            {
+              "id": "ship-item-1",
+              "template": "attribute.1",
+              "race": "zerg",
+              "slot": "offense1",
+              "quality": 1,
+              "allocation": 1,
+              "affixes": [],
+              "binding": {},
+              "pollution": "none",
+              "inherited": []
+            },
+            {
+              "id": "ship-item-2",
+              "template": "module.logistics.1",
+              "race": "zerg",
+              "slot": "logistics",
+              "quality": 1,
+              "allocation": 2,
+              "affixes": [],
+              "binding": {},
+              "pollution": "none",
+              "inherited": []
+            }
+          ],
+          "finalStatus": "completed"
+        },
+        "errors": [],
+        "passed": true,
+        "build": "8aa666c38b5c48e50662cab51c85a12fe911a73e9bceb3f825660460f6c160ed"
+      },
+      {
+        "race": "protoss",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "checks": [
+          "empty menu qualifies before departure",
+          "complete communication, fixed position and clear original UI: invitation",
+          "all 34 complete portrait subtitles fit within two lines at 12px; no clamping",
+          "ready invitation and original portrait",
+          "real squad movement",
+          "scheduled enemy drone and same resource pickup; damage assisted",
+          "first landing observed or normally deferred until affordable; carrier protected",
+          "communication physical text and touch dimensions",
+          "floating communication never moves original intermission controls",
+          "normal intermission with original prices and development/supply",
+          "real paid passengers released by the third stage, including delayed affordable production",
+          "scheduled third campaign boss: frozen identities actually picked up",
+          "complete communication, fixed position and clear original UI: intermission extraction",
+          "intermission attribute equipped",
+          "complete communication, fixed position and clear original UI: flagship installation",
+          "same module extracted, warehoused and equipped through real UI",
+          "completed terminal restores silently"
+        ],
+        "metrics": [
+          {
+            "context": "battle",
+            "compactStrip": false,
+            "textVisible": true,
+            "portraitVisible": true,
+            "nameVisible": true,
+            "walletVisible": false,
+            "walletOverlap": 0,
+            "actionOverlap": 0,
+            "panel": {
+              "x": 138,
+              "y": 4,
+              "width": 244,
+              "height": 91.1875,
+              "right": 382
+            },
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "font": 12,
+            "buttonHeight": 44
+          },
+          {
+            "context": "intermission",
+            "compactStrip": false,
+            "textVisible": true,
+            "portraitVisible": true,
+            "nameVisible": true,
+            "walletVisible": true,
+            "walletOverlap": 0,
+            "actionOverlap": 0,
+            "panel": {
+              "x": 82,
+              "y": 4,
+              "width": 244,
+              "height": 91.1875,
+              "right": 326
+            },
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "font": 12,
+            "buttonHeight": 44
+          },
+          {
+            "context": "starship",
+            "compactStrip": false,
+            "textVisible": true,
+            "portraitVisible": true,
+            "nameVisible": true,
+            "walletVisible": false,
+            "walletOverlap": 0,
+            "actionOverlap": 0,
+            "panel": {
+              "x": 138,
+              "y": 4,
+              "width": 244,
+              "height": 91.1875,
+              "right": 382
+            },
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "font": 12,
+            "buttonHeight": 44
+          },
+          {
+            "context": "starship",
+            "compactStrip": false,
+            "textVisible": true,
+            "portraitVisible": true,
+            "nameVisible": true,
+            "walletVisible": false,
+            "walletOverlap": 0,
+            "actionOverlap": 0,
+            "panel": {
+              "x": 138,
+              "y": 4,
+              "width": 244,
+              "height": 75.59375,
+              "right": 382
+            },
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "font": 12,
+            "buttonHeight": 44
+          }
+        ],
+        "itemProof": {
+          "run": "1fb9c666-ef97-4d38-a0b9-16fd6e6fbea6",
+          "firstPicked": "ship-item-1",
+          "attribute": "ship-item-1",
+          "module": "ship-item-2",
+          "bossItems": [
+            {
+              "id": "ship-item-1",
+              "template": "attribute.1",
+              "race": "protoss",
+              "slot": "offense1",
+              "quality": 1,
+              "allocation": 3,
+              "affixes": [],
+              "binding": {},
+              "pollution": "none",
+              "inherited": []
+            },
+            {
+              "id": "ship-item-2",
+              "template": "module.logistics.1",
+              "race": "protoss",
+              "slot": "logistics",
+              "quality": 1,
+              "allocation": 2,
+              "affixes": [],
+              "binding": {},
+              "pollution": "none",
+              "inherited": []
+            }
+          ],
+          "finalStatus": "completed"
+        },
+        "errors": [],
+        "passed": true,
+        "build": "8aa666c38b5c48e50662cab51c85a12fe911a73e9bceb3f825660460f6c160ed"
+      }
+    ]
+  },
+  "resourceIntegrity": {
+    "appBuildId": "156bfb53341a05f63b486c015f57978b13a61ae9ab6d586d0e3b0e331f09ac63",
+    "release": "6da951a7231400302b216c2070d083fa6bf459fc3edd538333384f8ad6406025",
+    "logicalAssets": 3850,
+    "unchangedOldAssetRecords": 3847,
+    "uniquePayloadsChecked": 5141,
+    "physicalFilesChecked": 364,
+    "physicalBytes": 463006629,
+    "payloadBytes": 824912014,
+    "check": "Every actual high/medium/low and explicit GPU-sidecar slice SHA256/length validated; preceding packed records identical",
+    "passed": true
+  },
+  "cache": {
+    "passed": true,
+    "payloadBytes": {
+      "baseline": 50753633,
+      "candidateWarmMenuAndPortrait": 13027177
+    },
+    "portraitRequests": [
+      {
+        "phase": "candidate",
+        "file": "assets/tutorial-adjutant-d4932e06256d8fbcfb84.bin",
+        "bytes": 40480
+      }
+    ],
+    "oldWarmBundlesRedownloaded": [],
+    "verifiedBuild": "8aa666c38b5c48e50662cab51c85a12fe911a73e9bceb3f825660460f6c160ed",
+    "scope": "Inherited previous warm-cache measurement; same asset release, no new warm measurement"
+  },
+  "hudBaseline": {
+    "scope": "Unmodified baseline and actual production candidate entry; separate fresh Chrome contexts, 1440x900; no diagnostic entry or source gameplay hooks",
+    "cases": [
+      {
+        "name": "baseline",
+        "uiPhase": "battle",
+        "overlayHidden": true,
+        "geometry": {
+          "#minimap": {
+            "x": 0,
+            "y": 593.71875,
+            "width": 300.515625,
+            "height": 306.28125,
+            "visible": true
+          },
+          "#minimap-canvas": {
+            "x": 20.3125,
+            "y": 670.65625,
+            "width": 225.015625,
+            "height": 217.765625,
+            "visible": true
+          },
+          "#battle-console .army-row": {
+            "x": 297.5625,
+            "y": 673.546875,
+            "width": 821.65625,
+            "height": 226.453125,
+            "visible": true
+          },
+          ".native-army-parts": {
+            "x": 297.5625,
+            "y": 441.296875,
+            "width": 821.65625,
+            "height": 458.703125,
+            "visible": true
+          },
+          "#battle-console .command-row": {
+            "x": 1119.171875,
+            "y": 627.125,
+            "width": 320.828125,
+            "height": 272.875,
+            "visible": true
+          },
+          "#console-commands": {
+            "x": 1127.828125,
+            "y": 708.4375,
+            "width": 289.71875,
+            "height": 168.375,
+            "visible": true
+          }
+        },
+        "armyFrames": [
+          "205 0 35 316",
+          "240 0 400 316",
+          "640 0 41 316"
+        ]
+      },
+      {
+        "name": "candidate",
+        "uiPhase": "battle",
+        "overlayHidden": true,
+        "geometry": {
+          "#minimap": {
+            "x": 0,
+            "y": 593.71875,
+            "width": 300.515625,
+            "height": 306.28125,
+            "visible": true
+          },
+          "#minimap-canvas": {
+            "x": 20.3125,
+            "y": 670.65625,
+            "width": 225.015625,
+            "height": 217.765625,
+            "visible": true
+          },
+          "#battle-console .army-row": {
+            "x": 297.5625,
+            "y": 673.546875,
+            "width": 821.65625,
+            "height": 226.453125,
+            "visible": true
+          },
+          ".native-army-parts": {
+            "x": 297.5625,
+            "y": 441.296875,
+            "width": 821.65625,
+            "height": 458.703125,
+            "visible": true
+          },
+          "#battle-console .command-row": {
+            "x": 1119.171875,
+            "y": 627.125,
+            "width": 320.828125,
+            "height": 272.875,
+            "visible": true
+          },
+          "#console-commands": {
+            "x": 1127.828125,
+            "y": 708.4375,
+            "width": 289.71875,
+            "height": 168.375,
+            "visible": true
+          }
+        },
+        "armyFrames": [
+          "205 0 35 316",
+          "240 0 400 316",
+          "640 0 41 316"
+        ]
+      },
+      {
+        "name": "candidate-accepted",
+        "uiPhase": "battle",
+        "overlayHidden": true,
+        "geometry": {
+          "#minimap": {
+            "x": 0,
+            "y": 593.71875,
+            "width": 300.515625,
+            "height": 306.28125,
+            "visible": true
+          },
+          "#minimap-canvas": {
+            "x": 20.3125,
+            "y": 670.65625,
+            "width": 225.015625,
+            "height": 217.765625,
+            "visible": true
+          },
+          "#battle-console .army-row": {
+            "x": 297.5625,
+            "y": 673.546875,
+            "width": 821.65625,
+            "height": 226.453125,
+            "visible": true
+          },
+          ".native-army-parts": {
+            "x": 297.5625,
+            "y": 441.296875,
+            "width": 821.65625,
+            "height": 458.703125,
+            "visible": true
+          },
+          "#battle-console .command-row": {
+            "x": 1119.171875,
+            "y": 627.125,
+            "width": 320.828125,
+            "height": 272.875,
+            "visible": true
+          },
+          "#console-commands": {
+            "x": 1127.828125,
+            "y": 708.4375,
+            "width": 289.71875,
+            "height": 168.375,
+            "visible": true
+          }
+        },
+        "armyFrames": [
+          "205 0 35 316",
+          "240 0 400 316",
+          "640 0 41 316"
+        ]
+      }
+    ],
+    "errors": [],
+    "battleFrameCss": {
+      "baseline": "37abe5577e63105a804ee7316d749706040fb107f6ca97f1f46677dce02a2ac2",
+      "candidate": "37abe5577e63105a804ee7316d749706040fb107f6ca97f1f46677dce02a2ac2"
+    },
+    "passed": true,
+    "verifiedBuild": "8aa666c38b5c48e50662cab51c85a12fe911a73e9bceb3f825660460f6c160ed"
+  },
+  "lifecycle": {
+    "checks": [
+      "empty menu qualifies before departure",
+      "right-anchored compact communication: invitation",
+      "ready invitation and original portrait",
+      "unselected invitation restores, timer stays stopped",
+      "accepted run restores with its progress",
+      "same subtitle has one short vibration, no repeat on state notifications",
+      "hidden page and subsequent pause/save notifications cannot restart communications",
+      "movement cancels focus; skip clears all presentation; immediate refresh preserves skip and camera preferences",
+      "replacement run and race switch never reinvite after skip"
+    ],
+    "passed": true,
+    "verifiedBuild": "e4cf0b992c77f41212835913d8d43fe78769796f7bb2290e0890f289131e3852"
+  },
+  "audio": {
+    "zerg": "Original Queen Yes0 first 0.75s with 40ms fade; reused existing immutable audio",
+    "terran": "complete Chinese subtitles; new matching recorded dialogue absent",
+    "protoss": "complete Chinese subtitles; new matching recorded dialogue absent",
+    "externalUploads": false,
+    "paidServiceUsed": false
+  },
+  "design": {
+    "path": "docs/project/V1_1_GUIDED_TUTORIAL_DESIGN_20261105.md",
+    "status": "proposal pending review",
+    "implemented": false,
+    "arithmetic": {
+      "date": "2026-11-05",
+      "scope": "Design arithmetic and current native base quotations only; proposed 700/200 grant, fixed drops/options and one-seat production gate are NOT implemented.",
+      "implemented": false,
+      "cases": [
+        {
+          "race": "terran",
+          "family": "marine",
+          "priceMode": "proposed fixed 0% discount / native base price",
+          "quotes": {
+            "perBody": {
+              "minerals": 50,
+              "gas": 0
+            },
+            "bodiesPerSeat": 1,
+            "oneSeat": {
+              "minerals": 50,
+              "gas": 0
+            },
+            "facility": {
+              "id": "barracks",
+              "name": "建造兵营（第2座）",
+              "minerals": 150,
+              "gas": 0
+            },
+            "system": {
+              "id": "system.barracks",
+              "minerals": 100,
+              "gas": 50
+            },
+            "directSupply": {
+              "minerals": 75,
+              "gas": 0
+            }
+          },
+          "ledger": [
+            {
+              "step": "accept",
+              "minerals": 700,
+              "gas": 200
+            },
+            {
+              "step": "drone-pickup",
+              "delta": {
+                "minerals": 100,
+                "gas": 50
+              },
+              "minerals": 800,
+              "gas": 250
+            },
+            {
+              "step": "first-one-seat-job",
+              "delta": {
+                "minerals": -50,
+                "gas": 0
+              },
+              "minerals": 750,
+              "gas": 250
+            },
+            {
+              "step": "first-facility",
+              "delta": {
+                "minerals": -150,
+                "gas": 0
+              },
+              "minerals": 600,
+              "gas": 250
+            },
+            {
+              "step": "direct-supply",
+              "delta": {
+                "minerals": -75,
+                "gas": 0
+              },
+              "minerals": 525,
+              "gas": 250
+            },
+            {
+              "step": "second-one-seat-job",
+              "delta": {
+                "minerals": -50,
+                "gas": 0
+              },
+              "minerals": 475,
+              "gas": 250
+            },
+            {
+              "step": "second-window-system",
+              "delta": {
+                "minerals": -100,
+                "gas": -50
+              },
+              "minerals": 375,
+              "gas": 200
+            }
+          ]
+        },
+        {
+          "race": "zerg",
+          "family": "zergling",
+          "priceMode": "proposed fixed 0% discount / native base price",
+          "quotes": {
+            "perBody": {
+              "minerals": 25,
+              "gas": 0
+            },
+            "bodiesPerSeat": 2,
+            "oneSeat": {
+              "minerals": 50,
+              "gas": 0
+            },
+            "facility": {
+              "id": "hatchery",
+              "name": "建造孵化场（第2座）",
+              "minerals": 150,
+              "gas": 0
+            },
+            "system": {
+              "id": "system.zerg.basic",
+              "minerals": 100,
+              "gas": 50
+            },
+            "directSupply": {
+              "minerals": 75,
+              "gas": 0
+            }
+          },
+          "ledger": [
+            {
+              "step": "accept",
+              "minerals": 700,
+              "gas": 200
+            },
+            {
+              "step": "drone-pickup",
+              "delta": {
+                "minerals": 100,
+                "gas": 50
+              },
+              "minerals": 800,
+              "gas": 250
+            },
+            {
+              "step": "first-one-seat-job",
+              "delta": {
+                "minerals": -50,
+                "gas": 0
+              },
+              "minerals": 750,
+              "gas": 250
+            },
+            {
+              "step": "first-facility",
+              "delta": {
+                "minerals": -150,
+                "gas": 0
+              },
+              "minerals": 600,
+              "gas": 250
+            },
+            {
+              "step": "direct-supply",
+              "delta": {
+                "minerals": -75,
+                "gas": 0
+              },
+              "minerals": 525,
+              "gas": 250
+            },
+            {
+              "step": "second-one-seat-job",
+              "delta": {
+                "minerals": -50,
+                "gas": 0
+              },
+              "minerals": 475,
+              "gas": 250
+            },
+            {
+              "step": "second-window-system",
+              "delta": {
+                "minerals": -100,
+                "gas": -50
+              },
+              "minerals": 375,
+              "gas": 200
+            }
+          ]
+        },
+        {
+          "race": "protoss",
+          "family": "zealot",
+          "priceMode": "proposed fixed 0% discount / native base price",
+          "quotes": {
+            "perBody": {
+              "minerals": 100,
+              "gas": 0
+            },
+            "bodiesPerSeat": 1,
+            "oneSeat": {
+              "minerals": 100,
+              "gas": 0
+            },
+            "facility": {
+              "id": "crystal",
+              "name": "建造折跃水晶 ×2",
+              "minerals": 300,
+              "gas": 0
+            },
+            "system": {
+              "id": "system.gateway",
+              "minerals": 100,
+              "gas": 50
+            },
+            "directSupply": {
+              "minerals": 150,
+              "gas": 0
+            }
+          },
+          "ledger": [
+            {
+              "step": "accept",
+              "minerals": 700,
+              "gas": 200
+            },
+            {
+              "step": "drone-pickup",
+              "delta": {
+                "minerals": 100,
+                "gas": 50
+              },
+              "minerals": 800,
+              "gas": 250
+            },
+            {
+              "step": "first-one-seat-job",
+              "delta": {
+                "minerals": -100,
+                "gas": 0
+              },
+              "minerals": 700,
+              "gas": 250
+            },
+            {
+              "step": "first-facility",
+              "delta": {
+                "minerals": -300,
+                "gas": 0
+              },
+              "minerals": 400,
+              "gas": 250
+            },
+            {
+              "step": "direct-supply",
+              "delta": {
+                "minerals": -150,
+                "gas": 0
+              },
+              "minerals": 250,
+              "gas": 250
+            },
+            {
+              "step": "second-one-seat-job",
+              "delta": {
+                "minerals": -100,
+                "gas": 0
+              },
+              "minerals": 150,
+              "gas": 250
+            },
+            {
+              "step": "second-window-system",
+              "delta": {
+                "minerals": -100,
+                "gas": -50
+              },
+              "minerals": 50,
+              "gas": 200
+            }
+          ]
+        }
+      ],
+      "source": [
+        {
+          "file": "src/simulation/world.ts",
+          "sha256": "e230d362d4fe464312407fd4d5b17d365579dc6fd69d39fc35c0ca97a0b43203"
+        },
+        {
+          "file": "src/simulation/expedition-production.ts",
+          "sha256": "789e4f3f51ca91ae6565c9120670b0687ac1c880ebfb791bbb18c5b24f04b8fe"
+        },
+        {
+          "file": "src/simulation/expedition-economy.ts",
+          "sha256": "a1a36e8edc88dc1be597f097b21d18d7099be0291d3e41bbaee2b794e70f8e2a"
+        },
+        {
+          "file": "src/data/expedition-buildings.ts",
+          "sha256": "89ca563b6b62e1a1cb9b229c9d61266590de3a25bf92a029c77018a39429b2c5"
+        },
+        {
+          "file": "src/data/expansion-units.ts",
+          "sha256": "6748082fdfe815cc52c811460db2fe4ccfccd5b5e8341ec5122eed96c19e2ba7"
+        },
+        {
+          "file": "src/simulation/progression/supply-cards.ts",
+          "sha256": "5ede35eb19f5f916266333d8aeeb73313c9bfa8277484105c5c96081b13aa442"
+        }
+      ],
+      "passed": true,
+      "notVerified": [
+        "New action gate / receipt implementation",
+        "Complete fixed script and legal reward branches",
+        "Natural combat completion without protection or damage assistance",
+        "Physical devices"
+      ]
+    }
+  },
+  "uiDecision": {
+    "id": "TUT-UI-RESTORE-005",
+    "fixedTop": 4,
+    "desktopRight": 12,
+    "mobileRight": 8,
+    "widths": {
+      "desktop": 410,
+      "landscape": 260,
+      "portrait": 244
+    },
+    "mineralOcclusionAllowedByUser": true,
+    "automaticFolding": false,
+    "intermissionOffsets": false,
+    "intermissionStrip": false
+  },
+  "open": [
+    "新门控脚本和具体参数待用户审阅，玩法未实装",
+    "新脚本必须逐族验证真实战斗、合法固定奖励、单席订单和所有恢复边界",
+    "物理手机与人神配音来源仍未落实"
+  ],
+  "paths": {
+    "candidate": "dist/tutorial-1.1-20261105/candidate",
+    "launcher": "dist/tutorial-1.1-20261105/Start-Local.cmd",
+    "review": "reports/local/tutorial-20261105/review/index.html",
+    "design": "docs/project/V1_1_GUIDED_TUTORIAL_DESIGN_20261105.md",
+    "checksums": "dist/tutorial-1.1-20261105/candidate/CHECKSUMS.json",
+    "incremental": "dist/tutorial-1.1-20261105/candidate/incremental.json"
+  },
+  "publication": {
+    "committed": false,
+    "pushed": false,
+    "merged": false,
+    "deployed": false
+  },
+  "cleanup": {
+    "scope": "Only this tutorial task obsolete generated candidate/diagnostic files, replaced review images and completed logs; formal/source/user/other shared files protected",
+    "files": 31,
+    "bytes": 63131781
+  },
+  "finalReadback": {
+    "passed": true,
+    "deliveryFiles": 380,
+    "sourceFiles": 21,
+    "checkedAt": "2026-11-05T07:08:23.134Z"
+  },
+  "localEntry": {
+    "origin": "http://127.0.0.1:18911",
+    "passed": true,
+    "checkedAt": "2026-11-05T07:11:24.680Z",
+    "results": [
+      {
+        "path": "/web-release.json",
+        "status": 200,
+        "bytes": 1337
+      },
+      {
+        "path": "/review/index.html?v=156bfb53341a",
+        "status": 200,
+        "bytes": 1024
+      },
+      {
+        "path": "/review/images/landscape-restored.png?v=156bfb53341a",
+        "status": 200,
+        "bytes": 392302
+      }
+    ]
+  }
+}

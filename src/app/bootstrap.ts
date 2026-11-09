@@ -1,3 +1,7 @@
+import {chooseTutorial,offerShortTutorial} from '../simulation/tutorial/runtime';
+import {guided,guidedStep,withGuidedCommand} from '../simulation/tutorial/guided';
+import {mountTutorial} from '../ui/tutorial';
+import {initializeGraphics} from '../platform/device-probe';
 import {markSpecialReady} from '../simulation/special-stages/runtime';
 import type {EquipmentAccount} from '../simulation/starship/types';
 import {mountGameStarship} from '../ui/starship/native';
@@ -26,8 +30,11 @@ import {GamepadInput} from '../ui/gamepad/controller';
 import {Input} from '../ui/mobile/input';
 import {installDebug} from '../diagnostics/debug';
 import {AudioEffects} from '../render/effects/audio';
+import {bindInterfaceAudio} from '../ui/interface-audio';
+import {bindBackgroundMusic} from '../render/effects/background-music';
 import {AssetReadinessCoordinator} from './asset-readiness';
 import {HERO_IDS_BY_RACE} from '../data/heroes';
+import type {HeroId} from '../data/heroes';
 import {talentRank} from '../data/mvp-talents';
 import type {NewRunPreview} from './run-session';
 import {TelemetryClient,TELEMETRY_KEYS} from '../services/telemetry-client';
@@ -39,7 +46,7 @@ import {openingProgress,prepareOpeningMenu} from '../ui/presentation/opening';
 
 const canvas=document.querySelector<HTMLCanvasElement>('#battle')!;
 canvas.addEventListener('contextmenu',event=>event.preventDefault());
-export async function boot(options:{equipmentAccount?:EquipmentAccount;persistentEquipment?:boolean;seed?:number;uiValidation?:boolean;starship?:{resolveImage:(key:string,detail?:boolean)=>string}}={}){openingProgress(null);await loadEmbeddedAssets();openingProgress(25);const isolated=!!options.equipmentAccount&&!options.persistentEquipment;let storage:Storage|undefined=isolated?new MemoryStorage():undefined,factory:IDBFactory|undefined;if(!isolated){try{storage=localStorage;}catch{}try{factory=globalThis.indexedDB;}catch{}}const saved=isolated?{repository:null,profile:new PermanentProfile(),notice:'',run:null,savedAt:0,equipment:undefined,management:undefined}:await openSaveProfile(factory);openingProgress(50);const world=new World({equipmentAccount:saved.equipment??options.equipmentAccount,seed:options.seed,...(options.equipmentAccount&&options.uiValidation?{waves:false,sandbox:true}:{}),terrain:campaignTerrain(chooseCampaignMap(options.seed??crypto.getRandomValues(new Uint32Array(1))[0])),endlessTerrain:new FlatTerrain(),permanentProfile:saved.profile,race:saved.profile.activeRace});const session=new RunSession(world,saved.repository,{...saved,memoryOnly:isolated});const controls=new ControlSettings(storage);const view=new BattleRenderer(canvas,world),hud=new HUD(world,view,controls,new HudSettings(storage),!!(options.equipmentAccount&&options.starship)),audio=new AudioEffects(),background=new BackgroundPreparation(),readiness=new AssetReadinessCoordinator(world,view,audio,background);bindBattleView(world,()=>captureBattleView(canvas,view.camera));hud.session=session;hud.readiness=readiness;hud.audio=audio;hud.downloads.holdOptional=()=>background.suspendOptional();readiness.onChange=()=>hud.update();
+export async function boot(options:{equipmentAccount?:EquipmentAccount;persistentEquipment?:boolean;seed?:number;uiValidation?:boolean;starship?:{resolveImage:(key:string,detail?:boolean)=>string}}={}){openingProgress(null);await initializeGraphics();await loadEmbeddedAssets();openingProgress(25);const isolated=!!options.equipmentAccount&&!options.persistentEquipment;let storage:Storage|undefined=isolated?new MemoryStorage():undefined,factory:IDBFactory|undefined;if(!isolated){try{storage=localStorage;}catch{}try{factory=globalThis.indexedDB;}catch{}}const saved=isolated?{repository:null,profile:new PermanentProfile(),notice:'',run:null,savedAt:0,equipment:undefined,management:undefined}:await openSaveProfile(factory);openingProgress(50);const world=new World({equipmentAccount:saved.equipment??options.equipmentAccount,seed:options.seed,...(options.equipmentAccount&&options.uiValidation?{waves:false,sandbox:true}:{}),terrain:campaignTerrain(chooseCampaignMap(options.seed??crypto.getRandomValues(new Uint32Array(1))[0])),endlessTerrain:new FlatTerrain(),permanentProfile:saved.profile,race:saved.profile.activeRace});if('tutorialEligible' in saved&&saved.tutorialEligible)world.starship.account.tutorial={status:'eligible',version:3};const session=new RunSession(world,saved.repository,{...saved,memoryOnly:isolated});const controls=new ControlSettings(storage);const view=new BattleRenderer(canvas,world),hud=new HUD(world,view,controls,new HudSettings(storage),!!(options.equipmentAccount&&options.starship)),audio=new AudioEffects(),background=new BackgroundPreparation(),readiness=new AssetReadinessCoordinator(world,view,audio,background);bindBattleView(world,()=>captureBattleView(canvas,view.camera));hud.session=session;hud.readiness=readiness;hud.audio=audio;audio.music.setPhase(world.phase);bindBackgroundMusic(audio.music);bindInterfaceAudio(hud.root,audio);bindInterfaceAudio(document.body,audio,hud.root);hud.downloads.holdOptional=()=>background.suspendOptional();readiness.onChange=()=>hud.update();
  view.selectedHealthBodies=()=>new Set([...hud.squadConsole.selectedEntityIds,...(hud.carrierInspector.selectedId===null?[]:[hud.carrierInspector.selectedId])]);
  const input=new Input(world,document.querySelector('#joystick')!,()=>hud.pause(),controls,{canvas,zoom:()=>view.cameraInputZoom,setZoom:value=>view.setCameraZoom(value),adjustZoom:delta=>view.adjustCameraZoom(delta),resetZoom:()=>view.resetCameraZoom(),inspect:(x,y)=>{const id=view.pickCarrier(x,y);if(id!==null){hud.carrierInspector.show(id);return true;}const unit=pickFriendly(x,y,view,world);return unit!==null&&hud.squadConsole.selectEntity(unit);},pick:(x,y,touch)=>view.pick(x,y,touch),pickMove:(x,y)=>view.pickMove(x,y),previewTarget:point=>{view.targetPreview=point;}});hud.inputReset=()=>input.reset();hud.onStart=()=>void audio.start();
  const gamepad=new GamepadInput(world,()=>hud.pause(),()=>input.reset());
@@ -54,7 +61,7 @@ export async function boot(options:{equipmentAccount?:EquipmentAccount;persisten
  const debug=import.meta.env.DEV?installDebug(world,view):null;
  // Reserve up to 12 ms for fixed-step catch-up; debt is retained and frame work remains bounded.
  const driver=new FixedStepper(TUNING.step,()=>{world.step();return world.phase==='battle'&&!world.paused&&!world.requiresPlayerDecision&&!view.assetsPending&&!readiness.state.kind;},()=>performance.now(),12);
- window.__SC2_REPORT__=()=>({...view.report(),phase:world.phase,stage:world.stage,expedition:world.expedition?{rules:world.expedition.rules,race:world.expedition.race,families:[...world.expedition.familySlots],talentPreset:world.expedition.talentPreset,frozenTalents:world.runConfig?.frozenTalents??null}:null,wallet:{...world.wallet},endless:world.endless?{round:world.endless.round,elapsed:world.endlessElapsed,elites:world.endless.elites,bosses:world.endless.bosses}:null,time:world.time,stats:{...world.stats},assetsReady:view.initialAssetsLoaded,embeddedAssets:embeddedAssetStatus(),readiness:readiness.state,background:background.report(),simulationBacklogSeconds:driver.accumulator,discardedSimulationBacklogSeconds:driver.discardedBacklogSeconds,audio:audio.report(),gamepad:gamepad.report(),controls:controls.report(),save:session.report()});
+ window.__SC2_REPORT__=()=>({...view.report(),phase:world.phase,stage:world.stage,expedition:world.expedition?{rules:world.expedition.rules,race:world.expedition.race,families:[...world.expedition.familySlots],talentPreset:world.expedition.talentPreset,frozenTalents:world.runConfig?.frozenTalents??null}:null,wallet:{...world.wallet},endless:world.endless?{round:world.endless.round,elapsed:world.endlessElapsed,elites:world.endless.elites,bosses:world.endless.bosses}:null,time:world.time,stats:{...world.stats},assetsReady:view.initialAssetsLoaded,embeddedAssets:embeddedAssetStatus(),readiness:readiness.state,background:background.report(),resourceMemory:readiness.memory,simulationBacklogSeconds:driver.accumulator,discardedSimulationBacklogSeconds:driver.discardedBacklogSeconds,audio:audio.report(),gamepad:gamepad.report(),controls:controls.report(),save:session.report()});
  let audioField:string|null=null;world.listeners.add(()=>{const field=world.specialStages.active?.id??null;if(field!==audioField){audioField=field;audio.resumeAt(world);}audio.update(world);});
  let previous=performance.now(),wasSimulating=false;
  view.manageViewport();bindGameViewport(()=>{view.resize();hud.update();},()=>{input.reset();hud.minimap.resetInput();gamepad.reset();previous=performance.now();wasSimulating=false;});
@@ -62,23 +69,46 @@ export async function boot(options:{equipmentAccount?:EquipmentAccount;persisten
  hud.saveUI=new SaveControls(session,()=>{if(session.checkpointMode&&!session.hasLiveContinuation&&session.canResume){hud.loadPreview=session.prepareLoad();hud.onPrepareLoad();return;}if(session.resume()){resetPresentation();void audio.start();}hud.update();},()=>hud.update());session.onChange=()=>hud.update();
  let preparedNew:NewRunPreview|null=null;
  hud.onCancelFlow=()=>{preparedNew=null;hud.pendingStageAdvance=false;session.cancelPreparedNewRun();session.cancelPreparedLoad();};
- hud.onPrepareNew=()=>{try{const preset=world.permanentProfile.getPreset(hud.menuRace,hud.menuPreset);if(!preset)throw Error('天赋预设不存在');const hero=talentRank(preset.levels,hud.menuRace,'hero_support')?(hud.starterHeroChoice??HERO_IDS_BY_RACE[hud.menuRace][0]):null;preparedNew=session.prepareNewRun(hud.menuRace,hud.menuDifficulty,hud.menuPreset,hero);hud.loadingMapName=preparedNew.campaignMap?MAP_THEMES[preparedNew.campaignMap.theme].name:"战役前线";void readiness.prepare('new',{race:preparedNew.race,hero:preparedNew.hero,preset:preparedNew.preset,campaignMap:preparedNew.campaignMap});}catch(error){hud.flowError=String((error as Error).message);hud.update();}};
+ const prepareDeparture=(tutorial:boolean)=>{try{
+  const departure=world.starship.account.tutorial?.departure;
+  const race=departure?.race??hud.menuRace,preset=departure?.preset??hud.menuPreset,difficulty=departure?.difficulty??hud.menuDifficulty;
+  const allocation=world.permanentProfile.getPreset(race,preset);if(!allocation)throw Error('天赋预设不存在');
+  const hero=departure?.hero as HeroId|null|undefined??(talentRank(allocation.levels,race,'hero_support')?(hud.starterHeroChoice??HERO_IDS_BY_RACE[race][0]):null);
+  const map=departure?.map;preparedNew=session.prepareNewRun(race,difficulty,preset,hero,map?{...map,...(tutorial?{lesson:3 as const}:{})}:undefined);
+  if(tutorial&&preparedNew.campaignMap)preparedNew=session.prepareNewRun(race,difficulty,preset,hero,{...preparedNew.campaignMap,lesson:3});
+  hud.loadingMapName=tutorial?'基础训练场':preparedNew.campaignMap?MAP_THEMES[preparedNew.campaignMap.theme].name:'战役前线';
+  void readiness.prepare('new',{race,hero,preset,difficulty,campaignMap:preparedNew.campaignMap,contentPlan:preparedNew.contentPlan,tutorial});
+ }catch(error){hud.flowError=String((error as Error).message);hud.update();}};
+ hud.onPrepareNew=()=>{try{
+  const account=world.starship.account.tutorial;if(account?.departure){if(account.departure.accepted)prepareDeparture(true);return;}
+  const preset=world.permanentProfile.getPreset(hud.menuRace,hud.menuPreset);if(!preset)throw Error('天赋预设不存在');
+  const hero=talentRank(preset.levels,hud.menuRace,'hero_support')?(hud.starterHeroChoice??HERO_IDS_BY_RACE[hud.menuRace][0]):null;
+  const preview=session.prepareNewRun(hud.menuRace,hud.menuDifficulty,hud.menuPreset,hero);
+  if(offerShortTutorial(world,{race:preview.race,difficulty:preview.difficulty,preset:preview.preset,hero:preview.hero,map:preview.campaignMap,accepted:false})){session.cancelPreparedNewRun();session.requestSave();hud.update();return;}
+  prepareDeparture(false);
+ }catch(error){hud.flowError=String((error as Error).message);hud.update();}};
+ hud.onTutorialChoice=accept=>{const departure=world.starship.account.tutorial?.departure;if(!departure||!chooseTutorial(world,accept))return;session.requestSave();if(accept)prepareDeparture(true);else{hud.menuRace=departure.race;hud.menuDifficulty=departure.difficulty;hud.menuPreset=departure.preset;prepareDeparture(false);}};
+ let preparedTutorialExit:import('../data/campaign-map').CampaignMapRecipe|null=null;
+ hud.onTutorialExit=()=>{const g=world.expedition.tutorial?.guided;if(preparedTutorialExit||!world.campaignRecipe?.lesson||!g||!['battle','reward'].includes(world.phase))return;preparedTutorialExit=g.normalMap??{version:3,seed:world.campaignRecipe.seed,theme:world.campaignRecipe.theme};void readiness.prepare('reinforcement',{campaignMap:preparedTutorialExit,tutorialExit:true});};
+ world.listeners.add(()=>{if(world.campaignRecipe?.lesson&&['skipped','closed'].includes(world.starship.account.tutorial?.status??''))queueMicrotask(()=>hud.onTutorialExit());});
+
  hud.onPrepareLoad=()=>{if(!hud.loadPreview){hud.flowError='请选择可读取的存档';hud.update();return;}void readiness.prepare('load',{snapshot:hud.loadPreview.snapshot??undefined});};
  hud.onPrepareEndless=()=>{void readiness.prepare('endless');};
  let preparedAdvance:{runId:string|null;window:number;revision:number}|null=null;
  hud.onPrepareReinforcement=()=>{if(readiness.blocking)return;preparedAdvance=hud.pendingStageAdvance?{runId:world.runId,window:world.draftWindowId,revision:world.expedition.shopRevision}:null;void readiness.prepare('reinforcement',{stageAdvance:hud.pendingStageAdvance});};
- readiness.onReady=(kind,token)=>{if(kind==='reinforcement'&&token===readiness.readyToken)hud.onCommitFlow();};
+ readiness.onReady=(kind,token)=>{if((kind==='reinforcement'||kind==='new'&&world.starship.account.tutorial?.departure?.accepted)&&token===readiness.readyToken)hud.onCommitFlow();};
  hud.onCommitFlow=()=>{void commitFlow();};
  let committing=false;
  const commitFlow=async()=>{if(committing)return;committing=true;try{const kind=readiness.state.kind,token=readiness.readyToken;if(!kind||!token)return;
   if(['reinforcement','endless'].includes(kind)&&!await session.saveBeforeAdvance()){readiness.fail(session.message);hud.update();return;}
   if(token!==readiness.readyToken)return;
   if(kind==='new'){if(!preparedNew||!session.commitNewRun(preparedNew.id,token,readiness.readyToken??'')){hud.flowError='未能开始新游戏，请重试。';readiness.cancel();hud.update();return;}hud.coverPreference.recordStartedRun(preparedNew.race);preparedNew=null;resetPresentation();if(!await session.saveBeforeAdvance()){readiness.cancel();world.paused=true;hud.update();return;}readiness.cancel();void audio.start();}
-  else if(kind==='load'){if(!hud.loadPreview||!session.commitLoad(hud.loadPreview.id,token,readiness.readyToken??'')){hud.flowError='存档无法读取。';readiness.cancel();hud.update();return;}hud.loadPreview=null;hud.settingsOpen=false;hud.menuPage='title';resetPresentation();readiness.cancel();}
+  else if(kind==='load'){if(!hud.loadPreview||!session.commitLoad(hud.loadPreview.id,token,readiness.readyToken??'')){hud.flowError='存档无法读取。';readiness.cancel();hud.update();return;}hud.loadPreview=null;hud.settingsOpen=false;hud.menuPage='title';resetPresentation();readiness.cancel();if(world.campaignRecipe?.lesson&&world.starship.account.tutorial?.status==='skipped')queueMicrotask(()=>hud.onTutorialExit());}
   else if(kind==='endless'){const plan=world.previewEndlessTransition();if(!plan){readiness.fail('无尽落点或窗口修订已变化，请重试');return;}const readyToken=`${plan.requestId}:${plan.expectedRevision}:${plan.mapHash}`;if(!world.registerEndlessReadyToken(readyToken)||!world.commitEndlessTransition(plan.requestId,plan.expectedRevision,readyToken)){readiness.fail('无尽转场未提交，当前整备保持不变');return;}resetPresentation();readiness.cancel();session.requestSave();void audio.start();}
   else if(kind==='reinforcement'){
+   if(preparedTutorialExit){const target=preparedTutorialExit;preparedTutorialExit=null;if(!world.exitShortTutorial(target)){readiness.fail('训练场转场未完成，请重试');return;}resetPresentation();readiness.cancel();session.requestSave();hud.update();return;}
    const advance=hud.pendingStageAdvance;if(advance&&(!preparedAdvance||preparedAdvance.runId!==world.runId||preparedAdvance.window!==world.draftWindowId||preparedAdvance.revision!==world.expedition.shopRevision)){readiness.fail('关间状态已变化，请返回重新选择下一关');return;}hud.pendingStageAdvance=false;preparedAdvance=null;
-   if(advance&&!world.skipReward()){readiness.fail('关间选择状态已变化，请重新准备');hud.update();return;}
+   if(advance&&!(guided(world)&&guidedStep(world)?.kind==='front'&&guided(world)?.phase==='running'?withGuidedCommand(world,()=>world.skipReward()):world.skipReward())){readiness.fail('关间选择状态已变化，请重新准备');hud.update();return;}
    readiness.cancel();
   }else readiness.cancel();hud.update();}finally{committing=false;}};
  canvas.addEventListener('webglcontextlost',()=>readiness.fail(session.memoryOnly?'WebGL 上下文丢失，请等待恢复后重试':'WebGL 上下文丢失，请等待恢复后重试或导出存档'));
@@ -87,17 +117,19 @@ export async function boot(options:{equipmentAccount?:EquipmentAccount;persisten
   hud.pendingStageAdvance=false;
   session.keepRun();
   resetPresentation();
-  if(!world.starship.enabled)world.resetRun();hud.root.querySelector<HTMLButtonElement>('[data-action=save-continue]:not(:disabled),[data-action=start]')?.focus();
+  if(!world.starship.enabled)world.resetRun();void readiness.trimIdleResources().catch(()=>{});hud.root.querySelector<HTMLButtonElement>('[data-action=save-continue]:not(:disabled),[data-action=start]')?.focus();
  };
 
  const starship=options.equipmentAccount&&options.starship?mountGameStarship(hud,options.starship.resolveImage):null;if(starship)hud.starship=starship;
+ const tutorial=mountTutorial(hud,audio);
  let choiceKey='';
  const selectBackground=()=>{
+  if(world.campaignRecipe?.lesson||world.starship.account.tutorial?.departure||world.starship.account.tutorial?.status==='eligible'){background.select([]);return;}
   const snapshot=hud.menuPage==='load-preview'?hud.loadPreview?.snapshot:world.phase==='menu'&&['title','load'].includes(hud.menuPage)?session.savedSnapshot:null;
   const race=snapshot?.config.race??(world.phase==='menu'?hud.menuRace:world.expedition.race),preset=world.permanentProfile.getPreset(race,hud.menuPreset);
   const hero=!snapshot&&world.phase==='menu'&&preset&&talentRank(preset.levels,race,'hero_support')?(hud.starterHeroChoice??HERO_IDS_BY_RACE[race][0]):null;
   const map=snapshot?.config.campaignMap??(world.phase==='reward'?world.runConfig?.campaignMap:undefined);
-  const key=JSON.stringify([view.contextEpoch,world.phase,hud.menuPage,race,hero,map,hud.loadPreview?.id,snapshot?.state.runId,snapshot?.state.time,world.stage,world.expedition.shopRevision]);
+  const key=JSON.stringify([view.contextEpoch,view.cacheEpoch,world.phase,hud.menuPage,race,hero,map,hud.loadPreview?.id,snapshot?.state.runId,snapshot?.state.time,world.stage,world.expedition.shopRevision]);
   if(key!==choiceKey){choiceKey=key;background.select(world.phase==='battle'||world.phase==='reward'?view.battleBackgroundJobs((cancelled,priority)=>background.checkpoint(cancelled,priority,true)):view.backgroundJobs(race,hero,map,snapshot??undefined));}
  };
  for(const event of ['pointerdown','keydown','wheel'])document.addEventListener(event,()=>background.input(),{capture:true,passive:true});
@@ -105,13 +137,15 @@ export async function boot(options:{equipmentAccount?:EquipmentAccount;persisten
   if(!document.hidden){if(!readiness.state.kind&&world.phase==='battle')view.prepareRosterAssets();if(view.assetsPending||readiness.state.kind||playerServices.blocking){input.reset();gamepad.reset();}else{input.poll();gamepad.poll(now);}let alpha=1;const simulating=world.phase==='battle'&&!world.paused&&!world.requiresPlayerDecision&&!view.assetsPending&&!readiness.state.kind&&!playerServices.blocking;if(simulating&&wasSimulating)alpha=hud.advanceSimulation(()=>driver.advance(elapsed*(debug?.speed??1)));else driver.reset();wasSimulating=simulating;
    audio.update(world);if(!starship?.isOpen)view.render(elapsed,alpha);
    if(!view.assetsPending&&!view.modelErrors.length&&!readiness.state.kind&&!document.hidden)markSpecialReady(world);
-   hud.afterRender();
-   if(!starship?.isOpen&&!readiness.state.kind){selectBackground();background.frame(elapsed*1000);if(world.phase==='menu'||world.phase==='reward'||simulating)background.tick();}
+   hud.afterRender();tutorial.tick(now);
+   readiness.sampleMemory(now);
+   if(!starship?.isOpen&&!readiness.state.kind){selectBackground();background.frame(elapsed*1000);if(world.phase==='menu'||world.phase==='reward'||simulating)background.tick(readiness.memory.pressure);}
    try{observer.frame(elapsed*1000,driver.accumulator,simulating);}catch{}
   }requestAnimationFrame(frame);
  };requestAnimationFrame(frame);
  document.addEventListener('visibilitychange',()=>{previous=performance.now();driver.reset();if(document.hidden&&world.phase==='battle'){world.paused=true;world.changed();session.requestSave();}});
  window.addEventListener('pagehide',()=>{observer.leaving();if(world.runId)void session.saveNow().catch(()=>{});});
  bindDeferredIcons(hud.root);hud.update();selectBackground();await prepareOpeningMenu(hud.root,background.opening(performance.now(),()=>new Promise<void>(resolve=>requestAnimationFrame(()=>resolve()))));hud.root.querySelector<HTMLButtonElement>('[data-action="menu-new"]')?.focus();
+ if(world.phase==='menu'&&world.starship.account.tutorial?.departure?.accepted)queueMicrotask(()=>prepareDeparture(true));
  return {world,view,hud,session,readiness,driver,starship};
 }

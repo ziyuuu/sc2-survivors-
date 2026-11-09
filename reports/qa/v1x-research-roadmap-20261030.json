@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-30",
+  "task": "PLAN-1X",
+  "kind": "research-and-proposal",
+  "baseline": "fabfb4addfb65169c2abc0a9dba57f181fed0ad2",
+  "versions": [
+    "1.1",
+    "1.2",
+    "1.3",
+    "1.4",
+    "1.5",
+    "1.6",
+    "1.7",
+    "1.8",
+    "1.9",
+    "1.10",
+    "1.11",
+    "1.12"
+  ],
+  "taskCount": 84,
+  "current": {
+    "ordinaryFamilies": 30,
+    "heroes": 18,
+    "elites": 90,
+    "equipmentTemplates": 210,
+    "missions": 7,
+    "baseEncounters": 3,
+    "expandedEncounters": 7,
+    "specialStages": 4,
+    "runSchema": 26
+  },
+  "proposedCoreAddition": {
+    "sourceIdentities": 20,
+    "families": 19,
+    "resultingFamilies": 49,
+    "sourceDeclarationCheck": "All 20 IDs found in existing pinned .cache/sc2-data/*unitdata.xml; inheritance, skills and art readiness not yet validated"
+  },
+  "documents": [
+    {
+      "path": "docs/project/V1X_RESEARCH_ROADMAP_20261030.md",
+      "sha256": "014c86a2d68d7d65221fd16cc75b7767837472ce0211443f40906c74e1044e68"
+    },
+    {
+      "path": "docs/project/V1X_ROSTER_AND_SOURCES_20261030.md",
+      "sha256": "02739031c7ede1cdcd220ab06c67ec6246238027d45325c0c1ee2cb68a68e6a7"
+    }
+  ],
+  "checks": {
+    "uniqueTasks": true,
+    "localLinks": true,
+    "sourceAndTestsUnmodified": true,
+    "docsCheck": "passed: runtime data reference matches",
+    "boardRevision": 328
+  },
+  "limits": [
+    "Public-page research and source inspection; no external-game/client playtest",
+    "New gameplay and values are proposals, not approved implementation or measured balance",
+    "Some official/Fandom direct pages inaccessible; evidence boundaries documented",
+    "No game changes, builds, commits, pushes or deployment"
+  ],
+  "next": "Review scope; begin 1.1 only after the version and concrete UI scope are approved"
+}

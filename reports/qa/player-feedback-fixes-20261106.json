@@ -1,0 +1,325 @@
+{
+  "date": "2026-11-06",
+  "tasks": [
+    "FB-20261105-02",
+    "FB-20261105-03"
+  ],
+  "status": "本地修复已完成",
+  "source": {
+    "branch": "体积优化版",
+    "head": "6510fb2a85a4140aecb6151ab0ab3132b42f239a",
+    "sharedChanges": "包含此前教学等未提交工作，本次只修两项反馈；未生成正式游戏构建",
+    "before": [
+      {
+        "file": "src/simulation/elite-claim.ts",
+        "sha256": "41382d5bb1a281825bed3a216c56d494bd816a0239448dee9e487e20a81886bb"
+      },
+      {
+        "file": "src/simulation/world.ts",
+        "sha256": "de4008785118667f5cfe5482c9f513375b0a4b44d36511837bb4693bfcaa51f2"
+      },
+      {
+        "file": "src/simulation/expedition-economy.ts",
+        "sha256": "097957fba9b6b5d44e45bee2ba855fb4f2a76fb2e1b33dc2d630fe4992711a43"
+      },
+      {
+        "file": "src/simulation/starship/quick-equip.ts",
+        "sha256": "5caf8b20e912035261a45b0a598860a4aaf6d5fee25b2aad551f9ad094f29a19"
+      },
+      {
+        "file": "src/ui/starship/legacy-view.ts",
+        "sha256": "fac264bc9eac4075c18566337a7a1b97f938959b97c2df960eca358b8d582ffc"
+      }
+    ],
+    "after": [
+      {
+        "file": "src/simulation/elite-claim.ts",
+        "sha256": "04b0bdfb4ccedfe7670323277c4fd25ded7c92847bf3faac1b0e1e8899ff8eac"
+      },
+      {
+        "file": "src/simulation/world.ts",
+        "sha256": "7b634e75a99c33e64fea8efa60b6574c5d9d39c416c6523d078f65327e581217"
+      },
+      {
+        "file": "src/simulation/expedition-economy.ts",
+        "sha256": "b4a70d7e25c6ec8b5d2946b75d319473b115b7289a903f9618533a2b0b7eb5fc"
+      },
+      {
+        "file": "src/simulation/starship/quick-equip.ts",
+        "sha256": "99087b3ee6549cef9ed840e3cebae5627d448f875ac84db1fe2feadd05dd7458"
+      },
+      {
+        "file": "src/ui/starship/legacy-view.ts",
+        "sha256": "5437a37a15c32b99b0ebccfe80c685ba2bd8c2af2eb047cfe52fe9661ad81940"
+      },
+      {
+        "file": "test/player-feedback-fixes.test.ts",
+        "sha256": "5b30397db785158fe3185e3c5665fd0f5c965585db70910025ba6d87e3fcef81"
+      },
+      {
+        "file": "test/feedback-actions.test.ts",
+        "sha256": "32a41ab5441d95d0f3cd757eca42361dd4028db1f3fd6e5983021c5e8df89894"
+      },
+      {
+        "file": "tools/qa-player-feedback-fixes-20261106.mjs",
+        "sha256": "700d7c1018fc9468ba0183252256195bd62fbb215f14ccfa5dce72a6b2969619"
+      }
+    ]
+  },
+  "changes": {
+    "purchase": "报价军衔在精英加入/替换、刷新属性及吸收前生效；原扣费/回执/售罄路径只结算一次",
+    "equipment": "现装功能装备不再自动跳过；仅更高品质合法普通散件可替换，独立资格与主动保护保持",
+    "ui": "原一键按钮及操作提示，功能/继承效果变化时短提示，无新增弹窗或布局"
+  },
+  "verification": {
+    "newRegressionTests": 14,
+    "relatedFinal": {
+      "passed": 63,
+      "command": "node --import tsx --test test/player-feedback-fixes.test.ts test/feedback-actions.test.ts test/growth-loot-20261029.test.ts test/expedition-drafts.test.ts"
+    },
+    "fullRegression": {
+      "total": 3027,
+      "initialPassed": 3021,
+      "initialFailed": 6,
+      "reason": "六项均因沙箱拒绝127.0.0.1连接；没有产品断言失败",
+      "recheck": {
+        "files": [
+          "test/coze-web.test.mjs",
+          "test/p5-backend.test.mjs"
+        ],
+        "passed": 15,
+        "failed": 0,
+        "localNetworkPermission": true
+      },
+      "uniquePassedAfterRecheck": 3027
+    },
+    "typecheck": "passed",
+    "docsCheck": "passed",
+    "diffWhitespace": "passed",
+    "browser": {
+      "passed": 31,
+      "errors": [],
+      "viewports": [
+        "1440x900 mouse",
+        "844x390 simulated touch",
+        "390x844 simulated touch"
+      ],
+      "cases": [
+        {
+          "name": "desktop",
+          "phase": "outside",
+          "template": "attribute.1",
+          "blocked": false,
+          "message": ""
+        },
+        {
+          "name": "desktop",
+          "phase": "outside",
+          "template": "attribute.3",
+          "blocked": true,
+          "message": ""
+        },
+        {
+          "name": "desktop",
+          "phase": "outside",
+          "template": "set.training.2",
+          "blocked": false,
+          "message": "已换装，原装备效果可能变化"
+        },
+        {
+          "name": "desktop",
+          "phase": "outside",
+          "template": "special.doom.3",
+          "blocked": false,
+          "message": "已换装，原装备效果可能变化"
+        },
+        {
+          "name": "desktop",
+          "phase": "intermission",
+          "template": "attribute.1",
+          "blocked": false,
+          "message": ""
+        },
+        {
+          "name": "desktop",
+          "phase": "intermission",
+          "template": "attribute.3",
+          "blocked": true,
+          "message": ""
+        },
+        {
+          "name": "desktop",
+          "phase": "intermission",
+          "template": "set.training.2",
+          "blocked": true,
+          "message": ""
+        },
+        {
+          "name": "desktop",
+          "phase": "intermission",
+          "template": "special.doom.3",
+          "blocked": false,
+          "message": "已换装，原装备效果可能变化"
+        },
+        {
+          "name": "desktop",
+          "case": "warehouse set replacement"
+        },
+        {
+          "name": "desktop",
+          "case": "independent protected slot does not block empty slot"
+        },
+        {
+          "name": "desktop",
+          "case": "paid V-rank absorption plus functional exchange survive actual IndexedDB page reload; repeat rejected",
+          "growth": 37.308
+        },
+        {
+          "name": "landscape",
+          "phase": "outside",
+          "template": "attribute.1",
+          "blocked": false,
+          "message": ""
+        },
+        {
+          "name": "landscape",
+          "phase": "outside",
+          "template": "attribute.3",
+          "blocked": true,
+          "message": ""
+        },
+        {
+          "name": "landscape",
+          "phase": "outside",
+          "template": "set.training.2",
+          "blocked": false,
+          "message": "已换装，原装备效果可能变化"
+        },
+        {
+          "name": "landscape",
+          "phase": "outside",
+          "template": "special.doom.3",
+          "blocked": false,
+          "message": "已换装，原装备效果可能变化"
+        },
+        {
+          "name": "landscape",
+          "phase": "intermission",
+          "template": "attribute.1",
+          "blocked": false,
+          "message": ""
+        },
+        {
+          "name": "landscape",
+          "phase": "intermission",
+          "template": "attribute.3",
+          "blocked": true,
+          "message": ""
+        },
+        {
+          "name": "landscape",
+          "phase": "intermission",
+          "template": "set.training.2",
+          "blocked": true,
+          "message": ""
+        },
+        {
+          "name": "landscape",
+          "phase": "intermission",
+          "template": "special.doom.3",
+          "blocked": false,
+          "message": "已换装，原装备效果可能变化"
+        },
+        {
+          "name": "landscape",
+          "case": "warehouse set replacement"
+        },
+        {
+          "name": "landscape",
+          "case": "independent protected slot does not block empty slot"
+        },
+        {
+          "name": "portrait",
+          "phase": "outside",
+          "template": "attribute.1",
+          "blocked": false,
+          "message": ""
+        },
+        {
+          "name": "portrait",
+          "phase": "outside",
+          "template": "attribute.3",
+          "blocked": true,
+          "message": ""
+        },
+        {
+          "name": "portrait",
+          "phase": "outside",
+          "template": "set.training.2",
+          "blocked": false,
+          "message": "已换装，原装备效果可能变化"
+        },
+        {
+          "name": "portrait",
+          "phase": "outside",
+          "template": "special.doom.3",
+          "blocked": false,
+          "message": "已换装，原装备效果可能变化"
+        },
+        {
+          "name": "portrait",
+          "phase": "intermission",
+          "template": "attribute.1",
+          "blocked": false,
+          "message": ""
+        },
+        {
+          "name": "portrait",
+          "phase": "intermission",
+          "template": "attribute.3",
+          "blocked": true,
+          "message": ""
+        },
+        {
+          "name": "portrait",
+          "phase": "intermission",
+          "template": "set.training.2",
+          "blocked": true,
+          "message": ""
+        },
+        {
+          "name": "portrait",
+          "phase": "intermission",
+          "template": "special.doom.3",
+          "blocked": false,
+          "message": "已换装，原装备效果可能变化"
+        },
+        {
+          "name": "portrait",
+          "case": "warehouse set replacement"
+        },
+        {
+          "name": "portrait",
+          "case": "independent protected slot does not block empty slot"
+        }
+      ],
+      "combinedPersistence": "实际IndexedDB与页面reload保存同一孤星、V级吸收、钱包/回执及装备归属；重复购买被拒",
+      "visualReview": "3张效果提示图已检查，提示完整可读，无确认弹窗",
+      "scope": "Windows Chrome production StarshipUI/WorldHost; isolated synthetic accounts, blank artwork, no battle renderer. Mouse and simulated touch. Real IndexedDB reload for combined purchase/equipment."
+    },
+    "fixtureCorrection": "第一次浏览器检查的夹具仅导入legacy样式，提示边界断言失败；补齐正式style/polish/native样式后31组通过，未据此修改产品布局"
+  },
+  "limits": [
+    "购买通过原生World.choose；换装使用生产UI按钮",
+    "合成账户与空图稿，不代表完整战场/布局或原玩家档案",
+    "Windows Chrome模拟触屏；物理iPhone未验",
+    "旧未付款吸收记录不猜测追扣，存档格式和回执保持"
+  ],
+  "delivery": {
+    "committed": false,
+    "pushed": false,
+    "deployed": false,
+    "existingPackagesUpdated": false
+  },
+  "artifactRetention": "本批截图/详细日志完成后删除，保留本摘要、日期文档和复现代码"
+}

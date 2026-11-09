@@ -41,6 +41,12 @@ function fleeRoute(w:World,p:Point,r:number){
   if(!best)return null;out.push(best);
  }return out;
 }
+/** Only delivered rewards count: retries and unclaimed/failed spawns do not. */
+export function goldenEquipmentNodes(w:World){
+ const events=new Set<string>();for(const receipt of w.starship.account.run?.receipts??[]){const match=/^(.*:encounter:\d+):node:\d+$/.exec(receipt);if(match)events.add(match[1]);}
+ const index=Math.min(2,events.size),total=(w.difficulty==='easy'?[4,2,1]:[8,4,2])[index];
+ return total===8?[0,1,0,1,0,1,0,1,0,4]:total===4?[0,0,0,1,0,0,0,1,0,2]:total===2?[0,0,0,0,0,1,0,0,0,1]:[0,0,0,0,0,0,0,0,0,1];
+}
 export function spawnEncounter(w:World,kind:EncounterKind,bait=false){
  const s=w.encounters;
  if(!encounterAllowed(w.difficulty,kind)||w.endless||w.phase!=='battle'||w.stage<(kind==='gentle'?7:4)||w.stage>18||s.active||s.expanded.short||!bait&&s.used.has(kind))return false;
@@ -58,7 +64,7 @@ export function spawnEncounter(w:World,kind:EncounterKind,bait=false){
  if(!point)return false;
  const id=`${w.runId}:encounter:${s.serial+1}`,context={difficulty:w.difficulty,stage:w.stage};
  const plans:EncounterRecord['plans']=[];
- if(kind==='golden')for(let i=1;i<=10;i++)plans.push([planOrdinaryEncounterEquipment(w,{...context,tier:'regular'},id+':node:'+i,i===10?6:i===5?2:1,i===10)!]);
+ if(kind==='golden')for(const [i,count] of goldenEquipmentNodes(w).entries())plans.push(count?[planOrdinaryEncounterEquipment(w,{...context,tier:'regular'},id+':node:'+(i+1),count,i===9)!]:[]);
  if(kind==='giant')for(let i=0;i<4;i++){
   const tiers=i===0?['elite']:i===1?['elite','elite']:i===2?['elite','boss']:['boss','boss'];
   plans.push(tiers.map((tier,j)=>planTaskEquipment(w,{...context,tier:tier as 'elite'|'boss'},id+':tier:'+i+':'+j)!));
@@ -110,6 +116,7 @@ export function encounterAfterHit(w:World,b:Body,before:number,sourceId?:number)
  const u=w.entities.get(b.id),c=u?.encounter,m=w.encounters.active;if(!u||!c||before<=u.hp)return;
  if(c.role==='attacker'){if(sourceId!==undefined&&w.entities.get(sourceId)?.owner==='terran'){c.distractedUntil=w.time+3;c.distractedBy=sourceId;}if(m?.id===c.id&&m.phase==='offered'){m.phase='active';m.age=0;}return;}
  if(c.role!=='subject'||!m||m.id!==c.id)return;
+ if(c.kind==='giant')c.engaged=true;
  if(m.phase==='offered'){m.phase='active';m.age=0;}
  if(c.kind==='golden'){
   const threshold=u.hp<=0?10:Math.min(9,Math.floor((1-u.hp/u.maxHp)*10+1e-8));
@@ -130,6 +137,7 @@ export function encounterDamageAllowed(w:World,target:Body,sourceOwner:Body['own
 }
 export function encounterTargetAllowed(w:World,u:Entity,b:Body){
  const a=u.encounter,c=w.entities.get(b.id)?.encounter,m=w.encounters.active;
+ if(a?.kind==='giant'&&a.role==='subject'&&!giantEngaged(u))return false;
  if(a?.role==='subject'&&(a.kind==='golden'||a.kind==='gentle'||m?.id===a.id&&m.phase==='offered'))return false;
  if(a?.role==='attacker'&&m?.id===a.id&&m.phase==='offered')return false;
  if(c?.role==='subject'&&c.kind==='gentle')return a?.role==='attacker'&&a.id===c.id&&m?.phase==='active';
@@ -171,8 +179,12 @@ export function tickEncounterUnit(w:World,u:Entity,dt:number){
  }
  if(c.kind==='giant'&&m.growthBlocked){
   for(let i=0;i<24;i++){const a=i*2.399963,p={x:u.x+Math.sin(a)*4,z:u.z+Math.cos(a)*4};if(encounterPointLegal(w,p,c.base!.unitRadius*sizes[m.tier+1],u.id)){walk(w,u,p,dt);break;}}return true;
- }return false;
+ }
+ if(c.kind==='giant'&&!giantEngaged(u)){u.prev={x:u.x,z:u.z};u.velocity={x:0,z:0};u.action='idle';u.attackTarget=null;u.pendingTarget=null;u.windup=0;return true;}
+ return false;
 }
+/** Older current-schema saves predate the explicit provocation flag. */
+function giantEngaged(u:Entity){return u.encounter?.engaged===true||u.encounter?.engaged===undefined&&u.hp<u.maxHp;}
 export function cancelEncounters(w:World){
  cancelExpandedEncounters(w,['won','endless-ready','finished'].includes(w.phase)?'success':'failure');
  const s=w.encounters;end(w,'cancelled',true);
@@ -224,7 +236,7 @@ export function encounterLabel(w:World){
  const u=w.entities.get(m.subject!);
  const detail=m.phase==='signal'?'即将出现':m.phase==='offered'?(m.kind==='golden'?'攻击开始20秒寻宝':'靠近开始') :
  m.kind==='golden'?`钻地 ${Math.max(0,Math.ceil((1200-m.age)/60))}秒 · 已触发 ${m.threshold}/10`:
- m.kind==='giant'?`${['幼体','成长','巨型','成熟'][m.tier]} · ${m.growthBlocked?'成长受阻':m.tier===3?'Boss档装备2包':Math.max(0,Math.ceil((720-m.growth)/60))+'秒后成长'}`:
+ m.kind==='giant'?`${['幼体','成长','巨型','成熟'][m.tier]} · ${m.growthBlocked?'成长受阻':m.tier===3?'首领档装备2件':Math.max(0,Math.ceil((720-m.growth)/60))+'秒后成长'}`:
  m.phase==='cleared'?`靠近接纳 ${(m.progress/60).toFixed(1)}/3秒`:`围攻 ${m.enemies.filter(id=>(w.entities.get(id)?.hp??0)>0).length} · ${Math.ceil((2700-m.age)/60)}秒`;
  return ENCOUNTER_NAMES[m.kind]+' · '+detail+(u?' · '+Math.ceil(u.hp/u.maxHp*100)+'%':'');
 }

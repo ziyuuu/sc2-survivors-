@@ -1,3 +1,4 @@
+import {ManagedGLTFLoader} from '../loaders/managed-textures';
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import type {BattleRenderer} from '../scene/battle-renderer';
@@ -31,7 +32,7 @@ export class ZergHeroEffects {
  stats={launches:0,impacts:0,cleaves:0,skillImpacts:0,skillPulses:0,dots:0,heals:0,revives:0,hatches:0,tentacles:0,peakCores:0};
  constructor(private view:BattleRenderer,private world:World){this.material=new UpgradeMaterials((view.effectScene??view.scene),view.camera,view.fx);this.aura=new HeroAuraEffects(view,world,ZERG_HERO_IDS);}
  async prepare(){if(this.ready)return;await prepareEmbeddedAssetIds(['model.baneling']);this.material.prepare();this.aura.prepare();
-  const gltf=await restoreSc2Materials(await new GLTFLoader().loadAsync(assetUrl('model.baneling')!));gltf.scene.updateMatrixWorld(true);const box=sc2BodyBounds(gltf.scene),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3()),scale=.48/Math.max(size.x,size.y,size.z);
+  const gltf=await restoreSc2Materials(await new ManagedGLTFLoader().loadAsync(assetUrl('model.baneling')!));gltf.scene.updateMatrixWorld(true);const box=sc2BodyBounds(gltf.scene),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3()),scale=.48/Math.max(size.x,size.y,size.z);
   gltf.scene.traverse(n=>{if(!(n instanceof THREE.Mesh)||n.userData.sc2Role!=='body')return;const geometry=n.geometry.clone(),positions=geometry.getAttribute('position'),p=new THREE.Vector3();for(let i=0;i<positions.count;i++){n.getVertexPosition(i,p).applyMatrix4(n.matrixWorld).sub(center).multiplyScalar(scale);positions.setXYZ(i,p.x,p.y,p.z);}geometry.deleteAttribute('skinIndex');geometry.deleteAttribute('skinWeight');geometry.computeVertexNormals();const mesh=new THREE.InstancedMesh(geometry,n.material,128);mesh.count=0;mesh.frustumCulled=false;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);viewAdd(this.view,mesh);this.bodies.push({mesh,count:0});});
   if(!this.bodies.length)throw Error('Original Baneling acid-sac body missing');
   for(const b of this.view.fx.projectiles.batches.get('hydralisk')??[]){const mesh=new THREE.InstancedMesh(b.geometry,b.material,256);mesh.count=0;mesh.frustumCulled=false;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);viewAdd(this.view,mesh);this.spines.push({mesh,count:0});}

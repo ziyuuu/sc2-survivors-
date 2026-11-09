@@ -1,3 +1,5 @@
+import {releaseAssetMime} from '../tools/load-build-assets.mjs';
+import {readFileSync} from 'node:fs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
@@ -47,4 +49,12 @@ test('embedded release pack prepares only requested assets and retries a failed 
  await store.prepare(['battle','menu']);
  assert.equal(await(await fetch(store.urls.battle)).text(),'battle');assert.equal(store.preparedCount,2);
  for(const url of Object.values(store.urls))URL.revokeObjectURL(url);
+});
+
+test('offline and Web manifests identify all tutorial MP3s as audio and portraits as PNG',()=>{
+ for(const [file,count,mime] of [['tutorial-voices',82,'audio/mpeg'],['tutorial-assets',3,'image/png']] as const){
+  const {records}=JSON.parse(readFileSync('deploy/runtime/'+file+'.json','utf8'));
+  assert.equal(records.length,count);
+  for(const row of records)assert.equal(releaseAssetMime(row.packedFile),mime,row.id);
+ }
 });
