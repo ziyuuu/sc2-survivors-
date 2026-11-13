@@ -85,3 +85,5 @@
 
 
 舰装UI命名数据置于 `docs/project/starship-ui-names-20261014/`，由[全装备命名入口](project/STARSHIP_UI_NAMING_20261014.md)说明。它是设计与制图交接目录，不是已生成图片或运行资源，不直接同步至已验收交付包。
+
+武装支援候选入口（2026-11-11）：`src/data/terran-armed-support.ts`统一45卡参数/文案；`simulation/combat/armed-*`处理出勤、字段/工事、核击、舰队、节点与救场，进度交易沿`progression/build-progress.ts`及原商店。`app/armed-preload-plan.ts`收集本关/恢复模型，`render`中的载体/场物/行星炮塔视图只读正式状态；新增原资源独立于锁定核心目录，见`src/assets/armed-support.ts`和`deploy/runtime/armed-support-assets.json`。`preview/armed-support-showcase-20261111`是45项独立实机工具，不进入玩家HUD。[候选结果](../reports/qa/armed-support-implementation-20261111.md)列出实际验证和第一批依赖。
