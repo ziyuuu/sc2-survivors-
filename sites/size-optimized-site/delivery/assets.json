@@ -1610,5 +1610,41 @@
   "bundle-menu-fdfbbf40e5b04bc650d1.bin": {
     "bytes": 2081250,
     "sha256": "fdfbbf40e5b04bc650d1c7a3ece1ea1e13607c9e4f917fc7dd0d603a639becf9"
+  },
+  "bundle-common-ffe1e68f68a791d2654e.bin": {
+    "bytes": 274360,
+    "sha256": "ffe1e68f68a791d2654e500852b12a235f37b6d8b145034f698f1d87a4abb118"
+  },
+  "bundle-high-122f319bc9a21cacb183.bin": {
+    "bytes": 2041891,
+    "sha256": "122f319bc9a21cacb18317d03a08ba6ed7cdac7097b23590ebe32adce3d1099e"
+  },
+  "bundle-high-4fa472e721963a3b61df.bin": {
+    "bytes": 1028835,
+    "sha256": "4fa472e721963a3b61df5708fe511b67e8eb12148023cda1ed54e6eaea58d77d"
+  },
+  "bundle-high-727afda0e943e46d252e.bin": {
+    "bytes": 1674910,
+    "sha256": "727afda0e943e46d252e48ad3d6cca7ee17e2535d220c7f8db6b53175ce11d47"
+  },
+  "bundle-high-8617986775e3b843344e.bin": {
+    "bytes": 1558573,
+    "sha256": "8617986775e3b843344e3488a8651610131a304c2f6d25a937cf10b80d03605d"
+  },
+  "bundle-low-6be00b24346b2bb0b6ce.bin": {
+    "bytes": 2021950,
+    "sha256": "6be00b24346b2bb0b6ce1eca46c88366071d8157c9962a3810a5b7ac75f5ef43"
+  },
+  "bundle-low-c8c75071f1b5091a64ba.bin": {
+    "bytes": 933860,
+    "sha256": "c8c75071f1b5091a64bafc107975ab26b47eeea4c8ce0624b31b88f4bd685842"
+  },
+  "bundle-medium-04cd9ea3c1e11b2483fb.bin": {
+    "bytes": 1774840,
+    "sha256": "04cd9ea3c1e11b2483fb0626df1f3c5cfb16cf8f1e0ccfe8462b65187456c450"
+  },
+  "bundle-medium-114cfff23b741069ec18.bin": {
+    "bytes": 2078230,
+    "sha256": "114cfff23b741069ec186681f431f87bef5b2e14698361d4a59af22e1c5a2909"
   }
 }
