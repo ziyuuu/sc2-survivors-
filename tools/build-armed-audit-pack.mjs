@@ -8,7 +8,7 @@ import {PROVENANCE_FILE, sha256, verifyCompressedProvenance, verifySourceManifes
 import {prepareImageManifest} from './prepare-shared-image-manifest.mjs';
 
 const baseline = path.resolve('sites/size-optimized-site/public');
-const web = path.resolve('dist/v14-armed-audit-fixes-20261112/web');
+const web = path.resolve(process.argv[2] ?? 'dist/v14-armed-audit-fixes-20261112/web');
 const out = path.join(path.dirname(web), 'packed');
 const audit = path.resolve('reports/local/v14-armed-audit-fixes-20261112');
 const read = async file => JSON.parse(await fs.readFile(file, 'utf8'));
@@ -25,11 +25,10 @@ const prior = verifyCompressedProvenance(proof, old, {release:proof.sourceReleas
 verifySourceManifest(fresh, src);
 for (const [id, row] of Object.entries(proof.sources)) assert.deepEqual(src.assets[id], row, id);
 const additions = Object.fromEntries(Object.entries(src.assets).filter(([id]) => !proof.sources[id]));
-assert.equal(Object.keys(additions).length, 20, 'Expected the reviewed armed support resource delta');
-
-await fs.mkdir(audit, {recursive:true});
-const work = await fs.mkdtemp(path.join(audit, 'pack-work-'));
-try {
+async function packAdditions(work) {
+  const count = Object.keys(additions).length;
+  if (count === 0) return {newRows:{}, deltaIndex:{}, delta:null};
+  assert.equal(count, 20, 'Expected the reviewed armed support resource delta');
   const staging = path.join(work, 'sites/v04-original-staging'), high = path.join(work, 'sites/v04-compact-r2/dist');
   const tiers = path.join(work, 'tiers'), delta = path.join(tiers, 'public');
   await fs.mkdir(path.join(staging, 'assets'), {recursive:true});
@@ -57,7 +56,14 @@ try {
   await prepareImageManifest(delta);
   const deltaRelease = await read(path.join(delta, 'web-release.json'));
   const newRows = (await read(path.join(delta, deltaRelease.manifest))).assets;
-  const index = await indexAt(baseline), deltaIndex = await indexAt(delta);
+  return {newRows, deltaIndex:await indexAt(delta), delta};
+}
+
+await fs.mkdir(audit, {recursive:true});
+const work = await fs.mkdtemp(path.join(audit, 'pack-work-'));
+try {
+  const {newRows, deltaIndex, delta} = await packAdditions(work);
+  const index = await indexAt(baseline);
   const assets = {...prior.assets, ...newRows};
   const allRows = Object.values(assets).flatMap(row => [row, ...Object.values(row.variants??{})]).concat(Object.values(prior.gpuTextures??{}));
   const files = new Map(Object.values(index).map(([name]) => ['assets/'+name, baseline]));
