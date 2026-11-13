@@ -12,7 +12,7 @@ export function validCarrierLanding(w:World,type:UnitType,p:Point,ignoreId?:numb
 }
 function landingContext(w:World,type:UnitType){
  return {body:Math.max(.9,SC2_UNITS[type].flying?0:SC2_UNITS[type].unitRadius*TUNING.unitScale,...w.allies().filter(u=>!u.flying).map(u=>u.unitRadius)),
-  pods:w.pods.filter(active),forts:[...w.fortifications.values()].filter(f=>f.hp>0),structures:[w.hive,...w.expansionHives.values(),...w.economicTargets.values()].filter(b=>b&&b.hp>0&&b.attributes.includes('Structure'))};
+  pods:[...w.pods.filter(active),...(w.expedition.support.armed?.deployments??[]).filter(d=>d.phase!=='ended').map(d=>({id:d.id,...d.point,unitRadius:d.radius}))],forts:[...w.fortifications.values()].filter(f=>f.hp>0),structures:[w.hive,...w.expansionHives.values(),...w.economicTargets.values()].filter(b=>b&&b.hp>0&&b.attributes.includes('Structure'))};
 }
 function landingClear(w:World,p:Point,ignoreId:number|undefined,radius:number,context:ReturnType<typeof landingContext>):boolean {
  const {body,pods,forts,structures}=context;

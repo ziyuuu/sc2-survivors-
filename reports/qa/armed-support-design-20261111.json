@@ -1,0 +1,48 @@
+{
+  "date": "2026-11-11",
+  "historical": true,
+  "userReview": "用户否定本版卡面介绍过于冗余；功能检查通过不等于文案或UI获认可。",
+  "supersededBy": "reports/qa/armed-support-copy-r2-20261111.json",
+  "task": "ARMED-1.4",
+  "stage": "整体设计与卡面审阅，等待用户确认本版 UI",
+  "candidate": "armed-design-r3-20261111",
+  "branch": "体积优化版",
+  "sourceHead": "679720fefa5c",
+  "configSha256": "6f37745a2203076f828b5293456e55a7008d3a93b14d8bcb0c1084d3362b3a07",
+  "specSha256": "1eda71abf0cbc81727122b23c4a47263fd0e36be73ee55466e3d45a90011842b",
+  "workspace": "原地完成，R3 237 行全文可读且保持未跟踪，保留原有其他任务改动；未切换、暂存、提交、推送、部署或发布。",
+  "deliverables": {
+    "design": "docs/project/V1_4_TERRAN_ARMED_SUPPORT_CARD_DESIGN_20261111.md",
+    "config": "src/data/terran-armed-support.ts",
+    "reviewSource": "preview/armed-support-cards-20261111",
+    "localEntry": "reports/local/armed-support-design-20261111/武装支援-卡面审阅.html",
+    "localShelf": "reports/local/armed-support-design-20261111/卡槽.html",
+    "assetAudit": "reports/local/armed-support-design-20261111/资源盘点.json"
+  },
+  "verified": [
+    "45 个唯一编号／名称与 R3 一致，W9/G9/B9/P6/N9/O3；完整简要、详细、主视觉、普通镜头动作和逐卡资源接点均生成。",
+    "直接使用生产 referenceCard 与现有关间皮肤 CSS；样张正文沿当前皮肤结构注入候选文案。普通紫与紫节点保持同一紫色品质，使用现有分类行、图内联动符号、购买／免费领取区分。",
+    "Chrome 独立上下文：桌面 1440×900、模拟手机横屏 844×390、模拟手机竖屏 390×844，各检查普通紫／节点对照、节点二选一、正式／临援三组，共 9 组简要／详细／返回切换；无页面横向溢出、卡名截断或页面脚本错误。横屏代表简要均无需滚动；详情沿原滚动阅读。",
+    "卡面目录 45 项逐项实际打开，加载相应卡槽并点击切换详情；均通过。这是卡面验证，不是正式 World 战场重放。",
+    "本地注册及文件存在性核对，记录模型原 sourcePath/sourceBuild/sourceSha256、动作与候选音画路由。三种雷神精英按既有 ELITES 映射共用 model.elite.thor.1，不误报 .2/.3 模型缺失。",
+    "npm run typecheck 通过；npm run docs:check 通过，现有数据参考与运行时一致。候选参数模块尚未被正式游戏导入。"
+  ],
+  "dependencies": [
+    "PLAY-1X 仍待办；实际生产仍有付费报价、开单扣款和 paid 乘员回执，建设／科研也保留收费。",
+    "全 45 张依赖稳定候选／报价、有效进度、锁主、紫节点与橙资格；补员链依赖免费新单来源、正式身体空席与生产／支援共同预留。",
+    "ARMED-RES-01：B06/O02 普通战巡未注册，依赖 T06；英雄战巡存在不能代替普通家族。",
+    "ARMED-RES-02：P05 堡垒原型待实物候选核实并由用户选择；ARMED-RES-03：O03 行星要塞未注册，按已指定原版身份核资源；ARMED-RES-04：新道具资源仍有逐项原版来源缺口。"
+  ],
+  "notCovered": [
+    "本轮尚未接正式交易、World、节点执行器、分关预载、退场释放或保存；未进行 45 项正式战场重放、正常入口取得／下一战／恢复和战力性能验收。",
+    "未运行 npm test 或重生成现有运行时数据参考：本轮是未接入的设计模块与预览，完整游戏回归和 docs:data 在实装后按原请求执行。",
+    "手机为 Chrome 模拟触屏与视口，非物理手机；画面与本轮新增 UI 尚待用户认可。专属新卡图尚未全部制作，样张使用现有已批准绘图／图集组合。"
+  ],
+  "reproduce": [
+    "node --import tsx tools/build-armed-support-design.mts",
+    "node tools/qa-armed-support-design.mjs",
+    "npm run typecheck",
+    "npm run docs:check"
+  ],
+  "next": "用户确认设计稿中具体页面与 UI 变更后，按已确认范围连续完成资源和正式接入；先对齐第一批直接依赖，再完成逐弹／逐人及 45 项正式 World 独立重放。"
+}

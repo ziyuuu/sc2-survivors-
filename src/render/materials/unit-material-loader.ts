@@ -1,5 +1,5 @@
 import {httpStore} from '../../assets/http-store';
-import {registerGltfTextures,trackedClone} from '../loaders/managed-textures';
+import {identifyRepairedModel,registerGltfTextures,trackedClone} from '../loaders/managed-textures';
 import {modelDecodeLane} from '../../platform/preparation-budget';
 import * as THREE from 'three';
 import type {GLTF,GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
@@ -21,17 +21,30 @@ export const bindUnitMaterial=(material:THREE.Material,description:PreparedUnitM
 export const unitMaterialTextures=(material:THREE.Material)=>{const p=prepared.get(material);return p?[...Object.values(p.textures),...(p.teamTexture?[p.teamTexture]:[])]:[];};
 export function unitMaterialDependencies(key:string){const p=presentationMaterialProfile(key);return p?[...new Set(p.materials.flatMap(m=>[...(m.teamTexture?[m.teamTexture]:[]),...Object.values(m.layers).flatMap(l=>l.texture?[l.texture]:l.cubeTextures??[])]))]:[];}
 
-/** Remove an invalid extension pair only in the verified in-memory GLB. Source bytes stay intact. */
-export function legalMaterialGlb(bytes:ArrayBuffer){
+function teamReplacesDiffuse(material:SourceMaterial){
+ return !!material.teamTexture&&!(material.blend&&material.layers.diffuse?.channel===1);
+}
+/** Adjust only the verified in-memory material header; preserve all binary image payloads. */
+export function legalMaterialGlb(bytes:ArrayBuffer,eliteBatchProfile?:UnitMaterialProfile){
  const header=new DataView(bytes),length=header.getUint32(12,true),json=JSON.parse(new TextDecoder().decode(new Uint8Array(bytes,20,length)));let changed=false;
  for(const material of json.materials??[])if(material.extensions?.KHR_materials_unlit&&material.extensions?.KHR_materials_specular){delete material.extensions.KHR_materials_specular;changed=true;}
+ // The batched colour pass replaces diffuse RGB with the team image. Its
+ // shadow, depth and colour passes still sample diffuse alpha for blended
+ // channel-1 layers. Keep the image table intact for every other material.
+ if(eliteBatchProfile)for(const material of json.materials??[]){
+  const source=eliteBatchProfile.materials.find(m=>m.name+'#'+m.index===material.name);
+  if(source&&teamReplacesDiffuse(source)&&material.pbrMetallicRoughness?.baseColorTexture){
+   delete material.pbrMetallicRoughness.baseColorTexture;
+   changed=true;
+  }
+ }
  if(!changed)return bytes;
  const encoded=new TextEncoder().encode(JSON.stringify(json)),padded=(encoded.length+3)&~3,tail=new Uint8Array(bytes,20+length),result=new Uint8Array(20+padded+tail.length),view=new DataView(result.buffer);
  result.set(new Uint8Array(bytes,0,20));view.setUint32(8,result.length,true);view.setUint32(12,padded,true);result.fill(32,20,20+padded);result.set(encoded,20);result.set(tail,20+padded);return result.buffer;
 }
 
 /** Bind every shipped source surface by both model hash and original material index/name. */
-export async function loadUnitMaterialGltf(loader:GLTFLoader,url:string,key:string):Promise<GLTF>{
+export async function loadUnitMaterialGltf(loader:GLTFLoader,url:string,key:string,batched=false):Promise<GLTF>{
  const profile=presentationMaterialProfile(key);
  if(!profile)return restoreSc2Materials(await loader.loadAsync(url));
  const response=await fetch(url);if(!response.ok)throw Error('Original material model could not load: '+key);
@@ -40,7 +53,10 @@ export async function loadUnitMaterialGltf(loader:GLTFLoader,url:string,key:stri
  const store=httpStore(),id=store?.idForUrl(url),row=id?store?.manifest.assets[id]:undefined,expected=row?.sha256===profile.glbSha256&&id?store!.record(id).sha256:profile.glbSha256;
  if(sha!==expected)throw Error('Original material profile/GLB hash mismatch: '+key);
  await prepareEmbeddedAssetIds(unitMaterialDependencies(key));
- const gltf=await modelDecodeLane.run(()=>loader.parseAsync(legalMaterialGlb(bytes),''));registerGltfTextures(gltf,url);
+ const eliteBatch=batched&&key.startsWith('elite.');
+ const repaired=legalMaterialGlb(bytes,eliteBatch?profile:undefined);
+ if(repaired!==bytes)identifyRepairedModel(repaired,sha);
+ const gltf=await modelDecodeLane.run(()=>loader.parseAsync(repaired,''));registerGltfTextures(gltf,url);
  const derivedUrl=(id:string)=>{const value=assetUrl(id);if(!value)throw Error('Original material resource missing: '+id);return value;};
  const seen=new Set<THREE.Material>(),jobs:Promise<void>[]=[];
  gltf.scene.traverse(n=>{if(!(n instanceof THREE.Mesh))return;for(const material of Array.isArray(n.material)?n.material:[n.material]){
@@ -54,6 +70,7 @@ export async function loadUnitMaterialGltf(loader:GLTFLoader,url:string,key:stri
    const textures:PreparedUnitMaterial['textures']={};
    for(const role of MATERIAL_ROLES){
     const layer=source.layers[role];if(!layer?.filename)continue;
+    if(eliteBatch&&role==='diffuse'&&teamReplacesDiffuse(source))continue;
     const info=role==='diffuse'?raw.pbrMetallicRoughness?.baseColorTexture:role==='normal'?raw.normalTexture:role==='specular'?raw.extensions?.KHR_materials_specular?.specularColorTexture:role==='emissive'?raw.emissiveTexture:raw.extras?.sc2?.layers?.find((l:{role:string})=>l.role===role);
     let texture:THREE.Texture;
     if(layer.cubeTextures)texture=await sharedMaterialTextures.cube(layer.cubeTextures.map(derivedUrl));

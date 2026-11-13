@@ -1,0 +1,129 @@
+{
+  "date": "2026-11-11",
+  "candidate": "armed-0fb61c0c77a5",
+  "sourceSha256": "0fb61c0c77a537c84d10c8fb2ad0aae975094a168064356d80e10d81c02fb651",
+  "branch": "体积优化版",
+  "head": "679720fefa5c",
+  "appBuildId": "b73c73e4cf48bf1f7e7983b6dde8808c06f78862400277132442b85ab2491ef6",
+  "assetRelease": "275e38780707123a498355e18bb414cccbc95bf272409b1a6045945b724a5317",
+  "runSchema": 26,
+  "rulesId": "mvp-1.0",
+  "specSha256": "1eda71abf0cbc81727122b23c4a47263fd0e36be73ee55466e3d45a90011842b",
+  "status": "待验证",
+  "checks": {
+    "cards": 45,
+    "nodeBaseComparisons": 9,
+    "finalRicochetReplay": 1,
+    "player": 8,
+    "packaged": 12,
+    "tests": 3155,
+    "targeted": 97,
+    "typecheck": "通过",
+    "docsData": "已更新",
+    "docsCheck": "通过",
+    "sourceModelsAudited": 11,
+    "shippingModelKeys": 10,
+    "shippingModelPayloads": 9
+  },
+  "cycles": [
+    {
+      "id": "W01",
+      "cd": 15,
+      "seconds": 60,
+      "casts": [
+        1.4,
+        16.5,
+        31.6,
+        47.6
+      ],
+      "phase": "battle"
+    },
+    {
+      "id": "G02",
+      "cd": 18,
+      "seconds": 60,
+      "casts": [
+        5.2,
+        23.5,
+        42.4
+      ],
+      "phase": "battle"
+    },
+    {
+      "id": "B03",
+      "cd": 20,
+      "seconds": 60,
+      "casts": [
+        0.7,
+        21.3,
+        42.2
+      ],
+      "phase": "battle"
+    },
+    {
+      "id": "B06",
+      "cd": 25,
+      "seconds": 60,
+      "casts": [
+        0.7,
+        26,
+        52
+      ],
+      "phase": "battle"
+    },
+    {
+      "id": "P02",
+      "cd": 35,
+      "seconds": 60,
+      "casts": [
+        0.9,
+        36.1
+      ],
+      "phase": "battle"
+    },
+    {
+      "id": "P05",
+      "cd": 30,
+      "seconds": 60,
+      "casts": [
+        0.5,
+        30.7
+      ],
+      "phase": "battle"
+    },
+    {
+      "id": "O02",
+      "cd": 45,
+      "seconds": 60,
+      "casts": [
+        2.6,
+        47.6
+      ],
+      "phase": "battle"
+    },
+    {
+      "id": "O03",
+      "cd": 45,
+      "seconds": 60,
+      "casts": [
+        2.1,
+        47.4
+      ],
+      "phase": "battle"
+    }
+  ],
+  "limitations": [
+    "工程前态和桌面浏览器/触屏模拟，不是自然完整战役、物理手机或用户美术验收。",
+    "PLAY-1X 第一批共用免费生产与波次仍待办，未代做或宣称合流。",
+    "完整3155回归后仅收窄自爆环呈现并补回跳弹实际命中声音；最终97定向和G07实机另重放。",
+    "本轮CD、配套寿命及五项表现为已授权候选，等待用户体验验收。",
+    "未提交、推送、部署或公开发布。"
+  ],
+  "resolvedAttempts": [
+    "首次完整回归有4项旧预期未随用户批准的新CD/寿命/资源数/跳弹伤害更新；修正旧断言后3155项通过。",
+    "第一次P05渲染检查发现旧地堡预备映射；切换SupplyDepot后P05/O03复看及54场完整重放通过。",
+    "实际核爆分层诊断定位第一枚实体身份泄漏至旧核爆贴片；修复后54场使用未屏蔽的正式渲染器。诊断工具的隐藏图层不作为最终画面验收。",
+    "出勤探针早期把失败落点重试当作一次出勤；改为实际乘员/建筑出现的castId计数，60秒八项均通过。",
+    "一次工具中断使未结束的构建/QA停止；已重新隔离构建并完成54场实机，不采纳中断结果。"
+  ]
+}

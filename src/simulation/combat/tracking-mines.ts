@@ -1,12 +1,13 @@
+import {ARMED_CARD_BY_ID as C} from '../../data/terran-armed-support';
 import type {World} from '../world';
 import type {Entity,Point} from '../types';
 import {blocked,distance,translate} from '../movement/steering';
 import {mineClearLine,mineRouteGoal} from '../movement/mine-routing';
 import type {Obstacle} from '../../data/game';
 
-export const TRACKING_MINE={discovery:4,emergeSeconds:.25,speed:6,trigger:1.2,damage:120,blast:2,radius:.3} as const;
+export const TRACKING_MINE={discovery:C.G01.params.detect,emergeSeconds:C.G01.params.emerge,speed:C.G01.params.speed,trigger:C.G01.params.contact,damage:C.G01.params.damage,blast:C.G01.params.radius,radius:.3} as const;
 /** Saved gameplay state. Routes and render poses are derived, never serialized. */
-export interface SupportMine {id:number;point:Point;phase:'buried'|'emerging'|'chasing';targetId:number|null;emergeAt:number;facing:number;}
+export interface SupportMine {id:number;point:Point;phase:'buried'|'emerging'|'chasing';targetId:number|null;emergeAt:number;facing:number;discovery?:number;blast?:number;}
 export function newSupportMine(id:number,point:Point):SupportMine{return {id,point:{...point},phase:'buried',targetId:null,emergeAt:0,facing:0};}
 /** Returns true exactly once: the caller removes the mine before applying damage. */
 export function advanceTrackingMine(w:World,mine:SupportMine,enemies:Entity[],c:{discovery:number;emergeSeconds:number;speed:number;trigger:number;radius:number}=TRACKING_MINE):boolean{
@@ -35,7 +36,7 @@ export function advanceTrackingMine(w:World,mine:SupportMine,enemies:Entity[],c:
  translate(mine.point,{x:next.x-mine.point.x,z:next.z-mine.point.z},c.radius,false,obstacles,w.mapHalf,w.terrain);
  return contact(target);
 }
-export function validSupportMine(m:SupportMine){return !!m&&Number.isSafeInteger(m.id)&&m.id>0&&!!m.point&&Number.isFinite(m.point.x)&&Number.isFinite(m.point.z)&&['buried','emerging','chasing'].includes(m.phase)&&(m.targetId===null||Number.isSafeInteger(m.targetId)&&m.targetId>0)&&Number.isFinite(m.emergeAt)&&m.emergeAt>=0&&Number.isFinite(m.facing);}
+export function validSupportMine(m:SupportMine){return !!m&&(m.discovery===undefined||Number.isFinite(m.discovery)&&m.discovery>0)&&(m.blast===undefined||Number.isFinite(m.blast)&&m.blast>0)&&Number.isSafeInteger(m.id)&&m.id>0&&!!m.point&&Number.isFinite(m.point.x)&&Number.isFinite(m.point.z)&&['buried','emerging','chasing'].includes(m.phase)&&(m.targetId===null||Number.isSafeInteger(m.targetId)&&m.targetId>0)&&Number.isFinite(m.emergeAt)&&m.emergeAt>=0&&Number.isFinite(m.facing);}
 
 const obstacleSnapshots=new WeakMap<World,Obstacle[]>();
 /** Geometry snapshots retain identity until any blocking footprint changes. */

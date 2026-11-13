@@ -8,6 +8,9 @@ import {sc2BodyBounds} from '../loaders/sc2-materials';
 import type {Pod} from '../../simulation/types';
 import type {Race} from '../../data/races';
 import {bindPylonBirthMaterial,type PylonBirthMaterialBinding} from './pylon-birth-materials';
+import {preparedUnitMaterial} from '../materials/unit-material-loader';
+import {createUnitMaterialSurface,type UnitMaterialSurface} from '../materials/unit-material-batch';
+import {bindSourceDepth} from '../materials/posed-depth';
 
 // Immutable loaded templates share reference-pose measurements, never live mixers/materials.
 const referenceTransforms=new WeakMap<GLTF,Map<THREE.AnimationClip|undefined,{scale:number;position:THREE.Vector3}>>();
@@ -42,7 +45,8 @@ export class PodView {
  private deathModel?:THREE.Object3D;private deathMixer?:THREE.AnimationMixer;private deathDuration=0;private deathSourceDuration=0;
  private materials:{material:THREE.Material;opacity:number;emissive:number|null}[]=[];
  private birthMaterials:PylonBirthMaterialBinding[]=[];
- constructor(g:GLTF,scene:THREE.Scene,race:Race='terran',birth?:GLTF,death?:GLTF){
+ private nativeSurfaces:{surface:UnitMaterialSurface;death:boolean}[]=[];
+ constructor(g:GLTF,scene:THREE.Scene,race:Race='terran',birth?:GLTF,death?:GLTF,nativeMaterials=false){
   const model=this.model=clone(g.scene);this.mixer=new THREE.AnimationMixer(model);this.adapter=new CarrierViewAdapter(race,g.animations);
   const stand=this.adapter.clip('active');if(stand){this.mixer.clipAction(stand).play();this.mixer.setTime(0);}model.updateMatrixWorld(true);
   const attach=(body:THREE.Object3D,template:GLTF,clip:THREE.AnimationClip|undefined)=>{let poses=referenceTransforms.get(template);if(!poses){poses=new Map();referenceTransforms.set(template,poses);}let transform=poses.get(clip);if(!transform){const box=sc2BodyBounds(body),center=box.getCenter(new THREE.Vector3()),scale=2.7/Math.max(.01,box.max.x-box.min.x,box.max.z-box.min.z);transform={scale,position:new THREE.Vector3(-center.x*scale,-box.min.y*scale,-center.z*scale)};poses.set(clip,transform);}body.scale.setScalar(transform.scale);body.position.copy(transform.position);this.root.add(body);};
@@ -50,16 +54,18 @@ export class PodView {
   if(death){const clip=death.animations.find(c=>/^Death/.test(c.name));if(!clip)throw Error('载体原死亡动作缺失');this.deathModel=clone(death.scene);this.deathMixer=new THREE.AnimationMixer(this.deathModel);this.deathSourceDuration=clip.duration;this.deathDuration=Math.min(6,clip.duration);const action=this.deathMixer.clipAction(clip);action.setLoop(THREE.LoopOnce,1);action.clampWhenFinished=true;action.play();this.deathMixer.setTime(0);attach(this.deathModel,death,clip);this.deathModel.visible=false;}
   if(birth){const clip=birth.animations.find(c=>c.name==='Stand Build End');if(!clip)throw Error('原水晶塔出现动作缺失：Stand Build End');this.birthModel=clone(birth.scene);this.birthMixer=new THREE.AnimationMixer(this.birthModel);this.birthDuration=clip.duration;const action=this.birthMixer.clipAction(clip);action.setLoop(THREE.LoopOnce,1);action.clampWhenFinished=true;action.play();this.birthMixer.setTime(0);attach(this.birthModel,birth,clip);this.birthModel.visible=false;}
   scene.add(this.root);
-  this.root.traverse(n=>{if(!(n instanceof THREE.Mesh))return;n.frustumCulled=false;const materials=(Array.isArray(n.material)?n.material:[n.material]).map((source:THREE.Material)=>{const material=source.clone(),standard=material as THREE.MeshStandardMaterial;material.onBeforeCompile=source.onBeforeCompile;material.customProgramCacheKey=source.customProgramCacheKey;copySourceDepth(source,material);this.materials.push({material,opacity:material.opacity,emissive:typeof standard.emissiveIntensity==='number'?standard.emissiveIntensity:null});if(this.birthModel?.getObjectById(n.id)){const binding=bindPylonBirthMaterial(source,material);if(binding)this.birthMaterials.push(binding);}return material;});n.material=Array.isArray(n.material)?materials:materials[0];});
+  this.root.traverse(n=>{if(!(n instanceof THREE.Mesh))return;n.frustumCulled=false;const materials=(Array.isArray(n.material)?n.material:[n.material]).map((source:THREE.Material)=>{if(nativeMaterials&&preparedUnitMaterial(source)){const surface=createUnitMaterialSurface(source,1);if(surface){surface.material.onBeforeCompile=shader=>surface.compile(shader,n.geometry,false);surface.material.customProgramCacheKey=()=>surface.programKey(n.geometry,false);bindSourceDepth(surface.material,{key:()=>surface.programKey(n.geometry,false,true),compile:shader=>surface.compile(shader,n.geometry,false,true)});this.nativeSurfaces.push({surface,death:!!this.deathModel?.getObjectById(n.id)});return surface.material;}}
+   const material=source.clone(),standard=material as THREE.MeshStandardMaterial;material.onBeforeCompile=source.onBeforeCompile;material.customProgramCacheKey=source.customProgramCacheKey;copySourceDepth(source,material);this.materials.push({material,opacity:material.opacity,emissive:typeof standard.emissiveIntensity==='number'?standard.emissiveIntensity:null});if(this.birthModel?.getObjectById(n.id)){const binding=bindPylonBirthMaterial(source,material);if(binding)this.birthMaterials.push(binding);}return material;});n.material=Array.isArray(n.material)?materials:materials[0];});
  }
  dispose(){
   this.mixer.stopAllAction();this.mixer.uncacheRoot(this.mixer.getRoot());this.root.removeFromParent();for(const {material} of this.materials)material.dispose();
   if(this.birthMixer){this.birthMixer.stopAllAction();this.birthMixer.uncacheRoot(this.birthMixer.getRoot());}
   if(this.deathMixer){this.deathMixer.stopAllAction();this.deathMixer.uncacheRoot(this.deathMixer.getRoot());}
   for(const binding of this.birthMaterials)binding.dispose();
+  for(const {surface}of this.nativeSurfaces){surface.texture.dispose();surface.material.dispose();}
   const skeletons=new Set<THREE.Skeleton>();this.root.traverse(n=>{if(n instanceof THREE.SkinnedMesh)skeletons.add(n.skeleton);});for(const skeleton of skeletons)skeleton.dispose();
  }
- update(p:Pod,time:number,visible:boolean,groundY=0,effects=true){
+ update(p:Pick<Pod,'x'|'z'|'createdAt'|'landedAt'|'resolvedAt'|'status'>,time:number,visible:boolean,groundY=0,effects=true){
   this.root.position.set(p.x,groundY,p.z);const age=time-(p.resolvedAt??time);
   this.root.visible=visible&&(effects||p.status!=='destroyed')&&(!['rescued','destroyed'].includes(p.status)||age<(p.status==='destroyed'?Math.max(1.5,this.deathDuration)+.3:7));if(!this.root.visible)return;
   const state=p.status;
@@ -68,6 +74,7 @@ export class PodView {
   if(this.birthModel){this.birthModel.visible=showingBirth;if(showingBirth){const progress=THREE.MathUtils.clamp((time-p.createdAt)/Math.max(.001,p.landedAt-p.createdAt),0,1);this.birthMixer!.setTime(progress*this.birthDuration);}}
   if(state!==this.state){this.mixer.stopAllAction();const clip=this.adapter.clip(state);if(clip){const action=this.mixer.clipAction(clip),loop=state==='active'||state==='opening';action.reset().setLoop(loop?THREE.LoopRepeat:THREE.LoopOnce,loop?Infinity:1);action.clampWhenFinished=true;action.play();}this.state=state;}
   const seconds=state==='falling'?time-p.createdAt:state==='active'?time-p.landedAt:age;this.mixer.setTime(Math.max(0,seconds));
+  for(const {surface,death}of this.nativeSurfaces){const name=death?'Death':this.adapter.clip(state)?.name;if(name){surface.write(0,{clip:name,seconds:death?this.deathMixer?.time??0:Math.max(0,seconds)});surface.flush();}}
   const warp=this.adapter.race==='protoss',arrival=warp&&!this.birthModel&&state==='falling'?THREE.MathUtils.clamp((time-p.createdAt)/(p.landedAt-p.createdAt),0,1):1;
   this.root.scale.setScalar(showingDeath?(age>this.deathDuration?Math.max(.01,1-(age-this.deathDuration)/.3):1):.85+.15*arrival);
   for(const entry of this.materials){if(entry.emissive!==null)(entry.material as THREE.MeshStandardMaterial).emissiveIntensity=entry.emissive*(effects&&warp&&state==='opening'?1+.65*Math.sin(age*Math.PI*4)**2:1);}

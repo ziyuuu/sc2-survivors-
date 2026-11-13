@@ -20,7 +20,7 @@ export interface WeaponFlight {
  bounceDamage?:number[];bounceBonuses?:Bonus[][];bounceLimit?:number;bounceRadius?:number;
 }
 export function weaponFlightSpeed(u:Pick<Entity,'unitType'|'heroId'|'nativeMode'|'activeWeapon'|'summonKind'> & Partial<Pick<Entity,'eliteId'|'team'>>):number {
- if(u.summonKind)return 0;if(u.unitType==='yamato_battlecruiser')return 56;
+ if(u.summonKind)return 0;if(u.unitType==='yamato_battlecruiser'||u.unitType==='battlecruiser')return 56;
  if(u.heroId)return u.heroId==='yamato_battlecruiser'?56:['tosh','zagara','stukov','niadra','fenix','hots_leviathan'].includes(u.heroId)?26.25:0;
  if(u.team==='player'&&isTerranEliteId(u.eliteId)){if(u.unitType==='tank')return 32;if(['marine','reaper'].includes(u.unitType)||u.unitType==='thor'&&u.activeWeapon!=='JavelinMissileLaunchers'&&u.activeWeapon!=='ThorHighImpactPayload')return 52;if(u.unitType==='viking'&&u.nativeMode==='viking_assault')return 39.2;}
  if(u.unitType==='thor')return u.activeWeapon==='JavelinMissileLaunchers'?28:0;

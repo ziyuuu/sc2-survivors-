@@ -109,7 +109,8 @@ export async function boot(options:{equipmentAccount?:EquipmentAccount;persisten
    if(preparedTutorialExit){const target=preparedTutorialExit;preparedTutorialExit=null;if(!world.exitShortTutorial(target)){readiness.fail('训练场转场未完成，请重试');return;}resetPresentation();readiness.cancel();session.requestSave();hud.update();return;}
    const advance=hud.pendingStageAdvance;if(advance&&(!preparedAdvance||preparedAdvance.runId!==world.runId||preparedAdvance.window!==world.draftWindowId||preparedAdvance.revision!==world.expedition.shopRevision)){readiness.fail('关间状态已变化，请返回重新选择下一关');return;}hud.pendingStageAdvance=false;preparedAdvance=null;
    if(advance&&!(guided(world)&&guidedStep(world)?.kind==='front'&&guided(world)?.phase==='running'?withGuidedCommand(world,()=>world.skipReward()):world.skipReward())){readiness.fail('关间选择状态已变化，请重新准备');hud.update();return;}
-   readiness.cancel();
+   // The ready → idle notification refreshes the HUD with the committed world.
+   readiness.cancel();return;
   }else readiness.cancel();hud.update();}finally{committing=false;}};
  canvas.addEventListener('webglcontextlost',()=>readiness.fail(session.memoryOnly?'WebGL 上下文丢失，请等待恢复后重试':'WebGL 上下文丢失，请等待恢复后重试或导出存档'));
  canvas.addEventListener('webglcontextrestored',()=>{if(readiness.state.kind)void readiness.retry();else if(world.phase==='battle')void readiness.prepare('reinforcement');});

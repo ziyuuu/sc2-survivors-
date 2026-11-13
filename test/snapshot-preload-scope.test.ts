@@ -13,6 +13,7 @@ import type {RunSnapshot} from '../src/simulation/persistence/run-snapshot';
 import {displayLoadModelKey,displayAssetModelKey} from '../src/render/materials/elite-visual';
 import {ASSETS} from '../src/assets/manifest';
 import type {CombatPreloadPlan} from '../src/app/combat-preload-plan';
+import {createContentPlan} from '../src/simulation/progression/run-content';
 
 function world(race:Race='terran'){const w=new World({race,seed:529,sandbox:true,terrain:false,waves:false,equipmentAccount:newEquipmentAccount(529)});w.start();return w;}
 async function prepare(snapshot:RunSnapshot,current=world()){
@@ -29,6 +30,16 @@ for(const race of RACES)test(`${race} first intermission restore omits unowned h
  assert.deepEqual(result.common.heroes,[]);assert.equal(result.endless,0);
  assert.ok(![...result.models.keys()].some(key=>key.startsWith('hero.')||key.startsWith('elite.')));
  assert.ok(result.models.has('fun-infested-marine'));assert.ok(result.models.has('ultralisk'));
+});
+
+test('seeded save restores the purchased nydus before the shop spawns its first body',async()=>{
+ const w=new World({race:'terran',difficulty:'easy',seed:529,sandbox:true,terrain:false,waves:false});
+ w.start(undefined,createContentPlan(529,'terran','easy'));
+ const snapshot=w.captureRun();
+ snapshot.state.stage=16;
+ assert(!(await prepare(snapshot)).models.has('fun-nydus'));
+ snapshot.state.funShop.levels.nydus=1;
+ assert.equal((await prepare(snapshot)).models.get('fun-nydus'),'roach');
 });
 
 test('owned heroes remain prepared after their body dies, including the flagship normalization',async()=>{
@@ -63,5 +74,29 @@ test('endless restore and its preparation checkpoint retain static dependencies;
  for(const mode of ['battle','entry'] as const){const s=world().captureRun();s.state.stage=18;
   if(mode==='battle')s.state.battlefield.mode='endless';else {s.state.phase='endless-ready';s.state.endlessEntry={id:s.state.runId+':endless-entry',revision:0,ready:false};}
   assert.equal((await prepare(s)).endless,1);
+ }
+});
+
+test('O01 uses the same incoming seeded hero roster at departure and when preparing a saved stage',async()=>{
+ const w=new World({race:'terran',difficulty:'hard',seed:529,sandbox:true,terrain:false,waves:false});
+ w.start(undefined,createContentPlan(529,'terran','hard'));
+ w.stage=9;
+ w.endStage();
+ const a=w.expedition.support.armed!, allowed=['hero.yamato_battlecruiser','hero.raynor','hero.swann'];
+ const live=Object.assign(Object.create(BattleRenderer.prototype),{world:w});
+ const before:Map<string,string>=live.currentModels(true);
+ a.ranks.O01=1;
+ const normal:Map<string,string>=live.currentModels(true);
+ const expected=(base:Map<string,string>)=>new Set([...base.keys(),...allowed]);
+ assert.deepEqual(new Set(normal.keys()),expected(before));
+ const intermission=w.captureRun();
+ for(let pass=0;pass<2 && w.phase==='reward';pass++) assert.ok(w.skipReward());
+ assert.equal(w.phase,'battle');assert.equal(w.stage,10);
+ for(const snapshot of [intermission,w.captureRun()]){
+  delete snapshot.state.expedition.support.armed!.ranks.O01;
+  const baseline=await prepare(snapshot);
+  snapshot.state.expedition.support.armed!.ranks.O01=1;
+  const restored=await prepare(snapshot);
+  assert.deepEqual(new Set(restored.models.keys()),expected(baseline.models));
  }
 });

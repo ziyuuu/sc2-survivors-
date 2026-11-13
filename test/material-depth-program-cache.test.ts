@@ -31,6 +31,6 @@ test('every shipped material only shares a depth key when its actual Three depth
    }surface.texture.dispose();surface.material.dispose();
   }
  }
- assert.equal(surfaces,475);assert.equal(layouts,3800);assert.ok(seen.size<oldKeys.size,'colour differences must not create duplicate depth programs');
+ assert.equal(surfaces,492);assert.equal(layouts,3936);assert.ok(seen.size<oldKeys.size,'colour differences must not create duplicate depth programs');
  console.log(JSON.stringify({depthShaderLayouts:layouts,oldColourDependentKeys:oldKeys.size,exactDepthKeys:seen.size}));
 });

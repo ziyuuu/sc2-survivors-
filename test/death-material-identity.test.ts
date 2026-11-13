@@ -15,7 +15,8 @@ test('death body inherits its exact original diffuse identity without changing d
    else assert.equal(material,source);
   }
  }
- assert.equal(restored,124);
+ // The ordinary Battlecruiser death adds one exact live/death diffuse match.
+ assert.equal(restored,125);
 });
 
 test('unrelated blood, guts and energy textures do not inherit a body team mask',()=>{

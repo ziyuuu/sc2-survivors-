@@ -1,0 +1,1420 @@
+{
+  "resourceRelease": "b0bf5b84e5968dc7a722f592f7cb089e5e4f26157ece54c28af7a116f000052a",
+  "mode": "controlled 4x fixed-step with allied healing",
+  "baseline": {
+    "build": "9207d6f97edfa04740fd6d718b5eea2dc402e5c4a9034a5441cbabe8568786a0",
+    "stages": [
+      {
+        "stage": 1,
+        "trackedMiB": [
+          382.3,
+          382.4,
+          382.6
+        ],
+        "processPrivateMiB": [
+          2935.4,
+          3027.6,
+          3214.2
+        ],
+        "battleFrames": 907,
+        "maxFrameMs": 33.5
+      },
+      {
+        "stage": 2,
+        "trackedMiB": [
+          374.6,
+          381.9,
+          381.9
+        ],
+        "processPrivateMiB": [
+          3259.8,
+          2997.8,
+          3035.6
+        ],
+        "battleFrames": 883,
+        "maxFrameMs": 150
+      },
+      {
+        "stage": 3,
+        "trackedMiB": [
+          382.2,
+          412.9,
+          413.2
+        ],
+        "processPrivateMiB": [
+          3228.5,
+          3285.1,
+          3415.8
+        ],
+        "battleFrames": 872,
+        "maxFrameMs": 166.6
+      },
+      {
+        "stage": 4,
+        "trackedMiB": [
+          460.3,
+          476.8,
+          476.8
+        ],
+        "processPrivateMiB": [
+          3807.1,
+          3637.3,
+          3680.1
+        ],
+        "battleFrames": 922,
+        "maxFrameMs": 133.2
+      },
+      {
+        "stage": 5,
+        "trackedMiB": [
+          480.1,
+          465.4,
+          465.4
+        ],
+        "processPrivateMiB": [
+          3894.8,
+          3670.3,
+          3725.6
+        ],
+        "battleFrames": 997,
+        "maxFrameMs": 100
+      },
+      {
+        "stage": 6,
+        "trackedMiB": [
+          439.3,
+          464.2,
+          478.8
+        ],
+        "processPrivateMiB": [
+          3802.2,
+          3809.2,
+          3896.5
+        ],
+        "battleFrames": 952,
+        "maxFrameMs": 250
+      },
+      {
+        "stage": 7,
+        "trackedMiB": [
+          541.8,
+          492.9,
+          492.9
+        ],
+        "processPrivateMiB": [
+          4132.7,
+          3940.1,
+          4003.5
+        ],
+        "battleFrames": 820,
+        "maxFrameMs": 116.7
+      },
+      {
+        "stage": 8,
+        "trackedMiB": [
+          523.3,
+          507.1,
+          507.1
+        ],
+        "processPrivateMiB": [
+          4292.8,
+          4041.9,
+          4113
+        ],
+        "battleFrames": 879,
+        "maxFrameMs": 83.3
+      },
+      {
+        "stage": 9,
+        "trackedMiB": [
+          584.7,
+          581.2,
+          581.2
+        ],
+        "processPrivateMiB": [
+          4644.9,
+          4478.3,
+          4549.3
+        ],
+        "battleFrames": 846,
+        "maxFrameMs": 149.9
+      },
+      {
+        "stage": 10,
+        "trackedMiB": [
+          590.1,
+          590.3,
+          590.3
+        ],
+        "processPrivateMiB": [
+          4772.5,
+          4674.1,
+          4732.4
+        ],
+        "battleFrames": 920,
+        "maxFrameMs": 66.7
+      },
+      {
+        "stage": 11,
+        "trackedMiB": [
+          595.8,
+          611.9,
+          611.9
+        ],
+        "processPrivateMiB": [
+          4987.5,
+          4690.3,
+          4715.9
+        ],
+        "battleFrames": 826,
+        "maxFrameMs": 116.5
+      },
+      {
+        "stage": 12,
+        "trackedMiB": [
+          678.5,
+          634.3,
+          634.3
+        ],
+        "processPrivateMiB": [
+          5053.8,
+          5144.1,
+          5201.2
+        ],
+        "battleFrames": 1896,
+        "maxFrameMs": 133.2
+      },
+      {
+        "stage": 13,
+        "trackedMiB": [
+          715.2,
+          652.3,
+          652.3
+        ],
+        "processPrivateMiB": [
+          5702.6,
+          5315,
+          5357.6
+        ],
+        "battleFrames": 973,
+        "maxFrameMs": 83.4
+      },
+      {
+        "stage": 14,
+        "trackedMiB": [
+          693.9,
+          681.4,
+          681.6
+        ],
+        "processPrivateMiB": [
+          5765.8,
+          5392,
+          5496.6
+        ],
+        "battleFrames": 1109,
+        "maxFrameMs": 116.7
+      },
+      {
+        "stage": 15,
+        "trackedMiB": [
+          806.5,
+          767.9,
+          767.9
+        ],
+        "processPrivateMiB": [
+          6244,
+          5633.7,
+          5737.2
+        ],
+        "battleFrames": 1244,
+        "maxFrameMs": 116.7
+      },
+      {
+        "stage": 16,
+        "trackedMiB": [
+          749.1,
+          765.4,
+          765.4
+        ],
+        "processPrivateMiB": [
+          6057.1,
+          5786.8,
+          5873.6
+        ],
+        "battleFrames": 1702,
+        "maxFrameMs": 716.7
+      },
+      {
+        "stage": 17,
+        "trackedMiB": [
+          766.2,
+          780.5,
+          780.5
+        ],
+        "processPrivateMiB": [
+          6080.7,
+          5844.5,
+          5969.7
+        ],
+        "battleFrames": 1758,
+        "maxFrameMs": 116.8
+      },
+      {
+        "stage": 18,
+        "trackedMiB": [
+          844.3,
+          832.3,
+          832.3
+        ],
+        "processPrivateMiB": [
+          6212.9,
+          6060.7,
+          6311.2
+        ],
+        "battleFrames": 1381,
+        "maxFrameMs": 150.2
+      }
+    ],
+    "endlessMiB": 855.3,
+    "trackedPeakMiB": 934.1,
+    "processSamples": 55,
+    "processSamplePeakMiB": 6551,
+    "pressure": [
+      {
+        "stage": 1,
+        "time": 0.36666666666666664,
+        "phase": "battle",
+        "pressure": false,
+        "bytes": 400905688
+      },
+      {
+        "stage": 6,
+        "time": 405,
+        "phase": "reward",
+        "pressure": true,
+        "bytes": 567884545
+      }
+    ],
+    "reloads": [
+      {
+        "key": "elite.marine.2",
+        "stage": 8,
+        "phase": "reward",
+        "gate": true,
+        "loadMs": 133.2,
+        "maxFrameMs": 16.7
+      },
+      {
+        "key": "elite.marauder.1",
+        "stage": 9,
+        "phase": "reward",
+        "gate": true,
+        "loadMs": 104.7,
+        "maxFrameMs": 33.4
+      },
+      {
+        "key": "elite.marine.2",
+        "stage": 10,
+        "phase": "reward",
+        "gate": true,
+        "loadMs": 94.4,
+        "maxFrameMs": 33.3
+      },
+      {
+        "key": "elite.marauder.1",
+        "stage": 11,
+        "phase": "reward",
+        "gate": true,
+        "loadMs": 70.8,
+        "maxFrameMs": 17.5
+      },
+      {
+        "key": "elite.tank.3",
+        "stage": 13,
+        "phase": "reward",
+        "gate": true,
+        "loadMs": 135.2,
+        "maxFrameMs": 17.2
+      },
+      {
+        "key": "elite.marauder.1",
+        "stage": 13,
+        "phase": "reward",
+        "gate": true,
+        "loadMs": 86.8,
+        "maxFrameMs": 17.3
+      },
+      {
+        "key": "elite.medivac.1",
+        "stage": 14,
+        "phase": "reward",
+        "gate": true,
+        "loadMs": 51.5,
+        "maxFrameMs": 16.7
+      },
+      {
+        "key": "elite.marauder.3",
+        "stage": 15,
+        "phase": "reward",
+        "gate": true,
+        "loadMs": 85.4,
+        "maxFrameMs": 50
+      },
+      {
+        "key": "elite.medivac.3",
+        "stage": 16,
+        "phase": "reward",
+        "gate": true,
+        "loadMs": 74.2,
+        "maxFrameMs": 17.2
+      },
+      {
+        "key": "elite.marauder.3",
+        "stage": 17,
+        "phase": "battle",
+        "gate": false,
+        "loadMs": 420.5,
+        "maxFrameMs": 99.9
+      },
+      {
+        "key": "elite.marauder.3",
+        "stage": 18,
+        "phase": "battle",
+        "gate": false,
+        "loadMs": 1321.2,
+        "maxFrameMs": 116.6
+      },
+      {
+        "key": "elite.hellion.1",
+        "stage": 18,
+        "phase": "endless-ready",
+        "gate": true,
+        "loadMs": 110.9,
+        "maxFrameMs": 16.8
+      },
+      {
+        "key": "elite.tank.3",
+        "stage": 18,
+        "phase": "endless-ready",
+        "gate": true,
+        "loadMs": 141,
+        "maxFrameMs": 33.4
+      }
+    ],
+    "targetWindows": {
+      "17": {
+        "frames": 47,
+        "maxMs": 99.89999999990687
+      },
+      "18": {
+        "frames": 64,
+        "maxMs": 116.70000000006985
+      }
+    },
+    "targetEvents": [
+      {
+        "action": "streamUnitVariant",
+        "stage": 6,
+        "elapsed": 74.99999999999703,
+        "phase": "reward",
+        "required": false,
+        "bodies": [],
+        "offers": [],
+        "callers": [
+          "at view.<computed> [as streamUnitVariant]",
+          "at run"
+        ]
+      },
+      {
+        "action": "retire",
+        "stage": 7,
+        "elapsed": 89.99999999999618,
+        "phase": "reward",
+        "required": false,
+        "bodies": [],
+        "offers": [],
+        "callers": [
+          "at view.retireOptional",
+          "at Tae.trimIdleUnitAssets",
+          "at Tae.retainRequiredUnits",
+          "at Tae.prepareCurrentAssets",
+          "at async Qse.prepare"
+        ]
+      },
+      {
+        "action": "ensureUnitVariant",
+        "stage": 15,
+        "elapsed": 119.99999999999447,
+        "phase": "reward",
+        "required": true,
+        "bodies": [],
+        "offers": [],
+        "callers": [
+          "at view.<computed> [as ensureUnitVariant]",
+          "at Tae.prepareCurrentAssets",
+          "at async Qse.prepare"
+        ]
+      },
+      {
+        "action": "body",
+        "stage": 16,
+        "elapsed": 21.03333333333342,
+        "phase": "battle",
+        "required": true,
+        "bodies": [
+          {
+            "id": 18804,
+            "team": "player",
+            "temporary": "armed",
+            "identity": "marauder.3",
+            "armed": "N02"
+          }
+        ],
+        "offers": [],
+        "callers": [
+          "at w.refreshStats",
+          "at Po",
+          "at mee",
+          "at FJ.step",
+          "at w.step"
+        ]
+      },
+      {
+        "action": "body",
+        "stage": 16,
+        "elapsed": 71.48333333333056,
+        "phase": "battle",
+        "required": true,
+        "bodies": [
+          {
+            "id": 20186,
+            "team": "player",
+            "temporary": "armed",
+            "identity": "marauder.3",
+            "armed": "B05"
+          }
+        ],
+        "offers": [],
+        "callers": [
+          "at w.refreshStats",
+          "at Po",
+          "at IC",
+          "at us",
+          "at FJ.updateTalentSupport"
+        ]
+      },
+      {
+        "action": "body",
+        "stage": 16,
+        "elapsed": 71.63333333333055,
+        "phase": "battle",
+        "required": true,
+        "bodies": [
+          {
+            "id": 20186,
+            "team": "player",
+            "temporary": "armed",
+            "identity": "marauder.3",
+            "armed": "B05"
+          },
+          {
+            "id": 20196,
+            "team": "player",
+            "temporary": "armed",
+            "identity": "marauder.3",
+            "armed": "B05"
+          }
+        ],
+        "offers": [],
+        "callers": [
+          "at w.refreshStats",
+          "at Po",
+          "at IC",
+          "at us",
+          "at FJ.updateTalentSupport"
+        ]
+      },
+      {
+        "action": "body",
+        "stage": 16,
+        "elapsed": 84.64999999999648,
+        "phase": "battle",
+        "required": true,
+        "bodies": [
+          {
+            "id": 20186,
+            "team": "player",
+            "temporary": "armed",
+            "identity": "marauder.3",
+            "armed": "B05"
+          },
+          {
+            "id": 20196,
+            "team": "player",
+            "temporary": "armed",
+            "identity": "marauder.3",
+            "armed": "B05"
+          },
+          {
+            "id": 20520,
+            "team": "player",
+            "temporary": "armed",
+            "identity": "marauder.3",
+            "armed": "N02"
+          }
+        ],
+        "offers": [],
+        "callers": [
+          "at w.refreshStats",
+          "at Po",
+          "at mee",
+          "at FJ.step",
+          "at w.step"
+        ]
+      },
+      {
+        "action": "body",
+        "stage": 16,
+        "elapsed": 92.28333333332938,
+        "phase": "battle",
+        "required": true,
+        "bodies": [
+          {
+            "id": 20520,
+            "team": "player",
+            "temporary": "armed",
+            "identity": "marauder.3",
+            "armed": "N02"
+          },
+          {
+            "id": 20677,
+            "team": "player",
+            "temporary": "armed",
+            "identity": "marauder.3",
+            "armed": "B05"
+          }
+        ],
+        "offers": [],
+        "callers": [
+          "at w.refreshStats",
+          "at Po",
+          "at IC",
+          "at us",
+          "at FJ.updateTalentSupport"
+        ]
+      },
+      {
+        "action": "body",
+        "stage": 16,
+        "elapsed": 126.78333333332742,
+        "phase": "battle",
+        "required": true,
+        "bodies": [
+          {
+            "id": 21197,
+            "team": "player",
+            "temporary": "armed",
+            "identity": "marauder.3",
+            "armed": "N02"
+          }
+        ],
+        "offers": [],
+        "callers": [
+          "at w.refreshStats",
+          "at Po",
+          "at mee",
+          "at FJ.step",
+          "at w.step"
+        ]
+      },
+      {
+        "action": "retire",
+        "stage": 16,
+        "elapsed": 150.0000000000115,
+        "phase": "reward",
+        "required": false,
+        "bodies": [],
+        "offers": [
+          {
+            "id": "elite.marauder.3",
+            "sold": true
+          }
+        ],
+        "callers": [
+          "at view.retireOptional",
+          "at Tae.trimIdleUnitAssets",
+          "at Tae.retainRequiredUnits",
+          "at Tae.prepareCurrentAssets",
+          "at async Qse.prepare"
+        ]
+      },
+      {
+        "action": "ensureUnitVariant",
+        "stage": 17,
+        "elapsed": 0,
+        "phase": "battle",
+        "required": false,
+        "bodies": [],
+        "offers": [
+          {
+            "id": "elite.marauder.3",
+            "sold": true
+          }
+        ],
+        "callers": [
+          "at view.<computed> [as ensureUnitVariant]",
+          "at Tae.prepareRosterAssets",
+          "at te"
+        ]
+      },
+      {
+        "action": "retire",
+        "stage": 17,
+        "elapsed": 150.0000000000115,
+        "phase": "reward",
+        "required": false,
+        "bodies": [],
+        "offers": [],
+        "callers": [
+          "at view.retireOptional",
+          "at Tae.trimIdleUnitAssets",
+          "at Tae.retainRequiredUnits",
+          "at Tae.prepareCurrentAssets",
+          "at async Qse.prepare"
+        ]
+      },
+      {
+        "action": "body",
+        "stage": 18,
+        "elapsed": 50.53333333333175,
+        "phase": "battle",
+        "required": false,
+        "bodies": [
+          {
+            "id": 4224,
+            "team": "player",
+            "identity": "marauder.3",
+            "armed": "W02"
+          }
+        ],
+        "offers": [],
+        "callers": [
+          "at w.refreshStats",
+          "at FJ.replaceWithElite",
+          "at Xh",
+          "at oD",
+          "at sD"
+        ]
+      },
+      {
+        "action": "ensureUnitVariant",
+        "stage": 18,
+        "elapsed": 50.53333333333175,
+        "phase": "battle",
+        "required": false,
+        "bodies": [
+          {
+            "id": 4224,
+            "team": "player",
+            "identity": "marauder.3",
+            "armed": "W02"
+          }
+        ],
+        "offers": [],
+        "callers": [
+          "at view.<computed> [as ensureUnitVariant]",
+          "at Tae.prepareRosterAssets",
+          "at te"
+        ]
+      }
+    ],
+    "targetDrawn": [
+      16,
+      18,
+      "endless"
+    ]
+  },
+  "candidate": {
+    "build": "6cfdf724a8b53485adec7ed55fd07fc3a8db90b001118f517c46d1e99eed89f1",
+    "stages": [
+      {
+        "stage": 1,
+        "trackedMiB": [
+          382.3,
+          382.6,
+          382.6
+        ],
+        "processPrivateMiB": [
+          3010.4,
+          3011.9,
+          3138.8
+        ],
+        "battleFrames": 907,
+        "maxFrameMs": 50.1
+      },
+      {
+        "stage": 2,
+        "trackedMiB": [
+          374.1,
+          328.6,
+          328.6
+        ],
+        "processPrivateMiB": [
+          3064,
+          2828.6,
+          2874.3
+        ],
+        "battleFrames": 883,
+        "maxFrameMs": 133.6
+      },
+      {
+        "stage": 3,
+        "trackedMiB": [
+          332.5,
+          361.4,
+          361.1
+        ],
+        "processPrivateMiB": [
+          3137.8,
+          3293.8,
+          3348.6
+        ],
+        "battleFrames": 839,
+        "maxFrameMs": 199.9
+      },
+      {
+        "stage": 4,
+        "trackedMiB": [
+          451.8,
+          476.8,
+          476.6
+        ],
+        "processPrivateMiB": [
+          3699.9,
+          3547.3,
+          3588.3
+        ],
+        "battleFrames": 824,
+        "maxFrameMs": 116.1
+      },
+      {
+        "stage": 5,
+        "trackedMiB": [
+          480.1,
+          466.1,
+          466
+        ],
+        "processPrivateMiB": [
+          3786.7,
+          3653.9,
+          3716.2
+        ],
+        "battleFrames": 916,
+        "maxFrameMs": 116.5
+      },
+      {
+        "stage": 6,
+        "trackedMiB": [
+          439.2,
+          464.5,
+          479.2
+        ],
+        "processPrivateMiB": [
+          3773.6,
+          3715.3,
+          3907.2
+        ],
+        "battleFrames": 1026,
+        "maxFrameMs": 216.7
+      },
+      {
+        "stage": 7,
+        "trackedMiB": [
+          541.7,
+          493.5,
+          493.5
+        ],
+        "processPrivateMiB": [
+          4082.3,
+          3937.8,
+          4025.9
+        ],
+        "battleFrames": 888,
+        "maxFrameMs": 100
+      },
+      {
+        "stage": 8,
+        "trackedMiB": [
+          532.9,
+          507.4,
+          507.4
+        ],
+        "processPrivateMiB": [
+          4317.4,
+          4039.6,
+          4106.7
+        ],
+        "battleFrames": 851,
+        "maxFrameMs": 100
+      },
+      {
+        "stage": 9,
+        "trackedMiB": [
+          585.3,
+          582,
+          582
+        ],
+        "processPrivateMiB": [
+          4611.7,
+          4404.3,
+          4464.5
+        ],
+        "battleFrames": 836,
+        "maxFrameMs": 116.7
+      },
+      {
+        "stage": 10,
+        "trackedMiB": [
+          589.9,
+          567.9,
+          567.9
+        ],
+        "processPrivateMiB": [
+          4832.6,
+          4557.3,
+          4657.2
+        ],
+        "battleFrames": 879,
+        "maxFrameMs": 83.2
+      },
+      {
+        "stage": 11,
+        "trackedMiB": [
+          596.1,
+          604.6,
+          604.7
+        ],
+        "processPrivateMiB": [
+          4774.5,
+          4648.2,
+          4731.1
+        ],
+        "battleFrames": 831,
+        "maxFrameMs": 116.7
+      },
+      {
+        "stage": 12,
+        "trackedMiB": [
+          676.4,
+          634.5,
+          634.5
+        ],
+        "processPrivateMiB": [
+          5115.8,
+          5092.8,
+          5175.5
+        ],
+        "battleFrames": 1922,
+        "maxFrameMs": 100
+      },
+      {
+        "stage": 13,
+        "trackedMiB": [
+          715.4,
+          651.9,
+          651.9
+        ],
+        "processPrivateMiB": [
+          5599.6,
+          5339,
+          5401.4
+        ],
+        "battleFrames": 1000,
+        "maxFrameMs": 150.1
+      },
+      {
+        "stage": 14,
+        "trackedMiB": [
+          707.8,
+          682.2,
+          682.2
+        ],
+        "processPrivateMiB": [
+          5843,
+          5374.9,
+          5477.3
+        ],
+        "battleFrames": 1123,
+        "maxFrameMs": 132.9
+      },
+      {
+        "stage": 15,
+        "trackedMiB": [
+          819.2,
+          780.7,
+          780.7
+        ],
+        "processPrivateMiB": [
+          6286.3,
+          5678.9,
+          5798.7
+        ],
+        "battleFrames": 1294,
+        "maxFrameMs": 133.3
+      },
+      {
+        "stage": 16,
+        "trackedMiB": [
+          735.7,
+          765.1,
+          765.1
+        ],
+        "processPrivateMiB": [
+          5898.6,
+          5779.6,
+          5870.3
+        ],
+        "battleFrames": 1805,
+        "maxFrameMs": 816.6
+      },
+      {
+        "stage": 17,
+        "trackedMiB": [
+          751.2,
+          764.2,
+          764.2
+        ],
+        "processPrivateMiB": [
+          5950.6,
+          5766.4,
+          5878.7
+        ],
+        "battleFrames": 1711,
+        "maxFrameMs": 199.8
+      },
+      {
+        "stage": 18,
+        "trackedMiB": [
+          850.9,
+          830.7,
+          830.7
+        ],
+        "processPrivateMiB": [
+          6032.8,
+          6037.9,
+          6195.1
+        ],
+        "battleFrames": 1320,
+        "maxFrameMs": 150.5
+      }
+    ],
+    "endlessMiB": 855.1,
+    "trackedPeakMiB": 933.9,
+    "processSamples": 55,
+    "processSamplePeakMiB": 6286.3,
+    "pressure": [
+      {
+        "stage": 1,
+        "time": 0.43333333333333335,
+        "phase": "battle",
+        "pressure": false,
+        "bytes": 400905688
+      },
+      {
+        "stage": 6,
+        "time": 405,
+        "phase": "reward",
+        "pressure": true,
+        "bytes": 565476816
+      }
+    ],
+    "reloads": [
+      {
+        "key": "elite.marine.2",
+        "stage": 8,
+        "phase": "reward",
+        "gate": true,
+        "loadMs": 155.5,
+        "maxFrameMs": 50
+      },
+      {
+        "key": "elite.marauder.1",
+        "stage": 9,
+        "phase": "reward",
+        "gate": true,
+        "loadMs": 92.1,
+        "maxFrameMs": 33.4
+      },
+      {
+        "key": "elite.marine.2",
+        "stage": 10,
+        "phase": "reward",
+        "gate": true,
+        "loadMs": 85.7,
+        "maxFrameMs": 17.1
+      },
+      {
+        "key": "elite.marauder.1",
+        "stage": 11,
+        "phase": "reward",
+        "gate": true,
+        "loadMs": 86.9,
+        "maxFrameMs": 49.9
+      },
+      {
+        "key": "elite.tank.3",
+        "stage": 13,
+        "phase": "reward",
+        "gate": true,
+        "loadMs": 149.9,
+        "maxFrameMs": 66.7
+      },
+      {
+        "key": "elite.marauder.1",
+        "stage": 13,
+        "phase": "reward",
+        "gate": true,
+        "loadMs": 90,
+        "maxFrameMs": 33.3
+      },
+      {
+        "key": "elite.medivac.1",
+        "stage": 14,
+        "phase": "reward",
+        "gate": true,
+        "loadMs": 74.5,
+        "maxFrameMs": 16.7
+      },
+      {
+        "key": "elite.marauder.3",
+        "stage": 14,
+        "phase": "reward",
+        "gate": true,
+        "loadMs": 84.9,
+        "maxFrameMs": 16.7
+      },
+      {
+        "key": "elite.medivac.3",
+        "stage": 16,
+        "phase": "reward",
+        "gate": true,
+        "loadMs": 96.9,
+        "maxFrameMs": 16.7
+      },
+      {
+        "key": "elite.marauder.3",
+        "stage": 17,
+        "phase": "reward",
+        "gate": true,
+        "loadMs": 108.5,
+        "maxFrameMs": 16.8
+      },
+      {
+        "key": "elite.hellion.1",
+        "stage": 18,
+        "phase": "endless-ready",
+        "gate": true,
+        "loadMs": 82.6,
+        "maxFrameMs": 16.8
+      },
+      {
+        "key": "elite.tank.3",
+        "stage": 18,
+        "phase": "endless-ready",
+        "gate": true,
+        "loadMs": 125.5,
+        "maxFrameMs": 33.5
+      }
+    ],
+    "targetWindows": {
+      "17": {
+        "frames": 19,
+        "maxMs": 199.80000000004657
+      },
+      "18": {
+        "frames": 37,
+        "maxMs": 99.90000000002328
+      }
+    },
+    "targetEvents": [
+      {
+        "action": "streamUnitVariant",
+        "stage": 6,
+        "elapsed": 74.99999999999703,
+        "phase": "reward",
+        "required": false,
+        "bodies": [],
+        "offers": [],
+        "callers": [
+          "at view.<computed> [as streamUnitVariant]",
+          "at run"
+        ]
+      },
+      {
+        "action": "retire",
+        "stage": 7,
+        "elapsed": 89.99999999999618,
+        "phase": "reward",
+        "required": false,
+        "bodies": [],
+        "offers": [],
+        "callers": [
+          "at view.retireOptional",
+          "at Dae.trimIdleUnitAssets",
+          "at Dae.retainRequiredUnits",
+          "at Dae.prepareCurrentAssets",
+          "at async $se.prepare"
+        ]
+      },
+      {
+        "action": "ensureUnitVariant",
+        "stage": 14,
+        "elapsed": 119.99999999999447,
+        "phase": "reward",
+        "required": true,
+        "bodies": [],
+        "offers": [],
+        "callers": [
+          "at view.<computed> [as ensureUnitVariant]",
+          "at Dae.prepareCurrentAssets",
+          "at async $se.prepare"
+        ]
+      },
+      {
+        "action": "body",
+        "stage": 16,
+        "elapsed": 21.03333333333342,
+        "phase": "battle",
+        "required": true,
+        "bodies": [
+          {
+            "id": 18804,
+            "team": "player",
+            "temporary": "armed",
+            "identity": "marauder.3",
+            "armed": "N02"
+          }
+        ],
+        "offers": [],
+        "callers": [
+          "at w.refreshStats",
+          "at Fo",
+          "at zo",
+          "at PJ.step",
+          "at w.step"
+        ]
+      },
+      {
+        "action": "body",
+        "stage": 16,
+        "elapsed": 71.48333333333056,
+        "phase": "battle",
+        "required": true,
+        "bodies": [
+          {
+            "id": 20186,
+            "team": "player",
+            "temporary": "armed",
+            "identity": "marauder.3",
+            "armed": "B05"
+          }
+        ],
+        "offers": [],
+        "callers": [
+          "at w.refreshStats",
+          "at Fo",
+          "at dw",
+          "at vs",
+          "at PJ.updateTalentSupport"
+        ]
+      },
+      {
+        "action": "body",
+        "stage": 16,
+        "elapsed": 71.63333333333055,
+        "phase": "battle",
+        "required": true,
+        "bodies": [
+          {
+            "id": 20186,
+            "team": "player",
+            "temporary": "armed",
+            "identity": "marauder.3",
+            "armed": "B05"
+          },
+          {
+            "id": 20196,
+            "team": "player",
+            "temporary": "armed",
+            "identity": "marauder.3",
+            "armed": "B05"
+          }
+        ],
+        "offers": [],
+        "callers": [
+          "at w.refreshStats",
+          "at Fo",
+          "at dw",
+          "at vs",
+          "at PJ.updateTalentSupport"
+        ]
+      },
+      {
+        "action": "body",
+        "stage": 16,
+        "elapsed": 84.64999999999648,
+        "phase": "battle",
+        "required": true,
+        "bodies": [
+          {
+            "id": 20186,
+            "team": "player",
+            "temporary": "armed",
+            "identity": "marauder.3",
+            "armed": "B05"
+          },
+          {
+            "id": 20196,
+            "team": "player",
+            "temporary": "armed",
+            "identity": "marauder.3",
+            "armed": "B05"
+          },
+          {
+            "id": 20520,
+            "team": "player",
+            "temporary": "armed",
+            "identity": "marauder.3",
+            "armed": "N02"
+          }
+        ],
+        "offers": [],
+        "callers": [
+          "at w.refreshStats",
+          "at Fo",
+          "at zo",
+          "at PJ.step",
+          "at w.step"
+        ]
+      },
+      {
+        "action": "body",
+        "stage": 16,
+        "elapsed": 92.28333333332938,
+        "phase": "battle",
+        "required": true,
+        "bodies": [
+          {
+            "id": 20520,
+            "team": "player",
+            "temporary": "armed",
+            "identity": "marauder.3",
+            "armed": "N02"
+          },
+          {
+            "id": 20677,
+            "team": "player",
+            "temporary": "armed",
+            "identity": "marauder.3",
+            "armed": "B05"
+          }
+        ],
+        "offers": [],
+        "callers": [
+          "at w.refreshStats",
+          "at Fo",
+          "at dw",
+          "at vs",
+          "at PJ.updateTalentSupport"
+        ]
+      },
+      {
+        "action": "body",
+        "stage": 16,
+        "elapsed": 126.78333333332742,
+        "phase": "battle",
+        "required": true,
+        "bodies": [
+          {
+            "id": 21197,
+            "team": "player",
+            "temporary": "armed",
+            "identity": "marauder.3",
+            "armed": "N02"
+          }
+        ],
+        "offers": [],
+        "callers": [
+          "at w.refreshStats",
+          "at Fo",
+          "at zo",
+          "at PJ.step",
+          "at w.step"
+        ]
+      },
+      {
+        "action": "retire",
+        "stage": 16,
+        "elapsed": 150.0000000000115,
+        "phase": "reward",
+        "required": false,
+        "bodies": [],
+        "offers": [
+          {
+            "id": "elite.marauder.3",
+            "sold": true
+          }
+        ],
+        "callers": [
+          "at view.retireOptional",
+          "at Dae.trimIdleUnitAssets",
+          "at Dae.retainRequiredUnits",
+          "at Dae.prepareCurrentAssets",
+          "at async $se.prepare"
+        ]
+      },
+      {
+        "action": "ensureUnitVariant",
+        "stage": 17,
+        "elapsed": 150.0000000000115,
+        "phase": "reward",
+        "required": true,
+        "bodies": [],
+        "offers": [],
+        "callers": [
+          "at view.<computed> [as ensureUnitVariant]",
+          "at Dae.prepareCurrentAssets",
+          "at async $se.prepare"
+        ]
+      },
+      {
+        "action": "body",
+        "stage": 18,
+        "elapsed": 50.53333333333175,
+        "phase": "battle",
+        "required": true,
+        "bodies": [
+          {
+            "id": 4224,
+            "team": "player",
+            "identity": "marauder.3",
+            "armed": "W02"
+          }
+        ],
+        "offers": [],
+        "callers": [
+          "at w.refreshStats",
+          "at PJ.replaceWithElite",
+          "at Nh",
+          "at RE",
+          "at zE"
+        ]
+      }
+    ],
+    "targetDrawn": [
+      16,
+      18,
+      "endless"
+    ]
+  }
+}

@@ -1,4 +1,5 @@
 import {validContentPlan} from '../progression/run-content';
+import {ARMED_CARD_BY_ID} from '../../data/terran-armed-support';
 import {validateFunShop} from '../fun-shop/state';
 import {validateEndlessState} from '../../data/endless';
 import {validateEndlessStamp} from '../../data/enemy-tuning';
@@ -21,7 +22,7 @@ import {FAMILY_MODES,type ModeFamily} from '../combat/family-actions';
 import {validateSwarm} from '../../data/swarm';
 import type {RunState} from '../run-state';
 import {validateExpedition} from '../expedition-state';
-import {ALL_FAMILIES,combatRace,isAirHeroType,type FamilyId} from '../../data/races';
+import {ALL_FAMILIES,combatRace,isAirHeroType,isSupportCombatType,type FamilyId} from '../../data/races';
 import {allocationCost,allocationPoints,validateTalentAllocation} from '../../data/mvp-talents';
 import {ELITES} from '../../data/elites';
 import {HEROES} from '../../data/heroes';
@@ -44,6 +45,10 @@ export const RUN_FIELDS=[
  // Lone hunter effective growth/cache rebuilds from raw absorptions; stored contributions stay unchanged.
  // Saved inside entities.heroCombat / heroCasts: cycle, warmup, cloak episode/charge, protection expiry, cast rank/targets/view.
  // Saved in expedition.support.mines: phase, stable target, emergence timer, point/facing. Routes/poses rebuild.
+ // expedition.build preserves branch progress and frozen node choices; support.armed
+ // preserves acquired ranks/reserves, purchase receipts, dispatch/volley cursors,
+ // raider detonation receipts and the active planetary sweep/pulse cursor.
+ // Missing optional objects in existing player checkpoints mean no new acquisitions.
  'expedition','runConfig','campaign18Runtime','swarm',
  'podSerial','time','tick','stage','stageElapsed','stageStartedAt','phase','paused','battlefield','endlessEntry','endlessTransitionReceipt','endlessRoundReceipts','runId','endlessAwardedMinutes','endless',
  // endless.pacing is optional for current-schema legacy saves; switch only on the next round.
@@ -78,7 +83,7 @@ export function validateRunData(data:RunData,defaults:object,equipment?:Starship
  for(const h of [f.horde,f.lastHorde])if(h&&(!HORDE_RULES[h.kind]||!Number.isInteger(h.spawned)||h.spawned<0||h.spawned>HORDE_RULES[h.kind].total))throw Error('替代虫群累计数量无效');
  if(!(f?.rootGenerations instanceof Map)||!(f.rootPositions instanceof Map)||[...f.rootGenerations].some(([id,t])=>!Number.isSafeInteger(id)||!Number.isFinite(t))||[...f.rootPositions].some(([id,p])=>!Number.isSafeInteger(id)||![p.x,p.z].every(Number.isFinite)))throw Error('定身身份记录无效');
  if(!f||!(f.roots instanceof Map)||!Array.isArray(f.pickups)||f.pickups.length>3||![f.stage,f.nextPickup,f.nextHorde,f.attackUntil,f.armorUntil].every(Number.isFinite)||f.pickups.some(p=>!['medical','firepower','armor','nuke','root'].includes(p.kind)||![p.id,p.x,p.z,p.born].every(Number.isFinite))||[...f.roots].some(([id,t])=>!Number.isSafeInteger(id)||!Number.isFinite(t))||[f.horde,f.lastHorde].some(h=>h&&(!['zerglings','roachHydra','mutalisks','ultralisks'].includes(h.kind)||![h.started,h.until,h.next,h.spawned,h.replaced].every(Number.isFinite)||Math.abs(h.until-h.started-20)>1e-6)))throw Error('地图拾取物或虫群状态无效');
- validateFunShop(data.funShop);validateEncounterState(data.encounters,data.entities);validateExpedition(data.expedition);validateMissionState(data.missions);
+ validateFunShop(data.funShop);validateEncounterState(data.encounters,data.entities);validateExpedition(data.expedition,data.tick);validateMissionState(data.missions);
  const attacks=new Map(equipment?.weak.find(w=>w.name==='attacks')?.entries??[]);
  const areaFactors=(u:import('../types').Entity)=>{const effects=(attacks.get(u) as AttackBudget|undefined)?.effects??[];return {radius:1+effects.filter(e=>e.key==='weapon_area').reduce((n,e)=>n+e.values[0],0),damage:1+effects.filter(e=>e.key==='weapon_area').reduce((n,e)=>n+e.values[1],0)};};
  validateProtossEliteRun(data.protossElites,data.time,data.entities,data.nextId);validateTeamAuraRun(data.teamAuras,data.time,data.entities);validateZergEliteRun(data.zergElites,areaFactors);validateTerranEliteRun(data.terranElites);validateEliteSupport(data.eliteSupport);validateSwarm(data.swarm);validateWeaponFlights(data.weaponFlights);validateHeroAttacks(data.heroAttacks);validateZergHeroRun(data.zergHeroes);validateProtossHeroRun(data.protossHeroes);
@@ -104,11 +109,13 @@ export function validateRunData(data:RunData,defaults:object,equipment?:Starship
  if(!['battle','reward','won','endless-ready','finished','lost'].includes(data.phase)||!['easy','normal','hard','hell'].includes(data.difficulty)||!Number.isSafeInteger(data.tick)||data.tick<0||!Number.isFinite(data.time)||data.time<0||!Number.isInteger(data.stage)||data.stage<1||data.stage>18||typeof data.runId!=='string'||!data.runId||data.runConfig.rulesId!=='mvp-1.0'||data.runConfig.campaignId!=='campaign-18'||!['campaign-kairos-v1','campaign-five-v3'].includes(data.runConfig.mapId)||!data.runConfig.mapHash||!Number.isSafeInteger(data.runConfig.seed)||data.runConfig.difficulty!==data.difficulty||data.runConfig.race!==data.expedition.race||!Number.isFinite(data.wallet?.minerals)||!Number.isFinite(data.wallet?.gas)||data.wallet.minerals<0||data.wallet.gas<0)throw Error('续局基本状态无效');
  if(!data.battlefield||data.battlefield.mode!==(data.endless?'endless':'campaign')||data.battlefield.mapId!==(data.endless?'endless-flat-v1':data.runConfig.mapId)||typeof data.battlefield.mapHash!=='string'||!data.battlefield.mapHash||data.endlessEntry!==null&&(!data.endlessEntry||data.stage!==18||data.endless||data.endlessEntry.id!==data.runId+':endless-entry'||!Number.isSafeInteger(data.endlessEntry.revision)||data.endlessEntry.revision<0||typeof data.endlessEntry.ready!=='boolean')||data.endlessTransitionReceipt!==null&&typeof data.endlessTransitionReceipt!=='string'||!Array.isArray(data.endlessRoundReceipts)||data.endlessRoundReceipts.some(x=>typeof x!=='string')||new Set(data.endlessRoundReceipts).size!==data.endlessRoundReceipts.length)throw Error('续局战场或无尽整备状态无效');
  for(const [id,u] of data.entities){
+  if(u.armed){const a=u.armed,state=data.expedition.support.armed;if(a.blockadeExit&&(!Number.isFinite(a.blockadeExit.x)||!Number.isFinite(a.blockadeExit.z))||!state||!ARMED_CARD_BY_ID[a.cardId]||!Number.isSafeInteger(a.castId)||a.castId<1||a.castId>=state.nextCast||!Number.isSafeInteger(a.deploymentId)||a.deploymentId<1||!Number.isFinite(a.hpFactor)||a.hpFactor<=0||u.team!=='player')throw Error('武装成员来源无效');}
+  if(u.temporaryKind==='armed'&&(!u.armed||u.temporary!==true||!Number.isFinite(u.temporaryUntil)))throw Error('武装临援寿命无效');
   // Plague/behemoth equipment creates temporary Leviathans without hero identity.
   // Their corpses also remain in the intermission checkpoint until normal cleanup.
   const bodies=equipment?.runtime?.advancedBodies,members=equipment?.runtime?.members,body=bodies instanceof Map?bodies.get(id):undefined,member=members instanceof Map?members.get(id):undefined;
   const equipmentLeviathan=u.unitType==='hots_leviathan'&&u.owner==='terran'&&u.temporary===true&&u.heroId===undefined&&!u.attributes.includes('Heroic')&&Number.isFinite(u.temporaryUntil)&&body&&['plague','behemoth'].includes(body.kind)&&member?.origin===body.kind&&member.independent===true&&member.cannotGrow===true&&member.cannotRevive===true;
-  const combatBody=isAirHeroType(u.unitType)?u.owner==='terran'&&(u.heroId===u.unitType||equipmentLeviathan):ALL_FAMILIES.includes(u.unitType as FamilyId);if(!Number.isSafeInteger(id)||u?.id!==id||!combatBody||u.race!==combatRace(u.unitType)||u.team!==(u.owner==='terran'?'player':'enemy')||![u.x,u.z,u.hp,u.maxHp,u.weaponCooldown,u.nextShotAt,u.lastShotAt].every(n=>typeof n==='number'&&!Number.isNaN(n))||u.maxHp<=0)throw Error('续局单位无效');
+  const combatBody=isAirHeroType(u.unitType)?u.owner==='terran'&&(u.heroId===u.unitType||equipmentLeviathan):isSupportCombatType(u.unitType)?u.owner==='terran'&&u.temporaryKind==='armed'&&['B06','O02'].includes(u.armed?.cardId??''):ALL_FAMILIES.includes(u.unitType as FamilyId);if(!Number.isSafeInteger(id)||u?.id!==id||!combatBody||u.race!==combatRace(u.unitType)||u.team!==(u.owner==='terran'?'player':'enemy')||![u.x,u.z,u.hp,u.maxHp,u.weaponCooldown,u.nextShotAt,u.lastShotAt].every(n=>typeof n==='number'&&!Number.isNaN(n))||u.maxHp<=0)throw Error('续局单位无效');
  }
  for(const u of data.entities.values())if(u.rewardSourceKind!==undefined&&(!u.summonKind||!['ordinary','elite','hero','temporary'].includes(u.rewardSourceKind)||!Number.isSafeInteger(u.rewardOwnerId)||!Number.isFinite(u.rewardOwnerGeneration)||u.rewardOwnerId!==u.summonOwnerId))throw Error('召唤物奖励归属无效');
  // Saved: pair identity/rank/regrowth tick, queen cooldown, per-carrier injection receipt.

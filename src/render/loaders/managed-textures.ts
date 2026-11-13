@@ -11,6 +11,9 @@ type Binding={id:string;image?:number;source:THREE.Texture['source'];textures:We
 let swapping=false;
 const bindings=new Map<THREE.Texture['source'],Binding>(),gltfUrls=new WeakMap<GLTF,string>();
 const externalImages=new SharedImageSources();
+// Material-header repairs preserve image indices and binary image payloads.
+const repairedModelHashes=new WeakMap<ArrayBuffer,string>();
+export function identifyRepairedModel(bytes:ArrayBuffer,verifiedSourceHash:string){repairedModelHashes.set(bytes,verifiedSourceHash);}
 export const textureMetrics={decodedPixels:0,swaps:0,rollbacks:0};
 export function pruneRetiredTextureBindings(){for(const [source,b]of bindings){b.textures=b.textures.filter(r=>r.deref());if(!b.textures.length)bindings.delete(source);}}
 export function textureReport(){
@@ -39,7 +42,15 @@ export function registerGltfTextures(g:GLTF,url?:string){
  }
 }
 export class ManagedTextureLoader extends THREE.TextureLoader {
- override async loadAsync(url:string,onProgress?:(event:ProgressEvent)=>void){const texture=await (optimizedGraphics()?imageDecodeLane.run(()=>super.loadAsync(url,onProgress)):super.loadAsync(url,onProgress)),id=httpStore()?.idForUrl(url);return id?trackTexture(texture,id):texture;}
+ override async loadAsync(url:string,onProgress?:(event:ProgressEvent)=>void){
+  if(!optimizedGraphics())return super.loadAsync(url,onProgress);
+  const id=httpStore()?.idForUrl(url),decode=()=>imageDecodeLane.run(()=>super.loadAsync(url,onProgress));
+  if(!id)return decode();
+  // Samplers remain independent while identical asset URLs share their decoded pixels.
+  const key=JSON.stringify(['standalone',id,url,this.crossOrigin]);
+  const texture=await externalImages.texture(key,decode) as THREE.Texture<HTMLImageElement>;
+  return trackTexture(texture,id);
+ }
 }
 export class ManagedGLTFLoader extends GLTFLoader {
  constructor(manager?:THREE.LoadingManager){super(manager);this.register(parser=>{
@@ -61,8 +72,10 @@ export class ManagedGLTFLoader extends GLTFLoader {
  override parse(data:ArrayBuffer|string,path:string,onLoad:(g:GLTF)=>void,onError?:(event:ErrorEvent)=>void){
   const store=httpStore();
   if(!optimizedGraphics()||!store||typeof data==='string'){super.parse(data,path,onLoad,onError);return;}
-  void crypto.subtle.digest('SHA-256',data).then(digest=>{
-   const hash=[...new Uint8Array(digest)].map(v=>v.toString(16).padStart(2,'0')).join(''),identities=gltfImageIdentities(store.manifest,hash);
+  const repaired=repairedModelHashes.get(data);
+  const hashJob=repaired?Promise.resolve(repaired):crypto.subtle.digest('SHA-256',data).then(digest=>[...new Uint8Array(digest)].map(v=>v.toString(16).padStart(2,'0')).join(''));
+  void hashJob.then(hash=>{
+   const identities=gltfImageIdentities(store.manifest,hash);
    if(!identities){super.parse(data,path,onLoad,onError);return;}
    const plugin=(parser:import('three/addons/loaders/GLTFLoader.js').GLTFParser)=>{
     const load=parser.loadImageSource.bind(parser);

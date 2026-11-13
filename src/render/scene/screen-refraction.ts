@@ -35,6 +35,7 @@ export class ScreenRefraction extends Pass {
   // Private registrations can be disposed on failure without touching live
   // materials; a late compiler result has no render/publish continuation.
   const prepared=cloneForPreparation(root),camera=this.camera.clone();camera.layers.set(DISPLACEMENT_LAYER);
+  if(prepared.root instanceof THREE.Scene)prepared.root.fog=null;
   const target=new THREE.WebGLRenderTarget(1,1,{type:THREE.HalfFloatType,depthBuffer:false}),controller=new AbortController();
   this.preparations.add(controller);const abort=()=>controller.abort();control.signal?.addEventListener('abort',abort,{once:true});
   let poll:ReturnType<typeof setTimeout>|undefined;
@@ -45,10 +46,11 @@ export class ScreenRefraction extends Pass {
    await waitForAsset(pending,'折射着色器编译',control.timeoutMs??ASSET_REQUEST_TIMEOUT,controller.signal);
    if(controller.signal.aborted||stopped())throw Error('折射画面准备已取消或上下文失效');
    const old=renderer.getRenderTarget(),depth=displacementFrame.depth.value,size=displacementFrame.size.value.clone(),white=new THREE.DataTexture(new Uint8Array([255,255,255,255]),1,1);white.needsUpdate=true;
+   const fieldScene=root instanceof THREE.Scene?root:undefined,fog=fieldScene?.fog??null;
    // The successful live draw acquires the warmed programs before the private
    // registrations are retired, preserving prewarming and original effects.
-   try{displacementFrame.depth.value=white;displacementFrame.size.value.set(1,1);renderer.setRenderTarget(target);renderer.render(root,camera);}
-   finally{displacementFrame.depth.value=depth;displacementFrame.size.value.copy(size);renderer.setRenderTarget(old);white.dispose();}
+   try{if(fieldScene)fieldScene.fog=null;displacementFrame.depth.value=white;displacementFrame.size.value.set(1,1);renderer.setRenderTarget(target);renderer.render(root,camera);}
+   finally{if(fieldScene)fieldScene.fog=fog;displacementFrame.depth.value=depth;displacementFrame.size.value.copy(size);renderer.setRenderTarget(old);white.dispose();}
   }finally{clearTimeout(poll);control.signal?.removeEventListener('abort',abort);this.preparations.delete(controller);prepared.dispose();target.dispose();}
  }
  override render(renderer:THREE.WebGLRenderer,write:THREE.WebGLRenderTarget,read:THREE.WebGLRenderTarget){
@@ -56,12 +58,14 @@ export class ScreenRefraction extends Pass {
   this.active=0;this.scene.traverseVisible(n=>{if(n instanceof THREE.Mesh&&n.userData.displacement&&(!(n instanceof THREE.InstancedMesh)||n.count>0))this.active++;});
   this.needsSwap=this.active>0;if(!this.active)return;
   if(!read.depthTexture)throw Error('Original refraction requires current scene depth');
-  const mask=this.camera.layers.mask,background=this.scene.background,target=renderer.getRenderTarget(),autoClear=renderer.autoClear,color=renderer.getClearColor(new THREE.Color()),alpha=renderer.getClearAlpha();
+  const mask=this.camera.layers.mask,background=this.scene.background,fog=this.scene.fog,target=renderer.getRenderTarget(),autoClear=renderer.autoClear,color=renderer.getClearColor(new THREE.Color()),alpha=renderer.getClearAlpha();
   try{
    displacementFrame.depth.value=read.depthTexture;displacementFrame.size.value.set(read.width,read.height);
-   this.camera.layers.set(DISPLACEMENT_LAYER);this.scene.background=null;renderer.setRenderTarget(this.field);renderer.setClearColor(0,0);renderer.autoClear=true;renderer.render(this.scene,this.camera);
+   // The field stores signed offsets. Its shaders have no fog channel. Match the
+   // precompiled field variant even when the colour pass uses exponential fog.
+   this.camera.layers.set(DISPLACEMENT_LAYER);this.scene.background=null;this.scene.fog=null;renderer.setRenderTarget(this.field);renderer.setClearColor(0,0);renderer.autoClear=true;renderer.render(this.scene,this.camera);
    this.material.uniforms.color.value=read.texture;this.material.uniforms.depth.value=read.depthTexture;renderer.setRenderTarget(this.renderToScreen?null:write);this.quad.render(renderer);
-  }finally{this.camera.layers.mask=mask;this.scene.background=background;renderer.autoClear=autoClear;renderer.setClearColor(color,alpha);renderer.setRenderTarget(target);}
+  }finally{this.camera.layers.mask=mask;this.scene.background=background;this.scene.fog=fog;renderer.autoClear=autoClear;renderer.setClearColor(color,alpha);renderer.setRenderTarget(target);}
  }
  report(){return {enabled:this.enabled,activeSurfaces:this.active,width:this.field.width,height:this.field.height,format:'signed-half-float',strengthUnits:'render-pixels',clientAmplitudeCalibrated:false};}
  override dispose(){this.invalidatePreparation();this.field.dispose();this.material.dispose();this.quad.dispose();}

@@ -60,6 +60,7 @@ try{
  staged=true;
 }finally{if(!staged)await fs.rm(staging,{recursive:true,force:true});}
 const exists=async target=>fs.stat(target).then(()=>true,()=>false);
+await fs.mkdir(path.dirname(published),{recursive:true});
 if(await exists(backup))await fs.rm(backup,{recursive:true,force:true});
 const hadPublished=await exists(published);
 if(hadPublished)await fs.rename(published,backup);

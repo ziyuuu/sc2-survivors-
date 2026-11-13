@@ -1,0 +1,6 @@
+[
+  {"id":"model.support.medkit","name":"pickupmedicrecharge","assetPath":"Assets/Doodads/PickupMedicRecharge/PickupMedicRecharge.m3","modelDataId":"PickupMedicRecharge","definitionLayer":"liberty.sc2campaign"},
+  {"id":"model.support.repair_drone","name":"repair_drone_mp","assetPath":"Assets/Units/Terran/Repair_Drone_MP/Repair_Drone_MP.m3","modelDataId":"RepairDrone","definitionLayer":"liberty"},
+  {"id":"model.support.repair_drone.death","name":"repair_drone_mp_death","assetPath":"Assets/Units/Terran/Repair_Drone_MP_Death/Repair_Drone_MP_Death.m3","modelDataId":"RepairDroneDeath","definitionLayer":"liberty"},
+  {"id":"model.support.sensor_payload","name":"autoturretpodmissile","assetPath":"Assets/Effects/Terran/AutoTurretPodMissile/AutoTurretPodMissile.m3","modelDataId":"RavenRepairDroneReleaseWeapon","definitionLayer":"liberty"}
+]

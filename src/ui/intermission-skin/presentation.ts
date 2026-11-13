@@ -1,4 +1,5 @@
 import type {World} from '../../simulation/world';
+import {armedRank} from '../../simulation/progression/build-progress';
 import type {ExpeditionReward} from '../../simulation/progression/expedition-drafts';
 import type {CardView} from '../../ui/presentation/reference-card';
 import {DEVELOPMENT,familyLine,type ProductionLineId} from '../../data/expedition-buildings';
@@ -39,6 +40,7 @@ export function objectIndex(c:CardView){
 }
 /** Presentation reads the existing quote; it never recalculates prices or redirects effects. */
 export function cardPresentation(w:World,c:CardView,r?:ExpeditionReward){
+ if(c.armedId){const rank=armedRank(w.expedition.support,c.armedId);return {current:rank?rank+'级':'',gain:'',simple:c.stat,detail:c.detail,equipment:null};}
  const source=c.id.slice(c.id.indexOf(':')+1);
  const catalogueEffect=!r&&source.startsWith('card.')?source.split('.')[1]:undefined;
  const e=r?.expeditionEffect,level=(n:number)=>n+'级';

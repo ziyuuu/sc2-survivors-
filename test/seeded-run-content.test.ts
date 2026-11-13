@@ -9,8 +9,11 @@ import {stageContentAssets} from '../src/app/stage-content-assets';
 import {battleScenePreload} from '../src/app/battle-scene-preload';
 import {combatPreloadPlan} from '../src/app/combat-preload-plan';
 import {draftContext} from '../src/simulation/expedition-economy';
+import {seededBossVariant} from '../src/simulation/boss-loot';
 import {ELITES} from '../src/data/elites';
 import {SpecialTerrain} from '../src/simulation/special-stages/terrain';
+import {campaignTerrain,chooseCampaignMap} from '../src/data/campaign-map';
+import type {TerrainQuery} from '../src/data/map-definition';
 import {BattleRenderer} from '../src/render/scene/battle-renderer';
 import {RunSession} from '../src/app/run-session';
 
@@ -19,6 +22,34 @@ function game(seed:number){
  assert(w.start(undefined,createContentPlan(seed,'terran','normal')));
  return w;
 }
+test('boss preparation selects the legal seeded variant even when the scheduled elite is capped',()=>{
+ const stage=createContentPlan(529,'terran','easy').stages[17];
+ assert(stage.elites.includes('marauder.1'));
+ const third=ELITES['marauder.3'],first=ELITES['marauder.1'];
+ assert.equal(seededBossVariant(stage,'marauder',[first,third]),first.id);
+ assert.equal(seededBossVariant(stage,'marauder',[third]),third.id);
+ assert.equal(seededBossVariant(stage,'marauder',[]),undefined);
+});
+test('the battle roster requests actual bodies after leaving an elite on the previous shelf',()=>{
+ const requested:string[]=[];
+ const w=game(529);
+ w.rewards=[{kind:'elite',value:'marauder.3'} as typeof w.rewards[number]];
+ const view=Object.assign(Object.create(BattleRenderer.prototype),{world:w,initialAssetsLoaded:true,gpu:new Map(),
+  syncMap:()=>{},ensureUnitVariant:(key:string)=>requested.push(key)});
+ view.prepareRosterAssets();
+ assert(!requested.includes('elite.marauder.3'));
+ const body=w.addUnit('marauder','terran',0,0);
+ body.eliteId='marauder.3';body.modelKey=ELITES[body.eliteId].model;
+ view.prepareRosterAssets();
+ assert(requested.includes(body.modelKey));
+});
+test('a purchased nydus is prepared before its first target appears',()=>{
+ const w=game(529),view=Object.assign(Object.create(BattleRenderer.prototype),{world:w});
+ assert(!view.currentModels(true).has('fun-nydus'));
+ w.funShop.levels.nydus=1;
+ assert.equal(w.funShop.nydus,null);
+ assert.equal(view.currentModels(true).get('fun-nydus'),'roach');
+});
 test('the normal new-game transaction installs the previewed plan only on commit',()=>{
  const w=new World({seed:529,race:'terran',terrain:false,waves:false,sandbox:true,equipmentAccount:newEquipmentAccount(529)});
  const session=new RunSession(w,null,{run:null,savedAt:0,notice:'',memoryOnly:true});
@@ -96,4 +127,14 @@ test('returning from a special stage disposes only the retired view and keeps th
   mapTerrain:challenge,modelErrors:[],cameraTarget:{set:()=>{}},ground:()=>0});
  view.syncMap();view.syncMap();
  assert.equal(releases,1);assert.equal(view.mapTerrain,normal);assert.equal(cached.get(normal),keep);assert(!cached.has(challenge));
+});
+test('committing endless retires its old campaign view, while a challenge retains its return map',()=>{
+ const campaign=campaignTerrain(chooseCampaignMap(529)),endless=game(529).endlessField!,challenge=new SpecialTerrain('crossing');
+ const active={setVisible:()=>{}},released:unknown[]=[];
+ const maps=new Map<TerrainQuery,{setVisible:()=>void;dispose?:()=>void}>([[campaign,{...active,dispose:()=>released.push(campaign)}],[endless,active],[challenge,{...active,dispose:()=>released.push(challenge)}]]);
+ const world={terrain:challenge as TerrainQuery,endless:null as unknown,endlessField:endless,anchor:{x:0,z:0}};
+ const view=Object.assign(Object.create(BattleRenderer.prototype),{world,mapViews:maps,mapTerrain:campaign,modelErrors:[],cameraTarget:{set:()=>{}},ground:()=>0});
+ view.syncMap();assert.ok(maps.has(campaign));assert.equal(released.length,0);
+ world.terrain=endless;world.endless={round:1};view.syncMap();view.syncMap();
+ assert.deepEqual(released,[campaign,challenge]);assert.equal(maps.size,1);assert.equal(maps.get(endless),active);
 });

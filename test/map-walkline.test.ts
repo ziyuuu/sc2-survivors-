@@ -15,6 +15,26 @@ function fixture(kind:'flat'|'ramp'|'cliff'|'rough'):MapDefinition{
   clearance:Array.from({length:walkWidth*walkHeight},(_,i)=>kind==='rough'?.2+(i%7)*.3:4),placements:[],ramps:[],stageAreas:Array(12).fill(576)};
 }
 const radii=[0,.01,.05,.25,.375,.5,.75,.9,1.25] as const;
+test('connected spawn cells preserve cardinal flood order, footprints and slopes across map openings',()=>{
+ for(const kind of ['flat','ramp','cliff','rough'] as const){
+  const def=fixture(kind),terrain=new MapTerrain(def),width=def.walkWidth;
+  const center=(i:number)=>({x:(i%width+.5)*def.cellSize-def.origin[0],z:def.origin[1]-(Math.floor(i/width)+.5)*def.cellSize});
+  for(const stage of [1,3,1])for(const radius of [0,.3,.9]){
+   terrain.setStage(stage);
+   const start=20*width+24,seen=new Set([start]),queue=[start],expected:Point[]=[];
+   for(let n=0;n<queue.length;n++){
+    const i=queue[n],x=i%width,y=Math.floor(i/width),p=center(i);
+    if(x%4===0&&y%4===0&&terrain.canOccupy(p,1.4))expected.push(p);
+    for(const [nx,ny] of [[x+1,y],[x-1,y],[x,y+1],[x,y-1]]){
+     const j=ny*width+nx;
+     if(nx<0||nx>=width||ny<0||ny>=def.walkHeight||seen.has(j)||!terrain.canStep(p,center(j),radius))continue;
+     seen.add(j);queue.push(j);
+    }
+   }
+   assert.deepEqual(terrain.connectedLocations(center(start),radius,1.4),expected);
+  }
+ }
+});
 test('walkLine matches the old algorithm for 43,200 seeded paths over four terrains and opening stages',()=>{
  let state=941271;const random=()=>((state=(Math.imul(state,1664525)+1013904223)>>>0)/4294967296);
  let checked=0;

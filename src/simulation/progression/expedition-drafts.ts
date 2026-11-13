@@ -1,4 +1,6 @@
 import {funShopCandidates,funShopCatalogue,funShopQuote,shopRarityWeights,type FunShopLevels,type FunShopId} from '../fun-shop/state';
+import {ARMED_CARDS,ARMED_CARD_BY_ID} from '../../data/terran-armed-support';
+import {armedRank,armedPurchaseLegal,armedOrangeEligible,LEGACY_ARMED,type ArmedId} from './build-progress';
 import {UNIQUE_SUPPORT,type UniqueSupportId} from '../../data/unique-support';
 import {supplyPrice,supplyTier,type SupplyMode} from './supply-cards';
 import type {SupportCard} from '../combat/shop-support';
@@ -19,6 +21,7 @@ import {PROJECTS,consumeRefresh,eligible,evolutionTargets,facilityCount,getOffer
 export type ExpeditionDraftRound='building'|'random';
 export type ExpeditionCardEffect='weapon'|'vitality'|'armor'|'recovery'|'energy'|'production'|'cultivation';
 export type ExpeditionOfferEffect=
+ | {kind:'armedSupport';cardId:ArmedId;expectedRank:number;expectedReserve:number}
  | {kind:'specialTicket';stage:number;challenge:import('../special-stages/state').SpecialStageKind}
  | {kind:'development';definitionId:string;expectedLevel:number;targetFacilityId?:number}
  | {kind:'card';effect:ExpeditionCardEffect;family:FamilyId;amount:number;key:string}
@@ -60,6 +63,7 @@ export interface ExpeditionDraftContext {
  developmentPriceFactorFor?:(definition:DevelopmentDefinition)=>number;
  supplyLegal?:(family:FamilyId,count:number,mode:SupplyMode)=>boolean;
  supportLegal?:(kind:SupportCard)=>boolean;
+ armedLegal?:(id:ArmedId)=>boolean;
  training?:(rank:number)=>{targets:TrainingTarget[];minerals:number;gas:number}|null;
  trainingValid?:(rank:number,targets:TrainingTarget[])=>boolean;
  freeCardLimit?:number;
@@ -192,13 +196,15 @@ function reinforcementUnits(ctx:ExpeditionDraftContext):Candidate[]{
 }
 function reinforcementPool(ctx:ExpeditionDraftContext,shop=false,reference=false):Candidate[]{
  const result:Candidate[]=[];
+ const armed=shop&&ctx.state.race==='terran'&&!ctx.tutorialFixed&&!!ctx.armedLegal;
+ if(armed)for(const c of ARMED_CARDS)if(!['node','orange'].includes(c.purchase)&&(reference||ctx.armedLegal?.(c.id))){result.push({id:'armed.'+c.id,name:c.name,description:c.brief,icon:'tech.attack',rarity:c.quality,kind:'buff',value:c.id,effect:{kind:'armedSupport',cardId:c.id,expectedRank:armedRank(ctx.state.support,c.id),expectedReserve:ctx.state.support.armed?.reserves[c.id]??0},category:'synergy',group:'armed.'+c.id,immediate:true});}
  if(shop&&ctx.funShop)for(const c of reference?funShopCatalogue():funShopCandidates(ctx.funShop,ctx.difficulty))result.push({...c,kind:'buff',value:c.item,effect:{kind:'funShop',item:c.item,level:c.level,expected:c.expected},category:'synergy',group:'fun-shop.'+c.item,immediate:true});
  for(const group of ['firepower','defense'] as const)for(const [i,rarity] of RARITIES.entries())if(teamCardLegal(ctx.state,group,rarity))result.push({id:teamCardKey(group,rarity),name:group==='firepower'?'全军火力':'全军防御',description:group==='firepower'?`伤害 +${TEAM_CARD_VALUES.damage[i]*100}% · 攻速 +${TEAM_CARD_VALUES.speed[i]*100}%`:`生命与护盾 +${TEAM_CARD_VALUES.health[i]*100}% · 护甲 +${TEAM_CARD_VALUES.armor[i]}`,icon:group==='firepower'?'tech.attack':'tech.armor',rarity,kind:'buff',value:teamCardKey(group,rarity),effect:{kind:'teamCard',group,rarity},category:'core',group,immediate:true});
  for(let rank=2;rank<=5;rank++){const plan=ctx.training?.(rank);if(plan)result.push({id:`training.${rank}`,name:`两名士兵晋升${['','I','II','III','IV','V'][rank]}`,description:`最低军衔的两名普通士兵提升至${rank}级`,icon:'tech.attack',rarity:RARITIES[rank-1],kind:'buff',value:'training',effect:{kind:'training',rank,...plan},category:'core',group:'training',immediate:true});}
  if(shop)for(const [kind,rarity,names,description] of [
  ['mines','green',['蜘蛛雷','爆裂虫卵','灵能地雷'],'每关布置地雷，最多叠加3张'],['bombardment','blue',['炮火轰炸','酸液轰炸','轨道轰击'],'持续轰炸可见敌军，叠加缩短间隔'],['mutation','purple',['燃烧弹','腐蚀弹','灼能弹'],'本族主力普攻附带持续伤害'],['strategic','orange',['核弹','生体巨爆','净化打击'],'获得一枚战略打击弹药']
- ] as const)if(ctx.supportLegal?.(kind))result.push({id:`support.${ctx.state.race}.${kind}`,name:names[['terran','zerg','protoss'].indexOf(ctx.state.race)],description,icon:'tech.attack',rarity,kind:'buff',value:kind,effect:{kind:'support',support:kind},category:'synergy',group:'support',immediate:true});
- if(shop)for(const [id,card] of Object.entries(UNIQUE_SUPPORT))if(card.race===ctx.state.race&&ctx.supportLegal?.(id as UniqueSupportId))result.push({id:'support.'+id,name:card.name,description:card.description,icon:'tech.attack',rarity:card.rarity,kind:'buff',value:id,effect:{kind:'support',support:id as UniqueSupportId},category:'synergy',group:'support',immediate:true});
+ ] as const)if((!armed||kind==='strategic')&&ctx.supportLegal?.(kind))result.push({id:`support.${ctx.state.race}.${kind}`,name:names[['terran','zerg','protoss'].indexOf(ctx.state.race)],description,icon:'tech.attack',rarity,kind:'buff',value:kind,effect:{kind:'support',support:kind},category:'synergy',group:'support',immediate:true});
+ if(shop)for(const [id,card] of Object.entries(UNIQUE_SUPPORT))if(card.race===ctx.state.race&&(!armed||!Object.values(LEGACY_ARMED).includes(id as typeof LEGACY_ARMED.G02))&&ctx.supportLegal?.(id as UniqueSupportId))result.push({id:'support.'+id,name:card.name,description:card.description,icon:'tech.attack',rarity:card.rarity,kind:'buff',value:id,effect:{kind:'support',support:id as UniqueSupportId},category:'synergy',group:'support',immediate:true});
  if(shop)for(const family of FAMILIES_BY_RACE[ctx.state.race])for(const mode of ['pod','direct'] as const)for(let count=1;count<=3;count++)if(ctx.supplyLegal?.(family,count,mode)){const info=ctx.familyInfo(family),rarity=RARITIES[count-1+(mode==='direct'?1:0)];result.push({id:`supply.${mode}.${family}.${count}`,name:`${info.name??family} ×${count}${family==='zergling'?'对':''}`,description:mode==='pod'?'救援空投 · 不解锁持续生产':'立即加入 · 不解锁持续生产',icon:info.icon??'unit.'+family,rarity,kind:'buff',value:family,effect:{kind:'supply',family,count,mode},family,category:'core',group:'supply',immediate:mode==='direct'});}
  for(const family of FAMILIES_BY_RACE[ctx.state.race]){const info=ctx.familyInfo(family);
   for(const [effect,definition] of Object.entries(EXPEDITION_CARD_DEFINITIONS) as [ExpeditionCardEffect,typeof EXPEDITION_CARD_DEFINITIONS[ExpeditionCardEffect]][])for(let tier=0;tier<5;tier++){
@@ -214,6 +220,7 @@ function reinforcementPool(ctx:ExpeditionDraftContext,shop=false,reference=false
 function historyKey(id:string){return /^(card\.|supply\.|team\.)/.test(id)?id.replace(/\.(white|green|blue|purple|orange)$/,''):id;}
 function candidateWeight(ctx:ExpeditionDraftContext,c:Candidate,pool:readonly Candidate[]){
  let weight=c.family?(ctx.familyInfo(c.family).alive>0?3:selectedFamilies(ctx.state).has(c.family)?2:1):1;
+ if(c.effect.kind==='armedSupport'&&ctx.state.build?.main&&ctx.state.build.main!=='armed')weight*=.5;
  if(c.effect.kind==='supply'){const tier=supplyTier(c.effect.family),siblings=pool.filter(o=>o.effect.kind==='supply'&&o.effect.mode===(c.effect as {mode:SupplyMode}).mode&&supplyTier(o.effect.family)===tier);weight*=[50,35,15][tier]/Math.max(1,siblings.reduce((total,o)=>total+(o.family?(ctx.familyInfo(o.family).alive>0?3:selectedFamilies(ctx.state).has(o.family)?2:1):1),0));}
  // Variants split the family's mass; three old Terran variants are not three tickets.
  if(c.effect.kind==='elite')weight/=pool.filter(other=>other.effect.kind==='elite'&&other.family===c.family).length;
@@ -238,7 +245,7 @@ function shopReferencePool(ctx:ExpeditionDraftContext){
 function shopWeights(ctx:ExpeditionDraftContext,reference:readonly Candidate[],immediate:boolean){
  const result=new Map<string,number>(),rarities=shopRarityWeights(expeditionRarityWeights(ctx.stage),ctx.funShop?.dice??0,ctx.highQualityWeight??0);
  for(const rarity of RARITIES){
-  const tier=reference.filter(c=>c.rarity===rarity&&(!immediate||c.immediate)),fun=tier.filter(c=>c.effect.kind==='support'||c.effect.kind==='funShop'),other=tier.filter(c=>!fun.includes(c));
+  const tier=reference.filter(c=>c.rarity===rarity&&(!immediate||c.immediate)),fun=tier.filter(c=>c.effect.kind==='support'||c.effect.kind==='funShop'||c.effect.kind==='armedSupport'),other=tier.filter(c=>!fun.includes(c));
   const assign=(items:Candidate[],mass:number)=>{const weights=items.map(c=>candidateWeight(ctx,c,tier)),total=weights.reduce((n,v)=>n+v,0);items.forEach((c,i)=>result.set(c.id,total?mass*weights[i]/total:0));};
   const mass=rarities[tierIndex(rarity)];assign(fun,mass*(other.length?.25:1));
   const otherMass=mass*(fun.length?.75:1);
@@ -297,6 +304,7 @@ export function canClaimTalentLoot(ctx:ExpeditionDraftContext,offer:ExpeditionRe
 }
 export function drawExpeditionReinforcements(ctx:ExpeditionDraftContext,reroll=false):ExpeditionReward[]{
  requireCurrent(ctx);if(ctx.state.draftTaken)return [];const retained=retainedOffers(ctx,'random',reroll);if(retained)return retained;
+ if(armedOrangeEligible(ctx.state)&&(['O01','O02','O03'] as const).every(id=>ctx.armedLegal?.(id))){return (['O01','O02','O03'] as const).map(id=>{const c=ARMED_CARD_BY_ID[id],candidate:Candidate={id:'armed.'+id,name:c.name,description:c.brief,icon:'tech.attack',rarity:c.quality,kind:'buff',value:id,effect:{kind:'armedSupport',cardId:id,expectedRank:0,expectedReserve:0},category:'synergy',group:'armed.orange',immediate:true};return quote(ctx,candidate,'random',shopPrice(candidate));});}
  const pool=reinforcementPool(ctx,true).filter(c=>shopEffectLegal(ctx,c.effect));
  if(ctx.tutorialFixed){const family=({terran:'marine',zerg:'zergling',protoss:'zealot'} as const)[ctx.state.race],target=pool.find(c=>c.id===`supply.direct.${family}.${ctx.tutorialSupplyCount??1}`);if(!target)throw Error('教学基础补给不可用');const picked=[target,...pool.filter(c=>c!==target).slice(0,2)];return picked.map(c=>quote(ctx,c,'random',shopPrice(c)));}
  const reference=shopReferencePool(ctx),firstWeights=shopWeights(ctx,reference,true),laterWeights=shopWeights(ctx,reference,false),picked:Candidate[]=[];
@@ -308,6 +316,7 @@ export function drawExpeditionReinforcements(ctx:ExpeditionDraftContext,reroll=f
 }
 function shopPrice(c:Candidate){
  const effect=c.effect;
+ if(effect.kind==='armedSupport'){const [minerals,gas]=ARMED_CARD_BY_ID[effect.cardId].price;return {minerals,gas};}
  if(effect.kind==='supply')return supplyPrice(effect.family,effect.count,effect.mode);
  if(effect.kind==='training')return {minerals:effect.minerals,gas:effect.gas};
  if(effect.kind==='hero')return {minerals:750,gas:250};
@@ -358,6 +367,7 @@ export function canTakeExpeditionOffer(ctx:ExpeditionDraftContext,offer:Expediti
 }
 /** Shared by fresh shelves and the final transaction; insufficient money is not ineligibility. */
 function shopEffectLegal(ctx:ExpeditionDraftContext,effect:ExpeditionOfferEffect){
+ if(effect.kind==='armedSupport')return (effect.cardId.startsWith('O')?armedOrangeEligible(ctx.state):armedPurchaseLegal(ctx.state.support,effect.cardId))&&armedRank(ctx.state.support,effect.cardId)===effect.expectedRank&&(ctx.state.support.armed?.reserves[effect.cardId]??0)===effect.expectedReserve&&!!ctx.armedLegal?.(effect.cardId);
  if(effect.kind==='funShop')return !!ctx.funShop&&!!funShopQuote(ctx.funShop,effect.item,effect.level,effect.expected);
  if(effect.kind==='supply')return ctx.supplyLegal?.(effect.family,effect.count,effect.mode)??false;
  if(effect.kind==='support')return ctx.supportLegal?.(effect.support)??false;

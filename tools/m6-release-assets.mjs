@@ -36,6 +36,7 @@ const requireModel=(key,reason)=>{
 
 for(const id of ['p4.texture.beam','p4.texture.flare','p4.texture.heal'])requireAsset(id,'Verified original Terran elite healing presentation');
 requireAsset('model.support.mine','Terran support card persistent Spider Mine');
+for(const key of ['battlecruiser','battlecruiser.death','fort.command_center','fort.planetary','fort.planetary.death','support.medkit','support.repair_drone','support.repair_drone.death'])requireAsset('model.'+key,'Armed support actual ordinary fleet, Planetary A actor, medical/repair prop and matching death');
 for(const key of ['scv','drone','probe','barracks','hatchery','pylon','pylon.birth','barracks.death','hatchery.death','pylon.death'])requireAsset(`model.${key}`,'Required authentic worker/carrier and matching death');
 
 // New-run, enemy, summon, three-race hero and elite paths are all reachable.

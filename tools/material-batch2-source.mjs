@@ -12,6 +12,9 @@ const out=process.argv.find(a=>a.startsWith('--out='))?.slice(6)??'reports/local
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const sourceRecords=new Map(JSON.parse(await fs.readFile('assets/private/m3-pack.json','utf8')).manifest.map(r=>[r.id,r]));
 const runtimeRecords=new Map(JSON.parse(await fs.readFile('deploy/runtime/build-assets.json','utf8')).records.map(r=>[r.id,r]));
+// Explicit candidate additions are verified against their own imported originals;
+// the retained shipping manifest and unrelated optimized models stay untouched.
+if(process.argv.includes('--armed'))for(const key of selected??[]){const id='model.'+key,r=sourceRecords.get(id);assert.ok(r?.sourceSha256&&r?.sourcePath,'Missing pinned armed source '+id);runtimeRecords.set(id,{id,packedFile:r.packedFile,packedSha256:r.sha256});}
 const inventory=selected?{models:selected.map(key=>{const r=runtimeRecords.get('model.'+key);assert.ok(r,'Unknown selected model '+key);return {id:r.id,sha256:r.packedSha256};})}:JSON.parse(await fs.readFile('reports/local/visual-baseline-20261010/audit/inventory.json','utf8'));
 const {loadM3FromFile}=await import(pathToFileURL(path.resolve('.cache/visual-restoration-reader/m3-loader.js')).href);
 const profiles=selected?structuredClone((await import('../src/render/materials/unit-material-catalog.ts')).UNIT_MATERIAL_CATALOG):{},sources=new Map(),derived=new Map(),rows=[],gaps=[];

@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-11",
+  "candidate": "armed-5425d65c3896",
+  "sourceSha256": "5425d65c3896b4e0973dfbc9c7288e66903ca0148503557080e69747de0054f5",
+  "branch": "体积优化版",
+  "head": "679720fefa5c",
+  "appBuildId": "c7611039fe5ac6cc2f8740d5592b2b5ef745acfb740546df60e744db8006c9b5",
+  "assetRelease": "8eaa0ee246206e88f736c0d7605052487ccd6aaf64631859552d8c65384f9118",
+  "runSchema": 26,
+  "rulesId": "mvp-1.0",
+  "specSha256": "1eda71abf0cbc81727122b23c4a47263fd0e36be73ee55466e3d45a90011842b",
+  "status": "待验证",
+  "checks": {
+    "cards": 45,
+    "nodeBaseComparisons": 9,
+    "visualCorrections": 3,
+    "finalBunkerReplay": 1,
+    "player": 8,
+    "packaged": 10,
+    "tests": 3148,
+    "targeted": 59,
+    "typecheck": "通过",
+    "docsData": "已更新",
+    "docsCheck": "通过"
+  },
+  "limitations": [
+    "工程前态与桌面/触屏模拟，不是自然完整战役或物理手机验收。",
+    "第一批 PLAY-1X 仍待办；当前正式生产仍沿已付订单扣费，未代做免费经济与波次。",
+    "本轮概率与 B01/B02 平衡为授权范围内的候选参数，仍需用户体验验收。",
+    "未提交、推送、部署或公开发布。"
+  ],
+  "resolvedAttempts": [
+    "首次沙箱全量回归因本地 HTTP EACCES 失败，允许回环后完整回归通过。",
+    "与构建/全回归同时首次预载 W01 超过 120 秒；串行预载并允许 300 秒后完成 54 次实机。",
+    "O03 初版工程阵容在出勤前团灭；使用固定种子、V 阶正式阵容和触发前短暂停步后，真实受击充能与光柱完成。",
+    "45 次初轮+9 基础对照后仅调整 G02 射孔外移与重复音频回执；最终 G02 单独重新打开重放，59 定向与3148完整回归再通过。"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-11",
+  "historical": true,
+  "correction": "本版将用户的简化要求误解成清空默认介绍；用户随后明确要保留一句简单描述。",
+  "supersededBy": "reports/qa/armed-support-simple-r4-20261111.json",
+  "task": "ARMED-1.4",
+  "candidate": "armed-design-r3-20261111-front-r3",
+  "sourceHead": "679720fefa5c",
+  "configSha256": "56dee0e81793fefb6c121ec1f5c5af6ba0ab506a2dc476b5e5be33cf54f3d3d9",
+  "specSha256": "1eda71abf0cbc81727122b23c4a47263fd0e36be73ee55466e3d45a90011842b",
+  "userDecision": "短效果介绍也放在详情。默认卡面无说明正文，效果、数值、持续时间、限制全部由原循环箭头打开；收起恢复无正文。",
+  "changes": [
+    "45张默认说明正文清空；原箭头及点击区域、名称、主视觉、品质/节点标识、价格和操作保留。",
+    "详情包含原效果概述与数值限制；移除审阅目录及生成文档中的独立简要层。",
+    "沿原字号与三端卡槽；未补占位文案或tooltip。"
+  ],
+  "verified": {
+    "cards": 45,
+    "parametersAndIdentityUnchanged": 45,
+    "viewportGroups": 9,
+    "all45DefaultWithoutDescription": true,
+    "all45DetailsOpenAndClose": true,
+    "errors": [],
+    "typecheck": "passed",
+    "docsCheck": "passed"
+  },
+  "evidence": [
+    "docs/project/V1_4_TERRAN_ARMED_SUPPORT_CARD_DESIGN_20261111.md",
+    "docs/project/UI_RULES.md",
+    "reports/local/armed-support-design-20261111/武装支援-卡面审阅.html",
+    "reports/local/armed-support-design-20261111/ui-checks.json"
+  ],
+  "reproduce": [
+    "node --import tsx tools/build-armed-support-design.mts",
+    "node tools/qa-armed-support-design.mjs",
+    "npm run typecheck",
+    "npm run docs:check"
+  ],
+  "boundary": "仅候选卡面审阅；正式游戏接入、资源缺口和45项World重放继续开放。无提交、推送或部署。"
+}

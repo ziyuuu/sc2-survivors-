@@ -1,3 +1,4 @@
+import {ARMED_CARDS,ARMED_RULES,armedDetail} from '../../src/data/terran-armed-support';
 import {endlessRoundDuration,endlessRoundFrequency} from '../../src/data/endless';
 import {TEAM_CARD_VALUES,CARD_RARITIES} from '../../src/simulation/progression/team-cards';
 import {PLAYER_REAPER_DAMAGE_BONUS,PLAYER_COMBAT_FACTOR,PLAYER_BANELING,PLAYER_LURKER,PLAYER_ZERGLING_BANELING_REDUCTION,APPROACH_CHARGE} from '../../src/data/player-unit-adaptations';
@@ -104,6 +105,14 @@ text.push('## 新规则：三件付费商品与Build卡组',
  '百分比卡的配置值0.03表示3%；护甲为固定加值。培养卡绿蓝紫橙将最低两名普通名额提升至II／III／IV／V，按实际所需等级增量定价。第一张须立即有收益；后两张当前阵容／路线、通用协同、其他合法发展权重70／20／10，空池归一化。九套Build分阶段扩大推荐池，不封锁合法卡。',
  '删除固定关卡英雄、紫卡、连续低品质和强制品质补位；保留分阶段基础稀有度。Boss每三关死亡掉一件：80%紫／20%橙，橙替代紫。',
  '每页三件商品均可购买，售罄不补货；R09每窗口1／2次免单，刷新不消耗免单。数值卡白到橙基础价50/0、90/20、150/50、225/90、325/140；培养为完整配方乘实际等级增量；紫精英为配方乘5，橙V级精英为紫价乘3；英雄750/250。四种经济商品支付25矿/25矿/50矿/75矿25气，分别得到100矿/50气/75矿25气/100矿25气。空投白绿蓝1／2／3名额，直接获兵绿蓝紫1／2／3名额（直接价格乘1.5），按路线攻防进度和卡片品质交集开放三档兵种；不解锁生产。原趣味牌为布雷、随机轰炸、弹药变异与战略打击；每族另有4张独有卡（3自动、1主动），见RACE_FUN_CACHE_20260929.md。先抽品质，再趣味池25%/其他75%，空池重新归一化；每族8张。地图掉落无章节额度，普通／经济工蜂／精英触发率2%／8%／40%；R14另产生独立紫／橙击杀掉落，均保存收据。');
+
+text.push('## 1.4 人族武装支援 · R3',
+ `普通临援上限 ${ARMED_RULES.ordinaryTemporaryCap}；N03 后 ${ARMED_RULES.eliteTemporaryCap}。白牌复购只升档。每个分支每 ${ARMED_RULES.nodeEvery} 点可免费选一个紫节点，首次领取确定主分支。主分支达到 ${ARMED_RULES.orangeAt} 点且已领 ${ARMED_RULES.orangeClaims} 次后橙色三选一。复备最多 ${ARMED_RULES.reserveLimit} 次。`,
+ '本批复用正式 World 固定步与原执行器；保存逐弹、逐人、控制区域、卡盾、正式战损及橙卡阶段回执。第一批共用经济 PLAY-1X 尚未合流，现有生产报价仍扣矿气；普通战巡仅由本批临援使用，T06 普通生产家族另行接入。',
+ table(['卡号','品质／类型','卡名','基础价矿／气','简要','详细','精确配置'],ARMED_CARDS.map(c=>[c.id,c.purchase,c.name,c.price.join('／'),c.brief,armedDetail(c),JSON.stringify(c.params)])),
+ '### 普通战列巡洋舰临援身份',
+ table(['身份','HP／甲','对地／对空单发','周期秒','射程','Faster移速','技能'],[['battlecruiser',`${SC2_UNITS.battlecruiser.maxHp}／${SC2_UNITS.battlecruiser.armor}`,'8／5',n(SC2_UNITS.battlecruiser.attackPeriod),SC2_UNITS.battlecruiser.attackRange,n(SC2_UNITS.battlecruiser.movementSpeed),'普通原武器，无大和英雄技能']]),
+ '以上战巡值为固定 SC2 来源基础值，实际临援再套本卡军衔与玩家统一适配。原版外形 BattlecruiserEX2；O03 为 PlanetaryFortress 演员指定 CommandCenter 模型＋Stand A 双炮形态。P05 由用户确认复用原版地堡，只阻敌与光环。');
 
 text.push(`## 新规则：${ALL_HERO_IDS.length}名英雄`,
  '各族六选三身份，阵亡仍占身份名额。招募顺序绑定技能槽1／2／3；等级1—5，同名卡升级但不复活。新增技能数值是本作实验参数，不能据原模型名称声称为原版技能。',

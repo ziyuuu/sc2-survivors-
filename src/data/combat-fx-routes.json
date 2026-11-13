@@ -785,5 +785,43 @@
       ]
     },
     "adaptation": "Target-owned original shield response. Native body radius and real absorbed hit determine placement; no damage or shield-state change."
+  },
+  {
+    "key": "battlecruiser-ground",
+    "family": "battlecruiser",
+    "weapon": "BattlecruiserWeaponSwitch",
+    "kind": "missile",
+    "actors": [
+      "BattlecruiserGroundAttack",
+      "BattlecruiserGroundAttackMissile"
+    ],
+    "models": {
+      "launch": [],
+      "flight": [
+        "ATSLaserBatteryLMWeapon"
+      ],
+      "impact": [
+        "BattlecruiserAirAttackImpact"
+      ]
+    }
+  },
+  {
+    "key": "battlecruiser-air",
+    "family": "battlecruiser",
+    "weapon": "BattlecruiserWeaponSwitch",
+    "kind": "missile",
+    "actors": [
+      "BattlecruiserAirAttack",
+      "BattlecruiserAirAttackMissile"
+    ],
+    "models": {
+      "launch": [],
+      "flight": [
+        "ATSLaserBatteryLMWeapon"
+      ],
+      "impact": [
+        "BattlecruiserAirAttackImpact"
+      ]
+    }
   }
 ]

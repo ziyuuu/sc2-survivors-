@@ -1,0 +1,676 @@
+{
+  "date": "2026-11-11",
+  "scope": "45 independent candidate production World/renderer scenes plus nine same-seed node base comparisons. Synthetic initial conditions; sampled frames and state receipts, not physical devices or user aesthetic acceptance.",
+  "cards": [
+    {
+      "id": "W01",
+      "name": "临援仓",
+      "trigger": "可见敌群、临援名额和整批落点就绪。",
+      "observed": "落地冲击产生实际伤害，3 名临援逐人出门并到期退场。",
+      "status": "通过",
+      "evidence": "showcase-corrections-r3.json",
+      "nodeComparison": false,
+      "ticks": [
+        12,
+        30,
+        90,
+        1890
+      ]
+    },
+    {
+      "id": "W02",
+      "name": "支援仓",
+      "trigger": "正式陆战队身体席 4/5，空席未被已付订单占用。",
+      "observed": "正式身体席由 4 补到 5，使用真实空席。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        12,
+        36,
+        156
+      ]
+    },
+    {
+      "id": "W03",
+      "name": "快速增援",
+      "trigger": "同一基础 10 秒的旧已开工订单与 I 档新订单同时运行。",
+      "observed": "同一基础 10 秒旧单在 8.8 秒时仍余 1.2 秒，新 I 档单已完工；10 秒时旧单完工。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        0,
+        528,
+        600
+      ]
+    },
+    {
+      "id": "W04",
+      "name": "炮火轰击",
+      "trigger": "可见地面敌群，五发计划就绪。",
+      "observed": "五发顺序弹产生实际伤害。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        7,
+        22,
+        52
+      ]
+    },
+    {
+      "id": "W05",
+      "name": "空仓",
+      "trigger": "可见地面接敌，临时兵营实际落点可用。",
+      "observed": "实际兵营落地、承伤，到期退场。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        12,
+        24,
+        204,
+        630
+      ]
+    },
+    {
+      "id": "W06",
+      "name": "战地急救箱",
+      "trigger": "五名生物队员受伤，选择能覆盖伤员的投放点。",
+      "observed": "开箱时实际恢复 140 生命（4×35）。",
+      "status": "通过",
+      "evidence": "showcase-corrections-r3.json",
+      "nodeComparison": false,
+      "ticks": [
+        9,
+        15,
+        45
+      ]
+    },
+    {
+      "id": "W07",
+      "name": "前哨机炮",
+      "trigger": "地面敌群进入临时机枪塔的真实射程。",
+      "observed": "临时炮台产生原武器伤害并到期退场。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        12,
+        24,
+        144,
+        996
+      ]
+    },
+    {
+      "id": "W08",
+      "name": "照明弹",
+      "trigger": "队伍附近敌军全部隐形，照明弹准备就绪。",
+      "observed": "全隐形敌阵前态→照明弹爆炸并显形→6 秒探测结束再隐藏，实际命中伤害。",
+      "status": "通过",
+      "evidence": "showcase-detection-r4.json",
+      "nodeComparison": false,
+      "ticks": [
+        8,
+        20,
+        392
+      ]
+    },
+    {
+      "id": "W09",
+      "name": "殿后爆破",
+      "trigger": "旧后撤采样点在前方 2 码，队伍已后撤。",
+      "observed": "真实后撤前态留下爆破，实际命中旧位置附近敌军。",
+      "status": "通过",
+      "evidence": "showcase-corrections-r3.json",
+      "nodeComparison": false,
+      "ticks": [
+        12,
+        36,
+        96
+      ]
+    },
+    {
+      "id": "G01",
+      "name": "蜘蛛雷",
+      "trigger": "六枚原蜘蛛雷已布下，敌军进入触发/追踪范围。",
+      "observed": "沿原蜘蛛雷执行器实际命中。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        15,
+        45,
+        165
+      ]
+    },
+    {
+      "id": "G02",
+      "name": "地堡",
+      "trigger": "可见敌群与地堡真实落地位置就绪。",
+      "observed": "沿原地堡执行器实际落地并开火。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        90,
+        120,
+        240,
+        1860
+      ]
+    },
+    {
+      "id": "G03",
+      "name": "快速补充",
+      "trigger": "IV 阶正式陆战队员真实阵亡，存在空正式席。",
+      "observed": "真实阵亡记录补回正式空席，正式人数 4→5。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        12,
+        36,
+        96
+      ]
+    },
+    {
+      "id": "G04",
+      "name": "焦油",
+      "trigger": "敌群可见，油带落点与冷却就绪。",
+      "observed": "真实油带减速并造成周期伤害。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        9,
+        21,
+        141,
+        1851
+      ]
+    },
+    {
+      "id": "G05",
+      "name": "游骑兵",
+      "trigger": "可见敌群，三名恶火整批临援名额就绪，近身目标保留至退场。",
+      "observed": "3 名临援恶火以原武器作战；退场燃烧实际命中。",
+      "status": "通过",
+      "evidence": "showcase-corrections-r3.json",
+      "nodeComparison": false,
+      "ticks": [
+        12,
+        30,
+        150,
+        1110,
+        1356
+      ]
+    },
+    {
+      "id": "G06",
+      "name": "害虫杀手",
+      "trigger": "可见敌群与载体落点就绪。",
+      "observed": "载体落地冲击后出现 3 只单体友方跳虫，独立临援寿命。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        12,
+        24,
+        144,
+        750
+      ]
+    },
+    {
+      "id": "G07",
+      "name": "跳弹弹链",
+      "trigger": "正式陆战队员开始原普通攻击。",
+      "observed": "原跳弹执行器产生额外实际命中。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        12,
+        72,
+        252
+      ]
+    },
+    {
+      "id": "G08",
+      "name": "燃烧弹",
+      "trigger": "正式陆战队员开始原普通攻击。",
+      "observed": "原挂火执行器产生实际持续伤害。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        60,
+        150,
+        270
+      ]
+    },
+    {
+      "id": "G09",
+      "name": "抢修无人机",
+      "trigger": "一名真实机械恶火只有 20% 生命。",
+      "observed": "原版无人机完成 8 次真实修理，共恢复 33.12 生命。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        12,
+        42,
+        132,
+        270
+      ]
+    },
+    {
+      "id": "B01",
+      "name": "死亡弹幕",
+      "trigger": "正式队员完成原普通武器攻击轮次。",
+      "observed": "正式主力原武器触发雷神支援计划并造成实际伤害。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        12,
+        24,
+        66,
+        186
+      ]
+    },
+    {
+      "id": "B02",
+      "name": "困兽夹",
+      "trigger": "六名地面/空中目标进入夹具范围。",
+      "observed": "夹具实际捕获 6 个目标并锁位。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        12,
+        24,
+        186,
+        216
+      ]
+    },
+    {
+      "id": "B03",
+      "name": "午时已到",
+      "trigger": "四名死神整批临援位置就绪。",
+      "observed": "4 名 III 阶临援死神以真实原武器作战。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        9,
+        21,
+        51,
+        891
+      ]
+    },
+    {
+      "id": "B04",
+      "name": "烈焰升腾",
+      "trigger": "可见地面敌群，25 发计划就绪。",
+      "observed": "25 发分行分拍齐射完成并造成实际伤害。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        9,
+        39,
+        105
+      ]
+    },
+    {
+      "id": "B05",
+      "name": "增援以至",
+      "trigger": "正式席 4/5，双兵营落点及临援余量就绪。",
+      "observed": "两座实际兵营落地，1 正式补员和 5 临援出门，兵营按本次寿命退场。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        12,
+        24,
+        54,
+        504,
+        1374
+      ]
+    },
+    {
+      "id": "B06",
+      "name": "呼叫舰队",
+      "trigger": "三名可见空中敌人，整批空中位置就绪。",
+      "observed": "2 名 IV 维京及 III 普通战巡分批入场；战巡使用普通身份原武器并到期退场。",
+      "status": "通过",
+      "evidence": "showcase-corrections-r3.json",
+      "nodeComparison": false,
+      "ticks": [
+        9,
+        21,
+        39,
+        99,
+        1029
+      ]
+    },
+    {
+      "id": "B07",
+      "name": "导弹齐射",
+      "trigger": "原导弹齐射已就绪，可见敌群可锁定。",
+      "observed": "原导弹执行器发射、飞行和命中，实际伤害已记录。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        0,
+        12,
+        48,
+        138
+      ]
+    },
+    {
+      "id": "B08",
+      "name": "攻城空投",
+      "trigger": "有效地面炮位可用，吊运计划就绪。",
+      "observed": "原医疗运输机吊运，IV 架起坦克实际作战并到期退场。",
+      "status": "通过",
+      "evidence": "showcase-corrections-r3.json",
+      "nodeComparison": false,
+      "ticks": [
+        15,
+        27,
+        147,
+        1257
+      ]
+    },
+    {
+      "id": "B09",
+      "name": "火力超载",
+      "trigger": "点击本卡正式主动，读取实际队员攻击周期与伤害。",
+      "observed": "实际主动使首名陆战队员攻击周期 0.535→0.446 秒、伤害 6.9→8.97，结束后恢复。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        6,
+        66,
+        498
+      ]
+    },
+    {
+      "id": "P01",
+      "name": "战术核弹",
+      "trigger": "可见多目标敌群、普通系统核击就绪、初始库存 0。",
+      "observed": "普通系统核击整轮真实落弹，未选 N05 不赠库存。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        15,
+        33,
+        51,
+        111
+      ]
+    },
+    {
+      "id": "P02",
+      "name": "泰坦降临",
+      "trigger": "三名精英雷神专属批次名额和整批位置就绪。",
+      "observed": "三种 V 阶精英雷神真实落地、接敌并到期退场。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        15,
+        33,
+        93,
+        1953
+      ]
+    },
+    {
+      "id": "P03",
+      "name": "生化焦油",
+      "trigger": "可见敌群在可附身/铺油范围。",
+      "observed": "附身油/地面油产生实际周期伤害并退场。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        9,
+        21,
+        81,
+        381,
+        771
+      ]
+    },
+    {
+      "id": "P04",
+      "name": "光盾信标",
+      "trigger": "五名队员在信标可覆盖位置。",
+      "observed": "信标给 5 名实际成员授予独立卡盾，信标退场后盾按自身时钟结算。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        12,
+        30,
+        90,
+        510
+      ]
+    },
+    {
+      "id": "P05",
+      "name": "堡垒空降",
+      "trigger": "地面来敌与四堡整批落点就绪。",
+      "observed": "四座原版地堡外形实际落地、承伤并分别退场；无 P05 射击结算。",
+      "status": "通过",
+      "evidence": "showcase-corrections-r3.json",
+      "nodeComparison": false,
+      "ticks": [
+        12,
+        24,
+        42,
+        102,
+        1482
+      ]
+    },
+    {
+      "id": "P06",
+      "name": "阻隔区",
+      "trigger": "可见地面敌群、六行四发计划就绪。",
+      "observed": "六行四发的真实覆盖计划产生伤害。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        9,
+        39,
+        75
+      ]
+    },
+    {
+      "id": "N01",
+      "name": "密集火力",
+      "trigger": "与基础 W04 使用同一种子和阵容。",
+      "observed": "同种子对照：W04 实际伤害 117.00→128.84，首轮结束更早。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": true,
+      "ticks": [
+        7,
+        22,
+        52
+      ]
+    },
+    {
+      "id": "N02",
+      "name": "源源不断",
+      "trigger": "基础 W01 与本次实际 G02 地堡，同种子同阵容。",
+      "observed": "同种子对照：W01 基础 3 名 I 阶→4 名 II 阶；实际地堡后续出兵另计。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": true,
+      "ticks": [
+        12,
+        36,
+        102,
+        462
+      ]
+    },
+    {
+      "id": "N03",
+      "name": "精英武装",
+      "trigger": "基础 B03，同一种子、相同精英准备池和阵容。",
+      "observed": "同种子对照：第二名真实出门成员转换为 reaper.1 精英，数量和原阶位保留。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": true,
+      "ticks": [
+        9,
+        21,
+        51,
+        891
+      ]
+    },
+    {
+      "id": "N04",
+      "name": "特制道具",
+      "trigger": "基础 B02，另有一名处于扩大范围内的目标。",
+      "observed": "同种子对照：夹具捕获 6→7，3 秒基础结束后节点夹具仍有效。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": true,
+      "ticks": [
+        12,
+        24,
+        246,
+        276
+      ]
+    },
+    {
+      "id": "N05",
+      "name": "焦土战略",
+      "trigger": "基础 P01，初始库存 0；自动整轮结束后手动花库存。",
+      "observed": "系统整轮赠 1 枚库存；手动提交库存 1→0，打完完整 5 发且不重复扣除。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": true,
+      "ticks": [
+        15,
+        33,
+        51,
+        111
+      ]
+    },
+    {
+      "id": "N06",
+      "name": "落点协同",
+      "trigger": "W01 运输和 W04 炮火同一时刻真正出勤。",
+      "observed": "真实运输/炮火批次建立联动记录，抑制首击，运输成员数量未增加。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": true,
+      "ticks": [
+        12,
+        30,
+        90
+      ]
+    },
+    {
+      "id": "N07",
+      "name": "阵地观察哨",
+      "trigger": "本次实际 G02 地堡先命中，正式队员原武器触发 B01。",
+      "observed": "实际地堡命中标记后建立校射联动，B01 使用后排首行，未额外发炮。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": true,
+      "ticks": [
+        12,
+        42,
+        102,
+        192
+      ]
+    },
+    {
+      "id": "N08",
+      "name": "封锁火网",
+      "trigger": "B02 控制与 G04 待命，同种子同阵容。",
+      "observed": "控制后真实铺油：油带宽度 3→3.75，退出方向取回队方向。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": true,
+      "ticks": [
+        12,
+        36,
+        198,
+        258
+      ]
+    },
+    {
+      "id": "N09",
+      "name": "交班驻防",
+      "trigger": "正式空席、W02 到队和本次实际 P05 防区；来弹造成老兵真实损伤。",
+      "observed": "正式接班成员触发实际交班批次，记录 1 名老兵回撤及减伤。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": true,
+      "ticks": [
+        12,
+        36,
+        96,
+        156
+      ]
+    },
+    {
+      "id": "O01",
+      "name": "绝境反攻",
+      "trigger": "预置 9 次历史正式战损，第 10 名正式队员由真实敌人击杀。",
+      "observed": "第十次真实正式阵亡触发核击/无敌/炮火/清场/补员和独立 V 阶临援英雄；本场关末清退。",
+      "status": "通过",
+      "evidence": "showcase-full.json",
+      "nodeComparison": false,
+      "ticks": [
+        12,
+        24,
+        42,
+        162,
+        3600
+      ]
+    },
+    {
+      "id": "O02",
+      "name": "轨道远征军",
+      "trigger": "六员专属批次和整批地空位置就绪。",
+      "observed": "三名精英雷神、两名精英坦克、普通战巡共六名 V 阶实际分批入场，四发开场炮击，分别退场。",
+      "status": "通过",
+      "evidence": "showcase-corrections-r3.json",
+      "nodeComparison": false,
+      "ticks": [
+        12,
+        18,
+        246,
+        486,
+        2418
+      ]
+    },
+    {
+      "id": "O03",
+      "name": "行星要塞空投",
+      "trigger": "接敌、同地驻留已达 119/120 步，真实刺蛇攻击使要塞承伤充能。",
+      "observed": "实际驻留/接敌后投下原版行星要塞，真实承伤充能、主炮/穿透命中，侧门驻军实际出场。",
+      "status": "通过",
+      "evidence": "showcase-corrections-r3.json",
+      "nodeComparison": false,
+      "ticks": [
+        131,
+        143,
+        323,
+        743,
+        1703
+      ]
+    }
+  ],
+  "passed": 45,
+  "total": 45
+}

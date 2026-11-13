@@ -20,7 +20,7 @@ test('identical generated material programs share across source identities but k
  a.texture.dispose();b.texture.dispose();c.texture.dispose();
 });
 
-test('all 475 original surface variants only share keys when actual Three color and depth GLSL are identical',()=>{
+test('all 492 original surface variants only share keys when actual Three color and depth GLSL are identical',()=>{
  const seen=new Map<string,string>();let surfaces=0;
  for(const profile of Object.values(UNIT_MATERIAL_CATALOG))for(const source of profile.materials){surfaces++;
   for(const basic of [false,true]){const surface=new UnitMaterialSurface(prepared(profile,source),basic?new THREE.MeshBasicMaterial():new THREE.MeshPhysicalMaterial(),1);
@@ -32,5 +32,5 @@ test('all 475 original surface variants only share keys when actual Three color 
    }surface.texture.dispose();surface.material.dispose();
   }
  }
- assert.equal(surfaces,475);assert.ok(seen.size<475*8,'identical source logic must share programs across models');
+ assert.equal(surfaces,492);assert.ok(seen.size<492*8,'identical source logic must share programs across models');
 });

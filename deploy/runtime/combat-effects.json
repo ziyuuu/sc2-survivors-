@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "generatedSha256": "6d61667b757c749320cda88904368ad2ef9aa844b5a3f2a98f7e3e86468681a0",
-  "catalogSha256": "e9537b22ca94912a9f14ce87779d7a2a7011a781def391d6667296fd4800d907",
+  "generatedSha256": "3534879e11f58ff7cb5ef11f511482f1c0859005bd4bc64981c9943fefd4214b",
+  "catalogSha256": "65fea9042e93b2d53bf109cfba0d501ae41c48a4201cda9b7ee384ac65cf0635",
   "records": [
     {
       "id": "combat-fx.texture.343b229d574db7046a4d4eb6",
@@ -4695,6 +4695,97 @@
       "packedSha256": "b45ef3a4369979d761676396c22fd7b4c183cd05927ef1a2734fc6416676e801",
       "sourceFile": "assets/private/m3/nuke.m3",
       "sourceSha256": "a63b239db0bdbd3a13a1ab0218406c0a64ebd3ef1bb657b164ee883ae88658ec"
+    },
+    {
+      "id": "combat-fx.texture.9593309072434b0355044538",
+      "kind": "combat-effect-texture",
+      "status": "available",
+      "required": true,
+      "url": "assets/combat-effects/combat-fx.texture.9593309072434b0355044538.png",
+      "packedFile": "public/assets/combat-effects/combat-fx.texture.9593309072434b0355044538.png",
+      "gitPath": "deploy/runtime/assets/d8a5a5381f8da2461e6fa24e3180a95973ef017849a78dfd98d01e93d764fdb1.png",
+      "bytes": 14622,
+      "packedSha256": "d8a5a5381f8da2461e6fa24e3180a95973ef017849a78dfd98d01e93d764fdb1",
+      "sourceFile": "assets/private/dds/lazerbolt1_orange_lines1.dds",
+      "sourceSha256": "9593309072434b03550445380dbcc7a9e0c677e98efbcc1c324f8b40caf572eb"
+    },
+    {
+      "id": "combat-fx.texture.512a5898041aa6e6d58bc693",
+      "kind": "combat-effect-texture",
+      "status": "available",
+      "required": true,
+      "url": "assets/combat-effects/combat-fx.texture.512a5898041aa6e6d58bc693.png",
+      "packedFile": "public/assets/combat-effects/combat-fx.texture.512a5898041aa6e6d58bc693.png",
+      "gitPath": "deploy/runtime/assets/2a0d6aca7ea9741fc3f848620d65995685b3213e0989332c673561d81e393358.png",
+      "bytes": 6366,
+      "packedSha256": "2a0d6aca7ea9741fc3f848620d65995685b3213e0989332c673561d81e393358",
+      "sourceFile": "assets/private/dds/lazerbolt1_blue_blend2.dds",
+      "sourceSha256": "512a5898041aa6e6d58bc6935e4c0a16f99c0529f580879f9decf2c2c7f5d5e0"
+    },
+    {
+      "id": "combat-fx.texture.88699c694b696df3fe6cbc98",
+      "kind": "combat-effect-texture",
+      "status": "available",
+      "required": true,
+      "url": "assets/combat-effects/combat-fx.texture.88699c694b696df3fe6cbc98.png",
+      "packedFile": "public/assets/combat-effects/combat-fx.texture.88699c694b696df3fe6cbc98.png",
+      "gitPath": "deploy/runtime/assets/9ece0c6851c16bb02cace6f9bbcfe4846f71ec7306c686dd8a473f021630b9da.png",
+      "bytes": 8843,
+      "packedSha256": "9ece0c6851c16bb02cace6f9bbcfe4846f71ec7306c686dd8a473f021630b9da",
+      "sourceFile": "assets/private/dds/gooball_1_red.dds",
+      "sourceSha256": "88699c694b696df3fe6cbc989837dd18607c8a2d11b8a2258c31ccf6dda4e320"
+    },
+    {
+      "id": "combat-fx.texture.3f97e26b543a15868ed896ca",
+      "kind": "combat-effect-texture",
+      "status": "available",
+      "required": true,
+      "url": "assets/combat-effects/combat-fx.texture.3f97e26b543a15868ed896ca.png",
+      "packedFile": "public/assets/combat-effects/combat-fx.texture.3f97e26b543a15868ed896ca.png",
+      "gitPath": "deploy/runtime/assets/2fc04a4663f2184b67735b5c9b9a08ce92d58c195f5349b7712606fad13b7c53.png",
+      "bytes": 8828,
+      "packedSha256": "2fc04a4663f2184b67735b5c9b9a08ce92d58c195f5349b7712606fad13b7c53",
+      "sourceFile": "assets/private/dds/gooball_1_yellow.dds",
+      "sourceSha256": "3f97e26b543a15868ed896ca2407aa7a99aa1b7902e5151e7433ad76791ebe11"
+    },
+    {
+      "id": "combat-fx.texture.b444a104b1083751dbfd5426",
+      "kind": "combat-effect-texture",
+      "status": "available",
+      "required": true,
+      "url": "assets/combat-effects/combat-fx.texture.b444a104b1083751dbfd5426.png",
+      "packedFile": "public/assets/combat-effects/combat-fx.texture.b444a104b1083751dbfd5426.png",
+      "gitPath": "deploy/runtime/assets/7605953c8b78216cd5cc30fb5354861483066a06de380e1097cf74eac9d0b366.png",
+      "bytes": 7764,
+      "packedSha256": "7605953c8b78216cd5cc30fb5354861483066a06de380e1097cf74eac9d0b366",
+      "sourceFile": "assets/private/dds/glow_red1.dds",
+      "sourceSha256": "b444a104b1083751dbfd5426de98bd37b17aa58d7358f2aa0ea2e43855558757"
+    },
+    {
+      "id": "combat-fx.texture.156c01ee82b9480fdeb9d3ec",
+      "kind": "combat-effect-texture",
+      "status": "available",
+      "required": true,
+      "url": "assets/combat-effects/combat-fx.texture.156c01ee82b9480fdeb9d3ec.png",
+      "packedFile": "public/assets/combat-effects/combat-fx.texture.156c01ee82b9480fdeb9d3ec.png",
+      "gitPath": "deploy/runtime/assets/4627ba6530662d544d3007ffa0d65dba708a7289693ad0f4cb5742e87aafe3d2.png",
+      "bytes": 481907,
+      "packedSha256": "4627ba6530662d544d3007ffa0d65dba708a7289693ad0f4cb5742e87aafe3d2",
+      "sourceFile": "assets/private/dds/newboom1.dds",
+      "sourceSha256": "156c01ee82b9480fdeb9d3ec3b0b02b83ebb3af31b554c40cce73100f5c9c7d4"
+    },
+    {
+      "id": "combat-fx.texture.66dfc4f7fb6f79619cd9c74d",
+      "kind": "combat-effect-texture",
+      "status": "available",
+      "required": true,
+      "url": "assets/combat-effects/combat-fx.texture.66dfc4f7fb6f79619cd9c74d.png",
+      "packedFile": "public/assets/combat-effects/combat-fx.texture.66dfc4f7fb6f79619cd9c74d.png",
+      "gitPath": "deploy/runtime/assets/1f792dcb853479e7bc9f6f022ffd182099983263077d3746c70c4bea0af0c0a5.png",
+      "bytes": 24381,
+      "packedSha256": "1f792dcb853479e7bc9f6f022ffd182099983263077d3746c70c4bea0af0c0a5",
+      "sourceFile": "assets/private/dds/exp_tendrils360.dds",
+      "sourceSha256": "66dfc4f7fb6f79619cd9c74d41cce273c21797a189b459d7e5bcdfeb1e79a7ab"
     }
   ]
 }

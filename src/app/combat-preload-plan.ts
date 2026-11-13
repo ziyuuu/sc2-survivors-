@@ -1,4 +1,4 @@
-import {FAMILIES_BY_RACE,type Race} from '../data/races';
+import {FAMILIES_BY_RACE,SUPPORT_COMBAT_TYPES,type Race} from '../data/races';
 import {HEROES,type HeroId} from '../data/heroes';
 import type {Difficulty} from '../data/stages';
 import {COMBAT_FX_PROFILES} from '../render/effects/combat-fx-profile';
@@ -13,7 +13,7 @@ export interface CombatPreloadScope {
  plannedHeroes?:Iterable<HeroId>;
 }
 const heroByModel=new Map(Object.entries(HEROES).map(([id,h])=>[h.model,id as HeroId]));
-const families=new Set<string>(Object.values(FAMILIES_BY_RACE).flat());
+const families=new Set<string>([...Object.values(FAMILIES_BY_RACE).flat(),...Object.keys(SUPPORT_COMBAT_TYPES)]);
 const routed=new Set([...COMBAT_FX_PROFILES.values()].flatMap(p=>Object.values(p.models).flat()));
 /** Shared lifecycle/gear effects have independent owners. Retain their complete
  * closure, plus all enemy families; scope only unrelated friendly weapon sets.

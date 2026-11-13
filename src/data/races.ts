@@ -21,6 +21,10 @@ export function familyRace(id:FamilyId):Race {return RACES.find(r=>(FAMILIES_BY_
 /** Hero-only combat bodies do not enter ordinary family slots or production. */
 export const AIR_HERO_TYPES={yamato_battlecruiser:'terran',hots_leviathan:'zerg',purifier_flagship:'protoss'} as const;
 export type AirHeroType=keyof typeof AIR_HERO_TYPES;
-export type CombatUnitType=FamilyId|AirHeroType;
+/** Support-only ordinary bodies; production remains owned by the T06 roster task. */
+export const SUPPORT_COMBAT_TYPES={battlecruiser:'terran'} as const;
+export type SupportCombatType=keyof typeof SUPPORT_COMBAT_TYPES;
+export const isSupportCombatType=(id:string):id is SupportCombatType=>Object.hasOwn(SUPPORT_COMBAT_TYPES,id);
+export type CombatUnitType=FamilyId|AirHeroType|SupportCombatType;
 export const isAirHeroType=(id:string):id is AirHeroType=>Object.hasOwn(AIR_HERO_TYPES,id);
-export function combatRace(id:CombatUnitType):Race{return isAirHeroType(id)?AIR_HERO_TYPES[id]:familyRace(id);}
+export function combatRace(id:CombatUnitType):Race{return isAirHeroType(id)?AIR_HERO_TYPES[id]:isSupportCombatType(id)?SUPPORT_COMBAT_TYPES[id]:familyRace(id);}

@@ -12,7 +12,8 @@ export function combatFxProfile(u:Identity|undefined):CombatFxProfile|undefined{
  if(!u||u.heroId||u.summonKind&&u.rewardSourceKind==='hero')return undefined;
  if(u.summonKind==='interceptor')return COMBAT_FX_PROFILES.get('interceptor');
  let key:string=u.unitType??'';
- if(key==='science_vessel')key='science-vessel';
+ if(key==='battlecruiser')key=u.targetFlying||u.activeWeapon==='ATALaserBattery'?'battlecruiser-air':'battlecruiser-ground';
+ else if(key==='science_vessel')key='science-vessel';
  else if(key==='tank'&&(u.siege||u.mode==='siege'||u.eliteId==='tank.1'&&(u.team==='player'||u.sourceTeam==='player')))key='tank-siege';
  else if(key==='hellion'&&u.nativeMode==='hellbat')key='hellbat';
  else if(key==='viking'&&u.nativeMode==='viking_assault')key='viking-assault';

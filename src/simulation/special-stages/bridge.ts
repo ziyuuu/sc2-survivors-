@@ -7,6 +7,7 @@ import {settleEquipment} from '../starship/inventory';
 import {refreshEquipmentMember} from '../starship/members';
 import {equipmentSurvivesWipe} from '../starship/lifecycle';
 import {hasCombatPotential} from '../combat/combat-presence';
+import {newArmedSupport} from '../combat/armed-support-state';
 import {SpecialTerrain} from './terrain';
 import type {SpecialActive,SpecialStageKind} from './state';
 import {SPECIAL_STAGE_NAMES} from './state';
@@ -40,6 +41,12 @@ export function parkNormalWorld(w:World,a:SpecialActive,members:Entity[]){
  w.terrain=terrain(a.kind);w.obstacles=(w.terrain as SpecialTerrain).walls.map(o=>({...o}));w.enemySpecials=new EnemySpecials(w);
  w.expedition.ledger=[];w.expedition.pendingFreeDeliveries=[];w.expedition.pendingReceipt=null;w.expedition.pendingTalentLoot=null;w.expedition.eliteRescueRights=[];w.expedition.weaponAreas=[];w.expedition.spells=[];w.expedition.bossLootQueue=[];w.expedition.support.impacts=[];w.expedition.support.mines=[];
  w.expedition.support.burns=[];w.expedition.detectionFields=[];
+ const armed=w.expedition.support.armed;
+ if(armed){
+  // The parent keeps its actors, scheduled impacts, queued charges and field clock.
+  // The child may consult learned ranks and their cooldowns at its normal capability gates.
+  w.expedition.support.armed={...newArmedSupport(),ranks:armed.ranks,readyTick:armed.readyTick};
+ }
  Object.assign(w.expedition.support.unique,{packets:[],orbs:[],parasites:{},landing:null,prism:null});
  // Ground loot belongs to one field. Its original records remain frozen in saved.starship.
  for(const [id,p] of Object.entries(data.account.locations))if(p.kind==='ground'){delete data.account.locations[id];delete data.account.items[id];}
