@@ -1,4 +1,5 @@
 import {guided,guidedAllows} from './tutorial/guided';
+import {armedOfferLegal,applyArmedPurchase} from './combat/armed-support';
 import {withSpecialTicket,specialTicketEligible} from './special-stages/tickets';
 import {ordinaryHeroAllowed} from './progression/hero-availability';
 import {claimSpecialTicket} from './special-stages/runtime';
@@ -31,6 +32,7 @@ const familyHasWeapon=(family:FamilyId)=>family==='lurker'||family==='carrier'||
 export function draftContext(w:World,source?:string):ExpeditionDraftContext {const plan=worldContent(w);return {tutorialFixed:!!guided(w),tutorialSupplyCount:guided(w)?.version===3?2:1,difficulty:w.difficulty,funShop:w.funShop.levels,wallet:w.wallet,state:w.expedition!,stage:w.draftStage,windowId:w.draftWindowId,random:guided(w)?()=>0:plan?contentStream(plan,source??[w.rewardRound,w.expedition.refreshCount,w.expedition.shopRevision].join('/')):w.random,nextOfferId:id=>`${w.draftWindowId}:${w.endless?.round??0}:${w.nextId++}:${id}`,currentOffers:w.rewards.filter(r=>!('expeditionEffect' in r)||(r as ExpeditionReward).expeditionEffect.kind!=='specialTicket'),heroSeatsUsed:w.heroes.size,developmentReady:d=>equipmentDevelopmentLegal(w,d),highQualityWeight:w.starship.numbers.get('free-shelf-quality')?equipmentValue(w,'free_refresh_quality'):0,
  supplyLegal:(family,count,mode)=>canSupply(w,family,count,mode),
  supportLegal:kind=>supportLegal(w,kind),
+ armedLegal:id=>armedOfferLegal(w,id),
  training:rank=>trainingTargets(w,rank),trainingValid:(rank,targets)=>validTrainingTargets(w,rank,targets),
  purchasePriceFactor:1-.1*w.talent('permanent_discount'),developmentPriceFactorFor:d=>(1-(d.kind==='research'?0:.15*w.talent('frugal_build')))*(1-.1*w.talent('permanent_discount')),
  familyInfo:f=>{const d=f in SC2_UNITS?SC2_UNITS[f as UnitType]:null,source=d?sourceDetails(f as UnitType):null;return {name:d?.zh??'未知单位',icon:'unit.'+f,alive:d?w.familyUnits(f as UnitType).length:0,canAttack:!!d&&familyHasWeapon(f),canSupport:['medivac','science_vessel','queen'].includes(f)||(source?.lifeRegen??0)>0||(source?.shieldRegen??0)>0,usesEnergy:(source?.energy??0)>0,cultivationCapacity:d?Math.min(w.availableCapacity(f as UnitType),w.ordinaryUnits(f as UnitType).reduce((n,u)=>n+w.soldierCap(u.unitType as UnitType)-u.rank,0)):0,canProduce:w.isFamilyAvailable(f),capabilities:d?[...(d.targetType==='both'||d.targetType==='air'?['antiAir']:[]),...(d.splash.length||f==='lurker'?['area']:[]),...(['medivac','queen','science_vessel'].includes(f)?['support']:[])]:[]};},
@@ -85,6 +87,7 @@ export function purchaseOffer(w:World,id:string,variantId?:EliteId,targetId?:num
  if(effect.kind==='hero'&&!w.acquireHero(effect.heroId as HeroId))return false;if(effect.kind==='elite'){const selected=w.resolveEliteVariant(effect.family,variantId);if(!selected||!acquireEliteImmediately(w,selected,targetId,effect.targetRank))return false;}
  if(effect.kind==='supply'&&!applySupply(w,effect.family,effect.count,effect.mode,{minerals:firstFree||freePurchase?0:r.minerals,gas:firstFree||freePurchase?0:r.gas},oldFamily))return false;
  if(effect.kind==='support'&&!buySupport(w,effect.support))return false;
+ if(effect.kind==='armedSupport'&&!applyArmedPurchase(w,effect.cardId,r.offerId))return false;
  if(effect.kind==='funShop'&&!buyFunShop(w,effect.item,effect.level,effect.expected))return false;
  if(effect.kind==='training'&&!applyTrainingTargets(w,effect.rank,effect.targets))return false;
  

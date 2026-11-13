@@ -9,6 +9,8 @@ export const COMBAT_DEATH_MODELS=JSON.parse(fs.readFileSync(new URL('./combat-de
 export const EXPANSION_MODELS=[...JSON.parse(fs.readFileSync(new URL('./expansion-models.json',import.meta.url),'utf8')),...THREE_RACE_MODELS,...THREE_RACE_ELITE_MODELS,...M4_AIR_MODELS];
 export const M3_FORT_MODELS=JSON.parse(fs.readFileSync(new URL('./m3-fort-models.json',import.meta.url),'utf8'));
 export const STARSHIP_FORT_MODELS=JSON.parse(fs.readFileSync(new URL('./starship-fort-models.json',import.meta.url),'utf8'));
+export const ARMED_SUPPORT_MODELS=JSON.parse(fs.readFileSync(new URL('./armed-support-models.json',import.meta.url),'utf8'));
+export const ARMED_SUPPORT_PROPS=JSON.parse(fs.readFileSync(new URL('./armed-support-props.json',import.meta.url),'utf8'));
 export const F05_RESCUE_MODELS=JSON.parse(fs.readFileSync(new URL('./f05-rescue-models.json',import.meta.url),'utf8').replace(/^\uFEFF/,''));
 export const M3_MODELS=[
  ...JSON.parse(fs.readFileSync(new URL('./fun-models.json',import.meta.url),'utf8')).map(a=>[a.id,a.name]),
@@ -19,6 +21,8 @@ export const M3_MODELS=[
  ...F05_RESCUE_MODELS.map(a=>[a.id,a.name]),
  ...M3_FORT_MODELS.map(a=>[a.id,a.name]),
  ...STARSHIP_FORT_MODELS.map(a=>[a.id,a.name]),
+ ...ARMED_SUPPORT_MODELS.map(a=>[a.id,a.name]),
+ ...ARMED_SUPPORT_PROPS.map(a=>[a.id,a.name]),
  ...COMBAT_DEATH_MODELS.map(a=>[a.id,a.name]),
  ['model.projectile.marauder','maraudermissile'],['model.projectile.hydralisk','hydraliskmissile'],
  ...EXPANSION_MODELS.filter(a=>a.id.startsWith('model.elite.')||a.id.startsWith('model.hero.')).map(a=>[a.id,a.name]),

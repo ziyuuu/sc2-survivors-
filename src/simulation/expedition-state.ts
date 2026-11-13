@@ -1,4 +1,6 @@
 import {validSupportMine} from './combat/tracking-mines';
+import {newBuildProgress,validateBuildProgress,type BuildProgress} from './progression/build-progress';
+import {validateArmedSupport} from './combat/armed-support-state';
 import {validateUniqueSupport} from './combat/unique-support';
 import {newShopSupport,type ShopSupportState} from './combat/shop-support';
 import {FAMILIES_BY_RACE,MVP_RULES,type Race,type FamilyId} from '../data/races';
@@ -18,6 +20,7 @@ export interface TacticalPlan {targetEntityId:number;targetGeneration:number;dir
 export interface TalentLootChoice {receipt:string;rarity:'purple'|'orange';offers:ExpeditionReward[];}
 export interface EliteRescueRight {receipt:string;eliteId:string;}
 export interface ExpeditionState {
+ build?:BuildProgress;
  tutorial?:import('./tutorial/types').TutorialRun;
  /** New-run building package. Legacy player archives are not converted by this integration. */
  building?:BuildingState;
@@ -59,12 +62,13 @@ export function newExpedition(race:Race):ExpeditionState {
  const production:ExpeditionState['production']={};
  for(const [id,line] of Object.entries(PRODUCTION_LINES))if(line.race===race)production[id as ProductionLineId]={outputs:id===first.line?[first.family]:[],enabled:{},cursor:0};
  production[first.line]!.enabled[first.family]=true;
- return {building,support:newShopSupport(),zerglingPairs:[],weaponAreas:[],spells:[],rules:MVP_RULES,race,familySlots:[first.family],tech:building.tech,facilities:[{id:1,kind:first.kind,line:first.line,techLab:false}],nextFacility:2,production,
+ return {build:newBuildProgress(),building,support:newShopSupport(),zerglingPairs:[],weaponAreas:[],spells:[],rules:MVP_RULES,race,familySlots:[first.family],tech:building.tech,facilities:[{id:1,kind:first.kind,line:first.line,techLab:false}],nextFacility:2,production,
  ledger:[],credits:{},nextCredit:1,tacticalPlans:{},pendingReceipt:null,completedReceipts:[],refunds:{minerals:0,gas:0},developmentTarget:null,frozenDevelopmentTarget:null,developmentBought:false,
  pendingShopSupply:null,pendingShopElite:null,developmentDirection:null,directionOffers:{},developmentQuotes:{},shopRevision:0,shopPage:0,refreshCount:0,freePurchasesRemaining:0,
  freeRefresh:{chapter:1,building:0,random:0},bonusRefreshRemaining:0,paidRefresh:{building:false,random:false},draftWindow:0,draftTaken:false,draftClaims:[],draftSeenHigh:false,lowWindows:0,draftHistory:[],eliteContractWindow:0,eliteContracts:[],bossLootReceipts:[],bossLootClaimed:[],bossLootOpen:false,bossLootQueue:[],talentLootReceipts:[],pendingTalentLoot:null,talentLootRngState:1,eliteRescueRights:[],eliteRescueCompleted:[],temporaryOrdinaryCursor:0,temporaryEliteCursor:0,cardTotals:{},resourceCards:0,pendingFreeDeliveries:[],mapLootStats:{regular:{attempts:0,triggered:0,generated:0,empty:0},drone:{attempts:0,triggered:0,generated:0,empty:0},elite:{attempts:0,triggered:0,generated:0,empty:0}},detectionReady:0,detectionFields:[],enemyScanReady:{},familyModes:{},talentPreset:0};
 }
-export function validateExpedition(s:ExpeditionState){
+export function validateExpedition(s:ExpeditionState,tick=-1){
+ validateArmedSupport(s.support?.armed,tick);validateBuildProgress(s.build,s.support);
  if(s.heroRewardsUnlocked!==undefined&&typeof s.heroRewardsUnlocked!=='boolean')throw Error('英雄奖励开放状态无效');
  if(s.firstBossLoot!==undefined){const p=s.firstBossLoot,r=p?.reward,e=r?.expeditionEffect;
   if(!p||typeof p.consumed!=='boolean'||!r||r.sold||[r.minerals,r.gas,r.baseMinerals,r.baseGas].some(n=>n!==0)||!['purple','orange'].includes(r.rarity)||!e||!(e.kind==='hero'&&p.variant===null&&HEROES[e.heroId as HeroId]?.race===s.race||e.kind==='elite'&&p.variant!==null&&ELITES[p.variant]?.family===e.family&&(FAMILIES_BY_RACE[s.race] as readonly string[]).includes(e.family)||e.kind==='resource'&&p.variant===null&&e.minerals===250&&e.gas===100&&e.fallback))throw Error('首关首领奖励计划无效');

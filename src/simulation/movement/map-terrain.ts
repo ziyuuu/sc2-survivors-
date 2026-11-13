@@ -107,12 +107,32 @@ export class MapTerrain implements TerrainQuery {
  }
 
  private valid(r:number){let grid=this.grids.get(r);if(!grid){grid=new Uint8Array(this.definition.walk.length);for(let i=0;i<grid.length;i++)grid[i]=this.canOccupy(this.center(i),r)?1:0;this.grids.set(r,grid);}return grid;}
- connectedLocations(origin:Point,r:number,space:number){const d=this.definition,W=d.walkWidth,valid=this.valid(r),start=this.cell(origin),seen=new Uint8Array(valid.length),queue=[start],result:Point[]=[];seen[start]=1;for(let n=0;n<queue.length;n++){const i=queue[n],x=i%W,y=Math.floor(i/W),p=this.center(i);if(x%4===0&&y%4===0&&this.canOccupy(p,space))result.push(p);for(const [dx,dy]of [[1,0],[-1,0],[0,1],[0,-1]]){const nx=x+dx,ny=y+dy,j=ny*W+nx;if(nx<0||ny<0||nx>=W||ny>=d.walkHeight||seen[j]||!valid[j]||!this.canStep(p,this.center(j),r))continue;seen[j]=1;queue.push(j);}}return result;}
+ private centerHeights(){return this.cellHeights??=Float64Array.from({length:this.definition.walk.length},(_,i)=>this.height(this.center(i)));}
+ connectedLocations(origin:Point,r:number,space:number){
+  const d=this.definition,W=d.walkWidth,start=this.cell(origin),result:Point[]=[];
+  if(start<0)return result;
+  const valid=this.valid(r),heights=this.centerHeights(),seen=new Uint8Array(valid.length),queue=[start];
+  // Cardinal neighbours are one cell apart. valid already includes the destination footprint.
+  const limit=d.cellSize*1.15+.035;seen[start]=1;
+  const visit=(i:number,j:number)=>{
+   if(!seen[j]&&valid[j]&&Math.abs(heights[i]-heights[j])<=limit){seen[j]=1;queue.push(j);}
+  };
+  for(let n=0;n<queue.length;n++){
+   const i=queue[n],x=i%W,y=Math.floor(i/W);
+   if(x%4===0&&y%4===0){const p=this.center(i);if(this.canOccupy(p,space))result.push(p);}
+   // Preserve breadth-first discovery order: seeded spawns index the resulting list.
+   if(x+1<W)visit(i,i+1);
+   if(x>0)visit(i,i-1);
+   if(y+1<d.walkHeight)visit(i,i+W);
+   if(y>0)visit(i,i-W);
+  }
+  return result;
+ }
  /** Cache the static radius-aware graph once per opened map. This also rejects disconnected
   * destinations without repeatedly flooding the whole map as bodies change start cells. */
  private graph(r:number){let graph=this.graphs.get(r);if(graph)return graph;
   const d=this.definition,W=d.walkWidth,valid=this.valid(r),N=valid.length,edges=new Uint8Array(N),components=new Int32Array(N);
-  const heights=this.cellHeights??(this.cellHeights=Float64Array.from({length:N},(_,i)=>this.height(this.center(i))));
+  const heights=this.centerHeights();
   for(let i=0;i<N;i++){if(!valid[i])continue;const x=i%W,y=Math.floor(i/W);
    for(let k=0;k<NEIGHBOURS.length;k++){const [dx,dy]=NEIGHBOURS[k],nx=x+dx,ny=y+dy,j=ny*W+nx;
     if(nx<0||ny<0||nx>=W||ny>=d.walkHeight||!valid[j]||Math.abs(heights[i]-heights[j])>Math.hypot(dx,dy)*d.cellSize*1.15+.035||dx&&dy&&(!valid[y*W+nx]||!valid[ny*W+x]))continue;edges[i]|=1<<k;}

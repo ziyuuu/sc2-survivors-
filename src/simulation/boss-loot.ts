@@ -3,10 +3,11 @@ import {canSupply,applySupply} from './progression/supply-cards';
 import {missionBlocksIdentity} from './missions/rewards';
 import {ordinaryHeroAllowed,ordinaryHeroUnlockStage,unlockOrdinaryHeroRewards} from './progression/hero-availability';
 import {acquireEliteImmediately} from './elite-claim';
-import {worldContent,contentStream} from './progression/run-content';
+import {worldContent,contentStream,type StageContent} from './progression/run-content';
 import type {World} from './world';
 import type {Entity,RewardDrop} from './types';
 import {ELITES,type EliteId} from '../data/elites';
+import type {FamilyId} from '../data/races';
 import {HEROES,type HeroId} from '../data/heroes';
 import {draftContext} from './expedition-economy';
 import {drawBossLoot,type ExpeditionReward} from './progression/expedition-drafts';
@@ -18,11 +19,14 @@ export function takeUnitArrivals(w:World){const items=arrivals.get(w)??[];arriva
 export function clearUnitArrivals(w:World){arrivals.delete(w);}
 export function notifyUnitArrival(w:World,item:UnitArrival){const items=arrivals.get(w)??[];items.push(item);arrivals.set(w,items);}
 function receiptRandom(receipt:string){let seed=2166136261;for(const c of receipt)seed=Math.imul(seed^c.charCodeAt(0),16777619);return ()=>{seed^=seed<<13;seed^=seed>>>17;seed^=seed<<5;return (seed>>>0)/4294967296;};}
+export function seededBossVariant(plan:StageContent,family:FamilyId,choices:ReturnType<World['eliteVariants']>){
+ return choices.find(choice=>plan.elites.includes(choice.id))?.id??choices[Math.floor(contentStream(plan,'boss/variant/'+family)()*choices.length)]?.id;
+}
 /** Freeze the actual elite identity without consuming the combat/draft RNG. */
 export function freezeLootVariant(w:World,reward:ExpeditionReward,receipt:string):EliteId|undefined{
  const e=reward.expeditionEffect;if(e.kind!=='elite')return;
  const choices=w.eliteVariants(e.family),plan=worldContent(w);
- if(plan)return choices.find(choice=>plan.elites.includes(choice.id))?.id??choices[Math.floor(contentStream(plan,'boss/variant/'+e.family)()*choices.length)]?.id;
+ if(plan)return seededBossVariant(plan,e.family,choices);
  return choices[Math.floor(receiptRandom(receipt)()*choices.length)]?.id;
 }
 /** Decide the first campaign Boss reward at stage entry. This separate receipt

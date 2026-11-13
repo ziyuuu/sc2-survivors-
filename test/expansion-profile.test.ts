@@ -7,7 +7,8 @@ import {SOURCE_ABILITIES,SOURCE_WEAPON_PATTERNS,SOURCE_MOVEMENT,sourceWeaponsFor
 import {ELITES,eliteStats} from '../src/data/elites';
 import {RUNTIME_ASSETS} from '../src/assets/runtime.generated';
 test('science vessel is a separate verified campaign profile with the approved repair-only adapter',()=>{
- assert.equal(ALL_FAMILIES.length,30);assert.equal(Object.keys(AIR_HERO_TYPES).length,3);assert.equal(Object.keys(SC2_UNITS).length,33);assert.equal(SC2_UNITS.science_vessel,CAMPAIGN_SCIENCE_VESSEL);
+ assert.equal(ALL_FAMILIES.length,30);assert.equal(Object.keys(AIR_HERO_TYPES).length,3);assert.equal(Object.keys(SC2_UNITS).length,34);assert.equal(SC2_UNITS.science_vessel,CAMPAIGN_SCIENCE_VESSEL);
+ assert.ok(!ALL_FAMILIES.includes('battlecruiser' as never),'support-only Battlecruiser does not unlock a production family');
  assert.equal(SCIENCE_VESSEL_SOURCE.version,'5.0.16.97563');assert.equal(CAMPAIGN_SCIENCE_VESSEL.attackDamage,0);
  assert.equal(CAMPAIGN_SCIENCE_VESSEL_RECIPE.productionTime,60/1.4);assert.equal(CAMPAIGN_SCIENCE_VESSEL_RECIPE.mineralCost,100);assert.equal(CAMPAIGN_SCIENCE_VESSEL_RECIPE.gasCost,200);
  assert.equal(SCIENCE_VESSEL_REPAIR.energyPerHp,.33);assert.equal(SCIENCE_VESSEL_ADAPTATION.biologicalRecoveryMultiplier,1/3);assert.equal(SCIENCE_VESSEL_ADAPTATION.passiveDetector,false);assert.equal(SCIENCE_VESSEL_ADAPTATION.irradiate,false);

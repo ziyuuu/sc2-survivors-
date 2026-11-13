@@ -1,0 +1,48 @@
+{
+  "date": "2026-11-11",
+  "task": "ARMED-1.4",
+  "candidate": "armed-design-r3-20261111-simple-r4",
+  "sourceHead": "679720fefa5c",
+  "configSha256": "e0bb0ffe7d98dfd3ee4b55a21321f2d5bf78373bcb514794158f79d4386c9a52",
+  "specSha256": "1eda71abf0cbc81727122b23c4a47263fd0e36be73ee55466e3d45a90011842b",
+  "userDecision": "默认卡面要有一句简单描述。上一版清空说明是代理理解过度；本版45张恢复直白用途句，人数/时长/冷却/强度与具体限制仍在详情。",
+  "changes": [
+    "45张简单描述重写，无参数表、时序或长条件；保留正式补员/临援身份。",
+    "原箭头切换，收起回到简单描述；字号、卡槽、主视觉与操作保持。",
+    "原来只在短句中的W02人数冷却、W07/G02/B08寿命、P05数量、O01触发人数已补入详情。"
+  ],
+  "verified": {
+    "cards": 45,
+    "unchangedRulesAndIdentity": 45,
+    "viewportGroups": 9,
+    "all45BriefDetailBrief": true,
+    "errors": [],
+    "typecheck": "passed",
+    "docsCheck": "passed"
+  },
+  "evidence": [
+    "docs/project/V1_4_TERRAN_ARMED_SUPPORT_CARD_DESIGN_20261111.md",
+    "docs/project/UI_RULES.md",
+    "reports/local/armed-support-design-20261111/武装支援-卡面审阅.html",
+    "reports/local/armed-support-design-20261111/ui-checks.json"
+  ],
+  "reproduce": [
+    "node --import tsx tools/build-armed-support-design.mts",
+    "node tools/qa-armed-support-design.mjs",
+    "npm run typecheck",
+    "npm run docs:check"
+  ],
+  "open": "进入资源与正式接入准备；第一批直接依赖仍待实现，P05原型仍需提供实际资源候选，45项正式World重放继续开放。",
+  "userAcceptance": {
+    "date": "2026-11-11",
+    "text": "可以了。下一步是？",
+    "scope": "确认当前卡面：一句简单用途描述，数值与具体规则放详情，沿原切换与卡槽。"
+  },
+  "readiness": {
+    "head": "679720fefa5c",
+    "branch": "体积优化版",
+    "firstBatch": "PLAY-1X待办，生产开单仍扣矿气，保留paid乘员回执。",
+    "buildState": "现有进度/经济/货架入口未接armed或主分支/节点状态。",
+    "assets": "model.battlecruiser与model.fort.planetary未注册；本地存在battlecruiserex2.m3、死亡模型、贴图与原声音，需继续核实普通身份，不能直接视作普通战巡已完成。"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-11",
+  "historical": true,
+  "userReview": "用户进一步明确，短效果介绍也放在详情，默认卡面无需说明正文。",
+  "supersededBy": "reports/qa/armed-support-front-r3-20261111.json",
+  "task": "ARMED-1.4",
+  "candidate": "armed-design-r3-20261111-copy-r2",
+  "sourceHead": "679720fefa5c",
+  "configSha256": "0aadb983569726aca7868a96fcb0f2e95560ed5f6da7155021359fbd3cba2b5c",
+  "specSha256": "1eda71abf0cbc81727122b23c4a47263fd0e36be73ee55466e3d45a90011842b",
+  "userDecision": "用户指出卡面介绍过于冗余。45张全部重写为直接效果短句；详情保留决策数据，去掉通用规则复述、微小时序、执行流程和防重复结算说明。",
+  "scope": "仅本地候选文案与审阅产物；原卡槽、字体、品质底色、切换、主视觉、资源和R3玩法参数保留。",
+  "checks": {
+    "cards": 45,
+    "unchangedParametersAndIdentity": 45,
+    "averageBriefCharacters": 15.1,
+    "averageDetailCharacters": 72.5,
+    "representativeViewportGroups": 9,
+    "all45OpenedAndToggled": true,
+    "scriptErrors": [],
+    "typecheck": "passed",
+    "docsCheck": "passed"
+  },
+  "evidence": [
+    "docs/project/V1_4_TERRAN_ARMED_SUPPORT_CARD_DESIGN_20261111.md",
+    "src/data/terran-armed-support.ts",
+    "reports/local/armed-support-design-20261111/武装支援-卡面审阅.html",
+    "reports/local/armed-support-design-20261111/ui-checks.json",
+    "reports/local/armed-support-design-20261111/copy-baseline.json"
+  ],
+  "reproduce": [
+    "node --import tsx tools/build-armed-support-design.mts",
+    "node tools/qa-armed-support-design.mjs",
+    "npm run typecheck",
+    "npm run docs:check"
+  ],
+  "open": "新版文案和UI仍待用户审阅；正式接入、资源缺口与45项World实机重放继续保留，未提交推送部署发布。"
+}

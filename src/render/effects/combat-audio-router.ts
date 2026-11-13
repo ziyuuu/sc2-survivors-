@@ -12,13 +12,14 @@ type Identity=Partial<Entity>&{siege?:boolean;sourceTeam?:Entity['team'];targetF
 export type AudioChannel={key:string;bank:string;start?:string;end?:string;priority:number;volume:number;rate?:number};
 export function weaponSoundKey(u:Identity):string{
  if(u.summonKind==='interceptor')return 'interceptor';
+ if(u.unitType==='battlecruiser')return 'hero:yamato_battlecruiser'+(u.targetFlying?'-air':'');
  if(u.mission?.fleet)return 'hero:yamato_battlecruiser'+(u.targetFlying?'-air':'');
  if(u.heroId){const air=u.targetFlying&&['yamato_battlecruiser','hots_leviathan'].includes(u.heroId);return 'hero:'+u.heroId+(air?'-air':'');}
  if(u.unitType==='hydralisk')return u.activeWeapon==='HydraliskMelee'?'hydralisk-melee':u.targetFlying?'hydralisk-air':'hydralisk';
  if(u.unitType==='roach'&&u.activeWeapon==='RoachMelee')return 'roach-melee';
  return combatFxProfile(u)?.key??u.unitType??'';
 }
-export function deathSoundKey(u:Identity):string{const key=u.modelKey?.replace(/\.timeout$/,'');if(key&&['fun-nydus','fun-infested-marine','fun-cocoon'].includes(key))return key;return u.summonKind==='interceptor'?'interceptor':u.heroId?'hero:'+u.heroId:u.unitType??'';}
+export function deathSoundKey(u:Identity):string{if(u.unitType==='battlecruiser')return 'hero:yamato_battlecruiser';const key=u.modelKey?.replace(/\.timeout$/,'');if(key&&['fun-nydus','fun-infested-marine','fun-cocoon'].includes(key))return key;return u.summonKind==='interceptor'?'interceptor':u.heroId?'hero:'+u.heroId:u.unitType??'';}
 const fortWeapon=(kind:string)=>kind==='bunker'?'building:bunker':kind==='turret_protoss'?'building:photon-cannon':kind==='turret_zerg'?'building:spine-crawler':'building:auto-turret';
 /** Read-only audio receipts; no damage, simulation timers or random calls. */
 export class CombatAudioRouter {
@@ -95,6 +96,7 @@ export class CombatAudioRouter {
     else if(e.eliteId==='sentry.2'){emit(SOUND_DATA.skills.vorazun.launch,e,3);emit(SOUND_DATA.skills.vorazun.impact,e.end,3);}
     else special(w.expedition.race==='terran'?'nuke':w.expedition.race==='zerg'?'bombardZerg':'bombardProtoss',w.expedition.race==='terran'?2:0,e,5);
    }
+   else if(e.kind==='support-flight'&&e.supportSound){const route=SOUND_DATA.weapons[e.supportSound];if(route)emit(route.attack,e,2);}
    else if((e.kind==='support-impact'||e.kind==='support-pulse')&&e.supportSound){const route=SOUND_DATA.weapons[e.supportSound];if(route)emit(route.impact,e,2);else special(e.supportSound,0,e,2);}
    else if(e.kind==='drone-death')for(const bank of SOUND_DATA.deaths.drone)emit(bank,e,3);
    else if(e.kind==='egg-expired')for(const bank of SOUND_DATA.deaths.egg)emit(bank,e,2);
@@ -129,6 +131,11 @@ export class CombatAudioRouter {
     else if(u.unitType==='science_vessel')channel('repair:'+u.id,SOUND_DATA.special.repair[0],u,2);
    }
   }
+  for(const f of w.expedition.support.armed?.fields??[]){
+   if(f.cardId==='G09'&&w.tick>=f.activeTick&&w.tick<f.endTick&&f.ticksLeft!>0)channel('armed-repair:'+f.id,SOUND_DATA.special.repair[0],f.point,2);
+   const opened=f.cardId==='W06'?f.activeTick:f.cardId==='P03'?f.attachTick:f.activeTick;
+   if(opened!==undefined&&w.tick>=opened&&w.tick-opened<18){if(f.cardId==='W06')special('medicHeal',0,f.point,2,'armed-medkit:'+f.id);else if(f.cardId==='B02')special('podTerran',1,f.point,2,'armed-clamp:'+f.id);else if(f.cardId==='G04'||f.cardId==='P03')special('bile',0,f.point,2,'armed-oil:'+f.id);}
+  }
   for(const c of w.heroCasts){const skill=SOUND_DATA.skills[c.hero],u=w.entities.get(c.source)??w.starship.skillSources.get(c.source);if(!u?.hp||!skill)continue;
    if(c.beganAt!==undefined&&w.time-c.beganAt<.3&&c.phase!=='dot')emit(skill.charge,u,4,'charge:'+c.source+':'+c.beganAt);
    if(c.hero==='swann'&&c.phase==='channel')channel('skill:swann:'+c.id,skill.loop,u,4,skill.launch,skill.end);
@@ -144,7 +151,8 @@ export class CombatAudioRouter {
   for(const e of equipmentPresentationReceipts(w)){
    if(e.serial<=this.equipmentSerial)continue;this.equipmentSerial=e.serial;if(w.time-e.time>.3)continue;
    // Fort shots are already owned by their original shot Effect above.
-   if(e.kind==='boost-start')special(e.source.unitType==='marauder'?'stimMarauder':'stimMarine',0,e.source,3);
+   if(e.kind==='fort-shot'&&e.detail==='planetary'&&e.target){const route=SOUND_DATA.weapons['building:planetary'];emit(route?.attack,e.source,3);emit(route?.impact,e.target,2);}
+   else if(e.kind==='boost-start')special(e.source.unitType==='marauder'?'stimMarauder':'stimMarine',0,e.source,3);
    else if(e.kind==='projection-birth'||e.kind==='projection-end')special('hallucination',(e.source.unitType==='colossus'?2:0)+(e.kind==='projection-end'?1:0),e.source,2);
    else if(e.kind==='recall-from'||e.kind==='recall-to')special('recall',e.kind==='recall-from'?0:1,e.source,3);
    else if(e.kind==='expiry')special(e.source.race==='zerg'?'burrow':'recall',0,e.source,2);

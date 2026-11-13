@@ -7,8 +7,8 @@ import {familyAction} from '../preview/battle-ui-feedback-20261008/console-model
 import type {ExpeditionReward} from '../src/simulation/progression/expedition-drafts';
 import {encodeGraph} from '../src/persistence/graph-codec';
 
-function shop(){const w=new World({race:'terran',sandbox:true,waves:false,terrain:false,obstacles:[],seed:10808});w.start();w.wallet={minerals:100000,gas:100000};w.endStage();assert.ok(w.skipReward());return w;}
-function card(w:World,kind:'card'|'teamCard'='teamCard'){for(let i=0;i<50;i++){const r=(w.rewards as ExpeditionReward[]).find(r=>r.expeditionEffect.kind===kind&&w.canChooseReward(r));if(r)return r;assert.ok(w.reroll());}throw Error('No native '+kind+' quote');}
+function shop(){const w=new World({race:'terran',sandbox:true,waves:false,terrain:false,obstacles:[],seed:10808});w.start();w.wallet={minerals:1000000000,gas:1000000000};w.endStage();assert.ok(w.skipReward());return w;}
+function card(w:World,kind:'card'|'teamCard'='teamCard'){for(let i=0;i<200;i++){const r=(w.rewards as ExpeditionReward[]).find(r=>r.expeditionEffect.kind===kind&&w.canChooseReward(r));if(r)return r;assert.ok(w.reroll());}throw Error('No native '+kind+' quote');}
 test('shop journal records only completed native purchases, once, without changing saved state',()=>{
  const w=shop(),j=new EnhancementJournal(),r=card(w);assert.equal(j.record(r),false);assert.ok(w.choose(r.offerId));const before=JSON.stringify(encodeGraph({run:w.captureRun(),profile:w.permanentProfile.exportJSON()}));assert.ok(j.record(r));assert.equal(j.record(r),false);assert.equal(j.snapshot().length,1);assert.deepEqual(j.snapshot()[0].purchaseReceipt,r.purchaseReceipt);assert.deepEqual(j.totals(),w.expedition.cardTotals);assert.equal(JSON.stringify(encodeGraph({run:w.captureRun(),profile:w.permanentProfile.exportJSON()})),before);
 });

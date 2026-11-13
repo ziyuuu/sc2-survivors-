@@ -1,0 +1,605 @@
+{
+  "date": "2026-11-12",
+  "task": "ARMED-1.4",
+  "audit": "AUDIT-1.4",
+  "branch": "体积优化版",
+  "sourceHead": "679720fefa5c2d2385a36ec40e6ffe3135adb9b4",
+  "build": {
+    "prior": "5b3514d513e7fef96ea4aa497212497c511f6198b6f828a68b1cac568cbfc304",
+    "app": "ce857e80da5d380ea7730c323915b6208751af3d4dacba4d79e4bff9f25a7a2f",
+    "webResourceRelease": "275e38780707123a498355e18bb414cccbc95bf272409b1a6045945b724a5317",
+    "packedResourceRelease": "b0bf5b84e5968dc7a722f592f7cb089e5e4f26157ece54c28af7a116f000052a",
+    "runSchema": 26,
+    "resourceIds": 3952,
+    "reusedPackedIds": 3932,
+    "addedPackedIds": 20,
+    "additionalMediumLowRecords": 28
+  },
+  "repairs": [
+    {
+      "id": "ARMED-ENDLESS-01",
+      "fixture": {
+        "seed": 1111045,
+        "difficulty": "normal",
+        "stage": 18,
+        "autoWaves": false
+      },
+      "before": {
+        "samples": [
+          {
+            "phase": "battle",
+            "round": 1,
+            "elapsed": 23.28333333333333,
+            "shots": 92
+          },
+          {
+            "phase": "battle",
+            "round": 1,
+            "elapsed": 23.28333333333333,
+            "shots": 92
+          }
+        ],
+        "errors": [
+          "真实 SC 建筑及动作未准备：supply_depot"
+        ]
+      },
+      "web": {
+        "firstObservedDrop": {
+          "seconds": 23.58,
+          "shots": 104,
+          "renderedDepots": 1,
+          "round": 1,
+          "phase": "battle"
+        },
+        "fourLanded": {
+          "seconds": 24.12,
+          "shots": 134,
+          "renderedDepots": 4,
+          "round": 1,
+          "phase": "battle"
+        },
+        "subsequentSamples": [
+          {
+            "seconds": 26.33,
+            "shots": 231,
+            "renderedDepots": 4,
+            "round": 1,
+            "phase": "battle"
+          },
+          {
+            "seconds": 27.35,
+            "shots": 275,
+            "renderedDepots": 4,
+            "round": 1,
+            "phase": "battle"
+          }
+        ]
+      },
+      "compressedHigh": {
+        "firstObservedDrop": {
+          "seconds": 23.55,
+          "shots": 102,
+          "renderedDepots": 1,
+          "round": 1,
+          "phase": "battle"
+        },
+        "fourLanded": {
+          "seconds": 24.08,
+          "shots": 132,
+          "renderedDepots": 4,
+          "round": 1,
+          "phase": "battle"
+        },
+        "subsequentSamples": [
+          {
+            "seconds": 26.25,
+            "shots": 229,
+            "renderedDepots": 4,
+            "round": 1,
+            "phase": "battle"
+          },
+          {
+            "seconds": 27.3,
+            "shots": 273,
+            "renderedDepots": 4,
+            "round": 1,
+            "phase": "battle"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ARMED-SPECIAL-01",
+      "before": {
+        "before": {
+          "tick": 24,
+          "field": 2,
+          "beacon": 3
+        },
+        "childFields": [
+          2
+        ],
+        "childDeployments": [
+          3
+        ],
+        "childHasBeaconBody": false,
+        "childSceneObjects": 3,
+        "withFlare": true,
+        "withoutFlare": false,
+        "returnedOriginal": true,
+        "returnedTick": 24
+      },
+      "after": {
+        "before": {
+          "tick": 24,
+          "field": 2,
+          "beacon": 3
+        },
+        "childDeployments": [],
+        "childHasBeaconBody": false,
+        "childSceneObjects": 0,
+        "withFlare": false,
+        "withoutFlare": false,
+        "returnedOriginal": true,
+        "returnedTick": 24,
+        "childFields": []
+      },
+      "parkedPaidManualVolley": "在子场保持已付库存，返回第 24 步并恢复原齐射对象，母场命中一次"
+    },
+    {
+      "id": "ARMED-SAVE-01",
+      "before": {
+        "first": "通过",
+        "records": [
+          {
+            "source": "P04",
+            "amount": 300,
+            "untilTick": 492
+          },
+          {
+            "source": "P04",
+            "amount": 300,
+            "untilTick": 2016
+          }
+        ],
+        "second": "武装持续状态无效",
+        "intermission": "通过"
+      },
+      "after": {
+        "first": "通过",
+        "records": [
+          {
+            "source": "P04",
+            "amount": 300,
+            "untilTick": 2016
+          }
+        ],
+        "second": "通过",
+        "intermission": "通过"
+      },
+      "legacy": "重复来源只剩一份活盾时可以恢复；同时有效的同源重复记录被拒绝"
+    },
+    {
+      "id": "ARMED-DOT-01",
+      "before": 120,
+      "after": {
+        "expected": 144,
+        "hits": [
+          {
+            "tick": 69,
+            "amount": 24
+          },
+          {
+            "tick": 129,
+            "amount": 24
+          },
+          {
+            "tick": 189,
+            "amount": 24
+          },
+          {
+            "tick": 249,
+            "amount": 24
+          },
+          {
+            "tick": 309,
+            "amount": 24
+          },
+          {
+            "tick": 369,
+            "amount": 24
+          }
+        ],
+        "actual": 144
+      },
+      "restoreAtTick": 368,
+      "lastHitAfterRestore": 24,
+      "overlappingOil": {
+        "ticks": 12,
+        "damagePerTick": 20
+      }
+    },
+    {
+      "id": "ARMED-PRELOAD-01",
+      "seed": 529,
+      "difficulty": "hard",
+      "before": {
+        "stage": 10,
+        "allowed": [
+          "hero.yamato_battlecruiser",
+          "hero.raynor",
+          "hero.swann"
+        ],
+        "prepared": [
+          "hero.raynor",
+          "hero.tychus",
+          "hero.nova",
+          "hero.swann",
+          "hero.tosh",
+          "hero.yamato_battlecruiser"
+        ],
+        "extra": [
+          "hero.tychus",
+          "hero.nova",
+          "hero.tosh"
+        ]
+      },
+      "after": {
+        "stage": 10,
+        "allowed": [
+          "hero.yamato_battlecruiser",
+          "hero.raynor",
+          "hero.swann"
+        ],
+        "prepared": [
+          "hero.yamato_battlecruiser",
+          "hero.raynor",
+          "hero.swann"
+        ],
+        "extra": []
+      },
+      "entryChecks": [
+        "第 9 关出发",
+        "第 9 关整备读档",
+        "第 10 关战斗读档",
+        "已承诺英雄",
+        "缺分关清单的旧档"
+      ]
+    },
+    {
+      "id": "ARMED-RETIRE-01",
+      "sameRenderer": true,
+      "onEntry": {
+        "phase": "battle",
+        "round": 1,
+        "rank": 1,
+        "medkit": true,
+        "drone": true,
+        "barrier": true,
+        "barrierDeath": true
+      },
+      "postDispatch": {
+        "medkit": true,
+        "drone": true,
+        "barrier": true,
+        "barrierDeath": true
+      },
+      "afterCardlessBoundary": {
+        "ranks": {},
+        "phase": "reward",
+        "retainedKeys": [],
+        "medkit": false,
+        "drone": false,
+        "barrier": false,
+        "barrierDeath": false,
+        "boundaryRan": true
+      },
+      "errors": []
+    },
+    {
+      "id": "ARMED-IDLE-01",
+      "before": {
+        "entities": 100,
+        "calls": 60,
+        "newCardlessState": 6000,
+        "legacyAbsentState": 0
+      },
+      "after": {
+        "entities": 100,
+        "calls": 60,
+        "newCardlessState": 0,
+        "legacyAbsentState": 0
+      },
+      "lingeringArmorRestored": true
+    }
+  ],
+  "packagedPlayer": {
+    "checks": 12,
+    "hashCheckedModels": 10,
+    "afterContinue": {
+      "checkpointRestored": true,
+      "nextStage": 2,
+      "noDebugAPI": true
+    },
+    "errors": []
+  },
+  "compressedRuns": {
+    "platform": "Windows Chrome 1200×800，独立浏览器环境",
+    "originalAuditFixture": {
+      "tier": "high",
+      "texture": "high",
+      "worker": "sites-sw.27ac66b0087fbb379cc7.js",
+      "endTrackedBytes": 1438318187,
+      "peakTrackedBytes": 1451906821,
+      "pressureAtEnd": true,
+      "pageErrors": [],
+      "rendererErrors": [],
+      "final": {
+        "seconds": 31.95,
+        "shots": 390,
+        "renderedDepots": 3,
+        "round": 1,
+        "phase": "lost"
+      }
+    },
+    "nativeWaves": {
+      "seed": 1111045,
+      "difficulty": "normal",
+      "autoWaves": true,
+      "observationLimitSeconds": 180,
+      "outcome": "lost",
+      "roster": [
+        {
+          "family": "marine",
+          "seats": 5,
+          "members": [
+            {
+              "rank": 5,
+              "elite": null
+            },
+            {
+              "rank": 5,
+              "elite": null
+            },
+            {
+              "rank": 5,
+              "elite": null
+            },
+            {
+              "rank": 5,
+              "elite": null
+            },
+            {
+              "rank": 5,
+              "elite": null
+            }
+          ]
+        },
+        {
+          "family": "marauder",
+          "seats": 5,
+          "members": [
+            {
+              "rank": 5,
+              "elite": null
+            },
+            {
+              "rank": 5,
+              "elite": null
+            },
+            {
+              "rank": 5,
+              "elite": null
+            },
+            {
+              "rank": 5,
+              "elite": null
+            },
+            {
+              "rank": 5,
+              "elite": null
+            }
+          ]
+        },
+        {
+          "family": "tank",
+          "seats": 5,
+          "members": [
+            {
+              "rank": 5,
+              "elite": null
+            },
+            {
+              "rank": 5,
+              "elite": null
+            },
+            {
+              "rank": 5,
+              "elite": null
+            },
+            {
+              "rank": 5,
+              "elite": null
+            },
+            {
+              "rank": 5,
+              "elite": null
+            }
+          ]
+        },
+        {
+          "family": "thor",
+          "seats": 5,
+          "members": [
+            {
+              "rank": 1,
+              "elite": "thor.2"
+            },
+            {
+              "rank": 5,
+              "elite": null
+            },
+            {
+              "rank": 5,
+              "elite": null
+            },
+            {
+              "rank": 5,
+              "elite": null
+            },
+            {
+              "rank": 5,
+              "elite": null
+            }
+          ]
+        },
+        {
+          "family": "viking",
+          "seats": 5,
+          "members": [
+            {
+              "rank": 5,
+              "elite": null
+            },
+            {
+              "rank": 5,
+              "elite": null
+            },
+            {
+              "rank": 5,
+              "elite": null
+            },
+            {
+              "rank": 5,
+              "elite": null
+            },
+            {
+              "rank": 5,
+              "elite": null
+            }
+          ]
+        }
+      ],
+      "observed": [
+        {
+          "seconds": 15.4,
+          "shots": 200,
+          "renderedDepots": 3,
+          "round": 1,
+          "phase": "battle"
+        },
+        {
+          "seconds": 31.08,
+          "shots": 828,
+          "renderedDepots": 1,
+          "round": 1,
+          "phase": "battle"
+        },
+        {
+          "seconds": 46.92,
+          "shots": 1202,
+          "renderedDepots": 3,
+          "round": 1,
+          "phase": "battle"
+        },
+        {
+          "seconds": 60,
+          "shots": 1429,
+          "renderedDepots": 0,
+          "round": 1,
+          "phase": "reward"
+        },
+        {
+          "seconds": 61.03,
+          "shots": 1447,
+          "renderedDepots": 0,
+          "round": 2,
+          "phase": "battle"
+        },
+        {
+          "seconds": 76.77,
+          "shots": 1777,
+          "renderedDepots": 3,
+          "round": 2,
+          "phase": "battle"
+        },
+        {
+          "seconds": 92.55,
+          "shots": 2295,
+          "renderedDepots": 0,
+          "round": 2,
+          "phase": "battle"
+        },
+        {
+          "seconds": 99.58,
+          "shots": 2489,
+          "renderedDepots": 0,
+          "round": 2,
+          "phase": "lost"
+        }
+      ],
+      "transitions": [
+        {
+          "seconds": 15.4,
+          "shots": 200,
+          "renderedDepots": 3,
+          "round": 1,
+          "phase": "battle"
+        },
+        {
+          "seconds": 60,
+          "shots": 1429,
+          "renderedDepots": 0,
+          "round": 1,
+          "phase": "reward"
+        },
+        {
+          "seconds": 61.03,
+          "shots": 1447,
+          "renderedDepots": 0,
+          "round": 2,
+          "phase": "battle"
+        },
+        {
+          "seconds": 99.58,
+          "shots": 2489,
+          "renderedDepots": 0,
+          "round": 2,
+          "phase": "lost"
+        }
+      ],
+      "final": {
+        "seconds": 99.58,
+        "shots": 2489,
+        "renderedDepots": 0,
+        "round": 2,
+        "phase": "lost"
+      },
+      "tier": "medium",
+      "texture": "medium",
+      "worker": "sites-sw.27ac66b0087fbb379cc7.js",
+      "endTrackedBytes": 758852265,
+      "peakTrackedBytes": 829889066,
+      "pressureAtEnd": true,
+      "pageErrors": [],
+      "rendererErrors": []
+    }
+  },
+  "checks": {
+    "full": {
+      "passed": 3168,
+      "failed": 0,
+      "skipped": 0
+    },
+    "targetedBeforeAdditionalTests": 159,
+    "newCases": 7,
+    "typecheck": "通过",
+    "dataReference": "已重新生成，docs:check 通过"
+  },
+  "scope": {
+    "physicalIPhone": false,
+    "fullNaturalCampaign": false,
+    "gameplayMerge": "PLAY-1X 待办",
+    "delivery": "本地工作区候选；无本次提交、推送或部署"
+  }
+}

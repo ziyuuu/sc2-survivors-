@@ -29,6 +29,9 @@ import {CAMPAIGN_SCIENCE_VESSEL} from './campaign-science-vessel';
 export const SC2_UNITS:Record<CombatUnitType,UnitData> = {
  ...VERIFIED_EXPANSION_UNITS,
  science_vessel:CAMPAIGN_SCIENCE_VESSEL,
+ // Pinned Battlecruiser / BattlecruiserWeaponSwitch / ATSLaserBatteryU / ATALaserBatteryU.
+ // The weapon switch uses 8 vs ground, 5 vs air. No hero ability or hero stat adapter.
+ battlecruiser:{...unit('Battlecruiser','战列巡洋舰',550,3,1.875,8,.225,6,['Armored','Mechanical','Massive'],90,400,300,1.25),targetType:'both',flying:true,damagePoint:0},
  marine:{...unit('Marine','陆战队员',45,0,2.25,6,.8608,5,['Light','Biological'],25,50,0,.375),targetType:'both',damagePoint:.05/FASTER},
  marauder:{...unit('Marauder','劫掠者',125,1,2.25,10,1.5,6,['Armored','Biological'],30,100,25,.5625,[{attribute:'Armored',amount:10}]),damagePoint:0},
  hellion:{...unit('Hellion','恶火',90,0,4.25,8,2.5,5,['Light','Mechanical'],30,100,0,.625,[{attribute:'Light',amount:6}]),damagePoint:.25/FASTER},

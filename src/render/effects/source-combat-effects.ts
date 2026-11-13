@@ -33,14 +33,14 @@ export class SourceCombatEffects {
  private mounts=new Map<string,P[]>();private launched=new Set<number>();private routes=new Set<string>();private flights=0;private events=0;
  private hologramDeaths=new Map<number,VisualEvent>();
  private lifecycle=new Map<number,VisualEvent>();
- private weaponChannels=new SourceWeaponChannels();private nukes=new Map<number,VisualEvent>();
+ private weaponChannels=new SourceWeaponChannels();private nukes=new Map<number,VisualEvent>();private armedLandings=new Map<number,VisualEvent>();
  private enemySpecials=new EnemySpecialSource();
  private stim=new StimPresentation();private stimCues=new Map<string,StimCue>();
  private menuSuspended=false;
  constructor(scene:THREE.Scene,camera:THREE.Camera,private fx:BattleEffects){this.player=new SourceEffectPlayer(scene,camera);this.equipment=new EquipmentEffects(scene);}
  load(models?:readonly string[]){return this.player.load(models);}
  resumeAt(w:World){this.serial=w.visualEvents.at(-1)?.serial??0;this.time=w.time;this.run=w.runId??'';this.enemySpecials.resumeAt(w);this.weaponChannels.resumeAt(w);this.stim.resumeAt(w);this.stimCues.clear();}
- reset(){this.serial=0;this.time=0;this.run='';this.echoes=[];this.mounts.clear();this.launched.clear();this.hologramDeaths.clear();this.lifecycle.clear();this.nukes.clear();this.weaponChannels.reset();this.player.reset();this.equipment.reset();this.enemySpecials.reset();this.stim.reset();this.stimCues.clear();}
+ reset(){this.serial=0;this.time=0;this.run='';this.echoes=[];this.mounts.clear();this.launched.clear();this.hologramDeaths.clear();this.lifecycle.clear();this.nukes.clear();this.armedLandings.clear();this.weaponChannels.reset();this.player.reset();this.equipment.reset();this.enemySpecials.reset();this.stim.reset();this.stimCues.clear();}
  report(){return {routes:[...this.routes],events:this.events,flights:this.flights,echoes:this.echoes.length,source:this.player.report()};}
  private request(model:string,key:string,age:number,placement:SourcePlacement,ground:(p:Point)=>number,options:Partial<SourceEffectRequest>={}){
   this.player.add({key,model,age:Math.max(0,age*rate),clockRate:rate,seed:sourceSeed(key),placement,...options},ground);
@@ -59,9 +59,10 @@ export class SourceCombatEffects {
    if(!u?.hp||age>sourceLife(SOURCE_EFFECTS[model])/rate){this.stimCues.delete(key);continue;}
    this.routes.add('stim-'+cue.kind);const p=overhead?.(u)??shieldBounds?.(this.event(w,u))?.top??point(w,u,1.8);this.request(model,key,age,{...p,facing:u.facing},ground);
   }
-  for(const e of w.visualEvents){const shieldReceipt=e.kind==='shield-hit'||e.kind==='shield-break',hologram=e.kind==='death'&&sourceHologramDeath(e),nuke=e.kind==='strategic-impact'&&e.entityId===0&&e.race==='terran'&&!e.heroId&&!e.eliteId;
+  for(const e of w.visualEvents){const shieldReceipt=e.kind==='shield-hit'||e.kind==='shield-break',hologram=e.kind==='death'&&sourceHologramDeath(e),nuke=e.kind==='strategic-impact'&&e.entityId===0&&e.race==='terran'&&!e.heroId&&!e.eliteId,armedLanding=e.kind==='pod-land'&&e.castId!==undefined&&e.race==='terran';
    const lifecycle=e.kind==='unit-expired'||e.kind==='death'&&e.modelKey==='fun-cocoon';
-   if(sourceOwnsEvent(e)||shieldReceipt||hologram||nuke||lifecycle)this.fx.sourceEventIds.add(e.serial);if(e.serial<=this.serial)continue;
+   if(sourceOwnsEvent(e)||shieldReceipt||hologram||nuke||lifecycle||armedLanding)this.fx.sourceEventIds.add(e.serial);if(e.serial<=this.serial)continue;
+   if(armedLanding)this.armedLandings.set(e.serial,structuredClone(e));
    if(lifecycle)this.lifecycle.set(e.serial,structuredClone(e));
    if(nuke)this.nukes.set(e.serial,structuredClone(e));
    if(hologram)this.hologramDeaths.set(e.entityId,structuredClone(e));
@@ -127,7 +128,9 @@ export class SourceCombatEffects {
    for(const model of [...p.models.beam??[],...(p.key==='void-ray'?p.models.impact??[]:[])])this.request(model,'channel:'+u.id+':'+u.shotSequence+':'+model,age,{...from,facing:e.facing,end,scale:strength},ground,{loop:true,hostedBeam:true});
   }
   this.weaponChannels.render(w,(model,key,age,placement,options)=>this.request(model,key,age,placement,ground,options),(u,time,end)=>this.event(w,u,time,'attack',end),muzzle);
-  for(const [serial,e]of this.nukes){const age=w.time-e.time,model='GhostNukeExplode',definition=SOURCE_EFFECTS[model];if(age>sourceLife(definition)/rate){this.nukes.delete(serial);continue;}this.routes.add('strategic-nuke');this.request(model,'nuke:'+serial,age,{x:e.x,y:ground(e),z:e.z,facing:0},ground,{clip:'Death',meshUntil:definition.materialProfile.clips.find(c=>c.name==='Death')!.duration});}
+  for(const [serial,e]of this.nukes){const age=w.time-e.time,model='GhostNukeExplode',definition=SOURCE_EFFECTS[model];if(age>sourceLife(definition)/rate){this.nukes.delete(serial);continue;}this.routes.add('strategic-nuke');this.request(model,'nuke:'+serial,age,{x:e.x,y:ground(e),z:e.z,facing:0,scale:.32,heightScale:.5},ground,{particleOpacity:.32,clip:'Death',meshUntil:Math.min(2.4,definition.materialProfile.clips.find(c=>c.name==='Death')!.duration)});}
+  for(const [serial,e]of this.armedLandings){const model='JumpLandDust',definition=SOURCE_EFFECTS[model],age=w.time-e.time;if(age>sourceLife(definition)/rate){this.armedLandings.delete(serial);continue;}this.routes.add('armed-landing');this.request(model,'armed-land:'+serial,age,{x:e.x,y:ground(e)+.03,z:e.z,facing:0},ground);}
+  for(const e of w.visualEvents)if(e.supportVisual==='rear-blast'&&w.time-e.time<1)this.request('SiegeTankSiegedAttackImpact','rear-blast:'+e.serial,w.time-e.time,{x:e.x,y:ground(e),z:e.z,facing:0,scale:1},ground);
   for(const f of w.weaponFlights)if(sourceOwnsWeapon(f.source)&&w.time>=f.start)this.flight(w,f,muzzle,ground);
   for(const f of w.effects){const u=w.entities.get(f.source);if(u?.heroId||f.until<=w.time)continue;
    if(f.kind==='bile'&&(!u||u.unitType==='ravager')){const age=BILE.delay-(f.until-w.time),t=Math.max(0,Math.min(1,age/BILE.delay)),from=point(w,f,1.3),end=point(w,f.end,.15),head=mix(from,end,t);head.y+=Math.sin(t*Math.PI)*7;this.request('RavagerCorrosiveBileMissile','bile:'+f.id,age,{...head,facing:Math.atan2(end.x-from.x,end.z-from.z),from,age:age*rate},ground,{loop:true});}

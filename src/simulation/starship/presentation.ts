@@ -24,8 +24,8 @@ export function equipmentBurnAge(w:World,zone:object){return Math.max(0,w.time-(
 function history(w:World){let h=histories.get(w);if(!h||h.run!==(w.runId??'')||w.time<h.time){h={run:w.runId??'',time:w.time,serial:0,effectSerial:0,events:[]};histories.set(w,h);}h.time=w.time;return h;}
 const snapshot=(u:Body)=>{const e=u as Partial<Entity>;return {id:u.id,x:u.x,z:u.z,flying:u.flying,radius:u.unitRadius,unitType:e.unitType,race:e.race,heroId:e.heroId,eliteId:e.eliteId,modelKey:e.modelKey,facing:e.facing,nativeMode:e.nativeMode,activeWeapon:e.activeWeapon,summonKind:e.summonKind,team:e.team,mode:e.mode,rank:e.rank,visualScale:e.visualScale};};
 /** Post-commit, transient receipts only. No random, damage, persistence or timers. */
-export function equipmentPresentation(w:World,kind:EquipmentPresentationKind,source:Body,target?:Body,detail?:string,radius?:number){
- if(!w.starship.enabled)return;
+export function equipmentPresentation(w:World,kind:EquipmentPresentationKind,source:Body,target?:Body,detail?:string,radius?:number,armed=false){
+ if(!w.starship.enabled&&!armed)return;
  const h=history(w);if(h.events.length&&w.time-h.events[0].time>=12)h.events=h.events.filter(e=>w.time-e.time<12);
  h.events.push({serial:++h.serial,time:w.time,kind,source:snapshot(source),target:target?snapshot(target):undefined,detail,radius});
 }

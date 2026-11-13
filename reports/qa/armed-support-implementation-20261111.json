@@ -1,0 +1,54 @@
+{
+  "date": "2026-11-11",
+  "candidate": "armed-de4c057e7909",
+  "branch": "体积优化版",
+  "sourceHead": "679720fefa5c",
+  "sourceSha256": "de4c057e7909302c0e5bcd61e7a60aa6d57a3d46707a84a96a379d7984ebbd73",
+  "specSha256": "1eda71abf0cbc81727122b23c4a47263fd0e36be73ee55466e3d45a90011842b",
+  "appBuildId": "50edc607e01345e1eca0321a9bc4e138e31112b51e260af18fdde62c61428218",
+  "assetRelease": "8eaa0ee246206e88f736c0d7605052487ccd6aaf64631859552d8c65384f9118",
+  "runSchema": 26,
+  "rulesId": "mvp-1.0",
+  "status": "待验证",
+  "implementation": "45 cards wired in candidate production World and formal UI",
+  "validation": {
+    "independentCards": 45,
+    "nodeBaseComparisons": 9,
+    "initialReplays": 54,
+    "correctedReplays": 10,
+    "finalEntrySmoke": 2,
+    "playerChecks": 8,
+    "touchLayoutChecks": 2,
+    "packagedChecks": 10,
+    "regression": {
+      "total": 3135,
+      "passed": 3135
+    },
+    "typecheck": "passed",
+    "docsData": "generated",
+    "docsCheck": "passed",
+    "sourceAssets": {
+      "actors": 2,
+      "models": 10,
+      "newEffects": 5,
+      "newSoundBanks": 2,
+      "shippingModels": 8
+    }
+  },
+  "resolvedFailures": [
+    "Initial regression seven failures: six static asset/count assumptions and one missing Terran support catalogue read API; repaired and complete regression passed.",
+    "Existing Nova skill icon was empty; retained empty-file evidence and restored exactly 4337 pinned original bytes. Core catalogue unchanged.",
+    "First nested build publication lacked parent directory; compiled and hashed staging was verified and moved intact into the isolated candidate destination; build tool now creates the parent.",
+    "Initial QA selectors/loading waits were corrected to current menu/settings/idle-ready behavior; final player and package checks passed."
+  ],
+  "open": [
+    "PLAY-1X first-batch economy/free-production/wave changes remain pending; merge and recheck free/old-paid orders and formal waves.",
+    "T06 ordinary Battlecruiser production family remains out of this support-only combat identity.",
+    "Physical phones and final user gameplay/art acceptance not performed."
+  ],
+  "scope": "Isolated engineered trigger states and actual production World/render/audio; normal UI with prepared legal shelves and checkpoint preconditions. No public deployment, natural full campaign, performance certification or final human aesthetic acceptance.",
+  "preserved": "Other workspace tasks retained; R3 untracked file intact; no commit, push, deploy or public release.",
+  "entry": "http://127.0.0.1:5196/preview/armed-support-showcase-20261111/",
+  "package": "dist/armed-support-20261111-candidate/web",
+  "cardsReport": "reports/qa/armed-support-cards-20261111.json"
+}

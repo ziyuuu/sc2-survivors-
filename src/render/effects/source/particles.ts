@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import type {SourceEffectDefinition,SourceEffectRequest,SourceEmitter,SourcePhase,SourcePlacement} from './types';
-import {activeBirths,boneMatrices,lifeCurve,sourceNumber as number,sourceVector as vector,sourceRandom,sourcePhase,sourcePhases,sourceSample,particleLifetimeBound} from './timeline';
+import {activeBirths,boneMatrices,emissionSchedule,lifeCurve,sourceNumber as number,sourceVector as vector,sourceRandom,sourcePhase,sourcePhases,sourceSample,particleLifetimeBound} from './timeline';
 import type {MaterialRef} from '../../materials/source-tracks';
 import type {SourceQuad} from './draw-batch';
 import {groundParticleMotion} from './particle-ground';
@@ -19,7 +19,7 @@ function birthEmitter(emitter:SourceEmitter,phase:SourcePhase){let clips=birthSa
 }
 type Variation=[number,number,number,number];
 const dynamicDefaults={emit_speed:0,emit_speed_randomize:0,drag:0,gravity:0,mass_randomize:0,mass:1,mass2:1,noise_amplitude:0,noise_frequency:0,local_forces:0,bounce:0,friction:1,size_smoothing:0,size_anim_mid:.5,size_hold:0,rotation_anim_mid:.5,rotation_smoothing:0,instance_tail:1,color_anim_mid:.5,color_smoothing:0,color_hold:0,alpha_anim_mid:.5,alpha_hold:0,uv_flipbook_cols:1,uv_flipbook_rows:1,uv_flipbook_start_lifespan_factor:1,uv_flipbook_start_init_index:0,uv_flipbook_start_stop_index:0,uv_flipbook_end_init_index:0,uv_flipbook_end_stop_index:0,flags:0};
-type ParticleDynamics=Record<keyof typeof dynamicDefaults,number>&{emit_speed_random:number;variation:Record<'speed'|'size'|'rotation'|'alpha',Variation>};
+type ParticleDynamics=Record<keyof typeof dynamicDefaults,number>&{emit_speed_random:number;variation:Record<'speed'|'size'|'rotation'|'alpha',Variation>;linearBillboard:boolean};
 // A sampled emitter has one exact birth phase. Share its immutable interpretation,
 // but keep per-particle randomness and every age-dependent operation unchanged.
 const dynamicsByEmitter=new WeakMap<SourceEmitter,ParticleDynamics>();
@@ -27,9 +27,13 @@ function particleDynamics(p:SourceEmitter,phase:SourcePhase):ParticleDynamics{
  let value=dynamicsByEmitter.get(p);if(value)return value;
  const parsed=Object.fromEntries(Object.entries(dynamicDefaults).map(([key,fallback])=>[key,number(p,key,phase,fallback)])) as Record<keyof typeof dynamicDefaults,number>;
  const variation=Object.fromEntries(['speed','size','rotation','alpha'].map(key=>[key,[number(p,key+'_var_amplitude',phase),number(p,key+'_var_shape',phase),number(p,key+'_var_frequency',phase),number(p,'phase_shift',phase)]])) as ParticleDynamics['variation'];
- value={...parsed,emit_speed_random:number(p,'emit_speed_random',phase,parsed.emit_speed),variation};dynamicsByEmitter.set(p,value);return value;
+ const linearBillboard=!parsed.local_forces&&!parsed.noise_amplitude&&!Object.values(variation).some(v=>v[0])&&
+  !parsed.size_smoothing&&!parsed.rotation_smoothing&&!parsed.color_smoothing&&
+  parsed.size_anim_mid===parsed.rotation_anim_mid&&parsed.size_anim_mid===parsed.color_anim_mid&&parsed.size_anim_mid===parsed.alpha_anim_mid&&
+  parsed.uv_flipbook_cols<=1&&parsed.uv_flipbook_rows<=1;
+ value={...parsed,emit_speed_random:number(p,'emit_speed_random',phase,parsed.emit_speed),variation,linearBillboard};dynamicsByEmitter.set(p,value);return value;
 }
-type ParticleBirth={p:SourceEmitter;d:ParticleDynamics;initial:THREE.Vector3;direction:THREE.Vector3;colors:ReturnType<typeof particleColors>;sizes:number[];rotation:number[]};
+type ParticleBirth={p:SourceEmitter;d:ParticleDynamics;initial:THREE.Vector3;direction:THREE.Vector3;colors:ReturnType<typeof particleColors>;grey:boolean;white:boolean;sizes:number[];rotation:number[];quad?:SourceParticleQuad;launch?:{velocity:THREE.Vector3;gravity:THREE.Vector3}};
 type BirthEntry={seen:number;value:ParticleBirth};
 type CachedRequest={definition:SourceEffectDefinition;seed:number;seen:number;births:Map<string,BirthEntry>};
 /** Only live particle births retain event-specific data. Capacity limits reuse,
@@ -55,7 +59,7 @@ export function sourcePlacement(def:SourceEffectDefinition,p:SourcePlacement,sam
  const rotation=new THREE.Quaternion().setFromUnitVectors(zAxis,forward.lengthSq()?forward:zAxis),scale=(p.scale??1)*1.4;
  const v=new THREE.Vector3((def.scale[0]??1)*scale,(def.scale[1]??1)*scale,(def.scale[2]??1)*scale);
  if(p.end){const anchor=def.bones.find(b=>b.name==='Attacher'),length=Math.abs(anchor?.rest?.position[1]??(anchor?.location.default as Record<string,number>|undefined)?.y??0);if(length>.001)v.y=new THREE.Vector3(p.end.x-p.x,p.end.y-p.y,p.end.z-p.z).length()/length;}
- return new THREE.Matrix4().compose(translation,rotation,new THREE.Vector3(1,1,1)).multiply(conversion).multiply(new THREE.Matrix4().makeScale(v.x,v.y,v.z));
+ return new THREE.Matrix4().compose(translation,rotation,new THREE.Vector3(1,1,1)).multiply(new THREE.Matrix4().makeScale(1,p.heightScale??1,1)).multiply(conversion).multiply(new THREE.Matrix4().makeScale(v.x,v.y,v.z));
 }
 export function variation(p:SourceEmitter,key:string,phase:SourcePhase,age:number,seed:number){
  const amplitude=number(p,key+'_var_amplitude',phase);if(amplitude===0)return 0;const shape=number(p,key+'_var_shape',phase),f=age*number(p,key+'_var_frequency',phase)+number(p,'phase_shift',phase);
@@ -75,24 +79,28 @@ function shapePoint(p:SourceEmitter,phase:SourcePhase,seed:number){
  return at;
 }
 function particleColors(p:SourceEmitter,phase:SourcePhase,seed:number){return ['init','mid','end'].map(key=>{const a=vector(p,'color_'+key,phase,{r:255,g:255,b:255,a:255}),b=vector(p,'color2_'+key,phase,a),rgb=number(p,'color_randomize',phase)?sourceRandom(seed,60):0,alpha=number(p,'alpha_randomize',phase)?sourceRandom(seed,61):0;return {r:randRange(a.r,b.r,rgb),g:randRange(a.g,b.g,rgb),b:randRange(a.b,b.b,rgb),a:randRange(a.a,b.a,alpha)};});}
-function sourceColor(d:ParticleDynamics,t:number,colors:ReturnType<typeof particleColors>):[number,number,number,number]{
+function sourceColor(d:ParticleDynamics,t:number,born:ParticleBirth,out:SourceQuad['color']=[0,0,0,0]){
+ const colors=born.colors;
  const mid=d.color_anim_mid,smooth=d.color_smoothing,hold=smooth>=3?d.color_hold:0;
  const channel=(key:'r'|'g'|'b')=>linear(lifeCurve(colors[0][key],colors[1][key],colors[2][key],t,mid,smooth,hold));
  const alpha=lifeCurve(colors[0].a,colors[1].a,colors[2].a,t,d.alpha_anim_mid,smooth,smooth>=3?d.alpha_hold:0)/255;
- return [channel('r'),channel('g'),channel('b'),Math.max(0,Math.min(1,alpha))];
+ out[0]=born.white?1:channel('r');out[1]=born.grey?out[0]:channel('g');out[2]=born.grey?out[0]:channel('b');
+ out[3]=Math.max(0,Math.min(1,alpha));return out;
 }
 function particleBirth(emitter:SourceEmitter,phase:SourcePhase,seed:number):ParticleBirth {
  const p=birthEmitter(emitter,phase),random=(i:number)=>sourceRandom(seed,i),initial=shapePoint(p,phase,seed),angles=new THREE.Euler(number(p,'emit_angle_x',phase)+(random(8)-.5)*number(p,'emit_spread_x',phase),number(p,'emit_angle_y',phase)+(random(9)-.5)*number(p,'emit_spread_y',phase),0,'YXZ');
  let direction=new THREE.Vector3(0,0,1).applyEuler(angles);const emitType=number(p,'emit_type',phase);if(emitType===1)direction=initial.lengthSq()?initial.clone().normalize():new THREE.Vector3(random(11)-.5,random(12)-.5,random(13)-.5).normalize();if(emitType===2)direction.set(0,0,random(14)<.5?-1:1);
  const sizeA=vector(p,'size',phase,{x:1,y:1,z:1}),sizeB=vector(p,'size2',phase,sizeA),sizeRandom=number(p,'size_randomize',phase)?random(40):0,sizes=['x','y','z'].map(k=>randRange(sizeA[k],sizeB[k],sizeRandom));
  const turnA=vector(p,'rotation',phase),turnB=vector(p,'rotation2',phase,turnA),rr=number(p,'rotation_randomize',phase)?random(41):0,rotation=['x','y','z'].map(k=>randRange(turnA[k],turnB[k],rr));
- return {p,d:particleDynamics(p,phase),initial,direction,colors:particleColors(p,phase,seed),sizes,rotation};
+ const colors=particleColors(p,phase,seed),grey=colors.every(c=>c.r===c.g&&c.g===c.b);
+ return {p,d:particleDynamics(p,phase),initial,direction,colors,grey,white:grey&&colors.every(c=>c.r===255),sizes,rotation};
 }
-function particleUv(d:ParticleDynamics,t:number,seed:number):[number,number,number,number]{
+function particleUv(d:ParticleDynamics,t:number,seed:number,out:SourceQuad['uv']=[0,0,1,1]){
  const cols=Math.max(1,d.uv_flipbook_cols),rows=Math.max(1,d.uv_flipbook_rows),mid=d.uv_flipbook_start_lifespan_factor,start=d.uv_flipbook_start_init_index,a=d.uv_flipbook_start_stop_index,b=d.uv_flipbook_end_init_index,end=d.uv_flipbook_end_stop_index;
+ if(cols===1&&rows===1)return out;
  let frame=t<=mid?randRange(start,a,Math.min(1,t/Math.max(1e-9,mid))):randRange(b,end,(t-mid)/Math.max(1e-9,1-mid));
  if(d.flags&0x10000)frame+=Math.floor(sourceRandom(seed,73)*cols*rows);
- frame=((Math.floor(frame)%(cols*rows))+(cols*rows))%(cols*rows);return [(frame%cols)/cols,(rows-1-Math.floor(frame/cols))/rows,1/cols,1/rows];
+ frame=((Math.floor(frame)%(cols*rows))+(cols*rows))%(cols*rows);out[0]=(frame%cols)/cols;out[1]=(rows-1-Math.floor(frame/cols))/rows;out[2]=1/cols;out[3]=1/rows;return out;
 }
 function particleScratch(){return {velocity:new THREE.Vector3(),motion:new THREE.Vector3(),gravity:new THREE.Vector3(),local:new THREE.Vector3(),worldVelocity:new THREE.Vector3(),emitterOrigin:new THREE.Vector3(),parentScale:new THREE.Vector3(),along:new THREE.Vector3(),eye:new THREE.Vector3(),right:new THREE.Vector3(),normal:new THREE.Vector3(),scale:new THREE.Vector3(),basis:new THREE.Matrix4(),linear:new THREE.Matrix3(),rotation:new THREE.Quaternion(),turn:new THREE.Quaternion()};}
 type ParticleScratch=ReturnType<typeof particleScratch>;
@@ -112,21 +120,133 @@ function birthLife(emitter:SourceEmitter,phase:SourcePhase){
  const normal=number(emitter,'lifespan',phase),value={normal,random:number(emitter,'lifespan_random',phase,normal),randomized:!!number(emitter,'lifespan_randomize',phase)};
  if(times.size>=512)times.clear();times.set(phase.seconds,value);return value;
 }
+type LocalForce={center:THREE.Vector3;radius:number;strength:number};
+const forceFrames=new WeakMap<SourceEffectDefinition,WeakMap<SourceEmitter,LocalForce[]>>();
+function localForceFrame(def:SourceEffectDefinition,p:SourceEmitter,phase:SourcePhase,channels:number){
+ if(!channels||!def.forces.length)return;
+ let frames=forceFrames.get(def);if(!frames){frames=new WeakMap();forceFrames.set(def,frames);}
+ const existing=frames.get(p);if(existing)return existing;
+ const matched=def.forces.filter(f=>(Number(f.channels)&channels)!==0),forces:LocalForce[]=[];
+ if(matched.length){
+  const pose=boneMatrices(def,phase),inverse=(pose[p.bone]??new THREE.Matrix4()).clone().invert();
+  for(const f of matched)forces.push({center:new THREE.Vector3().setFromMatrixPosition(pose[f.bone]??new THREE.Matrix4()).applyMatrix4(inverse),radius:number(f,'width',phase),strength:number(f,'strength',phase)});
+ }
+ frames.set(p,forces);return forces;
+}
+// The force centres and tracks are sampled at birth. Keep the original age
+// grid (including its last fractional step) and integrate without allocation.
+function integrateForces(forces:LocalForce[],initial:THREE.Vector3,velocity:THREE.Vector3,acceleration:THREE.Vector3,age:number,drag:number,position:THREE.Vector3,motion:THREE.Vector3){
+ let {x,y,z}=initial,vx=velocity.x,vy=velocity.y,vz=velocity.z;
+ const steps=Math.max(1,Math.ceil(age*60)),dt=age/steps,damping=Math.exp(-drag*dt);
+ for(let step=0;step<steps;step++){
+  let ax=acceleration.x,ay=acceleration.y,az=acceleration.z;
+  for(const {center,radius,strength} of forces){
+   const dx=x-center.x,dy=y-center.y,dz=z-center.z,distance=Math.sqrt(dx*dx+dy*dy+dz*dz);
+   if(distance>1e-5&&(!radius||distance<=radius)){const inv=1/distance;ax+=dx*inv*strength;ay+=dy*inv*strength;az+=dz*inv*strength;}
+  }
+  vx=(vx+ax*dt)*damping;vy=(vy+ay*dt)*damping;vz=(vz+az*dt)*damping;
+  x+=vx*dt;y+=vy*dt;z+=vz*dt;
+ }
+ position.set(x,y,z);motion.set(vx,vy,vz);
+}
+type ScheduledParticle={born:number;ordinal:number;phase:SourcePhase;lifespan:BirthLife};
+type PreparedEmitter={births:ScheduledParticle[];bones:Map<number,THREE.Matrix4>};
+const stationaryClips=new WeakMap<SourceEffectDefinition,WeakMap<SourcePhase['clip'],Map<SourceEmitter,PreparedEmitter>>>();
+function prepareStationaryClip(def:SourceEffectDefinition,clip:SourcePhase['clip']){
+ let clips=stationaryClips.get(def);if(!clips){clips=new WeakMap();stationaryClips.set(def,clips);}
+ const prior=clips.get(clip);if(prior)return prior;
+ const emitters=new Map<SourceEmitter,PreparedEmitter>();
+ for(const {p:emitter} of emittersFor(def)){
+  const bones=new Map<number,THREE.Matrix4>(),births=emissionSchedule(emitter,clip).map(({time,ordinal})=>{
+   const phase={clip,seconds:time,offset:0,cycle:0};
+   if(!bones.has(time)){
+    const p=birthEmitter(emitter,phase),d=particleDynamics(p,phase);
+    bones.set(time,boneMatrices(def,phase)[p.bone]??new THREE.Matrix4());
+    birthLife(emitter,phase);localForceFrame(def,p,phase,d.local_forces);
+   }
+   return {born:time,ordinal,phase,lifespan:birthLife(emitter,phase)};
+  });
+  emitters.set(emitter,{births,bones});
+ }
+ clips.set(clip,emitters);return emitters;
+}
+type ParentFrame={matrix:THREE.Matrix4;gravityAxis:THREE.Vector3;scale:number};
+type StationaryEvent={def:SourceEffectDefinition;seed:number;position:SourcePlacement;placement:THREE.Matrix4;gravityScale:number;clip:SourcePhase['clip'];seen:number;plan:Map<SourceEmitter,PreparedEmitter>;samples:Map<number,ParticleBirth[]>;parents:Map<THREE.Matrix4,ParentFrame>};
+/** A stationary single-clip impact has one transform per emitter birth, even
+ * when eight different impacts are on screen. Only immutable clip data is shared. */
+export class StationaryParticleCache {
+ private events=new Map<string,StationaryEvent>();private frame=0;private time=-Infinity;
+ prepare(def:SourceEffectDefinition,name:string){const clip=def.materialProfile.clips.find(c=>c.name===name);if(clip)prepareStationaryClip(def,clip);}
+ begin(time:number){if(time<this.time)this.events.clear();this.time=time;this.frame++;}
+ event(def:SourceEffectDefinition,request:SourceEffectRequest,clip:SourcePhase['clip']){
+  const p=request.placement;
+  if(request.loop||request.clip!==clip.name||p.from||p.end||p.matrix||p.direction)return;
+  let e=this.events.get(request.key);
+  if(e){const q=e.position;if(e.def!==def||e.seed!==request.seed||e.clip!==clip||p.x!==q.x||p.y!==q.y||p.z!==q.z||p.scale!==q.scale||p.heightScale!==q.heightScale||p.facing!==q.facing)e=undefined;}
+  if(!e){
+   if(!this.events.has(request.key)&&this.events.size>=24)return; // Additional effects use the ordinary sampler.
+   const placement=sourcePlacement(def,p);
+   e={def,seed:request.seed,position:{...p},placement,gravityScale:new THREE.Vector3().setFromMatrixColumn(placement,2).length(),clip,seen:this.frame,plan:prepareStationaryClip(def,clip),samples:new Map(),parents:new Map()};
+   this.events.set(request.key,e);
+  }
+  e.seen=this.frame;return e;
+ }
+ end(){for(const [key,e] of this.events)if(e.seen!==this.frame)this.events.delete(key);}
+ reset(){this.events.clear();this.time=-Infinity;}
+ get size(){return this.events.size;}
+}
+function stationaryParent(e:StationaryEvent,bone:THREE.Matrix4){
+ let frame=e.parents.get(bone);
+ if(!frame){
+  const matrix=e.placement.clone().multiply(bone),scale=new THREE.Vector3().setFromMatrixScale(matrix);
+  frame={matrix,gravityAxis:new THREE.Vector3(0,e.gravityScale,0).applyMatrix3(new THREE.Matrix3().setFromMatrix4(matrix).invert()),scale:Math.max(0,(scale.x+scale.z)*.5)};
+  e.parents.set(bone,frame);
+ }
+ return frame;
+}
+// The long-lived smoke billboards use the same linear midpoint for size, turn,
+// RGB and alpha. Evaluate that authored envelope once, still facing the live camera.
+function sampleLinearBillboard(b:ParticleBirth,fixed:ParentFrame,phase:SourcePhase,index:number,birthTime:number,age:number,t:number,seed:number,additional:number,camera:THREE.Camera,s:ParticleScratch){
+ const d=b.d;
+ if(!b.launch){
+  const speed=(additional&1)||d.emit_speed_randomize?randRange(d.emit_speed,d.emit_speed_random,sourceRandom(seed,19)):d.emit_speed;
+  b.launch={velocity:b.direction.clone().multiplyScalar(speed),gravity:fixed.gravityAxis.clone().multiplyScalar(d.gravity)};
+ }
+ const mid=Math.max(.000001,Math.min(.999999,d.size_anim_mid)),i=t<=mid?0:1;
+ const f=t<mid?t/Math.max(.000001,mid):t===mid?1:(t-mid)/Math.max(.000001,1-mid);
+ const a=b.colors[i],end=b.colors[i+1],width=Math.max(0,randRange(b.sizes[i],b.sizes[i+1],f)*fixed.scale),alpha=Math.max(0,Math.min(1,randRange(a.a,end.a,f)/255));
+ if(width<=0||alpha<=0)return;
+ const q=b.quad??={materialReference:b.p.material_reference_index,emitter:index,born:birthTime,phase,matrix:new THREE.Matrix4(),color:[0,0,0,0],uv:[0,0,1,1]};
+ q.color[0]=b.white?1:linear(randRange(a.r,end.r,f));q.color[1]=b.grey?q.color[0]:linear(randRange(a.g,end.g,f));q.color[2]=b.grey?q.color[0]:linear(randRange(a.b,end.b,f));q.color[3]=alpha;
+ const drag=Math.max(0,d.drag),travel=drag>1e-8?(1-Math.exp(-drag*age))/drag:age;
+ const position=s.local.copy(b.initial).addScaledVector(b.launch.velocity,travel).addScaledVector(b.launch.gravity,.5*age*age).applyMatrix4(fixed.matrix);
+ const angle=randRange(b.rotation[i],b.rotation[i+1],f),rotation=s.rotation.copy(camera.quaternion).multiply(s.turn.setFromAxisAngle(zAxis,angle));
+ q.matrix.compose(position,rotation,s.scale.set(width,width,1));q.phase=phase;return q;
+}
 /** Replay all authored emitters analytically from native time, including after a render gap. */
-export function sourceParticleQuads(def:SourceEffectDefinition,request:SourceEffectRequest,camera:THREE.Camera,ground:(p:{x:number;z:number})=>number,cache?:SourceParticleCache,decorationFraction=1,decorationEmitters?:ReadonlySet<number>):SourceParticleQuad[]{
+export function sourceParticleQuads(def:SourceEffectDefinition,request:SourceEffectRequest,camera:THREE.Camera,ground:(p:{x:number;z:number})=>number,cache?:SourceParticleCache,decorationFraction=1,decorationEmitters?:ReadonlySet<number>,stationaryCache?:StationaryParticleCache):SourceParticleQuad[]{
  const result:SourceParticleQuad[]=[];if(!def.particles.length)return result;
  const phases=sourcePhases(def,request.age,request.loop,request.seed,request.clip),phaseNow=sourcePhase(def,request.age,request.loop,request.seed,request.clip,phases);let nowPlacement:THREE.Matrix4|undefined,nowBones:THREE.Matrix4[]|undefined;
+ const stationary=decorationFraction===1?stationaryCache?.event(def,request,phaseNow.clip):undefined;
  const emitters=emittersFor(def);let scratch:ParticleScratch|undefined;
  for(const {p:emitter,index}of emitters){let emitted=0,parentLocal:THREE.Matrix4|undefined,localScale:number|undefined,lastParent:THREE.Matrix4|undefined,lastBorn:number|undefined,lastClip:SourcePhase['clip']|undefined,lastSeconds:number|undefined,scaleParent:THREE.Matrix4|undefined,gravityParent:THREE.Matrix4|undefined,gravityAxis:THREE.Vector3|undefined,gravityScale=1;const flags=number(emitter,'flags',phaseNow),additional=number(emitter,'additional_flags',phaseNow),worldSpace=!!(additional&8)||!!number(emitter,'world_space',phaseNow),type=number(emitter,'particle_type',phaseNow),max=number(emitter,'emit_max',phaseNow,Infinity);
-  const births=activeBirths(def,emitter,request.age,!!request.loop,request.seed,request.clip,phases,decorationFraction>=1||decorationEmitters&&!decorationEmitters.has(index%1000)?particleLifetimeBound(def,emitter):Infinity);
-  for(const birth of births){const age=request.age-birth.born,phase=birth.phase,seed=(request.seed^Math.imul(index+1,7919)^Math.imul(birth.ordinal+1,104729))>>>0,random=(i:number)=>sourceRandom(seed,i);
-   const lifespan=birthLife(emitter,phase),life=(additional&2)||lifespan.randomized?randRange(lifespan.normal,lifespan.random,random(18)):lifespan.normal;if(life<=0||age<0||age>=life||request.stopAt!==undefined&&birth.born>request.stopAt)continue;
+  const plan=stationary?.plan.get(emitter);
+  let samples=stationary?.samples.get(index);if(stationary&&!samples){samples=[];stationary.samples.set(index,samples);}
+  const births=plan?.births??activeBirths(def,emitter,request.age,!!request.loop,request.seed,request.clip,phases,decorationFraction>=1||decorationEmitters&&!decorationEmitters.has(index%1000)?particleLifetimeBound(def,emitter):Infinity);
+  for(const birth of births){if(birth.born>request.age+1e-8&&plan)break;const age=request.age-birth.born,phase=birth.phase,seed=(request.seed^Math.imul(index+1,7919)^Math.imul(birth.ordinal+1,104729))>>>0,random=(i:number)=>sourceRandom(seed,i);
+   const lifespan=plan?(birth as ScheduledParticle).lifespan:birthLife(emitter,phase),life=(additional&2)||lifespan.randomized?randRange(lifespan.normal,lifespan.random,random(18)):lifespan.normal;if(life<=0||age<0||age>=life||request.stopAt!==undefined&&birth.born>request.stopAt)continue;
    if(emitted>=max)break;emitted++;if(decorationFraction<1&&(!decorationEmitters||decorationEmitters.has(index%1000))&&emitted>1&&births.length>3&&sourceRandom(seed,997)>=decorationFraction)continue;const t=age/life;
-   const born=cache?cache.get(def,request,index,birth,()=>particleBirth(emitter,phase,seed)):particleBirth(emitter,phase,seed),{p,d,initial}=born,s=scratch??=particleScratch(),direction=s.velocity.copy(born.direction);
+   const born=samples?(samples[birth.ordinal]??=particleBirth(emitter,phase,seed)):cache?cache.get(def,request,index,birth,()=>particleBirth(emitter,phase,seed)):particleBirth(emitter,phase,seed),{p,d,initial}=born,s=scratch??=particleScratch(),direction=s.velocity.copy(born.direction);
    // Emitter bones orient the launch, not gravity. Express world-up in the
    // emitter frame before integrating; tilted spark bones must still fall down.
    let parent:THREE.Matrix4;
-   if(worldSpace){if(lastParent&&lastBorn===birth.born&&lastClip===phase.clip&&lastSeconds===phase.seconds)parent=lastParent;
+   const fixed=stationary&&plan&&worldSpace?stationaryParent(stationary,plan.bones.get(phase.seconds)!):undefined;
+   if(fixed&&type===0&&d.linearBillboard&&!(flags&(2|0x20000))&&typeof emitter.additional_flags!=='object'){
+    const quad=sampleLinearBillboard(born,fixed,phaseNow,index,birth.born,age,t,seed,additional,camera,s);
+    if(quad)result.push(quad);continue;
+   }
+   if(fixed){parent=fixed.matrix;gravityAxis=fixed.gravityAxis;gravityParent=parent;gravityScale=stationary!.gravityScale;}
+   else if(worldSpace){if(lastParent&&lastBorn===birth.born&&lastClip===phase.clip&&lastSeconds===phase.seconds)parent=lastParent;
     else{const placement=sourcePlacement(def,request.placement,birth.born);if(d.gravity)gravityScale=s.parentScale.setFromMatrixColumn(placement,2).length();parent=placement.multiply(boneMatrices(def,phase)[p.bone]??new THREE.Matrix4());lastParent=parent;lastBorn=birth.born;lastClip=phase.clip;lastSeconds=phase.seconds;}}
    else {const placement=nowPlacement??=sourcePlacement(def,request.placement,request.age);parent=parentLocal??(parentLocal=placement.clone().multiply((nowBones??=boneMatrices(def,phaseNow))[p.bone]??new THREE.Matrix4()));if(d.gravity)gravityScale=s.parentScale.setFromMatrixColumn(placement,2).length();}
    if(d.gravity&&parent!==gravityParent){gravityAxis=new THREE.Vector3(0,gravityScale,0).applyMatrix3(s.linear.setFromMatrix4(parent).invert());gravityParent=parent;}
@@ -142,27 +262,28 @@ export function sourceParticleQuads(def:SourceEffectDefinition,request:SourceEff
    const noise=d.noise_amplitude,frequency=d.noise_frequency;if(noise)for(let axis=0;axis<3;axis++){const phase=age*frequency+random(30+axis)*Math.PI*2;local.setComponent(axis,local.getComponent(axis)+noise*Math.sin(phase));if(tailParticle)motion.setComponent(axis,motion.getComponent(axis)+noise*frequency*Math.cos(phase));}
    // Local forces use authored channels and source-space positions. Integrating on
    // an age grid, rather than render dt, makes paused and restored views identical.
-   const localForces=d.local_forces,forces=def.forces.length?def.forces.filter(f=>(Number(f.channels)&localForces)!==0):undefined;
-   if(forces?.length){const pose=boneMatrices(def,phase),emitter=pose[p.bone]??new THREE.Matrix4(),inverse=emitter.clone().invert(),position=initial.clone(),v=velocity.clone(),steps=Math.max(1,Math.ceil(age*60)),dt=age/steps;
-    for(let step=0;step<steps;step++){const force=acceleration.clone();for(const f of forces){const center=new THREE.Vector3().setFromMatrixPosition(pose[f.bone]??new THREE.Matrix4()).applyMatrix4(inverse),delta=position.clone().sub(center),distance=delta.length(),radius=number(f,'width',phase);if(distance>1e-5&&(!radius||distance<=radius))force.addScaledVector(delta.normalize(),number(f,'strength',phase));}v.addScaledVector(force,dt).multiplyScalar(Math.exp(-drag*dt));position.addScaledVector(v,dt);}local.copy(position);motion.copy(v);
-   }
+   const forces=localForceFrame(def,p,phase,d.local_forces);
+   if(forces?.length)integrateForces(forces,initial,velocity,acceleration,age,drag,local,motion);
    // Local-space particles of this emitter share the exact current parent.
    // Scratch belongs to this call, so nested ground callbacks cannot corrupt it.
-   const at=local.applyMatrix4(parent),worldVelocity=s.worldVelocity.copy(tailParticle?motion:velocity).transformDirection(parent).multiplyScalar(tailParticle?motion.length():speed);
+   const at=local.applyMatrix4(parent),worldVelocity=s.worldVelocity;
+   if(tailParticle||type===2||(flags&2)!==0)worldVelocity.copy(tailParticle?motion:velocity).transformDirection(parent).multiplyScalar(tailParticle?motion.length():speed);
    if(flags&2){
     if(!forces?.length&&!noise&&!d.variation.speed[0]){at.copy(initial).applyMatrix4(parent);worldVelocity.copy(velocity).applyMatrix3(s.linear.setFromMatrix4(parent));groundParticleMotion(at,worldVelocity,age,gravity*gravityScale,drag,d.bounce,d.friction,ground);}
     else {const floor=ground(at)+.025;if(at.y<floor){const restitution=d.bounce;at.y=floor+(floor-at.y)*Math.max(0,restitution);worldVelocity.y=tailParticle?-worldVelocity.y*Math.max(0,restitution):Math.abs(worldVelocity.y)*restitution;}}
    }
    const sizes=born.sizes,smoothing=d.size_smoothing,baseSize=lifeCurve(sizes[0],sizes[1],sizes[2],t,d.size_anim_mid,smoothing,smoothing>=3?d.size_hold:0)+dynamicVariation(d.variation.size,age,seed),unitScale=(request.placement.scale??1)*1.4;
-   let nativeScale=localScale;if(parent!==scaleParent||nativeScale===undefined){const parentScale=s.parentScale.setFromMatrixScale(parent);nativeScale=Math.max(0,(parentScale.x+parentScale.z)*.5);localScale=nativeScale;scaleParent=parent;}
+   let nativeScale=fixed?.scale??localScale;if(!fixed&&parent!==scaleParent||nativeScale===undefined){const parentScale=s.parentScale.setFromMatrixScale(parent);nativeScale=Math.max(0,(parentScale.x+parentScale.z)*.5);localScale=nativeScale;scaleParent=parent;}
    let width=Math.max(0,baseSize*nativeScale),length=width;const rot=born.rotation,angle=lifeCurve(rot[0],rot[1],rot[2],t,d.rotation_anim_mid,d.rotation_smoothing)+dynamicVariation(d.variation.rotation,age,seed);
    let along=worldVelocity;
    if(type===1||type===6||type===10){const moving=along.lengthSq()>1e-20,tail=d.instance_tail*unitScale,computed=moving?Math.abs(speed*travel)*unitScale:0;length=flags&0x100000?tail:flags&0x40000?Math.min(tail,computed):computed*tail;length=Math.max(width,length);if(!moving)along.set(0,1,0);at.addScaledVector(s.along.copy(along).normalize(),-length*.5);}
    if(type===9){const emitterOrigin=s.emitterOrigin.set(0,0,0).applyMatrix4(parent);along=s.worldVelocity.copy(at).sub(emitterOrigin);length=Math.max(width,along.length());at.lerp(emitterOrigin,.5);}
-   const color=sourceColor(d,t,born.colors);color[3]=Math.max(0,Math.min(1,color[3]+dynamicVariation(d.variation.alpha,age,seed)));if(color[3]<=0||width<=0)continue;
+   const reuse=stationary?born.quad:undefined,color=sourceColor(d,t,born,reuse?.color);color[3]=Math.max(0,Math.min(1,color[3]+dynamicVariation(d.variation.alpha,age,seed)));if(color[3]<=0||width<=0)continue;
    if(type===5||type===6)at.y=ground(at)+.03;
-   const matrix=new THREE.Matrix4().compose(at,orient(at,along,camera,type,angle,parent,s),s.scale.set(width,length,1));
-   result.push({materialReference:p.material_reference_index,emitter:index,born:birth.born,matrix,color,uv:particleUv(d,t,seed),phase:phaseNow});
+   const matrix=(reuse?.matrix??new THREE.Matrix4()).compose(at,orient(at,along,camera,type,angle,parent,s),s.scale.set(width,length,1));
+   const uv=particleUv(d,t,seed,reuse?.uv);
+   const quad=reuse??{materialReference:p.material_reference_index,emitter:index,born:birth.born,matrix,color,uv,phase:phaseNow};
+   quad.phase=phaseNow;if(stationary)born.quad=quad;result.push(quad);
   }
  }
  return result;

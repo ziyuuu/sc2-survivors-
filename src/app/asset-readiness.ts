@@ -44,6 +44,7 @@ export class AssetReadinessCoordinator {
   // A working-set policy for optional jobs. Safari does not expose its process limit.
   const high=(runtimeBudget().recentOnly?256:512)*1024**2;
   const pressure=trackedBytes>(this.memory.pressure?high*.8:high);
+  this.view.resourcePressure=pressure;
   this.memory={encodedBytes,atlasBytes,textureEstimate,pcmBytes,trackedBytes,peakTrackedBytes:Math.max(trackedBytes,this.memory.peakTrackedBytes),pressure};
  }
  get blocking(){return this.state.kind!==null&&this.state.phase!=='ready'&&this.state.phase!=='error';}
@@ -106,7 +107,8 @@ export class AssetReadinessCoordinator {
     const stage=kind==='new'?1:Math.min(18,state.stage+Number(state.phase==='reward'));
     const identities=[...state.entities.values(),...(request.hero?[{heroId:request.hero}]:[])];
     const plan=request.snapshot?.config.contentPlan??request.contentPlan??this.world.runConfig?.contentPlan;
-    const content=plan?stageContentAssets(plan,stage,state.endless?state.endless.round+Number(state.phase==='reward'):undefined,state.funShop.levels,state.expedition.familySlots,[]):undefined;
+    const round=state.endless?state.endless.round+Number(state.phase==='reward'):kind==='endless'||state.endlessEntry?1:undefined;
+    const content=plan?stageContentAssets(plan,stage,round,state.funShop.levels,state.expedition.familySlots,[]):undefined;
     for(const heroId of content?.heroes??[])identities.push({heroId});
     for(const hero of state.heroes?.values()??[])identities.push({heroId:hero.id});
     const progress=report('audio',.72,.04);
@@ -135,14 +137,16 @@ export class AssetReadinessCoordinator {
    if(generation!==this.generation)return false;
    const prepareKey=this.view.preparationKey;if(this.preparedKey!==prepareKey)await this.view.compilePresentation(this.view.scene,this.view.camera);
    if(generation!==this.generation)return false;
-   const warmed=await this.view.warmPresentationBatches((done,total,label)=>report('gpu',.8,.17)(done,total,`准备实战模型 ${label}`));
+   // The snapshot's World is installed after the GPU gate.
+   const counterattack=kind==='load'&&request.snapshot?!!request.snapshot.state?.expedition?.support?.armed?.ranks?.O01:undefined;
+   const warmed=await this.view.warmPresentationBatches((done,total,label)=>report('gpu',.8,.17)(done,total,`准备实战模型 ${label}`),false,counterattack);
    if(generation!==this.generation)return false;
    if(warmed)await new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve())));
    if(generation!==this.generation)return false;
    this.preparedKey=prepareKey;
    // The optional lane is drained and required models are already parsed. Drop
    // duplicate encoded Blob copies before starting any resumable stage job.
-   if(optimizedGraphics()){httpStore()?.trimModelCache(runtimeBudget().recentOnly?12*1024**2:48*1024**2);pruneRetiredTextureBindings();releaseGpuDecoder();}
+   if(optimizedGraphics()){httpStore()?.trimModelCache((this.memory.pressure||runtimeBudget().recentOnly?12:48)*1024**2);pruneRetiredTextureBindings();releaseGpuDecoder();}
    if(this.background&&!lesson&&(request.stageAdvance||kind==='endless')){
     const jobs=this.view.stagePreparationJobs(cancelled=>this.background!.checkpoint(cancelled,true,true));
     await this.background.prepareStage(jobs,optimizedGraphics()?0:Math.max(0,5000-(performance.now()-this.beganAt)),entrance.signal);

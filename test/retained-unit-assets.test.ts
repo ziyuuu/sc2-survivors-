@@ -38,3 +38,18 @@ test('idle maintenance drains an old job and yields to a newer required entrance
  const gate=new AssetReadinessCoordinator(world,view,undefined,lane),idle=gate.trimIdleResources(),entrance=gate.prepare('reinforcement');
  await Promise.resolve();assert.equal(trims,0);finish();await idle;assert.equal(await entrance,true);assert.equal(trims,0);gate.cancel();await gate.trimIdleResources();assert.equal(trims,1);
 });
+test('each seeded departure under pressure keeps required models and releases idle lookahead',()=>{
+ for(const phase of ['reward','endless-ready'])for(const pressure of [false,true]){
+  const released:string[]=[],gpu=new Map<string,unknown>(),keys=['live','required','future','unused'];
+  for(const key of keys)gpu.set(key,{count:Number(key==='live'),allMeshes:[],retainedResources:(out:Map<object,number>)=>out.set({},100),dispose:()=>released.push(key)});
+  const view:any=Object.assign(Object.create(BattleRenderer.prototype),{
+   world:{phase,stage:8,runConfig:{contentPlan:{}},entities:new Map(),fortifications:new Map()},entryPreparation:true,resourcePressure:pressure,
+   stageContent:()=>({models:new Map([['future','marine']])}),gpu,retainedRequired:new Set(['required']),assetsPending:0,
+   streamingLoads:new Map(),corpses:new Map(),variantLoads:new Map(keys.map(k=>[k,Promise.resolve(true)])),batches:new Map(),
+   unitLastUsed:new Map(),backgroundModels:new Set(),screenWarmed:new Set(),cacheEpoch:0
+  });
+  view.trimIdleUnitAssets();
+  assert.deepEqual(released.sort(),pressure?['future','unused']:['unused']);
+  assert.ok(view.gpu.has('live')&&view.gpu.has('required'));
+ }
+});

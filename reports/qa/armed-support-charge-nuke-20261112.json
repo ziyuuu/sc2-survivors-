@@ -1,0 +1,448 @@
+{
+  "date": "2026-11-12",
+  "status": "待验证",
+  "candidate": "armed-f9c135a0168b",
+  "branch": "体积优化版",
+  "head": "679720fefa5c",
+  "sourceSha256": "f9c135a0168bc3747de14f813207c5fdf43649c4d6234d5dba33c6feff053ed5",
+  "specSha256": "82923c4fa9f7541506eca0c776361fe3d36d0d357f4b76fc5a2b42d2f6bdab5e",
+  "specSha256AtStart": "1eda71abf0cbc81727122b23c4a47263fd0e36be73ee55466e3d45a90011842b",
+  "appBuildId": "5b3514d513e7fef96ea4aa497212497c511f6198b6f828a68b1cac568cbfc304",
+  "assetRelease": "275e38780707123a498355e18bb414cccbc95bf272409b1a6045945b724a5317",
+  "runSchema": 26,
+  "rulesId": "mvp-1.0",
+  "raiders": {
+    "seed": 1111045,
+    "entryClearance": 11,
+    "before": [
+      {
+        "id": 39,
+        "born": 0.4666666666666667,
+        "x": -2.4676792040524003,
+        "z": -2.9977331790162953,
+        "speed": 6.8424999999999985,
+        "gap": 3.5037074818833043,
+        "blast": 0.75,
+        "charge": 0.2833333333333333,
+        "displacement": 2.4193594842110246
+      },
+      {
+        "id": 40,
+        "born": 0.6166666666666667,
+        "x": 1.3620533511794182,
+        "z": 3.636021938221598,
+        "speed": 6.8424999999999985,
+        "gap": 0.8391345620715124,
+        "blast": 0.6333333333333333,
+        "charge": 0.016666666666666607,
+        "displacement": 0.1539562499999998
+      },
+      {
+        "id": 45,
+        "born": 0.7666666666666666,
+        "x": -2.8317098655612796,
+        "z": -6.638043234873553,
+        "speed": 6.8424999999999985,
+        "gap": 6.4080841905537165,
+        "blast": 1.8666666666666667,
+        "charge": 1.1,
+        "displacement": 6.02326147562636
+      }
+    ],
+    "after": [
+      {
+        "id": 39,
+        "born": 0.4666666666666667,
+        "x": 3.858863118208892,
+        "z": -8.657319182918414,
+        "speed": 6.8424999999999985,
+        "gap": 11.029565138824427,
+        "blast": 1.8333333333333333,
+        "charge": 1.3666666666666667,
+        "displacement": 9.12082501528903
+      },
+      {
+        "id": 40,
+        "born": 0.6166666666666667,
+        "x": 12.229568290133944,
+        "z": 5.06326426370474,
+        "speed": 6.8424999999999985,
+        "gap": 11.153571987745176,
+        "blast": 1.75,
+        "charge": 1.1333333333333333,
+        "displacement": 10.456152383913741
+      },
+      {
+        "id": 41,
+        "born": 0.7666666666666666,
+        "x": 1.2428913495598717,
+        "z": -11.21487022462323,
+        "speed": 6.8424999999999985,
+        "gap": 11.15350065131379,
+        "blast": 2.0166666666666666,
+        "charge": 1.25,
+        "displacement": 10.413318279851646
+      }
+    ],
+    "showcase": [
+      {
+        "tick": 21,
+        "live": 0,
+        "blasts": 0
+      },
+      {
+        "tick": 33,
+        "live": 1,
+        "blasts": 0
+      },
+      {
+        "tick": 63,
+        "live": 3,
+        "blasts": 0
+      },
+      {
+        "tick": 153,
+        "live": 0,
+        "blasts": 3
+      },
+      {
+        "tick": 333,
+        "live": 0,
+        "blasts": 3
+      }
+    ]
+  },
+  "performance": {
+    "method": "Five simulation seconds from the first rendered impact. Native 1440x900, normal rAF, unchanged fixed-step World, fresh local Chrome process, JavaScript CPU profiler enabled in both measurement batches. End-to-end frame-start intervals in milliseconds.",
+    "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "cases": [
+      {
+        "id": "P01",
+        "shots": 4,
+        "ammoAfter": 0,
+        "nuclearOrCardDamage": 23387,
+        "before": {
+          "frames": 130,
+          "p50": 35.1,
+          "p95": 59.5,
+          "p99": 248.3,
+          "max": 276.3,
+          "over50": 19,
+          "particleCpuP95": 35.8,
+          "peakParticles": 4910
+        },
+        "after": {
+          "frames": 251,
+          "p50": 18.5,
+          "p95": 28.4,
+          "p99": 34.9,
+          "max": 37.3,
+          "over50": 0,
+          "particleCpuP95": 8.8,
+          "peakParticles": 4913
+        }
+      },
+      {
+        "id": "N05",
+        "shots": 8,
+        "ammoAfter": 1,
+        "nuclearOrCardDamage": 38852,
+        "before": {
+          "frames": 87,
+          "p50": 55.1,
+          "p95": 122.3,
+          "p99": 156.6,
+          "max": 156.6,
+          "over50": 50,
+          "particleCpuP95": 87.2,
+          "peakParticles": 9722
+        },
+        "after": {
+          "frames": 185,
+          "p50": 26.5,
+          "p95": 39.8,
+          "p99": 47.3,
+          "max": 51.6,
+          "over50": 1,
+          "particleCpuP95": 17.7,
+          "peakParticles": 9733
+        }
+      },
+      {
+        "id": "O01",
+        "shots": 4,
+        "ammoAfter": 0,
+        "nuclearOrCardDamage": 21963.479936571428,
+        "before": {
+          "frames": 133,
+          "p50": 40.2,
+          "p95": 57.6,
+          "p99": 148.7,
+          "max": 191.1,
+          "over50": 20,
+          "particleCpuP95": 34.1,
+          "peakParticles": 4871
+        },
+        "after": {
+          "frames": 189,
+          "p50": 24.8,
+          "p95": 42.4,
+          "p99": 73.3,
+          "max": 106,
+          "over50": 4,
+          "particleCpuP95": 11,
+          "peakParticles": 4873
+        }
+      },
+      {
+        "id": "N05-manual",
+        "shots": 8,
+        "ammoAfter": 0,
+        "nuclearOrCardDamage": 124333,
+        "before": null,
+        "after": {
+          "frames": 210,
+          "p50": 24.3,
+          "p95": 31.2,
+          "p99": 36.2,
+          "max": 36.7,
+          "over50": 0,
+          "particleCpuP95": 14.3,
+          "peakParticles": 9732
+        }
+      },
+      {
+        "id": "O01-scorched",
+        "shots": 8,
+        "ammoAfter": 1,
+        "nuclearOrCardDamage": 33954.47993657143,
+        "before": null,
+        "after": {
+          "frames": 182,
+          "p50": 26.6,
+          "p95": 41,
+          "p99": 48.1,
+          "max": 56.7,
+          "over50": 1,
+          "particleCpuP95": 15.1,
+          "peakParticles": 9748
+        }
+      }
+    ],
+    "counterattackRepeat": [
+      {
+        "p95": 52.7,
+        "max": 87,
+        "frames": 157,
+        "over50": 10
+      },
+      {
+        "p95": 59.9,
+        "max": 80.9,
+        "frames": 131,
+        "over50": 28
+      },
+      {
+        "p95": 34,
+        "max": 50.9,
+        "frames": 202,
+        "over50": 1
+      }
+    ],
+    "preNodeLockBuild": "3661d508467f9fd74361472d7828259124bc53e6f53aaf7bece9bf06f86dca76",
+    "preNodeLockChecks": [
+      {
+        "id": "P01",
+        "shots": 4,
+        "p95": 30.2,
+        "max": 40.6
+      },
+      {
+        "id": "N05",
+        "shots": 8,
+        "p95": 44.6,
+        "max": 52.1
+      },
+      {
+        "id": "O01",
+        "shots": 4,
+        "p95": 69,
+        "max": 94.1
+      },
+      {
+        "id": "N05-manual",
+        "shots": 8,
+        "p95": 44.8,
+        "max": 59.1
+      }
+    ]
+  },
+  "checks": {
+    "showcase": [
+      {
+        "id": "G05",
+        "node": true,
+        "triggered": true
+      },
+      {
+        "id": "P01",
+        "node": true,
+        "triggered": true
+      },
+      {
+        "id": "N05",
+        "node": false,
+        "triggered": true
+      },
+      {
+        "id": "N05",
+        "node": true,
+        "triggered": true
+      },
+      {
+        "id": "O01",
+        "node": true,
+        "triggered": true
+      }
+    ],
+    "normalPlayer": [
+      {
+        "id": "W01",
+        "progress": 1,
+        "main": null,
+        "rank": 1,
+        "purchase": true,
+        "walletDelta": {
+          "minerals": 43,
+          "gas": 0
+        }
+      },
+      {
+        "id": "W01",
+        "progress": 1,
+        "main": null,
+        "rank": 2,
+        "purchase": true,
+        "walletDelta": {
+          "minerals": 50,
+          "gas": 0
+        }
+      },
+      {
+        "id": "W04",
+        "progress": 2,
+        "main": null,
+        "rank": 1,
+        "purchase": true,
+        "walletDelta": {
+          "minerals": 50,
+          "gas": 0
+        }
+      },
+      {
+        "id": "G01",
+        "progress": 3,
+        "main": null,
+        "rank": 1,
+        "purchase": true,
+        "walletDelta": {
+          "minerals": 90,
+          "gas": 20
+        }
+      },
+      {
+        "purpleClaim": "N01",
+        "main": "armed",
+        "progress": 3,
+        "saved": true
+      },
+      {
+        "normalCheckpointRestored": true
+      },
+      {
+        "nextBattle": {
+          "stage": 2,
+          "deployments": [
+            {
+              "card": "W01",
+              "phase": "active"
+            }
+          ],
+          "troops": [
+            {
+              "card": "W01",
+              "rank": 2,
+              "temporary": true
+            }
+          ]
+        }
+      },
+      {
+        "orangePurchase": "O02",
+        "progress": 9,
+        "candidates": 3
+      }
+    ],
+    "packaged": [
+      {
+        "asset": "model.battlecruiser",
+        "hashVerified": true
+      },
+      {
+        "asset": "model.battlecruiser.death",
+        "hashVerified": true
+      },
+      {
+        "asset": "model.fort.command_center",
+        "hashVerified": true
+      },
+      {
+        "asset": "model.fort.planetary",
+        "hashVerified": true
+      },
+      {
+        "asset": "model.fort.planetary.death",
+        "hashVerified": true
+      },
+      {
+        "asset": "model.fort.supply_depot",
+        "hashVerified": true
+      },
+      {
+        "asset": "model.fort.supply_depot.death",
+        "hashVerified": true
+      },
+      {
+        "asset": "model.support.medkit",
+        "hashVerified": true
+      },
+      {
+        "asset": "model.support.repair_drone",
+        "hashVerified": true
+      },
+      {
+        "asset": "model.support.repair_drone.death",
+        "hashVerified": true
+      },
+      {
+        "purchase": "W01",
+        "progress": 1,
+        "save": true
+      },
+      {
+        "checkpointRestored": true,
+        "nextStage": 2,
+        "noDebugAPI": true
+      }
+    ],
+    "totalTests": 3161,
+    "targetedTests": 86,
+    "typecheck": true,
+    "docsCheck": true
+  },
+  "scope": {
+    "previousFullCatalog": "armed-0fb61c0c77a5, 45 cards plus nine paired base replays",
+    "pending": "User visual acceptance, physical phone performance, PLAY-1X combined natural campaign",
+    "delivery": "Local production candidate"
+  }
+}

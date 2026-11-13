@@ -1,0 +1,57 @@
+[
+  {
+    "id": "model.combat-fx.JumpLandDust",
+    "name": "jumplanddust",
+    "assetPath": "Assets/Effects/Other/JumpLandDust/JumpLandDust.m3",
+    "modelDataId": "JumpLandDust",
+    "scale": [
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "id": "model.combat-fx.ATSLaserBatteryLMWeapon",
+    "modelDataId": "ATSLaserBatteryLMWeapon",
+    "name": "battlecruisermissile",
+    "assetPath": "Assets/Effects/Terran/BattleCruiserMissile/BattleCruiserMissile.m3",
+    "scale": [
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "id": "model.combat-fx.BattlecruiserAirAttackImpact",
+    "modelDataId": "BattlecruiserAirAttackImpact",
+    "name": "battlecruisermissileimpact",
+    "assetPath": "Assets/Effects/Terran/BattlecruiserMissileImpact/BattleCruiserMissileImpact.m3",
+    "scale": [
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "id": "model.combat-fx.PlanetaryFortressAttackLaunch",
+    "modelDataId": "PlanetaryFortressAttackLaunch",
+    "name": "siegetankfiresprite",
+    "assetPath": "Assets/Effects/Terran/SiegeTankFireSprite/SiegeTankFireSprite.m3",
+    "scale": [
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "id": "model.combat-fx.PlanetaryFortressAttackImpact",
+    "modelDataId": "PlanetaryFortressAttackImpact",
+    "name": "planetaryfortressmissileimpact",
+    "assetPath": "Assets/Effects/Terran/PlanetaryFortressMissileImpact/PlanetaryFortressMissileImpact.m3",
+    "scale": [
+      1,
+      1,
+      1
+    ]
+  }
+]

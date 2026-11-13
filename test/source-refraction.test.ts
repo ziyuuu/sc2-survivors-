@@ -31,9 +31,9 @@ test('original shield displacement grows beyond initial capacity, clears on paus
 test('screen pass does no work when inactive and restores renderer and camera state when field drawing fails',()=>{
  const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(),pass=new ScreenRefraction(scene,camera),read=new THREE.WebGLRenderTarget(8,8),write=new THREE.WebGLRenderTarget(8,8);let calls=0;
  pass.render({} as any,write,read);assert.equal(pass.needsSwap,false);
- const mesh=new THREE.Mesh(new THREE.PlaneGeometry(),new THREE.MeshBasicMaterial());mesh.userData.displacement=true;scene.add(mesh);scene.background=new THREE.Color('#234567');const background=scene.background,mask=camera.layers.mask;read.depthTexture=new THREE.DepthTexture(8,8);
- const renderer={autoClear:false,getRenderTarget:()=>read,getClearColor:(c:THREE.Color)=>c.set('#123456'),getClearAlpha:()=>.5,setRenderTarget:()=>{calls++;},setClearColor:()=>{},render:()=>{throw Error('GPU interrupted');}};
- assert.throws(()=>pass.render(renderer as any,write,read),/GPU interrupted/);assert.equal(renderer.autoClear,false);assert.equal(camera.layers.mask,mask);assert.equal(scene.background,background);assert.ok(calls>=2);pass.dispose();read.dispose();write.dispose();displacementFrame.depth.value=null;
+ const mesh=new THREE.Mesh(new THREE.PlaneGeometry(),new THREE.MeshBasicMaterial());mesh.userData.displacement=true;scene.add(mesh);scene.background=new THREE.Color('#234567');scene.fog=new THREE.FogExp2(0x202326,.009);const fog=scene.fog,background=scene.background,mask=camera.layers.mask;read.depthTexture=new THREE.DepthTexture(8,8);
+ const renderer={autoClear:false,getRenderTarget:()=>read,getClearColor:(c:THREE.Color)=>c.set('#123456'),getClearAlpha:()=>.5,setRenderTarget:()=>{calls++;},setClearColor:()=>{},render:()=>{assert.equal(scene.fog,null);throw Error('GPU interrupted');}};
+ assert.throws(()=>pass.render(renderer as any,write,read),/GPU interrupted/);assert.equal(renderer.autoClear,false);assert.equal(camera.layers.mask,mask);assert.equal(scene.background,background);assert.equal(scene.fog,fog);assert.ok(calls>=2);pass.dispose();read.dispose();write.dispose();displacementFrame.depth.value=null;
 });
 
 test('empty entrances still warm the compositor and a failed warmup restores its textures and target',()=>{

@@ -1,0 +1,3572 @@
+{
+  "resourceRelease": "b0bf5b84e5968dc7a722f592f7cb089e5e4f26157ece54c28af7a116f000052a",
+  "baseline": {
+    "build": "6cfdf724a8b53485adec7ed55fd07fc3a8db90b001118f517c46d1e99eed89f1",
+    "profilerStartup": {
+      "firstSampleAfterMs": 1456.8,
+      "overlappingFrameMs": 1500.1
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "maxMs": 33.4,
+        "age": 0.4,
+        "over100": 0,
+        "frames": 907,
+        "trackedMiB": [
+          382.3,
+          382.4,
+          382.6
+        ],
+        "processMiB": [
+          2988.9,
+          3062.2,
+          3236.3
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 2,
+        "maxMs": 216.7,
+        "age": 7.6,
+        "over100": 1,
+        "frames": 828,
+        "trackedMiB": [
+          374.6,
+          329.3,
+          329.3
+        ],
+        "processMiB": [
+          3196,
+          2925.2,
+          2974.5
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 3,
+        "maxMs": 200.1,
+        "age": 51.9,
+        "over100": 1,
+        "frames": 828,
+        "trackedMiB": [
+          331,
+          361,
+          361.3
+        ],
+        "processMiB": [
+          3193.9,
+          3052.4,
+          3220.3
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 4,
+        "maxMs": 200,
+        "age": 58.9,
+        "over100": 1,
+        "frames": 750,
+        "trackedMiB": [
+          460.3,
+          476.5,
+          476.5
+        ],
+        "processMiB": [
+          3639,
+          3619.4,
+          3711.2
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 5,
+        "maxMs": 116.6,
+        "age": 0.5,
+        "over100": 1,
+        "frames": 789,
+        "trackedMiB": [
+          480,
+          480.6,
+          480.7
+        ],
+        "processMiB": [
+          3848,
+          3709,
+          3768.8
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 6,
+        "maxMs": 200,
+        "age": 68.4,
+        "over100": 4,
+        "frames": 849,
+        "trackedMiB": [
+          425.4,
+          464.1,
+          478.2
+        ],
+        "processMiB": [
+          3811.8,
+          3863.9,
+          3993.2
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 7,
+        "maxMs": 100,
+        "age": 0.5,
+        "over100": 1,
+        "frames": 759,
+        "trackedMiB": [
+          540.9,
+          492.6,
+          492.6
+        ],
+        "processMiB": [
+          3998.8,
+          3894.4,
+          3977.3
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 8,
+        "maxMs": 83.4,
+        "age": 15.7,
+        "over100": 0,
+        "frames": 725,
+        "trackedMiB": [
+          506.6,
+          507.7,
+          507.7
+        ],
+        "processMiB": [
+          4145.5,
+          4017.4,
+          4103.6
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 9,
+        "maxMs": 116.7,
+        "age": 5.7,
+        "over100": 1,
+        "frames": 740,
+        "trackedMiB": [
+          583.7,
+          581.1,
+          581.1
+        ],
+        "processMiB": [
+          4445.7,
+          4420.4,
+          4464.6
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 10,
+        "maxMs": 83.4,
+        "age": 25.5,
+        "over100": 0,
+        "frames": 770,
+        "trackedMiB": [
+          604.6,
+          567.7,
+          567.7
+        ],
+        "processMiB": [
+          4760.9,
+          4513.8,
+          4574
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 11,
+        "maxMs": 116.7,
+        "age": 5,
+        "over100": 2,
+        "frames": 859,
+        "trackedMiB": [
+          598.7,
+          604.4,
+          604.4
+        ],
+        "processMiB": [
+          4825.9,
+          4561.2,
+          4628.6
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 12,
+        "maxMs": 150,
+        "age": 55.1,
+        "over100": 2,
+        "frames": 2000,
+        "trackedMiB": [
+          636.3,
+          633.7,
+          633.7
+        ],
+        "processMiB": [
+          4836.9,
+          5005.9,
+          5112
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 13,
+        "maxMs": 266.6,
+        "age": 30.1,
+        "over100": 102,
+        "frames": 1464,
+        "trackedMiB": [
+          652.2,
+          651.8,
+          651.8
+        ],
+        "processMiB": [
+          5234.2,
+          5101.1,
+          5199.8
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 14,
+        "maxMs": 333.3,
+        "age": 3.7,
+        "over100": 10,
+        "frames": 1298,
+        "trackedMiB": [
+          662.6,
+          681.5,
+          681.5
+        ],
+        "processMiB": [
+          4632,
+          4996.8,
+          5107.9
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 15,
+        "maxMs": 1500.1,
+        "age": 1.5,
+        "over100": 12,
+        "frames": 1228,
+        "trackedMiB": [
+          778.9,
+          780.8,
+          780.8
+        ],
+        "processMiB": [
+          5033,
+          4975.8,
+          5061.6
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 16,
+        "maxMs": 766.5,
+        "age": 36,
+        "over100": 13,
+        "frames": 1827,
+        "trackedMiB": [
+          747.6,
+          765.6,
+          765.6
+        ],
+        "processMiB": [
+          4984.1,
+          4987.2,
+          5065.6
+        ],
+        "nydusTextureMiB": [
+          0,
+          32.4,
+          32.4
+        ]
+      },
+      {
+        "stage": 17,
+        "maxMs": 150,
+        "age": 91.9,
+        "over100": 8,
+        "frames": 1733,
+        "trackedMiB": [
+          753.2,
+          764,
+          764
+        ],
+        "processMiB": [
+          5389.8,
+          5631.1,
+          5755.8
+        ],
+        "nydusTextureMiB": [
+          32.4,
+          32.4,
+          32.4
+        ]
+      },
+      {
+        "stage": 18,
+        "maxMs": 183.3,
+        "age": 22.9,
+        "over100": 17,
+        "frames": 1384,
+        "trackedMiB": [
+          830.7,
+          830.6,
+          830.6
+        ],
+        "processMiB": [
+          5939.4,
+          5962.4,
+          6098.9
+        ],
+        "nydusTextureMiB": [
+          32.4,
+          32.4,
+          32.4
+        ]
+      }
+    ],
+    "meanMiB": 575.5,
+    "peakMiB": 933.9,
+    "processPeakMiB": 6269.4,
+    "framesOver100": 176,
+    "maxMs": 1500.1,
+    "endlessMiB": 899,
+    "pressure": [
+      [
+        1,
+        false
+      ],
+      [
+        6,
+        true
+      ]
+    ],
+    "battleEliteReloads": [],
+    "target16": [
+      {
+        "ms": 766.5,
+        "age": 36,
+        "previousAge": 36,
+        "assetsPending": 1,
+        "spans": [
+          {
+            "label": "view.render",
+            "offset": 43.9,
+            "ms": 730.5
+          },
+          {
+            "label": "three.render",
+            "offset": 67.4,
+            "ms": 706.7
+          },
+          {
+            "label": "draw Mesh/Scene nydus#9 MeshPhysicalMaterial",
+            "offset": 263.4,
+            "ms": 181.9
+          },
+          {
+            "label": "draw Mesh/Scene Standard_13#5 MeshPhysicalMaterial",
+            "offset": 78.4,
+            "ms": 178.4
+          },
+          {
+            "label": "draw Mesh/Scene Standard_11#10 MeshPhysicalMaterial",
+            "offset": 446.5,
+            "ms": 167.2
+          },
+          {
+            "label": "draw Mesh/Scene Standard_11#10 MeshPhysicalMaterial",
+            "offset": 613.7,
+            "ms": 157.4
+          },
+          {
+            "label": "sourceCombatEffects.render",
+            "offset": 51.9,
+            "ms": 14.1
+          }
+        ],
+        "cpuSamples": [
+          {
+            "count": 421,
+            "stack": [
+              "getProgramInfoLog",
+              "C",
+              "getUniforms",
+              "pt",
+              "renderBufferDirect",
+              "view.renderer.renderBufferDirect",
+              "ct",
+              "st",
+              "at",
+              "render"
+            ]
+          },
+          {
+            "count": 11,
+            "stack": [
+              "texSubImage2D",
+              "we",
+              "le",
+              "N",
+              "Nre",
+              "upload",
+              "pt",
+              "renderBufferDirect",
+              "view.renderer.renderBufferDirect",
+              "ct"
+            ]
+          },
+          {
+            "count": 6,
+            "stack": [
+              "o5",
+              "fae",
+              "(root)"
+            ]
+          },
+          {
+            "count": 3,
+            "stack": [
+              "shaderSource",
+              "Nz",
+              "mB",
+              "lt",
+              "pt",
+              "renderBufferDirect",
+              "view.renderer.renderBufferDirect",
+              "ct",
+              "st",
+              "at"
+            ]
+          },
+          {
+            "count": 3,
+            "stack": [
+              "texSubImage2D",
+              "we",
+              "ce",
+              "le",
+              "N",
+              "Nre",
+              "upload",
+              "pt",
+              "renderBufferDirect",
+              "view.renderer.renderBufferDirect"
+            ]
+          },
+          {
+            "count": 2,
+            "stack": [
+              "applyBoneTransform",
+              "getVertexPosition",
+              "expandByObject",
+              "setFromObject",
+              "(anonymous)",
+              "traverse",
+              "traverse",
+              "traverse",
+              "nQ",
+              "o5"
+            ]
+          }
+        ]
+      },
+      {
+        "ms": 133.3,
+        "age": 36,
+        "previousAge": 36,
+        "assetsPending": 1,
+        "spans": [
+          {
+            "label": "view.render",
+            "offset": 42.3,
+            "ms": 96.4
+          },
+          {
+            "label": "three.render",
+            "offset": 71.9,
+            "ms": 66.3
+          },
+          {
+            "label": "draw Mesh/Scene Standard_13#5 MeshPhysicalMaterial",
+            "offset": 90.4,
+            "ms": 24
+          },
+          {
+            "label": "sourceCombatEffects.render",
+            "offset": 53.2,
+            "ms": 16.1
+          },
+          {
+            "label": "draw Mesh/Scene nydus#9 MeshPhysicalMaterial",
+            "offset": 114.9,
+            "ms": 13.1
+          }
+        ],
+        "cpuSamples": [
+          {
+            "count": 19,
+            "stack": [
+              "texSubImage2D",
+              "we",
+              "le",
+              "N",
+              "Nre",
+              "upload",
+              "pt",
+              "renderBufferDirect",
+              "view.renderer.renderBufferDirect",
+              "ct"
+            ]
+          },
+          {
+            "count": 3,
+            "stack": [
+              "shaderSource",
+              "Nz",
+              "mB",
+              "lt",
+              "Qe",
+              "(anonymous)",
+              "traverse",
+              "compile",
+              "compileAsync",
+              "e.compileAsync"
+            ]
+          },
+          {
+            "count": 2,
+            "stack": [
+              "o5",
+              "fae",
+              "(root)"
+            ]
+          },
+          {
+            "count": 2,
+            "stack": [
+              "(garbage collector)",
+              "(root)"
+            ]
+          },
+          {
+            "count": 2,
+            "stack": [
+              "buildMeshes",
+              "create",
+              "(root)"
+            ]
+          },
+          {
+            "count": 2,
+            "stack": [
+              "Yz",
+              "mB",
+              "lt",
+              "Qe",
+              "(anonymous)",
+              "traverse",
+              "compile",
+              "compileAsync",
+              "e.compileAsync",
+              "compilePresentation"
+            ]
+          }
+        ]
+      },
+      {
+        "ms": 133.2,
+        "age": 78.5,
+        "previousAge": 78.4,
+        "assetsPending": 0,
+        "spans": [
+          {
+            "label": "view.render",
+            "offset": 45.5,
+            "ms": 96.4
+          },
+          {
+            "label": "sourceCombatEffects.render",
+            "offset": 63.2,
+            "ms": 54.3
+          },
+          {
+            "label": "three.render",
+            "offset": 120.5,
+            "ms": 20.8
+          },
+          {
+            "label": "fixedStep",
+            "offset": 18.3,
+            "ms": 19.3
+          },
+          {
+            "label": "fixedStep",
+            "offset": 9.6,
+            "ms": 3.4
+          },
+          {
+            "label": "fixedStep",
+            "offset": 15.3,
+            "ms": 3
+          },
+          {
+            "label": "fixedStep",
+            "offset": 13,
+            "ms": 2.3
+          },
+          {
+            "label": "world.changed",
+            "offset": 35.9,
+            "ms": 1.7
+          },
+          {
+            "label": "fx.render",
+            "offset": 118.9,
+            "ms": 1.2
+          }
+        ],
+        "cpuSamples": [
+          {
+            "count": 20,
+            "stack": [
+              "(garbage collector)",
+              "(root)"
+            ]
+          },
+          {
+            "count": 4,
+            "stack": [
+              "getBoundingClientRect",
+              "exclusions",
+              "render",
+              "render",
+              "object.<computed>",
+              "te",
+              "(root)"
+            ]
+          },
+          {
+            "count": 3,
+            "stack": [
+              "get clientWidth",
+              "update",
+              "update",
+              "run",
+              "advanceSimulation",
+              "te",
+              "(root)"
+            ]
+          },
+          {
+            "count": 3,
+            "stack": [
+              "K0",
+              "play",
+              "add",
+              "request",
+              "echo",
+              "render",
+              "object.<computed>",
+              "render",
+              "object.<computed>",
+              "te"
+            ]
+          },
+          {
+            "count": 2,
+            "stack": [
+              "updateUnitNative",
+              "updateUnit",
+              "step",
+              "object.<computed>",
+              "w.step",
+              "(anonymous)",
+              "advance",
+              "run",
+              "advanceSimulation",
+              "te"
+            ]
+          },
+          {
+            "count": 2,
+            "stack": [
+              "o",
+              "sample",
+              "write",
+              "add",
+              "render",
+              "object.<computed>",
+              "te",
+              "(root)"
+            ]
+          }
+        ]
+      }
+    ],
+    "opening17": [
+      {
+        "ms": 83.3,
+        "age": 0.1,
+        "previousAge": 0,
+        "assetsPending": 0,
+        "spans": [
+          {
+            "label": "view.render",
+            "offset": 61.7,
+            "ms": 14
+          },
+          {
+            "label": "three.render",
+            "offset": 70.7,
+            "ms": 4.7
+          },
+          {
+            "label": "world.changed",
+            "offset": 13.6,
+            "ms": 1.6
+          },
+          {
+            "label": "sourceCombatEffects.render",
+            "offset": 68.7,
+            "ms": 1.3
+          }
+        ],
+        "cpuSamples": [
+          {
+            "count": 5,
+            "stack": [
+              "update",
+              "update",
+              "p.onChange",
+              "update",
+              "cancel",
+              "ee",
+              "(root)"
+            ]
+          },
+          {
+            "count": 5,
+            "stack": [
+              "put",
+              "update",
+              "p.onChange",
+              "update",
+              "cancel",
+              "ee",
+              "(root)"
+            ]
+          },
+          {
+            "count": 4,
+            "stack": [
+              "(program)",
+              "(root)"
+            ]
+          },
+          {
+            "count": 4,
+            "stack": [
+              "get clientWidth",
+              "update",
+              "update",
+              "p.onChange",
+              "update",
+              "cancel",
+              "ee",
+              "(root)"
+            ]
+          },
+          {
+            "count": 4,
+            "stack": [
+              "rescue",
+              "update",
+              "update",
+              "ee",
+              "(root)"
+            ]
+          },
+          {
+            "count": 3,
+            "stack": [
+              "canOccupy",
+              "connectedLocations",
+              "$q",
+              "prepareStage",
+              "nextStage",
+              "finishRewardRound",
+              "skipReward",
+              "ee",
+              "(root)"
+            ]
+          }
+        ]
+      },
+      {
+        "ms": 50.2,
+        "age": 2.1,
+        "previousAge": 1.9,
+        "assetsPending": 0,
+        "spans": [
+          {
+            "label": "view.render",
+            "offset": 26.3,
+            "ms": 30.2
+          },
+          {
+            "label": "three.render",
+            "offset": 32.6,
+            "ms": 23.6
+          },
+          {
+            "label": "fixedStep",
+            "offset": 19.7,
+            "ms": 2.1
+          },
+          {
+            "label": "fixedStep",
+            "offset": 21.8,
+            "ms": 1.3
+          },
+          {
+            "label": "fx.render",
+            "offset": 31.2,
+            "ms": 1.3
+          },
+          {
+            "label": "fixedStep",
+            "offset": 23.1,
+            "ms": 1
+          }
+        ],
+        "cpuSamples": [
+          {
+            "count": 6,
+            "stack": [
+              "getProgramInfoLog",
+              "C",
+              "getUniforms",
+              "pt",
+              "renderBufferDirect",
+              "view.renderer.renderBufferDirect",
+              "ct",
+              "st",
+              "at",
+              "render"
+            ]
+          },
+          {
+            "count": 2,
+            "stack": [
+              "rescue",
+              "update",
+              "update",
+              "run",
+              "advanceSimulation",
+              "te",
+              "(root)"
+            ]
+          },
+          {
+            "count": 2,
+            "stack": [
+              "update",
+              "update",
+              "run",
+              "advanceSimulation",
+              "te",
+              "(root)"
+            ]
+          },
+          {
+            "count": 2,
+            "stack": [
+              "update",
+              "update",
+              "te",
+              "(root)"
+            ]
+          },
+          {
+            "count": 2,
+            "stack": [
+              "a",
+              "i",
+              "pt",
+              "renderBufferDirect",
+              "view.renderer.renderBufferDirect",
+              "ct",
+              "st",
+              "at",
+              "render",
+              "object.<computed>"
+            ]
+          },
+          {
+            "count": 2,
+            "stack": [
+              "(idle)",
+              "(root)"
+            ]
+          }
+        ]
+      },
+      {
+        "ms": 50.1,
+        "age": 3.1,
+        "previousAge": 2.9,
+        "assetsPending": 0,
+        "spans": [
+          {
+            "label": "view.render",
+            "offset": 35.6,
+            "ms": 20.1
+          },
+          {
+            "label": "fixedStep",
+            "offset": 8.7,
+            "ms": 18.1
+          },
+          {
+            "label": "three.render",
+            "offset": 45.5,
+            "ms": 8.6
+          },
+          {
+            "label": "fixedStep",
+            "offset": 26.8,
+            "ms": 1.8
+          },
+          {
+            "label": "sourceCombatEffects.render",
+            "offset": 43,
+            "ms": 1.2
+          },
+          {
+            "label": "fixedStep",
+            "offset": 5.5,
+            "ms": 1.1
+          }
+        ],
+        "cpuSamples": [
+          {
+            "count": 7,
+            "stack": [
+              "graph",
+              "routeGoal",
+              "Ut",
+              "updateUnitNative",
+              "updateUnit",
+              "step",
+              "object.<computed>",
+              "w.step",
+              "(anonymous)",
+              "advance"
+            ]
+          },
+          {
+            "count": 3,
+            "stack": [
+              "canOccupy",
+              "valid",
+              "routeGoal",
+              "Ut",
+              "updateUnitNative",
+              "updateUnit",
+              "step",
+              "object.<computed>",
+              "w.step",
+              "(anonymous)"
+            ]
+          },
+          {
+            "count": 3,
+            "stack": [
+              "get clientWidth",
+              "update",
+              "update",
+              "run",
+              "advanceSimulation",
+              "te",
+              "(root)"
+            ]
+          },
+          {
+            "count": 2,
+            "stack": [
+              "getBoundingClientRect",
+              "exclusions",
+              "render",
+              "render",
+              "object.<computed>",
+              "te",
+              "(root)"
+            ]
+          },
+          {
+            "count": 1,
+            "stack": [
+              "bindTexture",
+              "xe",
+              "N",
+              "Nre",
+              "upload",
+              "pt",
+              "renderBufferDirect",
+              "view.renderer.renderBufferDirect",
+              "ct",
+              "st"
+            ]
+          },
+          {
+            "count": 1,
+            "stack": [
+              "h",
+              "lt",
+              "pt",
+              "renderBufferDirect",
+              "view.renderer.renderBufferDirect",
+              "ct",
+              "st",
+              "at",
+              "render",
+              "object.<computed>"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "candidate": {
+    "build": "332c9b1cefc46683f5f84d5ff906de092f5b73ba3548c93b8b68664d344b6602",
+    "profilerStartup": {
+      "firstSampleAfterMs": 1204.4,
+      "overlappingFrameMs": 1232.5
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "maxMs": 33.3,
+        "age": 0.4,
+        "over100": 0,
+        "frames": 908,
+        "trackedMiB": [
+          382.3,
+          382.4,
+          382.4
+        ],
+        "processMiB": [
+          2978.3,
+          3044.6,
+          3228
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 2,
+        "maxMs": 183.3,
+        "age": 7.6,
+        "over100": 1,
+        "frames": 878,
+        "trackedMiB": [
+          374.4,
+          329.2,
+          329.2
+        ],
+        "processMiB": [
+          3274.3,
+          2943.3,
+          2994.9
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 3,
+        "maxMs": 200.4,
+        "age": 51.9,
+        "over100": 1,
+        "frames": 849,
+        "trackedMiB": [
+          330.6,
+          361.4,
+          361.4
+        ],
+        "processMiB": [
+          3199.1,
+          3313.6,
+          3380.2
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 4,
+        "maxMs": 133.4,
+        "age": 58.9,
+        "over100": 1,
+        "frames": 832,
+        "trackedMiB": [
+          460.2,
+          476.9,
+          476.9
+        ],
+        "processMiB": [
+          3709.4,
+          3567.3,
+          3611.9
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 5,
+        "maxMs": 116.3,
+        "age": 0.6,
+        "over100": 1,
+        "frames": 848,
+        "trackedMiB": [
+          479.7,
+          465.8,
+          465.8
+        ],
+        "processMiB": [
+          3762.9,
+          3660.4,
+          3723.6
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 6,
+        "maxMs": 250.1,
+        "age": 68.4,
+        "over100": 2,
+        "frames": 919,
+        "trackedMiB": [
+          439.1,
+          464.2,
+          478.6
+        ],
+        "processMiB": [
+          3841.9,
+          3682,
+          3852.3
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 7,
+        "maxMs": 83.4,
+        "age": 1.2,
+        "over100": 0,
+        "frames": 924,
+        "trackedMiB": [
+          491.2,
+          492.9,
+          492.9
+        ],
+        "processMiB": [
+          4115.9,
+          3878.5,
+          3960
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 8,
+        "maxMs": 83.4,
+        "age": 20.1,
+        "over100": 0,
+        "frames": 904,
+        "trackedMiB": [
+          532.6,
+          507.4,
+          507.4
+        ],
+        "processMiB": [
+          4339.6,
+          4031.2,
+          4112.4
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 9,
+        "maxMs": 83.3,
+        "age": 5.7,
+        "over100": 0,
+        "frames": 877,
+        "trackedMiB": [
+          563.3,
+          581.9,
+          581.9
+        ],
+        "processMiB": [
+          4472,
+          4423.6,
+          4444.7
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 10,
+        "maxMs": 66.7,
+        "age": 0.2,
+        "over100": 0,
+        "frames": 947,
+        "trackedMiB": [
+          590.1,
+          567.8,
+          567.8
+        ],
+        "processMiB": [
+          4749.5,
+          4486.9,
+          4567.6
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 11,
+        "maxMs": 100,
+        "age": 5.1,
+        "over100": 1,
+        "frames": 853,
+        "trackedMiB": [
+          595.9,
+          604.5,
+          604.5
+        ],
+        "processMiB": [
+          4785.4,
+          4567.2,
+          4639.5
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 12,
+        "maxMs": 133.4,
+        "age": 75.4,
+        "over100": 2,
+        "frames": 1872,
+        "trackedMiB": [
+          636.2,
+          634.4,
+          634.4
+        ],
+        "processMiB": [
+          4812.9,
+          5014.3,
+          5080.5
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 13,
+        "maxMs": 100.1,
+        "age": 21.7,
+        "over100": 1,
+        "frames": 986,
+        "trackedMiB": [
+          715.3,
+          694.4,
+          694.4
+        ],
+        "processMiB": [
+          5563.8,
+          5152.9,
+          5300.8
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 14,
+        "maxMs": 116.7,
+        "age": 16.7,
+        "over100": 3,
+        "frames": 1134,
+        "trackedMiB": [
+          693.7,
+          682.1,
+          681.9
+        ],
+        "processMiB": [
+          5588.9,
+          5188.3,
+          5301.3
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 15,
+        "maxMs": 1232.5,
+        "age": 1.3,
+        "over100": 2,
+        "frames": 1215,
+        "trackedMiB": [
+          779.3,
+          781.4,
+          781.4
+        ],
+        "processMiB": [
+          5686,
+          5669.8,
+          5792.8
+        ],
+        "nydusTextureMiB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "stage": 16,
+        "maxMs": 150,
+        "age": 96.8,
+        "over100": 5,
+        "frames": 1768,
+        "trackedMiB": [
+          770.1,
+          763.9,
+          763.9
+        ],
+        "processMiB": [
+          6106.5,
+          5726.2,
+          5819.2
+        ],
+        "nydusTextureMiB": [
+          32.4,
+          32.4,
+          32.4
+        ]
+      },
+      {
+        "stage": 17,
+        "maxMs": 183.4,
+        "age": 106.5,
+        "over100": 13,
+        "frames": 1710,
+        "trackedMiB": [
+          792.2,
+          764.6,
+          764.6
+        ],
+        "processMiB": [
+          6103.7,
+          5821,
+          5935.5
+        ],
+        "nydusTextureMiB": [
+          32.4,
+          32.4,
+          32.4
+        ]
+      },
+      {
+        "stage": 18,
+        "maxMs": 150,
+        "age": 22.9,
+        "over100": 13,
+        "frames": 1374,
+        "trackedMiB": [
+          850.9,
+          831,
+          831
+        ],
+        "processMiB": [
+          6246.4,
+          6219.2,
+          6371.5
+        ],
+        "nydusTextureMiB": [
+          32.4,
+          32.4,
+          32.4
+        ]
+      }
+    ],
+    "meanMiB": 579,
+    "peakMiB": 947.4,
+    "processPeakMiB": 6371.5,
+    "framesOver100": 46,
+    "maxMs": 1232.5,
+    "endlessMiB": 890.4,
+    "pressure": [
+      [
+        1,
+        false
+      ],
+      [
+        6,
+        true
+      ]
+    ],
+    "battleEliteReloads": [],
+    "target16": [
+      {
+        "ms": 150,
+        "age": 96.8,
+        "previousAge": 96.7,
+        "assetsPending": 0,
+        "spans": [
+          {
+            "label": "view.render",
+            "offset": 70.7,
+            "ms": 73.3
+          },
+          {
+            "label": "three.render",
+            "offset": 126.6,
+            "ms": 16.3
+          },
+          {
+            "label": "fixedStep",
+            "offset": 25.7,
+            "ms": 14
+          },
+          {
+            "label": "fixedStep",
+            "offset": 39.7,
+            "ms": 14
+          },
+          {
+            "label": "sourceCombatEffects.render",
+            "offset": 77.5,
+            "ms": 11.1
+          },
+          {
+            "label": "fixedStep",
+            "offset": 53.7,
+            "ms": 5.3
+          },
+          {
+            "label": "fixedStep",
+            "offset": 59,
+            "ms": 3.5
+          },
+          {
+            "label": "world.changed",
+            "offset": 52.3,
+            "ms": 1.4
+          },
+          {
+            "label": "fx.render",
+            "offset": 125,
+            "ms": 1.2
+          }
+        ],
+        "cpuSamples": [
+          {
+            "count": 32,
+            "stack": [
+              "(garbage collector)",
+              "(root)"
+            ]
+          },
+          {
+            "count": 5,
+            "stack": [
+              "(program)",
+              "(root)"
+            ]
+          },
+          {
+            "count": 3,
+            "stack": [
+              "K0",
+              "play",
+              "add",
+              "request",
+              "echo",
+              "render",
+              "object.<computed>",
+              "render",
+              "object.<computed>",
+              "te"
+            ]
+          },
+          {
+            "count": 3,
+            "stack": [
+              "update",
+              "update",
+              "run",
+              "advanceSimulation",
+              "te",
+              "(root)"
+            ]
+          },
+          {
+            "count": 3,
+            "stack": [
+              "upload",
+              "pt",
+              "renderBufferDirect",
+              "view.renderer.renderBufferDirect",
+              "ct",
+              "st",
+              "at",
+              "render",
+              "object.<computed>",
+              "render"
+            ]
+          },
+          {
+            "count": 2,
+            "stack": [
+              "a",
+              "i",
+              "pt",
+              "renderBufferDirect",
+              "view.renderer.renderBufferDirect",
+              "ct",
+              "st",
+              "at",
+              "render",
+              "object.<computed>"
+            ]
+          }
+        ]
+      },
+      {
+        "ms": 133.3,
+        "age": 20.7,
+        "previousAge": 20.7,
+        "assetsPending": 1,
+        "spans": [
+          {
+            "label": "view.render",
+            "offset": 115.2,
+            "ms": 21.7
+          },
+          {
+            "label": "three.render",
+            "offset": 126.8,
+            "ms": 9.8
+          },
+          {
+            "label": "sourceCombatEffects.render",
+            "offset": 118.6,
+            "ms": 7.2
+          }
+        ],
+        "cpuSamples": [
+          {
+            "count": 6,
+            "stack": [
+              "o5",
+              "fae",
+              "(root)"
+            ]
+          },
+          {
+            "count": 5,
+            "stack": [
+              "(program)",
+              "(root)"
+            ]
+          },
+          {
+            "count": 4,
+            "stack": [
+              "getDependency",
+              "loadAnimation",
+              "(anonymous)",
+              "_invokeOne",
+              "getDependency",
+              "(anonymous)",
+              "getDependencies",
+              "(anonymous)",
+              "(root)"
+            ]
+          },
+          {
+            "count": 3,
+            "stack": [
+              "hQ",
+              "gQ",
+              "(root)"
+            ]
+          },
+          {
+            "count": 3,
+            "stack": [
+              "getDependency",
+              "getDependency",
+              "loadAnimation",
+              "(anonymous)",
+              "_invokeOne",
+              "getDependency",
+              "(anonymous)",
+              "getDependencies",
+              "(anonymous)",
+              "(root)"
+            ]
+          },
+          {
+            "count": 3,
+            "stack": [
+              "idForUrl",
+              "jZ",
+              "(anonymous)",
+              "(root)"
+            ]
+          }
+        ]
+      },
+      {
+        "ms": 116.7,
+        "age": 47.7,
+        "previousAge": 47.6,
+        "assetsPending": 0,
+        "spans": [
+          {
+            "label": "view.render",
+            "offset": 34.9,
+            "ms": 77.7
+          },
+          {
+            "label": "three.render",
+            "offset": 101.7,
+            "ms": 10.6
+          },
+          {
+            "label": "sourceCombatEffects.render",
+            "offset": 92.2,
+            "ms": 7.6
+          },
+          {
+            "label": "fixedStep",
+            "offset": 11.1,
+            "ms": 5.7
+          },
+          {
+            "label": "fixedStep",
+            "offset": 23.3,
+            "ms": 4.8
+          },
+          {
+            "label": "fixedStep",
+            "offset": 20,
+            "ms": 3.3
+          },
+          {
+            "label": "fixedStep",
+            "offset": 16.8,
+            "ms": 3.2
+          }
+        ],
+        "cpuSamples": [
+          {
+            "count": 31,
+            "stack": [
+              "(garbage collector)",
+              "(root)"
+            ]
+          },
+          {
+            "count": 3,
+            "stack": [
+              "(program)",
+              "(root)"
+            ]
+          },
+          {
+            "count": 3,
+            "stack": [
+              "update",
+              "update",
+              "run",
+              "advanceSimulation",
+              "te",
+              "(root)"
+            ]
+          },
+          {
+            "count": 3,
+            "stack": [
+              "render",
+              "object.<computed>",
+              "te",
+              "(root)"
+            ]
+          },
+          {
+            "count": 2,
+            "stack": [
+              "DJ",
+              "OJ",
+              "kJ",
+              "updateUnitNative",
+              "updateUnit",
+              "step",
+              "object.<computed>",
+              "w.step",
+              "(anonymous)",
+              "advance"
+            ]
+          },
+          {
+            "count": 2,
+            "stack": [
+              "sT",
+              "gl",
+              "qx",
+              "updateUnitNative",
+              "updateUnit",
+              "step",
+              "object.<computed>",
+              "w.step",
+              "(anonymous)",
+              "advance"
+            ]
+          }
+        ]
+      }
+    ],
+    "opening17": [
+      {
+        "ms": 66.7,
+        "age": 0.1,
+        "previousAge": 0,
+        "assetsPending": 0,
+        "spans": [
+          {
+            "label": "view.render",
+            "offset": 39.2,
+            "ms": 17.6
+          },
+          {
+            "label": "three.render",
+            "offset": 51,
+            "ms": 5.6
+          },
+          {
+            "label": "world.changed",
+            "offset": 6.6,
+            "ms": 1.9
+          },
+          {
+            "label": "fx.render",
+            "offset": 49.7,
+            "ms": 1.1
+          }
+        ],
+        "cpuSamples": [
+          {
+            "count": 9,
+            "stack": [
+              "update",
+              "update",
+              "p.onChange",
+              "update",
+              "cancel",
+              "ee",
+              "(root)"
+            ]
+          },
+          {
+            "count": 6,
+            "stack": [
+              "(program)",
+              "(root)"
+            ]
+          },
+          {
+            "count": 4,
+            "stack": [
+              "put",
+              "update",
+              "p.onChange",
+              "update",
+              "cancel",
+              "ee",
+              "(root)"
+            ]
+          },
+          {
+            "count": 3,
+            "stack": [
+              "background",
+              "update",
+              "update",
+              "p.onChange",
+              "update",
+              "cancel",
+              "ee",
+              "(root)"
+            ]
+          },
+          {
+            "count": 3,
+            "stack": [
+              "getBoundingClientRect",
+              "exclusions",
+              "render",
+              "render",
+              "object.<computed>",
+              "te",
+              "(root)"
+            ]
+          },
+          {
+            "count": 2,
+            "stack": [
+              "connectedLocations",
+              "$q",
+              "prepareStage",
+              "nextStage",
+              "finishRewardRound",
+              "skipReward",
+              "ee",
+              "(root)"
+            ]
+          }
+        ]
+      },
+      {
+        "ms": 66.7,
+        "age": 3.1,
+        "previousAge": 2.9,
+        "assetsPending": 0,
+        "spans": [
+          {
+            "label": "fixedStep",
+            "offset": 24.3,
+            "ms": 20.1
+          },
+          {
+            "label": "view.render",
+            "offset": 54.2,
+            "ms": 11
+          },
+          {
+            "label": "three.render",
+            "offset": 61,
+            "ms": 3.9
+          },
+          {
+            "label": "fixedStep",
+            "offset": 44.4,
+            "ms": 2.4
+          },
+          {
+            "label": "fixedStep",
+            "offset": 20.9,
+            "ms": 1.3
+          },
+          {
+            "label": "fixedStep",
+            "offset": 46.8,
+            "ms": 1.1
+          }
+        ],
+        "cpuSamples": [
+          {
+            "count": 6,
+            "stack": [
+              "graph",
+              "routeGoal",
+              "Ut",
+              "updateUnitNative",
+              "updateUnit",
+              "step",
+              "object.<computed>",
+              "w.step",
+              "(anonymous)",
+              "advance"
+            ]
+          },
+          {
+            "count": 4,
+            "stack": [
+              "fetch",
+              "dH",
+              "(anonymous)",
+              "(root)"
+            ]
+          },
+          {
+            "count": 3,
+            "stack": [
+              "(program)",
+              "(root)"
+            ]
+          },
+          {
+            "count": 3,
+            "stack": [
+              "canOccupy",
+              "valid",
+              "routeGoal",
+              "Ut",
+              "updateUnitNative",
+              "updateUnit",
+              "step",
+              "object.<computed>",
+              "w.step",
+              "(anonymous)"
+            ]
+          },
+          {
+            "count": 3,
+            "stack": [
+              "update",
+              "update",
+              "run",
+              "advanceSimulation",
+              "te",
+              "(root)"
+            ]
+          },
+          {
+            "count": 2,
+            "stack": [
+              "(garbage collector)",
+              "(root)"
+            ]
+          }
+        ]
+      },
+      {
+        "ms": 50.1,
+        "age": 0.5,
+        "previousAge": 0.3,
+        "assetsPending": 0,
+        "spans": [
+          {
+            "label": "view.render",
+            "offset": 31.3,
+            "ms": 12
+          },
+          {
+            "label": "three.render",
+            "offset": 37,
+            "ms": 5.6
+          },
+          {
+            "label": "fixedStep",
+            "offset": 14.8,
+            "ms": 3
+          },
+          {
+            "label": "fixedStep",
+            "offset": 22,
+            "ms": 1.7
+          },
+          {
+            "label": "world.changed",
+            "offset": 16.4,
+            "ms": 1.4
+          },
+          {
+            "label": "fixedStep",
+            "offset": 17.9,
+            "ms": 1.4
+          },
+          {
+            "label": "sourceCombatEffects.render",
+            "offset": 34.6,
+            "ms": 1.4
+          },
+          {
+            "label": "fixedStep",
+            "offset": 12.1,
+            "ms": 1.1
+          },
+          {
+            "label": "fixedStep",
+            "offset": 20.5,
+            "ms": 1
+          }
+        ],
+        "cpuSamples": [
+          {
+            "count": 4,
+            "stack": [
+              "rescue",
+              "update",
+              "update",
+              "run",
+              "advanceSimulation",
+              "te",
+              "(root)"
+            ]
+          },
+          {
+            "count": 3,
+            "stack": [
+              "(program)",
+              "(root)"
+            ]
+          },
+          {
+            "count": 3,
+            "stack": [
+              "rescue",
+              "update",
+              "update",
+              "(anonymous)",
+              "p",
+              "(root)"
+            ]
+          },
+          {
+            "count": 1,
+            "stack": [
+              "render",
+              "render",
+              "object.<computed>",
+              "te",
+              "(root)"
+            ]
+          },
+          {
+            "count": 1,
+            "stack": [
+              "o",
+              "c",
+              "o",
+              "it",
+              "it",
+              "it",
+              "render",
+              "object.<computed>",
+              "render",
+              "render"
+            ]
+          },
+          {
+            "count": 1,
+            "stack": [
+              "mt",
+              "pt",
+              "renderBufferDirect",
+              "view.renderer.renderBufferDirect",
+              "ct",
+              "st",
+              "at",
+              "render",
+              "object.<computed>",
+              "render"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "ordinary": {
+    "build": "5e1ffbfe49601f68009d8418cf99f5b59c128e0ab099afd6eeb01853049dfb63",
+    "stages": [
+      {
+        "stage": 1,
+        "maxFrameMs": [
+          50.1,
+          50
+        ],
+        "battleFrames": [
+          907,
+          909
+        ],
+        "trackedMiB": [
+          [
+            382.3,
+            382.6,
+            382.6
+          ],
+          [
+            382.3,
+            382.6,
+            382.5
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            3010.4,
+            3011.9,
+            3138.8
+          ],
+          [
+            2969.9,
+            3037.1,
+            3210.7
+          ]
+        ]
+      },
+      {
+        "stage": 2,
+        "maxFrameMs": [
+          133.6,
+          133.8
+        ],
+        "battleFrames": [
+          883,
+          874
+        ],
+        "trackedMiB": [
+          [
+            374.1,
+            328.6,
+            328.6
+          ],
+          [
+            374.4,
+            328.7,
+            328.7
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            3064,
+            2828.6,
+            2874.3
+          ],
+          [
+            3215.4,
+            2939,
+            2983.7
+          ]
+        ]
+      },
+      {
+        "stage": 3,
+        "maxFrameMs": [
+          199.9,
+          216.6
+        ],
+        "battleFrames": [
+          839,
+          843
+        ],
+        "trackedMiB": [
+          [
+            332.5,
+            361.4,
+            361.1
+          ],
+          [
+            330.3,
+            360.9,
+            361.3
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            3137.8,
+            3293.8,
+            3348.6
+          ],
+          [
+            3194.1,
+            3307,
+            3386.2
+          ]
+        ]
+      },
+      {
+        "stage": 4,
+        "maxFrameMs": [
+          116.1,
+          150
+        ],
+        "battleFrames": [
+          824,
+          780
+        ],
+        "trackedMiB": [
+          [
+            451.8,
+            476.8,
+            476.6
+          ],
+          [
+            460.3,
+            476.6,
+            476.6
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            3699.9,
+            3547.3,
+            3588.3
+          ],
+          [
+            3753.1,
+            3569.7,
+            3607.5
+          ]
+        ]
+      },
+      {
+        "stage": 5,
+        "maxFrameMs": [
+          116.5,
+          100
+        ],
+        "battleFrames": [
+          916,
+          883
+        ],
+        "trackedMiB": [
+          [
+            480.1,
+            466.1,
+            466
+          ],
+          [
+            479.9,
+            466.1,
+            466.1
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            3786.7,
+            3653.9,
+            3716.2
+          ],
+          [
+            3783.7,
+            3644.8,
+            3704.1
+          ]
+        ]
+      },
+      {
+        "stage": 6,
+        "maxFrameMs": [
+          216.7,
+          266.6
+        ],
+        "battleFrames": [
+          1026,
+          955
+        ],
+        "trackedMiB": [
+          [
+            439.2,
+            464.5,
+            479.2
+          ],
+          [
+            439,
+            464.2,
+            478.9
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            3773.6,
+            3715.3,
+            3907.2
+          ],
+          [
+            3881.8,
+            3713.1,
+            3870
+          ]
+        ]
+      },
+      {
+        "stage": 7,
+        "maxFrameMs": [
+          100,
+          100.5
+        ],
+        "battleFrames": [
+          888,
+          852
+        ],
+        "trackedMiB": [
+          [
+            541.7,
+            493.5,
+            493.5
+          ],
+          [
+            491.8,
+            493.2,
+            493.2
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            4082.3,
+            3937.8,
+            4025.9
+          ],
+          [
+            4182,
+            3957,
+            4045.3
+          ]
+        ]
+      },
+      {
+        "stage": 8,
+        "maxFrameMs": [
+          100,
+          100.2
+        ],
+        "battleFrames": [
+          851,
+          828
+        ],
+        "trackedMiB": [
+          [
+            532.9,
+            507.4,
+            507.4
+          ],
+          [
+            506.8,
+            507.8,
+            507.8
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            4317.4,
+            4039.6,
+            4106.7
+          ],
+          [
+            4243.9,
+            4137.4,
+            4218.6
+          ]
+        ]
+      },
+      {
+        "stage": 9,
+        "maxFrameMs": [
+          116.7,
+          116.8
+        ],
+        "battleFrames": [
+          836,
+          776
+        ],
+        "trackedMiB": [
+          [
+            585.3,
+            582,
+            582
+          ],
+          [
+            585.3,
+            582.1,
+            582.1
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            4611.7,
+            4404.3,
+            4464.5
+          ],
+          [
+            4616.4,
+            4423.5,
+            4467.1
+          ]
+        ]
+      },
+      {
+        "stage": 10,
+        "maxFrameMs": [
+          83.2,
+          66.8
+        ],
+        "battleFrames": [
+          879,
+          878
+        ],
+        "trackedMiB": [
+          [
+            589.9,
+            567.9,
+            567.9
+          ],
+          [
+            590.3,
+            567.3,
+            567.3
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            4832.6,
+            4557.3,
+            4657.2
+          ],
+          [
+            4817.2,
+            4495.3,
+            4578.4
+          ]
+        ]
+      },
+      {
+        "stage": 11,
+        "maxFrameMs": [
+          116.7,
+          116.7
+        ],
+        "battleFrames": [
+          831,
+          822
+        ],
+        "trackedMiB": [
+          [
+            596.1,
+            604.6,
+            604.7
+          ],
+          [
+            595.6,
+            604.3,
+            604.2
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            4774.5,
+            4648.2,
+            4731.1
+          ],
+          [
+            4822.5,
+            4596.3,
+            4661
+          ]
+        ]
+      },
+      {
+        "stage": 12,
+        "maxFrameMs": [
+          100,
+          116.6
+        ],
+        "battleFrames": [
+          1922,
+          1869
+        ],
+        "trackedMiB": [
+          [
+            676.4,
+            634.5,
+            634.5
+          ],
+          [
+            634.5,
+            634.5,
+            634.5
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            5115.8,
+            5092.8,
+            5175.5
+          ],
+          [
+            4884.4,
+            4992.6,
+            5073.5
+          ]
+        ]
+      },
+      {
+        "stage": 13,
+        "maxFrameMs": [
+          150.1,
+          83.2
+        ],
+        "battleFrames": [
+          1000,
+          1029
+        ],
+        "trackedMiB": [
+          [
+            715.4,
+            651.9,
+            651.9
+          ],
+          [
+            673.4,
+            652.5,
+            652.5
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            5599.6,
+            5339,
+            5401.4
+          ],
+          [
+            5284.7,
+            5080.1,
+            5182.9
+          ]
+        ]
+      },
+      {
+        "stage": 14,
+        "maxFrameMs": [
+          132.9,
+          100.6
+        ],
+        "battleFrames": [
+          1123,
+          1152
+        ],
+        "trackedMiB": [
+          [
+            707.8,
+            682.2,
+            682.2
+          ],
+          [
+            699.4,
+            682.1,
+            682.1
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            5843,
+            5374.9,
+            5477.3
+          ],
+          [
+            5339.4,
+            5259.6,
+            5380.8
+          ]
+        ]
+      },
+      {
+        "stage": 15,
+        "maxFrameMs": [
+          133.3,
+          116.4
+        ],
+        "battleFrames": [
+          1294,
+          1282
+        ],
+        "trackedMiB": [
+          [
+            819.2,
+            780.7,
+            780.7
+          ],
+          [
+            779.1,
+            781.3,
+            781.3
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            6286.3,
+            5678.9,
+            5798.7
+          ],
+          [
+            5742,
+            5685.7,
+            5797.8
+          ]
+        ]
+      },
+      {
+        "stage": 16,
+        "maxFrameMs": [
+          816.6,
+          133.3
+        ],
+        "battleFrames": [
+          1805,
+          1660
+        ],
+        "trackedMiB": [
+          [
+            735.7,
+            765.1,
+            765.1
+          ],
+          [
+            770.5,
+            763.8,
+            763.8
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            5898.6,
+            5779.6,
+            5870.3
+          ],
+          [
+            6155.7,
+            5711.9,
+            5815.2
+          ]
+        ]
+      },
+      {
+        "stage": 17,
+        "maxFrameMs": [
+          199.8,
+          116.8
+        ],
+        "battleFrames": [
+          1711,
+          1771
+        ],
+        "trackedMiB": [
+          [
+            751.2,
+            764.2,
+            764.2
+          ],
+          [
+            753.8,
+            764.3,
+            764.3
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            5950.6,
+            5766.4,
+            5878.7
+          ],
+          [
+            6048.2,
+            5766.4,
+            5884.6
+          ]
+        ]
+      },
+      {
+        "stage": 18,
+        "maxFrameMs": [
+          150.5,
+          182.5
+        ],
+        "battleFrames": [
+          1320,
+          1406
+        ],
+        "trackedMiB": [
+          [
+            850.9,
+            830.7,
+            830.7
+          ],
+          [
+            850.9,
+            830.7,
+            830.7
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            6032.8,
+            6037.9,
+            6195.1
+          ],
+          [
+            6418.2,
+            6060.7,
+            6179.5
+          ]
+        ]
+      }
+    ],
+    "opening17Ms": [
+      199.8,
+      66.7
+    ],
+    "meanMiB": [
+      579,
+      575.9
+    ],
+    "peakMiB": [
+      933.9,
+      947.4
+    ],
+    "processPeakMiB": [
+      6286.3,
+      6600.4
+    ],
+    "processSamples": [
+      55,
+      55
+    ],
+    "endlessMiB": [
+      855.1,
+      890.4
+    ],
+    "battleEliteReloads": [
+      0,
+      0
+    ],
+    "pressure": [
+      [
+        [
+          1,
+          false
+        ],
+        [
+          6,
+          true
+        ]
+      ],
+      [
+        [
+          1,
+          false
+        ],
+        [
+          6,
+          true
+        ]
+      ]
+    ]
+  },
+  "firstOrdinary": {
+    "stages": [
+      {
+        "stage": 1,
+        "maxFrameMs": [
+          50.1,
+          50
+        ],
+        "battleFrames": [
+          907,
+          906
+        ],
+        "trackedMiB": [
+          [
+            382.3,
+            382.6,
+            382.6
+          ],
+          [
+            382.3,
+            382.6,
+            382.6
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            3010.4,
+            3011.9,
+            3138.8
+          ],
+          [
+            3034.3,
+            2986.2,
+            3133.3
+          ]
+        ]
+      },
+      {
+        "stage": 2,
+        "maxFrameMs": [
+          133.6,
+          133.4
+        ],
+        "battleFrames": [
+          883,
+          882
+        ],
+        "trackedMiB": [
+          [
+            374.1,
+            328.6,
+            328.6
+          ],
+          [
+            374.1,
+            382,
+            382
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            3064,
+            2828.6,
+            2874.3
+          ],
+          [
+            3133.9,
+            3101.6,
+            3177.8
+          ]
+        ]
+      },
+      {
+        "stage": 3,
+        "maxFrameMs": [
+          199.9,
+          216.7
+        ],
+        "battleFrames": [
+          839,
+          842
+        ],
+        "trackedMiB": [
+          [
+            332.5,
+            361.4,
+            361.1
+          ],
+          [
+            384.9,
+            412.9,
+            412.6
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            3137.8,
+            3293.8,
+            3348.6
+          ],
+          [
+            3446.3,
+            3190.1,
+            3337.2
+          ]
+        ]
+      },
+      {
+        "stage": 4,
+        "maxFrameMs": [
+          116.1,
+          150.1
+        ],
+        "battleFrames": [
+          824,
+          814
+        ],
+        "trackedMiB": [
+          [
+            451.8,
+            476.8,
+            476.6
+          ],
+          [
+            506.3,
+            477,
+            477
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            3699.9,
+            3547.3,
+            3588.3
+          ],
+          [
+            3705.2,
+            3713.9,
+            3758.2
+          ]
+        ]
+      },
+      {
+        "stage": 5,
+        "maxFrameMs": [
+          116.5,
+          100
+        ],
+        "battleFrames": [
+          916,
+          1064
+        ],
+        "trackedMiB": [
+          [
+            480.1,
+            466.1,
+            466
+          ],
+          [
+            480.4,
+            431,
+            431.1
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            3786.7,
+            3653.9,
+            3716.2
+          ],
+          [
+            3899.8,
+            3612.2,
+            3675.4
+          ]
+        ]
+      },
+      {
+        "stage": 6,
+        "maxFrameMs": [
+          216.7,
+          183.3
+        ],
+        "battleFrames": [
+          1026,
+          789
+        ],
+        "trackedMiB": [
+          [
+            439.2,
+            464.5,
+            479.2
+          ],
+          [
+            402.9,
+            428.2,
+            442.4
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            3773.6,
+            3715.3,
+            3907.2
+          ],
+          [
+            3962.2,
+            3653.8,
+            3835.5
+          ]
+        ]
+      },
+      {
+        "stage": 7,
+        "maxFrameMs": [
+          100,
+          116.6
+        ],
+        "battleFrames": [
+          888,
+          822
+        ],
+        "trackedMiB": [
+          [
+            541.7,
+            493.5,
+            493.5
+          ],
+          [
+            506.9,
+            526.1,
+            526.1
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            4082.3,
+            3937.8,
+            4025.9
+          ],
+          [
+            4154.1,
+            3973.5,
+            4048.5
+          ]
+        ]
+      },
+      {
+        "stage": 8,
+        "maxFrameMs": [
+          100,
+          83.7
+        ],
+        "battleFrames": [
+          851,
+          791
+        ],
+        "trackedMiB": [
+          [
+            532.9,
+            507.4,
+            507.4
+          ],
+          [
+            523.2,
+            523.7,
+            523.7
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            4317.4,
+            4039.6,
+            4106.7
+          ],
+          [
+            4235.6,
+            4134,
+            4124.6
+          ]
+        ]
+      },
+      {
+        "stage": 9,
+        "maxFrameMs": [
+          116.7,
+          116.7
+        ],
+        "battleFrames": [
+          836,
+          787
+        ],
+        "trackedMiB": [
+          [
+            585.3,
+            582,
+            582
+          ],
+          [
+            591.5,
+            581.8,
+            581.8
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            4611.7,
+            4404.3,
+            4464.5
+          ],
+          [
+            4627.1,
+            4388.2,
+            4418.7
+          ]
+        ]
+      },
+      {
+        "stage": 10,
+        "maxFrameMs": [
+          83.2,
+          117
+        ],
+        "battleFrames": [
+          879,
+          877
+        ],
+        "trackedMiB": [
+          [
+            589.9,
+            567.9,
+            567.9
+          ],
+          [
+            590,
+            567.7,
+            567.7
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            4832.6,
+            4557.3,
+            4657.2
+          ],
+          [
+            4780.4,
+            4506.6,
+            4592.1
+          ]
+        ]
+      },
+      {
+        "stage": 11,
+        "maxFrameMs": [
+          116.7,
+          116.6
+        ],
+        "battleFrames": [
+          831,
+          825
+        ],
+        "trackedMiB": [
+          [
+            596.1,
+            604.6,
+            604.7
+          ],
+          [
+            595.7,
+            604.1,
+            604.1
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            4774.5,
+            4648.2,
+            4731.1
+          ],
+          [
+            4832.1,
+            4607.2,
+            4708.9
+          ]
+        ]
+      },
+      {
+        "stage": 12,
+        "maxFrameMs": [
+          100,
+          100
+        ],
+        "battleFrames": [
+          1922,
+          1939
+        ],
+        "trackedMiB": [
+          [
+            676.4,
+            634.5,
+            634.5
+          ],
+          [
+            676.2,
+            633.8,
+            633.8
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            5115.8,
+            5092.8,
+            5175.5
+          ],
+          [
+            5059.8,
+            5139.8,
+            5275.9
+          ]
+        ]
+      },
+      {
+        "stage": 13,
+        "maxFrameMs": [
+          150.1,
+          100.2
+        ],
+        "battleFrames": [
+          1000,
+          1017
+        ],
+        "trackedMiB": [
+          [
+            715.4,
+            651.9,
+            651.9
+          ],
+          [
+            715.1,
+            652.1,
+            652.1
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            5599.6,
+            5339,
+            5401.4
+          ],
+          [
+            5526.1,
+            5140.9,
+            5263.4
+          ]
+        ]
+      },
+      {
+        "stage": 14,
+        "maxFrameMs": [
+          132.9,
+          149.9
+        ],
+        "battleFrames": [
+          1123,
+          1146
+        ],
+        "trackedMiB": [
+          [
+            707.8,
+            682.2,
+            682.2
+          ],
+          [
+            693.7,
+            681.5,
+            681.7
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            5843,
+            5374.9,
+            5477.3
+          ],
+          [
+            5217.7,
+            5325.6,
+            5435.4
+          ]
+        ]
+      },
+      {
+        "stage": 15,
+        "maxFrameMs": [
+          133.3,
+          133.4
+        ],
+        "battleFrames": [
+          1294,
+          1278
+        ],
+        "trackedMiB": [
+          [
+            819.2,
+            780.7,
+            780.7
+          ],
+          [
+            779,
+            781.2,
+            781.2
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            6286.3,
+            5678.9,
+            5798.7
+          ],
+          [
+            5965.2,
+            5750.7,
+            5857.2
+          ]
+        ]
+      },
+      {
+        "stage": 16,
+        "maxFrameMs": [
+          816.6,
+          150.4
+        ],
+        "battleFrames": [
+          1805,
+          1729
+        ],
+        "trackedMiB": [
+          [
+            735.7,
+            765.1,
+            765.1
+          ],
+          [
+            770.1,
+            763.5,
+            763.5
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            5898.6,
+            5779.6,
+            5870.3
+          ],
+          [
+            6132.3,
+            5708.8,
+            5799.6
+          ]
+        ]
+      },
+      {
+        "stage": 17,
+        "maxFrameMs": [
+          199.8,
+          133.4
+        ],
+        "battleFrames": [
+          1711,
+          1760
+        ],
+        "trackedMiB": [
+          [
+            751.2,
+            764.2,
+            764.2
+          ],
+          [
+            791.6,
+            764.7,
+            764.7
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            5950.6,
+            5766.4,
+            5878.7
+          ],
+          [
+            6193.9,
+            5760.1,
+            5882.5
+          ]
+        ]
+      },
+      {
+        "stage": 18,
+        "maxFrameMs": [
+          150.5,
+          150.1
+        ],
+        "battleFrames": [
+          1320,
+          1387
+        ],
+        "trackedMiB": [
+          [
+            850.9,
+            830.7,
+            830.7
+          ],
+          [
+            850.8,
+            830.6,
+            830.6
+          ]
+        ],
+        "processPrivateMiB": [
+          [
+            6032.8,
+            6037.9,
+            6195.1
+          ],
+          [
+            6490,
+            6060.8,
+            6313.3
+          ]
+        ]
+      }
+    ],
+    "opening17Ms": [
+      199.8,
+      66.7
+    ],
+    "meanMiB": [
+      579,
+      582.9
+    ],
+    "peakMiB": [
+      933.9,
+      947
+    ],
+    "processPeakMiB": [
+      6286.3,
+      6597.6
+    ],
+    "processSamples": [
+      55,
+      55
+    ],
+    "endlessMiB": [
+      855.1,
+      912.3
+    ],
+    "battleEliteReloads": [
+      0,
+      0
+    ],
+    "pressure": [
+      [
+        [
+          1,
+          false
+        ],
+        [
+          6,
+          true
+        ]
+      ],
+      [
+        [
+          1,
+          false
+        ],
+        [
+          4,
+          true
+        ],
+        [
+          6,
+          false
+        ],
+        [
+          7,
+          true
+        ]
+      ]
+    ],
+    "build": "332c9b1cefc46683f5f84d5ff906de092f5b73ba3548c93b8b68664d344b6602"
+  }
+}

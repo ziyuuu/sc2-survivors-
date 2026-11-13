@@ -214,3 +214,5 @@
  #interface #overlay.imx .feedback-facility-list{grid-template-columns:1fr}
  #interface #overlay.imx .imx-name{height:55px;min-height:55px}
 }
+
+#interface .armed-node-symbol{position:absolute;right:8px;bottom:8px;width:32px;height:32px;fill:#172228;stroke:var(--tier);stroke-width:2;filter:drop-shadow(0 2px 3px #000);pointer-events:none}

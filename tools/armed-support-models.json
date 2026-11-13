@@ -1,0 +1,59 @@
+[
+  {
+    "id": "model.battlecruiser",
+    "modelDataId": "Battlecruiser",
+    "name": "battlecruiserex2",
+    "assetPath": "Assets/Units/Terran/BattlecruiserEX2/BattlecruiserEX2.m3",
+    "definitionLayer": "liberty",
+    "sourceScale": "0.8,0.8,0.8"
+  },
+  {
+    "id": "model.battlecruiser.death",
+    "modelDataId": "BattlecruiserDeath",
+    "name": "battlecruiserdeathex1_00",
+    "assetPath": "Assets/Units/Terran/BattleCruiserDeathEx1/BattleCruiserDeathEx1_00.m3",
+    "definitionLayer": "liberty"
+  },
+  {
+    "id": "model.fort.command_center",
+    "modelDataId": "CommandCenter",
+    "name": "commandcenterex1",
+    "assetPath": "Assets/Buildings/Terran/CommandCenterEx1/CommandCenterEx1.m3",
+    "definitionLayer": "liberty",
+    "sourceScale": "0.8,0.8,0.8"
+  },
+  {
+    "id": "model.fort.planetary",
+    "actorDataId": "PlanetaryFortress",
+    "modelDataId": "CommandCenter",
+    "name": "commandcenterex1",
+    "assetPath": "Assets/Buildings/Terran/CommandCenterEx1/CommandCenterEx1.m3",
+    "definitionLayer": "liberty",
+    "sourceScale": "0.8,0.8,0.8",
+    "sharedModel": "model.fort.command_center",
+    "standClip": "Stand A",
+    "attackClip": "Attack"
+  },
+  {
+    "id": "model.fort.planetary.death",
+    "modelDataId": "PlanetaryFortressDeath",
+    "name": "planetaryfortressdeathex1",
+    "assetPath": "Assets/Buildings/Terran/PlanetaryFortressDeathEx1/PlanetaryFortressDeathEx1.m3",
+    "definitionLayer": "liberty"
+  },
+  {
+    "id": "model.fort.supply_depot",
+    "modelDataId": "SupplyDepot",
+    "name": "supplydepotex1",
+    "assetPath": "Assets/Buildings/Terran/SupplyDepotEx1/SupplyDepotEx1.m3",
+    "definitionLayer": "liberty",
+    "sourceScale": "0.6,0.6,0.6"
+  },
+  {
+    "id": "model.fort.supply_depot.death",
+    "modelDataId": "SupplyDepotDeath",
+    "name": "supplydepotdeathex1",
+    "assetPath": "Assets/Buildings/Terran/SupplyDepotDeathEx1/SupplyDepotDeathEx1.m3",
+    "definitionLayer": "liberty"
+  }
+]

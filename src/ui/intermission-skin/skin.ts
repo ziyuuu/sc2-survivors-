@@ -1,4 +1,7 @@
+import {ARMED_CARD_ART} from '../../data/armed-card-art';
 import './skin.css';
+import {ARMED_CARD_BY_ID} from '../../data/terran-armed-support';
+import {armedNodeViews} from '../presentation/armed-cards';
 import './card-material.css';
 import './refinements.css';
 import './adaptive-layout.css';
@@ -20,6 +23,8 @@ export function mountIntermissionSkin(root:HTMLElement,getWorld:()=>World,option
  const query=<T extends Element=HTMLElement>(s:string)=>root.querySelectorAll<T>(s);
  const asset=(id:string)=>options.assets.resolve(id)??'';
  function art(c:CardView,r?:ExpeditionReward){
+  if(c.armedId){const definition=ARMED_CARD_BY_ID[c.armedId],composition=ARMED_CARD_ART[c.armedId],i=definition.sprite,body=composition?paintedArt(composition.identity,c.name,composition.bodies,'armed-'+c.id,composition.identities):`<div class="imx-object" role="img" aria-label="${esc(c.name)}" style="background-image:url('${asset('objects-'+c.race)}');background-position:${(i%4)/3*100}% ${Math.floor(i/4)/3*100}%"></div>`;return body+(definition.purchase==='node'?'<svg class="armed-node-symbol" viewBox="0 0 40 40" aria-label="联动节点"><path d="M9 8v12h22V8M20 20v12"/><circle cx="9" cy="8" r="4"/><circle cx="31" cy="8" r="4"/><circle cx="20" cy="32" r="4"/></svg>':'');}
+
   const eq=cardPresentation(getWorld(),c,r).equipment;
   if(eq)return `<div class="imx-object imx-equipment" role="img" aria-label="${esc(c.name)}" data-line="${eq.line}" style="background-image:url('${asset('line-equipment-'+c.race)}');background-position:${eq.kind*100}% ${eq.row*50}%"></div>`;
   if(c.identity&&['unit','elite','hero','supply','training'].includes(c.art))return paintedArt(c.identity,c.name,c.bodies??1,'imx-'+c.id,c.bodyIdentities);
@@ -33,6 +38,7 @@ export function mountIntermissionSkin(root:HTMLElement,getWorld:()=>World,option
    map.set(e.id,{card:c});for(const r of w.expedition.pendingTalentLoot?.offers??[])map.set(r.offerId+':'+e.id,{card:{...c,id:r.offerId+':'+e.id,rarity:r.rarity}});
   }
   for(const c of restCards(w))map.set(c.id,{card:c});
+  for(const c of armedNodeViews(w))map.set(c.id,{card:c});
   for(const c of w.expedition.eliteContracts)map.set(c.id,{card:{id:c.id,race:w.expedition.race,rarity:'purple',name:SC2_UNITS[c.family].zh,kicker:'精英特约',flavour:'',stat:'挑选本兵种精锐',detail:'选择具体精锐后，按当前报价招募或晋升。',identity:c.family,art:'elite',icon:'unit.'+c.family,bodies:c.family==='zergling'?2:1}});
   for(const r of [...w.rewards,...(w.expedition.pendingTalentLoot?.offers??[])] as ExpeditionReward[])map.set(r.offerId,{card:offerView(w,r),reward:r});
   return map;

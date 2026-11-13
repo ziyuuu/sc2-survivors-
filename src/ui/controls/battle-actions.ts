@@ -76,7 +76,7 @@ export function battleActionState(w:World,id:BattleActionId,allowPanelPause=fals
   state.enabled=state.visible&&state.remaining<=1e-8&&!w.talentTransferPlan&&w.allies().some(u=>eligibleTransferParticipant(w,u,w.anchor));
   state.reason=!state.visible?'尚未解锁转移':w.talentTransferPlan?'转移正在准备':state.remaining>1e-8?'转移冷却中':!state.enabled?'没有合法地面参与者':'';state.phase=w.talentTransferPlan?'working':state.remaining>1e-8?'cooling':state.enabled?'ready':'locked';
  }else if(id==='tactical'){
-  const unique=w.expedition.support.unique;state.visible=!!unique.levels[tacticalCard(w.expedition.race)];state.name=UNIQUE_SUPPORT[tacticalCard(w.expedition.race)].name;state.remaining=Math.max(0,unique.ready-w.time);
+  const unique=w.expedition.support.unique;state.visible=!!unique.levels[tacticalCard(w.expedition.race)]&&!w.expedition.support.armed?.ranks.B09;state.name=UNIQUE_SUPPORT[tacticalCard(w.expedition.race)].name;state.remaining=Math.max(0,unique.ready-w.time);
   state.enabled=state.visible&&state.remaining<=0&&!unique.prism;state.reason=!state.visible?'尚未获得战术技能':unique.prism?'扫射正在进行':state.remaining>0?'战术技能冷却中':'';state.phase=unique.prism?'working':state.remaining>0?'cooling':state.enabled?'ready':'locked';
  }else if(id==='strategic'){
   const support=w.expedition.support,pending=support.impacts.find(i=>i.kind==='strategic');state.count=support.ammo;state.visible=support.ammo>0||!!pending;state.name=w.expedition.race==='terran'?'核弹':w.expedition.race==='zerg'?'生体巨爆':'净化打击';state.enabled=support.ammo>0&&!pending;state.reason=pending?'战略打击正在进行':support.ammo<=0?'没有战略打击次数':'';state.phase=pending?'working':state.enabled?'ready':'locked';

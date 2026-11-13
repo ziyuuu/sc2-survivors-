@@ -1,9 +1,10 @@
 import type {Race} from '../../data/races';
+import type {ArmedId} from '../../simulation/progression/build-progress';
 import type {Rarity} from '../../data/rewards';
 import {paintedArt} from './painted-art';
 import {referenceEngraving} from './reference-engraving';
 import {button,image,money,glyph,esc} from './reference-primitives';
-export interface CardView {id:string;race:Race;rarity:Rarity;name:string;kicker:string;flavour:string;stat:string;detail:string;art:string;identity?:string;icon:string;bodies?:number;bodyIdentities?:readonly string[];rank?:number;count?:number;paired?:boolean;minerals?:number;gas?:number;baseMinerals?:number;baseGas?:number;discount?:number;sold?:boolean;free?:boolean;pending?:boolean;locked?:boolean;short?:boolean;owned?:boolean;action?:string;attrs?:string;detailAction?:string;detailAttrs?:string;label?:string;reason?:string;progress?:{purchases:string;total:string}}
+export interface CardView {armedId?:ArmedId;id:string;race:Race;rarity:Rarity;name:string;kicker:string;flavour:string;stat:string;detail:string;art:string;identity?:string;icon:string;bodies?:number;bodyIdentities?:readonly string[];rank?:number;count?:number;paired?:boolean;minerals?:number;gas?:number;baseMinerals?:number;baseGas?:number;discount?:number;sold?:boolean;free?:boolean;pending?:boolean;locked?:boolean;short?:boolean;owned?:boolean;action?:string;attrs?:string;detailAction?:string;detailAttrs?:string;label?:string;reason?:string;progress?:{purchases:string;total:string}}
 const qualities={white:'标准',green:'优良',blue:'稀有',purple:'史诗',orange:'传奇'},roman=['','Ⅰ','Ⅱ','Ⅲ','Ⅳ','Ⅴ'];
 export function referenceCardArt(c:CardView,context='card'){
  const painting=c.identity?paintedArt(c.identity,c.name,c.bodies??1,context+'-'+c.id,c.bodyIdentities):'';

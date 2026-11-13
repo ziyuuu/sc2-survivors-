@@ -10,24 +10,28 @@ import {ELITE_VISUAL_PROFILES} from '../src/data/elite-visual-profiles';
 import {modelPresentationScale} from '../src/data/combat-presentation';
 import {UNIT_MATERIAL_CATALOG} from '../src/render/materials/unit-material-catalog';
 import {legalMaterialGlb} from '../src/render/materials/unit-material-loader';
+import {presentationMaterialProfile} from '../src/render/materials/death-material-identity';
 import {UnitMaterialSurface,UNIT_MATERIAL_TEAM_ROW} from '../src/render/materials/unit-material-batch';
 import {displayModelKey,displayActiveModelKey,displayDeathModelKey,displayAssetModelKey,displayLoadModelKey,unitMaterialIdentity} from '../src/render/materials/elite-visual';
 import {sc2BodyBounds} from '../src/render/loaders/sc2-materials';
 import {decodeMaterialDds} from '../tools/material-dds.mjs';
+import {ASSETS} from '../src/assets/manifest';
 import {protossFixture,protossElite} from './helpers/protoss-elites';
 const sha=(b:Uint8Array|string)=>createHash('sha256').update(b).digest('hex');
 const records=new Map<string,{packedFile:string}>(JSON.parse(fs.readFileSync('deploy/runtime/build-assets.json','utf8')).records.map((r:{id:string;packedFile:string})=>[r.id,r]));
+// New armed assets are registered independently of the retained release bundle.
+const modelFile=(key:string)=>records.get('model.'+key)?.packedFile??'public/'+ASSETS.get('model.'+key)!.url;
 
-test('all 204 available M3 profiles match immutable runtime GLBs and unique source surface bindings',()=>{
- assert.equal(Object.keys(UNIT_MATERIAL_CATALOG).length,204);let count=0;
+test('all 210 available M3 profiles match immutable runtime GLBs and unique source surface bindings',()=>{
+ assert.equal(Object.keys(UNIT_MATERIAL_CATALOG).length,210);let count=0;
  for(const [key,profile]of Object.entries(UNIT_MATERIAL_CATALOG)){
-  const bytes=fs.readFileSync(records.get('model.'+key)!.packedFile);assert.equal(sha(bytes),profile.glbSha256,key);
+  const bytes=fs.readFileSync(modelFile(key));assert.equal(sha(bytes),profile.glbSha256,key);
   const json=JSON.parse(bytes.toString('utf8',20,20+bytes.readUInt32LE(12)));assert.equal(new Set(json.materials.map((m:any)=>m.name)).size,profile.materials.length,key);
   for(const clip of json.animations??[])assert.ok(profile.clips.some(c=>c.name===clip.name),key+'/'+clip.name+' missing original material clock');
   for(const material of json.materials)assert.equal(profile.materials.filter(m=>m.name+'#'+m.index===material.name).length,1,key+'/'+material.name);
   for(const clip of profile.clips)for(const track of clip.tracks){assert.equal(track.frames.length,track.values.length);assert.ok(track.frames.every((t,i)=>i===0||t>=track.frames[i-1]),key);}
   count+=profile.materials.length;
- }assert.equal(count,475);
+ }assert.equal(count,492);
 });
 test('external original animation provenance covers the Ultralisk runtime and retains all source hashes',()=>{
  const p=UNIT_MATERIAL_CATALOG.ultralisk;assert.ok(p.clips.some(c=>c.name==='Attack'));assert.ok(p.animationSources?.some(s=>s.source==='ultraliskex1_requiredanims.m3a'));
@@ -36,12 +40,39 @@ test('external original animation provenance covers the Ultralisk runtime and re
 test('nine invalid unlit/specular pairs are repaired in memory without changing any binary payload',()=>{
  let changed=0;
  for(const [key,profile]of Object.entries(UNIT_MATERIAL_CATALOG)){
-  const bytes=fs.readFileSync(records.get('model.'+key)!.packedFile),buffer=bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.length),after=Buffer.from(legalMaterialGlb(buffer));
+  const bytes=fs.readFileSync(modelFile(key)),buffer=bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.length),after=Buffer.from(legalMaterialGlb(buffer));
   const json=JSON.parse(after.toString('utf8',20,20+after.readUInt32LE(12)));
   assert.ok(!json.materials.some((m:any)=>m.extensions?.KHR_materials_unlit&&m.extensions?.KHR_materials_specular));
   assert.deepEqual(after.subarray(20+after.readUInt32LE(12)),bytes.subarray(20+bytes.readUInt32LE(12)),key);
   if(!after.equals(bytes))changed++;assert.equal(sha(bytes),profile.glbSha256);
  }assert.equal(changed,9);
+});
+test('batched elites omit only team-replaced diffuse images and keep depth alpha and shared image indices',()=>{
+ let body=0,death=0;
+ const json=(b:Buffer)=>JSON.parse(b.toString('utf8',20,20+b.readUInt32LE(12)));
+ for(const key of Object.keys(UNIT_MATERIAL_CATALOG).filter(k=>k.startsWith('elite.'))){
+  const bytes=fs.readFileSync(modelFile(key)),raw=bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.length);
+  const profile=presentationMaterialProfile(key)!,regular=Buffer.from(legalMaterialGlb(raw)),batch=Buffer.from(legalMaterialGlb(raw,profile));
+  const expected=json(regular),actual=json(batch);
+  for(const material of expected.materials){
+   const surface=profile.materials.find(m=>m.name+'#'+m.index===material.name)!;
+   if(!surface.teamTexture||!material.pbrMetallicRoughness?.baseColorTexture)continue;
+   if(surface.blend&&surface.layers.diffuse?.channel===1)continue;
+   delete material.pbrMetallicRoughness.baseColorTexture;
+   if(key.endsWith('.death'))death++;else body++;
+  }
+  assert.deepEqual(actual,expected,key);
+  assert.deepEqual(batch.subarray(20+batch.readUInt32LE(12)),regular.subarray(20+regular.readUInt32LE(12)),key);
+ }
+ assert.ok(body>0&&death>0);
+ // No shipped team-coloured elite currently uses this combination. Exercise
+ // the alpha dependency so a future blended layer keeps its real pixels.
+ const key='elite.marine.2',bytes=fs.readFileSync(modelFile(key)),raw=bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.length);
+ const profile=presentationMaterialProfile(key)!;
+ const blended={...profile,materials:profile.materials.map(m=>({...m,blend:1,layers:{...m.layers,diffuse:{...m.layers.diffuse,channel:1}}}))};
+ const ordinary=json(Buffer.from(legalMaterialGlb(raw)));
+ assert.ok(ordinary.materials.some((m:any)=>m.pbrMetallicRoughness?.baseColorTexture));
+ assert.deepEqual(json(Buffer.from(legalMaterialGlb(raw,blended))),ordinary);
 });
 test('source visibility removes only the authored hidden belly, while old material versions stay visible',()=>{
  const source=UNIT_MATERIAL_CATALOG['elite.baneling.1'].materials.find(m=>m.name==='02 - Default')!;

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedSha256": "4328f872734d7449726f59bcf1178dc77a5602d6a78931ff87c2b628d49dbb87",
+  "generatedSha256": "845fb587e3cb22fd1a06db0597cc95c9edab0dbb9ce3c15cb883b2f3f54c53fd",
   "records": [
     {
       "id": "material.layer.6d3b4d158ed16967f692",
@@ -2682,6 +2682,57 @@
       "width": 512,
       "height": 512,
       "maskedPixels": 34193,
+      "sourceChannel": "Original diffuse RGBA; alpha is the inverse team-color mask, never body opacity"
+    },
+    {
+      "id": "material.team.b1353f317063a0df6f3c",
+      "kind": "material-texture",
+      "status": "available",
+      "required": true,
+      "url": "assets/materials/material.team.b1353f317063a0df6f3c.png",
+      "packedFile": "public/assets/materials/material.team.b1353f317063a0df6f3c.png",
+      "gitPath": "deploy/runtime/assets/edc81fdebaa1d33bab529dc81f52527537fbbb268b7339593a17e7d9322f29dd.png",
+      "sourceFile": "assets/private/dds/defensedrone_diff.dds",
+      "sourceSha256": "b1353f317063a0df6f3c2e58873ec178ea47c49fd4c32836a5a41f2331628804",
+      "packedSha256": "edc81fdebaa1d33bab529dc81f52527537fbbb268b7339593a17e7d9322f29dd",
+      "bytes": 626714,
+      "width": 1024,
+      "height": 1024,
+      "maskedPixels": 59331,
+      "sourceChannel": "Original diffuse RGBA; alpha is the inverse team-color mask, never body opacity"
+    },
+    {
+      "id": "material.team.5e4512889d52dde146f8",
+      "kind": "material-texture",
+      "status": "available",
+      "required": true,
+      "url": "assets/materials/material.team.5e4512889d52dde146f8.png",
+      "packedFile": "public/assets/materials/material.team.5e4512889d52dde146f8.png",
+      "gitPath": "deploy/runtime/assets/77f416db465b2e7e7d845799900c1617ba1ab809211c0c9e839bac803701b900.png",
+      "sourceFile": "assets/private/dds/commandcenter_diffuse.dds",
+      "sourceSha256": "5e4512889d52dde146f8abc6e41c7717464a8b30bc3dd3d0196ec44976afe68e",
+      "packedSha256": "77f416db465b2e7e7d845799900c1617ba1ab809211c0c9e839bac803701b900",
+      "bytes": 839872,
+      "width": 1024,
+      "height": 1024,
+      "maskedPixels": 74097,
+      "sourceChannel": "Original diffuse RGBA; alpha is the inverse team-color mask, never body opacity"
+    },
+    {
+      "id": "material.team.e50075e033d1d03c07ff",
+      "kind": "material-texture",
+      "status": "available",
+      "required": true,
+      "url": "assets/materials/material.team.e50075e033d1d03c07ff.png",
+      "packedFile": "public/assets/materials/material.team.e50075e033d1d03c07ff.png",
+      "gitPath": "deploy/runtime/assets/35b6cf16426d95c8ae406223e088f2545a0a50ed0c817e306a2060a35260eb6e.png",
+      "sourceFile": "assets/private/dds/comstatplanetary_diffuse.dds",
+      "sourceSha256": "e50075e033d1d03c07ff827b5f9f047d2e1ea9c787ea51cb4cfd77da06639a28",
+      "packedSha256": "35b6cf16426d95c8ae406223e088f2545a0a50ed0c817e306a2060a35260eb6e",
+      "bytes": 802813,
+      "width": 1024,
+      "height": 1024,
+      "maskedPixels": 43660,
       "sourceChannel": "Original diffuse RGBA; alpha is the inverse team-color mask, never body opacity"
     }
   ]

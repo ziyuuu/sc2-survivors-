@@ -39,7 +39,8 @@ export function equipmentEffectRequests(w:World,ground:(p:Point)=>number,mount?:
   // its original particles; the unit renderer owns the actual body's identity.
   if(model)add(model,key,age,e.kind.startsWith('boost')?mount?.(e)??e.source:e.source,e.kind.startsWith('boost')?1.4:0,1,false,model==='BlinkOriginModel'?{mesh:false}:{});
   if(e.kind==='fort-shot'&&e.target){const from=mount?.(e)??{...e.source,y:ground(e.source)+1},target=e.target;
-   if(e.detail==='turret_terran'||e.detail==='bunker'){add(e.detail==='bunker'?'MarineAttackLaunch':'AutoTurretAttackLaunch',key+':launch',age,from);add(e.detail==='bunker'?'MarineAttackImpact':'AutoTurretAttackImpact',key+':impact',age,target,.6);}
+   if(e.detail==='planetary'){add('PlanetaryFortressAttackLaunch',key+':launch',age,from);add('PlanetaryFortressAttackImpact',key+':impact',age,target,.6);}
+   else if(e.detail==='turret_terran'||e.detail==='bunker'){add(e.detail==='bunker'?'MarineAttackLaunch':'AutoTurretAttackLaunch',key+':launch',age,from);add(e.detail==='bunker'?'MarineAttackImpact':'AutoTurretAttackImpact',key+':impact',age,target,.6);}
    else if(e.detail==='turret_protoss'){add('PhotonCannonAttackImpact',key+':impact',age,target,.6);if(age<.16){const t=age/.16,to={...target,y:(target.flying?5.6:ground(target))+.6};add('PhotonCannonWeapon',key+':bolt',age,{x:from.x+(to.x-from.x)*t,y:from.y+(to.y-from.y)*t,z:from.z+(to.z-from.z)*t},0,1,true);}}
    else if(e.detail==='turret_zerg')add('SpineCrawlerAttackImpactReactionFlesh',key+':impact',age,target,.5);
   }

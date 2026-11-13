@@ -5,6 +5,7 @@ import {campaignPreloadModels} from './battle-preload-plan';
 export function audioPreloadBanks(race:Race,stage:number,identities:Iterable<{unitType?:string;heroId?:string|null}>,planned=false){
  const keys=new Set<string>([...FAMILIES_BY_RACE[race],...campaignPreloadModels(stage,stage+1).keys(),'scv','drone','probe','egg','interceptor','broodling','locust']);
  for(const u of identities){if(u.unitType)keys.add(u.unitType);if(u.heroId)keys.add('hero:'+u.heroId);}
+ if(keys.has('battlecruiser'))keys.add('hero:yamato_battlecruiser');
  const combat=new Set<string>(),dialogue=new Set<string>();
  const add=(v:unknown)=>{if(typeof v==='string'){if(SOUND_DATA.banks[v])combat.add(v);}else if(v&&typeof v==='object')for(const value of Object.values(v))add(value);};
  const matches=(key:string)=>[...keys].some(id=>key===id||key.startsWith(id+'-')||key.startsWith(id+':')||key===id.replaceAll('_','-'))||key.startsWith('building:');
