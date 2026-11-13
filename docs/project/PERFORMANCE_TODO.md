@@ -1,6 +1,6 @@
 # 星际幸存者MVP收尾与性能看板
 
-更新：2026-11-09 · 修订 433 · 基线 main be9e2982944314194c6dcc9dcc535bc321749eb4
+更新：2026-11-13 · 修订 501 · 基线 main be9e2982944314194c6dcc9dcc535bc321749eb4
 
 2026-11-04 用户决定 MVP 1.0 暂按完成。后续按具体玩家反馈处理。2026-10-29用户确认：MVP正式版本为1.0，功能范围冻结，只处理实际bug；其他改进留1.1。已完成的八包实现和后续反馈批次保留，不重新列为开发待办。具体原机故障、结算/存档/操作异常按证据复核；一般平衡、画质打磨、性能优化和新功能不再作为MVP新增门槛。V05实际部署/运维状态独立记录，未部署不冒称已上线；既有范围变化见updates历史。
 
@@ -14,16 +14,15 @@
 
 | 待办 | 进行中 | 待验证 | 待讨论 | 已完成 | 暂缓 |
 | --- | --- | --- | --- | --- | --- |
-| 0 | 1 | 1 | 0 | 70 | 1 |
+| 1 | 1 | 2 | 1 | 72 | 1 |
 
-共 73 项，其中 6 项为既有主线基础。任务数量不代表等权完成百分比。
+共 78 项，其中 6 项为既有主线基础。任务数量不代表等权完成百分比。
 
 ## 看板
 
 ### 待办
 
-当前无任务。
-
+- [ ] [PLAY-1X 1.4 第一批：卡牌经济、发展增援与战斗节奏](#play-1x) · 用户规划 · 整合
 
 ### 进行中
 
@@ -32,11 +31,11 @@
 ### 待验证
 
 - [ ] [PROMO-01 制作四分钟实机宣发视频第一版](#promo-01) · 用户授权 · 交付
+- [ ] [ARMED-1.4 1.4 第二批：人族武装支援 45 张](#armed-1.4) · 用户指定 · 整合
 
 ### 待讨论
 
-当前无任务。
-
+- [ ] [BUILD-1.3 1.3 三族九条构筑与关间卡牌设计](#build-1.3) · 用户要求 · 决策
 
 ### 已完成
 
@@ -110,6 +109,8 @@
 - [x] [SAFARI-20261106 iOS 长局持续游玩与 Safari 内存研究](#safari-20261106) · 用户要求核实与全网调研 · 决策
 - [x] [IOS-CONTENT-01 iOS 种子内容准备、资源回收与长局验证](#ios-content-01) · 用户授权实施 · 整合
 - [x] [V12-MERGE-01 1.1、1.2 及共同优化双分支核验与合流](#v12-merge-01) · 用户授权合流 · 整合
+- [x] [AUDIT-1.4 核查武装支援接入及既有优化的一致性](#audit-1.4) · 用户指定 · 整合
+- [x] [V14-MERGE-01 本地合流人族武装支援、接入修复和战役性能优化](#v14-merge-01) · 用户指定 · 整合
 
 ### 暂缓
 
@@ -169,6 +170,10 @@
 | [AUTO-1.2 1.2 自动战斗落地方案与实现](#auto-1.2) | 已完成 | 整合／用户授权实现 | PLAN-1X | 跨场景或文档 |
 | [IOS-CONTENT-01 iOS 种子内容准备、资源回收与长局验证](#ios-content-01) | 已完成 | 整合／用户授权实施 | SAFARI-20261106 | 跨场景或文档 |
 | [V12-MERGE-01 1.1、1.2 及共同优化双分支核验与合流](#v12-merge-01) | 已完成 | 整合／用户授权合流 | IOS-CONTENT-01 | 跨场景或文档 |
+| [PLAY-1X 1.4 第一批：卡牌经济、发展增援与战斗节奏](#play-1x) | 待办 | 整合／用户规划 | BUILD-1.3 | 跨场景或文档 |
+| [ARMED-1.4 1.4 第二批：人族武装支援 45 张](#armed-1.4) | 待验证 | 整合／用户指定 | PLAY-1X | 跨场景或文档 |
+| [AUDIT-1.4 核查武装支援接入及既有优化的一致性](#audit-1.4) | 已完成 | 整合／用户指定 | 无 | 跨场景或文档 |
+| [V14-MERGE-01 本地合流人族武装支援、接入修复和战役性能优化](#v14-merge-01) | 已完成 | 整合／用户指定 | AUDIT-1.4 | 跨场景或文档 |
 | [V01 逐批执行正确性及性能回归](#v01) | 已完成 | 验收／优先 | B01、G01、G02、I02、I03、G03、U05、D05 | SC01、SC02、SC03、SC04、SC05、SC06、SC07、SC08、SC09、SC10、SC11、SC12、SC13、SC14、SC17 |
 | [V02 完成当前内容自然战役与无尽验证](#v02) | 已完成 | 验收／随后 | B02、B03、V01 | SC01、SC04、SC06、SC08、SC12、SC14、SC15 |
 | [V03 完成恢复输入与用户体验验收](#v03) | 已完成 | 验收／随后 | V01 | SC07、SC09、SC10、SC11、SC13、SC16 |
@@ -186,6 +191,7 @@
 | [D06 后台微信及构建链性能另批处理](#d06) | 暂缓 | 决策／延期 | 无 | 跨场景或文档 |
 | [PLAN-1X 1.x玩法调研与逐版本任务规划](#plan-1x) | 已完成 | 决策／用户授权 | 无 | 跨场景或文档 |
 | [SAFARI-20261106 iOS 长局持续游玩与 Safari 内存研究](#safari-20261106) | 已完成 | 决策／用户要求核实与全网调研 | 无 | 跨场景或文档 |
+| [BUILD-1.3 1.3 三族九条构筑与关间卡牌设计](#build-1.3) | 待讨论 | 决策／用户要求 | AUTO-1.2 | 跨场景或文档 |
 | [H01 材质求值缓存与局部上传已合入](#h01) | 已完成（既有） | 既有／既有 | 无 | 跨场景或文档 |
 | [H02 粒子出生复用和部分实例化已合入](#h02) | 已完成（既有） | 既有／既有 | 无 | 跨场景或文档 |
 | [H03 光环候选与无穿越快速返回已合入](#h03) | 已完成（既有） | 既有／既有 | 无 | 跨场景或文档 |
@@ -2754,6 +2760,228 @@ MVP功能范围已收束；需要如实记录已有具体故障的复核与实�
 - [V12_BRANCH_INTEGRATION_20261109.md](V12_BRANCH_INTEGRATION_20261109.md)
 - [v12-branch-integration-20261109.json](../../reports/qa/v12-branch-integration-20261109.json)
 
+<a id="build-1.3"></a>
+### BUILD-1.3 1.3 三族九条构筑与关间卡牌设计
+
+状态：待讨论；优先级：用户要求；阶段：决策；更新：2026-11-12。
+负责人：Codex。前置：AUTO-1.2。场景：跨场景或文档。
+
+将九条路线落实为白绿蓝紫普通分支牌、紫色节点牌、橙色终极牌的设计，明确本局锁定及副分支降权。
+
+工作步骤：
+
+- 核实三族原作与 1.2 行为
+- 按最新卡牌分层及经济规则修订九条路线
+- 评审节点池、橙牌资格和普通牌权重
+
+完成标准：
+
+- 每支四档普通牌、紫节点、橙终极各自可辨认
+- 同分支第 3/6/9 个有效进度产生待领机会，白牌同名复购仅升档。第一次实际领取紫节点才锁定唯一主分支。锁主后续领本支节点，关闭其他分支节点及终极，普通牌仍可混买。
+- 用户确认具体牌效和待定参数
+- 逐条核对 18 关与无尽每轮的选择，主分支集中购买后仍有合法普通牌与不同的节点选项。
+- 在同一钱包和三格货架中验证通用牌与分支牌混买，分别核对逐关余额、实际取得的主分支牌和各次节点。
+- 逐支精简同类效果。紫节点写清双方、触发顺序和只有配合后才有的战果。普通紫作为该分支首张或降权副牌也能独立兑现。
+- 武装支援六档为 9／9／9／6／9／3。保留玩家样例及补充决定，标出原卡承接、补案和未定数值。
+- 武装支援每张能从实际进场、交火、承伤、接替或退场读出作用。轨道远征军的实体增援以泰坦降临三台 V 级精英雷神为对照。
+- 武装支援 45 张按 R3 源码接点执行。普通系统核击 3–4 发，焦土 5–8 发，系统每轮赠一枚、手动每轮扣一枚。空降或刷出的载体与工事按实际在场期出兵、作用和退场。
+- 机械流六档共 45 张。绿卡恶火、蓝卡维京、普通紫卡女妖各占一张，另六格提供不同玩法。核验复杂效果在当前引擎中的画面、结算和实现条件，后续同预算比较早期投入、后期收益与单台战损。
+- 锁定机械主分支时保全每个正式机械家族的现役与已承诺身体，核对自然减员和后续补员。按同靶买牌增量复审蓝维京与紫女妖，逐卡记录用途、强度取舍和正式接点。
+- 末日兵器 45 张给出可编码的触发、时序、结算、复选、状态归属和验收。分支互斥、工序、分弹及巨械预算有可复跑的算例。
+
+当前结果：玩家确认第一张实际领取的分支紫节点锁定本局唯一主分支。武装仍可选本支第 6、9 点节点，其他分支节点关闭。末日兵器 45 张代码规格已交付，含现役五台向四席过渡、普通与特装工序、逐卡结算、巨械排程和检查点。8 项参考用例、61 项现行回归及 docs:check 通过，蓝紫同靶与已付第五台交付复跑通过。正式游戏仍用旧版第三个有效进度锁主，尚待接入。
+
+证据与代码入口：
+
+- [V1_3_TERRAN_ARMED_SUPPORT_20261109.md](V1_3_TERRAN_ARMED_SUPPORT_20261109.md)
+- [V1_3_FACTION_BUILDS_DRAFT_20261109.md](V1_3_FACTION_BUILDS_DRAFT_20261109.md)
+- [V1X_ROADMAP_20261104.md](V1X_ROADMAP_20261104.md)
+- [V1X_ROSTER_20261104.md](V1X_ROSTER_20261104.md)
+- [V1_3_TERRAN_ARMED_SUPPORT_R1_20261110.md](V1_3_TERRAN_ARMED_SUPPORT_R1_20261110.md)
+- [V1_3_TERRAN_ARMED_SUPPORT_DEV_20261110.md](V1_3_TERRAN_ARMED_SUPPORT_DEV_20261110.md)
+- [V1_3_TERRAN_ARMED_SUPPORT_CODE_SPEC_20261110.md](V1_3_TERRAN_ARMED_SUPPORT_CODE_SPEC_20261110.md)
+- [TERRAN_DOOMSDAY_WEAPONS_BALANCE_20261111.md](TERRAN_DOOMSDAY_WEAPONS_BALANCE_20261111.md)
+- [TERRAN_DOOMSDAY_WEAPONS_45_20261111.md](TERRAN_DOOMSDAY_WEAPONS_45_20261111.md)
+- [doomsday-fx-feasibility-20261111.md](../../reports/qa/doomsday-fx-feasibility-20261111.md)
+- [doomsday-card-review-20261112.md](../../reports/qa/doomsday-card-review-20261112.md)
+- [qa-doomsday-card-values.mts](../../tools/qa-doomsday-card-values.mts)
+- [V1_3_TERRAN_DOOMSDAY_WEAPONS_CODE_SPEC_20261112.md](V1_3_TERRAN_DOOMSDAY_WEAPONS_CODE_SPEC_20261112.md)
+- [doomsday-code-spec-20261112.md](../../reports/qa/doomsday-code-spec-20261112.md)
+- [qa-doomsday-code-spec.mts](../../tools/qa-doomsday-code-spec.mts)
+
+<a id="play-1x"></a>
+### PLAY-1X 1.4 第一批：卡牌经济、发展增援与战斗节奏
+
+状态：待办；优先级：用户规划；阶段：整合；更新：2026-11-09。
+负责人：项目主线程。前置：BUILD-1.3。场景：跨场景或文档。
+
+将两币支出集中到卡牌，简化基础发展、常规增援和战斗获取，让玩家更频繁打出连续击杀。
+
+工作步骤：
+
+- 核对两币扣费、已承诺订单与退款来源
+- 设计少操作的发展、补员与资源收取流程
+- 拟定低血量轻兵波次并比较击杀、奖励和帧耗
+
+完成标准：
+
+- 零晶体矿、零瓦斯能发展、训练、取得增援和补员，只有取得卡牌消耗这两种资源
+- 常规投放、掉落和恢复只兑现一次，玩家无需逐个绕路获取
+- 低血量低强度敌兵的实际数量与连续清群机会增加，战损、奖励和性能有同场对照
+
+当前结果：已排入 1.4 第一批，对三族已有部队生效。1.4 第二批人族六个新家族和三条构筑依赖本批规则。游戏实现待办。
+
+证据与代码入口：
+
+- [V1X_ROADMAP_20261104.md](V1X_ROADMAP_20261104.md)
+- [V1_3_FACTION_BUILDS_DRAFT_20261109.md](V1_3_FACTION_BUILDS_DRAFT_20261109.md)
+
+<a id="armed-1.4"></a>
+### ARMED-1.4 1.4 第二批：人族武装支援 45 张
+
+状态：待验证；优先级：用户指定；阶段：整合；更新：2026-11-13。
+负责人：本聊天。前置：PLAY-1X。场景：跨场景或文档。
+
+游骑兵出场即爆、核击首发和连续爆炸的停顿已在本地候选修订。玩家观感和第一批共用经济、生产与波次合流后的自然战役仍待验证。
+
+工作步骤：
+
+- 核对第一批依赖及 R3；完成 45 张简要/详细、主视觉与普通镜头效果设计
+- 提供沿现有卡槽、字号、品质色与切换的三端样张，等待本版 UI 确认
+- 完成资源、正式 World、保存及 45 项独立实机重放
+
+完成标准：
+
+- 45个唯一编号；R3及最新反馈修订与正式配置、简句／详情同源；正式补员与临援明确
+- 用户确认具体 UI 后接入；真实出勤、逐弹逐人回执及资源生灭通过
+- 正常关间取得、下一战与保存恢复；45 项正式实机逐项重放和相关回归通过
+
+当前结果：本地原画质与压缩构建 ce857e80da5d 已修复 AUDIT-1.4 的七项问题。末关首次购买 P05 后在两个包均自然落地四座堡垒并继续战斗。挑战隔离、战斗与关间恢复、焦油 6×24、O01 本关英雄 6→3、四项支援资源跨局回收、100 个实体的 60 次空更新访问 6000→0 均有复验。正常打包入口 12 项和完整回归 3168 项通过。 同版压缩包 ce857e80da5d 从空账户第 1 关连续打到无尽首轮，Windows Chrome 中档人族简单、种子 529，取得 55 组内存采样。第 8 关 533.4 MiB 触发限流，之后部分换关有回落，至无尽第 5 秒仍为 822.4 MiB，未降至 409.6 MiB 解除线。峰值 828.4 MiB，首关至无尽增量约 92% 来自纹理估算。 全战役回收候选 f99f8f9bdbdc 与旧压缩包使用相同资源、种子和保活采样各走完 18 关至无尽。前中后六关开战跟踪均值分别 419.1→413.7、642.8→607.5、856.7→806.9 MiB，53/54 个常规战役采样更低，全程跟踪峰值 1056.4→981.0 MiB。两包从第 6 关至无尽持续限流；中段 Chrome 专用内存均值 4.56→4.58 GiB。 本地候选 9207d6f97edf 对照 f99f8f9bdbdc，两包各 55 点。仅省去队色完整覆盖的精英漫反射；第 18 关精英纹理 247→203 MiB，全局跟踪峰值 980.4→934.1 MiB，Chrome 专用内存最大采样增加 57.5 MiB。13 次重载；战斗内两次最长帧 100→83.4、149.9→100 毫秒。8 帧像素一致，3171 项完整回归通过。 基线 9207d6f97edf 的两次战中劫掠者重载已定位为旧货架和首领奖励变体。候选 6cfdf724a8b5 同探针跑完 18 关及无尽，战中精英重载 2→0，54 点跟踪均值 584.9→579.0 MiB，峰值 934.1→933.9 MiB。第 17 关开战 0–4 秒最长帧 99.9→199.8 ms，第 18 关 50–54 秒 116.7→99.9 ms，长帧仍在。 最终候选 5e1ffbfe4960 将已购坑道虫纳入出战和恢复准备，兼容缺少商店字段的快照；简化连通格扫描和重复 HUD 刷新。同设置 18 关到无尽，第 16 关最长 816.6→133.3 ms，第 17 关开场 199.8→66.7 ms，全战役最长 816.6→266.6 ms（第 6 关）。跟踪均值 579.0→575.9 MiB、峰值 933.9→947.4 MiB，无尽首轮 855.1→890.4 MiB。 本批游戏代码已合入本地 main 和体积优化版，两边各通过 3176 项回归及末关转无尽实测。
+
+证据与代码入口：
+
+- [V1_3_TERRAN_ARMED_SUPPORT_CODE_SPEC_20261110.md](V1_3_TERRAN_ARMED_SUPPORT_CODE_SPEC_20261110.md)
+- [V1_4_TERRAN_ARMED_SUPPORT_CARD_DESIGN_20261111.md](V1_4_TERRAN_ARMED_SUPPORT_CARD_DESIGN_20261111.md)
+- [terran-armed-support.ts](../../src/data/terran-armed-support.ts)
+- [README.md](../../preview/armed-support-cards-20261111/README.md)
+- [armed-support-design-20261111.json](../../reports/qa/armed-support-design-20261111.json)
+- [armed-support-copy-r2-20261111.json](../../reports/qa/armed-support-copy-r2-20261111.json)
+- [armed-support-front-r3-20261111.json](../../reports/qa/armed-support-front-r3-20261111.json)
+- [armed-support-simple-r4-20261111.json](../../reports/qa/armed-support-simple-r4-20261111.json)
+- [armed-support.test.ts](../../test/armed-support.test.ts)
+- [armed-support-models.json](../../tools/armed-support-models.json)
+- [armed-fields.ts](../../src/simulation/combat/armed-fields.ts)
+- [armed-fleet-dispatch.ts](../../src/simulation/combat/armed-fleet-dispatch.ts)
+- [index.html](../../preview/armed-support-showcase-20261111/index.html)
+- [armed-support-implementation-20261111.md](../../reports/qa/armed-support-implementation-20261111.md)
+- [armed-support-implementation-20261111.json](../../reports/qa/armed-support-implementation-20261111.json)
+- [armed-support-cards-20261111.json](../../reports/qa/armed-support-cards-20261111.json)
+- [README.md](../../preview/armed-support-showcase-20261111/README.md)
+- [armed-support-assets.json](../../deploy/runtime/armed-support-assets.json)
+- [qa-armed-release.mts](../../tools/qa-armed-release.mts)
+- [V1_4_TERRAN_ARMED_SUPPORT_FEEDBACK_20261111.md](V1_4_TERRAN_ARMED_SUPPORT_FEEDBACK_20261111.md)
+- [armed-support-feedback-20261111.md](../../reports/qa/armed-support-feedback-20261111.md)
+- [armed-support-feedback-20261111.json](../../reports/qa/armed-support-feedback-20261111.json)
+- [armed-support-feedback-cards-20261111.json](../../reports/qa/armed-support-feedback-cards-20261111.json)
+- [armed-procs.ts](../../src/simulation/combat/armed-procs.ts)
+- [armed-feedback.test.ts](../../test/armed-feedback.test.ts)
+- [verify-armed-feedback.mts](../../tools/verify-armed-feedback.mts)
+- [V1_4_TERRAN_ARMED_SUPPORT_POLISH_20261111.md](V1_4_TERRAN_ARMED_SUPPORT_POLISH_20261111.md)
+- [armed-support-polish-20261111.md](../../reports/qa/armed-support-polish-20261111.md)
+- [armed-support-polish-20261111.json](../../reports/qa/armed-support-polish-20261111.json)
+- [armed-support-polish-cards-20261111.json](../../reports/qa/armed-support-polish-cards-20261111.json)
+- [armed-raiders.ts](../../src/simulation/combat/armed-raiders.ts)
+- [armed-polish.test.ts](../../test/armed-polish.test.ts)
+- [check-armed-cycles.mts](../../tools/check-armed-cycles.mts)
+- [record-armed-polish.mts](../../tools/record-armed-polish.mts)
+- [armed-support-charge-nuke-20261112.md](../../reports/qa/armed-support-charge-nuke-20261112.md)
+- [armed-support-charge-nuke-20261112.json](../../reports/qa/armed-support-charge-nuke-20261112.json)
+- [measure-armed-nuke-frames.mjs](../../tools/measure-armed-nuke-frames.mjs)
+- [armed-nuke-particles.test.ts](../../test/armed-nuke-particles.test.ts)
+- [v14-integration-audit-20261112.md](../../reports/qa/v14-integration-audit-20261112.md)
+- [v14-armed-integration-fixes-20261112.md](../../reports/qa/v14-armed-integration-fixes-20261112.md)
+- [v14-armed-integration-fixes-20261112.json](../../reports/qa/v14-armed-integration-fixes-20261112.json)
+- [armed-integration-boundaries.test.ts](../../test/armed-integration-boundaries.test.ts)
+- [snapshot-preload-scope.test.ts](../../test/snapshot-preload-scope.test.ts)
+- [qa-v14-endless-entry.mts](../../tools/qa-v14-endless-entry.mts)
+- [build-armed-audit-pack.mjs](../../tools/build-armed-audit-pack.mjs)
+- [v14-armed-natural-memory-20261112.md](../../reports/qa/v14-armed-natural-memory-20261112.md)
+- [v14-armed-natural-memory-20261112.json](../../reports/qa/v14-armed-natural-memory-20261112.json)
+- [measure-armed-natural-memory.mjs](../../tools/measure-armed-natural-memory.mjs)
+- [qa-armed-memory-player.ts](../../tools/qa-armed-memory-player.ts)
+- [campaign-residency-20261112.md](../../reports/qa/campaign-residency-20261112.md)
+- [campaign-residency-20261112.json](../../reports/qa/campaign-residency-20261112.json)
+- [elite-residency-20261113.md](../../reports/qa/elite-residency-20261113.md)
+- [elite-residency-20261113.json](../../reports/qa/elite-residency-20261113.json)
+- [qa-elite-residency-probe.mjs](../../tools/qa-elite-residency-probe.mjs)
+- [summarize-elite-residency.mjs](../../tools/summarize-elite-residency.mjs)
+- [marauder-reload-20261113.md](../../reports/qa/marauder-reload-20261113.md)
+- [marauder-reload-20261113.json](../../reports/qa/marauder-reload-20261113.json)
+- [battle-frames-20261113.md](../../reports/qa/battle-frames-20261113.md)
+- [battle-frames-20261113.json](../../reports/qa/battle-frames-20261113.json)
+- [qa-armed-model-candidates.mjs](../../tools/qa-armed-model-candidates.mjs)
+- [v14-local-integration-20261113.md](../../reports/qa/v14-local-integration-20261113.md)
+
+旧审计关联：ARMED-RES-01、ARMED-RES-02、ARMED-RES-03、ARMED-RES-04、ARMED-ENDLESS-01、ARMED-SPECIAL-01、ARMED-SAVE-01、ARMED-DOT-01、ARMED-PRELOAD-01、ARMED-RETIRE-01、ARMED-IDLE-01。
+
+<a id="audit-1.4"></a>
+### AUDIT-1.4 核查武装支援接入及既有优化的一致性
+
+状态：已完成；优先级：用户指定；阶段：整合；更新：2026-11-12。
+负责人：主线。前置：无。场景：跨场景或文档。
+
+核查本地 1.4 实装在正常关间、战斗、续局以及原有按关加载与回收方案中的行为。
+
+工作步骤：
+
+- 比对已合入的优化基线
+- 执行定向复现及正式入口检查
+- 记录问题与实测边界
+
+完成标准：
+
+- 给出可复现的接入缺陷及优先级
+- 逐项核对原优化方案与当前行为，区分实测和历史数据
+
+当前结果：复核 a2356a41 至本地候选 5b3514d513e7。正式包第 18 关购买堡垒空降后，无尽第 1 轮自然触发时渲染中断。另复现照明弹跨挑战关反隐、光盾重复后战斗快照失效、焦油少一跳。原分关与预算机制仍在，绝境反攻多列 3 个英雄，四项支援资源跨局驻留，无卡仍每步遍历单位。114 项定向、12 项打包入口、类型及生成数据检查通过。
+
+证据与代码入口：
+
+- [v14-integration-audit-20261112.md](../../reports/qa/v14-integration-audit-20261112.md)
+- [inspect-v14-integration.mts](../../tools/inspect-v14-integration.mts)
+- [qa-v14-endless-entry.mts](../../tools/qa-v14-endless-entry.mts)
+- [qa-armed-release.mts](../../tools/qa-armed-release.mts)
+- [IOS_SEEDED_CONTENT_20261109.md](IOS_SEEDED_CONTENT_20261109.md)
+
+旧审计关联：ARMED-ENDLESS-01、ARMED-SPECIAL-01、ARMED-SAVE-01、ARMED-DOT-01、ARMED-PRELOAD-01、ARMED-RETIRE-01、ARMED-IDLE-01。
+
+<a id="v14-merge-01"></a>
+### V14-MERGE-01 本地合流人族武装支援、接入修复和战役性能优化
+
+状态：已完成；优先级：用户指定；阶段：整合；更新：2026-11-13。
+负责人：主线。前置：AUDIT-1.4。场景：跨场景或文档。
+
+两条发行分支尚未收录本批代码，共享工作区含其他任务的文档、原图和历史资源。
+
+工作步骤：
+
+- 核对 45 张武装卡的资源与保存依赖
+- 按逐批报告合入内存、精英和战斗长帧改动
+- 核验提交树、两种入口及回归
+
+完成标准：
+
+- 本地 main 与体积优化版均包含同一份本批游戏源码和运行资源
+- 实测通过的候选与所提交的游戏代码对得上，测试与分支专有内容得到保留
+
+当前结果：已提交到本地 main（6697f010）与体积优化版（971c79c5），源码与运行资源树一致。03ec9b73 更新压缩入口，两分支各通过 3176 项完整回归。原画质和压缩正式入口均通过末关导档、购卡及无尽落地后的持续战斗。
+
+证据与代码入口：
+
+- [v14-local-integration-20261113.md](../../reports/qa/v14-local-integration-20261113.md)
+- [battle-frames-20261113.md](../../reports/qa/battle-frames-20261113.md)
+- [v14-armed-integration-fixes-20261112.md](../../reports/qa/v14-armed-integration-fixes-20261112.md)
+
 ## 旧审计完整索引
 
 导入用户提供 ZIP 的 169 条索引。源报告 included_in_final_combined 表示其隔离实验组合，不表示当前 main 合并。关联编号用于防漏；具体当前状态由任务证据与 A01 复核结论决定。R04、LOAD-001 旧候选已被源实验排除；B07 曾有回退，不能按组合补丁整体采纳。 2026-10-20 A01完成169条当前审计，保留65条补齐/104条既有证据的归属。旧审计ID与看板任务ID为两个命名空间（例如旧R01不等于任务R01）。A02/A03仅跟踪原审计剩余范围，不代表新增玩法。
@@ -2932,6 +3160,158 @@ MVP功能范围已收束；需要如实记录已有具体故障的复核与实�
 
 ## 更新记录
 
+- **2026-11-13 · V14-MERGE-01、ARMED-1.4**：已提交到本地 main（6697f010）与体积优化版（971c79c5），源码与运行资源树一致。03ec9b73 更新压缩入口，两分支各通过 3176 项完整回归。原画质和压缩正式入口均通过末关导档、购卡及无尽落地后的持续战斗。
+  - [v14-local-integration-20261113.md](../../reports/qa/v14-local-integration-20261113.md)
+- **2026-11-13 · ARMED-1.4**：最终候选 5e1ffbfe4960 将已购坑道虫纳入出战和恢复准备，兼容缺少商店字段的快照；简化连通格扫描和重复 HUD 刷新。同设置 18 关到无尽，第 16 关最长 816.6→133.3 ms，第 17 关开场 199.8→66.7 ms，全战役最长 816.6→266.6 ms（第 6 关）。跟踪均值 579.0→575.9 MiB、峰值 933.9→947.4 MiB，无尽首轮 855.1→890.4 MiB。
+  - [battle-frames-20261113.md](../../reports/qa/battle-frames-20261113.md)
+  - [battle-frames-20261113.json](../../reports/qa/battle-frames-20261113.json)
+- **2026-11-13 · ARMED-1.4**：以 6cfdf724a8b5 为基线，定位第 16 关长帧和第 17 关开场停顿，复跑对照整局。
+  - [marauder-reload-20261113.md](../../reports/qa/marauder-reload-20261113.md)
+- **2026-11-13 · ARMED-1.4**：基线 9207d6f97edf 的两次战中劫掠者重载已定位为旧货架和首领奖励变体。候选 6cfdf724a8b5 同探针跑完 18 关及无尽，战中精英重载 2→0，54 点跟踪均值 584.9→579.0 MiB，峰值 934.1→933.9 MiB。第 17 关开战 0–4 秒最长帧 99.9→199.8 ms，第 18 关 50–54 秒 116.7→99.9 ms，长帧仍在。
+  - [marauder-reload-20261113.md](../../reports/qa/marauder-reload-20261113.md)
+  - [marauder-reload-20261113.json](../../reports/qa/marauder-reload-20261113.json)
+- **2026-11-13 · ARMED-1.4**：追查第 17、18 关 elite.marauder.3 战中重载，按同设置复跑 18 关逐关对照内存与最长帧。
+  - [elite-residency-20261113.md](../../reports/qa/elite-residency-20261113.md)
+- **2026-11-13 · ARMED-1.4**：本地候选 9207d6f97edf 对照 f99f8f9bdbdc，两包各 55 点。仅省去队色完整覆盖的精英漫反射；第 18 关精英纹理 247→203 MiB，全局跟踪峰值 980.4→934.1 MiB，Chrome 专用内存最大采样增加 57.5 MiB。13 次重载；战斗内两次最长帧 100→83.4、149.9→100 毫秒。8 帧像素一致，3171 项完整回归通过。
+  - [elite-residency-20261113.md](../../reports/qa/elite-residency-20261113.md)
+  - [elite-residency-20261113.json](../../reports/qa/elite-residency-20261113.json)
+  - [qa-elite-residency-probe.mjs](../../tools/qa-elite-residency-probe.mjs)
+  - [summarize-elite-residency.mjs](../../tools/summarize-elite-residency.mjs)
+- **2026-11-13 · ARMED-1.4**：以 f99f8f9bdbdc 对照后半程精英本体和死亡模型纹理的真实持有、可释放部分与重载帧间隔。提交合并由主线程负责。
+  - [campaign-residency-20261112.md](../../reports/qa/campaign-residency-20261112.md)
+- **2026-11-12 · ARMED-1.4**：全战役回收候选 f99f8f9bdbdc 与旧压缩包使用相同资源、种子和保活采样各走完 18 关至无尽。前中后六关开战跟踪均值分别 419.1→413.7、642.8→607.5、856.7→806.9 MiB，53/54 个常规战役采样更低，全程跟踪峰值 1056.4→981.0 MiB。两包从第 6 关至无尽持续限流；中段 Chrome 专用内存均值 4.56→4.58 GiB。
+  - [campaign-residency-20261112.md](../../reports/qa/campaign-residency-20261112.md)
+  - [campaign-residency-20261112.json](../../reports/qa/campaign-residency-20261112.json)
+- **2026-11-12 · ARMED-1.4**：按用户确认以整个战役稳定性为目标。逐关对照 1—18 关与无尽，分别核对前中后段资源驻留、限流、换关及持续战斗。
+  - [measure-armed-natural-memory.mjs](../../tools/measure-armed-natural-memory.mjs)
+- **2026-11-12 · ARMED-1.4**：定位无尽入口纹理与战役地图驻留，验证关间清退及同版资源包对照。
+  - [v14-armed-natural-memory-20261112.md](../../reports/qa/v14-armed-natural-memory-20261112.md)
+- **2026-11-12 · ARMED-1.4**：同版压缩包 ce857e80da5d 从空账户第 1 关连续打到无尽首轮，Windows Chrome 中档人族简单、种子 529，取得 55 组内存采样。第 8 关 533.4 MiB 触发限流，之后部分换关有回落，至无尽第 5 秒仍为 822.4 MiB，未降至 409.6 MiB 解除线。峰值 828.4 MiB，首关至无尽增量约 92% 来自纹理估算。
+  - [v14-armed-natural-memory-20261112.md](../../reports/qa/v14-armed-natural-memory-20261112.md)
+  - [v14-armed-natural-memory-20261112.json](../../reports/qa/v14-armed-natural-memory-20261112.json)
+- **2026-11-12 · ARMED-1.4**：用 ce857e80da5d 同版压缩候选从菜单新局连续测量至无尽，记录逐关换场与压力解除。
+  - [v14-armed-integration-fixes-20261112.md](../../reports/qa/v14-armed-integration-fixes-20261112.md)
+- **2026-11-12 · ARMED-1.4、AUDIT-1.4**：武装支援审核七项完成本地修复及复验，补齐同版压缩候选；ARMED-1.4 待物理设备、体验与第一批合流验收。
+  - [v14-armed-integration-fixes-20261112.md](../../reports/qa/v14-armed-integration-fixes-20261112.md)
+  - [v14-armed-integration-fixes-20261112.json](../../reports/qa/v14-armed-integration-fixes-20261112.json)
+- **2026-11-12 · ARMED-1.4**：按复核反馈开始七项修复，保存同种子修复前读数，复验正式包自然出勤、恢复、挑战与跨局回收。
+  - [v14-integration-audit-20261112.md](../../reports/qa/v14-integration-audit-20261112.md)
+- **2026-11-12 · AUDIT-1.4、ARMED-1.4**：1.4 接入复核完成。登记 4 项行为缺陷和 3 项优化偏差，正式包复现 P05 末关新购后无尽首次空投停帧。ARMED-1.4 继续待验证。
+  - [v14-integration-audit-20261112.md](../../reports/qa/v14-integration-audit-20261112.md)
+- **2026-11-12 · ARMED-1.4**：G05 三辆游骑兵同种子实跑 9.12–10.46 码并各自引爆。原生桌面核击帧间隔 P95（毫秒）为 P01 59.5 → 28.4、N05 122.3 → 39.8、O01 57.6 → 42.4。 正常与打包入口复验通过，候选 armed-f9c135a0168b 待玩家复看。
+  - [armed-support-charge-nuke-20261112.md](../../reports/qa/armed-support-charge-nuke-20261112.md)
+  - [armed-support-charge-nuke-20261112.json](../../reports/qa/armed-support-charge-nuke-20261112.json)
+- **2026-11-12 · BUILD-1.3**：末日兵器 45 张完成代码接入规格与可执行算例。按玩家确认，普通紫与达到三点都不直接锁主，首次选择紫节点才锁定唯一分支，武装保留本支后续节点。同步现行三族规则及武装 R3，记录当前运行实现差异。
+  - [V1_3_TERRAN_DOOMSDAY_WEAPONS_CODE_SPEC_20261112.md](V1_3_TERRAN_DOOMSDAY_WEAPONS_CODE_SPEC_20261112.md)
+  - [doomsday-code-spec-20261112.md](../../reports/qa/doomsday-code-spec-20261112.md)
+  - [qa-doomsday-code-spec.mts](../../tools/qa-doomsday-code-spec.mts)
+- **2026-11-12 · BUILD-1.3**：按玩家澄清区分家族强化席与特装兵图纸，保留锁主时五台现役及已承诺身体。复核 45 张牌，提交蓝紫同靶实扣和女妖、拦截器、电容、贯穿的首测修订。
+  - [TERRAN_DOOMSDAY_WEAPONS_45_20261111.md](TERRAN_DOOMSDAY_WEAPONS_45_20261111.md)
+  - [doomsday-card-review-20261112.md](../../reports/qa/doomsday-card-review-20261112.md)
+  - [qa-doomsday-card-values.mts](../../tools/qa-doomsday-card-values.mts)
+- **2026-11-12 · ARMED-1.4**：用户实机指出游骑兵直接自爆及出现核弹时卡顿，重开两项定向排查。
+  - [armed-support-polish-20261111.md](../../reports/qa/armed-support-polish-20261111.md)
+- **2026-11-11 · BUILD-1.3**：玩家澄清三张特装兵的品质。已修正牌表、六张补牌、节点与购牌账，并用正式引擎做 12 个隔离场景，记录可实现的表现、结算和后续接入缺口。机械流留在设计评审。
+  - [TERRAN_DOOMSDAY_WEAPONS_45_20261111.md](TERRAN_DOOMSDAY_WEAPONS_45_20261111.md)
+  - [doomsday-fx-feasibility-20261111.md](../../reports/qa/doomsday-fx-feasibility-20261111.md)
+- **2026-11-11 · ARMED-1.4**：第二轮五项实机表现、29项非触发类CD/配套寿命修订完成候选复验；保留已确认触发CD。45+9实机、最终G07重放、60秒8项出勤、正常UI8/打包12、3155回归/97定向通过，armed-0fb61c0c77a5，状态待验证。用户观感与PLAY-1X自然战役合流复验仍开放。
+  - [V1_4_TERRAN_ARMED_SUPPORT_POLISH_20261111.md](V1_4_TERRAN_ARMED_SUPPORT_POLISH_20261111.md)
+  - [armed-support-polish-20261111.md](../../reports/qa/armed-support-polish-20261111.md)
+- **2026-11-11 · BUILD-1.3**：按用户要求把机械流补至 45 张。三套绿蓝紫特装设计覆盖蓝焰恶火、双模维京和子母弹女妖，并补齐少编、慢造、阵亡重造及混买样例。牌表待玩家评审。
+  - [TERRAN_DOOMSDAY_WEAPONS_45_20261111.md](TERRAN_DOOMSDAY_WEAPONS_45_20261111.md)
+  - [V1_3_FACTION_BUILDS_DRAFT_20261109.md](V1_3_FACTION_BUILDS_DRAFT_20261109.md)
+- **2026-11-11 · BUILD-1.3**：完成末日兵器首轮强弱判断、21 张提案审读及补牌候选。以武装支援的真实攻击概率和成功冷却为对照，保留两条分支各自的优势与后续同场验证条件。
+  - [TERRAN_DOOMSDAY_WEAPONS_BALANCE_20261111.md](TERRAN_DOOMSDAY_WEAPONS_BALANCE_20261111.md)
+  - [V1_3_FACTION_BUILDS_DRAFT_20261109.md](V1_3_FACTION_BUILDS_DRAFT_20261109.md)
+- **2026-11-11 · ARMED-1.4**：12项实机反馈修订完成工程复验，事件概率成功后CD；45+9实机、正常UI8、打包10、3148完整回归与59定向通过，armed-5425d65c3896，移至待验证。用户画面／平衡及PLAY-1X合流复验未冒称完成。
+  - [V1_4_TERRAN_ARMED_SUPPORT_FEEDBACK_20261111.md](V1_4_TERRAN_ARMED_SUPPORT_FEEDBACK_20261111.md)
+  - [armed-support-feedback-20261111.md](../../reports/qa/armed-support-feedback-20261111.md)
+- **2026-11-11 · ARMED-1.4**：进入正式实现；51项定向检查和类型检查通过。用户明确选择 P05 原版地堡，只阻敌与光环；余下实现与45场实机验收保持进行中。
+  - [armed-support.test.ts](../../test/armed-support.test.ts)
+  - [UI_RULES.md](UI_RULES.md)
+- **2026-11-11 · ARMED-1.4**：用户确认simple-r4卡面，进入资源与正式接入准备；第一批实际依赖及三项重点资源缺口复核保持开放。
+  - [UI_RULES.md](UI_RULES.md)
+  - [armed-support-simple-r4-20261111.json](../../reports/qa/armed-support-simple-r4-20261111.json)
+- **2026-11-11 · ARMED-1.4**：纠正清空卡面的误解，45张恢复一句简单用途描述，数值与具体规则放详情；三端及逐项切换通过。
+  - [V1_4_TERRAN_ARMED_SUPPORT_CARD_DESIGN_20261111.md](V1_4_TERRAN_ARMED_SUPPORT_CARD_DESIGN_20261111.md)
+  - [UI_RULES.md](UI_RULES.md)
+  - [armed-support-simple-r4-20261111.json](../../reports/qa/armed-support-simple-r4-20261111.json)
+- **2026-11-11 · ARMED-1.4**：用户进一步明确介绍文字全部放详情；45张默认卡面移除说明正文，原箭头展开/收起，三端及逐项检查通过。
+  - [V1_4_TERRAN_ARMED_SUPPORT_CARD_DESIGN_20261111.md](V1_4_TERRAN_ARMED_SUPPORT_CARD_DESIGN_20261111.md)
+  - [UI_RULES.md](UI_RULES.md)
+  - [armed-support-front-r3-20261111.json](../../reports/qa/armed-support-front-r3-20261111.json)
+- **2026-11-11 · ARMED-1.4**：按用户纠正重写45张卡面文案R2，直接效果短句与精简数据详情；原R3参数、卡槽与视觉保持。
+  - [V1_4_TERRAN_ARMED_SUPPORT_CARD_DESIGN_20261111.md](V1_4_TERRAN_ARMED_SUPPORT_CARD_DESIGN_20261111.md)
+  - [armed-support-copy-r2-20261111.json](../../reports/qa/armed-support-copy-r2-20261111.json)
+- **2026-11-11 · ARMED-1.4**：完成 45 张整体卡面/表现设计与三端生产卡槽审阅入口，卡面检查通过；按用户要求进入本版 UI 确认，正式实现仍开放。
+  - [V1_4_TERRAN_ARMED_SUPPORT_CARD_DESIGN_20261111.md](V1_4_TERRAN_ARMED_SUPPORT_CARD_DESIGN_20261111.md)
+  - [armed-support-design-20261111.json](../../reports/qa/armed-support-design-20261111.json)
+- **2026-11-11 · ARMED-1.4**：接手武装支援，先做整体卡面设计；第一批实际仍待办，保留共享工作区全部既有成果。
+  - [V1_3_TERRAN_ARMED_SUPPORT_CODE_SPEC_20261110.md](V1_3_TERRAN_ARMED_SUPPORT_CODE_SPEC_20261110.md)
+- **2026-11-10 · BUILD-1.3**：玩家已确认多发核击与库存规则。武装支援定稿 R3 已对接工作目录源码，校正全部战场临时建筑，核对算法、原运行时与定向回归。
+  - [V1_3_TERRAN_ARMED_SUPPORT_CODE_SPEC_20261110.md](V1_3_TERRAN_ARMED_SUPPORT_CODE_SPEC_20261110.md)
+  - [V1_3_FACTION_BUILDS_DRAFT_20261109.md](V1_3_FACTION_BUILDS_DRAFT_20261109.md)
+- **2026-11-10 · BUILD-1.3**：玩家认可节点方向，要求提高打击频次、降低单发伤害，按游戏代码提供接口文档，并明确兵营与堡垒均为空降或刷出的战场工事。
+  - [V1_3_TERRAN_ARMED_SUPPORT_DEV_20261110.md](V1_3_TERRAN_ARMED_SUPPORT_DEV_20261110.md)
+- **2026-11-10 · BUILD-1.3**：记录玩家认可其余 36 张。武装支援开发规格与 9 张紫节点强化表现 R2 已交，9 组对照经浏览器复验。
+  - [V1_3_TERRAN_ARMED_SUPPORT_DEV_20261110.md](V1_3_TERRAN_ARMED_SUPPORT_DEV_20261110.md)
+  - [V1_3_TERRAN_ARMED_SUPPORT_R1_20261110.md](V1_3_TERRAN_ARMED_SUPPORT_R1_20261110.md)
+- **2026-11-10 · BUILD-1.3**：用户认可其余牌，要求紫节点表现更强。进入九个紫节点表现修订与已确认牌的开发交接。
+  - [V1_3_TERRAN_ARMED_SUPPORT_R1_20261110.md](V1_3_TERRAN_ARMED_SUPPORT_R1_20261110.md)
+- **2026-11-10 · BUILD-1.3**：已交 45 张逐卡数值、快打时序、可重放的战场演示和逐卡意见汇总，转待讨论。
+  - [V1_3_TERRAN_ARMED_SUPPORT_R1_20261110.md](V1_3_TERRAN_ARMED_SUPPORT_R1_20261110.md)
+  - [V1_3_TERRAN_ARMED_SUPPORT_20261109.md](V1_3_TERRAN_ARMED_SUPPORT_20261109.md)
+- **2026-11-10 · BUILD-1.3**：按用户要求制作加快打击节奏的 45 卡数值评审演示，用户确认后编写正式开发规格。
+  - [V1_3_TERRAN_ARMED_SUPPORT_20261109.md](V1_3_TERRAN_ARMED_SUPPORT_20261109.md)
+- **2026-11-10 · BUILD-1.3**：为全 45 张补充真实战场动作。烈焰升腾错拍滚射，轨道远征军从轻兵接力修为三台同规格 V 级精英雷神、两辆 V 级精英坦克和一艘 V 级战巡三段会合。当前为设计候选。
+  - [V1_3_TERRAN_ARMED_SUPPORT_20261109.md#烈焰升腾的五轮炮幕](V1_3_TERRAN_ARMED_SUPPORT_20261109.md#烈焰升腾的五轮炮幕)
+  - [V1_3_TERRAN_ARMED_SUPPORT_20261109.md#轨道远征军的重装登陆](V1_3_TERRAN_ARMED_SUPPORT_20261109.md#轨道远征军的重装登陆)
+  - [V1_3_FACTION_BUILDS_DRAFT_20261109.md](V1_3_FACTION_BUILDS_DRAFT_20261109.md)
+  - [V1X_ROADMAP_20261104.md](V1X_ROADMAP_20261104.md)
+- **2026-11-10 · BUILD-1.3**：按用户对视觉节奏和紫橙战力的反馈修订设计。优先让支援的进场、交火和接替可见。
+  - [V1_3_TERRAN_ARMED_SUPPORT_20261109.md](V1_3_TERRAN_ARMED_SUPPORT_20261109.md)
+- **2026-11-10 · BUILD-1.3**：以用户的 29 项为底补齐 45 张。已落实紫节点补至 9 张、五辆 V 级架坦每轮齐射、只计正式战损、3 秒无敌与整套 240 秒共冷，并复核白卡升级和混买账。
+  - [V1_3_TERRAN_ARMED_SUPPORT_20261109.md](V1_3_TERRAN_ARMED_SUPPORT_20261109.md)
+  - [V1_3_FACTION_BUILDS_DRAFT_20261109.md](V1_3_FACTION_BUILDS_DRAFT_20261109.md)
+  - [V1X_ROADMAP_20261104.md](V1X_ROADMAP_20261104.md)
+- **2026-11-10 · BUILD-1.3**：武装支援按白9、绿9、蓝9、普通紫6、节点紫9、节点橙3重排，补齐原有同类效果。
+  - [V1_3_TERRAN_ARMED_SUPPORT_20261109.md](V1_3_TERRAN_ARMED_SUPPORT_20261109.md)
+- **2026-11-10 · BUILD-1.3**：首条武装支援已精简为 19 张。普通紫以单卡出勤，紫节点联动已购手段或部队动作。已复核混买账、首次节点覆盖与无尽复选，1.3 继续待评审。
+  - [V1_3_TERRAN_ARMED_SUPPORT_20261109.md](V1_3_TERRAN_ARMED_SUPPORT_20261109.md)
+  - [V1_3_FACTION_BUILDS_DRAFT_20261109.md](V1_3_FACTION_BUILDS_DRAFT_20261109.md)
+  - [V1X_ROADMAP_20261104.md](V1X_ROADMAP_20261104.md)
+- **2026-11-10 · BUILD-1.3**：按用户要求先重做武装支援的数量与两种紫牌。
+  - [V1_3_TERRAN_ARMED_SUPPORT_20261109.md](V1_3_TERRAN_ARMED_SUPPORT_20261109.md)
+- **2026-11-10 · BUILD-1.3**：修订武装支援的战役成型目标和 17 个关间混买样例，校验买前、买后余额及 3／6／9 次数。设计待讨论。
+  - [V1_3_TERRAN_ARMED_SUPPORT_20261109.md#17-个关间的混买样例](V1_3_TERRAN_ARMED_SUPPORT_20261109.md#17-个关间的混买样例)
+  - [V1_3_FACTION_BUILDS_DRAFT_20261109.md](V1_3_FACTION_BUILDS_DRAFT_20261109.md)
+  - [V1X_ROADMAP_20261104.md](V1X_ROADMAP_20261104.md)
+- **2026-11-10 · BUILD-1.3**：按用户反馈重算普通通用牌与武装支援同局购买的矿气、货架和节点进度。
+  - [V1_3_TERRAN_ARMED_SUPPORT_20261109.md](V1_3_TERRAN_ARMED_SUPPORT_20261109.md)
+- **2026-11-09 · BUILD-1.3**：1.3 逐支评审第一条。以 17 个战役关间、一次无尽入场整备和之后每轮购物试算武装支援的 48 张普通、18 张节点、3 张终极。此次为牌池设计，尚待试玩。
+  - [V1_3_TERRAN_ARMED_SUPPORT_20261109.md](V1_3_TERRAN_ARMED_SUPPORT_20261109.md)
+  - [V1_3_FACTION_BUILDS_DRAFT_20261109.md](V1_3_FACTION_BUILDS_DRAFT_20261109.md)
+  - [V1X_ROADMAP_20261104.md](V1X_ROADMAP_20261104.md)
+- **2026-11-09 · BUILD-1.3**：回到 1.3。按用户要求逐条做，先核对关间窗口和无尽购物节奏，扩写人族武装支援。
+  - [V1_3_FACTION_BUILDS_DRAFT_20261109.md](V1_3_FACTION_BUILDS_DRAFT_20261109.md)
+- **2026-11-09 · PLAN-1X、PLAY-1X**：已把第 4–6 项明确排到 1.4 第一批，并作为同版人族内容的前置。沿用原任务编号，实施状态为待办。
+  - [V1X_ROADMAP_20261104.md#第一批-三族共用玩法](V1X_ROADMAP_20261104.md#第一批-三族共用玩法)
+  - [V1_3_FACTION_BUILDS_DRAFT_20261109.md](V1_3_FACTION_BUILDS_DRAFT_20261109.md)
+  - [V1X_ROSTER_20261104.md](V1X_ROSTER_20261104.md)
+  - [README.md](README.md)
+- **2026-11-09 · BUILD-1.3、PLAN-1X、PLAY-1X**：第二版卡池已交评审，1.X 四项共用调整列入路线图及待办。游戏规则仍是上次合流版本。
+  - [V1_3_FACTION_BUILDS_DRAFT_20261109.md](V1_3_FACTION_BUILDS_DRAFT_20261109.md)
+  - [V1X_ROADMAP_20261104.md](V1X_ROADMAP_20261104.md)
+  - [V1X_ROSTER_20261104.md](V1X_ROSTER_20261104.md)
+- **2026-11-09 · BUILD-1.3**：开始按用户新规则修订卡牌分层与 1.X 经济、战场节奏。晶体矿和瓦斯均专供卡牌。
+  - [V1_3_FACTION_BUILDS_DRAFT_20261109.md](V1_3_FACTION_BUILDS_DRAFT_20261109.md)
+  - [V1X_ROADMAP_20261104.md](V1X_ROADMAP_20261104.md)
+- **2026-11-09 · BUILD-1.3**：三族卡牌与兵种第一版已交评审。新增节点与核心均为设计候选，尚未实装。
+  - [V1_3_FACTION_BUILDS_DRAFT_20261109.md](V1_3_FACTION_BUILDS_DRAFT_20261109.md)
+  - [V1X_ROADMAP_20261104.md](V1X_ROADMAP_20261104.md)
+  - [V1X_ROSTER_20261104.md](V1X_ROSTER_20261104.md)
+- **2026-11-09 · BUILD-1.3**：开始 1.3 三族九条构筑设计稿，讨论范围为卡牌、兵种及同局选择。
+  - [V1X_ROADMAP_20261104.md](V1X_ROADMAP_20261104.md)
 - **2026-11-09 · V12-MERGE-01**：1.1、1.2、无尽、玩家反馈与 iOS 优化已合入 GitHub main 3ec083a 和体积优化版 a2356a4。两个分支各 3087 项回归及 Actions 通过，原画质首战、教学语音、压缩入口与旧档换关通过。
   - [V12_BRANCH_INTEGRATION_20261109.md](V12_BRANCH_INTEGRATION_20261109.md)
   - [v12-branch-integration-20261109.json](../../reports/qa/v12-branch-integration-20261109.json)

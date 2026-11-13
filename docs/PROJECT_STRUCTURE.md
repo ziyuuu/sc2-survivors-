@@ -66,3 +66,5 @@
 遵循 [产物保留规则](project/ARTIFACT_RETENTION.md)。删除前核对完整绝对路径、目录链接、仍在运行的使用者、源文件/用户档案属性，以及重建方法。只清已确认可重建且不再使用的输出；不能按年龄或“缓存/预览”的名字批量删。
 
 普通代码修改运行相关回归；资源修改核对来源和依赖闭包；目录路径迁移须修引用并验证入口。本轮根 AGENTS 已按共同讨论定稿，旧文完整归档，导航检查相对链接；游戏源码/测试/配置保持，资源统计修正只核对对应清单与载荷，不重复游戏全回归。
+
+武装支援候选入口（2026-11-11）：`src/data/terran-armed-support.ts`统一45卡参数/文案；`simulation/combat/armed-*`处理出勤、字段/工事、核击、舰队、节点与救场，进度交易沿`progression/build-progress.ts`及原商店。`app/armed-preload-plan.ts`收集本关/恢复模型，`render`中的载体/场物/行星炮塔视图只读正式状态；新增原资源独立于锁定核心目录，见`src/assets/armed-support.ts`和`deploy/runtime/armed-support-assets.json`。`preview/armed-support-showcase-20261111`是45项独立实机工具，不进入玩家HUD。[候选结果](../reports/qa/armed-support-implementation-20261111.md)列出实际验证和第一批依赖。
