@@ -1,3 +1,11 @@
+> **2026-11-16 产物与入口更新：** 旧 Current、V04 和 T01 本地产物已按用户要求删除；已结束且可重新构建的产物今后均不保留。当前源码与任务入口见[项目导航](docs/project/README.md)，生成和清理遵循[产物保留规则](docs/project/ARTIFACT_RETENTION.md)。下方旧版本的 HTML／ZIP 路径仅为历史交付记录，不能据此判断文件仍存在。
+
+2026-11-19 [人族六单位主线接回](docs/project/TERRAN_SIX_MAIN_INTEGRATION_20261119.md)：幽灵、寡妇雷、飓风、渡鸦、解放者和普通战巡接入本地 main 工作区；保留五家族与三分支规则，主线独立修复五项技能／生命周期与协同边界。[实际验证及交付状态](reports/qa/terran-six-main-20261119.md)。
+
+2026-11-19 [人族分支规则、叠加效果与装备 DPS 复核](reports/qa/terran-rules-dps-20261119.md)：第三个有效进度成交即锁主，免费节点须选完才能继续；普通紫卡仅主分支可刷可买。横屏字体一致，保持原样；[六单位与卡牌适配方案](docs/project/TERRAN_SIX_UNITS_PROPOSAL_20261119.md)已获用户确认，后续实施与接回见上方六单位记录。
+
+2026-11-19 [人族三分支主线接入与联合复核](docs/project/TERRAN_MAIN_INTEGRATION_20261119.md)：生化协同已接入本地 main，保留末日机械限定与过渡老兵修复。修复长战斗卡死、结算与恢复偏差，三支混买及实际玩家流程已核验；同预算差异和剩余体验边界见[结论](reports/qa/terran-main-integration-20261119.md)。当前工作区未提交、推送或部署。
+
 2026-11-09 [1.1、1.2 和共同优化已合入两个 GitHub 分支](docs/project/V12_BRANCH_INTEGRATION_20261109.md)。原画质与压缩构建均通过首战、续局和完整回归。线上服务保持原发布版本。
 
 > 2026-10-22 I03完成：[当前内容可达性／生效核验](docs/project/INTEGRATION_I03_20261022.md) · [逐项清单](docs/project/INTEGRATION_I03_COVERAGE_20261022.md) · [本地候选入口](preview/integration-i03-20261022/index.html)。正式入口为旗舰配装，未恢复旧天赋；镜头和操作保持，下一项G01尚未开始。
@@ -46,14 +54,14 @@
 
 2026-10-13 确认的下一步是：**先做 4 原版表现、5 五图环境和 7A 前置优化，同步准备建筑真实逻辑独立包与舰装 UI／装备设计；随后 1 → 3 → 2 → 6 → 7B → 8。** 八个交付包全部通过才完成 1.0 MVP，新增想法默认进入 1.1。计划、原型和主游戏验收分别记录。
 
-## 当前可运行版本
+## 2026-10-13 历史交付记录
 
 当前底座为 **MVP 7A Final R1／应用 0.6.26**，本地交付日期为 2026-10-13。采用合并动画采样与可让出执行的 CPU 准备；此前原版折射与科学球修复保留。战局 schema 26、永久档案 v6、地图配方 v3。内容包括三族、30 个普通家族、90 款精英、18 名英雄、五张普通地图、十八关战役和独立无尽。
 
 | 产物 | 本地位置 |
 | --- | --- |
 | 命名离线 HTML | [SC2-Survivors-MVP7A-Final-R1-20261013.html](dist/SC2-Survivors-MVP7A-Final-R1-20261013.html) |
-| 当前离线入口 | [SC2-Survivors-Current-20261006.html](dist/SC2-Survivors-Current-20261006.html)，当前与上述 7A R1 字节一致，文件名日期不是版本日期 |
+| 历史离线别名 | `dist/SC2-Survivors-Current-20261006.html`（2026-11-16 已清理；如需使用，从对应版本源码重新构建） |
 | 命名应用包 | [MVP7A-Final-R1-Application-20261013.zip](dist/MVP7A-Final-R1-Application-20261013.zip) |
 | 分文件 Web／应用镜像 | `dist/web/`／`deploy/coze/` |
 | Web 构建与资源身份 | [web-release.json](dist/web/web-release.json)／[应用 delivery.json](dist/MVP7A-Final-R1-Application-20261013/delivery.json) |

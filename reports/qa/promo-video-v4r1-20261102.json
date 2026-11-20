@@ -1,0 +1,692 @@
+{
+  "version": "v4r1",
+  "duration": 300,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "fps": 30,
+  "videoFrames": 8999,
+  "base": "dist\\promo-video-v4-20261102\\Starcraft-Survivors-Trailer-v4.mp4",
+  "baseSha256": "0c76dcd1cc564d42334ab53eb1f366cd28b8dc00a034249c87beba993cf2435b",
+  "changedRanges": [
+    [
+      0,
+      18
+    ],
+    [
+      24,
+      126
+    ]
+  ],
+  "preservedVideo": [
+    {
+      "startFrame": 540,
+      "endFrameExclusive": 720,
+      "decodedFramesIdentical": 180
+    },
+    {
+      "startFrame": 3780,
+      "endFrameExclusive": 8999,
+      "decodedFramesIdentical": 5219
+    }
+  ],
+  "simulation": [
+    {
+      "race": "terran",
+      "initialSquad": 5,
+      "sameRosterThroughIntermission": true,
+      "clear": {
+        "at": 6.966666666666667,
+        "time": 7,
+        "kind": "stage-clear",
+        "receipt": {
+          "stage": 10,
+          "minerals": 120,
+          "gas": 112
+        },
+        "roster": [
+          {
+            "id": 2,
+            "type": "reaper"
+          },
+          {
+            "id": 3,
+            "type": "reaper"
+          },
+          {
+            "id": 4,
+            "type": "marauder"
+          },
+          {
+            "id": 5,
+            "type": "marauder"
+          },
+          {
+            "id": 6,
+            "type": "hellion"
+          }
+        ],
+        "enemies": 0
+      },
+      "nextBattle": {
+        "at": 11,
+        "time": 7,
+        "kind": "battle-start",
+        "stage": 11,
+        "roster": [
+          {
+            "id": 2,
+            "type": "reaper"
+          },
+          {
+            "id": 3,
+            "type": "reaper"
+          },
+          {
+            "id": 4,
+            "type": "marauder"
+          },
+          {
+            "id": 5,
+            "type": "marauder"
+          },
+          {
+            "id": 6,
+            "type": "hellion"
+          }
+        ]
+      },
+      "purchases": [
+        {
+          "at": 8.3,
+          "time": 7,
+          "kind": "purchase",
+          "name": "空降地堡",
+          "id": "terran.bunker",
+          "ok": true,
+          "paid": {
+            "minerals": 150,
+            "gas": 50,
+            "freeSource": null
+          }
+        },
+        {
+          "at": 10,
+          "time": 7,
+          "kind": "purchase",
+          "name": "导弹齐射",
+          "id": "terran.missiles",
+          "ok": true,
+          "paid": {
+            "minerals": 225,
+            "gas": 90,
+            "freeSource": null
+          }
+        }
+      ],
+      "cardDamage": {
+        "terran.bunker": {
+          "damage": 861.8433707692309
+        },
+        "terran.missiles": {
+          "damage": 400.7502565641018
+        }
+      },
+      "openingBosses": 3,
+      "openingFinalPhase": "lost",
+      "openingAttrition": [
+        {
+          "second": 0.0,
+          "allies": 8
+        },
+        {
+          "second": 1.0,
+          "allies": 8
+        },
+        {
+          "second": 2.0,
+          "allies": 7
+        },
+        {
+          "second": 3.0,
+          "allies": 6
+        },
+        {
+          "second": 4.0,
+          "allies": 4
+        },
+        {
+          "second": 5.0,
+          "allies": 3
+        },
+        {
+          "second": 6.0,
+          "allies": 2
+        },
+        {
+          "second": 7.0,
+          "allies": 1
+        },
+        {
+          "second": 8.0,
+          "allies": 1
+        },
+        {
+          "second": 9.0,
+          "allies": 0
+        },
+        {
+          "second": 10.0,
+          "allies": 0
+        },
+        {
+          "second": 11.0,
+          "allies": 0
+        },
+        {
+          "second": 12.0,
+          "allies": 0
+        },
+        {
+          "second": 13.0,
+          "allies": 0
+        },
+        {
+          "second": 14.0,
+          "allies": 0
+        },
+        {
+          "second": 15.0,
+          "allies": 0
+        }
+      ],
+      "bunkerAnchorDistanceRange": [
+        3.7203660815187787,
+        4.645882807103099
+      ],
+      "bunkerSeenAt": 13.0
+    },
+    {
+      "race": "zerg",
+      "initialSquad": 4,
+      "sameRosterThroughIntermission": true,
+      "clear": {
+        "at": 6.966666666666667,
+        "time": 7,
+        "kind": "stage-clear",
+        "receipt": {
+          "stage": 10,
+          "minerals": 120,
+          "gas": 112
+        },
+        "roster": [
+          {
+            "id": 3,
+            "type": "roach"
+          },
+          {
+            "id": 4,
+            "type": "roach"
+          },
+          {
+            "id": 5,
+            "type": "ravager"
+          },
+          {
+            "id": 6,
+            "type": "lurker"
+          }
+        ],
+        "enemies": 0
+      },
+      "nextBattle": {
+        "at": 11,
+        "time": 7,
+        "kind": "battle-start",
+        "stage": 11,
+        "roster": [
+          {
+            "id": 3,
+            "type": "roach"
+          },
+          {
+            "id": 4,
+            "type": "roach"
+          },
+          {
+            "id": 5,
+            "type": "ravager"
+          },
+          {
+            "id": 6,
+            "type": "lurker"
+          }
+        ]
+      },
+      "purchases": [
+        {
+          "at": 8.3,
+          "time": 7,
+          "kind": "purchase",
+          "name": "寄生毒囊",
+          "id": "zerg.parasite",
+          "ok": true,
+          "paid": {
+            "minerals": 158,
+            "gas": 63,
+            "freeSource": null
+          }
+        },
+        {
+          "at": 10,
+          "time": 7,
+          "kind": "purchase",
+          "name": "尸骸孵育",
+          "id": "zerg.hatch",
+          "ok": true,
+          "paid": {
+            "minerals": 77,
+            "gas": 17,
+            "freeSource": null
+          }
+        }
+      ],
+      "cardDamage": {
+        "zerg.parasite": {
+          "damage": 1986.7379067619072
+        },
+        "zerg.hatch": {
+          "damage": 44.06746031746032
+        }
+      },
+      "openingBosses": 3,
+      "openingFinalPhase": "lost",
+      "openingAttrition": [
+        {
+          "second": 0.0,
+          "allies": 13
+        },
+        {
+          "second": 1.0,
+          "allies": 13
+        },
+        {
+          "second": 2.0,
+          "allies": 11
+        },
+        {
+          "second": 3.0,
+          "allies": 10
+        },
+        {
+          "second": 4.0,
+          "allies": 7
+        },
+        {
+          "second": 5.0,
+          "allies": 6
+        },
+        {
+          "second": 6.0,
+          "allies": 6
+        },
+        {
+          "second": 7.0,
+          "allies": 5
+        },
+        {
+          "second": 8.0,
+          "allies": 4
+        },
+        {
+          "second": 9.0,
+          "allies": 3
+        },
+        {
+          "second": 10.0,
+          "allies": 3
+        },
+        {
+          "second": 11.0,
+          "allies": 2
+        },
+        {
+          "second": 12.0,
+          "allies": 1
+        },
+        {
+          "second": 13.0,
+          "allies": 0
+        },
+        {
+          "second": 14.0,
+          "allies": 0
+        },
+        {
+          "second": 15.0,
+          "allies": 0
+        }
+      ],
+      "hatches": [
+        {
+          "at": 25.5,
+          "time": 21.53333333333333,
+          "kind": "hatch-spawn",
+          "id": 436,
+          "x": -9.70127388400505,
+          "z": -5.220064660859412
+        },
+        {
+          "at": 25.5,
+          "time": 21.53333333333333,
+          "kind": "hatch-spawn",
+          "id": 437,
+          "x": -9.120811301345519,
+          "z": -7.600359204605596
+        },
+        {
+          "at": 31.966666666666665,
+          "time": 28,
+          "kind": "hatch-spawn",
+          "id": 680,
+          "x": -12.23209555022247,
+          "z": -6.076220141416535
+        },
+        {
+          "at": 31.966666666666665,
+          "time": 28,
+          "kind": "hatch-spawn",
+          "id": 681,
+          "x": -12.143130683826326,
+          "z": -8.620009152028139
+        }
+      ],
+      "hivesDestroyed": 1
+    },
+    {
+      "race": "protoss",
+      "initialSquad": 4,
+      "sameRosterThroughIntermission": true,
+      "clear": {
+        "at": 6.966666666666667,
+        "time": 7,
+        "kind": "stage-clear",
+        "receipt": {
+          "stage": 11,
+          "minerals": 120,
+          "gas": 112
+        },
+        "roster": [
+          {
+            "id": 2,
+            "type": "stalker"
+          },
+          {
+            "id": 3,
+            "type": "stalker"
+          },
+          {
+            "id": 4,
+            "type": "phoenix"
+          },
+          {
+            "id": 5,
+            "type": "void_ray"
+          }
+        ],
+        "enemies": 0
+      },
+      "nextBattle": {
+        "at": 11,
+        "time": 7,
+        "kind": "battle-start",
+        "stage": 12,
+        "roster": [
+          {
+            "id": 2,
+            "type": "stalker"
+          },
+          {
+            "id": 3,
+            "type": "stalker"
+          },
+          {
+            "id": 4,
+            "type": "phoenix"
+          },
+          {
+            "id": 5,
+            "type": "void_ray"
+          }
+        ]
+      },
+      "purchases": [
+        {
+          "at": 8.3,
+          "time": 7,
+          "kind": "purchase",
+          "name": "破盾反击",
+          "id": "protoss.counter",
+          "ok": true,
+          "paid": {
+            "minerals": 128,
+            "gas": 43,
+            "freeSource": null
+          }
+        },
+        {
+          "at": 10,
+          "time": 7,
+          "kind": "purchase",
+          "name": "棱镜扫射",
+          "id": "protoss.prism",
+          "ok": true,
+          "paid": {
+            "minerals": 228,
+            "gas": 98,
+            "freeSource": null
+          }
+        }
+      ],
+      "cardDamage": {
+        "protoss.counter": {
+          "damage": 2201.0930737777785
+        },
+        "protoss.prism": {
+          "damage": 5442.053341333333
+        }
+      },
+      "openingBosses": 3,
+      "openingFinalPhase": "lost",
+      "openingAttrition": [
+        {
+          "second": 0.0,
+          "allies": 7
+        },
+        {
+          "second": 1.0,
+          "allies": 7
+        },
+        {
+          "second": 2.0,
+          "allies": 7
+        },
+        {
+          "second": 3.0,
+          "allies": 7
+        },
+        {
+          "second": 4.0,
+          "allies": 7
+        },
+        {
+          "second": 5.0,
+          "allies": 7
+        },
+        {
+          "second": 6.0,
+          "allies": 6
+        },
+        {
+          "second": 7.0,
+          "allies": 5
+        },
+        {
+          "second": 8.0,
+          "allies": 5
+        },
+        {
+          "second": 9.0,
+          "allies": 5
+        },
+        {
+          "second": 10.0,
+          "allies": 5
+        },
+        {
+          "second": 11.0,
+          "allies": 4
+        },
+        {
+          "second": 12.0,
+          "allies": 4
+        },
+        {
+          "second": 13.0,
+          "allies": 1
+        },
+        {
+          "second": 14.0,
+          "allies": 0
+        },
+        {
+          "second": 15.0,
+          "allies": 0
+        }
+      ],
+      "casts": [
+        {
+          "at": 24,
+          "time": 20,
+          "kind": "tactical",
+          "ok": true,
+          "point": {
+            "x": 4.90206408901316,
+            "z": -14.873917543334013
+          },
+          "origin": {
+            "x": 1.9020640890131597,
+            "z": -4.873917543334013,
+            "facing": 1.892546881191539
+          }
+        }
+      ]
+    }
+  ],
+  "decodeErrors": [],
+  "master": {
+    "file": "dist\\promo-video-v4r1-20261102\\Starcraft-Survivors-Trailer-v4r1.mp4",
+    "bytes": 244719566,
+    "sha256": "bb02740e52bfa168699656dfd773e11af323c484c884ec56720c32c211f6e21f"
+  },
+  "mobile": {
+    "file": "dist\\promo-video-v4r1-20261102\\Starcraft-Survivors-Trailer-v4r1-mobile.mp4",
+    "bytes": 57457424,
+    "sha256": "77d0640bcbe17807c032070d93994f31c87ea15883b42256b3ca9230978d5359"
+  },
+  "audioLevels": [
+    "mean_volume: -22.3 dB",
+    "max_volume: -2.2 dB"
+  ],
+  "reviewTimes": [
+    1,
+    3,
+    5,
+    7,
+    9,
+    11,
+    13,
+    15,
+    17,
+    26,
+    30.8,
+    31.7,
+    33.4,
+    35.7,
+    36.7,
+    38.7,
+    44.5,
+    48.8,
+    55.5,
+    60,
+    64.8,
+    65.7,
+    67.4,
+    69.7,
+    70.7,
+    72.7,
+    78.5,
+    82.8,
+    89.5,
+    94,
+    98.8,
+    99.7,
+    101.4,
+    103.7,
+    104.7,
+    106.7,
+    112.5,
+    116.8,
+    123.5
+  ],
+  "visualReview": {
+    "status": "reviewed",
+    "finalFilmSamples": 39,
+    "contactSheets": 4,
+    "effectCloseups": [
+      "bunker descent",
+      "temporary hatchlings",
+      "destroyed hive"
+    ],
+    "mobileSamples": [
+      "purchase popup",
+      "prism sweep"
+    ],
+    "findings": "Sampled frames show the same-squad purchase-to-effect sequence, bunker coverage, three opening bosses per race, and no missing models, unintended blank frames or clipped purchase popup.",
+    "scope": "Frame samples plus browser muted playback; not continuous human viewing/listening or physical-phone approval."
+  },
+  "driveUpload": "uploaded to the previously authorized private My Drive location; exact name, bytes, MIME type, parent and shared=false verified by metadata readback",
+  "scope": "Isolated fixed-step capture with approved staging and tuning. Same game runtime. Not real-time performance, physical phone playback, continuous human viewing or listening approval.",
+  "driveFileId": "1KfyCubxqC0b5mslOV9cVfrSGpMA_DIzB",
+  "browserPlayback": {
+    "metadata": {
+      "duration": 300,
+      "width": 1920,
+      "height": 1080,
+      "controls": true,
+      "error": null
+    },
+    "seeks": [
+      {
+        "time": 24.53554,
+        "paused": false,
+        "error": null
+      },
+      {
+        "time": 164.534315,
+        "paused": false,
+        "error": null
+      },
+      {
+        "time": 254.546049,
+        "paused": false,
+        "error": null
+      }
+    ],
+    "passed": true,
+    "scope": "Browser metadata, muted playback and three chapter seeks; not a listening review."
+  },
+  "productionBoundary": "Dedicated tools/promo-video capture/edit sources and project records only; no production src, player saves, product UI, commit, push, deployment or public sharing changes by this task.",
+  "docsCheck": "npm run docs:check passed"
+}

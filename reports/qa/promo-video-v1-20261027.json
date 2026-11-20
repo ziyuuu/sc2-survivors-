@@ -1,0 +1,250 @@
+{
+  "file": "dist\\promo-video-20261027\\Starcraft-Survivors-Trailer-v1.mp4",
+  "bytes": 174732715,
+  "sha256": "612356d2d5276af5aa89faaa384ec513bb253c9b0ccf663abc3b8f3dbee8b335",
+  "duration": "00:04:00.00",
+  "has1080p": true,
+  "hasAudio": true,
+  "decodeExit": 0,
+  "decodeErrors": "",
+  "audioLevels": [
+    "mean_volume: -21.4 dB",
+    "max_volume: -3.8 dB"
+  ],
+  "reviewFrames": [
+    2,
+    6,
+    10,
+    16,
+    24,
+    40,
+    48,
+    59,
+    69,
+    78,
+    86,
+    96,
+    107,
+    112,
+    117,
+    123,
+    128,
+    133,
+    138,
+    145,
+    151,
+    156,
+    163,
+    167,
+    171,
+    174,
+    181,
+    190,
+    202,
+    208,
+    216,
+    228,
+    235
+  ],
+  "visualReview": {
+    "status": "passed",
+    "scope": "Reviewed all 33 sampled frames in three contact sheets, plus original-resolution hero, fleet, equipment, special-stage and construction captures. Titles render correctly; no loading, error or pause overlays in inspected frames. This is sampled visual review, not a full real-time viewing."
+  },
+  "captures": [
+    {
+      "name": "boss-finale",
+      "seconds": 38,
+      "frames": 1143,
+      "events": 540,
+      "audio": {
+        "bytes": 918045
+      },
+      "phase": "battle",
+      "simulationTime": 39.36666666666667,
+      "allies": 13,
+      "enemies": 8,
+      "errors": []
+    },
+    {
+      "name": "development",
+      "seconds": 18,
+      "frames": 544,
+      "events": 712,
+      "audio": {
+        "bytes": 60957
+      },
+      "phase": "reward",
+      "simulationTime": 5.9,
+      "allies": 6,
+      "enemies": 0,
+      "errors": []
+    },
+    {
+      "name": "equipment-menu",
+      "seconds": 22,
+      "frames": 660,
+      "events": 1273,
+      "audio": {
+        "bytes": 0
+      },
+      "phase": "menu",
+      "simulationTime": 0,
+      "allies": 1,
+      "enemies": 0,
+      "errors": []
+    },
+    {
+      "name": "fleet-deployment",
+      "seconds": 18,
+      "frames": 544,
+      "events": 375,
+      "audio": {
+        "bytes": 434489
+      },
+      "phase": "battle",
+      "simulationTime": 19.25,
+      "allies": 8,
+      "enemies": 7,
+      "errors": []
+    },
+    {
+      "name": "protoss-army",
+      "seconds": 32,
+      "frames": 964,
+      "events": 480,
+      "audio": {
+        "bytes": 773269
+      },
+      "phase": "battle",
+      "simulationTime": 35.2,
+      "allies": 4,
+      "enemies": 42,
+      "errors": []
+    },
+    {
+      "name": "protoss-heroes",
+      "seconds": 35,
+      "frames": 1055,
+      "events": 435,
+      "audio": {
+        "bytes": 847095
+      },
+      "phase": "battle",
+      "simulationTime": 29.066666666666666,
+      "allies": 11,
+      "enemies": 50,
+      "errors": []
+    },
+    {
+      "name": "special-dodge",
+      "seconds": 24,
+      "frames": 721,
+      "events": 643,
+      "audio": {
+        "bytes": 557543
+      },
+      "phase": "battle",
+      "simulationTime": 26.433333333333334,
+      "allies": 4,
+      "enemies": 24,
+      "errors": []
+    },
+    {
+      "name": "terran-army",
+      "seconds": 32,
+      "frames": 961,
+      "events": 463,
+      "audio": {
+        "bytes": 734179
+      },
+      "phase": "battle",
+      "simulationTime": 34.56666666666666,
+      "allies": 15,
+      "enemies": 16,
+      "errors": []
+    },
+    {
+      "name": "terran-heroes",
+      "seconds": 35,
+      "frames": 1053,
+      "events": 471,
+      "audio": {
+        "bytes": 845649
+      },
+      "phase": "battle",
+      "simulationTime": 32.483333333333334,
+      "allies": 5,
+      "enemies": 74,
+      "errors": []
+    },
+    {
+      "name": "terran-opening",
+      "seconds": 26,
+      "frames": 784,
+      "events": 530,
+      "audio": {
+        "bytes": 615463
+      },
+      "phase": "battle",
+      "simulationTime": 27.966666666666665,
+      "allies": 4,
+      "enemies": 0,
+      "errors": []
+    },
+    {
+      "name": "zerg-army",
+      "seconds": 32,
+      "frames": 963,
+      "events": 593,
+      "audio": {
+        "bytes": 773269
+      },
+      "phase": "battle",
+      "simulationTime": 35.13333333333333,
+      "allies": 7,
+      "enemies": 44,
+      "errors": []
+    },
+    {
+      "name": "zerg-heroes",
+      "seconds": 35,
+      "frames": 1056,
+      "events": 497,
+      "audio": {
+        "bytes": 835527
+      },
+      "phase": "battle",
+      "simulationTime": 29.766666666666666,
+      "allies": 10,
+      "enemies": 87,
+      "errors": []
+    }
+  ],
+  "sourceManifest": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+  "inputHashCount": 521,
+  "scope": "Local first edit. Staged real game-engine footage, not a natural full-run gameplay or performance test. Original hero banks; no narration. No publication.",
+  "player": {
+    "metadata": {
+      "duration": 240,
+      "width": 1920,
+      "height": 1080,
+      "controls": true,
+      "error": null
+    },
+    "playback": {
+      "time": 105.507841,
+      "paused": false,
+      "error": null
+    },
+    "passed": true,
+    "scope": "Browser metadata, muted playback and chapter seeking only; not a listening review."
+  },
+  "validation": {
+    "docsCheck": "passed: Game reference matches runtime data.",
+    "productionSourceDiff": "git diff --numstat -- src was empty at completion; this task did not modify production source.",
+    "audio": "Full-file level measurement and successful decode. Voice placement, gains and ducking verified in edit instructions; no full human listening or perceptual audio/video synchronization sign-off."
+  },
+  "open": [
+    "User review of first-edit pacing, voice choices and overall viewing/listening experience."
+  ]
+}

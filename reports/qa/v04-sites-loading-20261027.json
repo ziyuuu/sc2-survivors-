@@ -1,0 +1,16 @@
+{
+ "date":"2026-10-27",
+ "scope":"private Sites compressed V04; resource bundling and load performance",
+ "siteId":"appgprj_6ae024693cf481919b48df2cececd0a0",
+ "deploymentId":"appgdep_6ae03ef8a23481918e8329cb84e23f17",
+ "status":"private deployment succeeded",
+ "resourceIds":3845,
+ "uniqueResources":3742,
+ "bundleCount":58,
+ "integrityErrors":0,
+ "simulatedPerRequestLatencyMs":150,
+ "benchmarkMs":{"before":{"menu":32027,"battleReady":191856},"after":{"menu":15058,"battleReady":40786}},
+ "benchmarkConditions":"isolated fresh Chromium contexts, local threaded HTTP server with 150 ms delay on each request; same hardware; one sample per variant",
+ "verified":["all packed resources restored to manifest hashes", "local menu and battle", "local checkpoint reload", "private deployment succeeded", "authenticated in-app browser menu"],
+ "limitations":["online no-cache measurement could not complete: browser service worker script did not inherit service credential", "online battle on updated build not tested to avoid modifying existing user save", "first-load timings are simulated not public production guarantees", "existing backend is not connected", "visual and audio lossy quality not accepted", "public access not enabled"]
+}

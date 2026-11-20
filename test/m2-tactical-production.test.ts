@@ -7,18 +7,20 @@ import {MVP_TALENTS} from '../src/data/mvp-talents';
 
 function setup(){const profile=new PermanentProfile(59),levels=Object.fromEntries(MVP_TALENTS.filter(n=>n.race==='terran'&&n.line==='soldiers').map(n=>[n.id,n.maxRank]));const quote=profile.previewTalentAllocation('terran',0,levels);assert.ok(quote);assert.ok(profile.commitTalentAllocation(quote,quote.expectedRevision));const w=new World({race:'terran',permanentProfile:profile,waves:false,sandbox:true,terrain:false,obstacles:[],seed:90});w.start();w.entities.clear();
  const units=Array.from({length:7},(_,i)=>w.addUnit('marine','terran',i*2,0,7));w.wallet={minerals:5000,gas:0};w.phase='reward';assert.equal(w.setTacticalEvolutionPlan('marine',units[0].id,'assault'),true);w.phase='battle';return {w,target:units[0]};}
-function payAndDeliver(w:World){updateExpeditionProduction(w,0,true);const job=w.expedition.ledger.at(-1)!;assert.equal(job.state,'training');assert.equal(job.passengers.length,1);assert.equal(job.passengers[0].purpose,'tacticalProgress');assert.equal(job.passengers[0].paid.minerals,50);
+function payAndDeliver(w:World){updateExpeditionProduction(w,0,true);const job=w.expedition.ledger.at(-1)!;assert.equal(job.state,'training');assert.equal(job.passengers.length,1);assert.equal(job.passengers[0].purpose,'tacticalProgress');assert.equal(job.passengers[0].paid.minerals,0);
  updateExpeditionProduction(w,100,false);const pod=w.pods.find(p=>p.jobId===job.id)!;assert.ok(pod);const delivered=releasePaidPassenger(w,pod,0,{x:5,z:5});assert.ok(delivered);assert.equal(job.state,'settled');return job;}
 test('S16 pays for five final bodies through the existing ledger and grants one tier without adding an eighth soldier',()=>{
  const {w,target}=setup(),before=w.wallet.minerals,baseDamage=target.weaponDamage;
  for(let i=0;i<5;i++){payAndDeliver(w);assert.equal(w.familyUnits('marine').length,7);assert.equal(w.expedition.tacticalPlans.marine?.bank,(i+1)%5);}
- assert.equal(w.wallet.minerals,before-250);assert.equal(target.tacticalTier,1);assert.equal(target.tacticalDirection,'assault');assert.ok(target.weaponDamage>baseDamage);
+ assert.equal(w.wallet.minerals,before);assert.equal(target.tacticalTier,1);assert.equal(target.tacticalDirection,'assault');assert.ok(target.weaponDamage>baseDamage);
  const snapshot=w.captureRun(),copy=new World({race:'terran',waves:false,sandbox:true,terrain:false,obstacles:[],seed:90});copy.restoreRun(snapshot);
  assert.equal(copy.entities.get(target.id)?.tacticalTier,1);assert.equal(copy.expedition.tacticalPlans.marine?.bank,0);
 });
 test('death refunds paid training tickets once, while an already launched ticket is lost',()=>{
  const {w,target}=setup(),before=w.wallet.minerals;
- updateExpeditionProduction(w,0,true);assert.equal(w.wallet.minerals,before-50);
+ updateExpeditionProduction(w,0,true);assert.equal(w.wallet.minerals,before);
+ // An in-progress receipt paid before 1.4 must still be refunded exactly once.
+ w.expedition.ledger[0].passengers[0].paid.minerals=50;w.wallet.minerals-=50;
  target.hp=0;updateExpeditionProduction(w,0,false);
  assert.equal(w.wallet.minerals,before);assert.equal(w.expedition.ledger[0].passengers[0].status,'refunded');
  updateExpeditionProduction(w,0,false);assert.equal(w.wallet.minerals,before);

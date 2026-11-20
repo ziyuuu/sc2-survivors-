@@ -1,0 +1,168 @@
+{
+  "date": "2026-10-28",
+  "status": "deployed-and-engineering-verified-pending-physical-phone",
+  "site": {
+    "projectId": "appgprj_6ae024693cf481919b48df2cececd0a0",
+    "version": 13,
+    "versionId": "appgprj_6ae024693cf481919b48df2cececd0a0~appgver_1d6093cfd3ec819180da231fe7324861",
+    "deploymentId": "appgdep_6ae17d138bb48191ae42ea8cef35ee82",
+    "deploymentStatus": "succeeded",
+    "sourceCommit": "355c01a24c888024bac3c93c6b03cc6c7b943138",
+    "url": "https://sc2-v04-private-test-20261027.yuuuu-g.chatgpt.site",
+    "accessMode": "public",
+    "accessRevision": 2,
+    "environmentRevision": 3
+  },
+  "release": {
+    "appBuildId": "27897f5107714c97b660e39525ecd25b5c709cebfa30158a3e4ea127afcfe0b9",
+    "runSchema": 26,
+    "rulesId": "mvp-1.0",
+    "mapId": "campaign-five-v3",
+    "assetCount": 3845,
+    "fileCount": 5093,
+    "assetBytes": 797606515,
+    "logicalBytes": 800690237,
+    "sharedBytes": 3083722,
+    "manifest": "asset-manifest.1fe65bbb74539ede61b93b7fae870f13bc0bdaf2e03b996d5b2370d2e425ea2e.json",
+    "release": "1fe65bbb74539ede61b93b7fae870f13bc0bdaf2e03b996d5b2370d2e425ea2e",
+    "source": "reports/local/asset-reachability.json",
+    "sourceWebRelease": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+    "compressedEntrySha256": "39e873636cd213c9635b5c8620864fe6f6aa53e07b2aeb8ba1ae70a6532abc5b",
+    "qualityVariants": true,
+    "packedBytes": 435701130,
+    "variantRecordCount": 1375
+  },
+  "github": {
+    "branch": "体积优化版",
+    "implementationCommit": "28c79876ab784e9ca5ae98281f95aeeb4473d9ec",
+    "implementationPushedAndRemoteConfirmed": true,
+    "deliverySnapshotFilesMatched": 13,
+    "deliverySourceAndReportIncludedInFollowupCommit": true
+  },
+  "storage": {
+    "binding": "BUCKET",
+    "prefix": "sc2-game-assets/v1/",
+    "objects": 403,
+    "bytes": 664875161,
+    "serverSha256Verified": true,
+    "headChecked": 403,
+    "fullDownloadHashSampleGroups": [
+      "legacy",
+      "audio",
+      "common",
+      "high",
+      "low",
+      "medium",
+      "menu"
+    ],
+    "legacyBundlesRetained": 58,
+    "uploadKeyRemoved": true,
+    "uploadEnabledInFinalSource": false,
+    "uploadProbeStatus": 403,
+    "workerDefaultCacheUsed": false,
+    "browserResourceCachePreserved": true,
+    "applicationArchiveBytes": 17621125
+  },
+  "preservation": {
+    "bindings": {
+      "d1": "DB",
+      "r2": "BUCKET"
+    },
+    "databaseTables": [
+      "consents",
+      "deletions",
+      "events",
+      "feedback",
+      "visitors"
+    ],
+    "newDatabaseMigrations": false,
+    "playerDataReadOrDeleted": false,
+    "simulationAndPersistenceChanged": false,
+    "gameSourceHashesUnchanged": true,
+    "protectedOriginalFiles": {
+      ".openai/hosting.json": true,
+      "app/chatgpt-auth.ts": true,
+      "app/globals.css": true,
+      "app/layout.tsx": true,
+      "app/page.tsx": true,
+      "db/index.ts": true,
+      "db/schema.ts": true,
+      "drizzle/0000_orange_guardian.sql": true,
+      "worker/index.ts": false,
+      "app/manage/route.ts": true,
+      "app/api/[...path]/route.ts": true,
+      "drizzle/meta/0000_snapshot.json": true,
+      "drizzle/meta/_journal.json": true
+    },
+    "backendAuthenticationChanged": false,
+    "siteAccessChanged": false
+  },
+  "checks": {
+    "localAssetStorageAssertions": "passed: authentication, expiration, bounded reads, length/SHA, immutable writes, streaming GET/HEAD, closed upload and D1 isolation",
+    "onlineBrowser": {
+      "isolatedContext": true,
+      "viewport": [
+        844,
+        390
+      ],
+      "physicalPhone": false,
+      "graphics": {
+        "version": 1,
+        "preset": "low",
+        "tier": "low",
+        "texture": "low",
+        "budget": {
+          "network": 6,
+          "decode": 2,
+          "audio": 2,
+          "packBytes": 50331648,
+          "pcmBytes": 100663296,
+          "recentOnly": false
+        },
+        "textures": {
+          "decodedPixels": 131720192,
+          "swaps": 0,
+          "rollbacks": 0,
+          "liveVariantPixels": 131720192,
+          "liveVariantSources": 725,
+          "rgbaMipEstimate": 702507691
+        }
+      },
+      "battleSeconds": 3.05,
+      "errors": [],
+      "failedResponses": [],
+      "anonymousManageStatus": 403
+    },
+    "reusedGameRegression": {
+      "report": "reports/qa/sites-quality-implementation-20261028.json",
+      "fullTests": 2736,
+      "laterTargetedTests": 26,
+      "newGameMatrixRun": false
+    }
+  },
+  "failuresAndRecovery": [
+    {
+      "issue": "64MiB Sites source push limit",
+      "recovery": "13 bounded batches then merge preserving candidate tree/history"
+    },
+    {
+      "issue": "system Node 24.14 packaging process 0xC0000409",
+      "recovery": "bundled Node with official packager"
+    },
+    {
+      "issue": "512MiB desktop archive limit; 256MiB backend archive limit; source-only v10 string size failure",
+      "recovery": "same-site R2 resources plus small application archive"
+    },
+    {
+      "issue": "v12 resource GET 500: default Worker cache forbidden",
+      "recovery": "rolled back to bridge v11, removed cache calls, v13 GET and battle verified"
+    }
+  ],
+  "limitations": [
+    "原手机崩溃/卡顿、画质观感和完整战役仍待用户复测。",
+    "线上首战是本机Chrome独立环境与模拟视口，不是物理手机或稳定性能结论。",
+    "未变更阿里云/Coze。",
+    "共享看板含其他任务未提交记录，仅更新本地状态；不随本次交付批量提交。"
+  ],
+  "next": "用户在原手机重新打开原网址复测，保持浏览器数据和存档。"
+}

@@ -1,9 +1,19 @@
 import data from '../../data/combat-audio.json';
+import {ZERG_SIX_AUDIO} from '../../assets/zerg-six.generated';
 export type SoundSample={asset:string;Weight?:string;Volume?:string;Pitch?:string;LoopCount?:string};
 export type SoundBank={id:string;fields:Record<string,Record<string,string>>;samples:SoundSample[];maxDuration?:number};
 export type WeaponSound={attack:string|null;impact:string|null;surfaces:Record<string,string>;channel?:string[];powered?:string};
 export type SkillSound={charge?:string;launch?:string;impact?:string;loop?:string;end?:string;revive?:string};
 export const SOUND_DATA=data as unknown as {banks:Record<string,SoundBank>;weapons:Record<string,WeaponSound>;skills:Record<string,SkillSound>;deaths:Record<string,string[]>;special:Record<string,string[]>;motion:Record<string,string|null>;motionStart:Record<string,string|null>;walkEvents:Record<string,{duration:number;events:{time:number;bank:string}[]}>;dialogue:Record<string,string[]>;transforms:Record<string,string[]>;transformTiming:Record<string,number[]>;herdBindings:Record<string,{herd:string;weight:number}>;herds:Record<string,{radius:number;positionBias:number;speedLimit?:number[];levels:{weight:number;bank:string}[]}>;carrierMotion:Record<string,string>};
+export const ZERG_SIX_SOUND_CUES:Record<string,string>={};
+for(const {asset,unit,kind} of ZERG_SIX_AUDIO){
+ SOUND_DATA.banks[asset]={id:asset,fields:{Volume:{value:'-13'}},samples:[{asset}]};
+ if(kind==='attack'||kind==='impact'){
+  const weapon=(SOUND_DATA.weapons[unit]??={attack:null,impact:null,surfaces:{}});
+  weapon[kind]=asset;
+ }else if(kind==='death')(SOUND_DATA.deaths[unit]??=[]).push(asset);
+ else ZERG_SIX_SOUND_CUES[unit+':'+kind]=asset;
+}
 export const soundValue=(b:SoundBank,k:string,fallback=0)=>Number(b.fields[k]?.value??fallback);
 /** Isolated presentation RNG: never consumes World.random or gameplay IDs. */
 export class SoundVariation {

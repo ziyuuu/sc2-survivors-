@@ -38,6 +38,7 @@ import {toggleNativeFullscreen} from './mobile/viewport';
 import {SquadConsole} from './hud/packed-console';
 import {DetectionHint} from './hud/detection-hint';
 import {RESCUE_PRESENTATION} from '../data/economy';
+import {buildCard,type BuildCardId} from '../simulation/progression/build-progress';
 import {ArrivalCards} from './presentation/arrival-cards';
 import type {SaveControls} from './hud/save-controls';
 import type {RunSession,LoadPreview} from '../app/run-session';
@@ -227,7 +228,15 @@ export class HUD {
    else if(action==='revive')world.reviveHero(button.dataset.id as HeroId);
    else if(action==='elite-replace'){const elite=ELITES[button.dataset.elite as EliteId];if(elite&&this.view.gpu.has(elite.model)&&this.view.assetsPending===0){this.inputReset();world.replaceWithElite(elite.id,Number(button.dataset.id));}}
    else if(action==='elite-assets-retry')this.onPrepareReinforcement();
-   else if(action==='armed-node-later')world.deferBuildChoice(button.dataset.milestone!,Number(button.dataset.revision));else if(action==='armed-node')world.claimBuildChoice(button.dataset.milestone!,Number(button.dataset.revision),button.dataset.node as import('../simulation/progression/build-progress').ArmedId);else if(action==='shop-supply-cancel')world.cancelShopSupply();else if(action==='shop-supply-confirm'){if(world.confirmShopSupply(button.dataset.family as FamilyId))this.finishPurchase(e);}else if(action==='shop-elite-cancel')world.cancelShopElite();else if(action==='shop-elite-confirm'){if(world.confirmShopElite(Number(button.dataset.id)))this.finishPurchase(e);}else if(action==='development-direction'){const panel=button.closest('details');if(panel)panel.open=false;if(world.setDevelopmentDirection(button.dataset.line as ProductionLineId))this.intermission.reset();}else if(action==='reroll')world.reroll();else if(action==='reward'){this.inputReset();if(world.choose(button.dataset.id!,button.dataset.variant as EliteId|undefined)&&!world.expedition.pendingShopElite&&!world.expedition.pendingShopSupply)this.finishPurchase(e);}else if(action==='skip'){
+   else if(action==='armed-node'){
+    const id=button.dataset.node as BuildCardId,face=button.closest('.im-card');
+    const art=face?.querySelector('.imx-art > .painted-art,.imx-art > .imx-object,.im-card-art')?.cloneNode(true) as Element|undefined;
+    if(world.claimBuildChoice(button.dataset.milestone!,Number(button.dataset.revision),id)){
+     const card=buildCard(id);
+     this.arrivalCards.showNode({kind:'node',identity:id,name:card.name,quality:card.purchase==='orange'?'orange':'purple',art:art??null});
+     this.finishPurchase(e);
+    }
+   }else if(action==='shop-supply-cancel')world.cancelShopSupply();else if(action==='shop-supply-confirm'){if(world.confirmShopSupply(button.dataset.family as FamilyId))this.finishPurchase(e);}else if(action==='shop-elite-cancel')world.cancelShopElite();else if(action==='shop-elite-confirm'){if(world.confirmShopElite(Number(button.dataset.id)))this.finishPurchase(e);}else if(action==='development-direction'){const panel=button.closest('details');if(panel)panel.open=false;if(world.setDevelopmentDirection(button.dataset.line as ProductionLineId))this.intermission.reset();}else if(action==='reroll')world.reroll();else if(action==='reward'){this.inputReset();if(world.choose(button.dataset.id!,button.dataset.variant as EliteId|undefined)&&!world.expedition.pendingShopElite&&!world.expedition.pendingShopSupply)this.finishPurchase(e);}else if(action==='skip'){
     this.inputReset();
     if(world.phase==='reward'&&world.rewardRound==='random'&&!world.endlessEntry){this.pendingStageAdvance=true;this.onPrepareReinforcement();}
     else world.skipReward();
@@ -303,7 +312,7 @@ export class HUD {
   const actionsReady=!this.view.assetsPending&&!this.readiness?.state.kind;document.body.dataset.battleActionsReady=String(actionsReady);
   const detection=this.root.querySelector<HTMLButtonElement>('#detection')!,nearbyCloak=this.detectionHint.update(w);detection?.classList.toggle('cloak-threat',nearbyCloak);if(nearbyCloak)detection?.setAttribute('aria-label','附近有隐形威胁，使用侦测 · G');
 
-  if(!this.root.querySelector<HTMLElement>('#production-detail')?.hidden)this.put('production-detail',`<span>${RESCUE_PRESENTATION[w.expedition.race].workerName} ${w.workers}</span>${productionGroups(w.expedition).map(group=>{const job=productionGroupJob(w,group),name=group.kind==='hatchery'?'孵化场 '+group.ids[0]:group.kind==='crystal'?'折跃水晶':PRODUCTION_LINES[group.line].name;return `<span>${name} · ${job?SC2_UNITS[job.family].zh+' ×'+job.passengers.filter(p=>p.status==='waiting').length+' · '+(job.state==='training'?fmt(job.remaining)+'s':'救援中'):activeGroupOutputs(group).map(f=>SC2_UNITS[f].zh).join(' / ')||'已关闭'}</span>`;}).join('')}`);
+  if(!this.root.querySelector<HTMLElement>('#production-detail')?.hidden)this.put('production-detail',`<span>${RESCUE_PRESENTATION[w.expedition.race].workerName} ${w.workers}</span>${productionGroups(w.expedition).map(group=>{const job=productionGroupJob(w,group),name=group.kind==='hatchery'?'孵化场 '+group.ids[0]:group.kind==='crystal'?'折跃水晶':PRODUCTION_LINES[group.line].name;return `<span>${name} · ${job?SC2_UNITS[job.family].zh+(job.refit?' · 原位改装':' ×'+job.passengers.filter(p=>p.status==='waiting').length)+' · '+(job.state==='training'?fmt(job.remaining)+'s':'救援中'):activeGroupOutputs(group).map(f=>SC2_UNITS[f].zh).join(' / ')||'已关闭'}</span>`;}).join('')}`);
   this.put('production-status',`<span>${RESCUE_PRESENTATION[w.expedition.race].workerName} ${w.workers}</span>`);
   const overlay=document.querySelector<HTMLElement>('#overlay')!;overlay.hidden=!this.battlePanel&&!this.readiness?.state.kind&&!this.settingsOpen&&!this.talentOpen&&w.phase==='battle'&&!w.paused&&(!w.requiresPlayerDecision||tutorialInvite||!!guided(w));
   if(this.saveUI?.failed&&!this.settingsOpen&&(!this.readiness?.showLoading||this.readiness.state.phase==='error')){this.starship?.close();overlay.hidden=false;this.put('overlay',this.saveUI.failureDialog());}

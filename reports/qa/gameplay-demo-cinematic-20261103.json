@@ -1,0 +1,294 @@
+{
+  "task": "DEMO-01",
+  "date": "2026-11-03",
+  "revision": "cinematic",
+  "status": "Local delivery verified; user audiovisual review pending",
+  "durationSeconds": 80,
+  "frames": 2400,
+  "cuts": 45,
+  "tripleShots": 3,
+  "duoShots": 2,
+  "frontEndAt": 56,
+  "equipmentSeconds": 10,
+  "logoRange": [
+    76,
+    80
+  ],
+  "captions": [
+    "击退敌军",
+    "增加资源获取",
+    "获取援兵",
+    "选择你的发展路线",
+    "选择卡牌强化部队",
+    "获取强力单位和英雄",
+    "获取装备武装旗舰",
+    "及时提升",
+    "返回旗舰装备更精良的设施",
+    "挑战或保留战利品？",
+    "整备",
+    "再次出发"
+  ],
+  "chapters": [
+    {
+      "section": 1,
+      "caption": "击退敌军",
+      "at": 3.0,
+      "duration": 9.0
+    },
+    {
+      "section": 2,
+      "caption": "增加资源获取",
+      "at": 12.0,
+      "duration": 5.0
+    },
+    {
+      "section": 3,
+      "caption": "获取援兵",
+      "at": 17.0,
+      "duration": 6.5
+    },
+    {
+      "section": 4,
+      "caption": "选择你的发展路线",
+      "at": 23.5,
+      "duration": 6.0
+    },
+    {
+      "section": 5,
+      "caption": "选择卡牌强化部队",
+      "at": 29.5,
+      "duration": 13.0
+    },
+    {
+      "section": 6,
+      "caption": "获取强力单位和英雄",
+      "at": 42.5,
+      "duration": 13.5
+    },
+    {
+      "section": 7,
+      "caption": "获取装备武装旗舰",
+      "at": 56.0,
+      "duration": 2.5
+    },
+    {
+      "section": 8,
+      "caption": "及时提升",
+      "at": 58.5,
+      "duration": 4.0
+    },
+    {
+      "section": 9,
+      "caption": "返回旗舰装备更精良的设施",
+      "at": 58.5,
+      "duration": 4.0
+    },
+    {
+      "section": 10,
+      "caption": "挑战或保留战利品？",
+      "at": 62.5,
+      "duration": 6.0
+    },
+    {
+      "section": 11,
+      "caption": "整备",
+      "at": 68.5,
+      "duration": 3.5
+    },
+    {
+      "section": 12,
+      "caption": "再次出发",
+      "at": 72.0,
+      "duration": 4.0
+    }
+  ],
+  "media": [
+    {
+      "file": "dist/gameplay-demo-cinematic-20261103/Starcraft-Survivors-Gameplay-Cinematic-80s.mp4",
+      "bytes": 59150385,
+      "sha256": "cb26ee38e90a1b2e698f19433ca8146d53ad7a1fef38dca1ff90971c6a3e69c3",
+      "seconds": 80.0,
+      "size": [
+        1920,
+        1080
+      ],
+      "fps": 30,
+      "decodedFrames": 2400,
+      "audioMaxDb": -1.6,
+      "integratedLUFS": -14.13,
+      "truePeakDB": -1.62,
+      "decodeErrors": ""
+    },
+    {
+      "file": "dist/gameplay-demo-cinematic-20261103/Starcraft-Survivors-Gameplay-Cinematic-80s-Mobile.mp4",
+      "bytes": 18994525,
+      "sha256": "d58d22f9c54e3dc3ae4325774224fb03ccbb55ce14b4b11227a93ebf370b204f",
+      "seconds": 80.0,
+      "size": [
+        1920,
+        1080
+      ],
+      "fps": 30,
+      "decodedFrames": 2400,
+      "audioMaxDb": -1.0,
+      "integratedLUFS": -14.24,
+      "truePeakDB": -0.97,
+      "decodeErrors": ""
+    }
+  ],
+  "checks": [
+    {
+      "check": "Worker rescue and mineral/gas gain",
+      "rescueAt": 4.266666666666667,
+      "pickupAt": 4.5
+    },
+    {
+      "check": "Same Protoss order and reinforcement arrival",
+      "paid": {
+        "minerals": 125,
+        "gas": 50
+      },
+      "orderAt": 12,
+      "arrivalAt": 45.96666666666667
+    },
+    {
+      "check": "Card purchase and matching payoff",
+      "scene": "choices-protoss",
+      "card": "相位回响",
+      "paid": [
+        192,
+        77
+      ],
+      "damage": 40.750395572083804,
+      "visibleImpacts": [
+        14.6,
+        14.733333333333333,
+        14.8
+      ]
+    },
+    {
+      "check": "Card purchase and matching payoff",
+      "scene": "choices-terran",
+      "card": "空降地堡",
+      "paid": [
+        105,
+        35
+      ],
+      "damage": 156.79875824335323,
+      "visibleImpacts": [
+        12.5,
+        14.1,
+        14.6,
+        15.1
+      ]
+    },
+    {
+      "check": "Boss death and own reward",
+      "scene": "action-boss-terran",
+      "deathAt": 3.033333333333333,
+      "rewardAt": 3.033333333333333,
+      "identities": [
+        "raynor"
+      ]
+    },
+    {
+      "check": "Boss death and own reward",
+      "scene": "boss-zerg",
+      "deathAt": 14.833333333333334,
+      "rewardAt": 20,
+      "identities": [
+        "hydralisk.3"
+      ]
+    },
+    {
+      "check": "Same SCV module continuity",
+      "id": "ship-item-1",
+      "name": "SCV勤务终端",
+      "path": [
+        "pickup",
+        "outside-only",
+        "extraction",
+        "warehouse",
+        "equipped"
+      ]
+    },
+    {
+      "check": "Legal intermission equipment, three distinct branches and outfitted redeployment",
+      "passed": true
+    }
+  ],
+  "actionAudit": {
+    "passed": true,
+    "ranges": 30,
+    "sampleSeconds": 0.5,
+    "longestQuietSeconds": 0,
+    "scope": "Cumulative unit and anchor motion, weapon shots and attack/impact cues in selected battle/loot/deployment ranges. Menu interactions and transition screens excluded. Sampling does not replace visual review or prove every individual unit moves in every frame."
+  },
+  "visualReview": {
+    "status": "passed",
+    "method": "All 45 cut samples inspected in four contact sheets; full-size purchase, dual equipment and four final moving-deployment frames reviewed. The final deployment replacement was reviewed separately after regeneration.",
+    "findings": [
+      "No selected post-clear stopped-regrouping holds",
+      "Actual card prices and clicked purchase controls remain visible in focused crops",
+      "Both equipment panes show the actual equipped and outside-only states",
+      "Three-race deployment keeps moving and fighting through the final selected range",
+      "Existing project Logo occupies the last four seconds"
+    ],
+    "limits": [
+      "Sampled review and half-second action audit, not a continuous frame-by-frame human screening",
+      "No continuous listening or physical-phone test claimed; user audiovisual review pending"
+    ]
+  },
+  "browserPlayback": {
+    "passed": true,
+    "files": 2,
+    "seeks": 24,
+    "muted": true
+  },
+  "sound": {
+    "style": "Original hybrid cinematic/esports trailer: low brass, sub impacts, taiko-like drums, ostinato strings/synth, risers and metallic transitions. No sampled film score or voiceover.",
+    "bpm": 120,
+    "cutAccents": 45,
+    "allCutsOnBeat": true,
+    "nativeAndActionCues": 866,
+    "primaryPaneOnly": true
+  },
+  "source": {
+    "gitHeadAtDelivery": "43ef159808248f9c2819b08addd8f87209ef8fb0",
+    "isolatedAppSha256": "8e240d2399d3900804033c430d48ef220516ef1f67beb66a82b3a215208fc753",
+    "sourceBuildDate": "2026-11-03T07:21:21.479Z",
+    "inputCount": 551,
+    "inputDrift": [],
+    "newRecordings": 7,
+    "reusedRecordings": 14,
+    "release": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+    "rulesId": "mvp-1.0"
+  },
+  "resolvedProductionIssues": [
+    "Replaced battle-end idle assemblies with new moving/fighting shots",
+    "Final deployment preview initially included idle setup; replaced with same-item new deployment and movement capture",
+    "One-frame source-tail handling retained from prior revision"
+  ],
+  "deliveryDirectory": "dist/gameplay-demo-cinematic-20261103",
+  "reproduction": "tools/promo-video/DEMO_CINEMATIC_README.md",
+  "formalProductChanged": false,
+  "realPlayerSaveChanged": false,
+  "committed": false,
+  "pushed": false,
+  "uploaded": false,
+  "deployed": false,
+  "open": [
+    "User audiovisual review",
+    "Physical-phone playback not tested"
+  ],
+  "cleanup": {
+    "kept": "Current cinematic dual outputs; all original and seven new source recordings; original cover, logo and build; compact checks",
+    "scope": "Only current-task rebuildable intermediates and superseded original 80-second deliverables",
+    "removedBytes": 239985551,
+    "removedFiles": 207
+  },
+  "otherChecks": [
+    "npm run docs:check passed",
+    "Final media hashes and current report links verified after cleanup"
+  ]
+}

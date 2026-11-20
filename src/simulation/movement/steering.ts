@@ -1,7 +1,8 @@
 import type {TerrainQuery} from '../../data/map-definition';
 import {RAMPS,type CharTerrain} from '../../data/terrain';
 import {OBSTACLES,TUNING,type Obstacle} from '../../data/game';
-import type {Entity,Point} from '../types';
+import type {Body,Entity,Point} from '../types';
+export const movementRadius=(u:Body)=>('movementRadius' in u?(u as Entity).movementRadius:undefined)??u.unitRadius;
 export const distance=(a:Point,b:Point)=>Math.hypot(a.x-b.x,a.z-b.z);
 export const angleDelta=(a:number,b:number)=>Math.atan2(Math.sin(b-a),Math.cos(b-a));
 export function turn(a:number,b:number,max:number){return a+Math.max(-max,Math.min(max,angleDelta(a,b)));}
@@ -54,7 +55,7 @@ export function locomote(u:Entity,goal:Point,speed:number,separation:Point,dt:nu
  // A separation force must not steer a legal route into a cliff shoulder.
  // Contact resolution still enforces body spacing after the step.
  if(!u.flying&&d>arrivalShell&&(separation.x!==0||separation.z!==0)&&(terrain||obstacles.length)){
-  const legal=(x:number,z:number)=>{const length=Math.hypot(x,z),scale=length>0?Math.min(speed,length)*dt/length:0,p={x:u.x+x*scale,z:u.z+z*scale};return !blocked(p,u.unitRadius,obstacles)&&(!terrain||terrain.canStep(u,p,u.unitRadius));};
+  const legal=(x:number,z:number)=>{const length=Math.hypot(x,z),scale=length>0?Math.min(speed,length)*dt/length:0,p={x:u.x+x*scale,z:u.z+z*scale};return !blocked(p,movementRadius(u),obstacles)&&(!terrain||terrain.canStep(u,p,movementRadius(u)));};
   if(!legal(dx,dz)&&legal(forwardX,forwardZ)){dx=forwardX;dz=forwardZ;}
  }
  const magnitude=Math.hypot(dx,dz);let limited=Math.min(speed,magnitude);
@@ -71,7 +72,7 @@ export function locomote(u:Entity,goal:Point,speed:number,separation:Point,dt:nu
  const step=Math.hypot(u.velocity.x,u.velocity.z)*dt,remaining=Math.max(0,d-arrivalShell);
  if(step>remaining&&step>0&&separation.x===0&&separation.z===0&&(goal.x-u.x)*u.velocity.x+(goal.z-u.z)*u.velocity.z>0){const factor=remaining/step;u.velocity.x*=factor;u.velocity.z*=factor;}
 
- const before={x:u.x,z:u.z};translate(u,{x:u.velocity.x*dt,z:u.velocity.z*dt},u.unitRadius,u.flying,obstacles,worldHalf,terrain);
+ const before={x:u.x,z:u.z};translate(u,{x:u.velocity.x*dt,z:u.velocity.z*dt},movementRadius(u),u.flying,obstacles,worldHalf,terrain);
  u.velocity.x=(u.x-before.x)/dt;u.velocity.z=(u.z-before.z)/dt;u.distanceWalked+=distance(before,u);
  u.action=Math.hypot(u.velocity.x,u.velocity.z)>.1?'move':'idle';
 }

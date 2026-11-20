@@ -24,11 +24,11 @@ for(const race of ['terran','zerg','protoss'] as const)test(`F07 ${race}: direct
  }
 });
 
-test('F07 development and random shop retain F03 shared rising refresh count across save',()=>{
+test('Free development refresh preserves the paid shop counter across save',()=>{
  const w=new World({race:'terran',seed:707,terrain:false,obstacles:[],waves:false,sandbox:true});w.start();w.wallet={minerals:10000,gas:10000};w.endStage();
- assert.ok(w.setDevelopmentDirection('factory'));assert.equal(w.rerollCost(),0);assert.ok(w.reroll());assert.equal(w.expedition.refreshCount,0);assert.equal(w.rerollCost(),50);assert.ok(w.reroll());assert.equal(w.expedition.refreshCount,1);assert.equal(w.rerollCost(),90);
- assert.ok(w.skipReward());assert.equal(w.rewardRound,'random');assert.equal(w.expedition.developmentDirection,'factory');assert.equal(w.rerollCost(),90);
- const offers=structuredClone(w.rewards),copy=new World({race:'terran',seed:707,terrain:false,obstacles:[],waves:false,sandbox:true});copy.restoreRun(w.captureRun());assert.deepEqual(copy.rewards,offers);assert.equal(copy.rerollCost(),90);
- assert.ok(copy.reroll());assert.equal(copy.expedition.refreshCount,2);assert.equal(copy.rerollCost(),130);assert.equal(copy.expedition.developmentDirection,'factory');
+ assert.ok(w.setDevelopmentDirection('factory'));assert.equal(w.rerollCost(),0);assert.ok(w.reroll());assert.equal(w.expedition.refreshCount,0);assert.equal(w.rerollCost(),0);assert.ok(w.reroll());assert.equal(w.expedition.refreshCount,0);assert.equal(w.rerollCost(),0);
+ assert.ok(w.skipReward());assert.equal(w.rewardRound,'random');assert.equal(w.expedition.developmentDirection,'factory');assert.equal(w.rerollCost(),50);
+ const offers=structuredClone(w.rewards),copy=new World({race:'terran',seed:707,terrain:false,obstacles:[],waves:false,sandbox:true});copy.restoreRun(w.captureRun());assert.deepEqual(copy.rewards,offers);assert.equal(copy.rerollCost(),50);
+ assert.ok(copy.reroll());assert.equal(copy.expedition.refreshCount,1);assert.equal(copy.rerollCost(),90);assert.equal(copy.expedition.developmentDirection,'factory');
  const before=copy.captureRun();assert.equal(copy.setDevelopmentDirection('barracks'),false);assert.deepEqual(copy.captureRun(),before);
 });

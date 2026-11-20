@@ -1,6 +1,6 @@
 # 星际幸存者MVP收尾与性能看板
 
-更新：2026-11-13 · 修订 501 · 基线 main be9e2982944314194c6dcc9dcc535bc321749eb4
+更新：2026-11-20 · 修订 553 · 基线 main be9e2982944314194c6dcc9dcc535bc321749eb4
 
 覆盖既定八个MVP交付包的剩余整合、卡牌与装备加成、经济难度、全内容检测、收尾存档、性能、自然游玩、真实输入及正式交付。已完成批次和历史失败保留，不重复开发已接入功能或扩增玩法大系统。趣味分支完成后形成统一候选，存档仍后置到收尾；后台／微信及构建链额外性能工作D06继续另批，与既定生产B4验收V05区分。I01已于2026-10-22按用户授权开始；其他后续项尚未实施。 2026-10-22按用户第四轮反馈先做U05交互/说明与I03返修，再做G03已批准频次子项；完整G03经济/英雄平衡仍按G01/G02依赖。 用户随后将第四轮第8项英雄来源／前期强度及第12关Boss开放候选提前并入G01；G03承接整局平衡复核，避免重复挂账。 2026-10-22修订119：G01卡牌加成及最终12／9／6／6英雄门槛完成，第四轮第8项关闭；G02收益审查和持续伤害缺陷修复完成，四项新平衡方案待讨论，尚未改价格／新成长／新时序。 2026-10-22修订121：G02按用户批准完成四项平衡和核弹基础6000增强，2234唯一回归及最终本机／离线验证通过；下一项G03。 2026-10-22修订122：G03补入用户要求的简单／普通／困难与地狱趣味内容递增开放、独立虫群困难起、简单资源／弹幕关、全部道具，以及入口限制、事件与经济联动验证；仅计划，G03待办。 2026-10-23修订124：G03第1、2步内容分档及入口／道具联动已实现、测试并集成本地主线，G03整体仍进行中；2264回归通过，整局经济与最终难度平衡继续开放。 2026-10-23修订140：用户允许复杂种族精细平衡随1.1专属卡牌/特性迭代，并明确不再盲目追加自动游玩证明平衡；无效卡和确定机制故障仍需处理，G03与最终试玩不因此自动完成。 2026-10-23修订142：卡池有效性与折扣商品购买缺陷核验完成，G03按用户最终范围关闭；种族精细平衡留到1.1，停止追加自动游玩。U05进入具体范围讨论，尚未实施新引导。 2026-10-23修订144：U05按用户限定仅完成骰子/恢复卡文案，其他引导只读检查；语言面向玩家，简略/详细分层。进入D05收尾，再完成V01与V02/V03；T01动态及静态/UI独立HTML后置于优化完成、V04之前。
 
@@ -14,26 +14,30 @@
 
 | 待办 | 进行中 | 待验证 | 待讨论 | 已完成 | 暂缓 |
 | --- | --- | --- | --- | --- | --- |
-| 3 | 0 | 1 | 1 | 71 | 1 |
+| 1 | 1 | 8 | 1 | 76 | 1 |
 
-共 77 项，其中 6 项为既有主线基础。任务数量不代表等权完成百分比。
+共 88 项，其中 6 项为既有主线基础。任务数量不代表等权完成百分比。
 
 ## 看板
 
 ### 待办
 
-- [ ] [V05 完成既定正式环境与后台B4验收](#v05) · 随后 · 交付
-- [ ] [V06 完成八包关闭表与MVP最终确认](#v06) · 收尾 · 交付
 - [ ] [PLAY-1X 1.4 第一批：卡牌经济、发展增援与战斗节奏](#play-1x) · 用户规划 · 整合
 
 ### 进行中
 
-当前无任务。
-
+- [ ] [LATEST-MERGE-20261120 近期游戏更新双分支核验与本地提交](#latest-merge-20261120) · P1 · 整合
 
 ### 待验证
 
+- [ ] [V05 完成既定正式环境与后台B4验收](#v05) · 随后 · 交付
 - [ ] [ARMED-1.4 1.4 第二批：人族武装支援 45 张](#armed-1.4) · 用户指定 · 整合
+- [ ] [DOOMSDAY-1.4 1.4 第二部分：人族末日兵器 45 张](#doomsday-1.4) · 当前 · 整合
+- [ ] [BIO-1.4 1.4 第二部分：人族生化协同 45 张](#bio-1.4) · 用户指定 · 整合
+- [ ] [ZERG-SIX-ENEMIES-1.5 1.5 六种正常新敌人与独立体验敌群](#zerg-six-enemies-1.5) · 用户要求 · 整合
+- [ ] [PROMO-01 制作五分钟实机宣发视频V5与梗图封面](#promo-01) · 用户授权 · 交付
+- [ ] [DEMO-01 80秒电影预告风玩法混剪修订](#demo-01) · 用户规划 · 交付
+- [ ] [ATTACK-FX-1.4 末日兵器分支：攻击与高级精英表现](#attack-fx-1.4) · 用户指定 · 整合
 
 ### 待讨论
 
@@ -87,6 +91,7 @@
 - [x] [V03 完成恢复输入与用户体验验收](#v03) · 随后 · 验收
 - [x] [T01 综合HTML：按单位查看动作与独立UI原型](#t01) · 优先 · 验收
 - [x] [V04 交付同版Web、离线HTML与既定应用包](#v04) · 随后 · 交付
+- [x] [V06 MVP 1.0 缺陷复核与最终记录](#v06) · 收尾 · 交付
 - [x] [D01 决定是否分帧释放积压敌人](#d01) · 按测量 · 决策
 - [x] [D02 决定画质分档与可见性取舍](#d02) · 按测量 · 决策
 - [x] [D03 决定历史归档与掉落保留政策](#d03) · 按测量 · 决策
@@ -112,6 +117,10 @@
 - [x] [V12-MERGE-01 1.1、1.2 及共同优化双分支核验与合流](#v12-merge-01) · 用户授权合流 · 整合
 - [x] [AUDIT-1.4 核查武装支援接入及既有优化的一致性](#audit-1.4) · 用户指定 · 整合
 - [x] [V14-MERGE-01 本地合流人族武装支援、接入修复和战役性能优化](#v14-merge-01) · 用户指定 · 整合
+- [x] [ROSTER-TERRAN-1.4 1.4 人族六个新家族与三支卡牌适配](#roster-terran-1.4) · 本地工程接回完成 · 整合
+- [x] [ZERG-SIX-DESIGN-1.5 1.5 虫族六战斗家族及敌方投放开发规格](#zerg-six-design-1.5) · 用户要求 · 决策
+- [x] [ZERG-SIX-DEMO-1.5 1.5 虫族六单位实机演示](#zerg-six-demo-1.5) · 用户要求 · 整合
+- [x] [ZERG-SIX-PLAYER-1.5 1.5 虫族六家族正式游戏接入](#zerg-six-player-1.5) · 用户要求 · 整合
 
 ### 暂缓
 
@@ -175,14 +184,24 @@
 | [ARMED-1.4 1.4 第二批：人族武装支援 45 张](#armed-1.4) | 待验证 | 整合／用户指定 | PLAY-1X | 跨场景或文档 |
 | [AUDIT-1.4 核查武装支援接入及既有优化的一致性](#audit-1.4) | 已完成 | 整合／用户指定 | 无 | 跨场景或文档 |
 | [V14-MERGE-01 本地合流人族武装支援、接入修复和战役性能优化](#v14-merge-01) | 已完成 | 整合／用户指定 | AUDIT-1.4 | 跨场景或文档 |
+| [DOOMSDAY-1.4 1.4 第二部分：人族末日兵器 45 张](#doomsday-1.4) | 待验证 | 整合／当前 | BUILD-1.3、ARMED-1.4 | 跨场景或文档 |
+| [BIO-1.4 1.4 第二部分：人族生化协同 45 张](#bio-1.4) | 待验证 | 整合／用户指定 | BUILD-1.3 | 跨场景或文档 |
+| [ROSTER-TERRAN-1.4 1.4 人族六个新家族与三支卡牌适配](#roster-terran-1.4) | 已完成 | 整合／本地工程接回完成 | BUILD-1.3 | 跨场景或文档 |
+| [ZERG-SIX-DEMO-1.5 1.5 虫族六单位实机演示](#zerg-six-demo-1.5) | 已完成 | 整合／用户要求 | ZERG-SIX-DESIGN-1.5 | 跨场景或文档 |
+| [ZERG-SIX-PLAYER-1.5 1.5 虫族六家族正式游戏接入](#zerg-six-player-1.5) | 已完成 | 整合／用户要求 | ZERG-SIX-DEMO-1.5 | 跨场景或文档 |
+| [ZERG-SIX-ENEMIES-1.5 1.5 六种正常新敌人与独立体验敌群](#zerg-six-enemies-1.5) | 待验证 | 整合／用户要求 | ZERG-SIX-PLAYER-1.5 | 跨场景或文档 |
+| [ATTACK-FX-1.4 末日兵器分支：攻击与高级精英表现](#attack-fx-1.4) | 待验证 | 整合／用户指定 | DOOMSDAY-1.4 | 跨场景或文档 |
+| [LATEST-MERGE-20261120 近期游戏更新双分支核验与本地提交](#latest-merge-20261120) | 进行中 | 整合／P1 | ROSTER-TERRAN-1.4、ZERG-SIX-PLAYER-1.5 | 跨场景或文档 |
 | [V01 逐批执行正确性及性能回归](#v01) | 已完成 | 验收／优先 | B01、G01、G02、I02、I03、G03、U05、D05 | SC01、SC02、SC03、SC04、SC05、SC06、SC07、SC08、SC09、SC10、SC11、SC12、SC13、SC14、SC17 |
 | [V02 完成当前内容自然战役与无尽验证](#v02) | 已完成 | 验收／随后 | B02、B03、V01 | SC01、SC04、SC06、SC08、SC12、SC14、SC15 |
 | [V03 完成恢复输入与用户体验验收](#v03) | 已完成 | 验收／随后 | V01 | SC07、SC09、SC10、SC11、SC13、SC16 |
 | [T01 综合HTML：按单位查看动作与独立UI原型](#t01) | 已完成 | 验收／优先 | G02、I02、I03、G03、U05、D05、V01、V02、V03 | SC03、SC04、SC05、SC06、SC07、SC10、SC11、SC13、SC16 |
 | [FB-20261105-01 无尽分段轮次时长与敌军递增](#fb-20261105-01) | 已完成 | 验收／用户指定，已本地验证 | 无 | 跨场景或文档 |
 | [V04 交付同版Web、离线HTML与既定应用包](#v04) | 已完成 | 交付／随后 | V02、V03、D05、T01 | SC09、SC10、SC13、SC17、SC18 |
-| [V05 完成既定正式环境与后台B4验收](#v05) | 待办 | 交付／随后 | V04 | SC09、SC18 |
-| [V06 完成八包关闭表与MVP最终确认](#v06) | 待办 | 交付／收尾 | V05 | SC18 |
+| [V05 完成既定正式环境与后台B4验收](#v05) | 待验证 | 交付／随后 | V04 | SC09、SC18 |
+| [V06 MVP 1.0 缺陷复核与最终记录](#v06) | 已完成 | 交付／收尾 | V05 | SC18 |
+| [PROMO-01 制作五分钟实机宣发视频V5与梗图封面](#promo-01) | 待验证 | 交付／用户授权 | 无 | 跨场景或文档 |
+| [DEMO-01 80秒电影预告风玩法混剪修订](#demo-01) | 待验证 | 交付／用户规划 | 无 | 跨场景或文档 |
 | [D01 决定是否分帧释放积压敌人](#d01) | 已完成 | 决策／按测量 | B03 | SC08 |
 | [D02 决定画质分档与可见性取舍](#d02) | 已完成 | 决策／按测量 | R01 | SC02、SC03 |
 | [D03 决定历史归档与掉落保留政策](#d03) | 已完成 | 决策／按测量 | B03、S05、R02 | SC06、SC08 |
@@ -192,6 +211,7 @@
 | [PLAN-1X 1.x玩法调研与逐版本任务规划](#plan-1x) | 已完成 | 决策／用户授权 | 无 | 跨场景或文档 |
 | [SAFARI-20261106 iOS 长局持续游玩与 Safari 内存研究](#safari-20261106) | 已完成 | 决策／用户要求核实与全网调研 | 无 | 跨场景或文档 |
 | [BUILD-1.3 1.3 三族九条构筑与关间卡牌设计](#build-1.3) | 待讨论 | 决策／用户要求 | AUTO-1.2 | 跨场景或文档 |
+| [ZERG-SIX-DESIGN-1.5 1.5 虫族六战斗家族及敌方投放开发规格](#zerg-six-design-1.5) | 已完成 | 决策／用户要求 | ROSTER-TERRAN-1.4 | 跨场景或文档 |
 | [H01 材质求值缓存与局部上传已合入](#h01) | 已完成（既有） | 既有／既有 | 无 | 跨场景或文档 |
 | [H02 粒子出生复用和部分实例化已合入](#h02) | 已完成（既有） | 既有／既有 | 无 | 跨场景或文档 |
 | [H03 光环候选与无穿越快速返回已合入](#h03) | 已完成（既有） | 既有／既有 | 无 | 跨场景或文档 |
@@ -1778,8 +1798,6 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
 证据与代码入口：
 
 - [u05-copy-20261023.json](../../reports/qa/u05-copy-20261023.json)
-- [plan.json](../../reports/local/t01-20261024/plan.json)
-- [result-r2.json](../../reports/local/t01-20261024/mechanics-20261025/result-r2.json)
 - [retention-cleanup-20261025.json](../../reports/qa/retention-cleanup-20261025.json)
 - [t01-gallery-20261025.json](../../reports/qa/t01-gallery-20261025.json)
 - [t01-equipment-ui-20261025.json](../../reports/qa/t01-equipment-ui-20261025.json)
@@ -1800,6 +1818,7 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
 - [t01-sound-recheck-20261026.json](../../reports/qa/t01-sound-recheck-20261026.json)
 - [t01-closeout-20261027.json](../../reports/qa/t01-closeout-20261027.json)
 - [t01-user-acceptance-20261027.json](../../reports/qa/t01-user-acceptance-20261027.json)
+- [T01_CLOSEOUT_20261027.md](T01_CLOSEOUT_20261027.md)
 
 <a id="v04"></a>
 ### V04 交付同版Web、离线HTML与既定应用包
@@ -1825,19 +1844,23 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
 - Git 状态与远端结果如实记录
 - 真实跨关闭保存D05已通过，正式包与检测包区别清楚；实际命名包可运行，生产环境状态交V05单独验收。
 
-当前结果：V04本地同版打包与验证完成：Web、命名离线HTML、应用/完整/增量资源包已核验；3845资源解码、四ZIP读回、2项打包测试、4类启动、7项更新回退及三入口浏览器存档/布局通过。游戏源码、Current、现有应用镜像保持；未提交、推送、部署或发布，V05待办。
+当前结果：原版V04同版Web、命名离线HTML、应用与完整/增量资源包交付已完成，后续已推送main 2924d9b。2026-10-27用户明确把体积优化和Sites发布纳入MVP：Sites衍生版58包、3845条/3742唯一资源逐项解包hash通过，公开GitHub体积优化版分支26b87a1核对一致，尚未合入main。Sites第6版已私有发布；原版完成结论不替代备份及最终使用验收，后者由V05/V06跟踪。 四项元数据已同步两处源码并发布第6版，V04-SITES-META-001关闭；本轮主仓库修正未推送GitHub。
 
 证据与代码入口：
 
 - [V04_DELIVERY_20261027.md](V04_DELIVERY_20261027.md)
 - [v04-packaging-20261027.json](../../reports/qa/v04-packaging-20261027.json)
+- [MVP_SITES_REVIEW_20261027.md](MVP_SITES_REVIEW_20261027.md)
+- [mvp-sites-review-20261027.json](../../reports/qa/mvp-sites-review-20261027.json)
+- [SITES_METADATA_AGENTS_FINAL_20261027.md](SITES_METADATA_AGENTS_FINAL_20261027.md)
+- [sites-metadata-agents-final-20261027.json](../../reports/qa/sites-metadata-agents-final-20261027.json)
 
 旧审计关联：L11。
 
 <a id="v05"></a>
 ### V05 完成既定正式环境与后台B4验收
 
-状态：待办；优先级：随后；阶段：交付；更新：2026-10-21。
+状态：待验证；优先级：随后；阶段：交付；更新：2026-11-06。
 负责人：Codex。前置：V04。场景：SC09、SC18。
 
 本地Web／离线包和本地后台检查通过，不代表既定正式环境可用。真实生产数据库、同源接口、反馈／权限、资源更新及恢复仍须按既有B4交接关闭；此项不是D06额外性能优化。
@@ -1849,6 +1872,8 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
 - 按既有B4在实际环境验证统计授权／撤回、反馈提交、管理权限与退出、真实数据持久化、维护及删除后恢复流程；离线不意外联网上传，后台故障不阻断静态游戏。
 - 检查正确缓存更新与资源完整、旧版本到新版本的实际升级和回退、应用／Current与线上版本对应；避免代码和资源跨版本混装。
 - 记录上线或未上线的真实状态、检查结果及恢复演练；生产配置或权限欠缺保持开放，不以包已生成宣布正式完成。
+- 把已完成的Sites压缩、合包、私有发布及Workers/D1/R2后台适配计入MVP7/8；核对云端版本/访问权限、独立站点仓库和主仓库快照，不能把公开GitHub分支误当公开站点或自动部署。
+- V04-SITES-META-001已修正并发布第6版；后续版本继续核对两处源码与实际资源汇总，独立备份和正式使用范围仍按既定验收处理。
 
 完成标准：
 
@@ -1856,41 +1881,153 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
 - 线上／应用／Web资源与验收版本绑定，升级与回退可执行，后台失败不破坏正常静态游戏。
 - 未实施的渠道、配置缺口或失败明确列出；不以本地模拟或D06延期代替正式发布验收。
 
-当前结果：规划新增，未读取生产凭据、部署、发送反馈或改动真实数据库。
+当前结果：用户明确授权供朋友试玩，Sites第7版已公开；匿名进入战斗通过，未登录管理页/接口及虚构邮箱请求均403。真实所有者邮箱伪造检查被自动审批拒绝，所有者公开环境登录待验证；备份和完整公开验收仍开放。 2026-10-28：V05-SITES-BOOT-001三次自动重试、资源包超时和可见恢复已发布Sites第8版；2720回归及线上菜单通过，原手机实际故障未直接抓取，实机复测保持开放。 2026-10-28后续：新游戏直接覆盖旧局及手机可选预加载/资源并发/包驻留收敛已发布Sites第9版；2727完整回归及追加2项通过。浏览器基础设施超时，原手机第三关崩溃复测仍开放。 画质优化已发布现有公开Sites第13版（355c01a），应用构建27897f510771；403包经服务端SHA校验迁入原BUCKET隔离前缀，旧58包保留，临时上传关闭/密钥移除。403线上HEAD及7类完整哈希、独立Chrome低档首战通过，DB五表/原权限修订2/存档保持。v10构建限额及v12默认缓存500、回退与v13修复均有记录。GitHub实现28c7987已推送，资源交付源码/报告同分支补齐；V06待原手机/画质验证。 2026-11-06：按现有证据校正为待验证，线上所有者登录、备份/公开验收及原手机复测继续开放；当前未执行新的部署。
 
 证据与代码入口：
 
 - [MVP_COMPLETION_CONTRACT_20261013.md](MVP_COMPLETION_CONTRACT_20261013.md)
 - [P5_BACKEND_HANDOFF_20261006.md](P5_BACKEND_HANDOFF_20261006.md)
+- [V05_SERVER_STAGING_20261027.md](V05_SERVER_STAGING_20261027.md)
+- [v05-server-staging-20261027.json](../../reports/qa/v05-server-staging-20261027.json)
+- [V04_SITES_LOADING_20261027.md](V04_SITES_LOADING_20261027.md)
+- [v04-sites-loading-20261027.json](../../reports/qa/v04-sites-loading-20261027.json)
+- [V04_SITES_BACKEND_20261027.md](V04_SITES_BACKEND_20261027.md)
+- [v04-sites-backend-20261027.json](../../reports/qa/v04-sites-backend-20261027.json)
+- [v04-sites-visual-samples-20261027.json](../../reports/qa/v04-sites-visual-samples-20261027.json)
+- [MVP_SITES_REVIEW_20261027.md](MVP_SITES_REVIEW_20261027.md)
+- [mvp-sites-review-20261027.json](../../reports/qa/mvp-sites-review-20261027.json)
+- [SITES_METADATA_AGENTS_FINAL_20261027.md](SITES_METADATA_AGENTS_FINAL_20261027.md)
+- [sites-metadata-agents-final-20261027.json](../../reports/qa/sites-metadata-agents-final-20261027.json)
+- [V06_GITHUB_SYNC_20261027.md](V06_GITHUB_SYNC_20261027.md)
+- [v06-github-sync-20261027.json](../../reports/qa/v06-github-sync-20261027.json)
+- [sites-public-access-20261027.json](../../reports/qa/sites-public-access-20261027.json)
+- [SITES_STARTUP_RETRY_20261028.md](SITES_STARTUP_RETRY_20261028.md)
+- [sites-startup-retry-20261028.json](../../reports/qa/sites-startup-retry-20261028.json)
+- [SITES_MOBILE_NEW_RUN_20261028.md](SITES_MOBILE_NEW_RUN_20261028.md)
+- [sites-mobile-new-run-20261028.json](../../reports/qa/sites-mobile-new-run-20261028.json)
+- [SITES_QUALITY_DEPLOY_20261028.md](SITES_QUALITY_DEPLOY_20261028.md)
+- [sites-quality-deploy-20261028.json](../../reports/qa/sites-quality-deploy-20261028.json)
 
 <a id="v06"></a>
-### V06 完成八包关闭表与MVP最终确认
+### V06 MVP 1.0 缺陷复核与最终记录
 
-状态：待办；优先级：收尾；阶段：交付；更新：2026-10-23。
+状态：已完成；优先级：收尾；阶段：交付；更新：2026-11-03。
 负责人：Codex。前置：V05。场景：SC18。
 
-单个任务完成数不能证明整个MVP结束，仍需将八包既定关闭条件、最终版本、用户体验确认和已知问题汇总为明确终点，防止漏项或无休止扩项。
+MVP功能范围已收束；需要如实记录已有具体故障的复核与实际交付状态，而不是继续扩充平衡、画质或优化任务。
 
 工作步骤：
 
-- 逐包整理MVP1–8最终版本、直接证据、已确认内容、未关闭缺口及对应任务；保留五图已确认结论，不以重新列检查表为由重做。
-- 汇总T01逐项覆盖、I02/I03缺陷、G01–G03平衡、D05存档、V01–V05验收和用户集中试玩反馈；检查没有挂在旧文档却未处置的阻断事项。
-- 确认阻断出征、崩溃、错误结算、物品复制、存档损坏和明显不可玩问题已解决；有限轻微限制单独列明，不把未通过项改名隐藏。
-- 明确本版支持范围、交付入口、版本、恢复方式和已知限制；确认八包关闭后宣布MVP完成，后续新玩法与额外润色进入1.1。
-- 1.1交接明确保留三族人口/补员与种族趣味卡牌、特性的精细平衡方向及G03失败线索；此为用户允许的后续迭代范围，不将实际机制缺陷或明显不可玩问题包装为延期平衡。
+- 仅接收实际bug反馈，核对版本、复现和影响；无bug时保持1.0冻结。
+- 已知原手机异常按有限复测处理；修复后执行相关验证，不重启全量矩阵。
+- 维护真实交付/部署与最终确认记录，非缺陷改进明确归1.1。
 
 完成标准：
 
-- 八包每项都有最终可追溯结论及同版证据，用户集中试玩已反馈并完成必要修复。
-- 所有阻断缺陷清零，剩余轻微问题和未支持范围透明，不以任务计数替代验收。
-- 交付入口与线上／本地状态真实明确，MVP结束点固定，不临时增加第九包。
+- 当前实际bug有可追溯处理结论；不能将尚未复核的问题伪称已解决，也不以未做过的组合测试扩展开发。
+- MVP正式版本1.0、后续1.1及已接受功能范围清晰；非bug改进不作为本版新增任务。
+- 源码、构建、部署和用户确认分别记录；未部署和原机未验证范围透明。
 
-当前结果：规划新增，八包尚未全部关闭；本次不宣布MVP完成。
+当前结果：MVP 1.0 暂按完成，V06 阶段记录已收尾。11月4日Coze原站已运行86c3ca45…，新旧测试会话升级、游戏内清缓存、首关保存与第二关续局通过，非空装备档和两备份保持。408份保留文件SHA全部匹配。两条固定兼容地址仍对一种编码请求返回一年缓存的旧文件，CDN一致性待复验。后端按用户决定暂缓。 收到Coze回执后定向复查仍有旧命中。
 
 证据与代码入口：
 
 - [MVP_COMPLETION_CONTRACT_20261013.md](MVP_COMPLETION_CONTRACT_20261013.md)
 - [g03-race-mvp-scope-20261023.json](../../reports/qa/g03-race-mvp-scope-20261023.json)
+- [MVP_SITES_REVIEW_20261027.md](MVP_SITES_REVIEW_20261027.md)
+- [mvp-sites-review-20261027.json](../../reports/qa/mvp-sites-review-20261027.json)
+- [SITES_METADATA_AGENTS_FINAL_20261027.md](SITES_METADATA_AGENTS_FINAL_20261027.md)
+- [sites-metadata-agents-final-20261027.json](../../reports/qa/sites-metadata-agents-final-20261027.json)
+- [EASY_LOOT_INSPECTION_20261027.md](EASY_LOOT_INSPECTION_20261027.md)
+- [easy-loot-inspection-20261027.json](../../reports/qa/easy-loot-inspection-20261027.json)
+- [V06_FEEDBACK_REPAIRS_20261027.md](V06_FEEDBACK_REPAIRS_20261027.md)
+- [COZE_FEEDBACK_DEPLOY_20261027.md](COZE_FEEDBACK_DEPLOY_20261027.md)
+- [v06-feedback-repairs-20261027.json](../../reports/qa/v06-feedback-repairs-20261027.json)
+- [V06_GITHUB_SYNC_20261027.md](V06_GITHUB_SYNC_20261027.md)
+- [v06-github-sync-20261027.json](../../reports/qa/v06-github-sync-20261027.json)
+- [SITES_QUALITY_OPTIMIZATION_PLAN_20261028.md](SITES_QUALITY_OPTIMIZATION_PLAN_20261028.md)
+- [sites-quality-research-20261028.json](../../reports/qa/sites-quality-research-20261028.json)
+- [SITES_QUALITY_IMPLEMENTATION_20261028.md](SITES_QUALITY_IMPLEMENTATION_20261028.md)
+- [sites-quality-implementation-20261028.json](../../reports/qa/sites-quality-implementation-20261028.json)
+- [sites-quality-assets-20261028.json](../../reports/qa/sites-quality-assets-20261028.json)
+- [SITES_QUALITY_DEPLOY_20261028.md](SITES_QUALITY_DEPLOY_20261028.md)
+- [sites-quality-deploy-20261028.json](../../reports/qa/sites-quality-deploy-20261028.json)
+- [SAFARI_ENTRY_20261028.md](SAFARI_ENTRY_20261028.md)
+- [COZE_SAFARI_UPDATE_20261028.md](COZE_SAFARI_UPDATE_20261028.md)
+- [safari-entry-20261028.json](../../reports/qa/safari-entry-20261028.json)
+- [BATTLE_MEMORY_SCOPE_20261028.md](BATTLE_MEMORY_SCOPE_20261028.md)
+- [battle-memory-scope-20261028.json](../../reports/qa/battle-memory-scope-20261028.json)
+- [RUNTIME_MEMORY_20261028.md](RUNTIME_MEMORY_20261028.md)
+- [runtime-memory-20261028.json](../../reports/qa/runtime-memory-20261028.json)
+- [BROWSER_GAME_RESEARCH_20261028.md](BROWSER_GAME_RESEARCH_20261028.md)
+- [browser-game-research-20261028.json](../../reports/qa/browser-game-research-20261028.json)
+- [RUNTIME_MEMORY_PLAN_20261028.md](RUNTIME_MEMORY_PLAN_20261028.md)
+- [runtime-memory-plan-20261028.json](../../reports/qa/runtime-memory-plan-20261028.json)
+- [RUNTIME_MEMORY_LIFECYCLE_20261028.md](RUNTIME_MEMORY_LIFECYCLE_20261028.md)
+- [runtime-memory-lifecycle-20261028.json](../../reports/qa/runtime-memory-lifecycle-20261028.json)
+- [PACKED_SW_COMPATIBILITY_20261028.md](PACKED_SW_COMPATIBILITY_20261028.md)
+- [packed-sw-compatibility-20261028.json](../../reports/qa/packed-sw-compatibility-20261028.json)
+- [SAFARI_STAGE_END_20261028.md](SAFARI_STAGE_END_20261028.md)
+- [COZE_LIVE_CHECK_20261028.md](COZE_LIVE_CHECK_20261028.md)
+- [coze-live-http-20261028.json](../../reports/qa/coze-live-http-20261028.json)
+- [SAFARI_RESTORE_20261029.md](SAFARI_RESTORE_20261029.md)
+- [safari-restore-20261029.json](../../reports/qa/safari-restore-20261029.json)
+- [FEEDBACK_PERFORMANCE_20261029.md](FEEDBACK_PERFORMANCE_20261029.md)
+- [intermission-performance-20261029.json](../../reports/qa/intermission-performance-20261029.json)
+- [COZE_INTERMISSION_UPDATE_20261029.md](COZE_INTERMISSION_UPDATE_20261029.md)
+- [intermission-delivery-20261029.json](../../reports/qa/intermission-delivery-20261029.json)
+- [GROWTH_LOOT_PROPOSAL_20261029.md](GROWTH_LOOT_PROPOSAL_20261029.md)
+- [growth-loot-inspection-20261029.json](../../reports/qa/growth-loot-inspection-20261029.json)
+- [GROWTH_LOOT_IMPLEMENTATION_20261029.md](GROWTH_LOOT_IMPLEMENTATION_20261029.md)
+- [growth-loot-implementation-20261029.json](../../reports/qa/growth-loot-implementation-20261029.json)
+- [growth-loot-replay-20261029.json](../../reports/qa/growth-loot-replay-20261029.json)
+- [LOCAL_FEEDBACK_GITHUB_SYNC_20261029.md](LOCAL_FEEDBACK_GITHUB_SYNC_20261029.md)
+- [local-feedback-github-sync-20261029.json](../../reports/qa/local-feedback-github-sync-20261029.json)
+- [COZE_FEEDBACK_BGM_UPDATE_20261029.md](COZE_FEEDBACK_BGM_UPDATE_20261029.md)
+- [coze-feedback-bgm-delivery-20261029.json](../../reports/qa/coze-feedback-bgm-delivery-20261029.json)
+- [MVP_1_0_HANDOFF_20261029.md](MVP_1_0_HANDOFF_20261029.md)
+- [mvp-1.0-handoff-20261029.json](../../reports/qa/mvp-1.0-handoff-20261029.json)
+- [QUEEN_UNLOCK_INSPECTION_20261029.md](QUEEN_UNLOCK_INSPECTION_20261029.md)
+- [queen-unlock-inspection-20261029.json](../../reports/qa/queen-unlock-inspection-20261029.json)
+- [UNLOCK_FEEDBACK_FIX_20261029.md](UNLOCK_FEEDBACK_FIX_20261029.md)
+- [unlock-feedback-fix-20261029.json](../../reports/qa/unlock-feedback-fix-20261029.json)
+- [ZERG_MELEE_EQUIPMENT_PROPOSAL_20261029.md](ZERG_MELEE_EQUIPMENT_PROPOSAL_20261029.md)
+- [SPECIAL_ROSTER_INSPECTION_20261029.md](SPECIAL_ROSTER_INSPECTION_20261029.md)
+- [ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md](ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md)
+- [zerg-melee-equipment-20261029.json](../../reports/qa/zerg-melee-equipment-20261029.json)
+- [ZERG_MELEE_EQUIPMENT_GITHUB_SYNC_20261029.md](ZERG_MELEE_EQUIPMENT_GITHUB_SYNC_20261029.md)
+- [zerg-github-sync-20261029.json](../../reports/qa/zerg-github-sync-20261029.json)
+- [SPECIAL_ROSTER_FIX_20261029.md](SPECIAL_ROSTER_FIX_20261029.md)
+- [special-roster-fix-20261029.json](../../reports/qa/special-roster-fix-20261029.json)
+- [CODE_BUG_AUDIT_20261029.md](CODE_BUG_AUDIT_20261029.md)
+- [code-bug-audit-20261029.json](../../reports/qa/code-bug-audit-20261029.json)
+- [TANK_EFFECT_INSPECTION_20261030.md](TANK_EFFECT_INSPECTION_20261030.md)
+- [tank-effect-inspection-20261030.json](../../reports/qa/tank-effect-inspection-20261030.json)
+- [TANK_EFFECT_FIX_20261030.md](TANK_EFFECT_FIX_20261030.md)
+- [BUGFIX_GITHUB_SYNC_20261030.md](BUGFIX_GITHUB_SYNC_20261030.md)
+- [tank-audit-sync-20261030.json](../../reports/qa/tank-audit-sync-20261030.json)
+- [COZE_REPAIR_DEPLOY_20261030.md](COZE_REPAIR_DEPLOY_20261030.md)
+- [coze-repair-deploy-20261030.json](../../reports/qa/coze-repair-deploy-20261030.json)
+- [STABILITY_RECHECK_20261102.md](STABILITY_RECHECK_20261102.md)
+- [stability-recheck-20261102.json](../../reports/qa/stability-recheck-20261102.json)
+- [STABILITY_FIX_20261102.md](STABILITY_FIX_20261102.md)
+- [stability-fix-20261102.json](../../reports/qa/stability-fix-20261102.json)
+- [FULL_CODE_AUDIT_20261102.md](FULL_CODE_AUDIT_20261102.md)
+- [full-code-audit-20261102.json](../../reports/qa/full-code-audit-20261102.json)
+- [RUNTIME_CODE_AUDIT_20261102.md](RUNTIME_CODE_AUDIT_20261102.md)
+- [runtime-code-audit-20261102.json](../../reports/qa/runtime-code-audit-20261102.json)
+- [AUDIT_FIXES_20261102.md](AUDIT_FIXES_20261102.md)
+- [audit-fixes-20261102.json](../../reports/qa/audit-fixes-20261102.json)
+- [AUDIT_FIXES_GITHUB_SYNC_20261103.md](AUDIT_FIXES_GITHUB_SYNC_20261103.md)
+- [audit-fixes-github-sync-20261103.json](../../reports/qa/audit-fixes-github-sync-20261103.json)
+- [COZE_LIVE_CHECK_20261103.md](COZE_LIVE_CHECK_20261103.md)
+- [coze-live-check-20261103.json](../../reports/qa/coze-live-check-20261103.json)
+- [COZE_CACHE_WORKER_FIX_20261103.md](COZE_CACHE_WORKER_FIX_20261103.md)
+- [cache-worker-fix-20261103.json](../../reports/qa/cache-worker-fix-20261103.json)
+- [COZE_CACHE_WORKER_GITHUB_SYNC_20261103.md](COZE_CACHE_WORKER_GITHUB_SYNC_20261103.md)
+- [cache-worker-github-sync-20261103.json](../../reports/qa/cache-worker-github-sync-20261103.json)
+- [COZE_FRONTEND_ACCEPTANCE_20261104.md](COZE_FRONTEND_ACCEPTANCE_20261104.md)
+- [coze-frontend-20261104.json](../../reports/qa/coze-frontend-20261104.json)
 
 <a id="d01"></a>
 ### D01 决定是否分帧释放积压敌人
@@ -2061,7 +2198,7 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
 <a id="d06"></a>
 ### D06 后台微信及构建链性能另批处理
 
-状态：暂缓；优先级：延期；阶段：决策；更新：2026-10-21。
+状态：暂缓；优先级：延期；阶段：决策；更新：2026-10-27。
 负责人：用户决定；Codex 提供证据。前置：无。场景：跨场景或文档。
 
 数据库、后台报表、微信适配及构建成本不等于当前本地游戏 FPS。
@@ -2071,6 +2208,7 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
 - 分别复核适用环境与目标
 - 先取真实环境证据，候选单独比较
 - 与V05既定生产功能／B4验收区分：本项服务端／微信／构建性能优化继续延期，V05不能被本项暂缓状态自动豁免；新增渠道与Safari专项不自行扩大。
+- 2026-10-27用户已将实际完成的Sites体积优化、合包、私有部署和后台适配明确纳入MVP，由V04/V05/V06承接；本项暂缓只指其余未启动的额外性能/渠道工作。
 
 完成标准：
 
@@ -2083,6 +2221,8 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
 
 - [PERFORMANCE_A01_20261020.md](PERFORMANCE_A01_20261020.md)
 - [performance-a01-20261020.json](../../reports/qa/performance-a01-20261020.json)
+- [MVP_SITES_REVIEW_20261027.md](MVP_SITES_REVIEW_20261027.md)
+- [mvp-sites-review-20261027.json](../../reports/qa/mvp-sites-review-20261027.json)
 
 旧审计关联：B01、B02、B03、B04、B05、B06、B07、B08、B09、L09、L10、L11、LOAD-017。
 
@@ -2326,7 +2466,7 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
 <a id="plan-1x"></a>
 ### PLAN-1X 1.x玩法调研与逐版本任务规划
 
-状态：已完成；优先级：用户授权；阶段：决策；更新：2026-11-04。
+状态：已完成；优先级：用户授权；阶段：决策；更新：2026-11-09。
 负责人：Codex 1.0主线程。前置：无。场景：跨场景或文档。
 
 从首局教学、自动战斗、共同确定构筑到分族制作，维护连续版本任务清单及其依赖。1.1 按明确的首局资格、三族战役顾问、永久跳过和第三关首领教学掉装编制具体流程。
@@ -2345,8 +2485,9 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
 - 正式构筑由双方讨论，精英本兵种增益与 V 以后晋升单列，后续单位与装备不另设成型门槛
 - 每个融合样例含原机制出处、玩家动作、选择后果及验证方法，文档入口、版本和编号一致
 - 1.1 方案覆盖无档首次入关邀请、任一步永久跳过、三族顾问、敌方工蜂与矿气、保护空投、关间运营、第三关首领掉装、首件穿戴、撤离和舰装
+- 第 4–6 项归入 1.4 第一批，版本表、正文、卡牌稿、兵种目录、项目入口和看板的归属一致。
 
-当前结果：1.1 首局教学设计已按用户最终决定补齐。无档新玩家进入第一关时自选接受或跳过，任一步跳过后不再出现。顾问为人族副官、虫族虫后、神族执行官，已核原版定义。教学覆盖移动、击杀敌方工蜂与采集矿气、保护空投、关间运营。奖励触发已澄清为第三关原有战役首领，其教学掉装合计 2–3 件，引导拾取、关间装散件、撤离及旗舰装模块。已核简单与普通前三关排程、装备目录、27 处本地链接和 docs:check。本次交付为规划，保留 1.2 自动战斗、1.3 共定构筑的顺序。 1.1 补充十个镜头与三族通讯字幕台本，已提取并目视核对三位顾问原版静态头像，提供并排预览；镜头待实装。 1.1 虫后教学统一使用腺体震动声与中文字幕，已同步十段分镜及首件装备插话。人族副官和神族执行官使用逐句对白。
+当前结果：1.1 首局教学设计已按用户最终决定补齐。无档新玩家进入第一关时自选接受或跳过，任一步跳过后不再出现。顾问为人族副官、虫族虫后、神族执行官，已核原版定义。教学覆盖移动、击杀敌方工蜂与采集矿气、保护空投、关间运营。奖励触发已澄清为第三关原有战役首领，其教学掉装合计 2–3 件，引导拾取、关间装散件、撤离及旗舰装模块。已核简单与普通前三关排程、装备目录、27 处本地链接和 docs:check。本次交付为规划，保留 1.2 自动战斗、1.3 共定构筑的顺序。 1.1 补充十个镜头与三族通讯字幕台本，已提取并目视核对三位顾问原版静态头像，提供并排预览；镜头待实装。 1.1 虫后教学统一使用腺体震动声与中文字幕，已同步十段分镜及首件装备插话。人族副官和神族执行官使用逐句对白。 11 月 9 日路线图改为每三张普通牌选紫节点、主分支独占节点和终极、副分支普通牌降权。第 4–6 项已并入 1.4 第一批（PLAY-1X）。三族先共用两币专供卡牌、简化发展与增援、战斗获取及低血量敌群，第二批接人族兵种和卡组。1.5 虫族、1.6 神族沿用，1.7 统一平衡。已查版本顺序、21 处路线图本地引用、3 个章节链接，docs:check 通过。
 
 证据与代码入口：
 
@@ -2615,7 +2756,7 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
 <a id="build-1.3"></a>
 ### BUILD-1.3 1.3 三族九条构筑与关间卡牌设计
 
-状态：待讨论；优先级：用户要求；阶段：决策；更新：2026-11-12。
+状态：待讨论；优先级：用户要求；阶段：决策；更新：2026-11-19。
 负责人：Codex。前置：AUTO-1.2。场景：跨场景或文档。
 
 将九条路线落实为白绿蓝紫普通分支牌、紫色节点牌、橙色终极牌的设计，明确本局锁定及副分支降权。
@@ -2629,11 +2770,11 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
 完成标准：
 
 - 每支四档普通牌、紫节点、橙终极各自可辨认
-- 同分支第 3/6/9 个有效进度产生待领机会，白牌同名复购仅升档。第一次实际领取紫节点才锁定唯一主分支。锁主后续领本支节点，关闭其他分支节点及终极，普通牌仍可混买。
+- 人族同分支第3／6／9个有效普通牌进度产生免费紫节点，第三个有效进度成交立即锁主，免费节点必须即时选完；第三紫后再积3点一次免费橙卡。同名白牌复购只升档不加进度，普通紫牌仅主支可刷可买，副支白绿蓝按降权混买。
 - 用户确认具体牌效和待定参数
 - 逐条核对 18 关与无尽每轮的选择，主分支集中购买后仍有合法普通牌与不同的节点选项。
 - 在同一钱包和三格货架中验证通用牌与分支牌混买，分别核对逐关余额、实际取得的主分支牌和各次节点。
-- 逐支精简同类效果。紫节点写清双方、触发顺序和只有配合后才有的战果。普通紫作为该分支首张或降权副牌也能独立兑现。
+- 逐支精简同类效果。紫节点写清双方、触发顺序和只有配合后才有的战果；人族普通紫仅主支可得，副支白绿蓝保留独立价值。
 - 武装支援六档为 9／9／9／6／9／3。保留玩家样例及补充决定，标出原卡承接、补案和未定数值。
 - 武装支援每张能从实际进场、交火、承伤、接替或退场读出作用。轨道远征军的实体增援以泰坦降临三台 V 级精英雷神为对照。
 - 武装支援 45 张按 R3 源码接点执行。普通系统核击 3–4 发，焦土 5–8 发，系统每轮赠一枚、手动每轮扣一枚。空降或刷出的载体与工事按实际在场期出兵、作用和退场。
@@ -2641,7 +2782,7 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
 - 锁定机械主分支时保全每个正式机械家族的现役与已承诺身体，核对自然减员和后续补员。按同靶买牌增量复审蓝维京与紫女妖，逐卡记录用途、强度取舍和正式接点。
 - 末日兵器 45 张给出可编码的触发、时序、结算、复选、状态归属和验收。分支互斥、工序、分弹及巨械预算有可复跑的算例。
 
-当前结果：玩家确认第一张实际领取的分支紫节点锁定本局唯一主分支。武装仍可选本支第 6、9 点节点，其他分支节点关闭。末日兵器 45 张代码规格已交付，含现役五台向四席过渡、普通与特装工序、逐卡结算、巨械排程和检查点。8 项参考用例、61 项现行回归及 docs:check 通过，蓝紫同靶与已付第五台交付复跑通过。正式游戏仍用旧版第三个有效进度锁主，尚待接入。
+当前结果：人族三支各45张已接入本地 main 工作区。现行规则为第三个有效普通牌进度成交即锁主，3／6／9点免费紫色三选一且必须立即选完，第三紫后再积三点免费橙色三选一；只有主支可刷可买普通紫牌，副支白绿蓝降权混买，同名白牌复购不加进度。完整规则、叠加及162组装备DPS见本轮结论；六单位已按后续确认稿完成本地主线工程接回，三族九支与最终平衡仍开放。
 
 证据与代码入口：
 
@@ -2660,6 +2801,11 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
 - [V1_3_TERRAN_DOOMSDAY_WEAPONS_CODE_SPEC_20261112.md](V1_3_TERRAN_DOOMSDAY_WEAPONS_CODE_SPEC_20261112.md)
 - [doomsday-code-spec-20261112.md](../../reports/qa/doomsday-code-spec-20261112.md)
 - [qa-doomsday-code-spec.mts](../../tools/qa-doomsday-code-spec.mts)
+- [TERRAN_MAIN_INTEGRATION_20261119.md](TERRAN_MAIN_INTEGRATION_20261119.md)
+- [terran-main-integration-20261119.md](../../reports/qa/terran-main-integration-20261119.md)
+- [TERRAN_BIO_SYNERGY_DRAFT_20261117.md](TERRAN_BIO_SYNERGY_DRAFT_20261117.md)
+- [terran-rules-dps-20261119.md](../../reports/qa/terran-rules-dps-20261119.md)
+- [TERRAN_SIX_UNITS_PROPOSAL_20261119.md](TERRAN_SIX_UNITS_PROPOSAL_20261119.md)
 
 <a id="play-1x"></a>
 ### PLAY-1X 1.4 第一批：卡牌经济、发展增援与战斗节奏
@@ -2691,7 +2837,7 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
 <a id="armed-1.4"></a>
 ### ARMED-1.4 1.4 第二批：人族武装支援 45 张
 
-状态：待验证；优先级：用户指定；阶段：整合；更新：2026-11-13。
+状态：待验证；优先级：用户指定；阶段：整合；更新：2026-11-19。
 负责人：本聊天。前置：PLAY-1X。场景：跨场景或文档。
 
 游骑兵出场即爆、核击首发和连续爆炸的停顿已在本地候选修订。玩家观感和第一批共用经济、生产与波次合流后的自然战役仍待验证。
@@ -2708,7 +2854,7 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
 - 用户确认具体 UI 后接入；真实出勤、逐弹逐人回执及资源生灭通过
 - 正常关间取得、下一战与保存恢复；45 项正式实机逐项重放和相关回归通过
 
-当前结果：本地原画质与压缩构建 ce857e80da5d 已修复 AUDIT-1.4 的七项问题。末关首次购买 P05 后在两个包均自然落地四座堡垒并继续战斗。挑战隔离、战斗与关间恢复、焦油 6×24、O01 本关英雄 6→3、四项支援资源跨局回收、100 个实体的 60 次空更新访问 6000→0 均有复验。正常打包入口 12 项和完整回归 3168 项通过。 同版压缩包 ce857e80da5d 从空账户第 1 关连续打到无尽首轮，Windows Chrome 中档人族简单、种子 529，取得 55 组内存采样。第 8 关 533.4 MiB 触发限流，之后部分换关有回落，至无尽第 5 秒仍为 822.4 MiB，未降至 409.6 MiB 解除线。峰值 828.4 MiB，首关至无尽增量约 92% 来自纹理估算。 全战役回收候选 f99f8f9bdbdc 与旧压缩包使用相同资源、种子和保活采样各走完 18 关至无尽。前中后六关开战跟踪均值分别 419.1→413.7、642.8→607.5、856.7→806.9 MiB，53/54 个常规战役采样更低，全程跟踪峰值 1056.4→981.0 MiB。两包从第 6 关至无尽持续限流；中段 Chrome 专用内存均值 4.56→4.58 GiB。 本地候选 9207d6f97edf 对照 f99f8f9bdbdc，两包各 55 点。仅省去队色完整覆盖的精英漫反射；第 18 关精英纹理 247→203 MiB，全局跟踪峰值 980.4→934.1 MiB，Chrome 专用内存最大采样增加 57.5 MiB。13 次重载；战斗内两次最长帧 100→83.4、149.9→100 毫秒。8 帧像素一致，3171 项完整回归通过。 基线 9207d6f97edf 的两次战中劫掠者重载已定位为旧货架和首领奖励变体。候选 6cfdf724a8b5 同探针跑完 18 关及无尽，战中精英重载 2→0，54 点跟踪均值 584.9→579.0 MiB，峰值 934.1→933.9 MiB。第 17 关开战 0–4 秒最长帧 99.9→199.8 ms，第 18 关 50–54 秒 116.7→99.9 ms，长帧仍在。 最终候选 5e1ffbfe4960 将已购坑道虫纳入出战和恢复准备，兼容缺少商店字段的快照；简化连通格扫描和重复 HUD 刷新。同设置 18 关到无尽，第 16 关最长 816.6→133.3 ms，第 17 关开场 199.8→66.7 ms，全战役最长 816.6→266.6 ms（第 6 关）。跟踪均值 579.0→575.9 MiB、峰值 933.9→947.4 MiB，无尽首轮 855.1→890.4 MiB。 本批游戏代码已合入本地 main 和体积优化版，两边各通过 3176 项回归及末关转无尽实测。
+当前结果：本地原画质与压缩构建 ce857e80da5d 已修复 AUDIT-1.4 的七项问题。末关首次购买 P05 后在两个包均自然落地四座堡垒并继续战斗。挑战隔离、战斗与关间恢复、焦油 6×24、O01 本关英雄 6→3、四项支援资源跨局回收、100 个实体的 60 次空更新访问 6000→0 均有复验。正常打包入口 12 项和完整回归 3168 项通过。 同版压缩包 ce857e80da5d 从空账户第 1 关连续打到无尽首轮，Windows Chrome 中档人族简单、种子 529，取得 55 组内存采样。第 8 关 533.4 MiB 触发限流，之后部分换关有回落，至无尽第 5 秒仍为 822.4 MiB，未降至 409.6 MiB 解除线。峰值 828.4 MiB，首关至无尽增量约 92% 来自纹理估算。 全战役回收候选 f99f8f9bdbdc 与旧压缩包使用相同资源、种子和保活采样各走完 18 关至无尽。前中后六关开战跟踪均值分别 419.1→413.7、642.8→607.5、856.7→806.9 MiB，53/54 个常规战役采样更低，全程跟踪峰值 1056.4→981.0 MiB。两包从第 6 关至无尽持续限流；中段 Chrome 专用内存均值 4.56→4.58 GiB。 本地候选 9207d6f97edf 对照 f99f8f9bdbdc，两包各 55 点。仅省去队色完整覆盖的精英漫反射；第 18 关精英纹理 247→203 MiB，全局跟踪峰值 980.4→934.1 MiB，Chrome 专用内存最大采样增加 57.5 MiB。13 次重载；战斗内两次最长帧 100→83.4、149.9→100 毫秒。8 帧像素一致，3171 项完整回归通过。 基线 9207d6f97edf 的两次战中劫掠者重载已定位为旧货架和首领奖励变体。候选 6cfdf724a8b5 同探针跑完 18 关及无尽，战中精英重载 2→0，54 点跟踪均值 584.9→579.0 MiB，峰值 934.1→933.9 MiB。第 17 关开战 0–4 秒最长帧 99.9→199.8 ms，第 18 关 50–54 秒 116.7→99.9 ms，长帧仍在。 最终候选 5e1ffbfe4960 将已购坑道虫纳入出战和恢复准备，兼容缺少商店字段的快照；简化连通格扫描和重复 HUD 刷新。同设置 18 关到无尽，第 16 关最长 816.6→133.3 ms，第 17 关开场 199.8→66.7 ms，全战役最长 816.6→266.6 ms（第 6 关）。跟踪均值 579.0→575.9 MiB、峰值 933.9→947.4 MiB，无尽首轮 855.1→890.4 MiB。 本批游戏代码已合入本地 main 和体积优化版，两边各通过 3176 项回归及末关转无尽实测。 2026-11-19 已在本地 main 工作区接入生化协同，保留 DS-MAIN-001／002／003。修复英雄碰撞半径累乘卡死、毒雾／吸血重复结算、英雄与医疗增益漏接、席位冷却继承及 O03 已付在途交付。3343 个唯一回归均有通过结果，99 生化长场景、126 末日场景、108 同预算和9混买战斗恢复通过；三支正常入口60项通过。联合样本显示成型与对手差异，未认定平衡或人工完整战役通过。 同版正式包三支导档及下一战通过；三支163组浏览器战斗重放、末日9组渲染状态隔离及代表性截图复看完成，页面／资源错误为零。横屏字小、细小生化附属体及混战遮挡作为可读性观察保留。 2026-11-19 按用户本轮规则改为第三个有效普通牌进度成交即锁主、免费节点必须选完后继续，禁止未入主支的普通紫卡出现／购买。3／6／9紫节点及再三点免费橙、主1／副各0.5权重保持。3353完整回归、三支60项玩家流程、同版正式包导档下一战及15个累计效果场景通过；横屏字体一致，保持原样。162组装备DPS完成：共同编队中生化单体／地面输出偏高，低档对空武装领先，具体橙卡差异明显，不认定最终平衡。六单位方案完成待确认，尚未实施；未提交、推送或部署。
 
 证据与代码入口：
 
@@ -2773,6 +2919,10 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
 - [battle-frames-20261113.json](../../reports/qa/battle-frames-20261113.json)
 - [qa-armed-model-candidates.mjs](../../tools/qa-armed-model-candidates.mjs)
 - [v14-local-integration-20261113.md](../../reports/qa/v14-local-integration-20261113.md)
+- [TERRAN_MAIN_INTEGRATION_20261119.md](TERRAN_MAIN_INTEGRATION_20261119.md)
+- [terran-main-integration-20261119.md](../../reports/qa/terran-main-integration-20261119.md)
+- [terran-rules-dps-20261119.md](../../reports/qa/terran-rules-dps-20261119.md)
+- [TERRAN_SIX_UNITS_PROPOSAL_20261119.md](TERRAN_SIX_UNITS_PROPOSAL_20261119.md)
 
 旧审计关联：ARMED-RES-01、ARMED-RES-02、ARMED-RES-03、ARMED-RES-04、ARMED-ENDLESS-01、ARMED-SPECIAL-01、ARMED-SAVE-01、ARMED-DOT-01、ARMED-PRELOAD-01、ARMED-RETIRE-01、ARMED-IDLE-01。
 
@@ -2833,6 +2983,395 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
 - [v14-local-integration-20261113.md](../../reports/qa/v14-local-integration-20261113.md)
 - [battle-frames-20261113.md](../../reports/qa/battle-frames-20261113.md)
 - [v14-armed-integration-fixes-20261112.md](../../reports/qa/v14-armed-integration-fixes-20261112.md)
+
+<a id="doomsday-1.4"></a>
+### DOOMSDAY-1.4 1.4 第二部分：人族末日兵器 45 张
+
+状态：待验证；优先级：当前；阶段：整合；更新：2026-11-19。
+负责人：项目主线程。前置：BUILD-1.3、ARMED-1.4。场景：跨场景或文档。
+
+主线工程接入与独立检查完成；玩家手感、物理手机及三支联合平衡仍开放。
+
+工作步骤：
+
+- 共用分支与编制
+- 普通牌和三种特装
+- 九节点与三终极
+- 正常玩家流程与恢复
+- 同预算对照及三端表现
+
+完成标准：
+
+- 45 张实际效果逐卡验证，九节点基础／首领／复选对照
+- 双向锁主、混买、6／9 点与橙资格一次提交
+- 五台过渡、旧单、补造、原位重装与精英身份
+- 弹道和巨械中途保存恢复一致，特殊关与无尽隔离
+- 正式三端购买、出征、战损、换关及续局
+- 类型、生成数据、定向及全量回归，同预算战斗与资源回收
+
+当前结果：已定向接入本地 main 工作区（8ccf4282 加未提交改动），未推送或部署。按用户最新决定记录免费紫橙三选一、第三紫实际领取后再积3点、节点无取得前置与N03仅机械升2级；修复误升生化、纯生化无法购买P03、过渡老兵提前改造三项。45卡126场景及72恢复、五英雄/五图纸生命周期、3265唯一回归均有通过结果；21项正式玩家入口与3项编译包通过。有限画面与已知加载超时边界见主线复核结论。开发工作区已进入生化协同，本次未覆盖其源码，后续合流须保留主线三项修复。 2026-11-19 已在本地 main 工作区接入生化协同，保留 DS-MAIN-001／002／003。修复英雄碰撞半径累乘卡死、毒雾／吸血重复结算、英雄与医疗增益漏接、席位冷却继承及 O03 已付在途交付。3343 个唯一回归均有通过结果，99 生化长场景、126 末日场景、108 同预算和9混买战斗恢复通过；三支正常入口60项通过。联合样本显示成型与对手差异，未认定平衡或人工完整战役通过。 同版正式包三支导档及下一战通过；三支163组浏览器战斗重放、末日9组渲染状态隔离及代表性截图复看完成，页面／资源错误为零。横屏字小、细小生化附属体及混战遮挡作为可读性观察保留。 2026-11-19 按用户本轮规则改为第三个有效普通牌进度成交即锁主、免费节点必须选完后继续，禁止未入主支的普通紫卡出现／购买。3／6／9紫节点及再三点免费橙、主1／副各0.5权重保持。3353完整回归、三支60项玩家流程、同版正式包导档下一战及15个累计效果场景通过；横屏字体一致，保持原样。162组装备DPS完成：共同编队中生化单体／地面输出偏高，低档对空武装领先，具体橙卡差异明显，不认定最终平衡。六单位方案完成待确认，尚未实施；未提交、推送或部署。
+
+证据与代码入口：
+
+- [V1_3_TERRAN_DOOMSDAY_WEAPONS_CODE_SPEC_20261112.md](V1_3_TERRAN_DOOMSDAY_WEAPONS_CODE_SPEC_20261112.md)
+- [TERRAN_DOOMSDAY_WEAPONS_45_20261111.md](TERRAN_DOOMSDAY_WEAPONS_45_20261111.md)
+- [v14-local-integration-20261113.md](../../reports/qa/v14-local-integration-20261113.md)
+- [doomsday-implementation-20261117.md](../../reports/qa/doomsday-implementation-20261117.md)
+- [README.md](../../preview/doomsday-showcase-20261117/README.md)
+- [DOOMSDAY_VISUAL_REDESIGN_20261117.md](DOOMSDAY_VISUAL_REDESIGN_20261117.md)
+- [doomsday-refits-20261117.md](../../reports/qa/doomsday-refits-20261117.md)
+- [DOOMSDAY_MAIN_INTEGRATION_20261118.md](DOOMSDAY_MAIN_INTEGRATION_20261118.md)
+- [doomsday-main-integration-20261118.md](../../reports/qa/doomsday-main-integration-20261118.md)
+- [TERRAN_MAIN_INTEGRATION_20261119.md](TERRAN_MAIN_INTEGRATION_20261119.md)
+- [terran-main-integration-20261119.md](../../reports/qa/terran-main-integration-20261119.md)
+- [terran-rules-dps-20261119.md](../../reports/qa/terran-rules-dps-20261119.md)
+- [TERRAN_SIX_UNITS_PROPOSAL_20261119.md](TERRAN_SIX_UNITS_PROPOSAL_20261119.md)
+
+旧审计关联：DS-SAVE-001、DS-SHOP-001、DS-REFIT-001、DS-MAIN-001、DS-MAIN-002、DS-MAIN-003。
+
+<a id="bio-1.4"></a>
+### BIO-1.4 1.4 第二部分：人族生化协同 45 张
+
+状态：待验证；优先级：用户指定；阶段：整合；更新：2026-11-19。
+负责人：项目主线程。前置：BUILD-1.3。场景：跨场景或文档。
+
+已完成本地主线工程接入及本轮三支联合排查；玩家主观观感、完整自然战役、物理设备与最终平衡仍开放。
+
+工作步骤：
+
+- 按 R3 和 11 月 18 日确认接入正式购买、节点、战斗和恢复
+- 独立复核编制、随从、毒伤、治疗、原生攻击轮及三支混买
+- 验证正式 UI、同版构建和代表性画面并清理可重建产物
+
+完成标准：
+
+- 45 张沿正式 World 结算，节点取得和触发条件分开
+- 席位冷却、已付订单、成长、毒场和随从在恢复后保持一次结算
+- 三支混买、锁主、延领、免费橙卡、换关与正常存档流程一致
+- 工程测试与玩家／设备／平衡验收分别记录
+
+当前结果：2026-11-19 已在本地 main 工作区接入生化协同，保留 DS-MAIN-001／002／003。修复英雄碰撞半径累乘卡死、毒雾／吸血重复结算、英雄与医疗增益漏接、席位冷却继承及 O03 已付在途交付。3343 个唯一回归均有通过结果，99 生化长场景、126 末日场景、108 同预算和9混买战斗恢复通过；三支正常入口60项通过。联合样本显示成型与对手差异，未认定平衡或人工完整战役通过。 同版正式包三支导档及下一战通过；三支163组浏览器战斗重放、末日9组渲染状态隔离及代表性截图复看完成，页面／资源错误为零。横屏字小、细小生化附属体及混战遮挡作为可读性观察保留。 2026-11-19 按用户本轮规则改为第三个有效普通牌进度成交即锁主、免费节点必须选完后继续，禁止未入主支的普通紫卡出现／购买。3／6／9紫节点及再三点免费橙、主1／副各0.5权重保持。3353完整回归、三支60项玩家流程、同版正式包导档下一战及15个累计效果场景通过；横屏字体一致，保持原样。162组装备DPS完成：共同编队中生化单体／地面输出偏高，低档对空武装领先，具体橙卡差异明显，不认定最终平衡。六单位方案完成待确认，尚未实施；未提交、推送或部署。
+
+证据与代码入口：
+
+- [TERRAN_BIO_SYNERGY_DRAFT_20261117.md](TERRAN_BIO_SYNERGY_DRAFT_20261117.md)
+- [TERRAN_BIO_SYNERGY_FEASIBILITY_20261117.md](TERRAN_BIO_SYNERGY_FEASIBILITY_20261117.md)
+- [TERRAN_MAIN_INTEGRATION_20261119.md](TERRAN_MAIN_INTEGRATION_20261119.md)
+- [terran-main-integration-20261119.md](../../reports/qa/terran-main-integration-20261119.md)
+- [bio-synergy.test.ts](../../test/bio-synergy.test.ts)
+- [terran-integration.test.ts](../../test/terran-integration.test.ts)
+- [qa-terran-budget.mts](../../tools/qa-terran-budget.mts)
+- [qa-terran-mixed.mts](../../tools/qa-terran-mixed.mts)
+- [qa-terran-player.mts](../../tools/qa-terran-player.mts)
+- [terran-rules-dps-20261119.md](../../reports/qa/terran-rules-dps-20261119.md)
+- [TERRAN_SIX_UNITS_PROPOSAL_20261119.md](TERRAN_SIX_UNITS_PROPOSAL_20261119.md)
+
+<a id="roster-terran-1.4"></a>
+### ROSTER-TERRAN-1.4 1.4 人族六个新家族与三支卡牌适配
+
+状态：已完成；优先级：本地工程接回完成；阶段：整合；更新：2026-11-19。
+负责人：项目主线程。前置：BUILD-1.3。场景：跨场景或文档。
+
+按现有1.4常规单位规划补齐六个家族，所有技能、部署和变形自动判断；避免把已有恶蝠形态再次作为火焰前排空缺。
+
+工作步骤：
+
+- 确认幽灵、寡妇雷、飓风、渡鸦、解放者、普通战列巡洋舰与首版自动能力范围
+- 接原版资源、平行科技解锁、生产／编制／存档与装备
+- 实现原生武器和技能，再按正式生物／机械及原生攻击轮适配三支卡牌
+- 核验触发去重、派生攻击隔离与生命周期；记录同预算装备差异和建议，不擅自调整既有卡牌数值
+
+完成标准：
+
+- 不操作任何新增单位技能按钮也能完成选敌、施法、变形／部署、撤离跟随和战斗恢复
+- 六个新家族在指定生产线合法取得，保留每局五家族选择
+- 原生空地武器、锁定／部署／召唤行为与资源来源清楚
+- 三支节点门槛和正式／临时身份无旁路，多段和多目标不重复触发
+- 按用户确认的费用与技能参数接入；同预算装备比较、实际画面与声音检查可追溯，实现缺陷修复、卡牌强度差异和取景限制分别记录
+
+当前结果：按用户要求接回六个正式家族及自动战斗、生产补员、三分支适配、原版资源和存档。主线独立修复炮台误维修、受控施法、停火寿命、转移落点复验和解放者首领协同五项问题。最终3394／3394回归通过，正式构建7a4061e628e1；预备版三尺寸、最终版空军与三支混买流程通过，购卡／下一战／撤退／保存重导及音频信号已核验，页面／资源错误为零。开发侧108组DPS按其原版本保留，不作为最终主线新测量；小屏战巡上沿取景及最终平衡继续开放。未提交、推送或部署。 已删除8177份可重建文件约2.944GiB，保留原始素材、运行依赖、结论和复现代码。
+
+证据与代码入口：
+
+- [TERRAN_SIX_UNITS_PROPOSAL_20261119.md](TERRAN_SIX_UNITS_PROPOSAL_20261119.md)
+- [terran-rules-dps-20261119.md](../../reports/qa/terran-rules-dps-20261119.md)
+- [V1X_ROSTER_20261104.md](V1X_ROSTER_20261104.md)
+- [V1X_ROADMAP_20261104.md](V1X_ROADMAP_20261104.md)
+- [DATA_SOURCES.md](../DATA_SOURCES.md)
+- [TERRAN_SIX_MAIN_INTEGRATION_20261119.md](TERRAN_SIX_MAIN_INTEGRATION_20261119.md)
+- [terran-six-main-20261119.md](../../reports/qa/terran-six-main-20261119.md)
+- [terran-six-implementation-20261119.md](../../reports/qa/terran-six-implementation-20261119.md)
+- [terran-six-integration.test.ts](../../test/terran-six-integration.test.ts)
+- [qa-terran-six-packaged.mts](../../tools/qa-terran-six-packaged.mts)
+
+<a id="zerg-six-design-1.5"></a>
+### ZERG-SIX-DESIGN-1.5 1.5 虫族六战斗家族及敌方投放开发规格
+
+状态：已完成；优先级：用户要求；阶段：决策；更新：2026-11-20。
+负责人：项目主线程。前置：ROSTER-TERRAN-1.4。场景：跨场景或文档。
+
+六个虫族战斗家族、正常敌方投放与独立体验敌群的可开发规格；体验群更多、更频繁、以跳虫为主，无掉落／装备且不影响救援。
+
+工作步骤：
+
+- 核对当前生产、敌方成长、波次、死亡奖励与救援抽样／护甲／容量接点
+- 确定六者友军／正常敌方数值、感染限时控制、子体和存档规则
+- 按最新要求分离零奖励体验层，增加数量与独立节拍并核验排程算术
+
+完成标准：
+
+- 六个独立战斗家族及自动战斗、发展生产、成长和敌方削弱可直接实现
+- 正常普通／精英感染致死正常掉落后限时锁血，Boss／领主不转化
+- 四难度18关／无尽正常六者配额、体验数量、频次与容量明确
+- 体验以85%跳虫为主，无奖励／装备／普通击杀进度，救援抽样／护甲／随机／容量／触发隔离
+- 参数与文档一致，给出26组实施验收；设计检查不冒充游戏实测
+
+当前结果：R2设计完成。正常主力保留，六者正常追加；体验群85%跳虫，普通后期2秒一批，全部无掉落、不影响救援。2304组战役算术、144轮无尽窗口／节拍、72组等级公式检查通过。未改游戏源码，未做实战平衡、构建、提交、推送或部署。
+
+证据与代码入口：
+
+- [ZERG_SIX_UNITS_CODE_SPEC_20261120.md](ZERG_SIX_UNITS_CODE_SPEC_20261120.md)
+- [zerg-six-design-20261120.json](zerg-six-design-20261120.json)
+- [zerg-six-design-20261120.md](../../reports/qa/zerg-six-design-20261120.md)
+- [qa-zerg-six-design.mts](../../tools/qa-zerg-six-design.mts)
+
+<a id="zerg-six-demo-1.5"></a>
+### ZERG-SIX-DEMO-1.5 1.5 虫族六单位实机演示
+
+状态：已完成；优先级：用户要求；阶段：整合；更新：2026-11-20。
+负责人：项目主线程。前置：ZERG-SIX-DESIGN-1.5。场景：跨场景或文档。
+
+在真实 World 和现有战场中完成六种虫族单位的独立试玩。
+
+工作步骤：
+
+- 核对本地原始素材与运行所需的资源
+- 实现共用数据、战斗、临时体和保存状态
+- 运行实机场景验证并停在玩家演示验收点
+
+完成标准：
+
+- 六个场景可切换、交战、移动与撤离
+- 按R2验证伤害、冷却、感染致死事务、子体上限和存档
+- 实际画面与声效可供玩家检查
+
+当前结果：六场真实战场试玩、反馈修正及相关回归完成，玩家于 2026-11-20 确认试玩通过。
+
+证据与代码入口：
+
+- [ZERG_SIX_UNITS_CODE_SPEC_20261120.md](ZERG_SIX_UNITS_CODE_SPEC_20261120.md)
+- [zerg-six-demo-20261120.md](../../reports/qa/zerg-six-demo-20261120.md)
+- [README.md](../../preview/zerg-six-20261120/README.md)
+- [zerg-six-demo.test.ts](../../test/zerg-six-demo.test.ts)
+- [zerg-six-presentation.test.ts](../../test/zerg-six-presentation.test.ts)
+
+<a id="zerg-six-player-1.5"></a>
+### ZERG-SIX-PLAYER-1.5 1.5 虫族六家族正式游戏接入
+
+状态：已完成；优先级：用户要求；阶段：整合；更新：2026-11-20。
+负责人：项目主线程。前置：ZERG-SIX-DEMO-1.5。场景：跨场景或文档。
+
+以第一阶段验收的六单位实现接通正式发展、生产、编队、成长与恢复。
+
+工作步骤：
+
+- 接正式树、训练补员、编制和资源
+- 恢复在途订单、技能和下一关
+- 在正式入口验证六家族
+
+完成标准：
+
+- 16 家族且五槽，零资源发展、训练及补员
+- 旧订单交付及退款收据语义保持
+- 正常入口选取六家族出战并恢复
+
+当前结果：正式 Web 构建 5570c41bffb3 的六家均通过解锁、训练、接应入编、恢复及下一关；零资源、五槽、旧已付收据及冷却专项通过。
+
+证据与代码入口：
+
+- [ZERG_SIX_UNITS_CODE_SPEC_20261120.md](ZERG_SIX_UNITS_CODE_SPEC_20261120.md)
+- [zerg-six-campaign.test.ts](../../test/zerg-six-campaign.test.ts)
+- [qa-zerg-six-campaign.mts](../../tools/qa-zerg-six-campaign.mts)
+- [zerg-six-integration-20261120.md](../../reports/qa/zerg-six-integration-20261120.md)
+
+<a id="zerg-six-enemies-1.5"></a>
+### ZERG-SIX-ENEMIES-1.5 1.5 六种正常新敌人与独立体验敌群
+
+状态：待验证；优先级：用户要求；阶段：整合；更新：2026-11-20。
+负责人：项目主线程。前置：ZERG-SIX-PLAYER-1.5。场景：跨场景或文档。
+
+按 R2 追加正常六者及分账的高频体验敌群。
+
+工作步骤：
+
+- 追加正常六兵种及独立技能和成长
+- 分离体验投放、死亡奖励及救援边界
+- 验证实际入场、恢复、真实战场与成本
+
+完成标准：
+
+- 正常波和奖励保持，体验群采用独立节拍和容量
+- 体验体无奖励及救援副作用
+- 有 R2 验收、实际入场和性能记录
+
+当前结果：正常六敌和独立体验群已接正式战役与无尽。正式 Web 第12关实测正常新敌2只、体验敌222只入场。10,000次体验死亡无普通奖励，救援隔离与固定300敌对照通过。R2未穷尽组合详见交接。
+
+证据与代码入口：
+
+- [ZERG_SIX_UNITS_CODE_SPEC_20261120.md](ZERG_SIX_UNITS_CODE_SPEC_20261120.md)
+- [zerg-six-integration-20261120.md](../../reports/qa/zerg-six-integration-20261120.md)
+
+<a id="promo-01"></a>
+### PROMO-01 制作五分钟实机宣发视频V5与梗图封面
+
+状态：待验证；优先级：用户授权；阶段：交付；更新：2026-11-02。
+负责人：Codex。前置：无。场景：跨场景或文档。
+
+第一版已交付。2026-10-30用户要求重新设计三族团灭、Logo/短载入、发展运营、Boss奖励翻盘及三族装备对比，删除常驻白字，按情绪使用艺术字；追加允许调控拍摄数值，作为调整过的实机画面。独立宣传制作，不扩大MVP功能范围。
+
+工作步骤：
+
+- 完成三族趣味卡、自然走位和分向来敌的连续拍摄
+- 补录任务/特殊关及三族精英与英雄获取翻盘，核对效果与结算
+- 完成300秒剪辑、音效配乐、画面复核及播放验证，并沿用授权通过Drive交付
+
+完成标准：
+
+- 按用户确认时长导出可播放视频，主要画面来自本项目实机
+- 无画外音；英雄语音有现有音库来源
+- 玩家存档及正式源码/UI不变，编排范围如实记录
+- 三族分别展示精英获得、英雄获得、英雄技能带队翻盘；删除维修任务，技能保留起手、作用和结果
+- 展示趣味卡牌获取及实际触发结果；真实移动有明确路线，来敌方向与方式随段落变化
+
+当前结果：V5与PROMO-01-F03封面已本地交付：新增震撼首发／跟风3AI大作／星际幸存者的1080p梗图，2秒封面片头接原V5，完整版约280 MB、手机版约65 MB，均302秒／30FPS。两份原V5各9000解码帧逐帧一致；完整媒体解码、最终音频及视频包保持、Chrome封面／转场／首尾播放检查通过，手机尺寸封面可读。原V5保留，未上传、提交、推送或部署；待用户审片。
+
+证据与代码入口：
+
+- [PROMO_VIDEO_20261027.md](PROMO_VIDEO_20261027.md)
+- [PROMO_VIDEO_V2_STORYBOARD_20261030.md](PROMO_VIDEO_V2_STORYBOARD_20261030.md)
+- [promo-video-v1-20261027.json](../../reports/qa/promo-video-v1-20261027.json)
+- [PROMO_VIDEO_V2_20261030.md](PROMO_VIDEO_V2_20261030.md)
+- [promo-video-v2-20261030.json](../../reports/qa/promo-video-v2-20261030.json)
+- [PROMO_VIDEO_V3_20261030.md](PROMO_VIDEO_V3_20261030.md)
+- [promo-video-v3-20261030.json](../../reports/qa/promo-video-v3-20261030.json)
+- [promo-video-v3-mobile-20261030.json](../../reports/qa/promo-video-v3-mobile-20261030.json)
+- [promo-video-v3-drive-20261030.json](../../reports/qa/promo-video-v3-drive-20261030.json)
+- [PROMO_VIDEO_V4_STORYBOARD_20261102.md](PROMO_VIDEO_V4_STORYBOARD_20261102.md)
+- [PROMO_VIDEO_V4_20261102.md](PROMO_VIDEO_V4_20261102.md)
+- [promo-video-v4-20261102.json](../../reports/qa/promo-video-v4-20261102.json)
+- [promo-video-v4-mobile-20261102.json](../../reports/qa/promo-video-v4-mobile-20261102.json)
+- [promo-video-v4-drive-20261102.json](../../reports/qa/promo-video-v4-drive-20261102.json)
+- [PROMO_VIDEO_V4R1_20261102.md](PROMO_VIDEO_V4R1_20261102.md)
+- [promo-video-v4r1-20261102.json](../../reports/qa/promo-video-v4r1-20261102.json)
+- [promo-video-v4r1-drive-20261102.json](../../reports/qa/promo-video-v4r1-drive-20261102.json)
+- [PROMO_VIDEO_V5_20261102.md](PROMO_VIDEO_V5_20261102.md)
+- [promo-video-v5-20261102.json](../../reports/qa/promo-video-v5-20261102.json)
+- [promo-video-v5-mobile-20261102.json](../../reports/qa/promo-video-v5-mobile-20261102.json)
+- [V5_README.md](../../tools/promo-video/V5_README.md)
+- [PROMO_COVER_20261102.md](PROMO_COVER_20261102.md)
+- [promo-cover-20261102.json](../../reports/qa/promo-cover-20261102.json)
+- [COVER_README.md](../../tools/promo-video/COVER_README.md)
+
+<a id="demo-01"></a>
+### DEMO-01 80秒电影预告风玩法混剪修订
+
+状态：待验证；优先级：用户规划；阶段：交付；更新：2026-11-03。
+负责人：Codex。前置：无。场景：跨场景或文档。
+
+按用户图片改为电影／电竞预告风声音，增加前段比例；舰装与已同屏内容只介绍一次，末尾加入Logo；排除战后停住集合镜头，关键点击聚焦。沿用80秒、封面、12条原文及右上艺术字。
+
+工作步骤：
+
+- 调整80秒时间线、同屏舰装、点击聚焦与末尾4秒Logo，增加前段至56秒
+- 补录持续交战／移动和装备后重新出发，原创120BPM预告风声音并对齐45处切镜
+- 验证真实事务、动作区间、双版本解码／播放／音量及画面，等待用户视听审片
+
+完成标准：
+
+- 80秒含封面及片尾Logo，右上艺术字和无旁白
+- 前半段占比增加，舰装并排/三屏一次展示，不再重复逐族介绍
+- 电影/电竞预告风配乐、冲击与转场；切镜与重拍对齐
+- 战斗镜头持续战斗或移动，排除战后站定集合；关键点击可聚焦
+- 真实购买、扣费、奖励及同件模块前后关系保持
+
+当前结果：电影／电竞预告风修订已本地交付：80秒1080p30、45镜头、3处三分屏及2处双分屏；前段56秒、舰装合计10秒，最后4秒Logo。保留封面、12条原文和右上艺术字，第8/9条并排呈现；7组新录制替换停住集合与出发等待，购买/装备点击聚焦。原创120BPM低频/鼓/上升音/转场，45处切镜与重拍对齐。8组真实事务、30个动作区间、两份2400帧完整解码、24次Chrome章节/Logo播放与音量测量通过；约59MB高清/19MB轻量。551构建输入无差异，待用户视听审片，未作连续听审或物理手机验收。正式游戏/真实存档未改，本任务未提交推送上传发布。
+
+证据与代码入口：
+
+- [GAMEPLAY_DEMO_STORYBOARD_20261103.md](GAMEPLAY_DEMO_STORYBOARD_20261103.md)
+- [gameplay-demo-storyboard-20261103.json](../../reports/qa/gameplay-demo-storyboard-20261103.json)
+- [gameplay-demo-cover-audio-20261103.json](../../reports/qa/gameplay-demo-cover-audio-20261103.json)
+- [GAMEPLAY_DEMO_20261103.md](GAMEPLAY_DEMO_20261103.md)
+- [gameplay-demo-20261103.json](../../reports/qa/gameplay-demo-20261103.json)
+- [DEMO_README.md](../../tools/promo-video/DEMO_README.md)
+- [gameplay-demo-cover-fix-20261103.json](../../reports/qa/gameplay-demo-cover-fix-20261103.json)
+- [GAMEPLAY_DEMO_80S_20261103.md](GAMEPLAY_DEMO_80S_20261103.md)
+- [gameplay-demo-80s-20261103.json](../../reports/qa/gameplay-demo-80s-20261103.json)
+- [DEMO80_README.md](../../tools/promo-video/DEMO80_README.md)
+- [GAMEPLAY_DEMO_CINEMATIC_20261103.md](GAMEPLAY_DEMO_CINEMATIC_20261103.md)
+- [gameplay-demo-cinematic-20261103.json](../../reports/qa/gameplay-demo-cinematic-20261103.json)
+- [DEMO_CINEMATIC_README.md](../../tools/promo-video/DEMO_CINEMATIC_README.md)
+
+<a id="attack-fx-1.4"></a>
+### ATTACK-FX-1.4 末日兵器分支：攻击与高级精英表现
+
+状态：待验证；优先级：用户指定；阶段：整合；更新：2026-11-18。
+负责人：本聊天。前置：DOOMSDAY-1.4。场景：跨场景或文档。
+
+用户实看要求保留原版火力辨识、区分维修与攻击，按牌强化节点，并修正高达左侧圆点、强化纳米与幽能护甲。
+
+工作步骤：
+
+- 按实际成员与培养上限显示精英装甲、突破和极化
+- 从正式出膛、飞行、命中、承伤与恢复事件绘制分支改装及节点联动
+- 按33张常规牌和9张紫节点的真实条件检查轻量反馈与节点联动，高达仅调整剑长和远程炮弹
+- 按复看反馈修正收剑挂件，增强护甲与九节点，在同帧对照纳米闪烁、真实受击与敌方命中
+- 在正常入口和五组构筑重放中验证
+
+完成标准：
+
+- 同一兵种的突破／极化、武器改装和节点联动在真实战斗中持续可辨，按实际资格与原发数／时序显示
+- 五组同镜头构筑对照可打开并重放，原45卡入口可用
+- 相关回归、状态只读、退场清理与实际画面核对；用户观感单列
+
+当前结果：用户认可上一轮护甲与节点。ATTACK-FX-PIERCE-001 已按选定的普通坦克炮爆统一本地技能表现。七组 Chrome 对照覆盖普通坦克、两种驻扎精英、联发、堡垒中央排和两个对照组。同一炮段的三个着弹点各一次炮爆、一次扣血。正式商店的 45 张卡面已导出，90 次详情切换通过。本地前端 JS 摘要 a2499fcd8801，3,263 项完整回归通过。 根据用户纠正，现已改为正式游戏内存试玩入口，45 张逐卡取得与三个 Chrome 布局的翻面、购买或领取通过；旧图册和裁切图已清理。
+
+证据与代码入口：
+
+- [DOOMSDAY_ATTACK_EFFECTS_DESIGN_20261117.md](DOOMSDAY_ATTACK_EFFECTS_DESIGN_20261117.md)
+- [DOOMSDAY_VISUAL_REDESIGN_20261117.md](DOOMSDAY_VISUAL_REDESIGN_20261117.md)
+- [doomsday-attack-fx-20261118.md](../../reports/qa/doomsday-attack-fx-20261118.md)
+- [doomsday-card-visuals-20261118.md](../../reports/qa/doomsday-card-visuals-20261118.md)
+- [README.md](../../preview/doomsday-showcase-20261117/README.md)
+
+旧审计关联：ATTACK-FX-PIERCE-001、ATTACK-FX-HILT-001。
+
+<a id="latest-merge-20261120"></a>
+### LATEST-MERGE-20261120 近期游戏更新双分支核验与本地提交
+
+状态：进行中；优先级：P1；阶段：整合；更新：2026-11-20。
+负责人：Codex。前置：ROSTER-TERRAN-1.4、ZERG-SIX-PLAYER-1.5。场景：跨场景或文档。
+
+main与体积优化版有未提交的近期人族、虫族、表现与资源更新，需要核验并保持交付差异。
+
+工作步骤：
+
+- 核对共同源码和两侧已有成果
+- 完整回归、类型和资料检查，验证原画质及压缩入口
+- 提交两个本地分支并清理本批临时产物
+
+完成标准：
+
+- 共享游戏源码与运行资源一致
+- 本地分支均包含已确认近期更新
+- 压缩链路及两种正式入口可恢复战斗
+- 未测真机、自然长轮和R2边缘组合继续开放
+
+当前结果：正在核对。沙箱回环EACCES已在正常本机权限复测排除，完整回归继续。
+
+证据与代码入口：
+
+- [dual-branch-integration-20261120.md](../../reports/qa/dual-branch-integration-20261120.md)
 
 ## 旧审计完整索引
 
@@ -3012,6 +3551,129 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
 
 ## 更新记录
 
+- **2026-11-20 · LATEST-MERGE-20261120**：用户要求检验并将最近更新加入体积优化版和main。合并两侧最新状态，敌方第三阶段继续待验证；开始本地双分支核验。
+  - [dual-branch-integration-20261120.md](../../reports/qa/dual-branch-integration-20261120.md)
+- **2026-11-20 · ZERG-SIX-DESIGN-1.5**：R2设计完成。正常主力保留，六者正常追加；体验群85%跳虫，普通后期2秒一批，全部无掉落、不影响救援。2304组战役算术、144轮无尽窗口／节拍、72组等级公式检查通过。未改游戏源码，未做实战平衡、构建、提交、推送或部署。
+  - [ZERG_SIX_UNITS_CODE_SPEC_20261120.md](ZERG_SIX_UNITS_CODE_SPEC_20261120.md)
+  - [zerg-six-design-20261120.json](zerg-six-design-20261120.json)
+  - [zerg-six-design-20261120.md](../../reports/qa/zerg-six-design-20261120.md)
+  - [qa-zerg-six-design.mts](../../tools/qa-zerg-six-design.mts)
+- **2026-11-20 · ZERG-SIX-DESIGN-1.5**：按用户要求开始六个虫族战斗家族及敌方难度／时序／数量／强度的完整开发规格；旧王虫系名单与菌毯优先建议不作为本轮前提。本轮设计，不启动游戏实现。
+- **2026-11-19 · ROSTER-TERRAN-1.4、BUILD-1.3**：按用户要求接回六个正式家族及自动战斗、生产补员、三分支适配、原版资源和存档。主线独立修复炮台误维修、受控施法、停火寿命、转移落点复验和解放者首领协同五项问题。最终3394／3394回归通过，正式构建7a4061e628e1；预备版三尺寸、最终版空军与三支混买流程通过，购卡／下一战／撤退／保存重导及音频信号已核验，页面／资源错误为零。开发侧108组DPS按其原版本保留，不作为最终主线新测量；小屏战巡上沿取景及最终平衡继续开放。未提交、推送或部署。 同步人族现行锁主与普通紫限制，三族九支总项继续待讨论，下一项仍V05。 已删除8177份可重建文件约2.944GiB，保留原始素材、运行依赖、结论和复现代码。
+  - [TERRAN_SIX_MAIN_INTEGRATION_20261119.md](TERRAN_SIX_MAIN_INTEGRATION_20261119.md)
+  - [terran-six-main-20261119.md](../../reports/qa/terran-six-main-20261119.md)
+- **2026-11-19 · ROSTER-TERRAN-1.4**：用户要求检查并接入已交付六单位；主线开始定向合流与独立复核。
+  - [TERRAN_SIX_UNITS_PROPOSAL_20261119.md](TERRAN_SIX_UNITS_PROPOSAL_20261119.md)
+- **2026-11-19 · ROSTER-TERRAN-1.4**：用户明确六个新单位全部按现有自动战斗设计，不增加手动单位技能按钮。已核实恶火现有恶蝠形态，撤回新增火蝠优先建议；复核原1.4目录后建议恢复幽灵、寡妇雷、飓风、渡鸦、解放者、普通战巡，火蝠／歌利亚保留战役扩展。补全幽灵自动狙击、条件隐形、真实EMP收益、取消／跟随／避免过杀及卡牌适配。名单和数值仍待确认；仅更新方案，没有游戏实现或新增测试。
+  - [TERRAN_SIX_UNITS_PROPOSAL_20261119.md](TERRAN_SIX_UNITS_PROPOSAL_20261119.md)
+  - [V1X_ROSTER_20261104.md](V1X_ROSTER_20261104.md)
+  - [V1X_ROADMAP_20261104.md](V1X_ROADMAP_20261104.md)
+- **2026-11-19 · BUILD-1.3、ARMED-1.4、DOOMSDAY-1.4、BIO-1.4、ROSTER-TERRAN-1.4**：2026-11-19 按用户本轮规则改为第三个有效普通牌进度成交即锁主、免费节点必须选完后继续，禁止未入主支的普通紫卡出现／购买。3／6／9紫节点及再三点免费橙、主1／副各0.5权重保持。3353完整回归、三支60项玩家流程、同版正式包导档下一战及15个累计效果场景通过；横屏字体一致，保持原样。162组装备DPS完成：共同编队中生化单体／地面输出偏高，低档对空武装领先，具体橙卡差异明显，不认定最终平衡。六单位方案完成待确认，尚未实施；未提交、推送或部署。
+  - [terran-rules-dps-20261119.md](../../reports/qa/terran-rules-dps-20261119.md)
+  - [TERRAN_SIX_UNITS_PROPOSAL_20261119.md](TERRAN_SIX_UNITS_PROPOSAL_20261119.md)
+- **2026-11-19 · BUILD-1.3、ARMED-1.4、DOOMSDAY-1.4、BIO-1.4**：2026-11-19 已在本地 main 工作区接入生化协同，保留 DS-MAIN-001／002／003。修复英雄碰撞半径累乘卡死、毒雾／吸血重复结算、英雄与医疗增益漏接、席位冷却继承及 O03 已付在途交付。3343 个唯一回归均有通过结果，99 生化长场景、126 末日场景、108 同预算和9混买战斗恢复通过；三支正常入口60项通过。联合样本显示成型与对手差异，未认定平衡或人工完整战役通过。 同版正式包三支导档及下一战通过；三支163组浏览器战斗重放、末日9组渲染状态隔离及代表性截图复看完成，页面／资源错误为零。横屏字小、细小生化附属体及混战遮挡作为可读性观察保留。
+  - [TERRAN_MAIN_INTEGRATION_20261119.md](TERRAN_MAIN_INTEGRATION_20261119.md)
+  - [terran-main-integration-20261119.md](../../reports/qa/terran-main-integration-20261119.md)
+- **2026-11-18 · BUILD-1.3**：生化表现按本轮反馈改为单侧局部虫甲、薄壳与须尖黏滴。已去除王虫身体与囊体叠加的固定亮斑，三张橙卡按英雄／整编本体显示脸侧复眼与肩后细须。45 个 Chrome 重放及 94 项定向回归通过。
+  - [bio-synergy-20261118.md](../../reports/qa/bio-synergy-20261118.md)
+  - [qa-bio-showcase.mjs](../../tools/qa-bio-showcase.mjs)
+- **2026-11-18 · BUILD-1.3**：W02 毒液子弹已复现挂毒、扣血存在而画面缺少附着。正式战场接入命中酸点与有效毒层表现，展示刷新保留当前卡。Chrome 同种子持牌与基础画面对照、毒液绘制、单次命中四秒时序与读档、58 项定向及类型检查通过。
+  - [bio-synergy-20261118.md](../../reports/qa/bio-synergy-20261118.md)
+  - [qa-bio-showcase.mjs](../../tools/qa-bio-showcase.mjs)
+  - [bio-synergy.test.ts](../../test/bio-synergy.test.ts)
+- **2026-11-18 · BUILD-1.3**：用户反馈毒液子弹看不出效果，复查持牌与基础战场。
+  - [bio-synergy-20261118.md](../../reports/qa/bio-synergy-20261118.md)
+- **2026-11-18 · BUILD-1.3**：生化设计页已修复预览子目录误解析卡图地址的问题。三种布局各逐张检查 45 张，实际解码与翻面通过；已目视核对首组和王虫组。
+  - [bio-synergy-20261118.md](../../reports/qa/bio-synergy-20261118.md)
+  - [qa-bio-cards.mjs](../../tools/qa-bio-cards.mjs)
+- **2026-11-18 · BUILD-1.3**：用户反馈生化卡牌设计界面出现破图，开始复现与修复。
+  - [qa-bio-cards.mjs](../../tools/qa-bio-cards.mjs)
+- **2026-11-18 · BUILD-1.3**：2026-11-18 生化协同 45 张按 R3 落地本地工作区，已交付卡牌设计及战场重放。正式购领、节点复选、成长与恢复已接入。用户确认孤星死神优先并保留已有双生。45 个浏览器场景、55 项生化定向与 3318 项全量回归通过，最终返血时钟和展示场景另通过 69 项生化／声音定向。
+  - [bio-synergy-20261118.md](../../reports/qa/bio-synergy-20261118.md)
+  - [qa-bio-showcase.mjs](../../tools/qa-bio-showcase.mjs)
+  - [qa-bio-cards.mjs](../../tools/qa-bio-cards.mjs)
+  - [bio-synergy.test.ts](../../test/bio-synergy.test.ts)
+- **2026-11-18 · DOOMSDAY-1.4**：已定向接入本地 main 工作区（8ccf4282 加未提交改动），未推送或部署。按用户最新决定记录免费紫橙三选一、第三紫实际领取后再积3点、节点无取得前置与N03仅机械升2级；修复误升生化、纯生化无法购买P03、过渡老兵提前改造三项。45卡126场景及72恢复、五英雄/五图纸生命周期、3265唯一回归均有通过结果；21项正式玩家入口与3项编译包通过。有限画面与已知加载超时边界见主线复核结论。开发工作区已进入生化协同，本次未覆盖其源码，后续合流须保留主线三项修复。
+  - [DOOMSDAY_MAIN_INTEGRATION_20261118.md](DOOMSDAY_MAIN_INTEGRATION_20261118.md)
+  - [doomsday-main-integration-20261118.md](../../reports/qa/doomsday-main-integration-20261118.md)
+- **2026-11-18 · DOOMSDAY-1.4**：用户要求主线程接入末日兵器并复查设计落实、代码冲突和实际体验；记录开发线程最新免费紫橙三选一规则，启动独立接入复核，尚未认定通过。
+  - [DOOMSDAY_MAIN_INTEGRATION_20261118.md](DOOMSDAY_MAIN_INTEGRATION_20261118.md)
+- **2026-11-18 · BUILD-1.3**：按用户授权落实生化协同 R3，先交付45张卡面，再交付战场展示与实测。主线程处理合流。
+  - [TERRAN_BIO_SYNERGY_DRAFT_20261117.md](TERRAN_BIO_SYNERGY_DRAFT_20261117.md)
+- **2026-11-18 · BUILD-1.3**：武装与末日均已验证即时紫／橙免费三选一、翻卡、延领计数和续局。原先付费橙色货架与紫色二选一已替换。待玩家审阅本地入口。
+  - [terran-free-nodes-20261118.md](../../reports/qa/terran-free-nodes-20261118.md)
+- **2026-11-18 · BUILD-1.3**：修订紫、橙节点领取节奏，两者均免费三选一，并接入开卡表现。
+  - [UI_RULES.md](UI_RULES.md)
+- **2026-11-18 · BUILD-1.3**：正式卡图徽记、试玩资金、两支三卡免费节点已交付。复现旧混合买完各 1 点，核对两支 1→2→3 与免费领取，24 种购领路径及 143 项定向回归通过。继续讨论生化与三支合流。
+  - [doomsday-card-visuals-20261118.md](../../reports/qa/doomsday-card-visuals-20261118.md)
+  - [qa-doomsday-shop-ui.mts](../../tools/qa-doomsday-shop-ui.mts)
+  - [UI_RULES.md](UI_RULES.md)
+- **2026-11-18 · BUILD-1.3**：用户确认三枚标识与卡图左下位置，接入正式普通货架；复核三次有效购买后的节点与试玩资金。
+  - [README.md](../../preview/terran-branch-marks-20261118/README.md)
+- **2026-11-18 · BUILD-1.3**：普通购卡分支标识完成独立样张。三张同品质卡在原货架布局中对照，桌面 36px，模拟手机约 24px；待用户确认。
+  - [README.md](../../preview/terran-branch-marks-20261118/README.md)
+  - [capture.mjs](../../preview/terran-branch-marks-20261118/capture.mjs)
+- **2026-11-18 · BUILD-1.3**：按用户要求设计人族三支普通购卡标识，以独立货架样张呈现图形、位置与三端尺寸。
+  - [UI_RULES.md](UI_RULES.md)
+  - [V1_3_FACTION_BUILDS_DRAFT_20261109.md](V1_3_FACTION_BUILDS_DRAFT_20261109.md)
+- **2026-11-18 · ATTACK-FX-1.4**：按原关间 UI 交付完整可操作的 45 张逐卡入口。正式 World 逐张结算，三端代表流程、画面资源和类型／数据复验通过。
+  - [shop.html](../../preview/doomsday-showcase-20261117/shop.html)
+  - [qa-doomsday-shop-ui.mts](../../tools/qa-doomsday-shop-ui.mts)
+  - [doomsday-card-visuals-20261118.md](../../reports/qa/doomsday-card-visuals-20261118.md)
+- **2026-11-18 · ATTACK-FX-1.4**：根据用户纠正，将卡册审阅改为正式战备补给与节点选择界面。
+  - [doomsday-card-visuals-20261118.md](../../reports/qa/doomsday-card-visuals-20261118.md)
+  - [README.md](../../preview/doomsday-showcase-20261117/README.md)
+- **2026-11-18 · ATTACK-FX-1.4**：M-P05 全部贯穿路径复验通过，消除原炮与卡牌在同一命中点的重复炮爆。交付 45 张真实购卡／领取卡面、可点击详情的离线卡册和贯穿炮膛单图，转待用户复看。
+  - [doomsday-card-visuals-20261118.md](../../reports/qa/doomsday-card-visuals-20261118.md)
+  - [qa-doomsday-bore.mjs](../../tools/qa-doomsday-bore.mjs)
+  - [export-doomsday-shop-cards.mjs](../../tools/export-doomsday-shop-cards.mjs)
+- **2026-11-18 · ATTACK-FX-1.4**：用户选定普通坦克的整炮爆炸作为 M-P05 技能效果，要求覆盖所有适用载体，并在完成后展示购卡界面的卡片。开始核对原生、联发与堡垒路径。
+  - [doomsday-card-visuals-20261118.md](../../reports/qa/doomsday-card-visuals-20261118.md)
+- **2026-11-18 · ATTACK-FX-1.4**：按用户反馈修复高达收剑挂件 ATTACK-FX-HILT-001，强化护甲与九节点。本地 65aee5c4aa1d 完成实机像素对照、逐卡、正常入口与编译版恢复验证，转待用户复看。
+  - [doomsday-card-visuals-20261118.md](../../reports/qa/doomsday-card-visuals-20261118.md)
+  - [DOOMSDAY_ATTACK_EFFECTS_DESIGN_20261117.md](DOOMSDAY_ATTACK_EFFECTS_DESIGN_20261117.md)
+- **2026-11-18 · ATTACK-FX-1.4**：定向核对普通坦克和虎式的第三轮贯穿。相同靶阵均命中主靶与两个后排，原版主炮爆炸分别绘制三处与一处。登记 ATTACK-FX-PIERCE-001，游戏代码未改。
+  - [doomsday-card-visuals-20261118.md](../../reports/qa/doomsday-card-visuals-20261118.md)
+- **2026-11-18 · ATTACK-FX-1.4**：按用户实看反馈交付本地逐卡特效修订 1eef7c10674a。完成 33 张常规牌、9 张紫节点和高达近远程复验。正式入口及完整回归通过，等待用户复看。
+  - [doomsday-card-visuals-20261118.md](../../reports/qa/doomsday-card-visuals-20261118.md)
+  - [README.md](../../preview/doomsday-showcase-20261117/README.md)
+- **2026-11-18 · ATTACK-FX-1.4**：按用户确认完成末日分支攻击与高级精英表现，候选 a15515acea6c。5组19档、45卡入口、正式菜单与编译构建恢复、3255项回归完成。用户观感待验。
+  - [doomsday-attack-fx-20261118.md](../../reports/qa/doomsday-attack-fx-20261118.md)
+  - [README.md](../../preview/doomsday-showcase-20261117/README.md)
+- **2026-11-17 · ATTACK-FX-1.4**：用户纠正只指末日兵器分支：撤回前版全人族扩展，改为45张本支卡牌的持续战斗辨识，重点为精英装甲／精英极化、武器改装和节点联动。45卡覆盖与docs:check通过，设计待讨论，未实施。
+  - [DOOMSDAY_ATTACK_EFFECTS_DESIGN_20261117.md](DOOMSDAY_ATTACK_EFFECTS_DESIGN_20261117.md)
+- **2026-11-17 · ATTACK-FX-1.4**：完成当前人族攻击与高级精英特效R1设计，覆盖30类精英、六英雄及两支卡牌叠加；高军衔只强化本武器质感，不增加虚假弹数／范围。设计待讨论，未实施。名称／ID覆盖及docs:check通过。
+  - [TERRAN_ATTACK_EFFECTS_DESIGN_20261117.md](TERRAN_ATTACK_EFFECTS_DESIGN_20261117.md)
+- **2026-11-17 · DOOMSDAY-1.4**：高达炮口光剑、两倍粗细与正面红甲小修已完成，33项相关回归／类型和4个实机姿态通过；未重新打包，未提交推送部署，等待用户复看。
+  - [doomsday-refits-20261117.md](../../reports/qa/doomsday-refits-20261117.md)
+- **2026-11-17 · DOOMSDAY-1.4**：用户指出光剑应从炮口伸出且需更粗，红色不可见；按明确反馈进行定向呈现修订。
+  - [DOOMSDAY_VISUAL_REDESIGN_20261117.md](DOOMSDAY_VISUAL_REDESIGN_20261117.md)
+- **2026-11-17 · DOOMSDAY-1.4**：表现 R2 与真实光剑近战本地实施并验证，纳入自由高达参考分色。最终候选75b5a3c19ea6，3252回归、64场逐卡展示、6项代表表现／退场、19项玩家流程与编译入口通过，待用户观感及联合平衡验收；未提交推送部署。
+  - [doomsday-refits-20261117.md](../../reports/qa/doomsday-refits-20261117.md)
+  - [DOOMSDAY_VISUAL_REDESIGN_20261117.md](DOOMSDAY_VISUAL_REDESIGN_20261117.md)
+- **2026-11-17 · DOOMSDAY-1.4**：用户批准开始实施表现重设计 R2，包含暗色幽能、纳米新表现、蓝白红高达、光剑真实近战、体型及列明卡牌文案。标记进行中。
+  - [DOOMSDAY_VISUAL_REDESIGN_20261117.md](DOOMSDAY_VISUAL_REDESIGN_20261117.md)
+- **2026-11-17 · DOOMSDAY-1.4**：按用户最新反馈把幽能改为炭黑／深靛紫暗核裂隙，高达改为蓝白红分区并纳入真实光剑近战。R2 给出持剑动作、近身切换、原轮预算替换、循环与恢复设计建议；与已确认方向分开，尚未实装。
+  - [DOOMSDAY_VISUAL_REDESIGN_20261117.md](DOOMSDAY_VISUAL_REDESIGN_20261117.md)
+- **2026-11-17 · DOOMSDAY-1.4**：记录用户攻击特效接近原版、体型不明显的反馈；完成覆盖 45 卡的表现重设计 R1，重点为纳米颗粒组装／附着脉冲、幽能相位／收束内爆、白色更大高达、混合叠加规则及 B01 详情准确性。待审阅，尚未改游戏表现。
+  - [DOOMSDAY_VISUAL_REDESIGN_20261117.md](DOOMSDAY_VISUAL_REDESIGN_20261117.md)
+- **2026-11-17 · DOOMSDAY-1.4**：末日兵器45张完成本地正式接入、独立重放和有限完整验证；修复三项接入缺陷，3240回归通过，状态转待验证，等待用户观感及三支联合规则／平衡。提交合流仍交主线程，未推送部署。 本批构建、截图、日志及隔离测试档案已清理约1.50 GiB；展示源码服务保留可用。
+  - [doomsday-implementation-20261117.md](../../reports/qa/doomsday-implementation-20261117.md)
+  - [README.md](../../preview/doomsday-showcase-20261117/README.md)
+- **2026-11-17 · BUILD-1.3**：完成生化协同45张代码可行性与逐卡特效设计：记录商店／来源结算／名额复生／保存／跨族英雄缺口及王虫资源待补，10项隔离时刻样本完成视觉复查；正式实现和其余规则／表现继续待审，三支联合规则与同预算强度最后确认。未修改生产源码。
+  - [TERRAN_BIO_SYNERGY_FEASIBILITY_20261117.md](TERRAN_BIO_SYNERGY_FEASIBILITY_20261117.md)
+  - [bio-feasibility-20261117.md](../../reports/qa/bio-feasibility-20261117.md)
+- **2026-11-17 · BUILD-1.3**：记录用户接受R3护甲方案，并将人族三支统一规则与强度差距列为最后联合确认项；开始生化协同源码可落地性及特效设计审计，未开始游戏实现。
+  - [TERRAN_BIO_SYNERGY_DRAFT_20261117.md](TERRAN_BIO_SYNERGY_DRAFT_20261117.md)
+  - [V1_3_FACTION_BUILDS_DRAFT_20261109.md](V1_3_FACTION_BUILDS_DRAFT_20261109.md)
+- **2026-11-17 · BUILD-1.3**：按用户护甲与装备匹配反馈修订生化协同审阅稿R3：卡牌护甲增益、成长及减甲改为百分比，补全装备底数和同类加成、节点放大与丛林护甲口径；具体数值仍待审，只改设计文档。
+  - [TERRAN_BIO_SYNERGY_DRAFT_20261117.md](TERRAN_BIO_SYNERGY_DRAFT_20261117.md)
+- **2026-11-17 · BUILD-1.3**：按用户要求整理生化协同45张完整数值审阅稿R2，纠正配对来源不足却配置过多共生强化的问题；各档、节点复选与组合给出具体建议，明确暂不实现。
+  - [TERRAN_BIO_SYNERGY_DRAFT_20261117.md](TERRAN_BIO_SYNERGY_DRAFT_20261117.md)
+- **2026-11-17 · BUILD-1.3**：启动生化协同第三分支设计讨论，记录用户24张核心牌和三项澄清：每个生化家族各留1名升XXV、异虫女王使用凯瑞甘、额外V级凯瑞甘与原英雄并肩。另列21张未确认补牌候选，所有新增数值和组合限制仍待讨论；本轮没有游戏实装。
+  - [TERRAN_BIO_SYNERGY_DRAFT_20261117.md](TERRAN_BIO_SYNERGY_DRAFT_20261117.md)
+- **2026-11-16 · DOOMSDAY-1.4**：用户授权末日兵器45张完整实装。共用经济和弱敌波次保留独立任务；本轮本地交付供主线程合流。
+  - [V1_3_TERRAN_DOOMSDAY_WEAPONS_CODE_SPEC_20261112.md](V1_3_TERRAN_DOOMSDAY_WEAPONS_CODE_SPEC_20261112.md)
 - **2026-11-13 · V14-MERGE-01、ARMED-1.4**：已提交到本地 main（6697f010）与体积优化版（971c79c5），源码与运行资源树一致。03ec9b73 更新压缩入口，两分支各通过 3176 项完整回归。原画质和压缩正式入口均通过末关导档、购卡及无尽落地后的持续战斗。
   - [v14-local-integration-20261113.md](../../reports/qa/v14-local-integration-20261113.md)
 - **2026-11-13 · ARMED-1.4**：最终候选 5e1ffbfe4960 将已购坑道虫纳入出战和恢复准备，兼容缺少商店字段的快照；简化连通格扫描和重复 HUD 刷新。同设置 18 关到无尽，第 16 关最长 816.6→133.3 ms，第 17 关开场 199.8→66.7 ms，全战役最长 816.6→266.6 ms（第 6 关）。跟踪均值 579.0→575.9 MiB、峰值 933.9→947.4 MiB，无尽首轮 855.1→890.4 MiB。
@@ -3151,6 +3813,8 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
   - [V1_3_FACTION_BUILDS_DRAFT_20261109.md](V1_3_FACTION_BUILDS_DRAFT_20261109.md)
   - [V1X_ROSTER_20261104.md](V1X_ROSTER_20261104.md)
   - [README.md](README.md)
+- **2026-11-09 · PLAN-1X**：按用户要求修订具体版本归属，将新增玩法纳入已有版本顺序。
+  - [V1X_ROADMAP_20261104.md](V1X_ROADMAP_20261104.md)
 - **2026-11-09 · BUILD-1.3、PLAN-1X、PLAY-1X**：第二版卡池已交评审，1.X 四项共用调整列入路线图及待办。游戏规则仍是上次合流版本。
   - [V1_3_FACTION_BUILDS_DRAFT_20261109.md](V1_3_FACTION_BUILDS_DRAFT_20261109.md)
   - [V1X_ROADMAP_20261104.md](V1X_ROADMAP_20261104.md)
@@ -3245,6 +3909,8 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
   - [V1X_ROADMAP_20261104.md](V1X_ROADMAP_20261104.md)
 - **2026-11-05 · AUTO-1.2**：用户要求先调研如何实现，不直接开始。登记待讨论方案，核对现有逻辑与可复用测试；保留V05、TUT-1.1当前状态，本轮不改游戏代码。
   - [V1X_ROADMAP_20261104.md](V1X_ROADMAP_20261104.md)
+- **2026-11-04 · V04**：按用户要求回移共有缺陷至本地main eeb8ca8，导出原画质及高档压缩资源两份单文件HTML。125项定向、类型/数据和两版断网Chrome首战通过，清理4个旧构建目录5,833,748,754字节。未推送或部署。
+  - [mvp-offline-export-20261104.json](../../reports/qa/mvp-offline-export-20261104.json)
 - **2026-11-04 · PLAN-1X**：1.1 虫后教学统一使用腺体震动声与中文字幕，已同步十段分镜及首件装备插话。人族副官和神族执行官使用逐句对白。
   - [V1_1_FIRST_RUN_TUTORIAL_20261104.md](V1_1_FIRST_RUN_TUTORIAL_20261104.md)
   - [v1x-roadmap-revision-20261104.json](../../reports/qa/v1x-roadmap-revision-20261104.json)
@@ -3253,16 +3919,27 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
 - **2026-11-04 · PLAN-1X**：1.1 补充十个镜头与三族逐句配音字幕台本，已提取并目视核对三位顾问原版静态头像，提供并排预览；台词待录制、镜头待实装。
   - [V1_1_FIRST_RUN_TUTORIAL_20261104.md](V1_1_FIRST_RUN_TUTORIAL_20261104.md)
   - [v1x-roadmap-revision-20261104.json](../../reports/qa/v1x-roadmap-revision-20261104.json)
+- **2026-11-04 · V06**：用户决定 MVP 1.0 暂按完成，V06 最终记录收尾。CDN 待处理、暂不提单，Coze 后端暂缓，原机待确认。V05 仍是独立运维事项。
+  - [MVP_1_0_HANDOFF_20261029.md](MVP_1_0_HANDOFF_20261029.md)
+  - [COZE_FRONTEND_ACCEPTANCE_20261104.md](COZE_FRONTEND_ACCEPTANCE_20261104.md)
+- **2026-11-04 · V06**：12:18:57原复现环境含zstd请求仍命中两份旧字节和一年immutable，12:19:03同条件两份均为新版no-cache。Coze报告其出口两轮通过且无正式purge能力，跨出口连续两轮验收待处理。
+  - [COZE_FRONTEND_ACCEPTANCE_20261104.md](COZE_FRONTEND_ACCEPTANCE_20261104.md)
+  - [coze-frontend-20261104.json](../../reports/qa/coze-frontend-20261104.json)
 - **2026-11-04 · PLAN-1X**：1.1 首局教学设计已按用户最终决定补齐。无档新玩家进入第一关时自选接受或跳过，任一步跳过后不再出现。顾问为人族副官、虫族虫后、神族执行官，已核原版定义。教学覆盖移动、击杀敌方工蜂与采集矿气、保护空投、关间运营。奖励触发已澄清为第三关原有战役首领，其教学掉装合计 2–3 件，引导拾取、关间装散件、撤离及旗舰装模块。已核简单与普通前三关排程、装备目录、27 处本地链接和 docs:check。本次交付为规划，保留 1.2 自动战斗、1.3 共定构筑的顺序。
   - [V1_1_FIRST_RUN_TUTORIAL_20261104.md](V1_1_FIRST_RUN_TUTORIAL_20261104.md)
   - [V1X_ROADMAP_20261104.md](V1X_ROADMAP_20261104.md)
   - [v1x-roadmap-revision-20261104.json](../../reports/qa/v1x-roadmap-revision-20261104.json)
+- **2026-11-04 · V06**：11月4日Coze原站已运行86c3ca45…，新旧测试会话升级、游戏内清缓存、首关保存与第二关续局通过，非空装备档和两备份保持。408份保留文件SHA全部匹配。两条固定兼容地址仍对一种编码请求返回一年缓存的旧文件，CDN一致性待复验。后端按用户决定暂缓。 补测一次贴图502可恢复，严格零HTTP错误项单独记录；修复提交CI已通过。
+  - [COZE_FRONTEND_ACCEPTANCE_20261104.md](COZE_FRONTEND_ACCEPTANCE_20261104.md)
+  - [coze-frontend-20261104.json](../../reports/qa/coze-frontend-20261104.json)
 - **2026-11-04 · PLAN-1X**：按用户决定将 1.1 调整为无存档玩家首次入关的战役式指挥官教学。正在核对三族人选、任一步永久跳过、首个精英 2 至 3 件装备与关间及舰装流程。
   - [V1X_ROADMAP_20261104.md](V1X_ROADMAP_20261104.md)
 - **2026-11-04 · PLAN-1X**：版本规划已按用户确认的顺序修订。1.1 教学、1.2 自动战斗、1.3 与用户共同定好三族九条构筑方向和三卡规则，1.4 人族、1.5 虫族、1.6 神族依次落实兵种、增益牌及核心技能。1.7 结合实际内容调整卡池和装备。13 个版本、71 项任务归属与依赖、兵种目录及文档链接核验通过，docs:check 通过。
   - [V1X_ROADMAP_20261104.md](V1X_ROADMAP_20261104.md)
   - [V1X_ROSTER_20261104.md](V1X_ROSTER_20261104.md)
   - [v1x-roadmap-revision-20261104.json](../../reports/qa/v1x-roadmap-revision-20261104.json)
+- **2026-11-04 · V06**：2026-11-04用户决定Coze暂缓数据库及后端要求；统计、反馈和/api/config移出本次Coze前端验收。 在既有待验证状态进入公开站点独立复核。
+  - [COZE_CACHE_WORKER_GITHUB_SYNC_20261103.md](COZE_CACHE_WORKER_GITHUB_SYNC_20261103.md)
 - **2026-11-04 · PLAN-1X**：用户明确排期为 1.1 教学、1.2 自动战斗、1.3 共同定好构筑方向、1.4 起依次接入人族虫族神族。正在校正现行版本及依赖。
   - [V1X_ROADMAP_20261104.md](V1X_ROADMAP_20261104.md)
 - **2026-11-04 · PLAN-1X**：规划修订完成，1.1 至 1.13 共 71 项任务。1.1 教学、1.2 关间选三张同一流派增益牌获一次核心技能选择权并提高该流派后续出牌概率，原 1.1 的七项自动战斗工作移至 1.3。保留三族各三条的共同设计空间，精英同兵种加成是候选，V 以后晋升待议。六个可游玩设计样例、19 个新家族及 38 个内容包已核对，docs:check 通过。本次交付为设计文档。
@@ -3271,11 +3948,405 @@ G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成�
   - [v1x-roadmap-revision-20261104.json](../../reports/qa/v1x-roadmap-revision-20261104.json)
 - **2026-11-04 · PLAN-1X**：按用户反馈修订版本规划。1.1教学、1.2关间三张同流派增益牌解锁核心选择权并提高该流派后续出牌概率。构筑留给共同设计，精英同兵种增益与V以后晋升单列讨论。
   - [V1X_RESEARCH_ROADMAP_20261030.md](V1X_RESEARCH_ROADMAP_20261030.md)
+- **2026-11-03 · DEMO-01**：电影／电竞预告风修订已本地交付：80秒1080p30、45镜头、3处三分屏及2处双分屏；前段56秒、舰装合计10秒，最后4秒Logo。保留封面、12条原文和右上艺术字，第8/9条并排呈现；7组新录制替换停住集合与出发等待，购买/装备点击聚焦。原创120BPM低频/鼓/上升音/转场，45处切镜与重拍对齐。8组真实事务、30个动作区间、两份2400帧完整解码、24次Chrome章节/Logo播放与音量测量通过；约59MB高清/19MB轻量。551构建输入无差异，待用户视听审片，未作连续听审或物理手机验收。正式游戏/真实存档未改，本任务未提交推送上传发布。
+  - [GAMEPLAY_DEMO_CINEMATIC_20261103.md](GAMEPLAY_DEMO_CINEMATIC_20261103.md)
+  - [gameplay-demo-cinematic-20261103.json](../../reports/qa/gameplay-demo-cinematic-20261103.json)
+  - [DEMO_CINEMATIC_README.md](../../tools/promo-video/DEMO_CINEMATIC_README.md)
+- **2026-11-03 · DEMO-01**：80秒新版已本地制作与验证：1080p30、2400帧、40镜头、4处三分屏，3秒封面计入总时长；12条原文恢复右上角金橙金属艺术字，底部白字栏移除。关键购买/扣费/奖励/换装因果复核通过，首领奖励完整卡面补齐。两份视频完整解码、40镜头抽帧及Chrome共24次章节播放通过；原构建551输入无差异。待用户审片，未改产品、真实存档、提交推送上传或部署。
+  - [GAMEPLAY_DEMO_STORYBOARD_20261103.md](GAMEPLAY_DEMO_STORYBOARD_20261103.md)
+  - [gameplay-demo-storyboard-20261103.json](../../reports/qa/gameplay-demo-storyboard-20261103.json)
+  - [gameplay-demo-cover-audio-20261103.json](../../reports/qa/gameplay-demo-cover-audio-20261103.json)
+  - [GAMEPLAY_DEMO_20261103.md](GAMEPLAY_DEMO_20261103.md)
+  - [gameplay-demo-20261103.json](../../reports/qa/gameplay-demo-20261103.json)
+  - [DEMO_README.md](../../tools/promo-video/DEMO_README.md)
+  - [gameplay-demo-cover-fix-20261103.json](../../reports/qa/gameplay-demo-cover-fix-20261103.json)
+  - [GAMEPLAY_DEMO_80S_20261103.md](GAMEPLAY_DEMO_80S_20261103.md)
+  - [gameplay-demo-80s-20261103.json](../../reports/qa/gameplay-demo-80s-20261103.json)
+  - [DEMO80_README.md](../../tools/promo-video/DEMO80_README.md)
+- **2026-11-03 · DEMO-01**：用户指出封面遗漏后，已将已批准的玩法详解图加入两份视频片头3秒，167.7秒、1080p30、42镜头，原12段正文与字幕保留。高清/轻量以With-Cover新文件交付；完整解码各5031帧、24次章节跳转及两份实际封面首帧确认通过。待用户审片；本轮仅后期修改，未改正式产品或发布。
+  - [GAMEPLAY_DEMO_STORYBOARD_20261103.md](GAMEPLAY_DEMO_STORYBOARD_20261103.md)
+  - [gameplay-demo-storyboard-20261103.json](../../reports/qa/gameplay-demo-storyboard-20261103.json)
+  - [gameplay-demo-cover-audio-20261103.json](../../reports/qa/gameplay-demo-cover-audio-20261103.json)
+  - [GAMEPLAY_DEMO_20261103.md](GAMEPLAY_DEMO_20261103.md)
+  - [gameplay-demo-20261103.json](../../reports/qa/gameplay-demo-20261103.json)
+  - [DEMO_README.md](../../tools/promo-video/DEMO_README.md)
+  - [gameplay-demo-cover-fix-20261103.json](../../reports/qa/gameplay-demo-cover-fix-20261103.json)
+- **2026-11-03 · DEMO-01**：已按用户确认分镜完成本地演示：164.7秒、1080p30、41镜头、15组新录制，无旁白，12条字幕原文及三族交替保留。工蜂矿气、三族100/25、75/25、125/50援兵扣费、购牌实际伤害与可见特效、首领奖励、人族同件SCV勤务终端贯穿拾取—局外限制—撤离—装备、神族关间换装、三种分支及再次出发均核验。两份MP4完整解码各4941帧、24次Chrome章节跳转与41镜头取样通过，docs:check通过；约58MB高清和23MB轻量已交付。待用户审片，物理手机未验；预设实机状态、辅助准备通关入口，不冒称自然通关。本任务未改正式游戏/真实存档，未提交推送上传发布。
+  - [GAMEPLAY_DEMO_STORYBOARD_20261103.md](GAMEPLAY_DEMO_STORYBOARD_20261103.md)
+  - [gameplay-demo-storyboard-20261103.json](../../reports/qa/gameplay-demo-storyboard-20261103.json)
+  - [gameplay-demo-cover-audio-20261103.json](../../reports/qa/gameplay-demo-cover-audio-20261103.json)
+  - [GAMEPLAY_DEMO_20261103.md](GAMEPLAY_DEMO_20261103.md)
+  - [gameplay-demo-20261103.json](../../reports/qa/gameplay-demo-20261103.json)
+  - [DEMO_README.md](../../tools/promo-video/DEMO_README.md)
+- **2026-11-03 · DEMO-01**：用户已授权开始制作。核对隔离拍摄入口与现有素材，准备补拍工蜂矿气、订单扣费、发展与购牌、装备贯穿及三种出路；保留已确认顺序、字幕、封面与声音。
+  - [GAMEPLAY_DEMO_STORYBOARD_20261103.md](GAMEPLAY_DEMO_STORYBOARD_20261103.md)
+  - [gameplay-demo-storyboard-20261103.json](../../reports/qa/gameplay-demo-storyboard-20261103.json)
+  - [gameplay-demo-cover-audio-20261103.json](../../reports/qa/gameplay-demo-cover-audio-20261103.json)
+- **2026-11-03 · V06**：缓存脚本升级与清理恢复已随81893e6推送GitHub体积优化版，包含同版压缩前端与9文件清单；远端双重核验及Git对象SHA通过。复用2969完整/最终43相关检查，固定旧基线4项Chrome复验通过；未部署，原iPhone/CDN及配置API 404仍开放。 完整Coze提示词已记录；main与其他任务改动保持，CI进行中。
+  - [COZE_CACHE_WORKER_GITHUB_SYNC_20261103.md](COZE_CACHE_WORKER_GITHUB_SYNC_20261103.md)
+  - [cache-worker-github-sync-20261103.json](../../reports/qa/cache-worker-github-sync-20261103.json)
+- **2026-11-03 · V06**：用户明确要求先推送本批修复到GitHub体积优化版，再提供包含CDN/旧客户端缓存更新及/api/config核查的Coze完整提示词。开始限定范围暂存与同版交付核验，不部署。
+  - [COZE_CACHE_WORKER_FIX_20261103.md](COZE_CACHE_WORKER_FIX_20261103.md)
+- **2026-11-03 · V06**：本批旧缓存脚本升级/清理恢复已本地修复：2969完整回归、最终43相关回归及Chrome旧脚本/失败重试/真实检查点续局通过；存档及两备份SHA保持。9文件Coze增量已生成读回，待部署与原iPhone复验；线上API配置404仍开放。 本批只改已确认的两条错误文案；共享Sites快照、存档契约与资源release保持。
+  - [COZE_CACHE_WORKER_FIX_20261103.md](COZE_CACHE_WORKER_FIX_20261103.md)
+  - [cache-worker-fix-20261103.json](../../reports/qa/cache-worker-fix-20261103.json)
+- **2026-11-03 · V06**：按用户授权修复程序侧旧SW识别/升级/清缓存恢复，验证后提供Coze增量包及具体部署说明；两条错误文案已确认，不改线上或扩大后台实现。
+  - [COZE_LIVE_CHECK_20261103.md](COZE_LIVE_CHECK_20261103.md)
+- **2026-11-03 · V06**：Coze主程序已核验为最新34408a35…，三族正常首关/关间保存/刷新续局/第二关通过。发现CDN与旧客户端SW/资源索引混用，实际清缓存3次失败；/api/config持续404致反馈与统计不可用。新Chrome后续可得新版但原档案仍失败，部署一致性未通过；原iPhone待验。
+  - [COZE_LIVE_CHECK_20261103.md](COZE_LIVE_CHECK_20261103.md)
+  - [coze-live-check-20261103.json](../../reports/qa/coze-live-check-20261103.json)
+- **2026-11-03 · DEMO-01**：第4版方案已补敌方工蜂击杀、矿气掉落/拾取及余额增加；援兵以同笔付费订单串起真实扣费特写与接收，已核对扣费在生产开始、接收不再扣款。玩法详解封面已生成并导出1080p PNG/JPG；原创买量游戏风格16秒循环BGM、24秒试听及6条独立反馈音效已交付，MP3完整解码和数值校验通过。原12条字幕与三族切换保持，时长弹性；待封面/声音审阅，演示成片未录制，未改产品或发布。
+  - [GAMEPLAY_DEMO_STORYBOARD_20261103.md](GAMEPLAY_DEMO_STORYBOARD_20261103.md)
+  - [gameplay-demo-storyboard-20261103.json](../../reports/qa/gameplay-demo-storyboard-20261103.json)
+  - [gameplay-demo-cover-audio-20261103.json](../../reports/qa/gameplay-demo-cover-audio-20261103.json)
+- **2026-11-03 · V06**：用户提供Coze原域名，要求核验远端部署、可用性及bug。开始只读HTTP同版核验与隔离浏览器有限流程检查，不推断GitHub推送等于部署。
+  - [AUDIT_FIXES_GITHUB_SYNC_20261103.md](AUDIT_FIXES_GITHUB_SYNC_20261103.md)
+- **2026-11-03 · DEMO-01**：第3版分镜已按用户明确的12段节奏与原文字幕落实，改为三族交替；开场直接移动交火，依次救工人、接收援兵、选路线、买卡、Boss、装备、关间换装、局外限制、三种出路、旗舰整备、再次出发。第7/9/10/11段用同件人族模块贯穿拾取—关间不可换—撤离—局外装上，第10段分别由人族/虫族/神族演示撤离/下一关/通关后无尽。12条字幕逐字校验和当前限制核对通过；方向已明确、录制尚未开始，未改产品或发布。
+  - [GAMEPLAY_DEMO_STORYBOARD_20261103.md](GAMEPLAY_DEMO_STORYBOARD_20261103.md)
+  - [gameplay-demo-storyboard-20261103.json](../../reports/qa/gameplay-demo-storyboard-20261103.json)
+- **2026-11-03 · DEMO-01**：按用户纠正完成第2版分镜：撤销精确120秒要求，约两分钟、停留按内容伸缩；买卡作为核心循环独立展示，首次完整拍基地发展→前往补给→读用途/价格→选择付款→返回前线的收益，后续关间按队伍需要再次买卡并接战果。其余开局、操作、搜集救援、生产接收、任务/首领、装备与撤离续玩保留。当前粗排8段，仅作弹性预算；分镜待审，尚未录制或改产品。
+  - [GAMEPLAY_DEMO_STORYBOARD_20261103.md](GAMEPLAY_DEMO_STORYBOARD_20261103.md)
+  - [gameplay-demo-storyboard-20261103.json](../../reports/qa/gameplay-demo-storyboard-20261103.json)
+- **2026-11-03 · DEMO-01**：120秒／10段游玩流程分镜已完成，待用户审阅：单支人族小队贯穿，覆盖选阵营难度、移动与自动交火、资源救援、计时关间、建设购牌及生产、增援接收、任务、首领奖励与英雄技能、关间换装、撤离入仓和局外配装。末6秒单列未结束战局的继续游戏分支。现行源码与保存／换装边界已核对，时间连续且合计120秒；仅设计，未录制、改产品、提交、推送或发布。
+  - [GAMEPLAY_DEMO_STORYBOARD_20261103.md](GAMEPLAY_DEMO_STORYBOARD_20261103.md)
+  - [gameplay-demo-storyboard-20261103.json](../../reports/qa/gameplay-demo-storyboard-20261103.json)
+- **2026-11-03 · DEMO-01**：正在核对现行流程并设计120秒分镜；PROMO-01现有宣发片与封面保持独立。
+- **2026-11-03 · V06**：两轮审查15项产品缺陷、1项CI缺口及普通兵等级保存补正已随deeb9d8推送GitHub体积优化版，含同版压缩前端，远端双重核验通过。2957项既有回归、33份指纹同版依据与本批压缩首战/续局/清缓存通过；push已触发CI，结果待完成。未部署，原iPhone待验。
+  - [AUDIT_FIXES_GITHUB_SYNC_20261103.md](AUDIT_FIXES_GITHUB_SYNC_20261103.md)
+  - [audit-fixes-github-sync-20261103.json](../../reports/qa/audit-fixes-github-sync-20261103.json)
+- **2026-11-03 · V06**：用户明确要求推到远端GitHub；开始核对已验证33份源码/测试/工具指纹，构建同版压缩前端并只提交审查修复相关文件，保留其他工作区成果。
+  - [AUDIT_FIXES_20261102.md](AUDIT_FIXES_20261102.md)
+- **2026-11-02 · V06**：两轮审查15项产品缺陷与1项CI缺口已本地修复，另补正普通兵8级保存三条路径。48新增/2957全回归、类型/数据/正式Web构建、三族60检查点与真实Chrome首战/续局/权限拒绝/纹理GPU通过。未提交推送部署；原iPhone待验保持。
+  - [AUDIT_FIXES_20261102.md](AUDIT_FIXES_20261102.md)
+  - [audit-fixes-20261102.json](../../reports/qa/audit-fixes-20261102.json)
+- **2026-11-02 · V06**：用户要求修复聊天bug寻找分支发现的问题。已读取两轮报告和聊天结论，在8d680ac体积优化版开始处理15项产品缺陷及1项CI缺口；先保存阻断，再异步恢复及生命周期，逐项定向验证。当前src/test无已有差异，不改其他任务成果或部署。
+  - [FULL_CODE_AUDIT_20261102.md](FULL_CODE_AUDIT_20261102.md)
+  - [RUNTIME_CODE_AUDIT_20261102.md](RUNTIME_CODE_AUDIT_20261102.md)
+- **2026-11-02 · V06**：完成运行过程补查：新增营救跳虫、斯旺、尼亚德拉、六级英雄4项保存冲突，地图重试及手柄权限导致主循环停止2项恢复缺陷，另有窄范围压缩贴图切档状态问题。合计304200步、53次成功恢复、虫族1次真实失败；Chrome正常流程及故障反例完成。只报告调查，未改产品/部署；V06返回待验证。
+  - [RUNTIME_CODE_AUDIT_20261102.md](RUNTIME_CODE_AUDIT_20261102.md)
+  - [runtime-code-audit-20261102.json](../../reports/qa/runtime-code-audit-20261102.json)
+- **2026-11-02 · V06**：用户追加要求补运行过程审查；V06进入进行中，三路代码/受控模拟与主代理串行浏览器验证，不修改产品或部署。复用同基线全量回归，不重复堆测试数量。
+  - [FULL_CODE_AUDIT_20261102.md](FULL_CODE_AUDIT_20261102.md)
+- **2026-11-02 · V06**：完成体积优化版8d680ac四路代码审查及主代理复核：确认4项合法游戏状态冲突、4项故障恢复缺口和1项CI覆盖缺口，均登记待办。2909项全回归中6项EACCES已正常权限复验通过，类型/数据检查、隔离Vite构建、359包/5138载荷完整性核验通过。本轮只新增复现工具与报告，未改产品、提交、推送或部署；原手机与线上验收保持。
+  - [FULL_CODE_AUDIT_20261102.md](FULL_CODE_AUDIT_20261102.md)
+  - [full-code-audit-20261102.json](../../reports/qa/full-code-audit-20261102.json)
+- **2026-11-02 · PROMO-01**：V5与PROMO-01-F03封面已本地交付：新增震撼首发／跟风3AI大作／星际幸存者的1080p梗图，2秒封面片头接原V5，完整版约280 MB、手机版约65 MB，均302秒／30FPS。两份原V5各9000解码帧逐帧一致；完整媒体解码、最终音频及视频包保持、Chrome封面／转场／首尾播放检查通过，手机尺寸封面可读。原V5保留，未上传、提交、推送或部署；待用户审片。
+  - [PROMO_COVER_20261102.md](PROMO_COVER_20261102.md)
+  - [promo-cover-20261102.json](../../reports/qa/promo-cover-20261102.json)
+- **2026-11-02 · V06**：启动体积优化版全面代码审查，基线8d680ac，用户允许多代理。作为V06待验证阶段的审查活动记录；现有V05与PROMO-01两项进行中状态保持，不另开实现任务。四路只读审查及小型故障复现，重型验证由主代理串行。
+- **2026-11-02 · PROMO-01**：V5已本地交付，新增用户要求PROMO-01-F03：检索3AI大作梗语境并制作震撼首发风格封面，输出独立16:9图片及约2秒封面片头的V5新副本。原片保留；本轮继续本地交付，不上传或发布。封面制作及技术验证进行中，原V5审片仍待验证。
+  - [PROMO_COVER_20261102.md](PROMO_COVER_20261102.md)
+- **2026-11-02 · PROMO-01**：V5本地制作与技术验证完成：约5分钟／1080p／30FPS、72镜头、无旁白。购牌后0.27–1.50秒出现击杀，任务段补完成任务艺术字，三族6精英／9英雄技能快切；三族实际掉落11／11／10件装备并展示拾取。15段新录制结算、双版本完整解码、91时点与重点特写、7章浏览器播放通过。完整版279 MB、手机版约64 MB。用户在Drive连接失败后明确先交付本地版，本轮未上传；待用户审片，未提交／推送／部署。
+  - [PROMO_VIDEO_V5_20261102.md](PROMO_VIDEO_V5_20261102.md)
+  - [promo-video-v5-20261102.json](../../reports/qa/promo-video-v5-20261102.json)
+  - [promo-video-v5-mobile-20261102.json](../../reports/qa/promo-video-v5-mobile-20261102.json)
+  - [V5_README.md](../../tools/promo-video/V5_README.md)
+- **2026-11-02 · V06**：四项稳定性修复及当前压缩快照已随ffc2c2f推送GitHub体积优化版；ls-remote与GitHub提交接口一致，main保持2924d9b，未部署。最终14项定向复验及docs:check通过。清理本批3777份可重建产物约1.46GB；原iPhone待验，其他任务改动保持。
+  - [STABILITY_FIX_20261102.md](STABILITY_FIX_20261102.md)
+  - [stability-fix-20261102.json](../../reports/qa/stability-fix-20261102.json)
+- **2026-11-02 · V06**：V06四项稳定性修复完成：私有折射编译与取消/期限/晚到隔离；坏包驱逐/网络重取及完整性验证；可选磁盘限时降级；压缩来源封存核验。14项新回归、完整2909项（6项沙箱失败复验所属15项全通过）、类型检查和真实Chrome缓存/首战/续局通过。来源3750+5138份逐字节校验通过。待提交推送，不部署；原iPhone仍待验。
+  - [STABILITY_FIX_20261102.md](STABILITY_FIX_20261102.md)
+  - [stability-fix-20261102.json](../../reports/qa/stability-fix-20261102.json)
+- **2026-11-02 · PROMO-01**：按用户确认制作V5：保持约300秒，三族购牌段各24秒并突出立即战果；任务段加完成任务艺术字；120秒三族六精英/九英雄快切候选；26秒精英/Boss死亡掉装与多件战利品；压缩无动作停留。V06已回到待验证，当前两项进行中，开始隔离补拍。
+  - [PROMO_VIDEO_V5_20261102.md](PROMO_VIDEO_V5_20261102.md)
+- **2026-11-02 · PROMO-01**：已确认V5仍约5分钟、完成任务艺术字；保留V05/V06状态，本轮先整理可核对补拍方案，等待录制排期决定。
+  - [PROMO_VIDEO_V4R1_20261102.md](PROMO_VIDEO_V4R1_20261102.md)
+- **2026-11-02 · PROMO-01**：V4R1用户审片提出四项修改：购牌后需立刻拍到强于购牌前的实际战果，关间无需清敌，删除无事可做的等待；趣味内容前增加与死战呼应的完成任务提示；死战改三族多种精英/英雄及技能快速交叉剪辑，敌方首领类型/来向/位置多样；补精英/Boss击杀爆装和多件装备场面。开始V5定向补拍与重剪，维持隔离场景，不改正式产品机制/UI或玩家存档。
+  - [PROMO_VIDEO_V4R1_20261102.md](PROMO_VIDEO_V4R1_20261102.md)
+- **2026-11-02 · PROMO-01**：V4R1六段局部重拍与私有Drive交付完成：开幕每族3首领、三族34秒均按战斗收尾→自然结算→两次购牌→同队伍效果衔接；人族与地堡约3.72–4.65单位，虫族孵化4跳虫并击毁1虫巢。全片300秒/1080p/30FPS，无旁白。六段事件及结算、双版本完整解码、保留5399帧与V4逐帧一致、39个时点和5处特写/手机样本检查通过。手机版57,457,424字节，Drive回读匹配且私有；完整版244,719,566字节。用户审片待验证，未提交/推送/部署。
+  - [PROMO_VIDEO_V4R1_20261102.md](PROMO_VIDEO_V4R1_20261102.md)
+  - [promo-video-v4r1-20261102.json](../../reports/qa/promo-video-v4r1-20261102.json)
+  - [promo-video-v4r1-drive-20261102.json](../../reports/qa/promo-video-v4r1-drive-20261102.json)
+- **2026-11-02 · PROMO-01**：按用户最新追加授权重拍开头18秒和三族各34秒卡牌段：三族均用战斗收尾→真实关间→购牌→同队伍效果的衔接；人族保留地堡掩护范围内接敌；开幕每族3个首领、正面和侧翼施压。Logo/载入、护送、特殊关、英雄翻盘、装备及结尾沿用既有V4。隔离拍摄与定向替换进行中。
+  - [PROMO_VIDEO_V4_20261102.md](PROMO_VIDEO_V4_20261102.md)
+- **2026-11-02 · PROMO-01**：用户批准仅重拍0:24–0:58这34秒：小队战斗收尾→真实关间→购牌→同队伍卡牌战果；购牌与特效衔接清楚，其他部分先不动。追加纠正队伍逃离地堡，需在地堡掩护范围内接敌、展示开火及战果后再侧前推进。开始定向重拍与替换，保留既有V4成片作为其余266秒基准。
+  - [PROMO_VIDEO_V4_20261102.md](PROMO_VIDEO_V4_20261102.md)
+- **2026-11-02 · PROMO-01**：V4已制作并私有Drive交付，现收到审片反馈PROMO-01-F01：用户明确Logo后购牌/开战（0:18–0:58）莫名其妙。已核对0:24直接进入补给、6秒内购两卡并跳到第11关成型队伍，缺少战斗—关间—购牌—再战的承接。提出0:24–0:31小队战斗收尾及真实关间、0:31–0:35选牌、0:35–0:58同队伍连续展示卡牌战果的34秒调整方案，待用户确认。当前成片与技术验证保持，未启动重拍/合成/上传。
+  - [PROMO_VIDEO_V4_20261102.md](PROMO_VIDEO_V4_20261102.md)
+- **2026-11-02 · PROMO-01**：V4制作与私有Drive交付完成：300秒/1080p/30FPS，33段剪辑；九段新录像连续展示六张趣味卡、护送/两个特殊关及三族精英与英雄获取翻盘，地堡段延后起步重录，装备左右同屏对比。最终实际效果/奖励/移动断言、双版本完整解码、播放与三次章节跳转、72个成片采样和手机关键帧检查通过。手机版59,677,467字节，Drive回读匹配且未公开共享；完整质量版249,840,122字节。用户审片待验证，正式src/存档不改，未提交/推送/部署。
+  - [PROMO_VIDEO_V4_20261102.md](PROMO_VIDEO_V4_20261102.md)
+  - [promo-video-v4-20261102.json](../../reports/qa/promo-video-v4-20261102.json)
+  - [promo-video-v4-mobile-20261102.json](../../reports/qa/promo-video-v4-mobile-20261102.json)
+  - [promo-video-v4-drive-20261102.json](../../reports/qa/promo-video-v4-drive-20261102.json)
+- **2026-11-02 · PROMO-01**：V4已完成九段隔离场景和300秒/33段剪辑表；预演核对六卡实际效果、三族独立精英/英雄奖励及技能、护送成功与九段移动。正式逐帧录像进行中；配乐/语音重排、复用开头与同屏装备对比已准备，尚未完成整片合成/最终检查/上传。
+  - [PROMO_VIDEO_V4_20261102.md](PROMO_VIDEO_V4_20261102.md)
+- **2026-11-02 · PROMO-01**：2026-11-02用户明确批准5分钟V4分镜并要求开始重拍剪辑，重点为动作连贯、走位自然、卡牌和技能特效清楚。执行已确认16段时间轴，补录三族趣味卡、任务/特殊关及三族完整获取和翻盘；现阶段开始核对工具与素材，尚未导出V4。
+  - [PROMO_VIDEO_V4_STORYBOARD_20261102.md](PROMO_VIDEO_V4_STORYBOARD_20261102.md)
+- **2026-11-02 · PROMO-01**：用户追加要求趣味卡牌特效、允许适当延长、更多真实移动和多方向来敌编排。V4提案改为300秒：三族前段各34秒，分别串联空降地堡/导弹齐射、寄生毒囊/尸骸孵育、破盾反击/棱镜扫射，保留各30秒精英/英雄获取和翻盘、三族装备。正面、侧翼、追兵、据点出兵按段落变化，四面包围主要留给团灭开头；维修删除。已核对当前卡牌触发规则和16段时间轴连续性；仅方案，仍待用户确认，未开拍/合成/上传。
+  - [PROMO_VIDEO_V4_STORYBOARD_20261102.md](PROMO_VIDEO_V4_STORYBOARD_20261102.md)
+- **2026-11-02 · PROMO-01**：V4时间轴按用户追加要求修订：三族各30秒，分别展示精英获得、英雄获得和英雄技能翻盘；删除维修，增加真实技能和特殊特效完整过程。建议雷霆支点/雷诺、连囊炮手/凯瑞甘、风暴执政/阿塔尼斯，已核对现有技能规则；神族表现为护盾复苏保队后风暴反攻，不把恢复技能当伤害。总长240秒，保留三族装备与精选任务/特殊关。仅提案和规则核对，待用户确认时间轴，未开拍/合成/上传。
+  - [PROMO_VIDEO_V4_STORYBOARD_20261102.md](PROMO_VIDEO_V4_STORYBOARD_20261102.md)
+- **2026-11-02 · PROMO-01**：用户反馈V3中段过于零碎，并要求先发分镜时间轴确认。已核对原中段134秒/32片段，提交V4四分钟完整时间轴提案：按12–20秒完整操作/任务过程轮换三族，26秒连续Boss英雄翻盘，三族装备每族12秒含同屏对比。特殊关建议精选两类，具体取舍待确认；本轮仅方案，未重拍、合成或上传，现有V3成品保持。
+  - [PROMO_VIDEO_V4_STORYBOARD_20261102.md](PROMO_VIDEO_V4_STORYBOARD_20261102.md)
 - **2026-10-30 · PLAN-1X**：完成1.1至1.12十二版提案、84项编号任务、九构筑与九条传奇链；附常规20身份/19家族及战役合作目录、来源、依赖和验收。当前30家族/18英雄/90精英/210装备已核对。仅调研和规划，尚未批准实施；源代码与测试未改，未提交推送部署。
   - [V1X_RESEARCH_ROADMAP_20261030.md](V1X_RESEARCH_ROADMAP_20261030.md)
   - [V1X_ROSTER_AND_SOURCES_20261030.md](V1X_ROSTER_AND_SOURCES_20261030.md)
   - [v1x-research-roadmap-20261030.json](../../reports/qa/v1x-research-roadmap-20261030.json)
 - **2026-10-30 · PLAN-1X**：用户要求完整调研并给出1.1起连续版本的具体任务计划；开始核对最新实现与可融合玩法，保留V05/V06现状，不启动功能开发。
+- **2026-10-30 · PROMO-01**：V3已完成并上传Google Drive：240秒/1080p/68分镜，新补录20段、27种兵种，增加实际移动、特殊敌人、虫巢、护送/维修与四类特殊关；手机版55,687,509字节，Drive回读匹配。双版本完整解码、浏览器播放/章节跳转及68个最终抽帧检查通过。正式src与玩家存档不改，等待用户审片。
+  - [PROMO_VIDEO_V3_20261030.md](PROMO_VIDEO_V3_20261030.md)
+  - [promo-video-v3-20261030.json](../../reports/qa/promo-video-v3-20261030.json)
+  - [promo-video-v3-mobile-20261030.json](../../reports/qa/promo-video-v3-mobile-20261030.json)
+  - [promo-video-v3-drive-20261030.json](../../reports/qa/promo-video-v3-drive-20261030.json)
+- **2026-10-30 · PROMO-01**：V2手机压缩版已上传Google Drive，用户确认可播放。最新审片反馈：中段人族坦克重复过多、移动不足、分镜过长；要求三族多兵种不断切换，增加实际移动，穿插特殊敌人、虫巢、任务与特殊关。开始V3补录与重剪，仍使用隔离拍摄，不修改正式游戏。
+  - [PROMO_VIDEO_V3_20261030.md](PROMO_VIDEO_V3_20261030.md)
+- **2026-10-30 · V06**：V06-TANK-FX-002交付完成：源码baf0d94、压缩前端424a0e2已推送GitHub；通过原Coze对话完成v7部署7702329028769841167。新版程序4文件SHA/HTML引用、48项保留依赖/缓存头及线上菜单独立通过，本机首关与关间刷新续局通过。原iPhone仍待验，不合并main、不更新其他环境。
+  - [COZE_REPAIR_DEPLOY_20261030.md](COZE_REPAIR_DEPLOY_20261030.md)
+  - [coze-repair-deploy-20261030.json](../../reports/qa/coze-repair-deploy-20261030.json)
+- **2026-10-30 · PROMO-01**：宣传片V2四分钟1080p30本地导出及工程检查完成，转待验证。三族团灭、Boss英雄/精英翻盘、快速换装及真实对比已制作；仅隔离拍摄调校。微信启动接口报错未发送，用户审片及传输仍待完成；未公开发布。
+  - [PROMO_VIDEO_V2_20261030.md](PROMO_VIDEO_V2_20261030.md)
+  - [promo-video-v2-20261030.json](../../reports/qa/promo-video-v2-20261030.json)
+- **2026-10-30 · V06**：用户确认普通坦克修正画面可以，V06-TANK-FX-002已完成；明确授权推送远端Git并操作当前Coze对话完成新部署。V06进入发布执行，不合并main。 当前V05与PROMO-01已在进行中；本次是已完成修复的交付收尾，V06保留原机待验证状态，不启动第三项研发任务。
+  - [COZE_REPAIR_DEPLOY_20261030.md](COZE_REPAIR_DEPLOY_20261030.md)
+- **2026-10-30 · V06**：V06-TANK-FX-002本地完成重力坐标与触地反弹修正，2秒火星半径13.22→2.31，未减少粒子。15定向/27相关通过；完整2895项中6个本机端口权限失败，相关15项提权重跑全部通过。类型/数据和实际渲染通过，左右对照已生成；V06转待验证，用户画面待确认，未提交推送部署。
+  - [TANK_EFFECT_FOLLOWUP_20261030.md](TANK_EFFECT_FOLLOWUP_20261030.md)
+  - [tank-effect-followup-20261030.json](../../reports/qa/tank-effect-followup-20261030.json)
+- **2026-10-30 · V06**：用户反馈已修复版普通坦克射击仍有多条长线乱飞，登记V06-TANK-FX-002并继续定向调查；不将上轮方向回归等同于实际效果验收。
+  - [TANK_EFFECT_FIX_20261030.md](TANK_EFFECT_FIX_20261030.md)
+- **2026-10-30 · V06**：坦克拖尾与上一轮四项代码审查修复已随dcb7a3c推送体积优化版；Git与GitHub分支SHA双重核验一致，main保持2924d9b。2890项全回归及类型/数据检查通过；未部署、未替换旧包，原机待验保持。
+  - [BUGFIX_GITHUB_SYNC_20261030.md](BUGFIX_GITHUB_SYNC_20261030.md)
+  - [tank-audit-sync-20261030.json](../../reports/qa/tank-audit-sync-20261030.json)
+- **2026-10-30 · V06**：按用户授权完成坦克拖尾修复，并与上一轮四项代码审查修复合并验证：2890项全回归、类型/数据检查与坦克前后画面对照通过。准备明确文件提交推送；不合并main、不部署或替换交付包。
+  - [TANK_EFFECT_FIX_20261030.md](TANK_EFFECT_FIX_20261030.md)
+  - [BUGFIX_GITHUB_SYNC_20261030.md](BUGFIX_GITHUB_SYNC_20261030.md)
+  - [tank-audit-sync-20261030.json](../../reports/qa/tank-audit-sync-20261030.json)
+- **2026-10-30 · V06**：按用户指定查看宣发视频，完成坦克光条定向调查；确认普通命中火星的拖尾方向未随重力改变。仅新增诊断和记录，游戏修复未实施，无提交推送部署。
+  - [TANK_EFFECT_INSPECTION_20261030.md](TANK_EFFECT_INSPECTION_20261030.md)
+  - [tank-effect-inspection-20261030.json](../../reports/qa/tank-effect-inspection-20261030.json)
+- **2026-10-29 · V06**：第三阶段并行审查与本地合流完成：四项实际缺陷均修复验证，2882项完整回归及类型/数据检查通过。前两阶段已推送；本阶段不提交推送部署。V06保留原机等待验证范围。
+  - [CODE_BUG_AUDIT_20261029.md](CODE_BUG_AUDIT_20261029.md)
+  - [code-bug-audit-20261029.json](../../reports/qa/code-bug-audit-20261029.json)
+- **2026-10-29 · V06**：第三阶段四项缺陷修复合入本地：利维坦检查点、到期死亡、死战恢复和统计授权撤回；35项合流定向通过，完整回归待结束。不提交推送部署。
+  - [CODE_BUG_AUDIT_20261029.md](CODE_BUG_AUDIT_20261029.md)
+- **2026-10-29 · V06**：第三阶段代码审查进行中：三个独立源码副本分别负责保存账户、战斗舰装、生产奖励，主代理负责加载/音频/操作/服务边界；先复现再修复，最后合流验证。仅本地，不推送部署。
+  - [CODE_BUG_AUDIT_20261029.md](CODE_BUG_AUDIT_20261029.md)
+- **2026-10-29 · V06**：第二阶段完成：挑战关属性基准迁移修复f68cc85已推送体积优化版，Git引用与GitHub接口双重核验；2867项回归通过，未部署。
+  - [SPECIAL_ROSTER_FIX_20261029.md](SPECIAL_ROSTER_FIX_20261029.md)
+  - [special-roster-fix-20261029.json](../../reports/qa/special-roster-fix-20261029.json)
+- **2026-10-29 · V06**：第二阶段修复本地完成：20项对照回归及2867项完整回归通过；保留真实伤亡，准备提交推送，不部署。
+  - [SPECIAL_ROSTER_FIX_20261029.md](SPECIAL_ROSTER_FIX_20261029.md)
+  - [special-roster-fix-20261029.json](../../reports/qa/special-roster-fix-20261029.json)
+- **2026-10-29 · V06**：第二阶段开始：已读取原调查线程完整结论并检查工作区，无并行修复代码。仅处理V06-SPECIAL-ROSTER-001；修复验证后提交推送，不部署。
+  - [SPECIAL_ROSTER_INSPECTION_20261029.md](SPECIAL_ROSTER_INSPECTION_20261029.md)
+- **2026-10-29 · V06**：第一阶段已完成：解锁反馈前置与虫族/近战/舰装共68文件已提交并推送f10cfc18d359710b2e0c7dd13ea38764ec23cfef，Git远端引用与GitHub提交接口均确认。249项最终组合回归、类型/数据检查通过；未部署。
+  - [ZERG_MELEE_EQUIPMENT_GITHUB_SYNC_20261029.md](ZERG_MELEE_EQUIPMENT_GITHUB_SYNC_20261029.md)
+  - [zerg-github-sync-20261029.json](../../reports/qa/zerg-github-sync-20261029.json)
+- **2026-10-29 · V06**：用户明确批准全部三阶段：先推送解锁前置及虫族/近战/舰装，再修复挑战关并推送，最后多子代理按模块排查真实bug并本地修复验证；第三阶段未授权推送，全程不部署。前轮提交范围问题已解决。
+  - [ZERG_MELEE_EQUIPMENT_GITHUB_SYNC_20261029.md](ZERG_MELEE_EQUIPMENT_GITHUB_SYNC_20261029.md)
+- **2026-10-29 · V06**：远端同步准备完成：Git及GitHub均确认体积优化版674c528，23/23关键源码hash、类型/数据/空白检查通过；共享固定进化依赖此前未提交解锁反馈，已请求提交范围确认。未创建提交/推送/部署，挑战关及其他线程工作排除；V06暂待讨论。
+  - [ZERG_MELEE_EQUIPMENT_GITHUB_SYNC_20261029.md](ZERG_MELEE_EQUIPMENT_GITHUB_SYNC_20261029.md)
+  - [zerg-github-sync-20261029.json](../../reports/qa/zerg-github-sync-20261029.json)
+- **2026-10-29 · V06**：开始按授权整理虫族/近战/舰装本批提交推送。起点674c528；排除其他线程特殊关调查/修复、Sites快照、私有资源与历史清理，正在核对解锁修复共享依赖。
+  - [ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md](ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md)
+- **2026-10-29 · V06**：完成批准的虫族进化、近战/冲锋、毒爆/跳虫/潜伏者、舰装槽位与局外一键装备。最终2847回归、三端UI/正式Web入口通过；未提交推送部署。特殊关队伍独立待办保持。
+  - [ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md](ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md)
+  - [zerg-melee-equipment-20261029.json](../../reports/qa/zerg-melee-equipment-20261029.json)
+- **2026-10-29 · V06**：V06-SPECIAL-ROSTER-001调查完成：12组无战斗切场景断言复现装备受伤小兵归零，现有特殊关16项通过但缺该组合覆盖。进场/返回均有原生属性基准缺失，修复待办；未改游戏、未部署。
+  - [SPECIAL_ROSTER_INSPECTION_20261029.md](SPECIAL_ROSTER_INSPECTION_20261029.md)
+  - [special-roster-inspection-20261029.json](../../reports/qa/special-roster-inspection-20261029.json)
+- **2026-10-29 · V06**：用户批准此前具体方案，并纠正冲锋仅中大型近战/短射程与毒爆，追加跳虫对敌毒爆40%减伤、潜伏者60%地上攻击/70%潜伏移速、局外一键换装。开始本地实施与验证，暂不部署。
+  - [ZERG_MELEE_EQUIPMENT_PROPOSAL_20261029.md](ZERG_MELEE_EQUIPMENT_PROPOSAL_20261029.md)
+- **2026-10-29 · V06**：登记用户新增讨论范围：虫族进化、毒爆、全近战接敌、大体型及毒爆CD冲锋、舰装格/图标大小和对比。完成有限规则查询与源码/截图核对，候选未批准；未修改游戏、构建或部署。
+  - [ZERG_MELEE_EQUIPMENT_PROPOSAL_20261029.md](ZERG_MELEE_EQUIPMENT_PROPOSAL_20261029.md)
+- **2026-10-29 · V06**：完成用户授权的失效发展卡修复与首次解锁自动排期，保留其他卡/报价、暂停/满位和已付订单；重型提前预排可取消、第10关开工。123项定向、类型/数据、三尺寸6组HUD和正式Web入口通过。两项本地已完成，V06仍待验证；未提交推送部署。
+  - [UNLOCK_FEEDBACK_FIX_20261029.md](UNLOCK_FEEDBACK_FIX_20261029.md)
+  - [unlock-feedback-fix-20261029.json](../../reports/qa/unlock-feedback-fix-20261029.json)
+- **2026-10-29 · V06**：开始已授权的虫后失效卡修复、相关边界检查及首次解锁自动排期；保留其他卡牌/价格与满两输出的原安排，暂不部署。截图循环箭头已定位为简略/详情切换。
+  - [QUEEN_UNLOCK_INSPECTION_20261029.md](QUEEN_UNLOCK_INSPECTION_20261029.md)
+- **2026-10-29 · V06**：虫后重复解锁反馈完成定向核查：已复现额外发展＋建造免费科技使已解锁卡残留并误显示待解锁，重复交易无扣费；普通购买/进化/恢复未复现。V06-QUEEN-UNLOCK-001登记待修复，原反馈路径待对照。仅新增复现工具与记录，未改游戏/交付/线上。
+  - [QUEEN_UNLOCK_INSPECTION_20261029.md](QUEEN_UNLOCK_INSPECTION_20261029.md)
+  - [queen-unlock-inspection-20261029.json](../../reports/qa/queen-unlock-inspection-20261029.json)
+- **2026-10-29 · V06**：按用户要求开始复核虫后重复解锁卡反馈，登记V06-QUEEN-UNLOCK-001；未确认前不冒称已复现，不扩展功能/界面。
+- **2026-10-29 · V06、D06**：已将MVP正式版本1.0、后续1.1和仅修实际bug的范围写入新交接、导航与规范。掉落/无尽进一步平衡及一般打磨优化归1.1；实际原机故障保留复核，V06待验证。仅文档/状态更新，未改游戏、旧包、存档或部署；V05运维状态保持。
+  - [MVP_1_0_HANDOFF_20261029.md](MVP_1_0_HANDOFF_20261029.md)
+  - [mvp-1.0-handoff-20261029.json](../../reports/qa/mvp-1.0-handoff-20261029.json)
+- **2026-10-29 · V06**：用户明确MVP正式版本为1.0；如果没有bug，不再追加MVP修复/开发，其他留到1.1。开始更新当前交接和收尾范围；现有包未部署及原机缺陷复核事实保持。
+  - [COZE_FEEDBACK_BGM_UPDATE_20261029.md](COZE_FEEDBACK_BGM_UPDATE_20261029.md)
+- **2026-10-29 · V06**：Coze本批反馈+BGM增量ZIP本地完成，新增两首MP3和资源清单，原3845资产及43GPU记录保持。正式压缩入口、菜单/关间音乐、首战、合成档刷新及本机入口回退/重新应用通过；首轮检测服务配置接口404已补齐复验。未部署，V06恢复待验证，原机与平衡限制保持。
+  - [COZE_FEEDBACK_BGM_UPDATE_20261029.md](COZE_FEEDBACK_BGM_UPDATE_20261029.md)
+  - [coze-feedback-bgm-delivery-20261029.json](../../reports/qa/coze-feedback-bgm-delivery-20261029.json)
+- **2026-10-29 · V06**：用户要求准备本次Coze更新包和步骤，明确包含新增BGM、暂不部署。开始本地增量打包，不更新Sites快照或线上服务。
+  - [LOCAL_FEEDBACK_GITHUB_SYNC_20261029.md](LOCAL_FEEDBACK_GITHUB_SYNC_20261029.md)
+- **2026-10-29 · V06**：按用户要求，已核对101项清单并将关间操作、菜单音、两首BGM与孤星/无尽/全来源掉落批次提交adcf9a8，推送GitHub体积优化版。远端分支及GitHub提交接口确认，2份音乐LFS上传完成。V06恢复待验证，掉落继续调参按用户决定暂缓；不合main、不部署，原机与平衡限制保持。
+  - [LOCAL_FEEDBACK_GITHUB_SYNC_20261029.md](LOCAL_FEEDBACK_GITHUB_SYNC_20261029.md)
+  - [local-feedback-github-sync-20261029.json](../../reports/qa/local-feedback-github-sync-20261029.json)
+- **2026-10-29 · V06**：用户明确暂时保留本地候选并要求推送远端。开始按明确清单同步本批关间操作、BGM、孤星/无尽/全来源掉落；已核对远端起点72eb10d。不合main、不部署，平衡和原机验收限制保持。
+  - [LOCAL_FEEDBACK_GITHUB_SYNC_20261029.md](LOCAL_FEEDBACK_GITHUB_SYNC_20261029.md)
+- **2026-10-29 · V06**：按用户批准完成孤星/无尽/全来源掉落本地实现与有限验证。旧吸收回执补算、精英重获、一次掉落和特殊奖励冻结/累计节点通过。回归覆盖2811项（含环境失败重跑及批准文案快照修订），最终54项、类型/数据、三尺寸说明和正式Web入口通过。320次全来源重放中等参与均值36.56/40.19/36.56/38.31；充分参与橙色掠夺组合55.75/62.75/65.38/69.13，简单蓝装14–16，数量/品质目标不能全部关闭。孤星/无尽待验证，掉落待讨论，构建b785addb；未提交、推送或部署。
+  - [GROWTH_LOOT_IMPLEMENTATION_20261029.md](GROWTH_LOOT_IMPLEMENTATION_20261029.md)
+  - [growth-loot-implementation-20261029.json](../../reports/qa/growth-loot-implementation-20261029.json)
+  - [growth-loot-replay-20261029.json](../../reports/qa/growth-loot-replay-20261029.json)
+- **2026-10-29 · V06**：用户明确批准孤星、无尽和掉落方案，要求本地实现与验证，掉落按所有来源合计；开始实施，暂不部署。既有关间/BGM与其他工作区成果保留。
+  - [GROWTH_LOOT_PROPOSAL_20261029.md](GROWTH_LOOT_PROPOSAL_20261029.md)
+- **2026-10-29 · V06**：完成孤星/无尽/掉落现状核验与数值候选。确认已吸收精英资格排除、V级三精英合并持续攻击只剩54.59%；无尽HP增长快于输出而护甲不随轮数增长。四难度基础盘至无尽16已约81–106件，特殊来源另核对且必须计入用户总量目标。90项现有回归通过；三议题转待讨论，生产代码未改，未提交推送部署。
+  - [GROWTH_LOOT_PROPOSAL_20261029.md](GROWTH_LOOT_PROPOSAL_20261029.md)
+  - [growth-loot-inspection-20261029.json](../../reports/qa/growth-loot-inspection-20261029.json)
+- **2026-10-29 · V06**：按用户新要求启动孤星/无尽攻防/掉落现状核验。好时50–60件必须包括特殊关、特殊怪与诱饵，并比较各难度事件池。本轮只给方案，暂不改玩法或部署。
+  - [FEEDBACK_PERFORMANCE_20261029.md](FEEDBACK_PERFORMANCE_20261029.md)
+- **2026-10-29 · V06**：V06-F29-08完成BGM本地接入：153.191/112.941秒自制循环、独立媒体播放和15%默认音量。44项相关回归、类型/数据检查、三尺寸设置/生命周期、正式Web及仅两曲file离线通过；Chrome模拟音频输出检出真实波形与循环，默认设备时钟停滞及实机听感单列。状态待验证，未提交推送或部署。
+  - [BGM_INTEGRATION_20261029.md](BGM_INTEGRATION_20261029.md)
+  - [bgm-integration-20261029.json](../../reports/qa/bgm-integration-20261029.json)
+- **2026-10-29 · V06**：用户回复“就这样吧”，确认前轮BGM方案/试听，按此前“确认后再接入”执行本地接入与必要音量设置；不部署。
+  - [BGM_AUDITION_20261029.md](BGM_AUDITION_20261029.md)
+- **2026-10-29 · V06**：BGM方案与试听完成：菜单新世界·启航64.777秒、关间新世界·归港59.971秒；原作/旧谱来源及新合成边界记录，MP3完整解码与峰值通过。V06-F29-08转待讨论，等用户听感/曲目确认后才接入；无游戏修改、提交推送或部署。
+  - [BGM_AUDITION_20261029.md](BGM_AUDITION_20261029.md)
+  - [bgm-audition-20261029.json](../../reports/qa/bgm-audition-20261029.json)
+- **2026-10-29 · V06**：开始BGM方案与试听：用户希望电子交响风格并允许自行制作；先核授权及制作候选，确认后才接入，暂不部署。其他反馈状态保持。
+  - [FEEDBACK_PERFORMANCE_20261029.md](FEEDBACK_PERFORMANCE_20261029.md)
+- **2026-10-29 · V06**：完成本地关间/装备/商店/菜单按键音批次，修复筛选残留选择与触屏兼容点击重复音。108项定向及16项环境复验、7项最终音频与类型/数据检查通过，三尺寸操作/保存恢复通过；实际音频设备时钟异常与iPhone实听边界单列。对应7项反馈转待验证，孤星/掉落/BGM后置，未提交推送部署。
+  - [FEEDBACK_ACTIONS_20261029.md](FEEDBACK_ACTIONS_20261029.md)
+  - [feedback-actions-20261029.json](../../reports/qa/feedback-actions-20261029.json)
+- **2026-10-29 · V06**：用户批准先实施关间撤离、装备资格提示/筛选、跨页批量处理、一键散件换装、商店资格/有效商品权重及从菜单开始的按键音。孤星、掉落和BGM后置；不部署。
+  - [FEEDBACK_PERFORMANCE_20261029.md](FEEDBACK_PERFORMANCE_20261029.md)
+- **2026-10-29 · V06**：其余反馈四批方案完成并附源码事实、具体UI范围、候选平衡目标和两款游戏官方参考；等待讨论，未改游戏、提交推送或部署。
+  - [FEEDBACK_PERFORMANCE_20261029.md](FEEDBACK_PERFORMANCE_20261029.md)
+- **2026-10-29 · V06**：用户明确先不部署，转为其余试玩问题的计划与方案讨论。本轮只读核对当前规则及参考游戏并更新计划；不实施玩法/UI改动，不自动提交推送或部署。
+  - [FEEDBACK_PERFORMANCE_20261029.md](FEEDBACK_PERFORMANCE_20261029.md)
+- **2026-10-29 · V06**：关间音频优化、验证与4文件正式压缩前端已提交854fe1f并推送GitHub体积优化版，远端核对一致；main保持。8,376,506字节Coze增量包与原手机复测说明完成，实际压缩入口冒烟及文件hash通过；Coze/Sites未部署。完成的中间构建/截图清理，当前交付包保留。
+  - [COZE_INTERMISSION_UPDATE_20261029.md](COZE_INTERMISSION_UPDATE_20261029.md)
+  - [intermission-delivery-20261029.json](../../reports/qa/intermission-delivery-20261029.json)
+- **2026-10-29 · V06**：用户授权提交推送本批优化并提供Coze步骤；正式4文件前端包和本机入口冒烟通过，开始Git同步。Coze仍fb923fd9、资源相同，线上尚未更新。
+  - [COZE_INTERMISSION_UPDATE_20261029.md](COZE_INTERMISSION_UPDATE_20261029.md)
+  - [intermission-delivery-20261029.json](../../reports/qa/intermission-delivery-20261029.json)
+- **2026-10-29 · V06**：关间重复音频解码本地修复与有限对照通过；战役/无尽16准备中位数1384.2→77.2 ms、1806.6→136.5 ms。预算、原声音频、玩法及保存保持。11项反馈及用户确认同步；未提交、推送、部署，原机继续待验证。
+  - [FEEDBACK_PERFORMANCE_20261029.md](FEEDBACK_PERFORMANCE_20261029.md)
+  - [intermission-performance-20261029.json](../../reports/qa/intermission-performance-20261029.json)
+- **2026-10-29 · V06**：登记用户无尽16试玩的11项反馈并明确性能优先；当前简单无尽池白20/绿80与新目标不符、战役撤退仍每3关、孤星使用渐近成长。启动关间重复准备测量，其他反馈未实施，未改UI/音画/掉落或部署。
+  - [FEEDBACK_PERFORMANCE_20261029.md](FEEDBACK_PERFORMANCE_20261029.md)
+- **2026-10-29 · V06**：Safari修复及压缩前端候选7cbc5c6已推送GitHub体积优化版，远端提交一致；提交中4个运行文件长度/SHA与测试包一致。28文件范围含相关Coze/SW核对证据；main仍2924d9b，Sites/Coze线上未更新，V06仍待原机验证。
+  - [SAFARI_RESTORE_20261029.md](SAFARI_RESTORE_20261029.md)
+  - [safari-restore-20261029.json](../../reports/qa/safari-restore-20261029.json)
+- **2026-10-29 · V06**：用户要求推到远端：开始仅将本轮Safari修复、相关Coze/SW核对证据和已验证4文件压缩前端候选提交、推送GitHub体积优化版。main、独立Sites部署checkout及线上服务保持。
+  - [SAFARI_RESTORE_20261029.md](SAFARI_RESTORE_20261029.md)
+- **2026-10-29 · V06**：V06-SAFARI-001本地续局候选完成：按真实身份/舰装收紧准备并条件加载无尽；同档模型114→62，Windows自然首关与正式压缩包恢复通过，2767项回归含权限项重跑有通过证据。Coze差量包仅4个前端文件，未提交/推送/部署；原iPhone首关刷新与根因仍待验证，V05保持。
+  - [SAFARI_RESTORE_20261029.md](SAFARI_RESTORE_20261029.md)
+  - [safari-restore-20261029.json](../../reports/qa/safari-restore-20261029.json)
+- **2026-10-29 · V06**：依据原机浏览器终止页截图开始V06-SAFARI-001排查：以Coze第16版相同核心程序为基线，定向检查首关结算与35%续局准备；暂未归因。
+  - [SAFARI_STAGE_END_20261028.md](SAFARI_STAGE_END_20261028.md)
+  - [COZE_LIVE_CHECK_20261028.md](COZE_LIVE_CHECK_20261028.md)
+- **2026-10-28 · V06**：Coze v5实站核对完成：107次HTTP请求全部200，43份KTX2双路径、14合包hash通过，核心程序与第16版同字节。Windows线上首关正常到奖励页，刷新后继续游戏越过35%到100%，恢复相同奖励与103/56资源，无关键节点警告/错误；非原iPhone验收，未改游戏或部署。
+  - [COZE_LIVE_CHECK_20261028.md](COZE_LIVE_CHECK_20261028.md)
+  - [coze-live-http-20261028.json](../../reports/qa/coze-live-http-20261028.json)
+- **2026-10-28 · V06**：补充原iOS设备Coze首关奖励前及续局35%自动刷新反馈；核对Safari软限制与本地读档额外准备，未确认根因。Coze读取因本环境无法访问未取得版本，无游戏修改或部署。
+  - [SAFARI_STAGE_END_20261028.md](SAFARI_STAGE_END_20261028.md)
+- **2026-10-28 · V06**：核对外部部署KTX2 404解释，登记V06-SW-001待验证：默认旧索引不必然失败，当前请求版本参数和SW协议能力共同决定。四组隔离处理器测试完成；实际站点根因和旧客户端升级未验证，未改游戏/资源或部署，Safari重载保持独立开放。
+  - [PACKED_SW_COMPATIBILITY_20261028.md](PACKED_SW_COMPATIBILITY_20261028.md)
+  - [packed-sw-compatibility-20261028.json](../../reports/qa/packed-sw-compatibility-20261028.json)
+- **2026-10-28 · V06**：第16版GitHub同步及收尾完成：交付提交b9de9c7已推送体积优化版并核对远端，main仍2924d9b。清理本轮已完成的中间构建、检测入口、截图与详细日志，保留当前交付及第15版回退输入。V06整体和原iPhone验收继续待验证，未更新Coze或阿里云。
+  - [RUNTIME_MEMORY_LIFECYCLE_20261028.md](RUNTIME_MEMORY_LIFECYCLE_20261028.md)
+  - [runtime-memory-lifecycle-20261028.json](../../reports/qa/runtime-memory-lifecycle-20261028.json)
+- **2026-10-28 · V06**：V06-MEMORY-005工程验收和Sites第16版部署/线上复核完成：3对本族预下载样本复现贴图/CPU数组/编译数量收益，耗时无稳定加速，总进程峰值重叠；原iPhone待验证。全部预下载另补线上两次入场通过，纠正此前完整预下载的笼统表述。发现并关闭单文件模块URL启动错误；V05保持，V06整体待验证，GitHub同步收尾中。
+  - [RUNTIME_MEMORY_LIFECYCLE_20261028.md](RUNTIME_MEMORY_LIFECYCLE_20261028.md)
+  - [runtime-memory-lifecycle-20261028.json](../../reports/qa/runtime-memory-lifecycle-20261028.json)
+- **2026-10-28 · V06**：用户确认开始执行V06-MEMORY-005计划。以第15版/677237c为基线，先做A同条件测量，再依证据执行B至F；保持当前画质/玩法，复用验证后更新现有Sites和Git授权，原iPhone实机另列。
+  - [RUNTIME_MEMORY_PLAN_20261028.md](RUNTIME_MEMORY_PLAN_20261028.md)
+- **2026-10-28 · V06**：V06-MEMORY-005完善计划已交付：第15版为基线，A测量与归属、B关闭效果缓冲、C依赖/编译、D跨局缓存、E有条件CPU副本试验、F同版验证与交付。明确3对有限A/B、正确性与画面约束、原iPhone验收及回退；已有优化不重复计收益。本轮仅文档/看板，未实施、提交、推送或部署，V05保持。
+  - [RUNTIME_MEMORY_PLAN_20261028.md](RUNTIME_MEMORY_PLAN_20261028.md)
+  - [runtime-memory-plan-20261028.json](../../reports/qa/runtime-memory-plan-20261028.json)
+- **2026-10-28 · V06**：用户要求先制定下一轮完善计划。开始以Sites第15版和677237c为基线核对既有实现、公共特效依赖、关闭效果缓冲、跨局缓存与CPU副本；本轮仅规划和文档，不启动实现、部署或额外画质取舍。
+- **2026-10-28 · V06**：V06-MEMORY-004只读调研完成：直接取得Azeroth原站选人界面与启动代码，确认517/349分段清单、8路HTTP预取、流式Wasm编译、Android按需管线/简化材质及GPU诊断；抽查6张角色组件源图128×32到256×256。原站完整战斗/原iPhone性能未验证。对照Slow Roads等作者复盘与CPU/GPU用途分离，记录本项目公共特效、关闭效果缓冲和CPU副本的下一步测量。无游戏/画质/部署变更。
+  - [BROWSER_GAME_RESEARCH_20261028.md](BROWSER_GAME_RESEARCH_20261028.md)
+  - [browser-game-research-20261028.json](../../reports/qa/browser-game-research-20261028.json)
+- **2026-10-28 · V06**：用户要求直接检查Azeroth Survivors和其他HTML/浏览器游戏。开始V06-MEMORY-004只读实站与公开代码调研，对照第15版已实现策略；不将社区重建或推测当作原站事实，本轮不改游戏或部署。
+- **2026-10-28 · V06**：V06-MEMORY-003本批已发布Sites第15版；线上完整预下载、首战/再次开局及25文件完整性通过。实现和交付快照92fa4fb已推送GitHub体积优化版；清理本批可重建旧测试产物2.21GB，保留最终候选供实机复测。补Git原字节保留规则。V06仍待原iPhone验证，Coze/阿里云未更新。
+  - [RUNTIME_MEMORY_20261028.md](RUNTIME_MEMORY_20261028.md)
+  - [runtime-memory-20261028.json](../../reports/qa/runtime-memory-20261028.json)
+- **2026-10-28 · V06**：V06-MEMORY-003：入场峰值、43张同尺寸KTX2、编码缓存预算及后台回填修复完成，已发布Sites第15版。首战贴图估算559→441MB，Windows同条件进程峰值约3.59→3.47GB；线上预下载、首战和再次开局通过。原iPhone Safari重载原因与实机复测仍开放，未宣称MVP最终验收。
+  - [RUNTIME_MEMORY_20261028.md](RUNTIME_MEMORY_20261028.md)
+  - [runtime-memory-20261028.json](../../reports/qa/runtime-memory-20261028.json)
+- **2026-10-28 · V06**：用户授权按入场峰值→KTX2对照→缓存释放继续优化，尽量保持画质，验证通过后更新现有部署。开始记录同条件峰值；物理iPhone结论另行验证。
+  - [BATTLE_MEMORY_SCOPE_20261028.md](BATTLE_MEMORY_SCOPE_20261028.md)
+- **2026-10-28 · V06**：完成用户要求的行业方案与艾泽拉斯幸存者检索：优先GPU压缩贴图、预算/引用释放及依赖准备；复核已做KTX2小样而非重复提案。原游戏仅确认WebGPU入口，未证实资源大小/实机稳定性。仅研究记录，无代码/画质/部署变更。
+  - [BATTLE_MEMORY_SCOPE_20261028.md](BATTLE_MEMORY_SCOPE_20261028.md)
+  - [battle-memory-scope-20261028.json](../../reports/qa/battle-memory-scope-20261028.json)
+- **2026-10-28 · V06**：回应用户追问并对照原版2924d9b及第13版交付快照：首领奖励预定及名单代码未回退，任务建筑全量准备原版已存在；受限设备远期后台准备确曾为内存收紧。中低档贴图/渲染尺寸/特效已联动，进一步压缩方案与既有实现明确区分。本次只补核对记录，无游戏代码/部署变更。
+  - [BATTLE_MEMORY_SCOPE_20261028.md](BATTLE_MEMORY_SCOPE_20261028.md)
+  - [battle-memory-scope-20261028.json](../../reports/qa/battle-memory-scope-20261028.json)
+- **2026-10-28 · V06**：按关段/难度/种族/恢复状态准备任务建筑与虫巢，本地候选首战贴图分配估算815.5MB→559.2MB（-31.4%），资源字节和画质保持。2747项回归、类型/文档、实际第4关修复建筑及死亡、跨族例外、自动中档预下载/再入场检查通过；原iPhone未验证，Sites/Git未更新，低档进一步取舍未实施。
+  - [BATTLE_MEMORY_SCOPE_20261028.md](BATTLE_MEMORY_SCOPE_20261028.md)
+  - [battle-memory-scope-20261028.json](../../reports/qa/battle-memory-scope-20261028.json)
+- **2026-10-28 · V06**：按用户新要求排查当前战场无关资源常驻，优先实现不降画质的条件准备；低配置画质进一步缩减先提供具体方案。已确认首战全三族任务建筑/死亡与全英雄特效提前加载。
+- **2026-10-28 · V06**：Safari 入场重复贴图浪费已修复为本地候选；Chrome 预下载后入场、Windows WebKit 渲染、画质切换/失败回退检查通过。贴图分配估算约1.07GB→0.82GB（-23.7%），不是总RAM。原手机终止原因和完整Safari验收仍缺证据；未提交/推送/更新Sites或Coze。
+  - [SAFARI_ENTRY_20261028.md](SAFARI_ENTRY_20261028.md)
+  - [safari-entry-20261028.json](../../reports/qa/safari-entry-20261028.json)
+- **2026-10-28 · V06**：用户报告苹果Safari预下载完成后进入游戏重启；开始定位进入战场的内存/兼容路径。先修复验证，再更新Sites与远端Git，并提供Coze步骤；不把内存风险当作已确认的原机根因。
+- **2026-10-28 · V05、V06**：画质优化已发布现有公开Sites第13版（355c01a），应用构建27897f510771；403包经服务端SHA校验迁入原BUCKET隔离前缀，旧58包保留，临时上传关闭/密钥移除。403线上HEAD及7类完整哈希、独立Chrome低档首战通过，DB五表/原权限修订2/存档保持。v10构建限额及v12默认缓存500、回退与v13修复均有记录。GitHub实现28c7987已推送，资源交付源码/报告同分支补齐；V06待原手机/画质验证。
+  - [SITES_QUALITY_DEPLOY_20261028.md](SITES_QUALITY_DEPLOY_20261028.md)
+  - [sites-quality-deploy-20261028.json](../../reports/qa/sites-quality-deploy-20261028.json)
+- **2026-10-28 · V06**：用户明确授权将画质优化候选更新到现有Sites并推送当前远端分支；保留DB/BUCKET、玩家存档及当前public访问策略。开始核验发布来源与共享区改动归属。
+  - [SITES_QUALITY_IMPLEMENTATION_20261028.md](SITES_QUALITY_IMPLEMENTATION_20261028.md)
+- **2026-10-28 · V06**：按用户确认完成体积优化版画质/UI联动、重资源前自动初选、按需音频与解码预算、分档贴图及哈希包缓存。本地候选27897f510771；2736常规回归及26定向检查通过、类型/数据文档通过、5093文件校验通过。高低首战、热缓存、自定义恢复、三尺寸、关间/定向后期、切档失败/取消通过；模拟低内存PCM33.38MB。KTX2小样不全量采用。无提交/推送/部署，原手机及用户视觉听感继续待验证。
+  - [SITES_QUALITY_IMPLEMENTATION_20261028.md](SITES_QUALITY_IMPLEMENTATION_20261028.md)
+  - [sites-quality-implementation-20261028.json](../../reports/qa/sites-quality-implementation-20261028.json)
+  - [sites-quality-assets-20261028.json](../../reports/qa/sites-quality-assets-20261028.json)
+- **2026-10-28 · V06**：用户确认体积优化版画质联动、设备自动分档、按需解码和分档资源；KTX2先小样。开始实现，部署及实机验收分别记录。
+  - [SITES_QUALITY_OPTIMIZATION_PLAN_20261028.md](SITES_QUALITY_OPTIMIZATION_PLAN_20261028.md)
+- **2026-10-28 · V06**：体积优化版画质/分辨率/解码/设备初选调研完成：3742资源长度与SHA通过，DPR1三固定档同为1，音频全量PCM按48kHz估算约1.03GB但非实机内存。第9版既有4路/4包与近期预加载保留；推荐整体画质、设备初选、按场景音频/字节预算及分档贴图，KTX2仅小样评估。仅工具/报告/计划，无游戏修改、构建或发布；V06及手机崩溃验收保持开放。
+  - [SITES_QUALITY_OPTIMIZATION_PLAN_20261028.md](SITES_QUALITY_OPTIMIZATION_PLAN_20261028.md)
+  - [sites-quality-research-20261028.json](../../reports/qa/sites-quality-research-20261028.json)
+- **2026-10-28 · V06**：开始按用户要求调研体积优化版画质联动、分辨率与资源解码、解压负载及启动设备分档；以91b0775/私有转公开后的Sites第9版当前快照为基线，仅代码调查与方案，不实施或发布游戏修改。
+- **2026-10-28 · V05**：第9版源码、压缩快照及验证记录已提交并推送GitHub体积优化版91b0775；已逐字核验压缩入口包含覆盖提醒、装备修订保护和手机预加载策略。临时服务和本任务构建/QA临时文件已清理；保留复现代码及简要结论。原机第三关崩溃继续待验证。
+  - [SITES_MOBILE_NEW_RUN_20261028.md](SITES_MOBILE_NEW_RUN_20261028.md)
+  - [sites-mobile-new-run-20261028.json](../../reports/qa/sites-mobile-new-run-20261028.json)
+- **2026-10-28 · V05**：Sites第9版部署succeeded，源码c19e47e；一次覆盖提醒、新局放弃与失败保护及手机近期预加载/四路下载/四包驻留已上线。旧手机第三关崩溃及线上UI复验仍待验证，不将计划资源字节等同RAM实测。
+  - [SITES_MOBILE_NEW_RUN_20261028.md](SITES_MOBILE_NEW_RUN_20261028.md)
+  - [sites-mobile-new-run-20261028.json](../../reports/qa/sites-mobile-new-run-20261028.json)
+- **2026-10-28 · V05**：新局直接放弃旧局和一次覆盖提醒已实现；2727完整回归及追加2项检查通过。手机可选模型预加载与并发/驻留已收敛，但浏览器连接超时，未完成三关渲染验证，原机第三关崩溃仍待实机复测；不冒称已复现或关闭。
+  - [SITES_MOBILE_NEW_RUN_20261028.md](SITES_MOBILE_NEW_RUN_20261028.md)
+  - [sites-mobile-new-run-20261028.json](../../reports/qa/sites-mobile-new-run-20261028.json)
+- **2026-10-28 · V05**：用户报告手机第三关崩溃；确认新游戏应直接放弃并覆盖旧局、不先结算，只提醒一次。开始独立新局替换事务及手机预加载内存路径修复，未将手机崩溃归因为已复现。
+- **2026-10-28 · V05**：首页恢复修复的源码、压缩快照和验证记录已提交并推送GitHub体积优化版0f20f2c；Sites第8版源提交仍0943563。仅保存本批明确20文件；共享看板/交接及其他线程原改动未混入提交。临时测试服务器已停止，可重建打包/测试临时目录已清理，简要结论和复现代码保留。
+  - [SITES_STARTUP_RETRY_20261028.md](SITES_STARTUP_RETRY_20261028.md)
+  - [sites-startup-retry-20261028.json](../../reports/qa/sites-startup-retry-20261028.json)
+- **2026-10-28 · V05**：首页自动重试修复已发布现有公开Sites第8版，提交0943563；线上appBuildId与本次成品一致，菜单可见且启动无警告/错误。V05整体与手机实机复测保持开放。
+  - [SITES_STARTUP_RETRY_20261028.md](SITES_STARTUP_RETRY_20261028.md)
+  - [sites-startup-retry-20261028.json](../../reports/qa/sites-startup-retry-20261028.json)
+- **2026-10-28 · V05**：V05-SITES-BOOT-001已实现三次自动重试、资源包45秒超时和可见恢复；故障注入自动进入菜单及持续失败恢复通过，2720项回归/类型/数据文档通过。Sites包已构建，上传中；原手机实际请求未捕获，保留实机复测。
+  - [SITES_STARTUP_RETRY_20261028.md](SITES_STARTUP_RETRY_20261028.md)
+  - [sites-startup-retry-20261028.json](../../reports/qa/sites-startup-retry-20261028.json)
+- **2026-10-28 · V05**：用户报告手机Chrome卡在INITIALIZING超过10分钟，确认失败后自动重试；开始修复启动/菜单资源等待与恢复，保持现有公开站点及玩家存档。
+- **2026-10-27 · PROMO-01**：四分钟实机宣发第一版已本地交付，进行中→待验证；成片解码/尺寸时长/33帧抽查/音量和浏览器播放验证通过，待用户观感反馈。不改变V05/V06状态，也不包含视频公开发布。
+  - [PROMO_VIDEO_20261027.md](PROMO_VIDEO_20261027.md)
+  - [promo-video-v1-20261027.json](../../reports/qa/promo-video-v1-20261027.json)
+- **2026-10-27 · V05**：用户明确授权供朋友试玩，Sites第7版已公开；匿名进入战斗通过，未登录管理页/接口及虚构邮箱请求均403。真实所有者邮箱伪造检查被自动审批拒绝，所有者公开环境登录待验证；备份和完整公开验收仍开放。
+  - [sites-public-access-20261027.json](../../reports/qa/sites-public-access-20261027.json)
+- **2026-10-27 · PROMO-01**：用户批准制作四分钟实机宣发第一版，允许游戏英雄原声。新增独立制作任务，不改V05/V06结论。
+  - [PROMO_VIDEO_20261027.md](PROMO_VIDEO_20261027.md)
+- **2026-10-27 · V05、V06**：原版最新修复、压缩版第7版快照、相关测试/工具与Coze说明已提交推送到GitHub体积优化版分支（56fa13d），远端提交和内容树核对一致，main未合并；Coze/阿里云未部署。复用同版2717项回归及交互/资源验证，V05进行中、V06待用户体验和最终验收。
+  - [V06_GITHUB_SYNC_20261027.md](V06_GITHUB_SYNC_20261027.md)
+  - [v06-github-sync-20261027.json](../../reports/qa/v06-github-sync-20261027.json)
+- **2026-10-27 · V06**：用户授权将原版最新修复、压缩版第7版快照、测试和Coze说明提交推送到GitHub体积优化版分支；正在核对明确文件范围与远端一致性，不合入main。
+  - [V06_GITHUB_SYNC_20261027.md](V06_GITHUB_SYNC_20261027.md)
+- **2026-10-27 · V06**：用户授权后将本批反馈修复发布为私有Sites第7版，访问范围保持仅所有者。云端源码身份与本地快照一致；V06继续待人工体验及最终关闭。
+  - [v06-feedback-repairs-20261027.json](../../reports/qa/v06-feedback-repairs-20261027.json)
+  - [v06-sites-source-check-20261027.json](../../reports/qa/v06-sites-source-check-20261027.json)
+- **2026-10-27 · V06**：掉落与十项反馈本地修复及验证完成；Coze应用/说明就绪。Sites远程同步被自动审批拦截，待授权；V06待验证、MVP仍开放。
+  - [v06-feedback-repairs-20261027.json](../../reports/qa/v06-feedback-repairs-20261027.json)
+  - [V06_FEEDBACK_REPAIRS_20261027.md](V06_FEEDBACK_REPAIRS_20261027.md)
+- **2026-10-27 · V06**：V06集中试玩反馈进入修复：掉落、事件节奏、难度解锁/成长、腺体爆虫、贴脸生成、巨型蟑螂、加载与卡牌、Coze交接；V05原进度保持。
+- **2026-10-27 · V06**：按用户要求将前轮45份文档/统计修正提交推送体积优化版b4cfeb4，远端核对、main保持。用户简单11关约80件且多数绿色；确认诱饵和额外事件，实际原生掉落/奖励定向检查及151项相关回归通过。V06-GEAR-YIELD-001记录为产出体验待讨论；未改掉率、品质、奖励或部署。
+  - [EASY_LOOT_INSPECTION_20261027.md](EASY_LOOT_INSPECTION_20261027.md)
+  - [easy-loot-inspection-20261027.json](../../reports/qa/easy-loot-inspection-20261027.json)
+- **2026-10-27 · V04、V05、V06**：四项资源统计同步源码/快照并发布私有Sites第6版，V04-SITES-META-001关闭；3742资源及190文件对应通过。根AGENTS定稿11707字节，414575字节旧全文完整归档，交接与规范链接核对；主仓库本轮未提交/推送，V05进行中、V06待办。
+  - [SITES_METADATA_AGENTS_FINAL_20261027.md](SITES_METADATA_AGENTS_FINAL_20261027.md)
+  - [sites-metadata-agents-final-20261027.json](../../reports/qa/sites-metadata-agents-final-20261027.json)
+- **2026-10-27 · V04、V05、V06、D06**：主线程检查Sites交接并按用户要求纳入MVP7/8：云端第5版私有发布成功，GitHub体积优化版26b87a1确认，58包/3742资源解包hash通过。190快照文件中69字节一致、121仅换行差异。V04-SITES-META-001四项汇总元数据过期，备份与最终访问/音画验收继续开放；未改站点、权限或合并分支。
+  - [MVP_SITES_REVIEW_20261027.md](MVP_SITES_REVIEW_20261027.md)
+  - [mvp-sites-review-20261027.json](../../reports/qa/mvp-sites-review-20261027.json)
+  - [SITES_HANDOFF_20261027.md](SITES_HANDOFF_20261027.md)
+  - [V04_SIZE_OPTIMIZED_20261027.md](V04_SIZE_OPTIMIZED_20261027.md)
+- **2026-10-27 · V05**：V04 Sites私有测试版资源合并及后台迁移完成：同意统计、每日UV、反馈和删除在云端合成数据及所有者管理页验证；旧服务器玩家数据为空。自动独立备份、公开环境验收和音画质量仍开放，V05继续。
+  - [V04_SITES_BACKEND_20261027.md](V04_SITES_BACKEND_20261027.md)
+  - [v04-sites-backend-20261027.json](../../reports/qa/v04-sites-backend-20261027.json)
+- **2026-10-27 · V05**：V04私有Sites压缩测试已部署，资源合并后模拟延迟下菜单32.0→15.1秒、战场准备191.9→40.8秒；资源哈希和本机战斗存档通过，线上菜单可用。统计反馈尚未接入，现有PostgreSQL后台需适配Sites及安全数据管理；未公开，V05继续。
+  - [V04_SITES_LOADING_20261027.md](V04_SITES_LOADING_20261027.md)
+  - [v04-sites-loading-20261027.json](../../reports/qa/v04-sites-loading-20261027.json)
+- **2026-10-27 · V05**：用户授权创建admin及查看玩家主动提供的联系方式；root专用密码文件权限600，登录、权限和退出后会话失效通过。备案尚未通过，V05继续。
+  - [V05_SERVER_STAGING_20261027.md](V05_SERVER_STAGING_20261027.md)
+  - [v05-server-staging-20261027.json](../../reports/qa/v05-server-staging-20261027.json)
+- **2026-10-27 · V05**：V04同版已部署到阿里云服务器的内部环境，HTTPS经安全隧道验证；游戏、同意统计、反馈、持久化、删除及恢复验证通过。管理入口仅限安全隧道，管理员账号待明确授权；备案审核中，未对外开放。证书自动续期、异机备份、管理员登录退出及公开环境验收仍待完成。
+  - [V05_SERVER_STAGING_20261027.md](V05_SERVER_STAGING_20261027.md)
+  - [v05-server-staging-20261027.json](../../reports/qa/v05-server-staging-20261027.json)
 - **2026-10-27 · V04**：V04本地同版打包与验证完成：Web、命名离线HTML、应用/完整/增量资源包已核验；3845资源解码、四ZIP读回、2项打包测试、4类启动、7项更新回退及三入口浏览器存档/布局通过。游戏源码、Current、现有应用镜像保持；未提交、推送、部署或发布，V05待办。
   - [V04_DELIVERY_20261027.md](V04_DELIVERY_20261027.md)
   - [v04-packaging-20261027.json](../../reports/qa/v04-packaging-20261027.json)

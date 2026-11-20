@@ -1,0 +1,236 @@
+{
+  "date": "2026-11-02",
+  "branch": "体积优化版",
+  "baseline": "8d680aca1b3150b3faa0c9c170458d084c9a1a1e",
+  "scope": "当前分支全面代码审查，四路分工，主代理重跑全部新增反例",
+  "status": "审查完成，发现未修复",
+  "counts": {
+    "productDefects": 8,
+    "business": 4,
+    "faultInjection": 4,
+    "engineering": 1,
+    "P1": 6,
+    "P2": 3
+  },
+  "findings": [
+    {
+      "id": "V06-FULL-SAVE-NATIVE-001",
+      "priority": "P1",
+      "category": "business",
+      "file": "src/simulation/persistence/run-fields.ts",
+      "line": 130,
+      "title": "舰装增强虫族精英技能被保存校验拒绝",
+      "trigger": "原生技能倍率大于1且胆汁/输血窗口跨入关间",
+      "effect": "自动保存与继续失败，旧档保留，当前导出不可读",
+      "reproduction": "tools/inspect-full-audit-persistence-20261102.mts",
+      "status": "待办",
+      "resolved": false,
+      "sourceSha256": "77268dd3afd079b3f4a61fd4fdb826c2a292a72e8bf59ff45488b38baf81a0ae"
+    },
+    {
+      "id": "V06-FULL-SAVE-HP-CAP-001",
+      "priority": "P1",
+      "category": "business",
+      "file": "src/simulation/persistence/run-fields.ts",
+      "line": 94,
+      "title": "关间降低生命上限后残留屏障使保存失败",
+      "trigger": "血羽迁徙有未过期屏障时卸生命装备",
+      "effect": "保存/继续失败，旧档保留，当前导出不可读",
+      "reproduction": "tools/inspect-full-audit-persistence-20261102.mts",
+      "status": "待办",
+      "resolved": false,
+      "sourceSha256": "77268dd3afd079b3f4a61fd4fdb826c2a292a72e8bf59ff45488b38baf81a0ae"
+    },
+    {
+      "id": "V06-FULL-INDEX-HANG-001",
+      "priority": "P1",
+      "category": "fault-injection",
+      "file": "tools/packed-sites-sw.js",
+      "line": 61,
+      "title": "挂起资源索引不可由重试或清缓存替换",
+      "trigger": "索引头或正文不完成，随后网络恢复",
+      "effect": "后续菜单/入场请求仍复用旧挂起Promise",
+      "reproduction": "tools/inspect-full-audit-assets-20261102.mts",
+      "status": "待办",
+      "resolved": false,
+      "sourceSha256": "2e4105864636aa5ab637130940cebf467904f2615c4d6a326688ec7c895fda1a"
+    },
+    {
+      "id": "V06-FULL-HTTP-CACHE-001",
+      "priority": "P1",
+      "category": "fault-injection",
+      "file": "src/assets/http-store.ts",
+      "line": 70,
+      "title": "HTTP缓存坏包使正常重试一直502",
+      "trigger": "HTTP缓存已有错误200正文，源站已恢复正确包",
+      "effect": "4次自动重试与清缓存后仍force-cache，显式reload才恢复",
+      "reproduction": "tools/inspect-full-audit-assets-20261102.mts",
+      "status": "待办",
+      "resolved": false,
+      "sourceSha256": "670c0498012916ea58a35f2ed85cd58836d1f5585350e11c93587981dcd63ed2"
+    },
+    {
+      "id": "V06-FULL-KTX-WORKER-001",
+      "priority": "P1",
+      "category": "fault-injection",
+      "file": "src/render/loaders/gpu-textures.ts",
+      "line": 27,
+      "title": "KTX2 worker错误不结束解码与准备通道",
+      "trigger": "支持压缩纹理时worker发出运行错误但无协议消息",
+      "effect": "模拟120001ms后active=1/fallbacks=0，release失败，入口被阻塞",
+      "reproduction": "tools/inspect-full-audit-runtime-20261102.mts",
+      "status": "待办",
+      "resolved": false,
+      "sourceSha256": "a5d83185044035a3ff5528c89f67240c602eb211b3eec462d359626486964678"
+    },
+    {
+      "id": "V06-FULL-AUDIO-HANG-001",
+      "priority": "P1",
+      "category": "fault-injection",
+      "file": "src/render/effects/audio.ts",
+      "line": 32,
+      "title": "音频解码挂起后取消和重试不能排空",
+      "trigger": "必需音频decodeAudioData不完成",
+      "effect": "模拟120001ms后首次准备未结束，新准备超时，held=2",
+      "reproduction": "tools/inspect-full-audit-runtime-20261102.mts",
+      "status": "待办",
+      "resolved": false,
+      "sourceSha256": "3e36113e13a9718a7af500f6119479ed70babc9b54b207dd696477c55ce87a27"
+    },
+    {
+      "id": "V06-FULL-FAMILY-LIFE-001",
+      "priority": "P2",
+      "category": "business",
+      "file": "src/simulation/expedition-production.ts",
+      "line": 138,
+      "title": "兵种退役遗漏舰装复生和回溯名册",
+      "trigger": "满5族替换兵种时已有相位恢复或回溯快照",
+      "effect": "退役兵种复活形成第6族，或名册6/快照5导致回溯失效",
+      "reproduction": "tools/inspect-full-audit-simulation-20261102.mts",
+      "status": "待办",
+      "resolved": false,
+      "sourceSha256": "d2373a62529a8fdfaac08abc41147345cdcddbc204531a6c811d0b4636e9a571"
+    },
+    {
+      "id": "V06-FULL-WIPE-001",
+      "priority": "P2",
+      "category": "business",
+      "file": "src/simulation/starship/lifecycle.ts",
+      "line": 54,
+      "title": "空装备账户使纯辅助单位错误阻止团灭",
+      "trigger": "战斗单位已死，仅医疗运输机或科学球存活",
+      "effect": "正式装备账户路径继续battle并到达reward；对照为lost",
+      "reproduction": "tools/inspect-full-audit-simulation-20261102.mts",
+      "status": "待办",
+      "resolved": false,
+      "sourceSha256": "b8e1a08798056bde124d87c389f844140b1b16aed2d478dd553e8e7af23ee3d6"
+    },
+    {
+      "id": "V06-FULL-CI-001",
+      "priority": "P2",
+      "category": "engineering",
+      "file": ".github/workflows/tests.yml",
+      "line": 4,
+      "title": "迭代分支直接push不触发常规CI",
+      "trigger": "直接push体积优化版且没有PR/手动触发",
+      "effect": "不自动执行全量回归/类型/数据/构建工作流",
+      "reproduction": null,
+      "status": "待办",
+      "resolved": false,
+      "sourceSha256": "3e7f6c1a273920de10fbfc2c34b021128047a13c96249dcd163e066186ee0ff9"
+    }
+  ],
+  "verification": {
+    "fullRegression": {
+      "total": 2909,
+      "firstPass": 2903,
+      "firstFail": 6,
+      "failureCause": "6项回环HTTP连接EACCES沙箱限制",
+      "recheckedFiles": [
+        "test/coze-web.test.mjs",
+        "test/p5-backend.test.mjs"
+      ],
+      "recheckPass": 15,
+      "unresolvedFailures": 0,
+      "uniqueTotal": 2909
+    },
+    "typecheck": "passed",
+    "docsCheck": "passed",
+    "isolatedViteBuild": {
+      "passed": true,
+      "modules": 547,
+      "seconds": 12.75,
+      "warning": "large chunk >500kB; not a new release package"
+    },
+    "packedSnapshot": {
+      "appBuildId": "a6b6e0d88b466383e804e20dd0ac94141085a32d25afe6d721c38c45e6484488",
+      "release": "50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a",
+      "uniquePayloads": 5138,
+      "packs": 359,
+      "verifiedDecodedBytes": 824778460,
+      "entryAndProvenance": "passed"
+    },
+    "counterexamples": {
+      "assetCases": 2,
+      "persistenceCases": 3,
+      "decoderCases": 2,
+      "simulationCasesAndControls": 7,
+      "allConfirmed": true
+    },
+    "subagentRelatedTests": {
+      "assets": 21,
+      "simulation": 24,
+      "overlapFullSuite": true,
+      "packedAssetStorage": "passed"
+    }
+  },
+  "scripts": [
+    {
+      "file": "tools/inspect-full-audit-persistence-20261102.mts",
+      "sha256": "7cc721819d338139df920646bc838e21e53c05ffdd6290c3701c1503af6dd648",
+      "purpose": "baseline defect assertions, not desired-behavior regression tests"
+    },
+    {
+      "file": "tools/inspect-full-audit-assets-20261102.mts",
+      "sha256": "306698405e35c53ecc8c0b2202e5a964d3f5b3190e216ef3773452597a4ae540",
+      "purpose": "baseline defect assertions, not desired-behavior regression tests"
+    },
+    {
+      "file": "tools/inspect-full-audit-runtime-20261102.mts",
+      "sha256": "a00483a0bf979ccfbcb3a94b7c00b168775c3d854fcd4ce8f0356cc9d9b6153e",
+      "purpose": "baseline defect assertions, not desired-behavior regression tests"
+    },
+    {
+      "file": "tools/inspect-full-audit-simulation-20261102.mts",
+      "sha256": "d42f29234c62deb62bd3c555fa3e90f239f2f2fc66acedc33b2bed97d2c1bd62",
+      "purpose": "baseline defect assertions, not desired-behavior regression tests"
+    }
+  ],
+  "limits": [
+    "无真实手机/Safari、浏览器进程崩溃、OS杀页或线上验证",
+    "无自然长局或GPU矩阵，无玩家真实档案",
+    "IndexedDB永久挂起仅静态风险，未计入确认缺陷",
+    "不保证所有代码路径无bug，不将所有问题归因于优化提交"
+  ],
+  "delivery": {
+    "productionModified": false,
+    "committed": false,
+    "pushed": false,
+    "deployed": false,
+    "mainMerged": false
+  },
+  "report": "docs/project/FULL_CODE_AUDIT_20261102.md",
+  "cleanup": {
+    "generatedFilesRemoved": 4126,
+    "bytesRemoved": 1507199129,
+    "absoluteTarget": "D:/星际/reports/local/full-code-audit-20261102",
+    "trackedFiles": 0,
+    "reparsePoints": 0,
+    "kept": [
+      "4复现工具",
+      "正式审查报告",
+      "简要机器结论",
+      "看板记录"
+    ]
+  }
+}

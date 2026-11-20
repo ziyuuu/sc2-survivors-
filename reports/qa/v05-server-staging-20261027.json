@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-27",
+  "status": "in_progress",
+  "releaseId": "4cd158ec49846e96bc97dcc3460d8216e1d6e8454f912dd5b21ea2487e74817c",
+  "scope": "server loopback and SSH tunnel; not publicly released",
+  "passed": [
+    "TLS and release identity",
+    "game startup battle and save reload through tunnel",
+    "no telemetry identity before consent",
+    "consent and telemetry",
+    "feedback idempotency and receipt authentication",
+    "PostgreSQL persistence across restart",
+    "feedback and consent deletion",
+    "backup restore and replay of actual deletion journal",
+    "unauthenticated admin rejected",
+    "remote-source admin denied",
+    "placeholder rollback and application recovery",
+    "authorized admin login, contact permission and logout"
+  ],
+  "limitations": [
+    "ICP filing under review",
+    "certificate manual DNS validation, automatic renewal not configured",
+    "database backups and deletion journal are on same server disk",
+    "public environment acceptance and real release upgrade remain open"
+  ],
+  "certificateExpires": "2027-01-25",
+  "gameSourceChanged": false
+}

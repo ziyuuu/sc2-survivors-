@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+ <meta charset="utf-8">
+ <base href="/">
+ <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+ <link rel="icon" href="data:,">
+ <title>虫族六单位试玩</title>
+</head>
+<body>
+ <!--SC2_OPENING-->
+ <div id="game-root" inert>
+  <canvas id="battle" aria-label="星际幸存小队战场"></canvas>
+  <main id="interface"></main>
+ </div>
+ <aside id="zerg-trial" aria-label="虫族单位试玩">
+  <label for="trial-unit">单位</label>
+  <select id="trial-unit"></select>
+  <button id="trial-reset" type="button">重开</button>
+  <details id="trial-observe"><summary>观察</summary><div class="trial-details"><p></p><output></output></div></details>
+ </aside>
+ <script type="module" src="/preview/zerg-six-20261120/main.ts"></script>
+</body>
+</html>

@@ -13,6 +13,8 @@ export function combatFxProfile(u:Identity|undefined):CombatFxProfile|undefined{
  if(u.summonKind==='interceptor')return COMBAT_FX_PROFILES.get('interceptor');
  let key:string=u.unitType??'';
  if(key==='battlecruiser')key=u.targetFlying||u.activeWeapon==='ATALaserBattery'?'battlecruiser-air':'battlecruiser-ground';
+ else if(key==='liberator'&&u.nativeMode==='liberator_ag')key='liberator-ag';
+ else if(key==='widow_mine'&&u.targetFlying)key='widow_mine-air';
  else if(key==='science_vessel')key='science-vessel';
  else if(key==='tank'&&(u.siege||u.mode==='siege'||u.eliteId==='tank.1'&&(u.team==='player'||u.sourceTeam==='player')))key='tank-siege';
  else if(key==='hellion'&&u.nativeMode==='hellbat')key='hellbat';

@@ -1,0 +1,283 @@
+{
+  "task": "DEMO-01",
+  "date": "2026-11-03",
+  "revision": "80s",
+  "status": "Local edit and checks passed; awaiting user review",
+  "request": "Faster cuts, flexible faction intercut and three-panel shots, 1 minute 20 seconds; retain exact captions in the former upper-right art style instead of white captions.",
+  "sourceHeadAtDelivery": "43ef159808248f9c2819b08addd8f87209ef8fb0",
+  "sourceBuildDate": "2026-11-03T07:21:21.479Z",
+  "isolatedAppSha256": "8e240d2399d3900804033c430d48ef220516ef1f67beb66a82b3a215208fc753",
+  "sourceInputCount": 551,
+  "sourceInputDriftAtDelivery": [],
+  "assetRelease": {
+    "appBuildId": "78b01cbe0961bb3cf6473be1d8ddd7367a5cbcb7ba24de07404dccb8ef331f28",
+    "runSchema": 26,
+    "rulesId": "mvp-1.0",
+    "mapId": "campaign-five-v3",
+    "assetCount": 3845,
+    "fileCount": 3748,
+    "assetBytes": 1416397101,
+    "logicalBytes": 1439004292,
+    "sharedBytes": 22607191,
+    "manifest": "asset-manifest.885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa.json",
+    "release": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+    "source": "reports/local/asset-reachability.json"
+  },
+  "duration": 80,
+  "frames": 2400,
+  "cuts": 40,
+  "threePanelShots": 4,
+  "coverSeconds": 3,
+  "captions": [
+    "击退敌军",
+    "增加资源获取",
+    "获取援兵",
+    "选择你的发展路线",
+    "选择卡牌强化部队",
+    "获取强力单位和英雄",
+    "获取装备武装旗舰",
+    "及时提升",
+    "返回旗舰装备更精良的设施",
+    "挑战或保留战利品？",
+    "整备",
+    "再次出发"
+  ],
+  "chapterTimes": [
+    {
+      "section": 1,
+      "caption": "击退敌军",
+      "at": 3.0,
+      "duration": 5.0
+    },
+    {
+      "section": 2,
+      "caption": "增加资源获取",
+      "at": 8.0,
+      "duration": 5.0
+    },
+    {
+      "section": 3,
+      "caption": "获取援兵",
+      "at": 13.0,
+      "duration": 7.0
+    },
+    {
+      "section": 4,
+      "caption": "选择你的发展路线",
+      "at": 20.0,
+      "duration": 5.0
+    },
+    {
+      "section": 5,
+      "caption": "选择卡牌强化部队",
+      "at": 25.0,
+      "duration": 10.0
+    },
+    {
+      "section": 6,
+      "caption": "获取强力单位和英雄",
+      "at": 35.0,
+      "duration": 9.0
+    },
+    {
+      "section": 7,
+      "caption": "获取装备武装旗舰",
+      "at": 44.0,
+      "duration": 4.0
+    },
+    {
+      "section": 8,
+      "caption": "及时提升",
+      "at": 48.0,
+      "duration": 5.0
+    },
+    {
+      "section": 9,
+      "caption": "返回旗舰装备更精良的设施",
+      "at": 53.0,
+      "duration": 4.0
+    },
+    {
+      "section": 10,
+      "caption": "挑战或保留战利品？",
+      "at": 57.0,
+      "duration": 8.0
+    },
+    {
+      "section": 11,
+      "caption": "整备",
+      "at": 65.0,
+      "duration": 7.0
+    },
+    {
+      "section": 12,
+      "caption": "再次出发",
+      "at": 72.0,
+      "duration": 8.0
+    }
+  ],
+  "media": [
+    {
+      "file": "dist/gameplay-demo-80s-20261103/Starcraft-Survivors-Gameplay-80s.mp4",
+      "bytes": 38762494,
+      "sha256": "deb46f224b279589a53e8d4784f6b9fe68924ba52b5083258bfa3694d630edba",
+      "seconds": 80.0,
+      "size": [
+        1920,
+        1080
+      ],
+      "fps": 30,
+      "decodedFrames": 2400,
+      "audioMaxDb": -4.6,
+      "decodeErrors": ""
+    },
+    {
+      "file": "dist/gameplay-demo-80s-20261103/Starcraft-Survivors-Gameplay-80s-Mobile.mp4",
+      "bytes": 14646129,
+      "sha256": "aa0ed3170a46f7e32a29c1a50656281c1557395d3afd8bd5accdbd27a8d90f21",
+      "seconds": 80.0,
+      "size": [
+        1920,
+        1080
+      ],
+      "fps": 30,
+      "decodedFrames": 2400,
+      "audioMaxDb": -4.7,
+      "decodeErrors": ""
+    }
+  ],
+  "visualReview": {
+    "status": "passed",
+    "sampleCount": 40,
+    "allFourContactSheetsReviewed": true,
+    "detailFrames": [
+      "Raynor reward card below corner title",
+      "Zerg elite reward card below corner title",
+      "Outside-only SCV module label",
+      "Four three-panel compositions",
+      "Actual three-second cover"
+    ],
+    "notes": "No bottom white caption strip; 12 original captions use prior metallic artwork in the upper-right. Two boss reward crops corrected before final recheck."
+  },
+  "player": {
+    "passed": true,
+    "outputs": 2,
+    "chapterSeeks": 24,
+    "actualCoverFrames": 2,
+    "scope": "Chrome metadata and 24 chapter seeks with muted playback. No physical-phone or continuous listening claim."
+  },
+  "transactions": [
+    {
+      "check": "Worker rescue and mineral/gas gain",
+      "rescueAt": 4.266666666666667,
+      "pickupAt": 4.5
+    },
+    {
+      "check": "Same Protoss order and reinforcement arrival",
+      "paid": {
+        "minerals": 125,
+        "gas": 50
+      },
+      "orderAt": 12,
+      "arrivalAt": 45.96666666666667
+    },
+    {
+      "check": "Card purchase and matching payoff",
+      "scene": "choices-protoss",
+      "card": "相位回响",
+      "paid": [
+        192,
+        77
+      ],
+      "damage": 40.750395572083804,
+      "visibleImpacts": [
+        14.6,
+        14.733333333333333,
+        14.8
+      ]
+    },
+    {
+      "check": "Card purchase and matching payoff",
+      "scene": "choices-terran",
+      "card": "空降地堡",
+      "paid": [
+        105,
+        35
+      ],
+      "damage": 156.79875824335323,
+      "visibleImpacts": [
+        14.1,
+        14.6,
+        15.1
+      ]
+    },
+    {
+      "check": "Boss death and own reward",
+      "scene": "boss-terran",
+      "deathAt": 3.033333333333333,
+      "rewardAt": 3.033333333333333,
+      "identities": [
+        "raynor"
+      ]
+    },
+    {
+      "check": "Boss death and own reward",
+      "scene": "boss-zerg",
+      "deathAt": 14.833333333333334,
+      "rewardAt": 20,
+      "identities": [
+        "hydralisk.3"
+      ]
+    },
+    {
+      "check": "Same SCV module continuity",
+      "id": "ship-item-1",
+      "name": "SCV勤务终端",
+      "path": [
+        "pickup",
+        "outside-only",
+        "extraction",
+        "warehouse",
+        "equipped"
+      ]
+    },
+    {
+      "check": "Legal intermission equipment, three distinct branches and outfitted redeployment",
+      "passed": true
+    }
+  ],
+  "reusedRecordings": 14,
+  "audio": {
+    "mappedCues": 294,
+    "nativeSources": 112,
+    "noVoiceover": true,
+    "threePanelPolicy": "Use primary pane sound only"
+  },
+  "resolvedDuringProduction": [
+    "Source-tail framesync omitted one frame in seven cuts; exact frame count validation and single-input last-frame padding added.",
+    "Mixed cover/game color formats reset filter timestamps during reencode; all segments now normalized consistently before concatenation.",
+    "Boss reward panels cropped in first visual review; actual card details now enlarged below upper-right title, with Raynor reveal retained.",
+    "Sandbox loopback service was inaccessible to host Chrome; local-only preview service moved to normal host execution and stopped after QA."
+  ],
+  "notPerformed": [
+    "New recording",
+    "New game regression matrix",
+    "Natural continuous campaign playthrough",
+    "Physical phone test",
+    "User review acceptance",
+    "Product source or player-save change",
+    "Commit",
+    "Push",
+    "Upload",
+    "Deployment"
+  ],
+  "report": "docs/project/GAMEPLAY_DEMO_80S_20261103.md",
+  "reproduction": "tools/promo-video/DEMO80_README.md",
+  "provenance": "dist/gameplay-demo-80s-20261103/provenance.json",
+  "docsCheck": "npm run docs:check passed",
+  "cleanup": {
+    "files": 188,
+    "bytes": 232266686.0,
+    "scope": "Current rebuildable typography movies, segments, mix, review samples and superseded long final videos; current 80-second outputs and all original recording/design inputs retained."
+  }
+}

@@ -2,9 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {ADDED_UNIT_IDS,EXPANSION_FAMILIES,EXPANSION_UNITS,VERIFIED_EXPANSION_UNITS,SOURCE_UNIT_DETAILS,SOURCE_UNIT_MODES,SOURCE_WEAPONS,SOURCE_PRODUCTION_RECIPES} from '../src/data/expansion-units';
 const approximately=(actual:number,expected:number)=>assert.ok(Math.abs(actual-expected)<1e-9,`${actual} != ${expected}`);
-test('catalog names 30 families without counting modes and blocks missing science vessel data',()=>{
- assert.equal(EXPANSION_FAMILIES.length,30);assert.equal(new Set(EXPANSION_FAMILIES).size,30);
- assert.equal(ADDED_UNIT_IDS.length,20);assert.equal(Object.keys(VERIFIED_EXPANSION_UNITS).length,19);
+test('catalog names 36 families without counting modes and blocks missing science vessel data',()=>{
+ assert.equal(EXPANSION_FAMILIES.length,36);assert.equal(new Set(EXPANSION_FAMILIES).size,36);
+ assert.equal(ADDED_UNIT_IDS.length,26);assert.equal(Object.keys(VERIFIED_EXPANSION_UNITS).length,25);
  assert.equal(EXPANSION_UNITS.science_vessel,null);assert.equal(SOURCE_PRODUCTION_RECIPES.science_vessel,null);
  assert.ok(!EXPANSION_FAMILIES.includes('hellbat' as never));
 });

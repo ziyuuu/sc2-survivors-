@@ -83,8 +83,8 @@ test('I03 sky support grants one body per stage and never duplicates the stage r
 test('I03 rescue module doubles the actual rescued worker payment and queues one real elite',()=>{
  const w=setup('module.rescue.4'),u=actor(w),egg=w.spawnEconomic('egg',{x:0,z:2}),workers=w.workers;w.starship.account.rng=triggerSeed;w.hit(egg,1e12,[],1,'terran',0,1,u.id);assert.equal(w.workers-workers,4);deliverEquipmentMembers(w);assert.ok(w.allies().some(u=>u.eliteId&&u.rank===2));const count=w.entities.size;w.hit(egg,1e12,[],1,'terran',0,1,u.id);deliverEquipmentMembers(w);assert.equal(w.entities.size,count);assert.equal(w.workers-workers,4);
 });
-test('I03 direction recruiting discount affects the paid recipe and leaves other directions unchanged',()=>{
- const w=setup('set.blue.army.3',4,{direction:'barracks'});assert.equal(productionQuote(w,'marine').minerals,46);assert.equal(productionQuote(w,'hellion').minerals,100);
+test('I03 recruiting discount cannot charge a free Terran production order',()=>{
+ const w=setup('set.blue.army.3',4,{direction:'barracks'});assert.equal(productionQuote(w,'marine').minerals,0);assert.equal(productionQuote(w,'hellion').minerals,0);
 });
 test('I03 double pickup module shifts only the boss quality weights',()=>{
  const w=setup('module.double_pickup.3'),p=equipmentDropPolicy({difficulty:'hell',stage:13,tier:'boss'});assert.deepEqual(qualityWeightedPool(w,p.guaranteed,false),p.guaranteed);const rows=qualityWeightedPool(w,p.guaranteed,true),highest=Math.max(...p.guaranteed.map(r=>r.quality));assert.ok(rows.filter(r=>r.quality===highest).every(r=>r.weight>p.guaranteed.find(x=>x.category===r.category&&x.quality===r.quality)!.weight));

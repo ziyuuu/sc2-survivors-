@@ -9,6 +9,7 @@ import {spawnIntel,tickIntel,spawnHives,tickHives} from './encounters';
 import {identityCandidates,releaseReward} from './rewards';
 import {deliverTaskEquipment} from '../starship/drops';
 import {repairCandidates,spawnRepair,tickRepair,releaseRepairReservation} from './repair';
+import {clearExperienceFor,isExperience} from '../zerg-encounters';
 import type {World} from '../world';
 import type {Body,Entity,Point} from '../types';
 import {finishMissionState,type MissionBody,type MissionKind,type MissionRecord} from './state';
@@ -23,7 +24,7 @@ export function missionBodies(w:World){return [...w.missions.bodies.values(),...
 export function missionNear(w:World,b:Body,r:number){return distance(w.anchor,b)<=r+b.unitRadius&&(!w.terrain||w.terrain.walkLine(w.anchor,b,0))&&w.allies().some(u=>!u.temporary&&distance(u,b)<=r+b.unitRadius);}
 /** Recheck at birth: the player may have moved into a queued task's old spawn point. */
 export function missionAwayFromSquad(w:World,p:Point,r=0,clearance=8){return distance(w.anchor,p)>=clearance+r&&w.allies().every(u=>u.temporary||u.summonKind||distance(u,p)>=clearance+r+u.unitRadius);}
-export function missionPointLegal(w:World,p:Point,r:number){return Math.abs(p.x)+r<w.mapHalf&&Math.abs(p.z)+r<w.mapHalf&&!blocked(p,r,w.obstacles)&&(!w.terrain||w.terrain.canOccupy(p,r))&&![...missionBodies(w),...w.expansionHives.values(),...w.fortifications.values(),...(w.hive?.hp?[w.hive]:[]),...w.pods.filter(b=>b.status==='active'||b.status==='opening'),...[...w.economicTargets.values()].filter(b=>b.status==='active')].some(b=>distance(b,p)<b.unitRadius+r+.15)&&![...w.entities.values()].some(b=>b.hp>0&&distance(b,p)<b.unitRadius+r+.15);}
+export function missionPointLegal(w:World,p:Point,r:number){return Math.abs(p.x)+r<w.mapHalf&&Math.abs(p.z)+r<w.mapHalf&&!blocked(p,r,w.obstacles)&&(!w.terrain||w.terrain.canOccupy(p,r))&&![...missionBodies(w),...w.expansionHives.values(),...w.fortifications.values(),...(w.hive?.hp?[w.hive]:[]),...w.pods.filter(b=>b.status==='active'||b.status==='opening'),...[...w.economicTargets.values()].filter(b=>b.status==='active')].some(b=>distance(b,p)<b.unitRadius+r+.15)&&![...w.entities.values()].some(b=>b.hp>0&&!isExperience(b)&&distance(b,p)<b.unitRadius+r+.15);}
 export function makeMissionBody(w:World,m:MissionRecord,role:MissionBody['role'],p:Point,hp:number,model:string,owner:Body['owner'],radius:number,invulnerable=false):MissionBody {
  const b:MissionBody={id:w.nextId++,...p,hp,maxHp:hp,armor:0,unitRadius:radius,flying:false,owner,team:owner==='terran'?'player':'enemy',attributes:[...(['hatchery','hive','egg','drone'].includes(model)?['Biological']:['Mechanical']),...(role==='worker'?[]:['Structure'])],missionId:m.id,role,model,invulnerable,resolved:false,age:0,progress:0,facing:0};
  w.missions.bodies.set(b.id,b);m.bodyIds.push(b.id);return b;
@@ -87,7 +88,7 @@ function queueEscort(w:World,m:MissionRecord){
  for(let i=0;i<40;i++)m.queue.push({taskId:m.id,sourceId:center.id,type:i<30?'zergling':'baneling',stamp:{...stamp},point:{...point}});
 }
 export function releaseMissionQueue(w:World){
- const m=w.missions.active;if(!m)return;let slots=Math.min(8,Math.max(0,w.missionEnemyCapacity()-w.enemyCount()));
+ const m=w.missions.active;if(!m)return;if(m.queue[0]&&(m.queue[0].readyAt??0)<=w.time)clearExperienceFor(w,Math.min(8,m.queue.length));let slots=Math.min(8,Math.max(0,w.missionEnemyCapacity()-w.enemyCount()));
  while(slots-->0&&m.queue.length){
   const item=m.queue[0];if(w.time<(item.readyAt??0))break;const d=SC2_UNITS[item.type];let p:Point|null=null;
   for(let i=0;i<120;i++){const angle=(i+m.enemyIds.length)*2.399963,r=i<24?.5+Math.floor(i/6)*.6:4+Math.floor((i-24)/12)*2,q={x:item.point.x+Math.cos(angle)*r,z:item.point.z+Math.sin(angle)*r};if(missionPointLegal(w,q,d.unitRadius*.8)&&missionAwayFromSquad(w,q,d.unitRadius)&&(m.kind!=='escort'||escortSpawnClear(w,q,d.unitRadius))&&clearLine(item.point,q,d.unitRadius,w.obstacles,w.terrain)){p=q;break;}}

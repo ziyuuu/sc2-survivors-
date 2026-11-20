@@ -10,6 +10,15 @@ test('Lurker surface and underground attacks select the same authored burrow att
  assert.ok(surface);assert.equal(surface.action,'burrowAttack');assert.deepEqual(surface,underground);
 });
 
+test('Widow Mine plays Spell A after launch and holds its burrow pose during lock and reload',()=>{
+ const actions=mapAnimations(['Stand','Burrow 01','Burrow Stand','Spell A'].map(name=>new AnimationClip(name,1,[])),'widow_mine');
+ const mine={unitType:'widow_mine' as const,nativeMode:'mine_burrowed',action:'attack' as const,hp:90,lastShotAt:4,shotSequence:1,shotInterval:28.57,windup:0,modeTimer:0};
+ assert.equal(selectAttackPresentation({...mine,windup:.4},3.6,actions),null);
+ assert.equal(selectAttackPresentation(mine,4.2,actions)?.action,'burrowAttack');
+ assert.equal(selectAttackPresentation(mine,6,actions),null);
+ assert.equal(selectAttackPresentation({...mine,nativeMode:'widow_mine'},4.2,actions),null);
+});
+
 test('Thor high-impact walking retains the native leg motion and deployed cannon tracks',()=>{
  const leg=new NumberKeyframeTrack('Bone_Leg_Upper_L.position[x]',[0,1],[0,2]);
  const ordinaryCannon=new NumberKeyframeTrack('CannonMount_L.position[x]',[0,1],[1,2]);

@@ -1,0 +1,777 @@
+{
+  "date": "2026-11-03",
+  "recordedAt": "2026-11-03T04:28:13.168Z",
+  "origin": "https://sc-survivors.coze.site",
+  "status": "检查完成：主程序最新且核心流程可用，部署一致性未通过，统计/反馈未接通",
+  "source": {
+    "head": "b18410e58642d61b94390f2a20d6cc73e8f3428e",
+    "productCommit": "deeb9d8ce86682bb9edce8cf4724a19d676055ea",
+    "appBuildId": "34408a35562ffdf62b278e8a310ae04d06515af98cee00f2c6ab61006922dbab",
+    "resourceRelease": "50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a",
+    "runSchema": 26
+  },
+  "verdict": {
+    "latestProgramPublished": true,
+    "coreFlowsPassed": true,
+    "deploymentConsistencyPassed": false,
+    "optionalServicesAvailable": false,
+    "deploymentControlPlaneInspected": false,
+    "physicalIPhoneVerified": false
+  },
+  "findings": [
+    {
+      "id": "V06-COZE-SW-001",
+      "priority": "P1",
+      "status": "待办",
+      "resolved": false,
+      "confirmed": true,
+      "scope": "公开CDN/请求变体返回不同SW与无版本号索引，实际旧Chrome客户端清理资源缓存失败；之后新档案可拿到新版，原档案重开仍失败。",
+      "evidence": "COZE_LIVE_CHECK_20261103.md",
+      "next": "统一失效可变URL的CDN缓存变体并核验既有客户端SW更新，再验证清理成功且玩家检查点保留；部署操作另按授权执行。"
+    },
+    {
+      "id": "V06-COZE-CONFIG-001",
+      "priority": "P2",
+      "status": "待办",
+      "resolved": false,
+      "confirmed": true,
+      "scope": "/api/config持续404，真实UI反馈发送与统计启用按钮禁用；核心战斗/本地保存可用，尚未认定为本次更新新引入。",
+      "evidence": "COZE_LIVE_CHECK_20261103.md",
+      "next": "核对Coze渠道预期的API路由和后台接入；不用其他环境后台通过替代本域验证。"
+    },
+    {
+      "id": "V06-COZE-TLS-001",
+      "priority": "P2",
+      "status": "待验证",
+      "resolved": false,
+      "confirmed": false,
+      "scope": "虫族后台单个KTX2请求出现ERR_CERT_COMMON_NAME_INVALID，未阻断已测流程；独立同URL请求随后200且SHA匹配，稳定复现和证书/CDN节点原因未确认。",
+      "evidence": "COZE_LIVE_CHECK_20261103.md",
+      "next": "保留单次网络观察；如原机或后续发布复核重现，记录请求时间与CDN节点后定向排查，不启动无限重试。"
+    }
+  ],
+  "http": {
+    "defaultPathFiles": 56,
+    "allDefaultPathHashesMatched": true,
+    "mainProgramBrowserHeaderChecks": [
+      {
+        "path": "",
+        "status": 200,
+        "bytes": 958261,
+        "sha256": "5a222f3d49c17a230d4e1e61b7dbfd976f7c849d23eea012353a2a576dd92bc0",
+        "cacheControl": "no-cache",
+        "xCache": null
+      },
+      {
+        "path": "web-release.json",
+        "status": 200,
+        "bytes": 1121,
+        "sha256": "a3a5b47e9744f609db7e0c3fcaa486d3e4965de5fe582cdb47c9279ab90aa046",
+        "matches": true,
+        "cacheControl": "no-cache",
+        "xCache": null
+      },
+      {
+        "path": "sites-pack-index.0bb43ff1011a0ab1462d.js",
+        "status": 200,
+        "bytes": 782043,
+        "sha256": "0bb43ff1011a0ab1462d14581dbeec3ad02e9b8c46f1d84ef5bdf2b08cdb0f95",
+        "matches": true,
+        "cacheControl": "public, max-age=31536000, immutable",
+        "xCache": "MISS TCP_MISS dirn:-2:-2"
+      },
+      {
+        "path": "assets/index-5af019d9833114b6.js",
+        "status": 200,
+        "bytes": 4018,
+        "sha256": "5af019d9833114b69b4fe599dd9cf301e14fb3d50004c6009fca66fe41358fb7",
+        "matches": true,
+        "cacheControl": "public, max-age=31536000, immutable",
+        "xCache": "MISS TCP_MISS dirn:-2:-2"
+      },
+      {
+        "path": "assets/sc2-entry.fb6ca9fb439a1328.js.gz",
+        "status": 200,
+        "bytes": 7679344,
+        "sha256": "fb6ca9fb439a132882bd1ed492c441499a7941736db8dc0111fc60d82193d63e",
+        "matches": true,
+        "cacheControl": "public, max-age=31536000, immutable",
+        "xCache": null
+      },
+      {
+        "path": "sites-pack-index.js",
+        "status": 200,
+        "bytes": 485820,
+        "sha256": "7c356e0e406b6597c7831c97524ab9b2ff61e9bd3fb356fa562bcd0f51e5ee97",
+        "matches": false,
+        "cacheControl": "public, max-age=31536000, immutable",
+        "xCache": "HIT TCP_MEM_HIT dirn:-2:-2"
+      }
+    ],
+    "initialEncodingIsolation": [
+      {
+        "name": "chrome-ua-only",
+        "file": "sites-sw.js",
+        "status": 200,
+        "bytes": 13508,
+        "sha256": "f74e4014798c71db4f286f7ba0c6272d46eff8283b609aee9d4b472f11111fcc",
+        "headers": {
+          "cache-control": "no-cache",
+          "content-encoding": "gzip",
+          "server": "Tengine",
+          "vary": "Accept-Encoding",
+          "via": "cache30.l2cn2627[244,244,200-0,M], cache45.l2cn2627[245,0], dynamic5.cn7640[263,263,200-0,M], dynamic6.cn7640[268,0]",
+          "x-cache": "MISS TCP_REFRESH_MISS dirn:-2:-2"
+        }
+      },
+      {
+        "name": "chrome-encoding-only",
+        "file": "sites-sw.js",
+        "status": 200,
+        "bytes": 1456,
+        "sha256": "777a07c5f18c0c4184f9ded53fd363610d0404e053ed3ddbfc3d9ad98db7a9f9",
+        "headers": {
+          "cache-control": "public, max-age=31536000, immutable",
+          "content-encoding": "gzip",
+          "server": "Tengine",
+          "vary": "Accept-Encoding",
+          "via": "cache30.l2cn2627[0,0,200-0,H], cache11.l2cn2627[4,0], dynamic5.cn7640[0,0,200-0,H], dynamic6.cn7640[2,0]",
+          "x-cache": "HIT TCP_MEM_HIT dirn:-2:-2"
+        }
+      },
+      {
+        "name": "brotli-encoding",
+        "file": "sites-sw.js",
+        "status": 200,
+        "bytes": 13508,
+        "sha256": "f74e4014798c71db4f286f7ba0c6272d46eff8283b609aee9d4b472f11111fcc",
+        "headers": {
+          "cache-control": "no-cache",
+          "content-encoding": "gzip",
+          "server": "Tengine",
+          "vary": "Accept-Encoding",
+          "via": "cache30.l2cn2627[92,91,200-0,M], cache40.l2cn2627[93,0], dynamic5.cn7640[112,112,200-0,M], dynamic6.cn7640[114,0]",
+          "x-cache": "MISS TCP_MISS dirn:-2:-2"
+        }
+      },
+      {
+        "name": "query-chrome-encoding",
+        "file": "sites-sw.js?coze-readcheck=20261103",
+        "status": 200,
+        "bytes": 13508,
+        "sha256": "f74e4014798c71db4f286f7ba0c6272d46eff8283b609aee9d4b472f11111fcc",
+        "headers": {
+          "cache-control": "no-cache",
+          "content-encoding": "gzip",
+          "server": "Tengine",
+          "vary": "Accept-Encoding",
+          "via": "cache9.l2cn2627[206,205,200-0,M], cache45.l2cn2627[207,0], dynamic5.cn7640[228,227,200-0,M], dynamic6.cn7640[233,0]",
+          "x-cache": "MISS TCP_MISS dirn:-2:-2"
+        }
+      },
+      {
+        "name": "pack-index-chrome",
+        "file": "sites-pack-index.js",
+        "status": 200,
+        "bytes": 485820,
+        "sha256": "7c356e0e406b6597c7831c97524ab9b2ff61e9bd3fb356fa562bcd0f51e5ee97",
+        "headers": {
+          "cache-control": "public, max-age=31536000, immutable",
+          "content-encoding": "gzip",
+          "server": "Tengine",
+          "vary": "Accept-Encoding",
+          "via": "cache46.l2cn2627[0,0,200-0,H], cache24.l2cn2627[1,0], dynamic6.cn7640[0,0,200-0,H], dynamic6.cn7640[3,0]",
+          "x-cache": "HIT TCP_MEM_HIT dirn:-2:-2"
+        }
+      },
+      {
+        "name": "runtime-chrome",
+        "file": "runtime-config.json",
+        "status": 200,
+        "bytes": 19,
+        "sha256": "126217dff5079b655a2d3b45211b2fa388ee35a7d413b1f54fbda29a0cb71b90",
+        "headers": {
+          "cache-control": "no-cache",
+          "server": "Tengine",
+          "via": "dynamic6.cn7640[77,0]"
+        }
+      }
+    ],
+    "lastHeaderMatrix": [
+      {
+        "name": "default",
+        "path": "sites-sw.js",
+        "status": 200,
+        "bytes": 13508,
+        "sha256": "f74e4014798c71db4f286f7ba0c6272d46eff8283b609aee9d4b472f11111fcc",
+        "matchesLocal": true,
+        "cacheControl": "no-cache",
+        "xCache": "MISS TCP_MISS dirn:-2:-2"
+      },
+      {
+        "name": "chrome-user-agent",
+        "path": "sites-sw.js",
+        "status": 200,
+        "bytes": 13508,
+        "sha256": "f74e4014798c71db4f286f7ba0c6272d46eff8283b609aee9d4b472f11111fcc",
+        "matchesLocal": true,
+        "cacheControl": "no-cache",
+        "xCache": "MISS TCP_REFRESH_MISS dirn:-2:-2"
+      },
+      {
+        "name": "chrome-encoding",
+        "path": "sites-sw.js",
+        "status": 200,
+        "bytes": 13508,
+        "sha256": "f74e4014798c71db4f286f7ba0c6272d46eff8283b609aee9d4b472f11111fcc",
+        "matchesLocal": true,
+        "cacheControl": "no-cache",
+        "xCache": "MISS TCP_MISS dirn:-2:-2"
+      },
+      {
+        "name": "without-zstd",
+        "path": "sites-sw.js",
+        "status": 200,
+        "bytes": 13508,
+        "sha256": "f74e4014798c71db4f286f7ba0c6272d46eff8283b609aee9d4b472f11111fcc",
+        "matchesLocal": true,
+        "cacheControl": "no-cache",
+        "xCache": "MISS TCP_MISS dirn:-2:-2"
+      },
+      {
+        "name": "identity",
+        "path": "sites-sw.js",
+        "status": 200,
+        "bytes": 13508,
+        "sha256": "f74e4014798c71db4f286f7ba0c6272d46eff8283b609aee9d4b472f11111fcc",
+        "matchesLocal": true,
+        "cacheControl": "no-cache",
+        "xCache": "MISS TCP_MISS dirn:-2:-2"
+      },
+      {
+        "name": "cache-busting-query",
+        "path": "sites-sw.js?coze-readcheck=20261103",
+        "status": 200,
+        "bytes": 13508,
+        "sha256": "f74e4014798c71db4f286f7ba0c6272d46eff8283b609aee9d4b472f11111fcc",
+        "matchesLocal": true,
+        "cacheControl": "no-cache",
+        "xCache": "MISS TCP_MISS dirn:-2:-2"
+      },
+      {
+        "name": "legacy-index",
+        "path": "sites-pack-index.js",
+        "status": 200,
+        "bytes": 485820,
+        "sha256": "7c356e0e406b6597c7831c97524ab9b2ff61e9bd3fb356fa562bcd0f51e5ee97",
+        "matchesLocal": false,
+        "cacheControl": "public, max-age=31536000, immutable",
+        "xCache": "MISS TCP_MISS dirn:-2:-2"
+      },
+      {
+        "name": "versioned-index",
+        "path": "sites-pack-index.0bb43ff1011a0ab1462d.js",
+        "status": 200,
+        "bytes": 782043,
+        "sha256": "0bb43ff1011a0ab1462d14581dbeec3ad02e9b8c46f1d84ef5bdf2b08cdb0f95",
+        "matchesLocal": true,
+        "cacheControl": "public, max-age=31536000, immutable",
+        "xCache": "MISS TCP_MISS dirn:-2:-2"
+      },
+      {
+        "name": "release",
+        "path": "web-release.json",
+        "status": 200,
+        "bytes": 1121,
+        "sha256": "a3a5b47e9744f609db7e0c3fcaa486d3e4965de5fe582cdb47c9279ab90aa046",
+        "matchesLocal": true,
+        "cacheControl": "no-cache",
+        "xCache": null
+      },
+      {
+        "name": "runtime-config",
+        "path": "runtime-config.json",
+        "status": 200,
+        "bytes": 19,
+        "sha256": "126217dff5079b655a2d3b45211b2fa388ee35a7d413b1f54fbda29a0cb71b90",
+        "matchesLocal": true,
+        "cacheControl": "no-cache",
+        "xCache": null
+      },
+      {
+        "name": "launcher",
+        "path": "assets/index-5af019d9833114b6.js",
+        "status": 200,
+        "bytes": 4018,
+        "sha256": "5af019d9833114b69b4fe599dd9cf301e14fb3d50004c6009fca66fe41358fb7",
+        "matchesLocal": true,
+        "cacheControl": "public, max-age=31536000, immutable",
+        "xCache": "MISS TCP_MISS dirn:-2:-2"
+      },
+      {
+        "name": "program",
+        "path": "assets/sc2-entry.fb6ca9fb439a1328.js.gz",
+        "status": 200,
+        "bytes": 7679344,
+        "sha256": "fb6ca9fb439a132882bd1ed492c441499a7941736db8dc0111fc60d82193d63e",
+        "matchesLocal": true,
+        "cacheControl": "public, max-age=31536000, immutable",
+        "xCache": null
+      },
+      {
+        "name": "services",
+        "path": "api/config",
+        "status": 404,
+        "bytes": 9,
+        "sha256": "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5",
+        "matchesLocal": null,
+        "cacheControl": null,
+        "xCache": null
+      }
+    ],
+    "note": "Default 56-file pass does not override browser/CDN variant failures."
+  },
+  "worker": {
+    "initialObservedAt": "2026-11-03T04:13:45.403Z",
+    "initial": {
+      "registration": {
+        "controller": "https://sc-survivors.coze.site/sites-sw.js",
+        "registrations": [
+          {
+            "scope": "https://sc-survivors.coze.site/",
+            "active": "https://sc-survivors.coze.site/sites-sw.js"
+          }
+        ]
+      },
+      "workerState": [
+        {
+          "url": "https://sc-survivors.coze.site/sites-sw.js",
+          "state": {
+            "clearPacks": "undefined",
+            "indexFor": "undefined",
+            "diskCache": "undefined",
+            "scope": "https://sc-survivors.coze.site/",
+            "packIndexSize": 3742
+          }
+        }
+      ],
+      "installedScript": {
+        "url": "https://sc-survivors.coze.site/sites-sw.js",
+        "characters": 1456,
+        "hasClearProtocol": false,
+        "hasMetricsProtocol": false
+      },
+      "browserFetch": [
+        {
+          "path": "/sites-sw.js",
+          "status": 200,
+          "bytes": 1456,
+          "sha256": "777a07c5f18c0c4184f9ded53fd363610d0404e053ed3ddbfc3d9ad98db7a9f9",
+          "hasClear": false,
+          "cacheControl": "public, max-age=31536000, immutable"
+        },
+        {
+          "path": "/web-release.json",
+          "status": 200,
+          "bytes": 1121,
+          "sha256": "a3a5b47e9744f609db7e0c3fcaa486d3e4965de5fe582cdb47c9279ab90aa046",
+          "hasClear": false,
+          "cacheControl": "no-cache",
+          "build": "34408a35562ffdf62b278e8a310ae04d06515af98cee00f2c6ab61006922dbab"
+        },
+        {
+          "path": "/api/config",
+          "status": 404,
+          "bytes": 9,
+          "sha256": "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5",
+          "hasClear": false,
+          "cacheControl": null
+        }
+      ],
+      "metricsMessage": {
+        "timeout": true
+      }
+    },
+    "laterFreshProfile": {
+      "at": "2026-11-03T04:23:12.532Z",
+      "initialRegistrations": 0,
+      "workers": [
+        {
+          "url": "https://sc-survivors.coze.site/sites-sw.js",
+          "state": {
+            "clearPacks": "function",
+            "indexFor": "function",
+            "indexSize": 5136
+          }
+        }
+      ],
+      "fetches": [
+        {
+          "path": "/sites-sw.js",
+          "status": 200,
+          "bytes": 13508,
+          "sha256": "f74e4014798c71db4f286f7ba0c6272d46eff8283b609aee9d4b472f11111fcc",
+          "cacheControl": "no-cache"
+        },
+        {
+          "path": "/sites-pack-index.js",
+          "status": 200,
+          "bytes": 485820,
+          "sha256": "7c356e0e406b6597c7831c97524ab9b2ff61e9bd3fb356fa562bcd0f51e5ee97",
+          "cacheControl": "public, max-age=31536000, immutable"
+        },
+        {
+          "path": "/web-release.json",
+          "status": 200,
+          "bytes": 1121,
+          "sha256": "a3a5b47e9744f609db7e0c3fcaa486d3e4965de5fe582cdb47c9279ab90aa046",
+          "cacheControl": "no-cache"
+        },
+        {
+          "path": "/api/config",
+          "status": 404,
+          "bytes": 9,
+          "sha256": "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5",
+          "cacheControl": null
+        }
+      ]
+    },
+    "indexComparison": {
+      "legacyCount": 3742,
+      "currentCount": 5136,
+      "addedCount": 1394,
+      "changedRoutes": 3742,
+      "note": "Route differences do not alone prove asset content corruption."
+    }
+  },
+  "cacheClear": {
+    "attemptsObserved": 3,
+    "allFailed": true,
+    "firstWhere": "paused second-stage settings",
+    "menuAttempts": [
+      {
+        "where": "menu",
+        "elapsedMs": 5152,
+        "success": false,
+        "status": "浏览器未允许清理资源缓存，请稍后重试。",
+        "trace": [
+          {
+            "at": 15774.799999999814,
+            "type": "sw-clear-post"
+          }
+        ],
+        "checkpointPreserved": true
+      },
+      {
+        "where": "menu",
+        "elapsedMs": 5076,
+        "success": false,
+        "status": "浏览器未允许清理资源缓存，请稍后重试。",
+        "trace": [
+          {
+            "at": 15671.299999998882,
+            "type": "sw-clear-post"
+          }
+        ],
+        "checkpointPreserved": true
+      }
+    ],
+    "failureReasonEvidence": "Old running SW has no message protocol and does not acknowledge; no CacheStorage/index clearing attempted.",
+    "notProven": "Browser storage permission denial or cause of original iPhone reload."
+  },
+  "browser": {
+    "environment": "Windows Chrome, headless, isolated local profiles; actual UI and normal game time, no world injection or life protection.",
+    "races": {
+      "terran": {
+        "normalClock": true,
+        "difficulty": "easy",
+        "coreFlowPassed": true,
+        "checks": [
+          "fresh-menu",
+          "first-battle",
+          "pause-resume",
+          "reopened-test-profile",
+          "restored-natural-first-stage",
+          "reload-checkpoint",
+          "real-ui-second-stage"
+        ],
+        "firstCheckpoint": {
+          "stage": 1,
+          "time": 60,
+          "wallet": {
+            "minerals": 136.13293585526293,
+            "gas": 70.12229166666583
+          }
+        },
+        "reloadWalletPreserved": true,
+        "secondStage": {
+          "stage": 2,
+          "time": 62.06666666666666
+        },
+        "pageErrors": [],
+        "apiWrites": [],
+        "httpFailures": [
+          {
+            "url": "https://sc-survivors.coze.site/api/config",
+            "status": 404
+          },
+          {
+            "url": "https://sc-survivors.coze.site/api/config",
+            "status": 404
+          }
+        ],
+        "requestFailures": [],
+        "consoleWarnings": [],
+        "fullScriptPassed": false,
+        "scriptFailure": "page.waitForFunction: Timeout 150000ms exceeded."
+      },
+      "zerg": {
+        "normalClock": true,
+        "difficulty": "easy",
+        "coreFlowPassed": true,
+        "checks": [
+          "fresh-menu",
+          "first-battle",
+          "emulated-touch-drag-release-and-rotation",
+          "pause-resume",
+          "natural-first-stage",
+          "reload-checkpoint",
+          "real-ui-second-stage"
+        ],
+        "firstCheckpoint": {
+          "stage": 1,
+          "time": 60,
+          "wallet": {
+            "minerals": 138.1076069078947,
+            "gas": 70.46729166666576
+          }
+        },
+        "reloadWalletPreserved": true,
+        "secondStage": {
+          "stage": 2,
+          "time": 62.016666666666666
+        },
+        "pageErrors": [],
+        "apiWrites": [],
+        "httpFailures": [
+          {
+            "url": "https://sc-survivors.coze.site/api/config",
+            "status": 404
+          },
+          {
+            "url": "https://sc-survivors.coze.site/api/config",
+            "status": 404
+          }
+        ],
+        "requestFailures": [
+          {
+            "url": "https://sc-survivors.coze.site/assets/ee1b3c2e28944601b28789cf76d32f19da343536e4d8aaa317c9b442a6a47032.ktx2?sc2-index=sites-pack-index.0bb43ff1011a0ab1462d.js",
+            "method": "GET",
+            "failure": "net::ERR_CERT_COMMON_NAME_INVALID"
+          }
+        ],
+        "consoleWarnings": [
+          {
+            "type": "warning",
+            "text": "THREE.Material: parameter 'normalMap' has value of undefined."
+          },
+          {
+            "type": "warning",
+            "text": "THREE.Material: parameter 'normalMap' has value of undefined."
+          }
+        ],
+        "playerServices": {
+          "feedbackWarning": "反馈服务暂不可用。正文保留在当前标签页，稍后可以重试。",
+          "feedbackDisabled": true,
+          "statisticsDisabled": true
+        },
+        "fullScriptPassed": true,
+        "scriptFailure": null
+      },
+      "protoss": {
+        "normalClock": true,
+        "difficulty": "easy",
+        "coreFlowPassed": true,
+        "checks": [
+          "fresh-menu",
+          "first-battle",
+          "pause-resume",
+          "natural-first-stage",
+          "reload-checkpoint",
+          "real-ui-second-stage"
+        ],
+        "firstCheckpoint": {
+          "stage": 1,
+          "time": 60,
+          "wallet": {
+            "minerals": 179.77653782894538,
+            "gas": 66.79304166666616
+          }
+        },
+        "reloadWalletPreserved": true,
+        "secondStage": {
+          "stage": 2,
+          "time": 62.016666666666666
+        },
+        "pageErrors": [],
+        "apiWrites": [],
+        "httpFailures": [
+          {
+            "url": "https://sc-survivors.coze.site/api/config",
+            "status": 404
+          },
+          {
+            "url": "https://sc-survivors.coze.site/api/config",
+            "status": 404
+          }
+        ],
+        "requestFailures": [],
+        "consoleWarnings": [],
+        "fullScriptPassed": true,
+        "scriptFailure": null
+      }
+    },
+    "touch": "CDP-emulated drag/release and rotation, not physical device.",
+    "stableLayout": [
+      {
+        "viewport": {
+          "width": 844,
+          "height": 390
+        },
+        "geometry": {
+          "innerWidth": 844,
+          "innerHeight": 390,
+          "screen": {
+            "width": 844,
+            "height": 390
+          },
+          "body": {
+            "width": 844,
+            "height": 390
+          },
+          "canvas": [
+            {
+              "width": 844,
+              "height": 390,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "width": 0,
+              "height": 0,
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "phase": "reward"
+        }
+      },
+      {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "geometry": {
+          "innerWidth": 390,
+          "innerHeight": 844,
+          "screen": {
+            "width": 390,
+            "height": 844
+          },
+          "body": {
+            "width": 390,
+            "height": 844
+          },
+          "canvas": [
+            {
+              "width": 390,
+              "height": 844,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "width": 0,
+              "height": 0,
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "phase": "reward"
+        }
+      }
+    ],
+    "screenshotsReviewed": [
+      "menu",
+      "terran-intermission",
+      "terran-cache-failure",
+      "zerg-portrait-battle",
+      "feedback-unavailable",
+      "protoss-desktop-battle",
+      "protoss-intermission",
+      "stable-touch-landscape-intermission",
+      "stable-touch-portrait-intermission"
+    ]
+  },
+  "observations": {
+    "ktxRetry": {
+      "mode": "ktx-query",
+      "status": 200,
+      "bytes": 709457,
+      "sha256": "ee1b3c2e28944601b28789cf76d32f19da343536e4d8aaa317c9b442a6a47032"
+    },
+    "materialWarnings": "Two non-blocking normalMap undefined warnings in Zerg; no corresponding missing-effect or page exception observed."
+  },
+  "harnessCorrections": [
+    "Ordinary loading overlay was initially mistaken for failure.",
+    "canResume only describes menu availability, not an active run save; used savedAt/busy and restored the same completed Terran checkpoint.",
+    "One immediate resize screenshot preceded settled layout; stable follow-up geometry and screenshots verified.",
+    "Default sandbox DNS failed once; permitted public-network retry passed."
+  ],
+  "limits": [
+    "Original iPhone/Safari and physical controls not tested.",
+    "No full natural campaign, late-game load or OS page-kill validation.",
+    "No production database/admin/feedback submissions or consent changes.",
+    "Prior 2957 local regression results not rerun or counted as new tests.",
+    "No deployment control-plane status API available; conclusions derive from public HTTP and real browser behavior."
+  ],
+  "reproduction": [
+    "node tools/verify-coze-live-20261103.mjs --http",
+    "node tools/verify-coze-live-20261103.mjs --browser --race=terran",
+    "node tools/verify-coze-live-20261103.mjs --browser --race=zerg --touch",
+    "node tools/verify-coze-live-20261103.mjs --browser --race=protoss",
+    "node tools/inspect-coze-delivery-20261103.mjs --http",
+    "node tools/inspect-coze-delivery-20261103.mjs --browser",
+    "node tools/inspect-coze-cache-20261103.mjs profile-terran-<timestamp> --worker-only"
+  ],
+  "changes": {
+    "product": false,
+    "deployed": false,
+    "committed": false,
+    "pushed": false,
+    "mainMerged": false,
+    "productionDataWrites": 0
+  },
+  "validation": {
+    "scriptSyntax": true,
+    "reportFindingIdsMatch": true,
+    "gameReferenceCheck": true,
+    "productSourceAndTestsUnchanged": true,
+    "gitIndexEmpty": true
+  },
+  "cleanup": {
+    "status": "completed",
+    "target": "reports/local/coze-live-check-20261103",
+    "retained": "Reproduction tools, brief report, project record and task state",
+    "files": 8537,
+    "bytes": 1408492830,
+    "completedAt": "2026-11-03T04:29:25.656Z",
+    "checkedAbsolutePath": true,
+    "linkAndGitTrackingChecksPassed": true,
+    "processCheck": {
+      "allTaskBrowserContextsClosed": true,
+      "allTaskScriptSessionsCompleted": true,
+      "systemProcessEnumeration": "CIM access unavailable in sandbox; not independently enumerated",
+      "targetDirectoryFullyRemoved": true
+    }
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "task": "PROMO-01-F03",
+  "generatedWith": "Built-in image_gen",
+  "sourceImage": "assets/generated/codex-images/01a17d3f-27e6-7641-8671-d903de1b2ce3/exec-6f372021-d8fb-4553-87c6-87c615b48e1b.png",
+  "sourceImageSha256": "bf518df853e621be481a4db3873bd975adb0dff6b2be8c73c6516b7084132be1",
+  "coverSeconds": 2,
+  "coverSize": [
+    1920,
+    1080
+  ],
+  "coverText": [
+    "震撼首发",
+    "跟风3AI大作",
+    "星际幸存者"
+  ],
+  "coverSha256": "89cd45ce28fbc45982e2dd76d5aadfd550a141dc2c87307480cab26296cbac71",
+  "prompt": "tools/promo-video/cover-v5-prompt.txt",
+  "chapters": [
+    [
+      "封面",
+      0
+    ],
+    [
+      "开场",
+      2
+    ],
+    [
+      "卡牌",
+      26
+    ],
+    [
+      "任务",
+      87.2
+    ],
+    [
+      "死战",
+      111.2
+    ],
+    [
+      "掉装",
+      242
+    ],
+    [
+      "装备",
+      268
+    ],
+    [
+      "收束",
+      292
+    ]
+  ],
+  "videos": [
+    {
+      "file": "dist/promo-video-v5-cover-20261102/Starcraft-Survivors-Trailer-v5-cover.mp4",
+      "bytes": 279984663,
+      "sha256": "ec63fa69c2fb6b9360d78b0c19fd9c01896df1ac68c71609c57bff1a7b8c3a39",
+      "duration": 302,
+      "fps": 30,
+      "resolution": [
+        1920,
+        1080
+      ],
+      "videoFrames": 9060,
+      "unchangedOriginalDecodedFrames": 9000,
+      "original": "dist/promo-video-v5-20261102/Starcraft-Survivors-Trailer-v5.mp4",
+      "originalSha256": "f04a969462ee79388e9578a7596d3d05262c9be0cb0805858e14172604faa9ae",
+      "decodeErrors": "",
+      "finalAudioDecodeErrors": "",
+      "audioRemuxVideoPacketsIdentical": true,
+      "coverAudio": {
+        "peak": 0.35948824882507324,
+        "rms": 0.06117020919919014
+      }
+    },
+    {
+      "file": "dist/promo-video-v5-cover-20261102/Starcraft-Survivors-Trailer-v5-cover-mobile.mp4",
+      "bytes": 64553712,
+      "sha256": "4da52f0cac031f663ddaaee678eaf10f9fef0827d8685314a1e2e51a077c887e",
+      "duration": 302,
+      "fps": 30,
+      "resolution": [
+        1920,
+        1080
+      ],
+      "videoFrames": 9060,
+      "unchangedOriginalDecodedFrames": 9000,
+      "original": "dist/promo-video-v5-20261102/Starcraft-Survivors-Trailer-v5-mobile.mp4",
+      "originalSha256": "42dffd0354e85040d5c02b2f7626baaa68a58746bd12e8132fabfcfbcde28fda",
+      "decodeErrors": "",
+      "finalAudioDecodeErrors": "",
+      "audioRemuxVideoPacketsIdentical": true,
+      "coverAudio": {
+        "peak": 0.36986440420150757,
+        "rms": 0.06137799844145775
+      }
+    }
+  ],
+  "audio": "Existing original V5 impact track at 18–20 seconds placed at cover time 0, followed by original V5 audio delayed 2 seconds. AAC re-encoded.",
+  "scope": "Generated illustration is the cover only. Original gameplay decoded frames retained exactly. No private images sent to image generation. Local delivery only.",
+  "visualReview": "Passed: original generated cover, 480×270 thumbnail, actual Chrome poster, encoded cover at 1s and original battle after 2s. Exact three lines readable; no clipped title. User aesthetic approval remains pending.",
+  "verificationNote": "Initial assembly used a silent region of the impact track. Corrected to the actual hit at 18–20s, decoded complete final audio and verified all video packets/timestamps identical to the fully decoded and frame-matched assemblies.",
+  "playback": {
+    "browser": "Installed Chrome, headless",
+    "muted": true,
+    "errors": [],
+    "results": [
+      {
+        "variant": "master",
+        "metadata": {
+          "duration": 302,
+          "width": 1920,
+          "height": 1080,
+          "error": null
+        },
+        "checkpoints": [
+          {
+            "time": 1.223332,
+            "error": null
+          },
+          {
+            "time": 2.407773,
+            "error": null
+          },
+          {
+            "time": 301.206661,
+            "error": null
+          }
+        ]
+      },
+      {
+        "variant": "-mobile",
+        "metadata": {
+          "duration": 302,
+          "width": 1920,
+          "height": 1080,
+          "error": null
+        },
+        "checkpoints": [
+          {
+            "time": 1.208036,
+            "error": null
+          },
+          {
+            "time": 2.409059,
+            "error": null
+          },
+          {
+            "time": 301.20801,
+            "error": null
+          }
+        ]
+      }
+    ],
+    "scope": "Cover poster, continuous playback through new splice and seeks to cover, first battle and near end. Not human listening or physical phone acceptance."
+  },
+  "delivery": "Local files only. No Drive upload, publication, commit, push or deployment.",
+  "sourceHead": "8d680aca1b3150b3faa0c9c170458d084c9a1a1e",
+  "toolHashes": {
+    "tools/promo-video/cover-v5-compose.py": "40dac662e57d76ce77ba313a7dc7539e5b76396f37fc06ac6e706f3009017bad",
+    "tools/promo-video/cover-v5-check-player.mjs": "1f9de0cac1a73e803cbe75e7c6ead851a863ab90311e817b82cb55c79a300d62",
+    "tools/promo-video/cover-v5-prompt.txt": "5626c3e4aaabc9589d93c4a07de92041edf0cfb49c9c63f0d3b48be9075b8ee1"
+  },
+  "cleanup": "Task-local cover video, concat manifests and four review images removed. Source art, final exports, concise QA and reproduction tools retained."
+}

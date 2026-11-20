@@ -1,5 +1,8 @@
+import {applyBioPurchase,bioOfferLegal} from './combat/bio-acquisition';
 import {guided,guidedAllows} from './tutorial/guided';
 import {armedOfferLegal,applyArmedPurchase} from './combat/armed-support';
+import {doomsdayOfferLegal,applyDoomsdayPurchase,doomsdayRuntimeReady} from './combat/doomsday';
+import {prepareArmedChoices,pendingBuildChoice} from './combat/armed-support';
 import {withSpecialTicket,specialTicketEligible} from './special-stages/tickets';
 import {ordinaryHeroAllowed} from './progression/hero-availability';
 import {claimSpecialTicket} from './special-stages/runtime';
@@ -21,21 +24,23 @@ import {HEROES,ALL_HERO_IDS,type HeroId} from '../data/heroes';
 import {ELITES,type EliteId} from '../data/elites';
 import {SC2_UNITS,type UnitType} from '../data/sc2-units';
 import {sourceDetails} from './combat/expedition-combat';
-import {DEVELOPMENT,PRODUCTION_LINES,LINE_SKILLS,lineSystem,lineResearch,type ProductionLineId} from '../data/expedition-buildings';
-import {SOURCE_PRODUCTION_RECIPES} from '../data/expansion-units';
-import {CAMPAIGN_SCIENCE_VESSEL_RECIPE} from '../data/campaign-science-vessel';
+import {DEVELOPMENT,PRODUCTION_LINES,LINE_SKILLS,lineSystem,lineResearch,productionRecipe,type ProductionLineId} from '../data/expedition-buildings';
+import {ZERG_SIX_SUMMONER_COMBAT} from '../data/zerg-six';
 import {familyRace,type FamilyId} from '../data/races';
 import {drawMapLoot,beginExpeditionWindow,drawExpeditionDevelopment,drawExpeditionReinforcements,drawFixedRarityTalentLoot,canClaimTalentLoot,expeditionDevelopmentActions,canTakeExpeditionOffer,recordExpeditionOffer,expeditionRefreshCost,consumeExpeditionRefresh,finishExpeditionDraft,type ExpeditionDraftContext,type ExpeditionReward} from './progression/expedition-drafts';
 // A family's weapon upgrades remain useful while its body is undeployed or its
 // weapon lives on paid hangar units. Pure healers must still stay out of this pool.
-const familyHasWeapon=(family:FamilyId)=>family==='lurker'||family==='carrier'||SC2_UNITS[family].targetType!=='none';
+const familyHasWeapon=(family:FamilyId)=>family==='lurker'||family==='carrier'||family===ZERG_SIX_SUMMONER_COMBAT||SC2_UNITS[family].targetType!=='none';
 export function draftContext(w:World,source?:string):ExpeditionDraftContext {const plan=worldContent(w);return {tutorialFixed:!!guided(w),tutorialSupplyCount:guided(w)?.version===3?2:1,difficulty:w.difficulty,funShop:w.funShop.levels,wallet:w.wallet,state:w.expedition!,stage:w.draftStage,windowId:w.draftWindowId,random:guided(w)?()=>0:plan?contentStream(plan,source??[w.rewardRound,w.expedition.refreshCount,w.expedition.shopRevision].join('/')):w.random,nextOfferId:id=>`${w.draftWindowId}:${w.endless?.round??0}:${w.nextId++}:${id}`,currentOffers:w.rewards.filter(r=>!('expeditionEffect' in r)||(r as ExpeditionReward).expeditionEffect.kind!=='specialTicket'),heroSeatsUsed:w.heroes.size,developmentReady:d=>equipmentDevelopmentLegal(w,d),highQualityWeight:w.starship.numbers.get('free-shelf-quality')?equipmentValue(w,'free_refresh_quality'):0,
  supplyLegal:(family,count,mode)=>canSupply(w,family,count,mode),
  supportLegal:kind=>supportLegal(w,kind),
  armedLegal:id=>armedOfferLegal(w,id),
+ bioLegal:id=>bioOfferLegal(w,id),
+ doomsdayLegal:id=>doomsdayOfferLegal(w,id),
+ doomsdayReady:id=>doomsdayRuntimeReady(w,id),
  training:rank=>trainingTargets(w,rank),trainingValid:(rank,targets)=>validTrainingTargets(w,rank,targets),
  purchasePriceFactor:1-.1*w.talent('permanent_discount'),developmentPriceFactorFor:d=>(1-(d.kind==='research'?0:.15*w.talent('frugal_build')))*(1-.1*w.talent('permanent_discount')),
- familyInfo:f=>{const d=f in SC2_UNITS?SC2_UNITS[f as UnitType]:null,source=d?sourceDetails(f as UnitType):null;return {name:d?.zh??'未知单位',icon:'unit.'+f,alive:d?w.familyUnits(f as UnitType).length:0,canAttack:!!d&&familyHasWeapon(f),canSupport:['medivac','science_vessel','queen'].includes(f)||(source?.lifeRegen??0)>0||(source?.shieldRegen??0)>0,usesEnergy:(source?.energy??0)>0,cultivationCapacity:d?Math.min(w.availableCapacity(f as UnitType),w.ordinaryUnits(f as UnitType).reduce((n,u)=>n+w.soldierCap(u.unitType as UnitType)-u.rank,0)):0,canProduce:w.isFamilyAvailable(f),capabilities:d?[...(d.targetType==='both'||d.targetType==='air'?['antiAir']:[]),...(d.splash.length||f==='lurker'?['area']:[]),...(['medivac','queen','science_vessel'].includes(f)?['support']:[])]:[]};},
+ familyInfo:f=>{const d=f in SC2_UNITS?SC2_UNITS[f as UnitType]:null,source=d?sourceDetails(f as UnitType):null;return {name:d?.zh??'未知单位',icon:'unit.'+f,alive:d?w.familyUnits(f as UnitType).length:0,canAttack:!!d&&familyHasWeapon(f),summonerCombat:f===ZERG_SIX_SUMMONER_COMBAT,canSupport:['medivac','science_vessel','queen'].includes(f)||(source?.lifeRegen??0)>0||(source?.shieldRegen??0)>0,usesEnergy:(source?.energy??0)>0,cultivationCapacity:d?Math.min(w.availableCapacity(f as UnitType),w.ordinaryUnits(f as UnitType).reduce((n,u)=>n+w.soldierCap(u.unitType as UnitType)-u.rank,0)):0,canProduce:w.isFamilyAvailable(f),capabilities:d?[...(d.targetType==='both'||d.targetType==='air'?['antiAir']:[]),...(d.splash.length||f==='lurker'?['area']:[]),...(['medivac','queen','science_vessel'].includes(f)?['support']:[])]:[]};},
  heroes:ALL_HERO_IDS.map(id=>({id,race:HEROES[id].race,name:HEROES[id].name,icon:'hero.'+id,rank:w.heroes.get(id)?.rank??0,owned:w.heroes.has(id),eligible:(!plan||plan.heroes.includes(id)||w.heroes.has(id))&&ordinaryHeroAllowed(w,id)&&w.canAcquireHero(id)})),
  elites:Object.values(ELITES).filter((elite,index,all)=>all.findIndex(other=>other.family===elite.family)===index).map(e=>{const variants=w.eliteVariants(e.family),choice=variants.find(v=>plan?.elites.includes(v.id))??variants[0];return {id:choice?.id??e.id,race:familyRace(e.family),family:e.family,name:SC2_UNITS[e.family as UnitType]?.zh??e.family,icon:choice?.icon??e.icon,eligible:!!choice};})};}
 export function developmentOffers(w:World){if(!w.expedition||w.phase!=='reward'||w.rewardRound!=='building')return [];beginExpeditionWindow(w.expedition,w.draftStage,w.draftWindowId,w.talent('window_shop'),w.talent('free_purchase'));worldBuildingContext(w);return drawExpeditionDevelopment(draftContext(w));}
@@ -53,7 +58,7 @@ export function generateEliteContracts(w:World){const s=w.expedition,window=w.dr
   const plan=worldContent(w),family=families[Math.floor((plan?contentRoll(plan.salt,'contract',slot):w.random())*families.length)];used.add(family);
   const variants=w.eliteVariants(family);
   const elite=variants.find(v=>plan?.elites.includes(v.id))??variants[0];if(!elite)continue;
-  const recipe=family==='science_vessel'?CAMPAIGN_SCIENCE_VESSEL_RECIPE:SOURCE_PRODUCTION_RECIPES[family as UnitType],factor=1-.1*w.talent('permanent_discount');if(!recipe)continue;
+  const recipe=productionRecipe(family),factor=1-.1*w.talent('permanent_discount');if(!recipe)continue;
   s.eliteContracts.push({id:`${window}:contract:${slot}:${elite.id}`,eliteId:elite.id,family,minerals:Math.max(1,Math.ceil(recipe.mineralCost*5*factor)),gas:recipe.gasCost?Math.max(1,Math.ceil(recipe.gasCost*5*factor)):0,purchased:false});
  }
  return s.eliteContracts;
@@ -69,7 +74,7 @@ function applyDevelopment(w:World,r:ExpeditionReward,targetId?:number){
  if(!b||!q||e.kind!=='development')return null;
  const d=project(e.definitionId);if(!d)return null;
  const target=d.kind==='evolution'?b.groups.find(g=>g.ids.includes(targetId??e.targetFacilityId??-1))?.id:undefined;
- const result=purchaseBuilding(b,q,target,{random:w.random,ready:ctx.developmentReady,freeChance:equipmentValue(w,'build_free'),doubleChance:equipmentValue(w,'build_double'),researchChance:equipmentValue(w,'build_research')});
+ const result=purchaseBuilding(b,q,target,{scriptedLesson:ctx.tutorialFixed,random:w.random,ready:ctx.developmentReady,freeChance:equipmentValue(w,'build_free'),doubleChance:equipmentValue(w,'build_double'),researchChance:equipmentValue(w,'build_research')});
  if(!result.ok)return null;
  syncBuildingEffects(w);return {b,result};
 }
@@ -88,6 +93,8 @@ export function purchaseOffer(w:World,id:string,variantId?:EliteId,targetId?:num
  if(effect.kind==='supply'&&!applySupply(w,effect.family,effect.count,effect.mode,{minerals:firstFree||freePurchase?0:r.minerals,gas:firstFree||freePurchase?0:r.gas},oldFamily))return false;
  if(effect.kind==='support'&&!buySupport(w,effect.support))return false;
  if(effect.kind==='armedSupport'&&!applyArmedPurchase(w,effect.cardId,r.offerId))return false;
+ if(effect.kind==='bio'){if(!applyBioPurchase(w,effect.cardId,r.offerId))return false;prepareArmedChoices(w);}
+ if(effect.kind==='doomsday'){if(!applyDoomsdayPurchase(w,effect.cardId,r.offerId))return false;prepareArmedChoices(w);}
  if(effect.kind==='funShop'&&!buyFunShop(w,effect.item,effect.level,effect.expected))return false;
  if(effect.kind==='training'&&!applyTrainingTargets(w,effect.rank,effect.targets))return false;
  
@@ -96,7 +103,7 @@ export function purchaseOffer(w:World,id:string,variantId?:EliteId,targetId?:num
  const paidMinerals=firstFree||freePurchase?0:r.minerals,paidGas=firstFree||freePurchase?0:r.gas;if(freePurchase)s.freePurchasesRemaining--;
  r.purchaseReceipt={minerals:paidMinerals,gas:paidGas,freeSource:firstFree?'R07':freePurchase?'R09':null};w.wallet.minerals-=paidMinerals;w.wallet.gas-=paidGas;w.economyTotals.purchases.minerals+=paidMinerals;w.economyTotals.purchases.gas+=paidGas;recordExpeditionOffer(s,r,1+w.talent('free_purchase'));recordEquipmentPurchase(w,r,{minerals:paidMinerals,gas:paidGas},firstFree,variantId);for(const u of w.allies())w.refreshStats(u);w.changed();return true;
 }
-export function refreshOffers(w:World){if(!guidedAllows(w))return false;
+export function refreshOffers(w:World){if(!guidedAllows(w)||pendingBuildChoice(w))return false;
  const s=w.expedition;if(!s||s.pendingShopElite||s.pendingShopSupply||w.phase!=='reward'||w.rewardRound==='building'&&!s.developmentDirection||w.rewardRound==='random'&&s.draftTaken)return false;
  const b=worldBuildingContext(w);if(!b)return false;
  const native=expeditionRefreshCost(s,w.draftStage,w.rewardRound,w.draftWindowId,w.talent('reroll_fan'),w.talent('permanent_discount'));if(native===null)return false;const price=equipmentRefreshPrice(w,native);if(w.wallet.minerals<price)return false;

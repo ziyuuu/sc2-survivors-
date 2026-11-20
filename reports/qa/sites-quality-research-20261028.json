@@ -1,0 +1,275 @@
+{
+  "date": "2026-10-28",
+  "scope": "Static source and packed-byte audit; no browser or physical-device timings",
+  "sourceCommit": "91b07755155d1f9676eae5f326ebe5fa6777bd3a",
+  "release": {
+    "appBuildId": "0f0dcaa75ec27a7e2879b54ade3e0bfe461e896d362e153596da805ac358c160",
+    "runSchema": 26,
+    "rulesId": "mvp-1.0",
+    "mapId": "campaign-five-v3",
+    "assetCount": 3845,
+    "fileCount": 3742,
+    "assetBytes": 351051007,
+    "logicalBytes": 354049353,
+    "sharedBytes": 2998346,
+    "manifest": "asset-manifest.885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa.json",
+    "release": "d5f891f541f0082451c319ab026eeef761d943e930547ac4bd1a69a029a8e9fe",
+    "source": "reports/local/asset-reachability.json",
+    "sourceWebRelease": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+    "compressedEntrySha256": "14c03c55a64693b2d228fb24e3aab482df72134a4a1dd29c37df1e6517d7ec58"
+  },
+  "sources": {
+    "src/render/settings/quality.ts": "89c2aa7c03e43428bb7a34b4c0441cc02b154edb6b1f550fbcf6c92832fe2d3e",
+    "src/render/scene/battle-renderer.ts": "370b9cc151718a5df53059b823f406d69d9dee49ba95a6d4407471e93a13daf8",
+    "src/assets/http-store.ts": "de41ce86319707280fe347ed8eb699aad559eb3878e5889f3db62bfc4a22da37",
+    "src/assets/persistent-cache.ts": "cc7dfa0213d946d69923e614a54c3fbc47deb25adc7f2f84d354f157032ce865",
+    "src/render/effects/audio.ts": "04acd8643b7d7977b19fc24d26df130a1b2200a6065afd52926ca6561fdfe518",
+    "src/app/asset-readiness.ts": "18b15751bfb2ea1c5567e850ad37357488cc9745bcdcbc99b1b9a6448c430fca",
+    "tools/packed-sites-sw.js": "15dfa3005b4fb706455c24429518e39b5b6134c8b079c0a49fa33a175ff7a0f2",
+    "tools/packed-startup.mjs": "32713df5431d1976bcabeafeb2121dcfc9aa3e31196c1ec558af94e083c636f1",
+    "tools/update-compressed-game.mjs": "e5052f6a8248138f219855cc3236ddf39c668d506b12f8bb8380579cb6902b91"
+  },
+  "resources": {
+    "entries": 3845,
+    "unique": 3742,
+    "verified": 3742,
+    "bundles": 58,
+    "packedBytes": 229174031,
+    "maxBundleBytes": 4193302,
+    "mime": {
+      "model/gltf-binary": {
+        "files": 282,
+        "packedBytes": 130103560,
+        "resourceBytes": 251980536
+      },
+      "image/webp": {
+        "files": 1494,
+        "packedBytes": 64733688,
+        "resourceBytes": 64733688
+      },
+      "model/gltf+json": {
+        "files": 44,
+        "packedBytes": 4139618,
+        "resourceBytes": 4139618
+      },
+      "image/svg+xml": {
+        "files": 30,
+        "packedBytes": 832482,
+        "resourceBytes": 832482
+      },
+      "audio/ogg": {
+        "files": 1887,
+        "packedBytes": 29340209,
+        "resourceBytes": 29340209
+      },
+      "image/png": {
+        "files": 5,
+        "packedBytes": 24474,
+        "resourceBytes": 24474
+      }
+    }
+  },
+  "entry": {
+    "file": "sc2-entry.14c03c55a64693b2.js.gz",
+    "packedBytes": 7637320,
+    "unpackedBytes": 34881850
+  },
+  "images": {
+    "external": 1499,
+    "embedded": 1544,
+    "unknown": 30,
+    "maxDimension": 4096,
+    "dimensions": {
+      "1024x1024": 829,
+      "256x256": 805,
+      "512x512": 621,
+      "128x256": 20,
+      "512x256": 26,
+      "128x128": 187,
+      "128x32": 3,
+      "64x512": 5,
+      "64x256": 21,
+      "64x64": 41,
+      "64x128": 10,
+      "76x76": 85,
+      "1024x512": 36,
+      "30x30": 1,
+      "32x32": 8,
+      "2048x1024": 35,
+      "256x512": 19,
+      "64x32": 2,
+      "512x1024": 4,
+      "256x128": 10,
+      "128x512": 5,
+      "2048x4096": 2,
+      "128x64": 4,
+      "64x1024": 6,
+      "1672x941": 37,
+      "1672x940": 1,
+      "1671x941": 3,
+      "1254x1254": 20,
+      "1024x1536": 3,
+      "992x316": 6,
+      "200x8": 1,
+      "200x20": 1,
+      "292x88": 5,
+      "2048x2048": 1,
+      "256x32": 1,
+      "512x128": 1,
+      "240x320": 53,
+      "675x900": 53,
+      "320x267": 1,
+      "900x750": 1,
+      "768x768": 69,
+      "1536x549": 1
+    },
+    "embeddedDuplicatesOfExternal": 246
+  },
+  "audio": {
+    "files": 1887,
+    "opusFiles": 1886,
+    "seconds": 4912.983083333335,
+    "decodedPcmBytesAt48kHz": 1028322940,
+    "unknown": 1,
+    "assetIds": 1924,
+    "uniqueReferencedFiles": 1887
+  },
+  "models": {
+    "files": 282,
+    "embeddedImageBytes": 76638904,
+    "largest": [
+      {
+        "id": "model.ultralisk",
+        "bytes": 5288504,
+        "packedBytes": 1782732,
+        "embeddedImageBytes": 327198,
+        "images": 7,
+        "meshes": 3,
+        "animations": 30
+      },
+      {
+        "id": "model.hero.kerrigan",
+        "bytes": 5046528,
+        "packedBytes": 1764377,
+        "embeddedImageBytes": 63102,
+        "images": 5,
+        "meshes": 2,
+        "animations": 35
+      },
+      {
+        "id": "model.hero.alarak",
+        "bytes": 3575884,
+        "packedBytes": 1891495,
+        "embeddedImageBytes": 270166,
+        "images": 8,
+        "meshes": 3,
+        "animations": 21
+      },
+      {
+        "id": "model.hero.dehaka",
+        "bytes": 3515552,
+        "packedBytes": 1492576,
+        "embeddedImageBytes": 428552,
+        "images": 11,
+        "meshes": 6,
+        "animations": 32
+      },
+      {
+        "id": "model.fort.turret_zerg.death",
+        "bytes": 3308600,
+        "packedBytes": 1417358,
+        "embeddedImageBytes": 636004,
+        "images": 15,
+        "meshes": 8,
+        "animations": 35
+      },
+      {
+        "id": "model.fort.turret_zerg",
+        "bytes": 3308524,
+        "packedBytes": 1417296,
+        "embeddedImageBytes": 636004,
+        "images": 15,
+        "meshes": 8,
+        "animations": 35
+      },
+      {
+        "id": "model.thor",
+        "bytes": 3066928,
+        "packedBytes": 1149846,
+        "embeddedImageBytes": 639806,
+        "images": 8,
+        "meshes": 3,
+        "animations": 36
+      },
+      {
+        "id": "model.elite.ultralisk.1",
+        "bytes": 3025500,
+        "packedBytes": 1241100,
+        "embeddedImageBytes": 334176,
+        "images": 7,
+        "meshes": 3,
+        "animations": 24
+      }
+    ]
+  },
+  "coldMenu": {
+    "ids": 734,
+    "uniqueFiles": 728,
+    "packs": 12,
+    "neededPackedBytes": 30154014,
+    "wholePackBytes": 48523766,
+    "note": "Ideal one-fetch-per-bundle bytes; HTTP cache/eviction/runtime concurrency may change actual transfers."
+  },
+  "pixelRatioProbe": [
+    {
+      "dpr": 1,
+      "ratios": {
+        "native": 1,
+        "adaptive": 1,
+        "balanced": 1,
+        "performance": 1
+      }
+    },
+    {
+      "dpr": 2,
+      "ratios": {
+        "native": 2,
+        "adaptive": 2,
+        "balanced": 1.5,
+        "performance": 1
+      }
+    },
+    {
+      "dpr": 3,
+      "ratios": {
+        "native": 3,
+        "adaptive": 3,
+        "balanced": 1.5,
+        "performance": 1
+      }
+    }
+  ],
+  "references": [
+    "https://developer.mozilla.org/en-US/docs/Web/API/Navigator/deviceMemory",
+    "https://developer.mozilla.org/en-US/docs/Web/API/Navigator/hardwareConcurrency",
+    "https://developer.mozilla.org/en-US/docs/Web/API/DecompressionStream",
+    "https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer",
+    "https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/decodeAudioData",
+    "https://threejs.org/docs/pages/KTX2Loader.html",
+    "https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_best_practices",
+    "https://www.rfc-editor.org/rfc/rfc7845"
+  ],
+  "limits": [
+    "PCM estimate uses unique Opus files, 48 kHz float32 channels; actual AudioContext resamples, not measured process memory.",
+    "Image counts enumerate whole distribution, not simultaneous live textures.",
+    "Source findings do not prove the cause of a particular phone crash.",
+    "No game implementation, build, deployment or player-storage changes."
+  ],
+  "verification": {
+    "inspectedSourceHashesUnchanged": true,
+    "productionModified": false,
+    "browserBenchmarksRun": false,
+    "physicalPhoneRun": false,
+    "plan": "docs/project/SITES_QUALITY_OPTIMIZATION_PLAN_20261028.md"
+  }
+}

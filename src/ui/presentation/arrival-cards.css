@@ -60,3 +60,5 @@
 .ui-reduced-motion .arrival-card,.ui-reduced-motion .arrival-body,.ui-reduced-motion .arrival-front{animation:none!important;transform:none!important}
 .ui-reduced-motion :is(.arrival-back,.arrival-aura,.arrival-flare,.arrival-ring,.arrival-flash,.arrival-sparks,.arrival-sheen){display:none}
 #interface .arrival-art .hero-cover{position:relative;inset:auto;display:block;width:100%;height:100%}
+
+#arrival-layer .arrival-art>.imx-object{width:100%;height:100%;background-size:400% 400%;background-repeat:no-repeat}

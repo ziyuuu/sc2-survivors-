@@ -13,6 +13,8 @@ export function racePreloadModels(race:Race,includeVariants=true){
  }
  if(race==='terran'){models.set('hellion.hellbat','hellion');models.set('viking.assault','viking');}
  if(race==='protoss')models.set('interceptor','marine');
+ if(models.has('swarm_host'))models.set('zerg_locust','zerg_locust');
+ if(models.has('brood_lord'))models.set('zerg_broodling','zerg_broodling');
  models.set('fun-nydus','roach');models.set('fun-infested-marine','marine');models.set('fun-infested-marine.timeout','marine');models.set('fun-cocoon','queen');models.set('zealot','zealot');models.set('stalker','stalker');
  return models;
 }

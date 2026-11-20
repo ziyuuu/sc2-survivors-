@@ -1,7 +1,8 @@
 // Canonical three-race building rules, shared by the main game and isolated workbench.
-import {DEVELOPMENT, PRODUCTION_LINES, HEAVY_FAMILIES, developmentPrice, familyLine, TREE_STEPS, type ProductionLineId, type DevelopmentDefinition} from '../../data/expedition-buildings';
+import {DEVELOPMENT, PRODUCTION_LINES, firstProductionBattle, freeDevelopmentAndProduction, developmentPrice, familyLine, TREE_STEPS, type ProductionLineId, type DevelopmentDefinition} from '../../data/expedition-buildings';
 import {DISCOUNTS} from '../../data/economy';
 import {SC2_UNITS} from '../../data/sc2-units';
+import {isZergSixFamily} from '../../data/zerg-six';
 import type {FamilyId, Race} from '../../data/races';
 
 export type Cost = {minerals:number; gas:number};
@@ -25,7 +26,7 @@ export interface BuildingState {
  frozenTarget?:string|null;
  researchLimit?:number;
 }
-export interface RuleOptions {fixedDiscount?:number;random?:()=>number;related?:readonly FamilyId[];capabilities?:(family:FamilyId)=>readonly string[];ready?:(project:Project)=>boolean;priceFactorFor?:(project:Project)=>number;freeChance?:number;doubleChance?:number;researchChance?:number}
+export interface RuleOptions {scriptedLesson?:boolean;fixedDiscount?:number;random?:()=>number;related?:readonly FamilyId[];capabilities?:(family:FamilyId)=>readonly string[];ready?:(project:Project)=>boolean;priceFactorFor?:(project:Project)=>number;freeChance?:number;doubleChance?:number;researchChance?:number}
 export interface PlacementDraft {revision:number; groups:{id:string; outputs:FamilyId[]; enabled:boolean}[]}
 export type Result = {ok:true; paid?:Cost; added?:number; firstFree?:boolean}|{ok:false; reason:string};
 export {TREE_STEPS} from '../../data/expedition-buildings';
@@ -44,11 +45,11 @@ export function groupFamilies(g:ProductionGroup):FamilyId[] {
  return [...TREE_STEPS['zerg.basic'].flat(),...(g.directions.includes('ground')?TREE_STEPS['zerg.evolution'].flat():[]),...(g.directions.includes('air')?TREE_STEPS['zerg.air'].flat():[])];
 }
 export function canProduce(s:BuildingState,g:ProductionGroup,f:FamilyId,stage=s.stage+1) {
- return groupFamilies(g).includes(f)&&familyUnlocked(s,f)&&(!HEAVY_FAMILIES.includes(f)||stage>=10);
+ return groupFamilies(g).includes(f)&&familyUnlocked(s,f)&&stage>=firstProductionBattle(f);
 }
 export function canUnlock(s:BuildingState,f:FamilyId) {
  const line=familyLine(f),groups=TREE_STEPS[line],at=groups.findIndex(g=>g.includes(f));
- if(familyUnlocked(s,f)||!ownsLine(s,line))return false;
+ if(familyUnlocked(s,f)||!ownsLine(s,line)||isZergSixFamily(f)&&s.stage+1<firstProductionBattle(f))return false;
  // Direction evolution supplies these first qualifications; never sell a duplicate unlock.
  if(f==='hydralisk'||f==='mutalisk')return false;
  return at===0||groups[at-1].some(previous=>familyUnlocked(s,previous));
@@ -108,10 +109,11 @@ function sample<T>(s:BuildingState,pool:readonly T[],weight:(v:T)=>number,option
 }
 function level(s:BuildingState,d:Project){return d.kind==='facility'?facilityCount(s,d.id):s.tech[d.id]??0;}
 /** Revalidate retained quotes without drawing replacements, repricing, or consuming RNG. */
-export function pruneBuildingOffers(s:BuildingState,options:Pick<RuleOptions,'ready'>={}) {
+export function pruneBuildingOffers(s:BuildingState,options:Pick<RuleOptions,'ready'|'scriptedLesson'>={}) {
  const valid=(q:Offer,line?:ProductionLineId)=>{
   const d=project(q.projectId);
   if(!d||q.window!==s.window||line&&!inDirection(d,line)||!eligible(s,d)||level(s,d)!==q.level||options.ready?.(d)===false)return false;
+  if(freeDevelopmentAndProduction(s.race,options.scriptedLesson))q.cost={minerals:0,gas:0};
   if(d.kind==='evolution'){
    const targets=new Set(evolutionTargets(s,d.id).map(g=>g.id));
    q.targets=q.targets.filter(id=>targets.has(id));
@@ -123,11 +125,11 @@ export function pruneBuildingOffers(s:BuildingState,options:Pick<RuleOptions,'re
  for(const [key,q] of Object.entries(s.quotes))if(!valid(q))delete s.quotes[key];
 }
 function quoteProject(s:BuildingState,d:Project,options:RuleOptions):Offer {
-  const key=d.id+':'+level(s,d);if(s.quotes[key])return s.quotes[key];
+  const key=d.id+':'+level(s,d);if(s.quotes[key]){const saved=s.quotes[key];if(freeDevelopmentAndProduction(s.race,options.scriptedLesson))saved.cost={minerals:0,gas:0};return saved;}
   const raw=d.kind==='research'?(level(s,d)===3?{minerals:developmentPrice(d as DevelopmentDefinition,2).minerals*2,gas:developmentPrice(d as DevelopmentDefinition,2).gas*2}:developmentPrice(d as DevelopmentDefinition,level(s,d))):{minerals:d.minerals,gas:d.gas};
   const discount=options.fixedDiscount??sample(s,DISCOUNTS,d=>d.weight,options).off,factor=options.priceFactorFor?.(d)??(1-.1*s.talents.permanent_discount)*(1-(d.kind==='research'?0:.15*s.talents.frugal_build));
   if(!Number.isFinite(factor)||factor<0)throw new RangeError('Invalid development price multiplier');
-  const cost=(n:number)=>n?Math.max(1,Math.ceil(n*(1-discount)*factor)):0;
+  const cost=(n:number)=>!freeDevelopmentAndProduction(s.race,options.scriptedLesson)&&n?Math.max(1,Math.ceil(n*(1-discount)*factor)):0;
   return s.quotes[key]={id:`${s.window}:${s.revision}:${key}`,projectId:d.id,window:s.window,revision:s.revision,level:level(s,d),cost:{minerals:cost(raw.minerals),gas:cost(raw.gas)},baseCost:raw,discount,targets:d.kind==='evolution'?evolutionTargets(s,d.id).map(g=>g.id):[]};
 }
 /** Fixed evolution actions share frozen prices and the ordinary paid-action receipt. */
@@ -167,7 +169,7 @@ export function purchase(s:BuildingState,q:Offer,target?:string,options:RuleOpti
  const d=project(q.projectId),live=(d?.kind==='evolution'?Object.values(s.quotes):s.offers[s.direction]??[]).find(o=>o.id===q.id);
  if(!d||!live||live.projectId!==q.projectId||q.revision!==s.revision||q.window!==s.window||s.phase!=='building'||s.bought||s.receipts[q.id]||d.kind!=='evolution'&&!inDirection(d,s.direction)||!eligible(s,d,target)||options.ready?.(d)===false||level(s,d)!==live.level)return {ok:false,reason:'项目已变化，请重新选择'};
  if(d.kind==='evolution'&&(!target||!live.targets.includes(target)))return {ok:false,reason:'请选择可进化的孵化场'};
- const cost=live.cost;if(s.wallet.minerals<cost.minerals||s.wallet.gas<cost.gas)return {ok:false,reason:'资源不足'};
+ const cost=freeDevelopmentAndProduction(s.race,options.scriptedLesson)?{minerals:0,gas:0}:live.cost;if(s.wallet.minerals<cost.minerals||s.wallet.gas<cost.gas)return {ok:false,reason:'资源不足'};
  const freeChance=Math.max(.2*s.talents.free_house,options.freeChance??0),doubleChance=Math.max(.3*s.talents.double_build,options.doubleChance??0),researchChance=Math.max(Math.min(.99,.33*s.talents.instant_tech),options.researchChance??0);
  const free=d.kind!=='research'&&freeChance>0&&random(s,options)<freeChance;
  const paid={minerals:free?0:cost.minerals,gas:free?0:cost.gas};
@@ -180,6 +182,7 @@ export function purchase(s:BuildingState,q:Offer,target?:string,options:RuleOpti
 }
 export function refreshCost(s:BuildingState):number|null {
  if(s.phase==='front'||s.phase==='building'&&(s.bought||!candidates(s).some(d=>d.kind!=='evolution')))return null;
+ if(s.phase==='building'&&s.race==='terran')return 0;
  if(s.phase==='building'&&!s.baseRefreshUsed||s.bonusRefresh>0)return 0;
  return Math.max(10,Math.ceil((50+40*s.paidRefresh-20*s.talents.reroll_fan)*(1-.1*s.talents.permanent_discount)));
 }
@@ -187,7 +190,7 @@ export function refreshCost(s:BuildingState):number|null {
 export function consumeRefresh(s:BuildingState,revision:number):Result {
  const cost=refreshCost(s);if(revision!==s.revision||cost===null)return {ok:false,reason:'当前无法刷新'};
  s.spent.refresh+=cost;
- if(s.phase==='building'&&!s.baseRefreshUsed)s.baseRefreshUsed=true;else if(s.bonusRefresh>0)s.bonusRefresh--;else s.paidRefresh++;
+ if(s.phase==='building'&&!s.baseRefreshUsed)s.baseRefreshUsed=true;else if(s.phase!=='building'||s.race!=='terran'){if(s.bonusRefresh>0)s.bonusRefresh--;else s.paidRefresh++;}
  s.revision++;s.offers={};s.quotes={};return {ok:true,paid:{minerals:cost,gas:0}};
 }
 export function refresh(s:BuildingState,revision:number,priceReduction=0):Result {

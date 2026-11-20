@@ -57,7 +57,7 @@ export function sourcePlacement(def:SourceEffectDefinition,p:SourcePlacement,sam
  const translation=new THREE.Vector3(p.x,p.y,p.z);if(p.from&&p.age&&sampleAge<p.age)translation.lerp(new THREE.Vector3(p.from.x,p.from.y,p.from.z),1-Math.max(0,sampleAge/p.age));
  const forward=p.direction?new THREE.Vector3(p.direction.x,p.direction.y,p.direction.z).normalize():p.end?new THREE.Vector3(p.end.x-p.x,p.end.y-p.y,p.end.z-p.z).normalize():new THREE.Vector3(Math.sin(p.facing),0,Math.cos(p.facing));
  const rotation=new THREE.Quaternion().setFromUnitVectors(zAxis,forward.lengthSq()?forward:zAxis),scale=(p.scale??1)*1.4;
- const v=new THREE.Vector3((def.scale[0]??1)*scale,(def.scale[1]??1)*scale,(def.scale[2]??1)*scale);
+ const v=new THREE.Vector3((def.scale[0]??1)*scale*(p.widthScale??1),(def.scale[1]??1)*scale,(def.scale[2]??1)*scale);
  if(p.end){const anchor=def.bones.find(b=>b.name==='Attacher'),length=Math.abs(anchor?.rest?.position[1]??(anchor?.location.default as Record<string,number>|undefined)?.y??0);if(length>.001)v.y=new THREE.Vector3(p.end.x-p.x,p.end.y-p.y,p.end.z-p.z).length()/length;}
  return new THREE.Matrix4().compose(translation,rotation,new THREE.Vector3(1,1,1)).multiply(new THREE.Matrix4().makeScale(1,p.heightScale??1,1)).multiply(conversion).multiply(new THREE.Matrix4().makeScale(v.x,v.y,v.z));
 }
@@ -182,7 +182,7 @@ export class StationaryParticleCache {
   const p=request.placement;
   if(request.loop||request.clip!==clip.name||p.from||p.end||p.matrix||p.direction)return;
   let e=this.events.get(request.key);
-  if(e){const q=e.position;if(e.def!==def||e.seed!==request.seed||e.clip!==clip||p.x!==q.x||p.y!==q.y||p.z!==q.z||p.scale!==q.scale||p.heightScale!==q.heightScale||p.facing!==q.facing)e=undefined;}
+  if(e){const q=e.position;if(e.def!==def||e.seed!==request.seed||e.clip!==clip||p.x!==q.x||p.y!==q.y||p.z!==q.z||p.scale!==q.scale||p.widthScale!==q.widthScale||p.heightScale!==q.heightScale||p.facing!==q.facing)e=undefined;}
   if(!e){
    if(!this.events.has(request.key)&&this.events.size>=24)return; // Additional effects use the ordinary sampler.
    const placement=sourcePlacement(def,p);
@@ -276,7 +276,7 @@ export function sourceParticleQuads(def:SourceEffectDefinition,request:SourceEff
    let nativeScale=fixed?.scale??localScale;if(!fixed&&parent!==scaleParent||nativeScale===undefined){const parentScale=s.parentScale.setFromMatrixScale(parent);nativeScale=Math.max(0,(parentScale.x+parentScale.z)*.5);localScale=nativeScale;scaleParent=parent;}
    let width=Math.max(0,baseSize*nativeScale),length=width;const rot=born.rotation,angle=lifeCurve(rot[0],rot[1],rot[2],t,d.rotation_anim_mid,d.rotation_smoothing)+dynamicVariation(d.variation.rotation,age,seed);
    let along=worldVelocity;
-   if(type===1||type===6||type===10){const moving=along.lengthSq()>1e-20,tail=d.instance_tail*unitScale,computed=moving?Math.abs(speed*travel)*unitScale:0;length=flags&0x100000?tail:flags&0x40000?Math.min(tail,computed):computed*tail;length=Math.max(width,length);if(!moving)along.set(0,1,0);at.addScaledVector(s.along.copy(along).normalize(),-length*.5);}
+   if(type===1||type===6||type===10){const moving=along.lengthSq()>1e-20,tail=d.instance_tail*unitScale,computed=moving?Math.abs(speed*travel)*unitScale:0;length=flags&0x100000?tail:flags&0x40000?Math.min(tail,computed):computed*tail;length=Math.max(width,Math.min(length,request.maxTailLength??Infinity));if(!moving)along.set(0,1,0);at.addScaledVector(s.along.copy(along).normalize(),-length*.5);}
    if(type===9){const emitterOrigin=s.emitterOrigin.set(0,0,0).applyMatrix4(parent);along=s.worldVelocity.copy(at).sub(emitterOrigin);length=Math.max(width,along.length());at.lerp(emitterOrigin,.5);}
    const reuse=stationary?born.quad:undefined,color=sourceColor(d,t,born,reuse?.color);color[3]=Math.max(0,Math.min(1,color[3]+dynamicVariation(d.variation.alpha,age,seed)));if(color[3]<=0||width<=0)continue;
    if(type===5||type===6)at.y=ground(at)+.03;

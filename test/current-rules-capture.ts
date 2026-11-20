@@ -9,7 +9,7 @@ import {acquireExpeditionHero} from '../src/simulation/combat/expedition-heroes'
 const hash=(value:unknown)=>createHash('sha256').update(JSON.stringify(value)).digest('hex');
 const body=(u:any)=>hash(Object.fromEntries(['maxHp','maxShield','armor','shieldArmor','weaponDamage','attackPeriod','attackRange','moveSpeed','healRate','maxEnergy','energyRegen','unitRadius','flying','modelKey','shieldDelay','shieldRegen','nativeMode','activeWeapon'].map(key=>[key,u[key]])));
 /** Fingerprints captured from the approved 07b3f68 rules before removing obsolete code. */
-export function captureCurrentRules({legacyKnight=false}={}){
+export function captureCurrentRules({legacyKnight=false,families=ALL_FAMILIES}={}){
  const campaign:Record<string,string>={};
  for(const difficulty of ['easy','normal','hard','hell'] as const)for(let stage=1;stage<=18;stage++){
   const config=campaign18StageConfig(stage,difficulty);
@@ -30,8 +30,8 @@ export function captureCurrentRules({legacyKnight=false}={}){
    for(let i=0;i<rank;i++)if(!acquireExpeditionHero(w,id as keyof typeof HEROES,()=>true))throw Error('Hero capture failed: '+id);
    heroes[id+':'+rank]=body(w.heroEntity(id as keyof typeof HEROES));
   }
-  for(const family of ALL_FAMILIES){const w=new World({race:familyRace(family),sandbox:true,waves:false,terrain:false,obstacles:[],seed:10511});w.start();w.entities.clear();ordinary[family+':'+rank]=body(w.addUnit(family,'terran',0,0,rank));}
+  for(const family of families){const w=new World({race:familyRace(family),sandbox:true,waves:false,terrain:false,obstacles:[],seed:10511});w.start();w.entities.clear();ordinary[family+':'+rank]=body(w.addUnit(family,'terran',0,0,rank));}
  }
  const currentElites=Object.values(ELITES).map(e=>({id:e.id,family:e.family,name:e.name,description:legacyKnight&&e.id==='hellion.2'?'火焰射程提高至2倍，覆盖前方150°扇面；对轻甲造成1.8倍伤害。恶蝠形态保留扇面喷火。':e.description,model:e.model,sourceModel:e.sourceModel,icon:e.icon}));
- return {campaign,bodies,heroes,ordinary,definitions:{stages:hash(CAMPAIGN18_STAGES),elites:hash(currentElites),heroes:hash(HEROES),families:hash(ALL_FAMILIES)}};
+ return {campaign,bodies,heroes,ordinary,definitions:{stages:hash(CAMPAIGN18_STAGES),elites:hash(currentElites),heroes:hash(HEROES),families:hash(families)}};
 }

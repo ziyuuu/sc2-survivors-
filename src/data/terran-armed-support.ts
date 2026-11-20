@@ -5,9 +5,9 @@
 export const ARMED_RULES = {
  procChance:{white:.35,green:.3,blue:.25,purple:.2,orange:.15},
   spec: 'R3-20261110', stepHz: 60, maxRank: 3, reserveLimit: 2,
-  prices: {W:[50,0],G:[90,20],B:[150,50],P:[225,90],N:[0,0],O:[325,140]},
+  prices: {W:[50,0],G:[90,20],B:[150,50],P:[225,90],N:[0,0],O:[0,0]},
   ordinaryTemporaryCap:18, eliteTemporaryCap:24, lockAt:3, nodeEvery:3,
-  orangeAt:9, orangeClaims:3, orangeLimit:1,
+  orangeAt:12, orangeClaims:3, orangeLimit:1,
   nuke:{systemCount:[3,4],scorchedCount:[5,8],systemBudget:2400,systemRadius:6,
     manualBudget:6000,manualRadius:8,manualDelay:180,first:15,gap:5,scorchedGap:4,
     ringFactor:.5,blastFactor:.65},

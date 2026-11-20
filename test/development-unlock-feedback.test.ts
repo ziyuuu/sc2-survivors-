@@ -74,14 +74,13 @@ test('mission technology uses one unlock receipt and preserves a paid in-flight 
  updateExpeditionProduction(w,0);assert.deepEqual(w.expedition.ledger,paid);assert.deepEqual(w.wallet,cash);
 });
 
-test('automatic scheduling survives restore, waits for money, then starts through normal production',()=>{
+test('automatic scheduling survives restore and starts Zerg training at zero resources',()=>{
  const w=world();open(w,'unlock.queen');assert.ok(w.choose(card(w,'unlock.queen')!.offerId));
  const copy=roundtrip(w);assert.deepEqual(copy.expedition.building!.groups[0].outputs,['zergling','queen']);
  assert.ok(copy.setProductionEnabled('zergling',false));if(copy.phase==='reward')copy.skipReward();assert.equal(copy.phase,'battle');
- copy.wallet={minerals:0,gas:0};updateExpeditionProduction(copy,0);assert.equal(copy.expedition.ledger.length,0);
- copy.wallet={minerals:1000,gas:1000};const q=productionQuote(copy,'queen');updateExpeditionProduction(copy,0);
+ copy.wallet={minerals:0,gas:0};const q=productionQuote(copy,'queen');assert.equal(q.minerals+q.gas,0);updateExpeditionProduction(copy,0);
  assert.equal(copy.expedition.ledger.length,1);assert.equal(copy.expedition.ledger[0].family,'queen');assert.equal(copy.expedition.ledger[0].state,'training');
- assert.deepEqual(copy.wallet,{minerals:1000-q.minerals,gas:1000-q.gas});const cash={...copy.wallet};updateExpeditionProduction(copy,0);assert.equal(copy.expedition.ledger.length,1);assert.deepEqual(copy.wallet,cash);
+ assert.deepEqual(copy.wallet,{minerals:0,gas:0});const cash={...copy.wallet};updateExpeditionProduction(copy,0);assert.equal(copy.expedition.ledger.length,1);assert.deepEqual(copy.wallet,cash);
 });
 
 test('early heavy unlock reserves output but cannot train before stage 10, and cancellation stays usable',()=>{

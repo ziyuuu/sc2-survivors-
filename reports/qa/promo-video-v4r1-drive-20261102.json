@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-02",
+  "success": true,
+  "file": {
+    "id": "1KfyCubxqC0b5mslOV9cVfrSGpMA_DIzB",
+    "title": "Starcraft-Survivors-Trailer-v4r1-mobile.mp4",
+    "mime_type": "video/mp4",
+    "size": "57457424",
+    "url": "https://drive.google.com/file/d/1KfyCubxqC0b5mslOV9cVfrSGpMA_DIzB/view?usp=drivesdk",
+    "parent_ids": [
+      "0ALZH8G-3UfGoUk9PVA"
+    ],
+    "shared": false,
+    "source_visibility_status": "not_shared"
+  },
+  "localSha256": "77d0640bcbe17807c032070d93994f31c87ea15883b42256b3ca9230978d5359",
+  "verification": "Completed connector upload, then metadata readback matched ID, name, exact bytes, MIME and verified My Drive parent. shared=false. No remote MD5 or transcoding result was returned; phone streaming has not been independently tested.",
+  "authorization": "Continuing user instruction to deliver the video through Google Drive. Same verified private destination as V3/V4; new file, existing videos preserved."
+}

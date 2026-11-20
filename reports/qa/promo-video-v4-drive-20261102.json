@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-02",
+  "success": true,
+  "file": {
+    "id": "1833wVD5TUYVycufnPnentPxbSaECVWEz",
+    "title": "Starcraft-Survivors-Trailer-v4-mobile.mp4",
+    "mime_type": "video/mp4",
+    "size": "59677467",
+    "url": "https://drive.google.com/file/d/1833wVD5TUYVycufnPnentPxbSaECVWEz/view?usp=drivesdk",
+    "display_url": "https://drive.google.com/file/d/1833wVD5TUYVycufnPnentPxbSaECVWEz/view?usp=drivesdk",
+    "file_or_folder": "file",
+    "created_time": null,
+    "modified_time": null,
+    "parent_ids": [
+      "0ALZH8G-3UfGoUk9PVA"
+    ],
+    "drive_id": null,
+    "current_user_can_share": true,
+    "has_augmented_permissions": null,
+    "shared": false,
+    "permissions": null,
+    "source_visibility_status": "not_shared"
+  },
+  "verification": "Drive metadata readback matched uploaded file ID, exact 59,677,467 bytes, video/mp4 and the same My Drive folder as V3; shared=false. Remote streaming on the user's phone has not been independently tested.",
+  "approval": "Initial upload was blocked because destination ownership and continuing upload authorization were unverified. Confirmed the user's existing Google Drive delivery instruction and V3's private My Drive parent; upload to that verified parent then succeeded."
+}

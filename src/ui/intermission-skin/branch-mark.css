@@ -1,0 +1,10 @@
+.branch-mark{color:#eff2e9;display:block;pointer-events:none}
+#interface #overlay.imx .imx-art>svg.branch-mark{
+  position:absolute;z-index:2;left:8px;bottom:8px;width:36px;height:36px;
+  filter:drop-shadow(0 1px 2px #03090c99)
+}
+#interface #overlay[data-layout=landscape].imx .imx-art>svg.branch-mark,
+#interface #overlay[data-layout=portrait].imx .imx-art>svg.branch-mark{
+  width:calc(24px * var(--ui-inverse-scale));height:calc(24px * var(--ui-inverse-scale));
+  left:calc(5px * var(--ui-inverse-scale));bottom:calc(5px * var(--ui-inverse-scale))
+}

@@ -1,0 +1,439 @@
+{
+  "date": "2026-10-27",
+  "scope": "Current native loot policies and bounded controlled sources; not the user save, complete campaign, human playthrough or guaranteed loot budget",
+  "seed": 529,
+  "policies": [
+    {
+      "stage": 1,
+      "baseChance": 0.027,
+      "base": [
+        {
+          "category": "ordinary",
+          "quality": 1,
+          "weight": 85
+        },
+        {
+          "category": "ordinary",
+          "quality": 2,
+          "weight": 15
+        }
+      ],
+      "guaranteed": [],
+      "additional": [
+        {
+          "category": "ordinary",
+          "quality": 3,
+          "weight": 100
+        }
+      ],
+      "additionalChance": 0,
+      "pollutionChance": 0.05
+    },
+    {
+      "stage": 7,
+      "baseChance": 0.027,
+      "base": [
+        {
+          "category": "ordinary",
+          "quality": 1,
+          "weight": 60
+        },
+        {
+          "category": "ordinary",
+          "quality": 2,
+          "weight": 40
+        }
+      ],
+      "guaranteed": [],
+      "additional": [
+        {
+          "category": "ordinary",
+          "quality": 3,
+          "weight": 100
+        }
+      ],
+      "additionalChance": 0,
+      "pollutionChance": 0.05
+    },
+    {
+      "stage": 11,
+      "baseChance": 0.027,
+      "base": [
+        {
+          "category": "ordinary",
+          "quality": 1,
+          "weight": 60
+        },
+        {
+          "category": "ordinary",
+          "quality": 2,
+          "weight": 40
+        }
+      ],
+      "guaranteed": [],
+      "additional": [
+        {
+          "category": "ordinary",
+          "quality": 3,
+          "weight": 100
+        }
+      ],
+      "additionalChance": 0,
+      "pollutionChance": 0.05
+    },
+    {
+      "stage": 13,
+      "baseChance": 0.023,
+      "base": [
+        {
+          "category": "ordinary",
+          "quality": 1,
+          "weight": 35
+        },
+        {
+          "category": "ordinary",
+          "quality": 2,
+          "weight": 65
+        }
+      ],
+      "guaranteed": [],
+      "additional": [
+        {
+          "category": "ordinary",
+          "quality": 3,
+          "weight": 100
+        }
+      ],
+      "additionalChance": 0,
+      "pollutionChance": 0.05
+    }
+  ],
+  "bait": {
+    "encounter": [
+      0,
+      0.12,
+      0.22,
+      0.32
+    ],
+    "elite": [
+      0,
+      0.15,
+      0.25,
+      0.35
+    ],
+    "horde": [
+      0,
+      0.1,
+      0.2,
+      0.3
+    ]
+  },
+  "campaignWaveBaseline": {
+    "scope": "Seed 529 scheduled primary waves through completed stage 11; excludes reinforcements/guards, mission adds, equipment modifiers, bait, encounters and special rooms; assumes every eligible scheduled primary dies",
+    "stages": [
+      {
+        "stage": 1,
+        "scheduledWaveBodies": 9,
+        "eligiblePrimaryBodies": 4,
+        "excludedCompanions": 5,
+        "naturalElites": 0,
+        "bosses": 0,
+        "expectedRegularItems": 0.108,
+        "expectedRegularGreen": 0.0162
+      },
+      {
+        "stage": 2,
+        "scheduledWaveBodies": 13,
+        "eligiblePrimaryBodies": 6,
+        "excludedCompanions": 7,
+        "naturalElites": 0,
+        "bosses": 0,
+        "expectedRegularItems": 0.162,
+        "expectedRegularGreen": 0.0243
+      },
+      {
+        "stage": 3,
+        "scheduledWaveBodies": 32,
+        "eligiblePrimaryBodies": 14,
+        "excludedCompanions": 18,
+        "naturalElites": 0,
+        "bosses": 1,
+        "expectedRegularItems": 0.378,
+        "expectedRegularGreen": 0.0567
+      },
+      {
+        "stage": 4,
+        "scheduledWaveBodies": 78,
+        "eligiblePrimaryBodies": 35,
+        "excludedCompanions": 43,
+        "naturalElites": 1,
+        "bosses": 0,
+        "expectedRegularItems": 0.945,
+        "expectedRegularGreen": 0.14175
+      },
+      {
+        "stage": 5,
+        "scheduledWaveBodies": 81,
+        "eligiblePrimaryBodies": 36,
+        "excludedCompanions": 45,
+        "naturalElites": 0,
+        "bosses": 0,
+        "expectedRegularItems": 0.972,
+        "expectedRegularGreen": 0.14579999999999999
+      },
+      {
+        "stage": 6,
+        "scheduledWaveBodies": 88,
+        "eligiblePrimaryBodies": 39,
+        "excludedCompanions": 49,
+        "naturalElites": 0,
+        "bosses": 1,
+        "expectedRegularItems": 1.053,
+        "expectedRegularGreen": 0.15794999999999998
+      },
+      {
+        "stage": 7,
+        "scheduledWaveBodies": 128,
+        "eligiblePrimaryBodies": 57,
+        "excludedCompanions": 71,
+        "naturalElites": 1,
+        "bosses": 0,
+        "expectedRegularItems": 1.539,
+        "expectedRegularGreen": 0.6156
+      },
+      {
+        "stage": 8,
+        "scheduledWaveBodies": 124,
+        "eligiblePrimaryBodies": 55,
+        "excludedCompanions": 69,
+        "naturalElites": 0,
+        "bosses": 0,
+        "expectedRegularItems": 1.4849999999999999,
+        "expectedRegularGreen": 0.594
+      },
+      {
+        "stage": 9,
+        "scheduledWaveBodies": 113,
+        "eligiblePrimaryBodies": 50,
+        "excludedCompanions": 63,
+        "naturalElites": 0,
+        "bosses": 1,
+        "expectedRegularItems": 1.35,
+        "expectedRegularGreen": 0.54
+      },
+      {
+        "stage": 10,
+        "scheduledWaveBodies": 137,
+        "eligiblePrimaryBodies": 61,
+        "excludedCompanions": 76,
+        "naturalElites": 1,
+        "bosses": 0,
+        "expectedRegularItems": 1.647,
+        "expectedRegularGreen": 0.6588
+      },
+      {
+        "stage": 11,
+        "scheduledWaveBodies": 175,
+        "eligiblePrimaryBodies": 78,
+        "excludedCompanions": 97,
+        "naturalElites": 0,
+        "bosses": 0,
+        "expectedRegularItems": 2.106,
+        "expectedRegularGreen": 0.8424
+      }
+    ],
+    "totals": {
+      "scheduledWaveBodies": 978,
+      "eligiblePrimaryBodies": 435,
+      "excludedCompanions": 543,
+      "naturalElites": 3,
+      "bosses": 3,
+      "expectedRegularItems": 11.745,
+      "expectedRegularGreen": 3.7935000000000003
+    }
+  },
+  "native": {
+    "regular": [
+      {
+        "stage": 1,
+        "tier": "regular",
+        "trials": 10000,
+        "total": 268,
+        "qualities": {
+          "1": 225,
+          "2": 43,
+          "3": 0,
+          "4": 0,
+          "5": 0
+        },
+        "repeatedReceiptAdded": 0
+      },
+      {
+        "stage": 7,
+        "tier": "regular",
+        "trials": 10000,
+        "total": 274,
+        "qualities": {
+          "1": 160,
+          "2": 114,
+          "3": 0,
+          "4": 0,
+          "5": 0
+        },
+        "repeatedReceiptAdded": 0
+      }
+    ],
+    "elite": {
+      "stage": 7,
+      "tier": "elite",
+      "trials": 300,
+      "total": 308,
+      "qualities": {
+        "1": 2,
+        "2": 306,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      },
+      "repeatedReceiptAdded": 0
+    },
+    "boss": {
+      "stage": 7,
+      "tier": "boss",
+      "trials": 300,
+      "total": 320,
+      "qualities": {
+        "1": 13,
+        "2": 307,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      },
+      "repeatedReceiptAdded": 0
+    },
+    "golden": [
+      {
+        "stage": 4,
+        "total": 16,
+        "qualities": {
+          "1": 14,
+          "2": 2,
+          "3": 0,
+          "4": 0,
+          "5": 0
+        },
+        "plannedItems": 16,
+        "guaranteedGreenItems": 1,
+        "repeatedDeathAndFlushAdded": 0
+      },
+      {
+        "stage": 7,
+        "total": 16,
+        "qualities": {
+          "1": 8,
+          "2": 8,
+          "3": 0,
+          "4": 0,
+          "5": 0
+        },
+        "plannedItems": 16,
+        "guaranteedGreenItems": 1,
+        "repeatedDeathAndFlushAdded": 0
+      }
+    ],
+    "resources": [
+      {
+        "stage": 4,
+        "chests": 8,
+        "total": 11,
+        "qualities": {
+          "1": 4,
+          "2": 7,
+          "3": 0,
+          "4": 0,
+          "5": 0
+        },
+        "guaranteedGreenItems": 6,
+        "repeatedChestHitsAdded": 0,
+        "scope": "All 8 chests destroyed in controlled room; not a 30-second player clear or pickup claim"
+      },
+      {
+        "stage": 7,
+        "chests": 8,
+        "total": 11,
+        "qualities": {
+          "1": 3,
+          "2": 8,
+          "3": 0,
+          "4": 0,
+          "5": 0
+        },
+        "guaranteedGreenItems": 6,
+        "repeatedChestHitsAdded": 0,
+        "scope": "All 8 chests destroyed in controlled room; not a 30-second player clear or pickup claim"
+      }
+    ],
+    "hives": [
+      {
+        "stage": 7,
+        "hives": 3,
+        "total": 3,
+        "qualities": {
+          "1": 0,
+          "2": 3,
+          "3": 0,
+          "4": 0,
+          "5": 0
+        },
+        "guaranteedGreenItems": 3,
+        "repeatedResolutionAdded": 0
+      }
+    ]
+  },
+  "limitations": [
+    "Synthetic qualifying-death replay verifies the production loot function, not actual player kill counts.",
+    "No user save was loaded; exact attribution of the reported 80 items is unknown.",
+    "Bait probabilities are per eligible 20-second roll, with cooldown, busy and placement gates; no campaign-frequency estimate is asserted."
+  ],
+  "status": "Inspection completed; no production change",
+  "issue": "V06-GEAR-YIELD-001",
+  "userFeedback": {
+    "difficulty": "easy",
+    "reachedStage": 11,
+    "newItemsApprox": 80,
+    "mostlyGreen": true,
+    "baitPurchased": true,
+    "extraEventsCompleted": true
+  },
+  "conclusion": "Independent fixed rewards and green guarantees from bait elites, repeatable encounters and resource rooms explain a plausible high-yield/green-heavy run. No duplicate payment found in tested paths; exact user-run attribution unavailable without its save.",
+  "validation": {
+    "existingTests": {
+      "files": [
+        "starship-drops",
+        "encounters",
+        "special-stages",
+        "missions",
+        "fun-shop",
+        "fun-shop-boundaries",
+        "stage-loot-retention",
+        "v01-loot-checkpoint"
+      ],
+      "passed": 151,
+      "failed": 0
+    },
+    "productionSourceChanged": false,
+    "testsChanged": false,
+    "fullCampaignRerun": false,
+    "browserRerun": false
+  },
+  "fixtureNote": "Hive resolution queues rewards, delivered on the next native tick. Two preliminary fixture attempts checked too early; waiting for the actual delivery tick passed. No production fix.",
+  "priorRequestedPush": {
+    "commit": "b4cfeb41439bddcfaf4dd1c43d937aa30406b60d",
+    "branch": "体积优化版",
+    "remoteVerified": true,
+    "files": 45,
+    "mainUnchanged": "2924d9bb3330f10ad78462b6f96efda163c5eff3",
+    "includesLootInspection": false
+  },
+  "boardRevision": 226
+}

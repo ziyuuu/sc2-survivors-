@@ -1,0 +1,765 @@
+[
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_AttackLaunch0.wav",
+    "bytes": 29244,
+    "sha256": "ec9a5299548c9bdd485c23d56a61135beb798cc352e160f71bb225e3ce04e8ab",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_AttackLaunch0.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_AttackLaunch1.wav",
+    "bytes": 24124,
+    "sha256": "22805d2b9131852686d3ab865452535a35cd5ff3f2784bc0368d25982b5c951d",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_AttackLaunch1.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_AttackLaunch2.wav",
+    "bytes": 32316,
+    "sha256": "98766700b2f2e16ca11cada8af9ac89255b2bc87d844a4a231c10c8f830f9b05",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_AttackLaunch2.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/BulletImpacts/Terran_SingleBulletAttackImpact0.wav",
+    "bytes": 8764,
+    "sha256": "0de736771e5b733bd84b36d4986ceea564a096761ab9f94f65bd83cb4304d820",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/BulletImpacts/Terran_SingleBulletAttackImpact0.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/BulletImpacts/Terran_SingleBulletAttackImpact1.wav",
+    "bytes": 27196,
+    "sha256": "afd6ca33ceae3b1aa9c7f6a6dbaf16c3b53c27336585343743cfb19bf4789958",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/BulletImpacts/Terran_SingleBulletAttackImpact1.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/BulletImpacts/Terran_SingleBulletAttackImpact2.wav",
+    "bytes": 12860,
+    "sha256": "b97d3fa352ecc15dc657d11935ff05a390c0c6b7d7440e00e2b6e66b3947ff0e",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/BulletImpacts/Terran_SingleBulletAttackImpact2.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/BulletImpacts/Terran_SingleBulletAttackImpact3.wav",
+    "bytes": 32828,
+    "sha256": "ca2da1d7ad407307beac9ff3ec1d334a2efedf960bc8957b9027a04ea9f7f84f",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/BulletImpacts/Terran_SingleBulletAttackImpact3.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/BulletImpacts/Terran_SingleBulletAttackImpact4.wav",
+    "bytes": 11580,
+    "sha256": "9b31c8072532b7da3c66016be693a87d828e00ff90055b36bec65f1e8c2605ef",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/BulletImpacts/Terran_SingleBulletAttackImpact4.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/BulletImpacts/Terran_SingleBulletAttackImpact5.wav",
+    "bytes": 26684,
+    "sha256": "25555ce7f26cb1771172dca57e1ee9ac0062438c545831c84e84006922b64b90",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/BulletImpacts/Terran_SingleBulletAttackImpact5.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/WidowMine_Attack00.ogg",
+    "bytes": 10230,
+    "sha256": "0d63d4734bfa6c60ddf16650f6aaf70e833beab09261546840107582a3d7f6ce",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/WidowMine_Attack00.ogg"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/WidowMine_Attack01.ogg",
+    "bytes": 10668,
+    "sha256": "02f30c05de48a029ed7ed173a3985495c6b06c3c88aae6d24112543102e2846d",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/WidowMine_Attack01.ogg"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/WidowMine_Attack02.ogg",
+    "bytes": 12674,
+    "sha256": "3dca96e214d13f94eb1cef5a3cdd28b4851a8c195076e2bbbc4c4ca923dc9de0",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/WidowMine_Attack02.ogg"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/WidowMine_Death00.wav",
+    "bytes": 24124,
+    "sha256": "20aa6d9c13e47c2fd3ca6de10f0547bee3db05c8b39368b3d0b4efbee3fa3cb1",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/WidowMine_Death00.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/WidowMine_Death01.wav",
+    "bytes": 23100,
+    "sha256": "082a1b5812db784a993b17fd86b54b78735882c5f6215228bcc2f150852de0da",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/WidowMine_Death01.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/WidowMine_Death02.wav",
+    "bytes": 24892,
+    "sha256": "155b2cb89fba24a0f4deac1882b42df541a562447bb3f1755fa10615230a32ff",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/WidowMine_Death02.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/WidowMine_Death03.wav",
+    "bytes": 23356,
+    "sha256": "78a90beb9e41612972fdae42a2b0006e355c69b36c88db1716df8b04f491f7da",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/WidowMine_Death03.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Cyclone_Missile_Launch_01e.wav",
+    "bytes": 28732,
+    "sha256": "bc52d7e7d23efa06887c55b6aa0ce12a33028a94e198c2b98f56b38a82adcf32",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Cyclone_Missile_Launch_01e.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Cyclone_Missile_Launch_02e.wav",
+    "bytes": 24124,
+    "sha256": "574187d1927c18b6fb43ae430da98802a900ad13bf45b1f7a5f859496627d5dd",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Cyclone_Missile_Launch_02e.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Cyclone_Missile_Launch_03e.wav",
+    "bytes": 31036,
+    "sha256": "916fccc2e4a308bef87a160d0aea34aeaf93fcfa990ec1cdb0c822203a65c981",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Cyclone_Missile_Launch_03e.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Cyclone_Missile_Launch_04e.wav",
+    "bytes": 27452,
+    "sha256": "ea08ce76452ccbeac8b1d87215c64df3af022badfc11d1f74292d94341dbf642",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Cyclone_Missile_Launch_04e.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Cyclone_Missile_Launch_05e.wav",
+    "bytes": 32316,
+    "sha256": "7bb8feed913c0a4140ababc0b1a2811b3ba8d8f32863e10267b3547e55e9de95",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Cyclone_Missile_Launch_05e.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Cyclone_Missile_Launch_05f.wav",
+    "bytes": 32316,
+    "sha256": "ef3e65f2993b8336d71e1821bb6469ff47d1f01f2fc3c5d914b807ae3a303b90",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Cyclone_Missile_Launch_05f.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Cyclone_Missile_Impact_01.wav",
+    "bytes": 40764,
+    "sha256": "5a4fcd622f2acd0ad15a525cbab0068a887077c94a0838664a7ce5c4d32a6ed1",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Cyclone_Missile_Impact_01.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Cyclone_Missile_Impact_02.wav",
+    "bytes": 45372,
+    "sha256": "434bd63a5349eaf0dad1183d00d81821f86a83c5ae3ff022441a3ff82152e717",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Cyclone_Missile_Impact_02.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Cyclone_Missile_Impact_03.wav",
+    "bytes": 33596,
+    "sha256": "2ff2a5bc21ac84dbb32934ffd05379e0825394a174f61b2acb24b8f3826e35a3",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Cyclone_Missile_Impact_03.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Cyclone_Missile_Impact_04.wav",
+    "bytes": 35132,
+    "sha256": "019bca21dd44a9692a9cbcdaa5cbf0b9ff07411d772908ca3a909319f221b8ee",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Cyclone_Missile_Impact_04.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AA_Launch_01.wav",
+    "bytes": 42812,
+    "sha256": "39a2127925f28b597ed77e7aeb838d775046bc58de04b5e95356775ac7de1714",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AA_Launch_01.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AA_Launch_02.wav",
+    "bytes": 45372,
+    "sha256": "d0eb7cff2c74719406b0cbec0c5f8a201155c50fe598ed8ae32726552a51e0c8",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AA_Launch_02.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AA_Launch_03.wav",
+    "bytes": 39484,
+    "sha256": "4fba8d1a4f2b2bd1cc25ede3331e05ae061c19c1d94a3a37e7567590eabdca58",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AA_Launch_03.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AA_Launch_04.wav",
+    "bytes": 32572,
+    "sha256": "6dc08e3faef82e1a3c16d66cdf3971457fbd90f8b81ae39604704b19b4404363",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AA_Launch_04.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AA_Launch_06.wav",
+    "bytes": 37948,
+    "sha256": "6c787c7e1dfce74af6751065ec5821dbfcdc7077c0a92fd5e10990135d0dd29c",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AA_Launch_06.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Lliberator_MissileImpactExplosionA_01.wav",
+    "bytes": 53820,
+    "sha256": "e79b7e7f4b239291d50fa827ed85ef6d9cd1a6ffc93e6840589a4f34cf43eaa2",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Lliberator_MissileImpactExplosionA_01.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Lliberator_MissileImpactExplosionA_02.wav",
+    "bytes": 31548,
+    "sha256": "353840bc4a3bbd816720cff46284e8852fbe708197070bb9f162a2fa0148bc33",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Lliberator_MissileImpactExplosionA_02.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Lliberator_MissileImpactExplosionA_03.wav",
+    "bytes": 28988,
+    "sha256": "a14b3beb0d8d3c4967c51ee5d8036fcbd1c323cdaa1a2f5d8df99db43a205fce",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Lliberator_MissileImpactExplosionA_03.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Lliberator_MissileImpactExplosionA_04.wav",
+    "bytes": 27196,
+    "sha256": "564769682ba514af32006eb7b34b3d247730e7b1fbab4e3e6f77f25cc677e983",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Lliberator_MissileImpactExplosionA_04.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Lliberator_MissileImpactExplosionA_05.wav",
+    "bytes": 28988,
+    "sha256": "3996d01b9c5887933b8f732782a0a45dbbb50b144c03ce1fca80ec3a3fdb967c",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Lliberator_MissileImpactExplosionA_05.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Lliberator_MissileImpactExplosionB_01.wav",
+    "bytes": 51772,
+    "sha256": "1e1f84432fdc0b068cf4714843694f2d0704311e7b103ad56716cc85a997067e",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Lliberator_MissileImpactExplosionB_01.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Lliberator_MissileImpactExplosionB_02.wav",
+    "bytes": 60732,
+    "sha256": "7d4a17a75b166a81752306fa24946d3a7f20064bf67d8ce5428ab3b699c7343c",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Lliberator_MissileImpactExplosionB_02.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Lliberator_MissileImpactExplosionB_03.wav",
+    "bytes": 63036,
+    "sha256": "ed63a97838e086efca94446b7bb06598e1d28fdd007c8b11f5fee030177feade",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Lliberator_MissileImpactExplosionB_03.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Lliberator_MissileImpactExplosionB_04.wav",
+    "bytes": 58428,
+    "sha256": "fc51ee141b794f238fe375b245f0aa4bd767dba1587ffdd60658ba499edb5b3e",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Lliberator_MissileImpactExplosionB_04.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Lliberator_MissileImpactExplosionB_05.wav",
+    "bytes": 62780,
+    "sha256": "afae8f34d99e395c7365eb18e55e0c65061f9a3134f7586cbe9e13945cf44b9b",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Lliberator_MissileImpactExplosionB_05.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_AttackLaunch01.wav",
+    "bytes": 24892,
+    "sha256": "5a4e4a53c35cbce3fdf0d2c8a9a1436182436685172a2bda99a2a56c4ffc0d84",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_AttackLaunch01.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_AttackLaunch02.wav",
+    "bytes": 21052,
+    "sha256": "8fa59b9511fbb420c04182d99aa42134b4927fa974ca2a84e50c2590b7618617",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_AttackLaunch02.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_AttackLaunch03.wav",
+    "bytes": 25404,
+    "sha256": "095e0c7372f0e0a6d7a13458f9aed76a82e492bb99a0895a585984ed8c43bad5",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_AttackLaunch03.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_AttackLaunch04.wav",
+    "bytes": 34108,
+    "sha256": "33101993fda9f61da3be3f4c822bb05fcf3a81502bae0afb63b82a3ce898ada4",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_AttackLaunch04.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_AttackLaunch05.wav",
+    "bytes": 22076,
+    "sha256": "8b95c96e4d74896fde583fd0d1cea6ae67693dd997d3b32a32378545c64e4e2d",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_AttackLaunch05.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_AttackLaunch06.wav",
+    "bytes": 28476,
+    "sha256": "958e7cf4376702b040c2d9092fca228eb7f3bec26f5c790236a67e6e242a856a",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_AttackLaunch06.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_AttackLaunch07.wav",
+    "bytes": 31036,
+    "sha256": "b4a8a5de59981eec522b69f9436686c68b7a84fb2027dbbe6a00481ef383c934",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_AttackLaunch07.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_AttackLaunch08.wav",
+    "bytes": 24636,
+    "sha256": "312d7ec3049aaa638a3487fd8e98305ea2c952393a32fa3b8d2dc0642d29c46c",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_AttackLaunch08.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_Impacts_01.wav",
+    "bytes": 36412,
+    "sha256": "a5cf98f8577919e861b54474f957c406d168b22ae4b358dde7a81063c961235b",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_Impacts_01.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_Impacts_02.wav",
+    "bytes": 37436,
+    "sha256": "e415c721218323b6787df938b08a7e4c4b3ff0ca379b1d6b3a266fb047735059",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_Impacts_02.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_Impacts_03.wav",
+    "bytes": 31804,
+    "sha256": "3d10b12924dea1fe3d362ba98bdd589868186110f9a4a87ac65f4c50c862c645",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_Impacts_03.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_Impacts_04.wav",
+    "bytes": 31036,
+    "sha256": "67572ed0c4dfe9b4a73f44cda68bb7be1c3f7a1d8035156172be80c28ed9ac9a",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_Impacts_04.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_Impacts_05.wav",
+    "bytes": 24636,
+    "sha256": "e6696a0cce4642214391d66ecfb31e5917ffe8499650adb1dcb5a7c72ee545b0",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_Impacts_05.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_Impacts_06.wav",
+    "bytes": 28732,
+    "sha256": "d99d179ad1299a2fd105aded5947c4159e0af1c011d928d7da5d587503a3b7ab",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_AG_Impacts_06.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionSmall0.wav",
+    "bytes": 89916,
+    "sha256": "84d5ac980fa8d4291912114c5fa316f31e6246eec1295232535d0022fd7e81f6",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionSmall0.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionSmall1.wav",
+    "bytes": 77884,
+    "sha256": "0bd9b0f4a658db88f2d430a810b3927fbcc1d0c6ecc86885939c450562f0c072",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionSmall1.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionSmall2.wav",
+    "bytes": 68668,
+    "sha256": "aeb730a5f57c874a5029aa1771c72bc70bbdfc3272dd4e9492f8e7562541d7bb",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionSmall2.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionSmall3.wav",
+    "bytes": 81980,
+    "sha256": "8dacd3c7de2aedb09614f4116b76bb47e704e54ddde79965fdb346772a76adac",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionSmall3.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionSmall4.wav",
+    "bytes": 81980,
+    "sha256": "1414d2c45ffa6987638242050a64beff7a305d6eb189457292b8567835fd2142",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionSmall4.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionSmall5.wav",
+    "bytes": 70204,
+    "sha256": "a006abea2628873cfc45821cb4c2dc3cafdfdc0c02db6bfc90d2ce8166f1f7b9",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionSmall5.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionSmall6.wav",
+    "bytes": 48188,
+    "sha256": "cbdb7498f28cd7e6683feeae45182a71c560b6be0ac67cba786fc6676364eeb6",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionSmall6.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionSmall7.wav",
+    "bytes": 54332,
+    "sha256": "88707e4e7cbcd15b64e76710e1a9190dae751dab3b8b979907bfa60b39e18ec2",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionSmall7.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionSmall8.wav",
+    "bytes": 50492,
+    "sha256": "e95249e71e60a049753d1d64b001bdb7a68098be357286e6fd1643499ba72c2f",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionSmall8.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionSmall9.wav",
+    "bytes": 48188,
+    "sha256": "608b37d53ed037e3a44d74099a3b7680b61d7326d32ca0f1fe76e49d2c953e57",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionSmall9.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/SharedEffects/Explosions/Zerg_ExplosionSmall0.wav",
+    "bytes": 30780,
+    "sha256": "d4d20882e2c701ff6d5e660358232f86094aa357ab2666180ac34c6a7eba525d",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/SharedEffects/Explosions/Zerg_ExplosionSmall0.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/SharedEffects/Explosions/Zerg_ExplosionSmall1.wav",
+    "bytes": 29756,
+    "sha256": "b39e9ffa788cdbd233b6b21908fd2b46b485d9f859513b2d2d15fd42ac6e97dc",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/SharedEffects/Explosions/Zerg_ExplosionSmall1.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/SharedEffects/Explosions/Zerg_ExplosionSmall2.wav",
+    "bytes": 30780,
+    "sha256": "166fc78b7d26413f35a55fb79075f8f5aeabd1bf68bc9c39b10a75e087bc11d0",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/SharedEffects/Explosions/Zerg_ExplosionSmall2.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/SharedEffects/Explosions/Zerg_ExplosionSmall3.wav",
+    "bytes": 36156,
+    "sha256": "eadd7a9333d83b1afd8d958a56f7a913bc4239d8651913abd7b7d9d9aa6d9c9e",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/SharedEffects/Explosions/Zerg_ExplosionSmall3.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/SharedEffects/Explosions/Zerg_ExplosionSmall4.wav",
+    "bytes": 42044,
+    "sha256": "9fd16d9ed1637cf8f010804e6990a4e6ec7faba1c3cc25dfc7cfda783d7103a3",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/SharedEffects/Explosions/Zerg_ExplosionSmall4.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/SharedEffects/Explosions/Zerg_ExplosionSmall5.wav",
+    "bytes": 34876,
+    "sha256": "e7f7094a8b6fee7a465f546fce59cdaa40ba314d91b79b8dae45b3260cb146f8",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/SharedEffects/Explosions/Zerg_ExplosionSmall5.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/SharedEffects/Explosions/Zerg_ExplosionSmall6.wav",
+    "bytes": 37180,
+    "sha256": "82747a5241fdc3db6906f409378209fee4d1d47965969ac1a79539de7ea4eb22",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/SharedEffects/Explosions/Zerg_ExplosionSmall6.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionLarge0.wav",
+    "bytes": 90172,
+    "sha256": "617f542831fe35885617ded8bcd0b63acfdc7ae6fa61171eb66188109a226c14",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionLarge0.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionLarge1.wav",
+    "bytes": 96316,
+    "sha256": "5c9a05cf7a8e7c838c1fc7a0ae20ab2e6b1840e3702e92c405cddfe2f2c8811a",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionLarge1.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionLarge2.wav",
+    "bytes": 80700,
+    "sha256": "2d7451cbd498a871fa0ba90b526ff7e37740bcc8a734d60cc15e0f3e6e78438a",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionLarge2.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionLarge3.wav",
+    "bytes": 99644,
+    "sha256": "1bee2f73b16810ea0facf2bcd496b3e02267f69cf66811064187e3071aefc33b",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionLarge3.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionLarge4.wav",
+    "bytes": 83772,
+    "sha256": "9a8b6a731934fa6aeda52b81d70bca5496c36a7321493655a3414f34d3291a50",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionLarge4.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionLarge5.wav",
+    "bytes": 84028,
+    "sha256": "3f34dd8ae16eb99b3fe4c9ecfed6e1d61ab267bf6d3f4277cb70226a7f89ea14",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionLarge5.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionLarge6.wav",
+    "bytes": 96060,
+    "sha256": "f17b797bdbc0f4fd9facc5ae761ac140bcd4bbf66ac692dcad31145162812a85",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionLarge6.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionLarge7.wav",
+    "bytes": 93756,
+    "sha256": "e6e5a0534abf401d468070bf512d73e5e8955c6bc277f93a9fc355ea8fa783f6",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionLarge7.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionLarge8.wav",
+    "bytes": 82748,
+    "sha256": "54bb64f38fd7f745bc4618562e534d211f4725079f0c74952cd845146228a09c",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionLarge8.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionLarge9.wav",
+    "bytes": 89916,
+    "sha256": "10f46b0e5943cb8b3fb04dc8c0d318775ff9adfcb4cf92e4a9fd8bef6ee3582c",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionLarge9.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_Death_01.wav",
+    "bytes": 59452,
+    "sha256": "d84b595354cff237241fafe401c356660c05dc839b70abda64dd0c93a299adc1",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_Death_01.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_Death_02.wav",
+    "bytes": 64316,
+    "sha256": "17f2b2ca769cb4abd1043cebd169f6c42756762339a8d6c897147c7d34542058",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_Death_02.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_Death_03.wav",
+    "bytes": 81468,
+    "sha256": "36e9c775bc1cd1f7099346a1ee1f30ef932a07d6ff9244eacaa68c951ae1fc32",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_Death_03.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_Death_04.wav",
+    "bytes": 68924,
+    "sha256": "aad30302e9867e6cbd58d317340c30c0ba16fc7cb8432612c411e37bc5395cfc",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Liberator_Death_04.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionMedium0.wav",
+    "bytes": 72252,
+    "sha256": "837286997130f9fce3f08f68baab6f03b5e865d90d36d93cbe8d04ababd18e5b",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionMedium0.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionMedium1.wav",
+    "bytes": 63548,
+    "sha256": "4139115010e3666392cd06701800cf5943268a09a39fb241c36f54d8430b4b71",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionMedium1.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionMedium2.wav",
+    "bytes": 57660,
+    "sha256": "2f65b3cc3dab5cbef16c42925cdbeb64ee1f3a67b553037a5a0b7396f6ee0509",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionMedium2.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionMedium3.wav",
+    "bytes": 65084,
+    "sha256": "81c4022424a300748f5cce075b014e6140ebfb8657d8af496711ec26ef4746ea",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionMedium3.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionMedium4.wav",
+    "bytes": 61244,
+    "sha256": "d0439540d74e156659883646aac0ab435c74bead88064a43eab8b3972432a04d",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionMedium4.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionMedium5.wav",
+    "bytes": 59452,
+    "sha256": "58ae9603dd7d89ddf95904793245882ef8e5c05b6a15bcdaf3c92ae4b9db714a",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionMedium5.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionMedium6.wav",
+    "bytes": 56636,
+    "sha256": "2a7e9f46b9041ed298ab000e605e8544df77b4e38546ffbafea38b645645ae87",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionMedium6.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionMedium7.wav",
+    "bytes": 68412,
+    "sha256": "7ddbff99f0fef0184db576e126a49b6ee4377508c4c97bb1999a3578a72039cc",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionMedium7.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionMedium8.wav",
+    "bytes": 65340,
+    "sha256": "91d1848e7338338217c9da3e7a667d4159a6d661b4dbd242e0fe9831c854cd70",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionMedium8.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionMedium9.wav",
+    "bytes": 58684,
+    "sha256": "6cdd54e44471efbf1de4becb2c10c2c9d24e11caa9073fb190e15062b9af3304",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Explosions/Terran_ExplosionMedium9.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Death00.wav",
+    "bytes": 51260,
+    "sha256": "ecfe3fc3d5f44e3e00423227be797682564259bbf917519e7fdc9289aaf22a67",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Death00.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_SnipeAttackLaunch.wav",
+    "bytes": 7228,
+    "sha256": "4b8d016d5a212878becdbb1623ff4471520cf3ea541879524a72fa89f7b5b042",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_SnipeAttackLaunch.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_SnipeImpact0.wav",
+    "bytes": 10556,
+    "sha256": "d5913d7d5a8c0d40d26d29ab6c6bee51645132c5cf13a8e0685fe9fac02b6c0e",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_SnipeImpact0.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_SnipeImpact1.wav",
+    "bytes": 10300,
+    "sha256": "bdd4aeca7c5db1206e9beb9108e9e9dcd14de1f5f59c0ca7b8c937a5ee687382",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_SnipeImpact1.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_SnipeImpact2.wav",
+    "bytes": 11324,
+    "sha256": "a00a5b7dbe212be57dd43d0fcaa1321d4c74bc6446239fffba44ce99ebe038ac",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_SnipeImpact2.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_SnipeImpact3.wav",
+    "bytes": 19004,
+    "sha256": "d27166a972a5b3e21e07519c248d6e019814accf77464cad33d6edc298f79bab",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_SnipeImpact3.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_SnipeImpact4.wav",
+    "bytes": 13628,
+    "sha256": "dbd4cc8b52bf6a915de0a36fcb710c191c78bc93e62de4ebb8ff990a7d02ff18",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_SnipeImpact4.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_EMPAttackLaunch.wav",
+    "bytes": 87612,
+    "sha256": "6936de6c19876a6031006745f612e94a3f942bd9aa40b0a3b7bf2c3d89a24185",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_EMPAttackLaunch.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_EMPAttackImpact0.wav",
+    "bytes": 57660,
+    "sha256": "7032b137b4d6fd72b08b2c568dd99435d42444937b8c30da6ecd7d3a512957dd",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_EMPAttackImpact0.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_EMPAttackImpact1.wav",
+    "bytes": 49724,
+    "sha256": "e098e90d06d5d480ece9e1a5cf5065e862ef1936ed5edaf118a660927631ab03",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_EMPAttackImpact1.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_EMPAttackImpact2.wav",
+    "bytes": 58940,
+    "sha256": "eda73cadcfaeccb899b204ae6f67e4daa333d6c9b1682511eafdb5aa8e794404",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Ghost/Ghost_EMPAttackImpact2.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Raven/Raven_HunterSeekerLaunch0.wav",
+    "bytes": 114236,
+    "sha256": "9bd84b69ab2defe8d7c5b683bb6228a32964b02b0de2bb1a2c39824b8d90f928",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Raven/Raven_HunterSeekerLaunch0.wav"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Raven/Raven_HunterSeekerLaunch1.wav",
+    "bytes": 101948,
+    "sha256": "ec4143822d237dbf621850d28ed6220c54bb204a56161c8572bf21672fcfc4df",
+    "build": "B97563",
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Raven/Raven_HunterSeekerLaunch1.wav"
+  }
+]

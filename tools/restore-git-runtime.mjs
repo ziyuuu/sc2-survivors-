@@ -1,4 +1,6 @@
 import {loadTutorialAssets} from './tutorial-assets.mjs';
+import {loadSixAssets} from './terran-six-assets.mjs';
+import {loadZergSixAssets} from './zerg-six-assets.mjs';
 import {loadArmedSupportAssets} from './armed-support-assets.mjs';
 import {loadCombatAudio} from './combat-audio-assets.mjs';
 import {loadFunPropAssets} from './fun-prop-assets.mjs';
@@ -76,4 +78,7 @@ await loadCombatAudio({restore:true,check:process.argv.includes('--check')});
 await loadMusicAssets({restore:true,check:process.argv.includes('--check')});
 
 await loadTutorialAssets({restore:true,check:process.argv.includes('--check')});
+await loadSixAssets({restore:!process.argv.includes('--check')});
+await loadZergSixAssets({restore:!process.argv.includes('--check')});
 await loadArmedSupportAssets({restore:true,check:process.argv.includes('--check')});
+await loadArmedSupportAssets({bio:true,restore:true,check:process.argv.includes('--check')});

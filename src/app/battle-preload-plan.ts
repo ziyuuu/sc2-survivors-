@@ -1,4 +1,6 @@
 import {FAMILIES_BY_RACE,type Race,type CombatUnitType} from '../data/races';
+import {ZERG_SIX} from '../data/zerg-six';
+import {zergCampaignQuotas} from '../data/zerg-six-encounters';
 import {CAMPAIGN18_STAGES} from '../data/campaign18';
 import {BOSSES} from '../data/enemies';
 import {ELITES} from '../data/elites';
@@ -13,7 +15,10 @@ export function campaignPreloadModels(first:number,last:number){
  for(let stage=Math.max(1,first);stage<=Math.min(18,last);stage++){
   for(const [type,share] of Object.entries(CAMPAIGN18_STAGES[stage-1].mix))if(share>0)models.set(type,type as CombatUnitType);
   if(BOSSES[stage])models.set(BOSSES[stage].type,BOSSES[stage].type);
+  zergCampaignQuotas(stage,'hell').forEach((n,i)=>{if(n)models.set(ZERG_SIX[i],ZERG_SIX[i]);});
  }
+ if(models.has('swarm_host'))models.set('zerg_locust','zerg_locust');
+ if(models.has('brood_lord'))models.set('zerg_broodling','zerg_broodling');
  return models;
 }
 
@@ -32,8 +37,9 @@ export function openingPreloadModels(race:Race,talents:TalentLevels={}){
  const models=new Map<string,CombatUnitType>();
  for(const type of FAMILIES_BY_RACE[race])models.set(type,type);
  for(const entry of campaignPreloadModels(1,3))models.set(...entry);
- if(race==='terran'){models.set('hellion.hellbat','hellion');models.set('viking.assault','viking');}
+ if(race==='terran'){models.set('hellion.hellbat','hellion');models.set('viking.assault','viking');models.set('liberator.ag','liberator');}
  if(race==='protoss')models.set('interceptor','marine');
+ if(race==='zerg'){models.set('zerg_locust','zerg_locust');models.set('zerg_broodling','zerg_broodling');}
  if(talentRank(talents,race,'mercenary')){
   const families=race==='terran'?['marine','marauder','reaper']:race==='zerg'?['zergling','roach','hydralisk']:['zealot','stalker','immortal'];
   for(const elite of Object.values(ELITES))if(families.includes(elite.family))models.set(elite.model,elite.family);

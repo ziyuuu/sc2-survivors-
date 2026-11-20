@@ -57,6 +57,7 @@ export function prepareLabCase(w:World,id:string,roster='standard'){
  // Only the practice field has no ordinary stage deadline. Keep elapsed
  // time monotonic so periodic purchases still receive every real check.
  Object.defineProperty(w,'duration',{configurable:true,get:()=>Infinity});
+ delete w.expedition.zergEncounters;
  w.terrain=new FlatTerrain();w.obstacles=[];w.stage=id.startsWith('special:')?4:12;Object.assign(w.anchor,{x:0,z:0});w.prepareStage();
  w.entities.clear();w.pods=[];w.hive=null;w.expansionHives.clear();Object.assign(w,{waves:[],specialPlan:[],eventPlan:[]});w.nextWave=Infinity;w.nextExpansionAt=Infinity;
  w.missions.enabled=false;w.encounters.enabled=false;w.fieldEvents.nextPickup=Infinity;w.fieldEvents.nextHorde=Infinity;w.specialStages.portalChecked=w.stage;

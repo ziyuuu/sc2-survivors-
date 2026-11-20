@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-29",
+  "finding": "V06-QUEEN-UNLOCK-001",
+  "sourceCommit": "674c528ee8657f7b2f6ba743e2aac6c13f644eec",
+  "scope": "Controlled native World transactions, stage transitions, graph-codec JSON save roundtrips, and actual presentation HTML; not a browser or original user save.",
+  "checks": [
+    {
+      "case": "paid-unlock-progression-and-save",
+      "seed": 529,
+      "upgrades": 6,
+      "rerolls": 12,
+      "duplicateAppeared": false,
+      "repeatPurchase": false
+    },
+    {
+      "case": "paid-unlock-progression-and-save",
+      "seed": 41,
+      "upgrades": 6,
+      "rerolls": 12,
+      "duplicateAppeared": false,
+      "repeatPurchase": false
+    },
+    {
+      "case": "paid-unlock-progression-and-save",
+      "seed": 93,
+      "upgrades": 6,
+      "rerolls": 12,
+      "duplicateAppeared": false,
+      "repeatPurchase": false
+    },
+    {
+      "case": "all-family-unlock-eligibility",
+      "count": 30,
+      "duplicates": 0
+    },
+    {
+      "case": "queen-unit-purchase-is-not-production-unlock",
+      "unitCard": "虫后 ×1",
+      "visibleSummary": "获得 1名虫后，立即加入小队。",
+      "visibleDetail": "获得 1名虫后，立即加入小队。",
+      "unitCount": 1,
+      "productionUnlocked": false,
+      "unlockCardOffered": true
+    },
+    {
+      "case": "extra-development-choice-after-paid-unlock",
+      "duplicateAppeared": false
+    },
+    {
+      "case": "confirmed-stale-unlock-after-free-research-with-extra-choice",
+      "seed": 529,
+      "equipment": [
+        "set.advanced.choice.4 ×4",
+        "module.contract.4"
+      ],
+      "target": "unlock.queen",
+      "purchased": "hatchery",
+      "productionUnlocked": true,
+      "staleCardVisible": true,
+      "staleStatus": "待解锁",
+      "purchaseButtonDisabled": true,
+      "repeatPurchase": false,
+      "extraCharge": 0,
+      "persistsAfterSaveRestore": true,
+      "clearedByRefresh": true,
+      "clearedNextWindow": true
+    }
+  ],
+  "rerolledShelves": 36,
+  "conclusion": "Confirmed stale Queen unlock card after hatchery free research with an extra development choice; the card incorrectly says locked, but repeat purchase is rejected without a charge. Ordinary paid unlock progression does not reproduce it. The original user scenario remains unconfirmed.",
+  "cause": {
+    "freeResearch": "src/simulation/building/rules.ts:121-143",
+    "retainedOffers": "src/simulation/starship/economy.ts:21-22",
+    "cacheRead": "src/simulation/building/rules.ts:99-100",
+    "misleadingStatus": "src/ui/presentation/reference-card.ts:13"
+  },
+  "limitations": [
+    "Original user card, action sequence, save and build are unknown.",
+    "Test stages are ended programmatically; not natural combat.",
+    "Initial diagnostic attempts used an invalid battle-time target command and raw JSON without graph decoding; those harness errors were corrected before these successful checks."
+  ],
+  "productionFilesChanged": false,
+  "deployed": false,
+  "relatedRegression": {
+    "passed": 35,
+    "failed": 0,
+    "files": [
+      "test/expedition-drafts.test.ts",
+      "test/integration-i03.test.ts",
+      "test/starship-support-economy.test.ts"
+    ]
+  },
+  "boardRevision": 297
+}

@@ -2,10 +2,10 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 /** Incremental source-verified models, separate from the retained core bundle. */
-export async function loadArmedSupportAssets({restore=false,check=false}={}){
- const manifest=JSON.parse(await fs.readFile('deploy/runtime/armed-support-assets.json','utf8'));
+export async function loadArmedSupportAssets({restore=false,check=false,bio=false}={}){
+ const manifest=JSON.parse(await fs.readFile(bio?'deploy/runtime/bio-assets.json':'deploy/runtime/armed-support-assets.json','utf8'));
  if(manifest.version!==1||new Set(manifest.records.map(r=>r.id)).size!==manifest.records.length)throw Error('Invalid armed asset manifest');
- if(createHash('sha256').update((await fs.readFile('src/assets/armed-support.ts','utf8')).replace(/\r\n/g,'\n')).digest('hex')!==manifest.generatedSha256)throw Error('Armed registry changed');
+ if(createHash('sha256').update((await fs.readFile(bio?'src/assets/bio.ts':'src/assets/armed-support.ts','utf8')).replace(/\r\n/g,'\n')).digest('hex')!==manifest.generatedSha256)throw Error('Armed registry changed');
  for(const row of manifest.records){
   if(row.kind!=='model'||row.status!=='available'||!row.sourcePath||!row.sourceBuild||!/^[a-f0-9]{64}$/.test(row.sourceSha256)||!row.packedFile.startsWith('public/assets/')||row.packedFile.includes('..')||row.url!==row.packedFile.slice(7))throw Error('Invalid armed source identity '+row.id);
   if(row.gitPath!=='deploy/runtime/assets/'+row.packedSha256+'.glb')throw Error('Invalid armed Git resource '+row.id);

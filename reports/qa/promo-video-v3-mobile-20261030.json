@@ -1,0 +1,16 @@
+{
+  "file": "dist/promo-video-v3-20261030/Starcraft-Survivors-Trailer-v3-mobile.mp4",
+  "bytes": 55687509,
+  "sha256": "84eec46a0f62b29852b38f991ebc81d499a51cc3207570268a8a83897511161b",
+  "duration": 240,
+  "size": [
+    1920,
+    1080
+  ],
+  "fps": 30,
+  "decodeErrors": "",
+  "driveUpload": "success",
+  "driveUrl": "https://drive.google.com/file/d/1su5_AkcnvStMOSxznpPL8Y_iKsqlTMME/view?usp=drivesdk",
+  "driveId": "1su5_AkcnvStMOSxznpPL8Y_iKsqlTMME",
+  "driveByteSizeVerified": true
+}

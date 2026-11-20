@@ -1,0 +1,49 @@
+{
+  "task": "DEMO-01",
+  "date": "2026-11-03",
+  "request": "User reported missing cover",
+  "cause": "Cover had only been provided separately and as HTML poster; it was omitted from the MP4 opening.",
+  "change": "Added approved artwork as a three-second video intro to both versions; retained all 12 gameplay chapters.",
+  "durationSeconds": 167.7,
+  "media": [
+    {
+      "file": "dist/gameplay-demo-20261103/Starcraft-Survivors-Gameplay-Demo-With-Cover.mp4",
+      "bytes": 58697561,
+      "sha256": "bfdf9732caa2a6119d5faaa62f8a5ccca9ba92732a2bb6b0f682d1ebe1bf38f1",
+      "seconds": 167.7,
+      "size": [
+        1920,
+        1080
+      ],
+      "fps": 30,
+      "decodedFrames": 5031,
+      "decodeErrors": "",
+      "audio": [
+        "mean_volume: -23.4 dB",
+        "max_volume: -4.7 dB"
+      ]
+    },
+    {
+      "file": "dist/gameplay-demo-20261103/Starcraft-Survivors-Gameplay-Demo-Mobile-With-Cover.mp4",
+      "bytes": 21031887,
+      "sha256": "e78fc2acdb7238aff8d4379ea3665f155cb30c3d4c663885c89f8d1832358840",
+      "seconds": 167.7,
+      "size": [
+        1920,
+        1080
+      ],
+      "fps": 30,
+      "decodedFrames": 5031,
+      "decodeErrors": "",
+      "audio": [
+        "mean_volume: -23.5 dB",
+        "max_volume: -4.5 dB"
+      ]
+    }
+  ],
+  "browserFirstFramesReviewed": 2,
+  "chapterSeeks": 24,
+  "passed": true,
+  "productChanges": false,
+  "publication": false
+}

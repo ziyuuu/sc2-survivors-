@@ -24,10 +24,10 @@ test('sky evolution preserves a hatchery ground direction and saved fixed quotes
  const copy=make();copy.restoreRun(w.captureRun());const restored=fixed(copy,'evolve-zerg.air')!;assert.equal(restored.offerId,q.offerId);assert.equal(restored.minerals,q.minerals);
  assert.ok(copy.purchaseDevelopmentOffer(copy.draftWindowKey,restored.offerId,copy.expedition.shopRevision,g.ids[0]));assert.deepEqual(copy.expedition.building!.groups[0].directions,['ground','air']);assert.ok(copy.expedition.tech['unlock.mutalisk']);
 });
-test('wrong target, stale revision and insufficient funds cannot buy or consume fixed evolution',()=>{
+test('wrong target and stale revision cannot buy fixed evolution; the valid choice is free',()=>{
  const w=fixture();w.expedition.tech['unlock.roach']=1;w.generateDevelopmentOffers(w.draftWindowKey);const q=fixed(w)!,wallet={...w.wallet},rev=w.expedition.shopRevision;
  assert.equal(w.purchaseDevelopmentOffer(w.draftWindowKey,q.offerId,rev,9999),false);assert.equal(w.purchaseDevelopmentOffer(w.draftWindowKey,q.offerId,rev-1,1),false);assert.deepEqual(w.wallet,wallet);
- w.wallet.minerals=w.wallet.gas=0;assert.equal(w.purchaseDevelopmentOffer(w.draftWindowKey,q.offerId,rev,1),false);assert.equal(w.expedition.developmentBought,false);assert.equal(w.rewardRound,'building');
+ w.wallet.minerals=w.wallet.gas=0;assert.ok(w.purchaseDevelopmentOffer(w.draftWindowKey,q.offerId,rev,1));assert.deepEqual(w.wallet,{minerals:0,gas:0});assert.equal(w.expedition.developmentBought,true);assert.equal(w.rewardRound,'random');
 });
 
 test('opening evolution from an older qualified shelf saves newly frozen prices once without redrawing its cards',()=>{

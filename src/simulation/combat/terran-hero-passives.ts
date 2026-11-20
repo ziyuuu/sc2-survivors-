@@ -1,3 +1,4 @@
+import {bioHealingFactor} from './bio-runtime';
 import {equipmentHealingOutput} from '../starship/native-effects';
 import {equipmentAreaRadius,equipmentAreaFactor,equipmentCluster} from '../starship/weapon-areas';
 import {equipmentRecoveryFactor} from '../starship/runtime';
@@ -32,7 +33,7 @@ export function tickTerranHero(w:World,u:Entity,dt:number){if(!u.heroId||u.hp<=0
  if(u.heroId==='nova'){const s=heroState(u),idle=w.time-Math.max(s.lastFire,u.lastDamagedAt??-100)>=2;if(!idle){s.cloakEpisode=false;u.cloaked=false;}else if(!s.cloakEpisode){s.cloakEpisode=true;s.cloakUntil=w.time+6;s.charge=1;}u.cloaked=idle&&s.cloakUntil>w.time;}
  if(u.heroId==='tychus'&&w.time-heroState(u).lastFire>=2)heroState(u).warmupStart=null;
  if(u.heroId==='swann'){const targets=firstSupportTargets(w.entities.values(),a=>a.id!==u.id&&permanentMechanical(a)&&a.hp<a.maxHp&&w.edgeDistance(u,a)<=8&&w.hasAttackLine(u,a),healthOrder,7);u.healTargets=[];
-  for(const a of targets){const suppression=Math.min(.5,Math.max(w.statuses.value(a.id,'bleed',w.time),w.statuses.value(a.id,'corruption',w.time))),gain=Math.min(a.maxHp-a.hp,TERRAN_HERO_REPAIR_PER_SECOND*terranHeroGrowth(u.rank).passive*(1+(talentModifiers(w,u).healingPct??0))*(1-suppression)*dt*equipmentRecoveryFactor(w,a)*equipmentHealingOutput(w,u));if(gain>0){a.hp+=gain;w.stats.healed+=gain;observeRecovery(w,u,a,gain);u.healTargets.push(a.id);}}}
+  for(const a of targets){const suppression=1-bioHealingFactor(w,a),gain=Math.min(a.maxHp-a.hp,TERRAN_HERO_REPAIR_PER_SECOND*terranHeroGrowth(u.rank).passive*(1+(talentModifiers(w,u).healingPct??0))*(1-suppression)*dt*equipmentRecoveryFactor(w,a)*equipmentHealingOutput(w,u));if(gain>0){a.hp+=gain;w.stats.healed+=gain;observeRecovery(w,u,a,gain);u.healTargets.push(a.id);}}}
 }
 /** Snapshot one main cycle before launch. Secondary/APM packets never call this. */
 export function beginHeroAttack(w:World,u:Entity,target:Body){if(!u.heroId)return;const s=heroState(u);if(u.heroId==='tychus'&&(s.warmupStart===null||w.time-s.lastFire>=2))s.warmupStart=w.time;

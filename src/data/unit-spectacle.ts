@@ -3,6 +3,12 @@ import type {CoreShape} from './hero-spectacle';
 export interface UnitSpectacle {core:CoreShape;color:number;edge:number;size:number;contact:'gun'|'claw'|'blade'|'flame'|'shell'|'beam'|'spine'|'acid'|'energy'|'support'|'children';death:'armor'|'bio'|'psionic'|'reactor';debris:number;}
 /** Authored for every ordinary family. Elites retain their family weapon and genuine mechanism. */
 export const UNIT_SPECTACLE:Record<FamilyId,UnitSpectacle>={
+ ghost:{core:'slug',color:0xeec080,edge:0xffeed2,size:.1,contact:'gun',death:'armor',debris:3},
+ widow_mine:{core:'slug',color:0xe7b877,edge:0xfcdd9b,size:.2,contact:'shell',death:'reactor',debris:4},
+ cyclone:{core:'slug',color:0xf7b157,edge:0xffe7af,size:.15,contact:'shell',death:'reactor',debris:6},
+ raven:{core:'plate',color:0xefb969,edge:0xffda95,size:.15,contact:'support',death:'reactor',debris:6},
+ liberator:{core:'slug',color:0xffac66,edge:0xffdfa2,size:.19,contact:'shell',death:'reactor',debris:7},
+ battlecruiser:{core:'slug',color:0xffb048,edge:0xffe7aa,size:.17,contact:'beam',death:'reactor',debris:10},
  marine:{core:'slug',color:0xffc17a,edge:0xffebba,size:.10,contact:'gun',death:'armor',debris:3},
  marauder:{core:'slug',color:0xd39964,edge:0xffdcb7,size:.18,contact:'shell',death:'armor',debris:5},
  reaper:{core:'slug',color:0xf5aa5b,edge:0xffdfab,size:.10,contact:'gun',death:'armor',debris:4},
@@ -23,6 +29,12 @@ export const UNIT_SPECTACLE:Record<FamilyId,UnitSpectacle>={
  ultralisk:{core:'blade',color:0xa09b70,edge:0xd8d4a1,size:.34,contact:'claw',death:'bio',debris:12},
  mutalisk:{core:'blade',color:0xb6c365,edge:0xdce38b,size:.22,contact:'acid',death:'bio',debris:7},
  corruptor:{core:'spore',color:0x9a8543,edge:0xcdd184,size:.25,contact:'acid',death:'bio',debris:8},
+ aberration:{core:'blade',color:0xa9916b,edge:0xddc8a2,size:.3,contact:'claw',death:'bio',debris:9},
+ devourer:{core:'spore',color:0xa58cbb,edge:0xd9bbef,size:.24,contact:'acid',death:'bio',debris:8},
+ infestor:{core:'spore',color:0x94b461,edge:0xcbe499,size:.17,contact:'acid',death:'bio',debris:5},
+ swarm_host:{core:'spore',color:0xb39f70,edge:0xe0cb9e,size:.17,contact:'children',death:'bio',debris:7},
+ viper:{core:'spore',color:0x85a861,edge:0xc5da8b,size:.16,contact:'acid',death:'bio',debris:6},
+ brood_lord:{core:'spore',color:0xac956f,edge:0xd9bf95,size:.29,contact:'children',death:'bio',debris:9},
  zealot:{core:'blade',color:0x63bdeb,edge:0xecfbff,size:.17,contact:'blade',death:'psionic',debris:5},
  adept:{core:'crystal',color:0xb98c54,edge:0xffe6a4,size:.18,contact:'energy',death:'psionic',debris:5},
  stalker:{core:'crystal',color:0x738cee,edge:0xb9e3ff,size:.21,contact:'energy',death:'reactor',debris:7},

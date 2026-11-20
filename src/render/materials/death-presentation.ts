@@ -6,5 +6,5 @@ import {displayDeathModelKey,unitMaterialIdentity} from './elite-visual';
 export function deathPresentation(event:VisualEvent,live?:Entity){
  if(!event.unitType)return undefined;
  const unit={...live,...event,...event.deathAppearance,unitType:event.unitType,team:event.sourceTeam??live?.team,hp:0,mode:event.siege?'siege':'tank'} as Entity;
- return {type:displayDeathModelKey(unit),scale:modelPresentationScale(unit),...unitMaterialIdentity(unit,event.time)};
+ return {type:displayDeathModelKey(unit),scale:modelPresentationScale(unit),...unitMaterialIdentity(unit,event.time),refit:event.doomsdayRefit};
 }

@@ -1,0 +1,124 @@
+{
+  "date": "2026-10-28T14:42:14.400Z",
+  "origin": "https://sc-survivors.coze.site",
+  "scope": "Public HTTP responses, byte hashes and code identity only; not an iPhone runtime test",
+  "appBuild": "fb923fd9ec6430f39c00c0a96400b020a82932ffd4babe4e2a0bbf94a4a457c5",
+  "resourceRelease": "ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2",
+  "indexName": "sites-pack-index.0bb43ff1011a0ab1462d.js",
+  "standaloneFiles": 43,
+  "standaloneRequests": 86,
+  "bundles": 14,
+  "passed": true,
+  "matches": {
+    "launcher": {
+      "matchesLocal": true,
+      "sha256": "963fce71b2ca6ffbf4ce4be395004266b289590391c592e6a890412a721fb1a1"
+    },
+    "sw": {
+      "matchesLocal": true,
+      "sha256": "72e7e953c451843bded423880518ee9230598307fa3c777f391bc9f910fa543a"
+    },
+    "manifest": {
+      "matchesLocal": true,
+      "sha256": "d679c184e9808872a03b713f012820c0821341838c1c2d07e67d3e0d97dc4c8c"
+    },
+    "index": {
+      "matchesLocal": true,
+      "sha256": "0bb43ff1011a0ab1462d14581dbeec3ad02e9b8c46f1d84ef5bdf2b08cdb0f95"
+    },
+    "entry": {
+      "matchesLocal": true,
+      "sha256": "0b4522a4bc9e893ebffef1b4a36f00132b8a0eab2c3aa0197849770198d5890c"
+    }
+  },
+  "launcherReloadOnlyRetryButton": true,
+  "gameDirectLocationReload": false,
+  "htmlAdditionalExternalScript": true,
+  "checked": [
+    {
+      "path": "/",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "cache": "no-cache",
+      "bytes": 958261,
+      "sha256": "16be5b8339c7a323e60076b6d727b45282b7b4e8818746ad1a0e4f52c9b412b6"
+    },
+    {
+      "path": "/web-release.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8",
+      "cache": "public, max-age=31536000, immutable",
+      "bytes": 971,
+      "sha256": "06f70116f3786cd587d8912f3a1d7f8f169768dd93a556bb1eee9fa9f3d29e48"
+    },
+    {
+      "path": "/assets/index-963fce71b2ca6ffb.js",
+      "status": 200,
+      "type": "application/javascript; charset=utf-8",
+      "cache": "public, max-age=31536000, immutable",
+      "bytes": 4018,
+      "sha256": "963fce71b2ca6ffbf4ce4be395004266b289590391c592e6a890412a721fb1a1"
+    },
+    {
+      "path": "/sites-sw.js",
+      "status": 200,
+      "type": "application/javascript; charset=utf-8",
+      "cache": "no-cache",
+      "bytes": 6939,
+      "sha256": "72e7e953c451843bded423880518ee9230598307fa3c777f391bc9f910fa543a"
+    },
+    {
+      "path": "/asset-manifest.ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2.json",
+      "status": 200,
+      "type": "application/json; charset=utf-8",
+      "cache": "public, max-age=31536000, immutable",
+      "bytes": 2309344,
+      "sha256": "d679c184e9808872a03b713f012820c0821341838c1c2d07e67d3e0d97dc4c8c"
+    },
+    {
+      "path": "/sites-pack-index.0bb43ff1011a0ab1462d.js",
+      "status": 200,
+      "type": "application/javascript; charset=utf-8",
+      "cache": "public, max-age=31536000, immutable",
+      "bytes": 782043,
+      "sha256": "0bb43ff1011a0ab1462d14581dbeec3ad02e9b8c46f1d84ef5bdf2b08cdb0f95"
+    },
+    {
+      "path": "/assets/sc2-entry.0b4522a4bc9e893e.js.gz",
+      "status": 200,
+      "type": "application/octet-stream",
+      "cache": "public, max-age=31536000, immutable",
+      "bytes": 7670004,
+      "sha256": "0b4522a4bc9e893ebffef1b4a36f00132b8a0eab2c3aa0197849770198d5890c"
+    }
+  ],
+  "requestCount": 107,
+  "browser": {
+    "platform": "Windows Codex in-app browser",
+    "race": "terran",
+    "difficulty": "normal",
+    "equipment": 0,
+    "map": "工业遗址",
+    "initialContinueDisabled": true,
+    "firstStageReward": true,
+    "refreshThenContinue": true,
+    "observedRestoreProgress": [
+      66,
+      83,
+      97,
+      100
+    ],
+    "restoredPhase": "stage 1 base construction reward",
+    "walletBeforeAfter": {
+      "minerals": 103,
+      "gas": 56
+    },
+    "sameThreeOffers": true,
+    "warningErrorLogsAtCheckpoints": [],
+    "physicalIphoneTested": false,
+    "fullPredownloadTested": false,
+    "legacyWorkerUpgradeTested": false,
+    "performanceMeasured": false,
+    "toolTimeoutDuringRestore": "One observation timed out; later screenshot 97%, then completed normally"
+  }
+}

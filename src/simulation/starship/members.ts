@@ -1,4 +1,5 @@
 import {identityRoll,plannedElites,worldContent} from '../progression/run-content';
+import {availableNewBodies} from '../combat/doomsday-roster';
 import {identityReserved} from '../missions/rewards';
 import {canReceiveRecovery} from '../combat/support-targets';
 import {equipmentRecoveryPresentation} from './presentation';
@@ -19,7 +20,7 @@ import type {ActiveEquipmentEffect} from './selection';
 import {bindingDirection,directionMatches,equipmentCanGrow,equipmentRecruitRank,permanentEquipmentBody} from './eligibility';
 
 export interface EquipmentMemberSource {source:string;items:readonly string[];independent:boolean;cannotGrow?:boolean;cannotRevive?:boolean;origin?:string;bound?:boolean}
-export interface PendingEquipmentMember {source:ActiveEquipmentEffect;type:CombatUnitType;rank:number;count:number;independent:boolean;seconds?:number;heal?:number;elite?:boolean;eliteId?:EliteId;cannotGrow?:boolean;cannotRevive?:boolean;origin?:string;bound?:boolean;receipt?:string;burstSeconds?:number}
+export interface PendingEquipmentMember {doomsdayLegacyBodies?:number;source:ActiveEquipmentEffect;type:CombatUnitType;rank:number;count:number;independent:boolean;seconds?:number;heal?:number;elite?:boolean;eliteId?:EliteId;cannotGrow?:boolean;cannotRevive?:boolean;origin?:string;bound?:boolean;receipt?:string;burstSeconds?:number}
 const roll=(w:World)=>equipmentRandom(w.starship.account);
 const coreType=(w:World):UnitType=>w.expedition.race==='terran'?'marine':w.expedition.race==='zerg'?'zergling':'zealot';
 const choose=<T>(w:World,pool:readonly T[]):T|undefined=>pool.length?pool[Math.floor(identityRoll(w,'equipment/choice',()=>roll(w))*pool.length)]:undefined;
@@ -56,12 +57,12 @@ export function initializeEquipmentMembers(w:World){const effects=activeEquipmen
  equipmentStageMembers(w);deliverEquipmentMembers(w);evolveEquipmentMembers(w);
 }
 export function equipmentStageMembers(w:World){for(const e of activeEquipmentEffects(w)){if(e.key!=='stage_yamato')continue;const receipt=e.source+':stage:'+(w.endless?'endless:'+w.endless.round:w.stage),run=w.starship.account.run;if(!run||run.receipts.has(receipt))continue;run.receipts.add(receipt);queue(w,{source:e,type:'yamato_battlecruiser',rank:e.values[1],count:1,independent:true,origin:e.key,receipt});}}
-export function deliverEquipmentMembers(w:World){if(w.specialStages.active)return;for(const pending of w.starship.pendingMembers){while(pending.count>0){if(!pending.independent&&(!w.expedition.familySlots.includes(pending.type as UnitType)||w.familySeatCount(pending.type as UnitType)>=w.familyMemberCap(pending.type as UnitType)||w.availableCapacity(pending.type as UnitType)<=0))break;const point=w.freePosition(pending.type,w.anchor,.8,10);if(!point)break;
+export function deliverEquipmentMembers(w:World){if(w.specialStages.active)return;for(const pending of w.starship.pendingMembers){while(pending.count>0){if(!pending.independent&&w.expedition.build?.main==='doomsday'&&!(pending.doomsdayLegacyBodies??0)&&availableNewBodies(w,pending.type as UnitType,pending)<=0)break;if(!pending.independent&&(!w.expedition.familySlots.includes(pending.type as UnitType)||w.familySeatCount(pending.type as UnitType)>=w.familyMemberCap(pending.type as UnitType)||w.availableCapacity(pending.type as UnitType)<=0))break;const point=w.freePosition(pending.type,w.anchor,.8,10);if(!point)break;
   const previous=new Set(w.entities.keys()),u=pending.independent?w.addUnit(pending.type,'terran',point.x,point.z,pending.rank):w.addFamilyMember(pending.type as UnitType,point,pending.rank),elite=pending.eliteId??(pending.elite?choose(w,variants(w,pending.type))?.id:undefined);
   const members=w.allies().filter(member=>!previous.has(member.id));if(pending.bound)w.starship.boundMembers.set(pending.source.source,u.id);
   for(const member of members){w.starship.members.set(member.id,{source:pending.source.source,items:pending.source.items,independent:pending.independent,cannotGrow:pending.cannotGrow,cannotRevive:pending.cannotRevive,origin:pending.origin,bound:pending.bound});if(pending.seconds){member.temporary=true;member.temporaryUntil=w.time+pending.seconds;}if(pending.burstSeconds)w.starship.numbers.set('drop-speed:'+member.id,w.time+pending.burstSeconds);if(elite){member.eliteId=elite;member.modelKey=ELITES[elite].model;}w.refreshStats(member,true);equipmentPresentation(w,'reinforcement',member,undefined,pending.origin);}
   if(pending.bound)w.starship.boundMembers.set(pending.source.source,u.id);
-  pending.count--;lockEquipmentSource(w,pending.source);
+  pending.count--;if(pending.doomsdayLegacyBodies)pending.doomsdayLegacyBodies--;lockEquipmentSource(w,pending.source);
   if(pending.heal){for(const patient of w.allies())if(canReceiveRecovery(patient)&&Math.hypot(patient.x-u.x,patient.z-u.z)<=4+patient.unitRadius){const gain=Math.min(patient.maxHp-patient.hp,patient.maxHp*pending.heal*(1+w.starship.totals.defense/1000));patient.hp+=gain;w.stats.healed+=gain;observeRecovery(w,u,patient,gain);equipmentRecoveryPresentation(w,patient,gain);}pending.heal=0;}
  }}w.starship.pendingMembers=w.starship.pendingMembers.filter(p=>p.count>0);for(const e of activeEquipmentEffects(w).filter(e=>e.key==='opening_hero'))grantHero(w,e);}
 export function inheritEquipmentMember(w:World,u:Entity,from:Entity){const member=w.starship.members.get(from.id);if(member)w.starship.members.set(u.id,{...member});}

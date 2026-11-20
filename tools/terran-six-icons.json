@@ -1,0 +1,38 @@
+[
+  {
+    "id": "unit.ghost",
+    "name": "btn-unit-terran-ghost",
+    "assetPath": "Assets/Textures/btn-unit-terran-ghost.dds",
+    "sourceActorId": "Ghost"
+  },
+  {
+    "id": "unit.widow_mine",
+    "name": "btn-unit-terran-widowmine",
+    "assetPath": "Assets/Textures/btn-unit-terran-widowmine.dds",
+    "sourceActorId": "WidowMine"
+  },
+  {
+    "id": "unit.cyclone",
+    "name": "btn-unit-terran-cyclone",
+    "assetPath": "Assets/Textures/btn-unit-terran-cyclone.dds",
+    "sourceActorId": "Cyclone"
+  },
+  {
+    "id": "unit.raven",
+    "name": "btn-unit-terran-raven",
+    "assetPath": "Assets/Textures/btn-unit-terran-raven.dds",
+    "sourceActorId": "Raven"
+  },
+  {
+    "id": "unit.liberator",
+    "name": "btn-ability-terran-liberator-aamode",
+    "assetPath": "Assets/Textures/btn-ability-terran-liberator-aamode.dds",
+    "sourceActorId": "Liberator"
+  },
+  {
+    "id": "unit.battlecruiser",
+    "name": "btn-unit-terran-battlecruiser",
+    "assetPath": "Assets/Textures/btn-unit-terran-battlecruiser.dds",
+    "sourceActorId": "Battlecruiser"
+  }
+]

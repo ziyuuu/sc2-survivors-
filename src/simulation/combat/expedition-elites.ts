@@ -1,3 +1,5 @@
+import {mechanicalMemberCap} from './doomsday-growth';
+import {availableNewBodies} from './doomsday-roster';
 import {identityReserved} from '../missions/rewards';
 import {reservedZergElite} from './zerg-hero-revival';
 import {ELITES,type EliteId} from '../../data/elites';
@@ -5,4 +7,4 @@ import {RUNTIME_ASSETS} from '../../assets/runtime.generated';
 import {familyRace} from '../../data/races';
 import type {World} from '../world';
 import {equipmentCanGrow} from '../starship/eligibility';
-export function canAcquireExpeditionElite(w:World,id:EliteId){const s=w.expedition,e=ELITES[id];if(identityReserved(w,'elite',id))return false;if(!s||!e||familyRace(e.family)!==s.race||!s.familySlots.includes(e.family)||w.pendingElites.some(other=>ELITES[other].family===e.family))return false;const living=w.eliteOwned(id);if(living)return living.rank<5&&equipmentCanGrow(w,living);if(reservedZergElite(w,id))return false;if(!RUNTIME_ASSETS.some(asset=>asset.id==='model.'+e.model&&asset.status==='available'))return false;return w.eliteCandidates(id).length>0||w.familySeatCount(e.family)<w.familyMemberCap(e.family)&&w.ordinaryCapacity(e.family)-5>=w.reservedRanks(e.family);}
+export function canAcquireExpeditionElite(w:World,id:EliteId){const s=w.expedition,e=ELITES[id];if(identityReserved(w,'elite',id))return false;if(!s||!e||familyRace(e.family)!==s.race||!s.familySlots.includes(e.family)||w.pendingElites.some(other=>ELITES[other].family===e.family))return false;const living=w.eliteOwned(id);if(living)return living.rank<mechanicalMemberCap(w,living)&&equipmentCanGrow(w,living);if(reservedZergElite(w,id))return false;if(!RUNTIME_ASSETS.some(asset=>asset.id==='model.'+e.model&&asset.status==='available'))return false;return w.eliteCandidates(id).length>0||(w.expedition.build?.main==='doomsday'?availableNewBodies(w,e.family)>0:w.familySeatCount(e.family)<w.familyMemberCap(e.family))&&w.ordinaryCapacity(e.family)-5>=w.reservedRanks(e.family);}

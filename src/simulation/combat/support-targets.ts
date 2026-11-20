@@ -13,7 +13,7 @@ export function firstSupportTargets(bodies:Iterable<Entity>,eligible:(u:Entity)=
 }
 export const healthOrder=(a:Entity,b:Entity)=>a.hp/a.maxHp-b.hp/b.maxHp||a.id-b.id;
 /** S15 locks recovery until its forced expiry, including the deadline's fixed step. */
-export const canReceiveRecovery=(u:Entity)=>!u.lastStandUntil;
+export const canReceiveRecovery=(u:Entity)=>u.zergSix?.temp?.kind!=='converted'&&!u.lastStandUntil&&u.bio?.role!=='cocoon'&&u.bio?.rushEnd===undefined;
 export function medicalTargets(w:World,u:Entity,radius:number,limit:number,previous?:number|null){
  let retained:Entity|undefined;
  const selected=firstSupportTargets(w.entities.values(),p=>{

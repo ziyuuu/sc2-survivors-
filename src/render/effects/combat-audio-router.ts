@@ -4,14 +4,18 @@ import {combatFxProfile,sourceHologramDeath} from './combat-fx-profile';
 import {SourceEventIndex} from './source/event-index';
 import {StimPresentation} from './stim-presentation';
 import {equipmentPresentationReceipts} from '../../simulation/starship/presentation';
-import {SOUND_DATA,type WeaponSound} from './audio-source-data';
+import {SOUND_DATA,ZERG_SIX_SOUND_CUES,type WeaponSound} from './audio-source-data';
 import type {SoundCue} from './native-sound-player';
 import {MotionAudio} from './motion-audio';
+import {DOOMSDAY_STYLE} from '../../simulation/combat/doomsday-presentation';
 
 type Identity=Partial<Entity>&{siege?:boolean;sourceTeam?:Entity['team'];targetFlying?:boolean};
 export type AudioChannel={key:string;bank:string;start?:string;end?:string;priority:number;volume:number;rate?:number};
 export function weaponSoundKey(u:Identity):string{
  if(u.summonKind==='interceptor')return 'interceptor';
+ if(u.unitType==='liberator')return u.nativeMode==='liberator_ag'?'liberator-ag':'liberator';
+ if(u.unitType==='widow_mine')return u.targetFlying?'widow_mine-air':'widow_mine';
+ if(u.unitType==='cyclone'||u.unitType==='ghost')return u.unitType;
  if(u.unitType==='battlecruiser')return 'hero:yamato_battlecruiser'+(u.targetFlying?'-air':'');
  if(u.mission?.fleet)return 'hero:yamato_battlecruiser'+(u.targetFlying?'-air':'');
  if(u.heroId){const air=u.targetFlying&&['yamato_battlecruiser','hots_leviathan'].includes(u.heroId);return 'hero:'+u.heroId+(air?'-air':'');}
@@ -19,7 +23,7 @@ export function weaponSoundKey(u:Identity):string{
  if(u.unitType==='roach'&&u.activeWeapon==='RoachMelee')return 'roach-melee';
  return combatFxProfile(u)?.key??u.unitType??'';
 }
-export function deathSoundKey(u:Identity):string{if(u.unitType==='battlecruiser')return 'hero:yamato_battlecruiser';const key=u.modelKey?.replace(/\.timeout$/,'');if(key&&['fun-nydus','fun-infested-marine','fun-cocoon'].includes(key))return key;return u.summonKind==='interceptor'?'interceptor':u.heroId?'hero:'+u.heroId:u.unitType??'';}
+export function deathSoundKey(u:Identity):string{if(u.unitType==='battlecruiser')return 'battlecruiser';const key=u.modelKey?.replace(/\.timeout$/,'');if(key&&['fun-nydus','fun-infested-marine','fun-cocoon','overlord'].includes(key))return key;return u.summonKind==='interceptor'?'interceptor':u.heroId?'hero:'+u.heroId:u.unitType??'';}
 const fortWeapon=(kind:string)=>kind==='bunker'?'building:bunker':kind==='turret_protoss'?'building:photon-cannon':kind==='turret_zerg'?'building:spine-crawler':'building:auto-turret';
 /** Read-only audio receipts; no damage, simulation timers or random calls. */
 export class CombatAudioRouter {
@@ -30,7 +34,7 @@ export class CombatAudioRouter {
  private motion=new MotionAudio();
  readonly routes=new Set<string>();
  reset(){this.serial=this.equipmentSerial=0;this.time=0;this.run='';this.initialized=false;this.seen.clear();this.stim.reset();this.routes.clear();this.cloaked.clear();this.ability.clear();this.fleetCasts.clear();this.motion.reset();}
- resumeAt(w:World){this.reset();this.initialized=true;this.time=w.time;this.run=w.runId??'';this.serial=w.visualEvents.at(-1)?.serial??0;this.equipmentSerial=equipmentPresentationReceipts(w).at(-1)?.serial??0;this.stim.resumeAt(w);this.motion.resumeAt(w);for(const b of w.encounters.expanded.bursts)this.seen.set('fun-burst:'+b.id,w.time);for(const e of w.heroAttackEvents)this.seen.set('hero:'+e.kind+':'+e.packet.id+':'+e.at,w.time);}
+ resumeAt(w:World){this.reset();this.initialized=true;this.time=w.time;this.run=w.runId??'';this.serial=w.visualEvents.at(-1)?.serial??0;this.equipmentSerial=equipmentPresentationReceipts(w).at(-1)?.serial??0;this.stim.resumeAt(w);this.motion.resumeAt(w);for(const e of w.expedition.doomsday?.slashes??[])if(e.startTick<=w.tick)this.seen.set('sword:'+e.id,w.time);for(const b of w.encounters.expanded.bursts)this.seen.set('fun-burst:'+b.id,w.time);for(const e of w.heroAttackEvents)this.seen.set('hero:'+e.kind+':'+e.packet.id+':'+e.at,w.time);}
  private once(key:string,time:number){if(this.seen.has(key))return false;this.seen.set(key,time);return true;}
  update(w:World):{cues:SoundCue[];channels:AudioChannel[];silentStop:boolean}{
   if(this.initialized&&(w.time<this.time||this.run!==(w.runId??''))){this.resumeAt(w);return {cues:[],channels:[],silentStop:true};}
@@ -44,11 +48,21 @@ export class CombatAudioRouter {
   const weapon=(u:Identity):WeaponSound|undefined=>SOUND_DATA.weapons[weaponSoundKey(u)];
   const impact=(u:Identity,p:Point,surface?:string,key?:string)=>{const route=weapon(u);emit(surface==='shield'?route?.surfaces.shield??SOUND_DATA.special.shieldHit[0]:route?.surfaces[surface??'']??route?.impact,p,1,key);};
   // Consume paused history so unpausing cannot replay previous attacks/deaths.
-  if(stopped){this.serial=w.visualEvents.at(-1)?.serial??this.serial;this.equipmentSerial=equipmentPresentationReceipts(w).at(-1)?.serial??this.equipmentSerial;this.stim.resumeAt(w);this.motion.pauseAt(w);for(const b of w.encounters.expanded.bursts)this.once('fun-burst:'+b.id,w.time);for(const e of w.heroAttackEvents)this.once('hero:'+e.kind+':'+e.packet.id+':'+e.at,w.time);return {cues,channels,silentStop:true};}
+  if(stopped){this.serial=w.visualEvents.at(-1)?.serial??this.serial;this.equipmentSerial=equipmentPresentationReceipts(w).at(-1)?.serial??this.equipmentSerial;this.stim.resumeAt(w);this.motion.pauseAt(w);for(const e of w.expedition.doomsday?.slashes??[])if(e.startTick<=w.tick)this.once('sword:'+e.id,w.time);for(const b of w.encounters.expanded.bursts)this.once('fun-burst:'+b.id,w.time);for(const e of w.heroAttackEvents)this.once('hero:'+e.kind+':'+e.packet.id+':'+e.at,w.time);return {cues,channels,silentStop:true};}
+  for(const e of w.expedition.doomsday?.slashes??[])if(w.tick>=e.startTick&&w.tick-e.startTick<18)emit(SOUND_DATA.weapons.zealot?.attack,e.source,2,'sword:'+e.id);
   const index=new SourceEventIndex(w.visualEvents);
   for(const e of w.visualEvents){
    if(e.serial<=this.serial)continue;this.serial=e.serial;if(w.time-e.time>.3||!near(e))continue;
    const u=e as unknown as Identity,skill=e.heroId?SOUND_DATA.skills[e.heroId]:undefined;
+   if(e.zergCue){
+    const kind=e.zergCue==='burrow'?'burrow':e.zergCue==='vortex'||e.zergCue==='infection'||e.zergCue==='locusts'?'skill':undefined;
+    if(kind)emit(ZERG_SIX_SOUND_CUES[e.unitType+':'+kind],e.end,2);
+    else if(e.zergCue==='counter')emit(weapon(u)?.attack,e,2);
+    continue;
+   }
+   if(e.sixSkill){const bank=SOUND_DATA.skills[e.sixSkill==='yamato'?'yamato_battlecruiser':'six_'+e.sixSkill],impact=e.kind==='skill-impact'||e.kind==='skill-status';emit(impact?bank?.impact:bank?.launch,impact?e.end:e,3,'six-'+e.sixSkill+':'+e.serial);continue;}
+   if(e.kind==='attack'&&((e.doomsdayStyle??0)&DOOMSDAY_STYLE.sword))continue;
+   if(e.doomsdayEffect==='sword-hit'){emit(SOUND_DATA.weapons.zealot?.impact,e.end,2,'sword-impact:'+e.castId+':'+e.targetId);continue;}
    if(e.missionFleet&&e.kind==='skill-line'){
     const key=e.entityId+':'+e.time;this.fleetCasts.set(e.entityId,key);emit(skill?.charge,e,4,'fleet-charge:'+key);continue;
    }
@@ -62,7 +76,7 @@ export class CombatAudioRouter {
    else if(e.supportSound?.startsWith('impact-source:')){const source=w.entities.get(Number(e.supportSound.slice(14)));if(source)impact(source,e);}
    else if(e.kind==='attack'){
     if(e.heroId&&!e.missionFleet&&e.summonKind!=='interceptor')continue;
-    const route=weapon(u),flights=w.weaponFlights.filter(f=>f.attackId===e.attackId);
+    const route=weapon(u),flights=w.weaponFlights.filter(f=>f.attackId===e.attackId||f.doomsdayDerived?.kind==='vikingAssist'&&f.source.id===e.entityId&&f.source.shotSequence===e.shotSequence);
     if(!route?.channel&&!flights.length)emit(route?.attack,e,1,'attack:'+(e.attackId??e.serial));
    }else if(e.kind==='projectile-impact'){
     if(e.heroId&&!e.missionFleet&&e.summonKind!=='interceptor')continue;
@@ -76,7 +90,10 @@ export class CombatAudioRouter {
     if(e.equipmentProjection){special('hallucination',e.unitType==='colossus'?3:1,e,2);continue;}
     if(e.unitType==='baneling'&&index.nearbyAttack(e.entityId,e.time))continue;
     if(sourceHologramDeath(u)){special('hologramDeath',0,e,3);continue;}
-    const key=e.supportSound?.startsWith('death:')?e.supportSound.slice(6):deathSoundKey(u);for(const bank of SOUND_DATA.deaths[key]??[])emit(bank,e,3);
+    const key=e.supportSound?.startsWith('death:')?e.supportSound.slice(6):deathSoundKey(u);
+    // Overlord_Death has PassChance 25 in the original ActorData.
+    if(key==='overlord'&&((Math.imul(e.entityId,2654435761)^Math.imul(e.serial,2246822519))>>>30)!==0)continue;
+    for(const bank of SOUND_DATA.deaths[key]??[])emit(bank,e,3);
    }else if(e.kind==='skill-launch'&&skill){
     // Swann's four heal pulses share one cast and one repair channel.
     if(!['swann','artanis'].includes(e.heroId!))emit(skill.launch,e,4,'skill-start:'+e.heroId+':'+e.castId);
@@ -96,6 +113,7 @@ export class CombatAudioRouter {
     else if(e.eliteId==='sentry.2'){emit(SOUND_DATA.skills.vorazun.launch,e,3);emit(SOUND_DATA.skills.vorazun.impact,e.end,3);}
     else special(w.expedition.race==='terran'?'nuke':w.expedition.race==='zerg'?'bombardZerg':'bombardProtoss',w.expedition.race==='terran'?2:0,e,5);
    }
+   else if(e.kind==='support-flight'&&e.castId!==undefined&&e.doomsdaySegment==='repeat'){emit(weapon(u)?.attack,e,1,'flight:'+e.castId+':0');}
    else if(e.kind==='support-flight'&&e.supportSound){const route=SOUND_DATA.weapons[e.supportSound];if(route)emit(route.attack,e,2);}
    else if((e.kind==='support-impact'||e.kind==='support-pulse')&&e.supportSound){const route=SOUND_DATA.weapons[e.supportSound];if(route)emit(route.impact,e,2);else special(e.supportSound,0,e,2);}
    else if(e.kind==='drone-death')for(const bank of SOUND_DATA.deaths.drone)emit(bank,e,3);
@@ -161,6 +179,7 @@ export class CombatAudioRouter {
    else if(e.kind==='reinforcement'||e.kind==='fort-deploy')special(e.source.race==='zerg'?'unburrow':e.source.race==='protoss'?'warp':'podTerran',e.source.race==='zerg'?(e.source.radius>1?1:0):0,e.source,2);
    else if(e.kind==='heal')special(e.source.race==='zerg'?'queenHeal':'medicHeal',0,e.source,2);
   }
+  for(const e of w.visualEvents)if(e.bioEffect&&w.time-e.time<.3&&e.bioEffect!=='acid-hit')emit(e.bioEffect==='burst'?SOUND_DATA.weapons.baneling.attack:SOUND_DATA.weapons.roach.attack,e,3,'bio:'+e.serial);
   for(const b of w.encounters.expanded.bursts)if(b.model==='BanelingDeath'&&w.time-b.time>=0&&w.time-b.time<.3)emit(SOUND_DATA.weapons.baneling.attack,b.point,3,'fun-burst:'+b.id);
   const support=w.expedition.support;
   if(support.unique.activeUntil>w.time){const race=w.expedition.race;special(race==='terran'?'stimMarine':'queenHeal',0,w.anchor,4,'tactical:'+race+':'+support.unique.activeUntil);}

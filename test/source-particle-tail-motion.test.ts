@@ -48,6 +48,19 @@ test('authored fixed and clamped tail lengths survive the direction correction',
   const length=new THREE.Vector3().setFromMatrixColumn(rows[0].matrix,1).length();assert.ok(Math.abs(length-tail*1.4)<1e-10);
  }
 });
+test('a scoped Yamato tail limit shortens bright streaks while preserving the particle head',()=>{
+ const def=catalog.BattlecruiserYamatoAttackImpact as unknown as SourceEffectDefinition;
+ const shot={...request(def,.4),seed:191145};
+ const draw=(r:SourceEffectRequest)=>sourceParticleQuads(def,r,camera,()=>0).filter(q=>q.emitter===5);
+ const before=draw(shot),after=draw({...shot,maxTailLength:3.5});
+ const length=(q:SourceParticleQuad)=>new THREE.Vector3().setFromMatrixColumn(q.matrix,1).length();
+ assert.ok(before.some(q=>length(q)>30));
+ assert.equal(before.length,after.length);
+ after.forEach((q,i)=>{
+  assert.ok(length(q)<=3.5+1e-8);
+  assert.ok(head(q).distanceTo(head(before[i]))<1e-8);
+ });
+});
 test('force-integrated tails use the resulting velocity instead of their launch direction',()=>{
  const def=fixture({gravity:-8,drag:0,local_forces:1,emit_angle_x:ref(Math.PI/2)});def.forces=[{bone:0,material_reference_index:0,channels:1,width:0,strength:0}];
  const q=sourceParticleQuads(def,request(def,.5),camera,()=>-1000)[0],axis=new THREE.Vector3().setFromMatrixColumn(q.matrix,1).normalize();

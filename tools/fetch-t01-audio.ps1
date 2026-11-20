@@ -1,11 +1,12 @@
-param([string]$Requests='',[switch]$Merge)
+param([string]$Requests='',[switch]$Merge,[string]$Output='', [string]$MissingReport='.cache/t01-audio/missing-files.json')
 $ErrorActionPreference='Stop'
 $taskRoot=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 Set-Location -LiteralPath $taskRoot
 $taskLock=Get-Content tools/sc2-casc-lock.json -Raw | ConvertFrom-Json
 $taskPatch=(Get-FileHash tools/patch-casc-source.py).Hash.Substring(0,12)
-Add-Type -LiteralPath (Join-Path $taskRoot ('.cache/casclib-'+$taskLock.cascRevision+'/CascLib-'+$taskPatch+'.dll'))
-[CASCLib.CDNCache]::CachePath=Join-Path $taskRoot '.cache/casc-data'
+$taskTool=if($env:SC2_CASC_TOOL_DIRECTORY){$env:SC2_CASC_TOOL_DIRECTORY}else{Join-Path $taskRoot ('.cache/casclib-'+$taskLock.cascRevision)}
+Add-Type -LiteralPath (Join-Path $taskTool ('CascLib-'+$taskPatch+'.dll'))
+[CASCLib.CDNCache]::CachePath=if($env:SC2_CASC_DATA_DIRECTORY){$env:SC2_CASC_DATA_DIRECTORY}else{Join-Path $taskRoot '.cache/casc-data'}
 [CASCLib.CDNCache]::CacheData=$false
 [CASCLib.CASCConfig]::LoadFlags=[CASCLib.LoadFlags]::None
 [CASCLib.CASCConfig]::BuildConfigKeyOverride=$taskLock.buildConfig
@@ -26,6 +27,7 @@ $taskOutput='tools/t01-audio-source-dependencies.json'
 if(-not $Requests){
  $taskRows=@($taskPaths | Where-Object {$_ -match '(?i)^(?:mods/(?:core|liberty|swarm|void|libertystory|swarmstory|voidstory|novastoryassets|libertymulti|swarmmulti|voidmulti)\.sc2mod|mods/starcoop/starcoop\.sc2mod|campaigns/(?:liberty|swarm|void)\.sc2campaign)/base\.sc2data/gamedata/sounddata\.xml$'} | ForEach-Object {[pscustomobject]@{path=$_}})
 }else{$taskOutput='tools/t01-audio-dependencies.json'}
+if($Output){$taskOutput=$Output}
 $taskPrevious=@();if(Test-Path -LiteralPath $taskOutput){$taskPrevious=@(Get-Content -LiteralPath $taskOutput -Raw | ConvertFrom-Json)}
 $taskRecords=[Collections.Generic.List[object]]::new()
 if($Merge){foreach($taskRecord in $taskPrevious){$taskRecords.Add($taskRecord)}}
@@ -67,4 +69,4 @@ foreach($taskRow in $taskRows){
  Write-Output ('Verified '+$taskPath+' '+$taskBytes.Length)
 }
 Write-Output ('Verified original audio sources: '+$taskRecords.Count)
-if($Requests){$taskMissing.ToArray() | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath '.cache/t01-audio/missing-files.json' -Encoding utf8;if($taskMissing.Count){Write-Output ('Missing original files: '+$taskMissing.Count);exit 1}}
+if($Requests){$taskMissing.ToArray() | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $MissingReport -Encoding utf8;if($taskMissing.Count){Write-Output ('Missing original files: '+$taskMissing.Count);exit 1}}

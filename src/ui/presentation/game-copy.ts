@@ -1,7 +1,19 @@
 /** Player-facing translations only. Stored definitions and combat values stay intact. */
 export const ATTR_NAMES:Record<string,string>={Light:'轻甲',Armored:'重甲',Biological:'生物',Mechanical:'机械',Massive:'巨型',Psionic:'灵能',Heroic:'英雄',Structure:'建筑'};
-export const WEAPON_NAMES:Record<string,string>={marine:'高斯步枪',marauder:'惩罚者榴弹',tank:'坦克炮',medivac:'医疗束',reaper:'双持手枪',hellion:'地狱火喷射器',thor:'雷神之锤',viking:'飞弹',banshee:'背冲火箭',science_vessel:'纳米修复',zergling:'利爪',baneling:'酸液爆破',roach:'酸液',ravager:'等离子喷射',hydralisk:'骨针',queen:'毒刺',lurker:'地刺',mutalisk:'刃虫',corruptor:'腐蚀喷吐',ultralisk:'巨刃',zealot:'灵能双刃',adept:'共鸣刃',stalker:'粒子裂解炮',sentry:'裂解光束',immortal:'相位裂解炮',colossus:'热能射线',high_templar:'灵能之力',phoenix:'离子炮',void_ray:'棱镜光束',carrier:'截击机'};
+export const WEAPON_NAMES:Record<string,string>={aberration:'重爪',devourer:'酸液弹',infestor:'感染孢子',swarm_host:'蝗虫',viper:'腐蚀喷吐',brood_lord:'巢虫炮击',ghost:'C-10 步枪',widow_mine:'哨兵导弹',cyclone:'台风导弹',raven:'自动炮台',liberator:'飞弹／守护者火炮',battlecruiser:'激光炮组',marine:'高斯步枪',marauder:'惩罚者榴弹',tank:'坦克炮',medivac:'医疗束',reaper:'双持手枪',hellion:'地狱火喷射器',thor:'雷神之锤',viking:'飞弹',banshee:'背冲火箭',science_vessel:'纳米修复',zergling:'利爪',baneling:'酸液爆破',roach:'酸液',ravager:'等离子喷射',hydralisk:'骨针',queen:'毒刺',lurker:'地刺',mutalisk:'刃虫',corruptor:'腐蚀喷吐',ultralisk:'巨刃',zealot:'灵能双刃',adept:'共鸣刃',stalker:'粒子裂解炮',sentry:'裂解光束',immortal:'相位裂解炮',colossus:'热能射线',high_templar:'灵能之力',phoenix:'离子炮',void_ray:'棱镜光束',carrier:'截击机'};
 export const NATIVE_ABILITIES:Record<string,readonly [string,string]>={
+ aberration:['横扫／背甲反击','自动横扫近处地面敌人。实际损失的生命可蓄积反击，重伤时短暂减伤。'],
+ devourer:['酸液溅射／酸蚀齐射','自动攻击空中或地面目标，波及同一高度的敌人。酸蚀叠加至 4 层并会到期。'],
+ infestor:['感染蔓延','自动施放感染，使目标虚弱并持续掉血。感染伤害击杀的普通或精英可暂时受控，首领和领主免疫转化。'],
+ swarm_host:['蝗虫孵化','队伍停稳时钻地，自动孵化地面蝗虫作战。每只宿主最多维持 8 只，全队最多 48 只。'],
+ viper:['腐蚀旋涡','自动对空地喷吐并将敌群向落点短距离拉拢，留下持续伤害云。首领和领主免疫拉拢。'],
+ brood_lord:['巢虫炮击','自动炮击地面目标，每个有效攻击轮孵化至多 1 只巢虫。每艘最多 6 只，全队最多 24 只。'],
+ ghost:['弱点射击／灵能干扰','每 8 秒以步枪命中施加 6 秒弱点，后续直接伤害提高 15%。每 12 秒可延长敌方技能本轮冷却的 30%，对首领为 15%。近敌或重伤时消耗能量隐形。'],
+ widow_mine:['自动钻地','队伍停稳后钻地，对空地目标发射溅射导弹。撤退时起身，保留剩余重装时间。'],
+ cyclone:['锁定','优先锁定高威胁目标，随队移动时持续发射导弹。失去视野、目标或锁定距离时解除。'],
+ raven:['侦测／战地支援','侦测隐形目标。反装甲导弹削减敌群 3 点护甲。稳定交火时部署持续 10 秒的自动炮台。'],
+ liberator:['防卫模式','巡航飞弹攻击空中目标。队伍停稳且地敌集中时部署火炮，只攻击圈内地面单位。'],
+ battlecruiser:['大和炮／战术转移','主炮可移动对空地射击。大和炮优先高血精英和首领；严重掉队或重伤时自动转移。'],
  marine:['兴奋剂','注入兴奋剂，短时提高射击与移动速度。'],marauder:['重甲猎手','榴弹擅长击穿重甲，只能攻击地面敌人。'],tank:['攻城模式','架起炮台，轰击远处的地面敌群。收炮后恢复移动。'],medivac:['战地医疗','持续治疗受伤友军。生物单位全效，机械单位为三分之一；仅为实际恢复的生命消耗能量。'],science_vessel:['纳米修复','机械单位全效修复，生物单位为三分之一；仅为实际恢复的生命消耗能量。'],reaper:['越障突击','翻越高低地形，凭双枪追击敌人。'],hellion:['烈焰突击','喷出火焰打击前方敌人；可切换为恶火，以扇形火焰守住近处战线。'],thor:['重型火力','以重装武器压制敌军，分别使用对地和对空火力。'],viking:['变形突击','空中模式攻击飞行敌人；突击模式落地后攻击地面敌人。'],banshee:['隐形行动','隐匿身形，以背冲火箭打击地面敌人。'],
  zergling:['双生虫群','两只跳虫并肩作战，各自承受伤害。一只存活时，另一只可在 15 秒后再生。'],roach:['甲壳恢复','以厚重甲壳顶住前线，喷吐酸液攻击地面敌人。'],hydralisk:['骨针齐射','从地面到天空，都在骨针射程之内。'],queen:['虫群支援','以毒刺掩护虫群，消耗能量施展治疗。'],baneling:['爆裂重生','撞向敌人并引爆酸囊，进入 5 秒恢复后重新参战。'],ravager:['腐蚀胆汁','向指定区域喷出胆汁，击中范围内的敌人。'],lurker:['潜地伏击','潜入地下后以地刺贯穿地面敌军；移动前需要钻出地面。'],mutalisk:['刃虫弹射','飞行中喷出刃虫，向附近敌人弹射。'],corruptor:['空中猎杀','以腐蚀喷吐攻击飞行敌人。'],ultralisk:['巨刃横扫','以巨刃横扫近处地面敌人。'],
  zealot:['冲锋','接近地面敌人，以双刃切入战线。'],adept:['共鸣刃','以共鸣刃打击地面敌人，擅长对付轻甲目标。'],stalker:['闪烁','瞬移到附近位置，穿梭于敌军火力之间。'],immortal:['屏障','迎击敌军火力时张开屏障，抵挡一轮冲击。'],sentry:['守护之盾','消耗能量撑起守护场，为附近友军挡下部分火力。'],colossus:['热能切割','双束热能射线横扫地面敌军。'],high_templar:['灵能风暴','消耗能量释放灵能风暴，以范围火力覆盖敌群。'],phoenix:['引力光束','升起可以被牵引的地面目标，在空中迎击敌人。'],void_ray:['棱镜光束','持续照射目标，积蓄棱镜火力。'],carrier:['机库','截击机离舰作战。损失会削弱火力，补充需要资源与时间。']

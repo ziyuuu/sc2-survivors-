@@ -1,0 +1,222 @@
+{
+  "date": "2026-10-28",
+  "task": "V06-MEMORY-004",
+  "status": "research complete; recommendations not implemented",
+  "projectBaseCommit": "677237ce0bd0b7fdd14566112a91a7bbb5b4cb8b",
+  "gameCodeChanged": false,
+  "deployed": false,
+  "physicalIphoneTested": false,
+  "originalSite": {
+    "url": "https://wow.aethus.pl/",
+    "method": "Isolated Windows Chrome normal page load; network responses; source inspection; screenshot viewed; 6 BLP2 20-byte Range reads",
+    "screenVersion": "v0.123.0 (425f2391)",
+    "assetStamp": "aaf932e1a8fb",
+    "selectionScreenVerified": true,
+    "worldEntryAttempted": true,
+    "worldEntryVerified": false,
+    "worldEntryLimit": "No reviewable post-entry snapshot obtained before bounded inspection was terminated; not a reproduced game crash.",
+    "webgpuAdapterAvailable": true,
+    "bootManifestFiles": 517,
+    "worldManifestFiles": 349,
+    "prefetchConcurrency": 8,
+    "wasmResponse": {
+      "url": "https://wow.aethus.pl/wenilla_bg.wasm?v=aaf932e1a8fb",
+      "encoded": 13797254,
+      "decoded": 102499735,
+      "transfer": 13797554
+    },
+    "sources": [
+      {
+        "url": "https://wow.aethus.pl/rogue.js?v=aaf932e1a8fb",
+        "bytes": 24002,
+        "sha256": "0ac4f16382e40fdf18c26fd8f307e16fd7ba8236318937df4653d7a5b28a34b6"
+      },
+      {
+        "url": "https://wow.aethus.pl/boot.js?v=aaf932e1a8fb",
+        "bytes": 14453,
+        "sha256": "268a698dd5b550d46229c300156cca6120847fe4644cd374ba653b4dfb12ea79"
+      },
+      {
+        "url": "https://wow.aethus.pl/boot-manifest.json",
+        "bytes": 21300,
+        "sha256": "645ab42d8d6a038d37d729b864d8eeb476366c7e442ce67415d680af8687acce"
+      },
+      {
+        "url": "https://wow.aethus.pl/world-manifest.json",
+        "bytes": 16432,
+        "sha256": "a91dfa4f21409c449df4847b8a47a80ddcaf7e587ba7524390434877f47f5fe6"
+      }
+    ],
+    "textureHeaderSamples": [
+      {
+        "url": "https://wow.aethus.pl/data/character/human/male/humanmaleskin00_00.blp",
+        "status": 206,
+        "magic": "BLP2",
+        "width": 256,
+        "height": 256,
+        "encoding": 1,
+        "alphaDepth": 0
+      },
+      {
+        "url": "https://wow.aethus.pl/data/character/human/male/humanmalefacelower00_00.blp",
+        "status": 206,
+        "magic": "BLP2",
+        "width": 128,
+        "height": 64,
+        "encoding": 1,
+        "alphaDepth": 0
+      },
+      {
+        "url": "https://wow.aethus.pl/data/character/human/faciallowerhair00_00.blp",
+        "status": 206,
+        "magic": "BLP2",
+        "width": 128,
+        "height": 64,
+        "encoding": 1,
+        "alphaDepth": 8
+      },
+      {
+        "url": "https://wow.aethus.pl/data/character/human/male/humanmalefaceupper00_00.blp",
+        "status": 206,
+        "magic": "BLP2",
+        "width": 128,
+        "height": 32,
+        "encoding": 1,
+        "alphaDepth": 0
+      },
+      {
+        "url": "https://wow.aethus.pl/data/character/human/facialupperhair00_00.blp",
+        "status": 206,
+        "magic": "BLP2",
+        "width": 128,
+        "height": 32,
+        "encoding": 1,
+        "alphaDepth": 8
+      },
+      {
+        "url": "https://wow.aethus.pl/data/character/human/male/humanmalenakedpelvisskin00_00.blp",
+        "status": 206,
+        "magic": "BLP2",
+        "width": 128,
+        "height": 64,
+        "encoding": 1,
+        "alphaDepth": 0
+      }
+    ],
+    "headerParserReference": "https://github.com/samwhosung/benilla/blob/a483e75563eda71a07a550d8cbfb11a5e33d606a/crates/benilla-blp/src/lib.rs#L175",
+    "menuGpuLedger": {
+      "textureMiB": 145.9,
+      "bufferMiB": 33.1,
+      "textureObjects": 125,
+      "bufferObjects": 254,
+      "isDriverMeasurement": false,
+      "comparableToOurBattle": false
+    },
+    "sourceVerifiedMethods": [
+      "Two traced read-set prefetch manifests warm HTTP cache before/after initial screen",
+      "WASM streaming compile without cloned whole response",
+      "Android skips blanket shader warmup and uses simpler fallback PBR material",
+      "GPU object lifetime/upload churn and device-lost/pipeline diagnostic logs"
+    ],
+    "authorCommentOnly": [
+      "Firefox players reported memory exhaustion around 14-16GB after about 5 minutes",
+      "Adreno840 compiler crash with around2000 pipeline warm variants/full standard material"
+    ],
+    "notEstablished": [
+      "same-phone stability",
+      "whole-game GPU texture format",
+      "full resource eviction policy",
+      "exact compiled Rust/Wasm implementation",
+      "whole-character texture cost from 6 component maps"
+    ]
+  },
+  "otherSources": [
+    {
+      "title": "Slow Roads developer case study",
+      "url": "https://web.dev/case-studies/slow-roads",
+      "year": 2023,
+      "method": "author technical account",
+      "liveAccess": "security verification; no bypass; not runtime verified",
+      "relevant": [
+        "predictive scheduling by gameplay",
+        "geometry and array reuse",
+        "selective LOD"
+      ]
+    },
+    {
+      "title": "The Hobbit Experience developer case study",
+      "url": "https://web.dev/case-studies/hobbit",
+      "year": 2013,
+      "method": "author technical account, historical",
+      "relevant": [
+        "mobile resolution and texture tiers",
+        "simpler shaders",
+        "reused scene modules"
+      ]
+    },
+    {
+      "title": "After the Flood",
+      "url": "https://blog.playcanvas.com/mozilla-launches-webgl-2-with-playcanvas/",
+      "year": 2017,
+      "method": "engine author technical demo description, not gameplay benchmark",
+      "relevant": [
+        "GPU texture compression",
+        "asynchronous streaming",
+        "baked lighting"
+      ]
+    },
+    {
+      "title": "PlayCanvas asset lifetime",
+      "url": "https://developer.playcanvas.com/user-manual/assets/loading-unloading/",
+      "method": "official API documentation"
+    },
+    {
+      "title": "Bevy CPU/GPU asset use separation",
+      "url": "https://docs.rs/bevy_asset/0.19.1/bevy_asset/struct.RenderAssetUsages.html",
+      "method": "official API docs; no claim original game enabled it"
+    },
+    {
+      "title": "Three.js buffer upload callback",
+      "url": "https://archive.threejs.org/docs/api/en/core/BufferAttribute.html",
+      "method": "official archived API docs; implementation feasibility needs project validation"
+    }
+  ],
+  "additionalAttempt": {
+    "url": "https://swooop.playcanvas.com/",
+    "result": "ERR_CONNECTION_CLOSED, no runtime conclusion"
+  },
+  "projectChecks": [
+    {
+      "path": "src/render/scene/battle-renderer.ts",
+      "finding": "commonAssetIds/commonTasks still broad across heroes/elites/effects; existing preload and KTX2 optimizations acknowledged"
+    },
+    {
+      "path": "src/render/scene/scene-contact.ts",
+      "finding": "setEnabled(false) does not dispose targets; actual retained allocation after switching needs measurement"
+    },
+    {
+      "path": "src/render/scene/screen-refraction.ts",
+      "finding": "setEnabled(false) switches execution; actual retained allocation needs measurement"
+    },
+    {
+      "path": "src/render/scene/scene-shadows.ts",
+      "finding": "shadow map disposal already implemented; do not re-propose as missing"
+    },
+    {
+      "path": "src/render/loaders/gpu-textures.ts",
+      "finding": "compressed mip CPU data retained for existing texture ownership; investigate before safely dropping any data"
+    }
+  ],
+  "recommendationOrder": [
+    "Required hero/effect dependency closure plus pipeline and upload measurements",
+    "Disabled postprocessing target release after measured high-low switches",
+    "CPU/GPU duplicate data audit and restore-safe release",
+    "Cross-run GPU reference ownership and budget eviction"
+  ],
+  "validation": {
+    "browserToolSyntax": "passed",
+    "docsCheck": "passed",
+    "fullGameRegression": "not rerun; research and documentation only"
+  },
+  "retention": "After concise summary, remove downloaded third-party scripts, screenshots, temporary network logs; preserve reproduction tool and source URLs/hashes."
+}

@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-29",
+  "task": "V06",
+  "decision": {
+    "mvpVersion": "1.0",
+    "nextVersion": "1.1",
+    "mode": "bug-fix-only",
+    "zeroBugClaim": false
+  },
+  "handoff": "docs/project/MVP_1_0_HANDOFF_20261029.md",
+  "boardRevision": 295,
+  "scope": "Documentation, navigation and task classification only",
+  "unchanged": [
+    "Gameplay and UI",
+    "Save schemas",
+    "Existing delivery files and hashes",
+    "V05 operational status",
+    "Production deployment and access"
+  ],
+  "validation": {
+    "links": "passed",
+    "linkCount": 144,
+    "boardRender": "passed",
+    "versionAndScope": "passed",
+    "existingCozeZipHash": "unchanged",
+    "gameTestsRerun": false
+  },
+  "committed": false,
+  "pushed": false,
+  "deployed": false
+}

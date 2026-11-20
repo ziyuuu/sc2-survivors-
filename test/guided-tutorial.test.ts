@@ -34,7 +34,7 @@ test('v2 waits for a matching durable click; time, income and gameplay shortcuts
 
 for(const race of ['terran','zerg','protoss'] as const)test(`v2 ${race}: exact 100/50 collection and a single paid seat, even across repeated fixed steps`,()=>{
  const w=start(race);toTraining(w);assert.deepEqual(w.wallet,{minerals:800,gas:250});assert.deepEqual(w.economyTotals.passive,{minerals:0,gas:0});assert.deepEqual(w.economyTotals.drops,{minerals:100,gas:50});
- nativeDraft(w,true);applyDraft(w,true);assert.equal(guided(w)?.step,'pause-1');assert.equal(guided(w)?.jobs.length,1);const job=w.expedition.ledger[0];assert.equal(job.passengers.length,race==='zerg'?2:1);assert.deepEqual(w.wallet,{minerals:race==='protoss'?700:750,gas:250});
+ nativeDraft(w,true);applyDraft(w,true);assert.equal(guided(w)?.step,'pause-1');assert.equal(guided(w)?.jobs.length,1);const job=w.expedition.ledger[0];assert.equal(job.passengers.length,race==='zerg'?2:1);assert.deepEqual(w.wallet,{minerals:race==='terran'?800:race==='protoss'?700:750,gas:250});
  // A paid order continues after player-applied Pause; no extra orders consume the wallet.
  nativeDraft(w,false);applyDraft(w);assert.equal(guided(w)?.step,'landing-1');assert.equal(w.expedition.ledger.length,1);const wallet={...w.wallet};w.advance(15);assert.deepEqual(w.wallet,wallet);
  marker(w);assert.equal(job.state,'settled');assert.ok(job.passengers.every(p=>p.status==='released'&&p.entityId!==null));

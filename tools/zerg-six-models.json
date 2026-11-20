@@ -1,0 +1,180 @@
+[
+  {
+    "id": "model.aberration",
+    "name": "aberration",
+    "assetPath": "Assets/Units/Zerg/Aberration/Aberration.m3",
+    "sourceScale": ".9",
+    "requiredAnimations": [
+      "Assets/Units/Zerg/Aberration_SwarmAnims/Aberration_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.aberration.death",
+    "name": "aberrationdeath",
+    "assetPath": "Assets/Units/Zerg/AberrationDeath/AberrationDeath.m3",
+    "sourceScale": ".9"
+  },
+  {
+    "id": "anim.aberration",
+    "name": "aberration_swarmanims",
+    "assetPath": "Assets/Units/Zerg/Aberration_SwarmAnims/Aberration_SwarmAnims.m3a"
+  },
+  {
+    "id": "model.devourer",
+    "name": "devourerex3",
+    "assetPath": "Assets/Units/Zerg/DevourerEx3/DevourerEx3.m3",
+    "sourceScale": ".85"
+  },
+  {
+    "id": "model.devourer.death",
+    "name": "devourerex3_death",
+    "assetPath": "Assets/Units/Zerg/DevourerEx3_Death/DevourerEx3_Death.m3",
+    "sourceScale": ".85"
+  },
+  {
+    "id": "model.infestor",
+    "name": "infestor_ex3",
+    "assetPath": "Assets/Units/Zerg/Infestor_Ex3/Infestor_Ex3.m3",
+    "sourceScale": ".75",
+    "requiredAnimations": [
+      "Assets/Units/Zerg/Infestor_SwarmAnims/Infestor_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.infestor.death",
+    "name": "infestordeathex1",
+    "assetPath": "Assets/Units/Zerg/InfestorDeathEx1/InfestorDeathEx1.m3",
+    "sourceScale": ".75"
+  },
+  {
+    "id": "anim.infestor",
+    "name": "infestor_swarmanims",
+    "assetPath": "Assets/Units/Zerg/Infestor_SwarmAnims/Infestor_SwarmAnims.m3a"
+  },
+  {
+    "id": "model.swarm_host",
+    "name": "swarmhost",
+    "assetPath": "Assets/Units/Zerg/SwarmHost/SwarmHost.m3",
+    "sourceScale": ".9",
+    "requiredAnimations": [
+      "Assets/Units/Zerg/SwarmHost_RequiredAnims/SwarmHost_RequiredAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.swarm_host.death",
+    "name": "swarmhostdeathragdoll",
+    "assetPath": "Assets/Units/Zerg/SwarmHostDeathRagdoll/SwarmHostDeathRagdoll.m3",
+    "sourceScale": ".9"
+  },
+  {
+    "id": "anim.swarm_host",
+    "name": "swarmhost_requiredanims",
+    "assetPath": "Assets/Units/Zerg/SwarmHost_RequiredAnims/SwarmHost_RequiredAnims.m3a"
+  },
+  {
+    "id": "model.viper",
+    "name": "snakecaster",
+    "assetPath": "Assets/Units/Zerg/SnakeCaster/SnakeCaster.m3",
+    "sourceScale": "1"
+  },
+  {
+    "id": "model.viper.death",
+    "name": "snakecaster",
+    "assetPath": "Assets/Units/Zerg/SnakeCaster/SnakeCaster.m3",
+    "sourceScale": "1"
+  },
+  {
+    "id": "model.brood_lord",
+    "name": "broodlord",
+    "assetPath": "Assets/Units/Zerg/BroodLord/BroodLord.m3",
+    "sourceScale": ".8",
+    "requiredAnimations": [
+      "Assets/Units/Zerg/BroodLord_SwarmAnims/BroodLord_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.brood_lord.death",
+    "name": "broodlorddeathex1_00",
+    "assetPath": "Assets/Units/Zerg/BroodLordDeathEx1/BroodLordDeathEx1_00.m3",
+    "sourceScale": ".8"
+  },
+  {
+    "id": "anim.brood_lord",
+    "name": "broodlord_swarmanims",
+    "assetPath": "Assets/Units/Zerg/BroodLord_SwarmAnims/BroodLord_SwarmAnims.m3a"
+  },
+  {
+    "id": "model.zerg_locust",
+    "name": "swarmhostspawn",
+    "assetPath": "Assets/Units/Zerg/SwarmHostSpawn/SwarmHostSpawn.m3",
+    "sourceScale": "1"
+  },
+  {
+    "id": "model.zerg_locust.death",
+    "name": "swarmhostspawndeath",
+    "assetPath": "Assets/Units/Zerg/SwarmHostSpawnDeath/SwarmHostSpawnDeath.m3",
+    "sourceScale": "1"
+  },
+  {
+    "id": "model.zerg_broodling",
+    "name": "symbiote",
+    "assetPath": "Assets/Units/Zerg/Symbiote/Symbiote.m3",
+    "sourceScale": "1"
+  },
+  {
+    "id": "model.zerg_broodling.death",
+    "name": "symbiotedeathex1",
+    "assetPath": "Assets/Units/Zerg/SymbioteDeathEx1/SymbioteDeathEx1.m3",
+    "sourceScale": "1"
+  },
+  {
+    "id": "fx.zsix.viper.cloud",
+    "name": "disablingcloud",
+    "assetPath": "Assets/Effects/Zerg/DisablingCloud/DisablingCloud.m3"
+  },
+  {
+    "id": "fx.zsix.devourer.flight",
+    "name": "roachmissileex1b",
+    "assetPath": "Assets/Effects/Zerg/RoachMissileEx1B/RoachMissileEx1B.m3"
+  },
+  {
+    "id": "fx.zsix.infestor.flight",
+    "name": "fungal_snare_missile",
+    "assetPath": "Assets/Effects/Zerg/Fungal_Snare_Missile/Fungal_Snare_Missile.m3"
+  },
+  {
+    "id": "fx.zsix.locust.flight",
+    "name": "swarmhostspawnmissile",
+    "assetPath": "Assets/Effects/Zerg/SwarmHostSpawnMissile/SwarmHostSpawnMissile.m3"
+  },
+  {
+    "id": "model.projectile.brood_lord",
+    "name": "symbiote",
+    "assetPath": "Assets/Units/Zerg/Symbiote/Symbiote.m3"
+  },
+  {
+    "id": "fx.zsix.devourer.impact",
+    "name": "stukovmissileimpact",
+    "assetPath": "Assets/Effects/Zerg/StukovMissileImpact/StukovMissileImpact.m3"
+  },
+  {
+    "id": "fx.zsix.devourer.acid",
+    "name": "devourer_acidspores_impact",
+    "assetPath": "Assets/Effects/Zerg/Devourer_AcidSpores_Impact/Devourer_AcidSpores_Impact.m3"
+  },
+  {
+    "id": "fx.zsix.infestor.impact",
+    "name": "fungal_snare_missile_impact",
+    "assetPath": "Assets/Effects/Zerg/Fungal_Snare_Missile_Impact/Fungal_Snare_Missile_Impact.m3"
+  },
+  {
+    "id": "fx.zsix.locust.impact",
+    "name": "swarmhostspawnmissileimpact",
+    "assetPath": "Assets/Effects/Zerg/SwarmHostSpawnMissileImpact/SwarmHostSpawnMissileImpact.m3"
+  },
+  {
+    "id": "fx.zsix.broodlord.impact",
+    "name": "symbioteimpact",
+    "assetPath": "Assets/Effects/Zerg/SymbioteImpact/SymbioteImpact.m3"
+  }
+]

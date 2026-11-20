@@ -1,0 +1,240 @@
+{
+  "date": "2026-10-28",
+  "siteId": "appgprj_6ae024693cf481919b48df2cececd0a0",
+  "issues": [
+    "V05-SITES-MOBILE-002",
+    "V05-SITES-NEW-003"
+  ],
+  "status": "Sites version 9 deployed; physical-phone crash verification pending",
+  "appBuildId": "0f0dcaa75ec27a7e2879b54ade3e0bfe461e896d362e153596da805ac358c160",
+  "resourceRelease": "d5f891f541f0082451c319ab026eeef761d943e930547ac4bd1a69a029a8e9fe",
+  "sourceCommit": "c19e47efa6a285a5e5de33ef510a2abf24fdecca",
+  "deployment": {
+    "id": "appgdep_6ae0f5005c4481919458b0de96289fdd",
+    "version": 9,
+    "status": "succeeded",
+    "url": "https://sc2-v04-private-test-20261027.yuuuu-g.chatgpt.site",
+    "accessMode": "public"
+  },
+  "checks": {
+    "targetedSessionCheckpointPreloadTests": {
+      "passed": 46,
+      "failed": 0
+    },
+    "fullRegression": {
+      "passed": 2727,
+      "failed": 0
+    },
+    "finalNewRunAndResourceTests": {
+      "passed": 8,
+      "failed": 0,
+      "includesTwoNewTestsAfterFullRegression": true
+    },
+    "typecheck": "passed",
+    "docsCheck": "passed"
+  },
+  "newRun": {
+    "userDecision": "directly replace the old run; one overwrite reminder; no settlement requirement",
+    "reminderCount": 1,
+    "preparationAndCancellationPreserveOldRun": true,
+    "failedCommitRetainsOldAccountAndRecoverableCheckpoint": true,
+    "staleEquipmentRevisionRejected": true,
+    "abandonment": "no defeat RNG, dust or rewards; preserve warehouse/equipped items/profile/recipes; abandon unextracted old-run backpack and ground loot",
+    "saveSchema": 26
+  },
+  "mobile": {
+    "report": "phone Chrome crashed during stage three",
+    "originalCrashReproduced": false,
+    "optionalPreload": "nearby stages, ordinary production and selected runtime dependencies/reward; required entries still gate actual models and forms",
+    "packedConcurrentDownloads": {
+      "previous": 12,
+      "new": 4
+    },
+    "serviceWorkerRetainedBundles": {
+      "previous": 16,
+      "new": 4
+    },
+    "stage3ModelPlanCounts": {
+      "terran": [
+        54,
+        16
+      ],
+      "zerg": [
+        32,
+        11
+      ],
+      "protoss": [
+        41,
+        15
+      ]
+    },
+    "measurementBoundary": "plan counts and manifest resource sizes, not measured phone RAM/VRAM or proven crash cause",
+    "physicalPhoneRetest": "pending"
+  },
+  "browserQA": {
+    "status": "unavailable",
+    "reason": "browser tab creation timed out; subsequent inventory read timed out after 300 seconds; no page or request evidence obtained",
+    "stageLifecycleFixture": "tools/qa-mobile-stage-lifecycle.ts; local forced-clear lifecycle only, not completed or counted as passed",
+    "previewReplacedProduction": false
+  },
+  "preserved": [
+    "existing public Site",
+    "D1/R2 and owner authentication",
+    "58 compressed resource bundles",
+    "visual quality",
+    "actual simulation/wave rules",
+    "current real player saves and data"
+  ],
+  "unresolved": [
+    "Physical-phone stage-three crash verification remains open; do not treat optional-memory plan reduction as a reproduced root cause"
+  ],
+  "preloadPlans": {
+    "scope": "optional preload plans only; resource bytes are manifest decoded file sizes, not measured device RAM or VRAM",
+    "rows": [
+      {
+        "race": "terran",
+        "stage": 1,
+        "previous": {
+          "models": 54,
+          "resourceIds": 191,
+          "uniqueFiles": 191,
+          "decodedResourceBytes": 123672554
+        },
+        "mobile": {
+          "models": 15,
+          "resourceIds": 48,
+          "uniqueFiles": 48,
+          "decodedResourceBytes": 34354786
+        }
+      },
+      {
+        "race": "terran",
+        "stage": 2,
+        "previous": {
+          "models": 54,
+          "resourceIds": 191,
+          "uniqueFiles": 191,
+          "decodedResourceBytes": 123672554
+        },
+        "mobile": {
+          "models": 15,
+          "resourceIds": 48,
+          "uniqueFiles": 48,
+          "decodedResourceBytes": 34354786
+        }
+      },
+      {
+        "race": "terran",
+        "stage": 3,
+        "previous": {
+          "models": 54,
+          "resourceIds": 191,
+          "uniqueFiles": 191,
+          "decodedResourceBytes": 123672554
+        },
+        "mobile": {
+          "models": 16,
+          "resourceIds": 51,
+          "uniqueFiles": 51,
+          "decodedResourceBytes": 37263256
+        }
+      },
+      {
+        "race": "zerg",
+        "stage": 1,
+        "previous": {
+          "models": 32,
+          "resourceIds": 88,
+          "uniqueFiles": 88,
+          "decodedResourceBytes": 82796412
+        },
+        "mobile": {
+          "models": 10,
+          "resourceIds": 29,
+          "uniqueFiles": 29,
+          "decodedResourceBytes": 26287108
+        }
+      },
+      {
+        "race": "zerg",
+        "stage": 2,
+        "previous": {
+          "models": 32,
+          "resourceIds": 88,
+          "uniqueFiles": 88,
+          "decodedResourceBytes": 82796412
+        },
+        "mobile": {
+          "models": 10,
+          "resourceIds": 29,
+          "uniqueFiles": 29,
+          "decodedResourceBytes": 26287108
+        }
+      },
+      {
+        "race": "zerg",
+        "stage": 3,
+        "previous": {
+          "models": 32,
+          "resourceIds": 88,
+          "uniqueFiles": 88,
+          "decodedResourceBytes": 82796412
+        },
+        "mobile": {
+          "models": 11,
+          "resourceIds": 32,
+          "uniqueFiles": 32,
+          "decodedResourceBytes": 28536626
+        }
+      },
+      {
+        "race": "protoss",
+        "stage": 1,
+        "previous": {
+          "models": 41,
+          "resourceIds": 133,
+          "uniqueFiles": 133,
+          "decodedResourceBytes": 81326754
+        },
+        "mobile": {
+          "models": 14,
+          "resourceIds": 43,
+          "uniqueFiles": 43,
+          "decodedResourceBytes": 22473670
+        }
+      },
+      {
+        "race": "protoss",
+        "stage": 2,
+        "previous": {
+          "models": 41,
+          "resourceIds": 133,
+          "uniqueFiles": 133,
+          "decodedResourceBytes": 81326754
+        },
+        "mobile": {
+          "models": 14,
+          "resourceIds": 43,
+          "uniqueFiles": 43,
+          "decodedResourceBytes": 22473670
+        }
+      },
+      {
+        "race": "protoss",
+        "stage": 3,
+        "previous": {
+          "models": 41,
+          "resourceIds": 133,
+          "uniqueFiles": 133,
+          "decodedResourceBytes": 81326754
+        },
+        "mobile": {
+          "models": 15,
+          "resourceIds": 53,
+          "uniqueFiles": 53,
+          "decodedResourceBytes": 24574024
+        }
+      }
+    ]
+  }
+}

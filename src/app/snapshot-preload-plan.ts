@@ -64,6 +64,8 @@ export function completeSnapshotModelForms(models:Map<string,CombatUnitType>){
   if(type==='hellion')models.set('hellion.hellbat','hellion');
   if(type==='viking')models.set('viking.assault','viking');
   if(type==='carrier'||type==='purifier_flagship')models.set('interceptor','marine');
+  if(type==='swarm_host')models.set('zerg_locust','zerg_locust');
+  if(type==='brood_lord')models.set('zerg_broodling','zerg_broodling');
   const elite=eliteModels.get(key);
   if(elite)for(const form of Object.values(ELITE_VISUAL_PROFILES[elite].forms))models.set(form,ELITES[elite].family);
  }

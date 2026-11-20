@@ -1,3 +1,5 @@
+import {doomsdayFlameWidth} from '../../simulation/combat/doomsday-passives';
+import {doomsdayShotStyle,customDoomsdayShot,doomsdayOwnsFlight} from '../../simulation/combat/doomsday-presentation';
 import {SourceEventIndex} from './source/event-index';
 import {StimPresentation,type StimCue} from './stim-presentation';
 import {SourceWeaponChannels} from './source/weapon-channels';
@@ -25,6 +27,16 @@ const mix=(a:P,b:P,t:number):P=>({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t,z:a.z+(b.z
 const point=(w:World,p:Point&{flying?:boolean},h=.6):P=>({x:p.x,y:(p.flying?5.6:w.terrain?.height(p)??0)+h,z:p.z});
 export const combatMuzzleSides=(profile:CombatFxProfile,sequence=1):Array<string|undefined>=>profile.key==='marauder'?[sequence%2?'Left':'Right']:profile.key==='thor-high-impact'?(sequence%2?['01','03']:['02','04']):profile.mounts??[undefined];
 const rate=1.4;
+const compactImpacts:Record<string,{scale:number;maxTailLength:number}>={
+ SiegeTankAttackImpact:{scale:.8,maxTailLength:2},
+ SiegeTankSiegedAttackImpact:{scale:.75,maxTailLength:2.5},
+ WidowMineAttackImpact:{scale:.7,maxTailLength:2.5},
+ WidowMineAirAttackImpact:{scale:.7,maxTailLength:2.5},
+ BattlecruiserAirAttackImpact:{scale:.65,maxTailLength:1.75},
+ LiberatorAGAttackImpact:{scale:.75,maxTailLength:2},
+ // The authored Yamato impact uses a 0.75 model scale. Keep its sparks local.
+ BattlecruiserYamatoAttackImpact:{scale:.75,maxTailLength:3.5},
+};
 
 /** One route owns each core weapon layer. All receipts and trajectories below are
  * read-only native state; this renderer has no World mutation or random calls. */
@@ -43,10 +55,16 @@ export class SourceCombatEffects {
  reset(){this.serial=0;this.time=0;this.run='';this.echoes=[];this.mounts.clear();this.launched.clear();this.hologramDeaths.clear();this.lifecycle.clear();this.nukes.clear();this.armedLandings.clear();this.weaponChannels.reset();this.player.reset();this.equipment.reset();this.enemySpecials.reset();this.stim.reset();this.stimCues.clear();}
  report(){return {routes:[...this.routes],events:this.events,flights:this.flights,echoes:this.echoes.length,source:this.player.report()};}
  private request(model:string,key:string,age:number,placement:SourcePlacement,ground:(p:Point)=>number,options:Partial<SourceEffectRequest>={}){
-  this.player.add({key,model,age:Math.max(0,age*rate),clockRate:rate,seed:sourceSeed(key),placement,...options},ground);
+  const impact=compactImpacts[model];
+  const at=impact?{...placement,scale:(placement.scale??1)*impact.scale}:placement;
+  this.player.add({key,model,age:Math.max(0,age*rate),clockRate:rate,seed:sourceSeed(key),placement:at,...options,maxTailLength:impact?.maxTailLength},ground);
+ }
+ private addImpact(event:VisualEvent,profile:CombatFxProfile){
+  const life=Math.max(1,...(profile.models.impact??[]).map(id=>sourceLife(SOURCE_EFFECTS[id])/rate));
+  this.echoes.push({event,profile,mounts:[],life,impactOnly:true});
  }
  private event(w:World,u:Entity,time=w.time,kind:VisualEvent['kind']='attack',end:Point&{flying?:boolean}=u):VisualEvent{
-  const a=point(w,u),b=point(w,end);return {serial:0,time,kind,x:u.x,z:u.z,y:a.y,endY:b.y,end:{x:end.x,z:end.z},entityId:u.id,unitType:u.unitType,modelKey:u.modelKey,heroId:u.heroId,eliteId:u.eliteId,rank:u.rank,race:u.race,nativeMode:u.nativeMode,activeWeapon:u.activeWeapon,sourceTeam:u.team,enemyTier:u.enemyTier,summonKind:u.summonKind,rewardSourceKind:u.rewardSourceKind,visualScale:u.visualScale,shotSequence:u.shotSequence,attackId:`${u.id}:${u.shotSequence}`,projectileSpeed:weaponFlightSpeed(u),flying:u.flying,facing:u.attackFacing??u.facing,siege:u.mode==='siege',targetFlying:end.flying};
+  const a=point(w,u),b=point(w,end);return {doomsdayStyle:doomsdayShotStyle(w,u),doomsdayBlueFlame:u.doomsday?.special==='M-G06',doomsdayArmor:!!u.doomsday?.heroArmor,serial:0,time,kind,x:u.x,z:u.z,y:a.y,endY:b.y,end:{x:end.x,z:end.z},entityId:u.id,unitType:u.unitType,modelKey:u.modelKey,heroId:u.heroId,eliteId:u.eliteId,rank:u.rank,race:u.race,nativeMode:u.nativeMode,activeWeapon:u.activeWeapon,sourceTeam:u.team,enemyTier:u.enemyTier,summonKind:u.summonKind,rewardSourceKind:u.rewardSourceKind,visualScale:(u.visualScale??1)*(u.doomsday?.visualScale??1),shotSequence:u.shotSequence,attackId:`${u.id}:${u.shotSequence}`,projectileSpeed:weaponFlightSpeed(u),flying:u.flying,facing:u.attackFacing??u.facing,siege:u.mode==='siege',targetFlying:end.flying};
  }
  render(w:World,muzzle:Mount,bodyPose:BodyPose,shieldBounds?:ShieldBounds,equipmentMount?:(event:import('../../simulation/starship/presentation').EquipmentPresentationReceipt)=>P|undefined,funMatrix?:(u:Entity)=>number[]|undefined,overhead?:(u:Entity)=>P|undefined){
   // Menus prepare source models incrementally; retained combat bodies are not
@@ -59,7 +77,21 @@ export class SourceCombatEffects {
    if(!u?.hp||age>sourceLife(SOURCE_EFFECTS[model])/rate){this.stimCues.delete(key);continue;}
    this.routes.add('stim-'+cue.kind);const p=overhead?.(u)??shieldBounds?.(this.event(w,u))?.top??point(w,u,1.8);this.request(model,key,age,{...p,facing:u.facing},ground);
   }
-  for(const e of w.visualEvents){const shieldReceipt=e.kind==='shield-hit'||e.kind==='shield-break',hologram=e.kind==='death'&&sourceHologramDeath(e),nuke=e.kind==='strategic-impact'&&e.entityId===0&&e.race==='terran'&&!e.heroId&&!e.eliteId,armedLanding=e.kind==='pod-land'&&e.castId!==undefined&&e.race==='terran';
+  for(const e of w.visualEvents){
+   if(e.sixSkill){
+    const hit=e.kind==='skill-impact'||e.kind==='skill-status',model=e.sixSkill==='weak'?(hit?'GhostSnipeAttackImpact':'GhostSnipeAttackLaunch'):e.sixSkill==='interfere'?'GhostEMPAttackImpactEffect':hit?(e.sixSkill==='yamato'?'BattlecruiserYamatoAttackImpact':'RavenShredderMissileAttackImpactDebuff'):undefined;
+    if(model){const age=w.time-e.time;if(age<sourceLife(SOURCE_EFFECTS[model])/rate)this.request(model,'six:'+e.serial,age,{x:hit?e.end.x:e.x,y:hit?e.endY:e.y,z:hit?e.end.z:e.z,facing:e.facing},ground);}
+    this.routes.add('six-'+e.sixSkill);this.fx.sourceEventIds.add(e.serial);continue;
+   }
+   if(e.bioEffect){const age=w.time-e.time,duration=Math.max(.06,Math.hypot(e.end.x-e.x,e.end.z-e.z)/18),flight=e.bioEffect==='acid',t=flight?Math.min(1,age/duration):0,model=flight?'AcidSalivaWeapon':e.bioEffect==='burst'?'BanelingDeath':'RoachMissileImpact';this.fx.sourceEventIds.add(e.serial);if(!flight||age<=duration)this.request(model,'bio:'+e.serial,age,{x:e.x+(e.end.x-e.x)*t,y:flight?e.y+(e.endY-e.y)*t:ground(e)+.12,z:e.z+(e.end.z-e.z)*t,facing:e.facing,scale:e.bioEffect==='burst'?(e.supportRadius??1.8)/2:1},ground,{colorize:[1,.06,.018],mesh:flight?undefined:false});continue;}
+   if(e.doomsdayEffect||e.doomsdaySegment||customDoomsdayShot(e.doomsdayStyle)&&['attack','projectile-impact'].includes(e.kind)){
+    this.fx.sourceEventIds.add(e.serial);
+    if(e.serial>this.serial&&e.doomsdayEffect==='bore-hit'){
+     this.addImpact({...e,kind:'projectile-impact'},COMBAT_FX_PROFILES.get('tank-siege')!);
+    }
+    continue;
+   }
+   const shieldReceipt=e.kind==='shield-hit'||e.kind==='shield-break',hologram=e.kind==='death'&&sourceHologramDeath(e),nuke=e.kind==='strategic-impact'&&(e.entityId===0||e.supportVisual==='doomsday-nuke')&&e.race==='terran'&&!e.heroId&&!e.eliteId,armedLanding=e.kind==='pod-land'&&e.castId!==undefined&&e.race==='terran';
    const lifecycle=e.kind==='unit-expired'||e.kind==='death'&&e.modelKey==='fun-cocoon';
    if(sourceOwnsEvent(e)||shieldReceipt||hologram||nuke||lifecycle||armedLanding)this.fx.sourceEventIds.add(e.serial);if(e.serial<=this.serial)continue;
    if(armedLanding)this.armedLandings.set(e.serial,structuredClone(e));
@@ -79,7 +111,7 @@ export class SourceCombatEffects {
    if(['hit','shield-hit','shield-break'].includes(e.kind)&&e.hitSourceId!==undefined){
     // HP and shield receipts for the same strike select a single surface. The
     // authoritative missile receipt owns delayed impacts, including after death.
-    const source=w.entities.get(e.hitSourceId),attack=indexedEvents().attack(e.hitSourceId,e.time),p=combatFxProfile(attack??source);
+    const source=w.entities.get(e.hitSourceId);if(customDoomsdayShot(doomsdayShotStyle(w,source))){this.fx.sourceEventIds.add(e.serial);continue;}const attack=indexedEvents().attack(e.hitSourceId,e.time),p=combatFxProfile(attack??source);
     const duplicate=indexedEvents().duplicate(e);
     if(p&&e.weaponHit)this.fx.sourceEventIds.add(e.serial);
     const stormSource=source?.unitType==='high_templar'&&!source.heroId&&source.eliteId!=='high_templar.2'||w.expedition.spells.some(s=>s.kind==='storm'&&s.source===e.hitSourceId)||w.protossElites.fields.some(f=>f.kind==='storm'&&f.source.id===e.hitSourceId);
@@ -93,9 +125,9 @@ export class SourceCombatEffects {
     }
     const missileReceipt=indexedEvents().missile(e);
     const channelImpact=p?.key==='colossus'||p?.key==='void-ray';
-    if(!duplicate&&p&&source&&!attack?.projectileSpeed&&!missileReceipt&&!channelImpact&&e.weaponHit&&w.time-e.time<1){
+    if(!duplicate&&p&&source&&!attack?.projectileSpeed&&!missileReceipt&&!channelImpact&&e.weaponHit&&w.time-e.time<1&&!indexedEvents().boreContact(e)){
      const receipt={...(attack??this.event(w,source)),time:e.time,serial:e.serial,kind:'projectile-impact' as const,end:{x:e.x,z:e.z},endY:e.y,targetSurface:e.targetSurface,targetFlying:e.flying,targetId:e.entityId};
-     this.echoes.push({event:receipt,profile:p,mounts:[],life:Math.max(1,...(p.models.impact??[]).map(id=>sourceLife(SOURCE_EFFECTS[id])/rate)),impactOnly:true});
+     this.addImpact(receipt,p);
     }
    }
   }
@@ -103,6 +135,7 @@ export class SourceCombatEffects {
   // has its own native launch time. Reconstruct its source pose without adding a
   // second muzzle at the cycle event or inventing another gameplay receipt.
   for(const flight of w.weaponFlights){
+   if(flight.sixSkill||flight.doomsdayDerived||customDoomsdayShot(doomsdayShotStyle(w,flight.source)))continue;
    const p=combatFxProfile(flight.source);if(!p||w.time<flight.start||this.launched.has(flight.id))continue;this.launched.add(flight.id);
    const target=w.body(flight.target),e=this.event(w,{...flight.source,...flight.from},flight.start,'attack',{...flight.lastSeen,flying:target?.flying});
    const sides=p.key==='reaper'&&flight.hits===1?[flight.id%2===0?'Left':'Right']:combatMuzzleSides(p,flight.source.shotSequence),mounts=sides.map(side=>({...muzzle(e,side)}));
@@ -130,13 +163,27 @@ export class SourceCombatEffects {
   this.weaponChannels.render(w,(model,key,age,placement,options)=>this.request(model,key,age,placement,ground,options),(u,time,end)=>this.event(w,u,time,'attack',end),muzzle);
   for(const [serial,e]of this.nukes){const age=w.time-e.time,model='GhostNukeExplode',definition=SOURCE_EFFECTS[model];if(age>sourceLife(definition)/rate){this.nukes.delete(serial);continue;}this.routes.add('strategic-nuke');this.request(model,'nuke:'+serial,age,{x:e.x,y:ground(e),z:e.z,facing:0,scale:.32,heightScale:.5},ground,{particleOpacity:.32,clip:'Death',meshUntil:Math.min(2.4,definition.materialProfile.clips.find(c=>c.name==='Death')!.duration)});}
   for(const [serial,e]of this.armedLandings){const model='JumpLandDust',definition=SOURCE_EFFECTS[model],age=w.time-e.time;if(age>sourceLife(definition)/rate){this.armedLandings.delete(serial);continue;}this.routes.add('armed-landing');this.request(model,'armed-land:'+serial,age,{x:e.x,y:ground(e)+.03,z:e.z,facing:0},ground);}
-  for(const e of w.visualEvents)if(e.supportVisual==='rear-blast'&&w.time-e.time<1)this.request('SiegeTankSiegedAttackImpact','rear-blast:'+e.serial,w.time-e.time,{x:e.x,y:ground(e),z:e.z,facing:0,scale:1},ground);
-  for(const f of w.weaponFlights)if(sourceOwnsWeapon(f.source)&&w.time>=f.start)this.flight(w,f,muzzle,ground);
+  for(const e of w.visualEvents)if(e.kind==='support-impact'&&!e.doomsdayEffect&&e.supportVisual==='rear-blast'&&w.time-e.time<1)this.request('SiegeTankSiegedAttackImpact','rear-blast:'+e.serial,w.time-e.time,{x:e.end.x,y:ground(e.end),z:e.end.z,facing:0,scale:e.supportRadius===undefined?1:Math.min(1,e.supportRadius/1.25)},ground);
+  for(const f of w.weaponFlights){
+   if(w.time<f.start)continue;
+   if(f.sixSkill){const model=f.sixSkill==='yamato'?'YamatoWeapon':f.sixSkill==='shredder'?'ShredderWeapon':null;
+    if(model){
+     const target={...f.lastSeen,flying:f.targetFlying},end=point(w,target);
+     const event=this.event(w,{...f.source,...f.from},f.start,'skill-launch',target);
+     const from=muzzle(event),travel=Math.hypot(f.point.x-f.from.x,f.point.z-f.from.z);
+     const distance=Math.max(.01,Math.hypot(end.x-f.from.x,end.z-f.from.z));
+     const progress=Math.min(1,travel/distance),blend=Math.max(0,1-travel/2);
+     const head={x:f.point.x+(from.x-f.from.x)*blend,y:from.y+(end.y-from.y)*progress,z:f.point.z+(from.z-f.from.z)*blend};
+     const direction={x:end.x-from.x,y:end.y-from.y,z:end.z-from.z};
+     this.request(model,'six-flight:'+f.id,w.time-f.start,{...head,from,facing:Math.atan2(direction.x,direction.z),direction,age:(w.time-f.start)*rate},ground,{loop:true});
+    }
+   }else if(!doomsdayOwnsFlight(w,f)&&sourceOwnsWeapon(f.source))this.flight(w,f,muzzle,ground);
+  }
   for(const f of w.effects){const u=w.entities.get(f.source);if(u?.heroId||f.until<=w.time)continue;
    if(f.kind==='bile'&&(!u||u.unitType==='ravager')){const age=BILE.delay-(f.until-w.time),t=Math.max(0,Math.min(1,age/BILE.delay)),from=point(w,f,1.3),end=point(w,f.end,.15),head=mix(from,end,t);head.y+=Math.sin(t*Math.PI)*7;this.request('RavagerCorrosiveBileMissile','bile:'+f.id,age,{...head,facing:Math.atan2(end.x-from.x,end.z-from.z),from,age:age*rate},ground,{loop:true});}
    if(f.kind==='flame'&&u?.unitType==='hellion'&&u.eliteId!=='hellion.2'){
     const profile=combatFxProfile(u)!,event=this.event(w,u,f.until-.35,'attack',f.end),from=muzzle(event),end=point(w,f.end,.5),age=Math.max(0,w.time-(f.until-.35));
-    if(profile.key==='hellion')for(const id of profile.models.beam??[])this.request(id,'flame:'+f.id+':'+id,age,{...from,facing:event.facing,end},ground,{loop:true});
+    if(profile.key==='hellion')for(const id of profile.models.beam??[])this.request(id,'flame:'+f.id+':'+id,age,{...from,facing:event.facing,end,widthScale:f.doomsdayFlame?.width??doomsdayFlameWidth(w,u)},ground,{loop:true,colorize:(f.doomsdayFlame?.blue??(u.doomsday?.special==='M-G06'))?[.12,.5,1]:undefined});
    }
   }
   for(const b of w.zergElites.biles)if(b.launched&&w.time>=b.launchAt&&w.time<b.impactAt){const age=w.time-b.launchAt,t=age/(b.impactAt-b.launchAt),from=point(w,b.source,1.3),end=point(w,b.point,.15),head=mix(from,end,t);head.y+=Math.sin(t*Math.PI)*7;this.request('RavagerCorrosiveBileMissile','elite-bile:'+b.id,age,{...head,facing:Math.atan2(end.x-from.x,end.z-from.z),from,age:age*rate,scale:b.source.eliteId==='ravager.2'?1.5:1},ground,{loop:true});}
@@ -178,7 +225,7 @@ export class SourceCombatEffects {
    return;
   }
   if(e.kind==='attack'){
-   for(const [side,from]of echo.mounts.entries())for(const model of p.models.launch??[])this.request(model,key+':launch:'+side+':'+model,age,{...from,facing,end},ground);
+   for(const [side,from]of echo.mounts.entries())for(const model of p.models.launch??[])this.request(model,key+':launch:'+side+':'+model,age,{...from,facing,end},ground,{colorize:e.doomsdayBlueFlame?[.12,.5,1]:undefined});
    for(const model of p.models.body??[]){const pose=bodyPose(e,model,age);if(pose)this.request(model,key+':body:'+model,0,{x:e.x,y:e.y,z:e.z,facing,matrix:pose.matrix},ground,{clip:pose.clip,age:pose.seconds,mesh:false,...(model==='Zealot'?{ribbonIndices:[0,2,3]}:{})});}
    // Lurker/Colossus extents are driven by their actual progressive receipts.
    if(p.kind==='detonation')for(const model of p.models.impact??[])this.request(model,key+':detonation:'+model,age,{...point(w,e,0),facing},ground,{mesh:false});

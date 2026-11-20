@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-28",
+  "task": "V06",
+  "id": "V06-MEMORY-005",
+  "kind": "implementation-plan",
+  "status": "plan-delivered-implementation-not-started",
+  "plan": "docs/project/RUNTIME_MEMORY_PLAN_20261028.md",
+  "baseline": {
+    "branch": "体积优化版",
+    "commit": "677237c",
+    "sitesVersion": 15,
+    "siteSourceCommit": "7e9929502702cba6f27013d4144a4b878e02e8d7",
+    "appBuildId": "2e9af5b4b96b7afd9549aaaff3f61e9c69722e5e947665311976eed993f215f8",
+    "resourceRelease": "ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2",
+    "evidence": "reports/qa/runtime-memory-20261028.json",
+    "reusedEvidenceOnly": true,
+    "liveDeploymentRecheckedThisTurn": false
+  },
+  "stages": [
+    {
+      "id": "A",
+      "scope": "baseline and memory ownership measurement",
+      "status": "planned"
+    },
+    {
+      "id": "B",
+      "scope": "disabled effect render target lifecycle",
+      "status": "planned"
+    },
+    {
+      "id": "C",
+      "scope": "common resource dependency closure and shader scheduling",
+      "status": "planned"
+    },
+    {
+      "id": "D",
+      "scope": "cross-run cache ownership and byte budgets",
+      "status": "planned"
+    },
+    {
+      "id": "E",
+      "scope": "conditional CPU-copy release experiment",
+      "status": "planned"
+    },
+    {
+      "id": "F",
+      "scope": "integration, physical iPhone verification and delivery",
+      "status": "planned"
+    }
+  ],
+  "staticObservations": [
+    {
+      "source": "src/render/scene/battle-renderer.ts",
+      "symbol": "commonAssetIds/commonTasks",
+      "observation": "Broad effect categories and multiple race hero/elite preparations remain; runtime savings unmeasured."
+    },
+    {
+      "source": "src/render/scene/screen-refraction.ts",
+      "symbol": "setEnabled/prepareComposite",
+      "observation": "Disabling changes flags; prepareComposite can initialize field without enabled guard and warmLightingFrame calls it. Allocation size and candidate benefit remain to be measured."
+    },
+    {
+      "source": "src/render/scene/scene-contact.ts",
+      "symbol": "setEnabled",
+      "observation": "Disabling resets state but does not dispose targets; actual residency unmeasured."
+    },
+    {
+      "source": "src/render/scene/battle-renderer.ts",
+      "symbol": "filterTextures",
+      "observation": "Anisotropy changes can mark textures needsUpdate; CPU copy release requires reload and reupload audit."
+    }
+  ],
+  "verification": {
+    "gameDataReference": "passed: npm run docs:check",
+    "planLocalLinks": {
+      "checked": 2,
+      "result": "passed"
+    },
+    "existingSourceHashesUnchanged": {
+      "src/simulation/expedition-economy.ts": "bc7f813cbee930cf3707067b344b479709fb4fd6c74acfc86757e499ad6047df",
+      "assets/private/m3-pack.json": "19b42491b917155cc88d4d797b59079bd45e6048e01b518c57b6e4dfebc3d849"
+    },
+    "v05Unchanged": true,
+    "boardRender": "passed: node tools/render-performance-board.mjs",
+    "boardRevision": 261
+  },
+  "limits": [
+    "No gameplay or resource implementation in this planning turn.",
+    "No new browser, GPU, or physical-device measurements.",
+    "iPhone 17 Pro/iOS 26.7.1 Safari reload cause and version-15 real-device result remain open.",
+    "No commit, push, deployment, UI or quality change."
+  ],
+  "next": "Execute stage A against the locked version-15 baseline; decide stage B from measured allocations."
+}

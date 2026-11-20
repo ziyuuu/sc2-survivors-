@@ -36,6 +36,7 @@ test('dialogue preview leaves RNG and sequential cursor untouched',()=>{
 });
 test('opening audio closure covers current weapons but excludes unselected hero dialogue',()=>{
  const plan=audioPreloadBanks('terran',1,[{heroId:'raynor'}]);assert.ok(plan.combat.includes(SOUND_DATA.weapons.marine.attack!));
+ for(const skill of ['six_weak','six_interfere','six_shredder'])for(const bank of Object.values(SOUND_DATA.skills[skill]))assert.ok(plan.combat.includes(bank!));
  assert.ok(SOUND_DATA.dialogue['hero:raynor'].every(b=>plan.dialogue.includes(b)));assert.ok(SOUND_DATA.dialogue['hero:dehaka'].every(b=>!plan.dialogue.includes(b)));
  const samples=new Set(plan.combat.flatMap(b=>SOUND_DATA.banks[b].samples.map(s=>s.asset)));assert.ok(samples.size<800,`${samples.size} battle samples`);
 });

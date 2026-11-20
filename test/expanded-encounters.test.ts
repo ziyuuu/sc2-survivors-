@@ -194,7 +194,7 @@ test('every formal ground combat family receives current and future wing entitle
  const w=world(),enemy=w.addUnit('roach','zerg',5,5);enemy.flying=true;const checked:string[]=[];
  for(const [name,data] of Object.entries(SC2_UNITS)){
   if(data.flying||data.attackDamage<=0||data.targetType==='none')continue;
-  const type=name as Entity['unitType'],u=w.addUnit(type,'terran',0,0);w.refreshStats(u);const before=[u.weaponDamage,u.attackRange,u.shotInterval,u.moveSpeed,u.maxHp,u.armor];
+  const type=name as Entity['unitType'],u=w.addUnit(type,'terran',0,0);w.refreshStats(u);if(type==='widow_mine')u.nativeMode=u.desiredNativeMode='mine_burrowed';const before=[u.weaponDamage,u.attackRange,u.shotInterval,u.moveSpeed,u.maxHp,u.armor];
   w.encounters.expanded.wingFamilies.add(type);w.refreshStats(u);assert.equal(u.winged,true,name);assert.equal(w.targetAllowed(u,enemy),true,name);assert.deepEqual([u.weaponDamage,u.attackRange,u.shotInterval,u.moveSpeed,u.maxHp,u.armor],before,name);checked.push(name);
  }
  assert.ok(checked.length>=15);

@@ -28,14 +28,14 @@ test('elite recruit and cultivation share a single identity across two actual bo
  const w=world();assert.ok(w.acquireElite('zergling.1'));const elite=w.eliteOwned('zergling.1')!,p=pairFor(w,elite)!;assert.equal(pairBodies(w,p).length,2);assert.ok(pairBodies(w,p).every(u=>u.eliteId==='zergling.1'));
  assert.ok(w.acquireElite('zergling.1'));assert.ok(pairBodies(w,p).every(u=>u.rank===2));const normal=w.ordinaryUnits('zergling')[0];normal.rank=4;w.refreshStats(normal);assert.ok(pairBodies(w,pairFor(w,normal)!).every(u=>u.rank===4));
 });
-test('paid pair has two payments but reserves one slot; waiting companion never fissions',()=>{
- const w=world();w.wallet={minerals:50,gas:0};updateExpeditionProduction(w,0,true);const j=w.expedition.ledger[0];assert.equal(j.passengers.length,2);assert.equal(j.passengers.reduce((n,c)=>n+c.paid.minerals,0),50);assert.equal(paidReservations(w,'zergling'),1);
+test('free pair has two passenger receipts and reserves one slot; waiting companion never fissions',()=>{
+ const w=world();w.wallet={minerals:50,gas:0};updateExpeditionProduction(w,0,true);const j=w.expedition.ledger[0];assert.equal(j.passengers.length,2);assert.equal(j.passengers.reduce((n,c)=>n+c.paid.minerals,0),0);assert.equal(paidReservations(w,'zergling'),1);
  const pod=w.spawnPod('zergling',{x:5,z:0},j.id,2);j.podId=pod.id;j.state='risk';pod.status='opening';const a=releasePaidPassenger(w,pod,0,{x:5,z:2})!;const p=pairFor(w,a)!;w.tick=1000;tickBroods(w);assert.equal(pairBodies(w,p).length,1);assert.equal(p.regrowAt,null);
- releasePaidPassenger(w,pod,1,{x:6,z:2});assert.equal(pairBodies(w,p).length,2);assert.equal(w.wallet.minerals,0);
+ releasePaidPassenger(w,pod,1,{x:6,z:2});assert.equal(pairBodies(w,p).length,2);assert.equal(w.wallet.minerals,50);
 });
 test('queen injection is free, reserves real seats and only one queen succeeds per carrier',()=>{
  const w=world();w.wallet={minerals:50,gas:0};updateExpeditionProduction(w,0,true);const j=w.expedition.ledger[0],pod=w.spawnPod('zergling',{x:4,z:0},j.id,2);j.podId=pod.id;j.state='risk';pod.status='active';const q=w.addUnit('queen','terran',4,2),q2=w.addUnit('queen','terran',4,-2),energy=q.energy;
- assert.ok(injectCarrier(w,q,pod));assert.equal(pod.passengers.length,6);assert.equal(paidReservations(w,'zergling'),3);assert.equal(q.injectReady,45);assert.equal(q.energy,energy);assert.equal(w.wallet.minerals,0);assert.ok(j.passengers.slice(2).every(p=>p.paid.minerals===0&&p.source==='queen-inject'));assert.equal(injectCarrier(w,q2,pod),false);assert.equal(q2.injectReady,undefined);
+ assert.ok(injectCarrier(w,q,pod));assert.equal(pod.passengers.length,6);assert.equal(paidReservations(w,'zergling'),3);assert.equal(q.injectReady,45);assert.equal(q.energy,energy);assert.equal(w.wallet.minerals,50);assert.ok(j.passengers.slice(2).every(p=>p.paid.minerals===0&&p.source==='queen-inject'));assert.equal(injectCarrier(w,q2,pod),false);assert.equal(q2.injectReady,undefined);
 });
 test('queen respects prepaid capacity and does not spend cooldown with no room',()=>{
  const w=world();for(let i=0;i<3;i++)createPair(w,{x:10+i*3,z:0});w.wallet={minerals:50,gas:0};updateExpeditionProduction(w,0,true);const j=w.expedition.ledger[0],pod=w.spawnPod('zergling',{x:3,z:0},j.id,2);pod.status='active';j.podId=pod.id;j.state='risk';const q=w.addUnit('queen','terran',3,1);assert.equal(injectCarrier(w,q,pod),false);assert.equal(q.injectReady,undefined);

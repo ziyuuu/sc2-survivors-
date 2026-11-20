@@ -1,4 +1,6 @@
 import {loadTutorialAssets} from './tutorial-assets.mjs';
+import {loadSixAssets} from './terran-six-assets.mjs';
+import {loadZergSixAssets} from './zerg-six-assets.mjs';
 import {loadArmedSupportAssets} from './armed-support-assets.mjs';
 import {loadCombatAudio} from './combat-audio-assets.mjs';
 import {loadMusicAssets} from './music-assets.mjs';
@@ -46,8 +48,9 @@ export async function loadBuildAssets(){
    if(!matches||r.sourceSha256!==r.packedSha256)throw Error('UI resource changed: '+file);
   }
  }
- const armed=(await loadArmedSupportAssets()).filter(r=>!byId.has(r.id));
- const records=[...await loadTutorialAssets(),...await loadFunPropAssets(),...await loadMissionAssets(),...metadata.records,...armed,...ui.records,...await loadIntermissionAssets(),...await loadNativeHudAssets(),...await loadMaterialTextures(),...await loadEnvironmentTextures(),...await loadEnvironmentScenery(),...await loadCombatEffects(),...await loadCombatAudio(),...await loadStarshipAssets(),...await loadMusicAssets()];
+ const armed=[...await loadArmedSupportAssets(),...await loadArmedSupportAssets({bio:true})].filter(r=>!byId.has(r.id));
+ const zergSix=(await loadZergSixAssets()).map(r=>({...r,packedFile:'public/'+r.url}));
+ const records=[...await loadTutorialAssets(),...await loadFunPropAssets(),...await loadMissionAssets(),...metadata.records,...await loadSixAssets(),...zergSix,...armed,...ui.records,...await loadIntermissionAssets(),...await loadNativeHudAssets(),...await loadMaterialTextures(),...await loadEnvironmentTextures(),...await loadEnvironmentScenery(),...await loadCombatEffects(),...await loadCombatAudio(),...await loadStarshipAssets(),...await loadMusicAssets()];
  if(new Set(records.map(r=>r.id)).size!==records.length)throw Error('Duplicate combined build asset ID');
  return records;
 }

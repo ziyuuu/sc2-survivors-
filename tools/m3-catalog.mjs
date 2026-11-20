@@ -12,7 +12,11 @@ export const STARSHIP_FORT_MODELS=JSON.parse(fs.readFileSync(new URL('./starship
 export const ARMED_SUPPORT_MODELS=JSON.parse(fs.readFileSync(new URL('./armed-support-models.json',import.meta.url),'utf8'));
 export const ARMED_SUPPORT_PROPS=JSON.parse(fs.readFileSync(new URL('./armed-support-props.json',import.meta.url),'utf8'));
 export const F05_RESCUE_MODELS=JSON.parse(fs.readFileSync(new URL('./f05-rescue-models.json',import.meta.url),'utf8').replace(/^\uFEFF/,''));
+export const TERRAN_SIX_MODELS=JSON.parse(fs.readFileSync(new URL('./terran-six-models.json',import.meta.url),'utf8'));
+export const ZERG_SIX_MODELS=JSON.parse(fs.readFileSync(new URL('./zerg-six-models.json',import.meta.url),'utf8'));
 export const M3_MODELS=[
+ ...TERRAN_SIX_MODELS.filter(a=>a.id.startsWith('model.')).map(a=>[a.id,a.name]),
+ ...ZERG_SIX_MODELS.filter(a=>a.id.startsWith('model.')).map(a=>[a.id,a.name]),
  ...JSON.parse(fs.readFileSync(new URL('./fun-models.json',import.meta.url),'utf8')).map(a=>[a.id,a.name]),
  ...JSON.parse(fs.readFileSync(new URL('./mission-models.json',import.meta.url),'utf8')).map(a=>[a.id,a.name]),
  ['model.support.mine','spidermine'],
@@ -21,6 +25,7 @@ export const M3_MODELS=[
  ...F05_RESCUE_MODELS.map(a=>[a.id,a.name]),
  ...M3_FORT_MODELS.map(a=>[a.id,a.name]),
  ...STARSHIP_FORT_MODELS.map(a=>[a.id,a.name]),
+ ...JSON.parse(fs.readFileSync(new URL('./bio-models.json',import.meta.url),'utf8')).filter(a=>a.id.startsWith('model.')).map(a=>[a.id,a.name]),
  ...ARMED_SUPPORT_MODELS.map(a=>[a.id,a.name]),
  ...ARMED_SUPPORT_PROPS.map(a=>[a.id,a.name]),
  ...COMBAT_DEATH_MODELS.map(a=>[a.id,a.name]),
@@ -46,6 +51,7 @@ export const M3_MODELS=[
 // Original particle textures. The web renderer implements a documented subset of
 // the M3 particle system, not SC2's full material/physics/Actor renderer.
 export const M3_EFFECTS=[
+ ...ZERG_SIX_MODELS.filter(a=>a.id.startsWith('fx.')).map(a=>[a.id,a.name]),
  ['fx.support.nuke','nuke'],
  ...JSON.parse(fs.readFileSync(new URL('./expansion-effects.json',import.meta.url),'utf8')).map(a=>[a.id,a.name]),
  ['fx.muzzle','marineweaponlaunch'],['fx.impact','marineweaponimpact'],

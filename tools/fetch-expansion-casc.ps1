@@ -10,10 +10,10 @@ function LocalPath([string]$relative){$p=[IO.Path]::GetFullPath((Join-Path $root
 $records=[Collections.Generic.List[object]]::new();$missing=[Collections.Generic.List[object]]::new()
 $previous=@();if(Test-Path -LiteralPath $DependenciesFile){$previous=@(Get-Content -LiteralPath $DependenciesFile -Raw | ConvertFrom-Json)}
 foreach($priorManifest in @('tools/sc2-casc-targets.json','tools/expansion-dependencies.json','tools/three-race-dependencies.json','tools/three-race-additional-dependencies.json','tools/three-race-animation-dependencies.json')){if($priorManifest -ne $DependenciesFile -and (Test-Path -LiteralPath $priorManifest)){$previous+=@(Get-Content -LiteralPath $priorManifest -Raw | ConvertFrom-Json)}}
-$source=LocalPath ('.cache/casclib-'+$lock.cascRevision)
+$source=if($env:SC2_CASC_TOOL_DIRECTORY){$env:SC2_CASC_TOOL_DIRECTORY}else{LocalPath ('.cache/casclib-'+$lock.cascRevision)}
 $patchHash=(Get-FileHash tools/patch-casc-source.py).Hash.Substring(0,12)
 Add-Type -LiteralPath (Join-Path $source ('CascLib-'+$patchHash+'.dll'))
-[CASCLib.CDNCache]::CachePath=LocalPath '.cache/casc-data'
+[CASCLib.CDNCache]::CachePath=if($env:SC2_CASC_DATA_DIRECTORY){$env:SC2_CASC_DATA_DIRECTORY}else{LocalPath '.cache/casc-data'}
 [CASCLib.CDNCache]::CacheData=$false
 [CASCLib.CASCConfig]::LoadFlags=[CASCLib.LoadFlags]::None
 [CASCLib.CASCConfig]::BuildConfigKeyOverride=$lock.buildConfig
@@ -25,7 +25,7 @@ if($config.BuildName -ne $lock.buildName){throw 'Asset build changed'}
 $handler=[CASCLib.CASCHandler]::OpenStorage($config,$null)
 $handler.Root.LoadListFile('',$null)
 $null=$handler.Root.SetFlags([CASCLib.LocaleFlags]::All,$false,$false,$true)
-$modules=@('mods/void.sc2mod','mods/swarm.sc2mod','mods/liberty.sc2mod','mods/core.sc2mod','mods/starcoop/starcoop.sc2mod','mods/novastoryassets.sc2mod','mods/libertystory.sc2mod','mods/swarmstory.sc2mod','mods/voidstory.sc2mod','mods/war3.sc2mod')
+$modules=@('mods/void.sc2mod','mods/swarm.sc2mod','mods/liberty.sc2mod','mods/core.sc2mod','mods/starcoop/starcoop.sc2mod','mods/novastoryassets.sc2mod','mods/libertystory.sc2mod','mods/swarmstory.sc2mod','mods/voidstory.sc2mod','mods/war3.sc2mod','campaigns/swarm.sc2campaign','campaigns/liberty.sc2campaign','campaigns/void.sc2campaign')
 $catalogPaths=@([CASCLib.CASCFile]::Files.Values | ForEach-Object { $_.FullName.Replace('\','/') })
 function FetchOriginal([string]$id,[string]$assetPath,[string]$file){
  $destination=LocalPath $file

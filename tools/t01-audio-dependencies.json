@@ -13524,5 +13524,54 @@
     "installFile": "assets/private/movement-research/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SharedEffects/Propulsion/Terran_BuildingMovement2.wav",
     "sha256": "cec1be97db7a1c4f390c12d232eba7f4c3b96aac591c415d1426b93b41bb0f7b",
     "bytes": 133948
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Overlord/Overlord_Death0.wav",
+    "sha256": "ee3a14eb95cacedfacb1f1cc3fea116ea7724bd9246f8824259b9b0d4bea411f",
+    "bytes": 26684,
+    "build": "B97563",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Overlord/Overlord_Death0.wav"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Overlord/Overlord_Death1.wav",
+    "sha256": "6a7edce1da4904c4cff7163f56086c5c3e6304f71457718eeaee874262485823",
+    "bytes": 35132,
+    "build": "B97563",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Overlord/Overlord_Death1.wav"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Overlord/Overlord_Death2.wav",
+    "sha256": "4b245a6ca6a91ff60f5c8a54ede811b535eef3106d68001e7d0c4086b5e2438b",
+    "bytes": 26940,
+    "build": "B97563",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Overlord/Overlord_Death2.wav"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Overlord/Overlord_Death3.wav",
+    "sha256": "8447560c3f60233effca6041d82b0a01973e45b3344d12a66f246ba023aac51a",
+    "bytes": 26684,
+    "build": "B97563",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Overlord/Overlord_Death3.wav"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Overlord/Overlord_Death4.wav",
+    "sha256": "76b75fea46c05caed9c528677600eb7808b017261d907cf20231b375bcfe557c",
+    "bytes": 26428,
+    "build": "B97563",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Overlord/Overlord_Death4.wav"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Overlord/Overlord_Death5.wav",
+    "sha256": "726061acad6700b9ea4972a49caba108577057e96f3150a655d943e365ecdeb5",
+    "bytes": 28732,
+    "build": "B97563",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Overlord/Overlord_Death5.wav"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Overlord/Overlord_Death6.wav",
+    "sha256": "d28fa683d0788326921883083d571e8fdd7081b042683fd55a18996fb73f3654",
+    "bytes": 25916,
+    "build": "B97563",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Overlord/Overlord_Death6.wav"
   }
 ]

@@ -19,7 +19,7 @@ for(const race of RACES)test(`gear ${race}: initial training/team/elite conversi
 });
 test('green choices yield four independent operating refreshes and never consume a shop refresh',()=>{
  const w=fixture();for(const slot of ['offense1','offense2','offense3','offense4','defense1','defense2','defense3','defense4'] as const)put(w,'set.choice.2',slot);w.start();w.endStage();w.wallet={minerals:0,gas:0};assert.equal(activeEquipmentEffects(w).filter(e=>e.key==='development_refresh').length,4);
- for(let i=0;i<5;i++){assert.equal(w.rerollCost(),0);assert.ok(w.reroll());}assert.ok(w.rerollCost()>0);w.rewardRound='random';assert.ok(w.rerollCost()>0);assert.equal(w.starship.window.shop,0);near(w.wallet.minerals,0);
+ for(let i=0;i<5;i++){assert.equal(w.rerollCost(),0);assert.ok(w.reroll());}assert.equal(w.rerollCost(),0);w.rewardRound='random';assert.ok(w.rerollCost()>0);assert.equal(w.starship.window.shop,0);near(w.wallet.minerals,0);
 });
 test('green supply grants one stage reward, while periodic grants freeze in intermission',()=>{
  const w=fixture();put(w,'module.supply.2','logistics');w.start();const wallet={...w.wallet},base=w.config.reward;w.time=60;tickStarship(w);near(w.wallet.minerals,wallet.minerals+15);near(w.wallet.gas,wallet.gas+5);w.endStage();near(w.clearReceipt!.minerals,base[0]+10);near(w.clearReceipt!.gas,base[1]+3);const paid={...w.wallet};w.time=180;tickStarship(w);w.endStage();assert.deepEqual(w.wallet,paid);

@@ -1,0 +1,23 @@
+[
+  {
+    "id": "model.overlord",
+    "modelDataId": "Overlord",
+    "assetPath": "Assets/Units/Zerg/Overlord/Overlord.m3",
+    "name": "overlord",
+    "sourceScale": "0.800000,0.800000,0.800000"
+  },
+  {
+    "id": "model.overlord.death",
+    "modelDataId": "OverlordDeath",
+    "assetPath": "Assets/Units/Zerg/OverlordDeathEx1/OverlordDeathEx1.m3",
+    "name": "overlord-death",
+    "sourceScale": "0.800000,0.800000,0.800000"
+  },
+  {
+    "id": "animation.overlord",
+    "modelDataId": "OverlordBase",
+    "assetPath": "Assets/Units/Zerg/Overlord_SwarmAnims/Overlord_SwarmAnims.m3a",
+    "name": "overlord-swarm",
+    "sourceScale": "0.800000,0.800000,0.800000"
+  }
+]

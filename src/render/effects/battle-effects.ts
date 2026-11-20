@@ -27,7 +27,7 @@ type Batch={mesh:THREE.InstancedMesh;data:THREE.InstancedBufferAttribute;count:n
 const object=new THREE.Object3D(),color=new THREE.Color(),rotation=new THREE.Quaternion(),axis=new THREE.Vector3(0,0,1);
 const along=new THREE.Vector3(),across=new THREE.Vector3(),normal=new THREE.Vector3(),basis=new THREE.Matrix4();
 const CAPACITY=256,POOL_SIZE=1280;
-const additive=new Set(['fx.support.nuke.16','fx.support.nuke.2','fx.marauder.launch.1','fx.marauder.impact.2','fx.marauder.impact.3','fx.muzzle.0','fx.flame.0','fx.flame.1','fx.muzzle.1','fx.flameimpact.0','fx.blast.0','fx.blast.3','fx.blast.6','fx.blast.8','fx.impact.0','fx.bile.4','fx.baneling.0']);
+const additive=new Set(['fx.zsix.viper.cloud.1','fx.support.nuke.16','fx.support.nuke.2','fx.marauder.launch.1','fx.marauder.impact.2','fx.marauder.impact.3','fx.muzzle.0','fx.flame.0','fx.flame.1','fx.muzzle.1','fx.flameimpact.0','fx.blast.0','fx.blast.3','fx.blast.6','fx.blast.8','fx.impact.0','fx.bile.4','fx.baneling.0']);
 /** Original M3-referenced sprites; authored web emission timing, not a full SC2 particle emulator. */
 export class BattleEffects {
  protossHeroes=false;zergHeroes=false;confirmedHeroes=false;
@@ -44,12 +44,19 @@ export class BattleEffects {
  async load(){this.errors.length=0;await this.projectiles.load();this.errors.push(...this.projectiles.errors);for(const a of ASSETS.values()){if(a.kind!=='effect-texture'||this.batches.has(a.id))continue;const url=assetUrl(a.id);if(!url)continue;try{
    const texture=await new ManagedTextureLoader().loadAsync(url);texture.colorSpace=THREE.SRGBColorSpace;
    const sprite=(a as unknown as {sprite?:{columns:number;rows:number;startFrame?:number;endFrame?:number}}).sprite??{columns:1,rows:1};
+   const zergSprite=a.id.startsWith('fx.zsix.'),image=texture.image as {width:number;height:number};
+   // Sample inside the current atlas cell; mipmaps blend into adjacent animation frames.
+   const isolateCells=zergSprite&&sprite.columns*sprite.rows>1;
+   if(isolateCells){texture.generateMipmaps=false;texture.minFilter=THREE.LinearFilter;}
+   const inset=isolateCells?new THREE.Vector2(.5*sprite.columns/image.width,.5*sprite.rows/image.height):new THREE.Vector2();
    const geometry=new THREE.PlaneGeometry(1,1),data=new THREE.InstancedBufferAttribute(new Float32Array(CAPACITY*3),3).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('spriteFrame',data);
-   const material=new THREE.ShaderMaterial({transparent:true,depthWrite:false,forceSinglePass:true,blending:additive.has(a.id)||(a.id.startsWith('fx.hero-basic.')||a.id.startsWith('fx.hero-skill.'))&&!a.id.includes('smoke')?THREE.AdditiveBlending:THREE.NormalBlending,side:THREE.DoubleSide,uniforms:{map:{value:texture},grid:{value:new THREE.Vector2(sprite.columns,sprite.rows)}},
-    vertexShader:`attribute vec3 spriteFrame; varying vec2 vUv; varying vec3 vColor; varying float vOpacity; varying float vNeutralize; uniform vec2 grid;
-     void main(){float f=spriteFrame.x;vUv=(uv+vec2(mod(f,grid.x),grid.y-1.0-floor(f/grid.x)))/grid;vOpacity=spriteFrame.y;vNeutralize=spriteFrame.z;vColor=instanceColor;gl_Position=projectionMatrix*modelViewMatrix*instanceMatrix*vec4(position,1.0);}`,
-    fragmentShader:`uniform sampler2D map;varying vec2 vUv;varying vec3 vColor;varying float vOpacity;varying float vNeutralize;
-     void main(){vec4 p=texture2D(map,vUv);p.rgb=mix(p.rgb,vec3(max(p.r,max(p.g,p.b))),vNeutralize);gl_FragColor=vec4(p.rgb*vColor,p.a*vOpacity);if(gl_FragColor.a<0.01)discard;#include <tonemapping_fragment>
+   const material=new THREE.ShaderMaterial({transparent:true,depthWrite:false,forceSinglePass:true,blending:additive.has(a.id)||(a.id.startsWith('fx.hero-basic.')||a.id.startsWith('fx.hero-skill.'))&&!a.id.includes('smoke')?THREE.AdditiveBlending:THREE.NormalBlending,side:THREE.DoubleSide,uniforms:{map:{value:texture},grid:{value:new THREE.Vector2(sprite.columns,sprite.rows)},cellInset:{value:inset},edgeFade:{value:zergSprite?.13:0}},
+    vertexShader:`attribute vec3 spriteFrame; varying vec2 vUv; varying vec3 vColor; varying float vOpacity; varying float vNeutralize; varying vec2 vCell; uniform vec2 grid; uniform vec2 cellInset;
+     void main(){float f=spriteFrame.x;vCell=uv;vUv=(mix(cellInset,1.0-cellInset,uv)+vec2(mod(f,grid.x),grid.y-1.0-floor(f/grid.x)))/grid;vOpacity=spriteFrame.y;vNeutralize=spriteFrame.z;vColor=instanceColor;gl_Position=projectionMatrix*modelViewMatrix*instanceMatrix*vec4(position,1.0);}`,
+    fragmentShader:`uniform sampler2D map;varying vec2 vUv;varying vec3 vColor;varying float vOpacity;varying float vNeutralize;varying vec2 vCell;uniform float edgeFade;
+     void main(){vec4 p=texture2D(map,vUv);
+       if(edgeFade>0.0){vec2 edge=min(vCell,1.0-vCell);p.a*=smoothstep(0.0,edgeFade,min(edge.x,edge.y));}
+       p.rgb=mix(p.rgb,vec3(max(p.r,max(p.g,p.b))),vNeutralize);gl_FragColor=vec4(p.rgb*vColor,p.a*vOpacity);if(gl_FragColor.a<0.01)discard;#include <tonemapping_fragment>
      #include <colorspace_fragment>}`.replace(';#include',';\n#include')});
    const mesh=new THREE.InstancedMesh(geometry,material,CAPACITY);mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);mesh.setColorAt(0,color.set(0xffffff));mesh.count=0;mesh.frustumCulled=false;mesh.matrixAutoUpdate=false;mesh.matrixWorldAutoUpdate=false;mesh.renderOrder=2;this.scene.add(mesh);this.batches.set(a.id,{mesh,data,count:0,cells:sprite.columns*sprite.rows,start:sprite.startFrame??0,end:sprite.endFrame??sprite.columns*sprite.rows-1});this.loaded++;
   }catch(e){this.errors.push(a.id+': '+String(e));}}
@@ -66,7 +73,49 @@ export class BattleEffects {
    this.emit({asset:'fx.muzzle.1',x:from.x+dx*t,y:from.y+dy*t,z:from.z+dz*t,vx:0,vy:0,vz:0,start:e.time,life:nova?.09:.06,size:nova?.1:.065,growth:0,color:tint,ground:false,angle:e.facing,priority:'trail'});
   }
  }
+ private viperSpray(e:VisualEvent,mount:{x:number;y:number;z:number}|null){
+  const from=mount??{x:e.x+Math.sin(e.facing)*.55,y:e.y,z:e.z+Math.cos(e.facing)*.55};
+  const dx=e.end.x-from.x,dy=e.endY-from.y,dz=e.end.z-from.z,length=Math.hypot(dx,dz);
+  const spread=Math.min(.4,length*.12),lateralX=length?dz/length:0,lateralZ=length?-dx/length:0;
+  for(let i=0;i<=6;i++){
+   const t=i/6,side=t>0&&t<1?(i%2?1:-1)*spread*t:0;
+   this.emit({asset:'fx.acid.0',x:from.x+dx*t+lateralX*side,y:from.y+dy*t,z:from.z+dz*t+lateralZ*side,
+    vx:0,vy:0,vz:0,start:e.time+t*.09,life:.15,size:.22+.23*t,growth:.35,color:0xa5d076,opacity:.78,
+    ground:false,angle:e.facing,priority:'core'});
+  }
+ }
  event(e:VisualEvent,mount:{x:number;y:number;z:number}|null=null,leftMount:{x:number;y:number;z:number}|null=null){
+  if(e.doomsdayEffect)return;
+  if(e.zergCue){
+   if(e.zergCue==='enemy-warning'){
+    this.burst({...e,...e.end,y:e.endY+.06},'fx.bile.4',1,(e.supportRadius??1)*2,0xff9d73,e.supportDuration??.5,true,'core');
+    return;
+   }
+   if(e.zergCue==='vortex'){
+    // The source cloud colour texture has opaque black; its energy layer uses additive blending.
+    this.emit({asset:'fx.zsix.viper.cloud.1',x:e.end.x,y:e.endY,z:e.end.z,vx:0,vy:0,vz:0,start:e.time,
+     life:e.supportDuration??2.5,size:(e.supportRadius??2.5)*2,growth:.08,color:e.sourceTeam==='enemy'?0xf19655:0xa8c86c,opacity:.42,
+     ground:true,angle:e.facing,priority:'core'});
+    return;
+   }
+   const impact={...e,...e.end,y:e.endY};
+   const style={
+    shell:['fx.zsix.devourer.acid.5',.75,0xefac67,false],
+    counter:['fx.zsix.broodlord.impact.1',2.65,0xb1a286,false],
+    infection:['fx.zsix.infestor.impact.0',3.3,0x94b461,true],
+    locusts:['fx.zsix.locust.impact.1',1.1,0xc1d998,true],
+    burrow:['fx.zsix.locust.impact.1',1.1,0xa0a872,true],
+    acid:['fx.zsix.devourer.acid.5',2.4,0xc7b1d8,!e.targetFlying],
+    brood:['fx.zsix.broodlord.impact.1',1.55,0xc8bca9,false],
+   } as const;
+   const [asset,size,tint,ground]=style[e.zergCue];
+   this.burst(impact,asset,1,size,tint,Math.min(e.supportDuration??.3,e.zergCue==='shell'?.45:3),ground,'core');
+   return;
+  }
+  if(e.kind==='projectile-impact'&&e.unitType&&(e.unitType==='infestor'||e.unitType==='zerg_locust'||e.unitType==='devourer')){
+   const asset=e.unitType==='infestor'?'fx.zsix.infestor.impact.4':e.unitType==='zerg_locust'?'fx.zsix.locust.impact.0':'fx.zsix.devourer.impact.0';
+   this.burst({...e,...e.end,y:e.endY},asset,1,.72,0xffffff,.25,false,'core');return;
+  }
   if(e.kind==='squad-transfer'){for(const p of [{x:e.x,y:e.y,z:e.z},{...e.end,y:e.endY}])this.emit({asset:'fx.impact.0',...p,vx:0,vy:.5,vz:0,start:e.time,life:.45,size:1,growth:.6,color:0x96ddff,ground:false,angle:0,aspect:1.8,priority:'core'});return;}
   if(this.ordinaryEventIds.has(e.serial)||this.sourceEventIds.has(e.serial)){if(e.kind==='attack')this.stats.attack++;return;}
   if(!e.heroId&&isProtossEliteId(e.eliteId)&&['attack','projectile-impact','weapon-area','storm-start','skill-launch','skill-impact','support-impact','strategic-impact','barrier-start'].includes(e.kind)){if(e.kind==='attack')this.stats.attack++;return;}
@@ -75,6 +124,11 @@ export class BattleEffects {
   if(this.protossHeroes&&isProtossHero(e.heroId)&&['attack','projectile-impact','weapon-area','skill-launch','skill-impact','skill-line','skill-heal','skill-status'].includes(e.kind)){if(e.kind==='attack')this.stats.attack++;return;}
   if(this.zergHeroes&&isZergHero(e.heroId)&&['attack','projectile-impact','weapon-area','skill-launch','skill-impact','skill-line','skill-dot','skill-heal'].includes(e.kind)){if(e.kind==='attack')this.stats.attack++;return;}
   if(!e.heroId&&isTerranEliteId(e.eliteId)&&(['support-impact','strategic-impact','weapon-area','skill-impact'].includes(e.kind)||e.kind==='attack'&&e.unitType==='hellion')){if(e.kind==='attack')this.stats.attack++;return;}
+  if(e.kind==='attack'&&e.unitType==='viper'&&!e.heroId){
+   this.stats.attack++;
+   this.viperSpray(e,mount);
+   return;
+  }
   this.heroBasic.event(e,mount);
   if(e.kind==='attack'&&e.heroId==='yamato_battlecruiser'&&leftMount)this.heroBasic.event(e,leftMount);
   this.sculptures.heroDetail=this.heroQuality;this.heroLayers(e,mount);
@@ -155,6 +209,19 @@ export class BattleEffects {
   this.sculptures.heroDetail=this.heroQuality;if(!this.confirmedHeroes)this.heroBasic.render(w,visible,this.sculptures.mounts);this.projectiles.renderFlights(w,visible,this.sculptures.mounts,this.heroBasic.flights);this.sculptures.render(this.confirmedHeroes?Object.assign(Object.create(w),{heroCasts:w.heroCasts.filter(c=>!isRevisedHero(c.hero)&&!(this.zergHeroes&&isZergHero(c.hero))&&!(this.protossHeroes&&isProtossHero(c.hero)))}):w,visible,muzzle);
   for(const b of this.batches.values())b.count=0;this.stats.culledByClass=counters();this.stats.projectileCulled=0;
   this.stats.pending=0;
+  for(const p of w.weaponFlights){
+   const family=p.source.unitType,asset=family==='devourer'?'fx.zsix.devourer.flight.0':family==='infestor'?'fx.zsix.infestor.flight.3':family==='zerg_locust'?'fx.zsix.locust.impact.0':null;
+   if(!asset||w.time<p.start||!visible(p.point))continue;
+   const batch=this.batches.get(asset);
+   if(!batch||batch.count>=CAPACITY)continue;
+   const total=Math.max(.01,Math.hypot(p.lastSeen.x-p.from.x,p.lastSeen.z-p.from.z));
+   const progress=Math.min(1,Math.hypot(p.point.x-p.from.x,p.point.z-p.from.z)/total);
+   const height=(at:Point,flying:boolean)=>flying?AIR_HEIGHT+.65:(w.terrain?.height(at)??0)+.65;
+   object.position.set(p.point.x,THREE.MathUtils.lerp(height(p.from,p.source.flying),height(p.lastSeen,!!p.targetFlying),progress),p.point.z);
+   const size=p.zergVolley?.57:family==='devourer'?.55:.42;
+   object.scale.set(size,size,1);object.quaternion.copy(camera.quaternion);object.updateMatrix();
+   batch.mesh.setMatrixAt(batch.count,object.matrix);batch.mesh.setColorAt(batch.count,color.set(0xffffff));batch.data.setXYZ(batch.count++,batch.start,1,0);
+  }
   if(!this.supportPresentation){
   const support=w.expedition.support,tint=w.expedition.race==='zerg'?0xb4ed67:w.expedition.race==='protoss'?0x86d9ff:0xffc271;
   const glyph=(point:Point,y:number,size:number,asset:string,ground=false,aspect=1)=>{const b=this.batches.get(asset);if(!b||b.count>=CAPACITY||!visible(point))return;object.position.set(point.x,y,point.z);object.scale.set(size*aspect,size,1);if(ground)object.rotation.set(-Math.PI/2,0,w.time*.3);else object.quaternion.copy(camera.quaternion);object.updateMatrix();b.mesh.setMatrixAt(b.count,object.matrix);b.mesh.setColorAt(b.count,color.set(tint));b.data.setXYZ(b.count++,Math.min(b.end,b.start+Math.floor((b.end-b.start)*.35)),1,0);};

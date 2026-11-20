@@ -1,0 +1,26 @@
+[
+  {
+    "id": "unit.aberration",
+    "name": "btn-unit-zerg-aberration"
+  },
+  {
+    "id": "unit.devourer",
+    "name": "btn-unit-zerg-devourerex3"
+  },
+  {
+    "id": "unit.infestor",
+    "name": "btn-unit-zerg-infestor"
+  },
+  {
+    "id": "unit.swarm_host",
+    "name": "btn-unit-zerg-swarmhost"
+  },
+  {
+    "id": "unit.viper",
+    "name": "btn-unit-zerg-viper"
+  },
+  {
+    "id": "unit.brood_lord",
+    "name": "btn-unit-zerg-broodlord"
+  }
+]

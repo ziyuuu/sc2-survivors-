@@ -1,0 +1,449 @@
+{
+  "date": "2026-10-29",
+  "task": "V06",
+  "request": "准备这次Coze更新包和部署步骤，包含新增BGM，暂不部署。",
+  "status": "Local package verified; not deployed",
+  "source": {
+    "featureCommit": "adcf9a8d5546b27e89a97c7337b6cf80c7322b54",
+    "sourceCommit": "674c528ee8657f7b2f6ba743e2aac6c13f644eec",
+    "productionHashesMatched": 24,
+    "gameplayChanged": false,
+    "appBuildMatchesPriorVerifiedCandidate": true
+  },
+  "delivery": {
+    "zip": {
+      "path": "dist/coze-feedback-bgm-20261029/Coze-Feedback-BGM-Update.zip",
+      "bytes": 13415520,
+      "sha256": "af207c95d83785464c36320b1052a855d8069b641c93415e537e99263ab76544",
+      "entries": 9,
+      "allEntriesReadBack": true
+    },
+    "appBuildId": "b785addbf5e8ed98de78dd8363d1c9d87cf2a03915c30918df8e2eeef856bc67",
+    "resourceRelease": "50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a",
+    "baselineResourceRelease": "ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2",
+    "runSchema": 26,
+    "files": [
+      {
+        "path": "public/asset-manifest.50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a.json",
+        "bytes": 2309774,
+        "sha256": "7662120dc3b6a1ab6437160c1236056235ffc581dfce817c84f1dc3f12f2fc8b",
+        "role": "resource-manifest"
+      },
+      {
+        "path": "public/assets/a8b4c87df6e68a28e834bf81595453dcfb7a24c19c4fe1dea2fbd43b17453ca0.mp3",
+        "bytes": 2573610,
+        "sha256": "a8b4c87df6e68a28e834bf81595453dcfb7a24c19c4fe1dea2fbd43b17453ca0",
+        "role": "music"
+      },
+      {
+        "path": "public/assets/b5c5fc434632765c636690c12ebd76d5c132fb971517bbe35d6594049bf9974c.mp3",
+        "bytes": 1953347,
+        "sha256": "b5c5fc434632765c636690c12ebd76d5c132fb971517bbe35d6594049bf9974c",
+        "role": "music"
+      },
+      {
+        "path": "public/assets/index-7e155d295a2cdab9.js",
+        "bytes": 4018,
+        "sha256": "7e155d295a2cdab9682d50c27e11470accfb0805ebad75394e938e52b4fc59d5",
+        "role": "program"
+      },
+      {
+        "path": "public/assets/sc2-entry.4145d8b6cab2a552.js.gz",
+        "bytes": 7673847,
+        "sha256": "4145d8b6cab2a55286c55eaf1b5551fc0a574ba2ddcfc836b43084e7585189e3",
+        "role": "program"
+      },
+      {
+        "path": "public/index.html",
+        "bytes": 955167,
+        "sha256": "874709d1e5adf5c052f5f1739fba177a2d66ae29f9e327c763c92ce111ad0d21",
+        "role": "switch-last"
+      },
+      {
+        "path": "public/web-release.json",
+        "bytes": 1121,
+        "sha256": "3c7c7ea8bcf8e3040390299dead5546e53e7e034d91b9fd3867a72039a10ff66",
+        "role": "switch-last"
+      }
+    ],
+    "music": [
+      {
+        "id": "music.menu",
+        "url": "assets/a8b4c87df6e68a28e834bf81595453dcfb7a24c19c4fe1dea2fbd43b17453ca0.mp3",
+        "bytes": 2573610,
+        "sha256": "a8b4c87df6e68a28e834bf81595453dcfb7a24c19c4fe1dea2fbd43b17453ca0",
+        "mime": "audio/mpeg"
+      },
+      {
+        "id": "music.intermission",
+        "url": "assets/b5c5fc434632765c636690c12ebd76d5c132fb971517bbe35d6594049bf9974c.mp3",
+        "bytes": 1953347,
+        "sha256": "b5c5fc434632765c636690c12ebd76d5c132fb971517bbe35d6594049bf9974c",
+        "mime": "audio/mpeg"
+      }
+    ],
+    "totalMusicBytes": 4526957,
+    "descriptor": {
+      "appBuildId": "b785addbf5e8ed98de78dd8363d1c9d87cf2a03915c30918df8e2eeef856bc67",
+      "runSchema": 26,
+      "rulesId": "mvp-1.0",
+      "mapId": "campaign-five-v3",
+      "assetCount": 3847,
+      "fileCount": 5138,
+      "assetBytes": 824778460,
+      "logicalBytes": 827862182,
+      "sharedBytes": 3083722,
+      "manifest": "asset-manifest.50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a.json",
+      "release": "50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a",
+      "source": "reports/local/asset-reachability.json",
+      "sourceWebRelease": "c57126842b2eebe90f278e5dfe9c5ad54eaaec683b3e611e697abada0118fdad",
+      "compressedEntrySha256": "4145d8b6cab2a55286c55eaf1b5551fc0a574ba2ddcfc836b43084e7585189e3",
+      "qualityVariants": true,
+      "packedBytes": 458346118,
+      "variantRecordCount": 1375,
+      "sharedImageIdentities": 1,
+      "gpuTextureSidecars": {
+        "count": 43,
+        "bytes": 22644988,
+        "source": "tier-invariant normal/specular; UASTC level3; same dimensions"
+      },
+      "standaloneMusic": {
+        "count": 2,
+        "bytes": 4526957,
+        "encoding": "Approved original MP3, unchanged; outside existing packed bundles"
+      }
+    }
+  },
+  "verification": {
+    "webBuild": "Asset restore, reachability and TypeScript completed; initial rename failed because the new output parent was absent. Verified completed staging was moved into the explicit destination after creating the parent; appBuildId matches the prior approved build.",
+    "zipEntriesReadBack": 9,
+    "allZipEntriesMatch": true,
+    "metadataTotalsChecked": true,
+    "browser": {
+      "scope": "Extracted ZIP over unchanged packed assets, isolated Chrome with simulated touch and null audio output. Synthetic current-format reward save; no physical iPhone, production backend or natural full-campaign claim.",
+      "appBuildId": "b785addbf5e8ed98de78dd8363d1c9d87cf2a03915c30918df8e2eeef856bc67",
+      "release": "50c5462e64fed40b39fe61da8d479b108fd6b3550f75d6ceb44f9dc45780474a",
+      "integrity": {
+        "patchFiles": 7,
+        "retainedFiles": 366,
+        "unchangedAssetRecords": 3845,
+        "gpuRecords": 43,
+        "diagnosticTokensAbsent": true
+      },
+      "checks": [
+        "All seven extracted files served byte-for-byte over HTTP",
+        "Packaged menu MP3 decoded and clock advanced; mute/unmute and volume persisted after reload",
+        "Normal first battle entered and ran five seconds; BGM faded out and required combat resources were ready",
+        "Synthetic reward checkpoint imported through normal settings; packaged intermission MP3 played and checkpoint resumed after refresh",
+        "Prior entry files served on the same local origin; old menu loaded and checkpoint remained available",
+        "Reapplying new entry restored the new build and resumed the checkpoint"
+      ],
+      "errors": [],
+      "httpFailures": [],
+      "musicRequests": [
+        {
+          "url": "http://127.0.0.1:10848/assets/a8b4c87df6e68a28e834bf81595453dcfb7a24c19c4fe1dea2fbd43b17453ca0.mp3?sc2-index=sites-pack-index.0bb43ff1011a0ab1462d.js",
+          "status": 200,
+          "mime": "audio/mpeg"
+        },
+        {
+          "url": "http://127.0.0.1:10848/assets/b5c5fc434632765c636690c12ebd76d5c132fb971517bbe35d6594049bf9974c.mp3?sc2-index=sites-pack-index.0bb43ff1011a0ab1462d.js",
+          "status": 200,
+          "mime": "audio/mpeg"
+        }
+      ],
+      "screens": [
+        "settings",
+        "battle",
+        "intermission"
+      ],
+      "menu": {
+        "first": {
+          "scene": "menu",
+          "track": "menu",
+          "unlocked": true,
+          "visible": true,
+          "enabled": true,
+          "loading": false,
+          "playing": true,
+          "time": 0.075465,
+          "duration": 153.191497,
+          "loop": true,
+          "prepared": [
+            "menu"
+          ],
+          "starts": 1,
+          "errors": [],
+          "volume": 0.15
+        },
+        "after": {
+          "scene": "menu",
+          "track": "menu",
+          "unlocked": true,
+          "visible": true,
+          "enabled": true,
+          "loading": false,
+          "playing": true,
+          "time": 0.716916,
+          "duration": 153.191497,
+          "loop": true,
+          "prepared": [
+            "menu"
+          ],
+          "starts": 1,
+          "errors": [],
+          "volume": 0.15
+        }
+      },
+      "battle": {
+        "stage": 1,
+        "time": 5.35,
+        "music": {
+          "scene": null,
+          "track": "menu",
+          "unlocked": true,
+          "visible": true,
+          "enabled": true,
+          "loading": false,
+          "playing": false,
+          "time": 53.377937,
+          "duration": 153.191497,
+          "loop": true,
+          "prepared": [
+            "menu"
+          ],
+          "starts": 1,
+          "errors": [],
+          "volume": 0.01
+        },
+        "assetsPending": 0
+      },
+      "intermission": {
+        "stage": 3,
+        "wallet": {
+          "minerals": 10132,
+          "gas": 8063
+        },
+        "first": {
+          "scene": "intermission",
+          "track": "intermission",
+          "unlocked": true,
+          "visible": true,
+          "enabled": true,
+          "loading": false,
+          "playing": true,
+          "time": 0.043537,
+          "duration": 112.941179,
+          "loop": true,
+          "prepared": [
+            "menu",
+            "intermission"
+          ],
+          "starts": 2,
+          "errors": [],
+          "volume": 0.01
+        },
+        "after": {
+          "scene": "intermission",
+          "track": "intermission",
+          "unlocked": true,
+          "visible": true,
+          "enabled": true,
+          "loading": false,
+          "playing": true,
+          "time": 0.760454,
+          "duration": 112.941179,
+          "loop": true,
+          "prepared": [
+            "menu",
+            "intermission"
+          ],
+          "starts": 2,
+          "errors": [],
+          "volume": 0.01
+        }
+      },
+      "complete": true
+    },
+    "visual": {
+      "screens": [
+        "settings",
+        "battle",
+        "intermission"
+      ],
+      "inspected": true,
+      "finding": "No delivery-specific missing music control, broken scene or missing intermission UI observed."
+    },
+    "firstAttempt": {
+      "failed": true,
+      "cause": "Local static test server did not implement /api/config; four HTTP 404s. No game page errors; two MP3s and the first four functional checks passed.",
+      "correction": "Attached production createBackend with enabled:false to the local server; reran complete browser sequence successfully. Delivery bytes unchanged."
+    },
+    "docsCheck": "passed",
+    "gameRegressionRerun": false,
+    "reusedRegression": [
+      "reports/qa/feedback-actions-20261029.json",
+      "reports/qa/bgm-integration-20261029.json",
+      "reports/qa/growth-loot-implementation-20261029.json"
+    ]
+  },
+  "preflight": {
+    "checkedAt": "2026-10-29T08:42:06.562Z",
+    "origin": "https://sc-survivors.coze.site",
+    "method": "Public GET only; no deployment or account access.",
+    "responses": {
+      "/": {
+        "status": 200,
+        "cacheControl": "no-cache",
+        "contentType": "text/html; charset=utf-8",
+        "url": "https://sc-survivors.coze.site/?cozePackageCheck=1793263326569",
+        "appBuildId": "fb923fd9ec6430f39c00c0a96400b020a82932ffd4babe4e2a0bbf94a4a457c5",
+        "manifest": "./asset-manifest.ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2.json",
+        "launcher": "./assets/index-963fce71b2ca6ffb.js"
+      },
+      "/web-release.json": {
+        "status": 200,
+        "cacheControl": "public, max-age=31536000, immutable",
+        "contentType": "application/json; charset=utf-8",
+        "url": "https://sc-survivors.coze.site/web-release.json?cozePackageCheck=1793263331681",
+        "json": {
+          "appBuildId": "fb923fd9ec6430f39c00c0a96400b020a82932ffd4babe4e2a0bbf94a4a457c5",
+          "runSchema": 26,
+          "rulesId": "mvp-1.0",
+          "mapId": "campaign-five-v3",
+          "assetCount": 3845,
+          "fileCount": 5136,
+          "assetBytes": 820251503,
+          "logicalBytes": 823335225,
+          "sharedBytes": 3083722,
+          "manifest": "asset-manifest.ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2.json",
+          "release": "ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2",
+          "source": "reports/local/asset-reachability.json",
+          "sourceWebRelease": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+          "compressedEntrySha256": "0b4522a4bc9e893ebffef1b4a36f00132b8a0eab2c3aa0197849770198d5890c",
+          "qualityVariants": true,
+          "packedBytes": 458346118,
+          "variantRecordCount": 1375,
+          "sharedImageIdentities": 1,
+          "gpuTextureSidecars": {
+            "count": 43,
+            "bytes": 22644988,
+            "source": "tier-invariant normal/specular; UASTC level3; same dimensions"
+          }
+        }
+      },
+      "/runtime-config.json": {
+        "status": 200,
+        "cacheControl": "public, max-age=31536000, immutable",
+        "contentType": "application/json; charset=utf-8",
+        "url": "https://sc-survivors.coze.site/runtime-config.json?cozePackageCheck=1793263331783",
+        "json": {
+          "assetBaseUrl": ""
+        }
+      }
+    }
+  },
+  "retainedDependencyOnlineSamples": {
+    "origin": "https://sc-survivors.coze.site",
+    "checkedAt": "2026-10-29T08:43:37.054Z",
+    "files": [
+      {
+        "path": "asset-manifest.ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2.json",
+        "status": 200,
+        "bytes": 2309344,
+        "sha256": "d679c184e9808872a03b713f012820c0821341838c1c2d07e67d3e0d97dc4c8c",
+        "localSha256": "d679c184e9808872a03b713f012820c0821341838c1c2d07e67d3e0d97dc4c8c",
+        "match": true
+      },
+      {
+        "path": "sites-sw.js",
+        "status": 200,
+        "bytes": 6939,
+        "sha256": "72e7e953c451843bded423880518ee9230598307fa3c777f391bc9f910fa543a",
+        "localSha256": "72e7e953c451843bded423880518ee9230598307fa3c777f391bc9f910fa543a",
+        "match": true
+      },
+      {
+        "path": "sites-pack-index.0bb43ff1011a0ab1462d.js",
+        "status": 200,
+        "bytes": 782043,
+        "sha256": "0bb43ff1011a0ab1462d14581dbeec3ad02e9b8c46f1d84ef5bdf2b08cdb0f95",
+        "localSha256": "0bb43ff1011a0ab1462d14581dbeec3ad02e9b8c46f1d84ef5bdf2b08cdb0f95",
+        "match": true
+      },
+      {
+        "path": "assets/index-DT8k47mK.css",
+        "status": 200,
+        "bytes": 644283,
+        "sha256": "586eda1bdf55b993c1405c6981caeb100ccd0af79fbf7d8479d997153f587888",
+        "localSha256": "586eda1bdf55b993c1405c6981caeb100ccd0af79fbf7d8479d997153f587888",
+        "match": true
+      },
+      {
+        "path": "basis/basis_transcoder.js",
+        "status": 200,
+        "bytes": 57529,
+        "sha256": "8478b5b6d6b74e7d3082b89f6417321d8d1dc0307f2b30d4484bb11b441696a1",
+        "localSha256": "8478b5b6d6b74e7d3082b89f6417321d8d1dc0307f2b30d4484bb11b441696a1",
+        "match": true
+      },
+      {
+        "path": "basis/basis_transcoder.wasm",
+        "status": 200,
+        "bytes": 527333,
+        "sha256": "6cf17dc889352c42e9acf8897107978d127005fe3386c36a0e3845e27967630a",
+        "localSha256": "6cf17dc889352c42e9acf8897107978d127005fe3386c36a0e3845e27967630a",
+        "match": true
+      }
+    ]
+  },
+  "rollback": {
+    "testedPriorLocalCandidate": "88e920c3b848e76f20f4de7c5cf895d8facd7f29d0b99868866c2698b4a6a4fa",
+    "liveCozeRollbackTested": false,
+    "saveFixture": "Synthetic current schema 26, stage 3 reward, imported through normal save controls",
+    "limitation": "Old version lacks the BGM preference; after rollback and reapply the sample reset music volume from 1% to default 15%. Same-version refresh preserved it."
+  },
+  "tools": [
+    {
+      "path": "tools/package-coze-feedback-bgm.mjs",
+      "sha256": "619c3846bef8577ee2275b2ea63c47b106d0aabfd8542e5227cb658bf3173176"
+    },
+    {
+      "path": "tools/verify-coze-feedback-bgm.mts",
+      "sha256": "a37a17cb9a616977074f92c62aea575a0d678d370d78be5793befd6873547986"
+    },
+    {
+      "path": "tools/update-compressed-game.mjs",
+      "sha256": "cd807f5ff66fdedd16f25bda387a8c8bc3b5b0b5bced0cfd18064db3fa63ef13"
+    }
+  ],
+  "documentation": "docs/project/COZE_FEEDBACK_BGM_UPDATE_20261029.md",
+  "boardRevision": 293,
+  "deployment": {
+    "coze": false,
+    "sites": false,
+    "aliyun": false,
+    "sharedSitesSnapshotChangedByTask": false,
+    "productionDataAccessed": false,
+    "newPackageToolsAndDocsCommitted": false
+  },
+  "limits": [
+    "Physical iPhone, speakers and production backend not tested",
+    "No natural full campaign or performance matrix",
+    "Existing high-yield loot balance limitations retained per user decision"
+  ],
+  "retention": {
+    "completed": true,
+    "keep": [
+      "Increment ZIP",
+      "Current unzipped seven-file package with README and manifest",
+      "CHECKSUMS.json",
+      "Reproduction tools and summary report"
+    ],
+    "removeAfterSummary": [
+      "Raw Web build",
+      "Packed staging",
+      "Browser screenshots, detailed logs, extracted test copy and synthetic save"
+    ]
+  }
+}

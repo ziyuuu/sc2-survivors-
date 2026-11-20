@@ -1,0 +1,228 @@
+{
+  "date": "2026-10-28",
+  "finding": "V06-MEMORY-002",
+  "sourceBase": "02c312ad9e570be4a72462dfc30205f26146d0bb",
+  "candidate": {
+    "resourceRelease": "943ec11700634ac91311753a9f66750c7a2d8313aa7724ac4a246a06409497e1",
+    "resourcePackCount": 345,
+    "allPackBytesIdentical": true,
+    "appBuildId": "7bfa02d2ef3a5e3be7c462237b00a639e758269727d9160de3f14a5d95d8a826"
+  },
+  "sourceHashes": {
+    "src/app/battle-scene-preload.ts": "7967c91d4b0d918bbbca6b12f2b8ed04f3536f55bdc9bcd3edf67c9d786badd4",
+    "src/app/asset-readiness.ts": "c4742b6ba7338c9c96cf5b9ed800114f7c9b357af1efdac2f0f5d5ac0139b007",
+    "src/app/bootstrap.ts": "7a89a894af7c31ab2feca9442603c6b53f429b17bd61fd41effecdd27ccba0d4",
+    "src/render/scene/battle-renderer.ts": "8b2f923e28c9435ea2c7d4e5409593924f01255590c4d0194f23c3e166849905",
+    "test/battle-scene-preload.test.ts": "42284403d5546dd4da822fc8deb0c030fad4af587d101efe3832c9b2943d4126",
+    "tools/verify-battle-scene-scope.mjs": "8eeffc1e619f433f4d40fc3403a5b8dd859d345a4f44b30e2dd327353393f837",
+    "tools/verify-safari-entry.mjs": "7a5a8dc3737eb01ebcb107917ddfed46f16353d4b7673a60693286d5bc784470",
+    "tools/build-quality-harness.mjs": "d6a079646bc24c2f3990a9a493f677b0a6782b074ce94cc444cf317fa3897260"
+  },
+  "status": "Local engineering checks passed; physical iPhone pending; no commit/push/deploy",
+  "scope": "Rendering dependency preparation only; no resource resampling, simulation, save schema or UI changes",
+  "textureAllocationEstimate": {
+    "method": "WebGL texImage2D/texStorage2D calls, dimensions and format estimate; not driver memory or total RAM",
+    "scenario": "Chrome, 844x390 DPR3, touch, unknown deviceMemory, 6 cores, medium, Terran normal first battle; old recorded production candidate versus new local harness",
+    "previousBuild": "0c736e81df95afab131b0e5b442bbc2f526a3260a52d5566ca4d12c7b176a389",
+    "beforeBytes": 815491908.4666697,
+    "afterBytes": 559228463.1333317,
+    "reductionPercent": 31.42440074177779,
+    "beforeTextures": 1416,
+    "afterTextures": 1156,
+    "beforeJsHeapSample": 409500104,
+    "afterJsHeapSample": 436172608,
+    "heapCaveat": "GC timing and harness differ; no claim of lower JS heap or overall RAM"
+  },
+  "checks": {
+    "tests": {
+      "passed": 2747,
+      "failed": 0
+    },
+    "typecheck": true,
+    "docsCheck": true,
+    "sceneScope": {
+      "first": {
+        "race": "terran",
+        "difficulty": "normal",
+        "mission": [],
+        "deaths": [],
+        "hive": false
+      },
+      "stage4": {
+        "stage": 4,
+        "mission": [
+          "barracks",
+          "factory",
+          "starport",
+          "hatchery",
+          "command_center"
+        ],
+        "deaths": [
+          "barracks",
+          "factory",
+          "starport",
+          "hatchery"
+        ],
+        "hive": false
+      },
+      "repair": {
+        "id": 23,
+        "model": "factory",
+        "visible": true,
+        "deathPrepared": true,
+        "phase": "battle"
+      },
+      "death": {
+        "model": "factory",
+        "created": true,
+        "visible": true
+      },
+      "snapshot": {
+        "prepared": true,
+        "mission": [
+          "barracks",
+          "factory",
+          "starport",
+          "hatchery",
+          "command_center"
+        ]
+      },
+      "hard6": {
+        "gateway": true,
+        "tower": true,
+        "workers": [
+          "scv",
+          "drone",
+          "probe"
+        ],
+        "errors": []
+      },
+      "hell4": {
+        "hive": true,
+        "hiveDeath": true,
+        "errors": []
+      },
+      "passed": true
+    },
+    "pageErrors": [],
+    "resourceFailures": [],
+    "screenshotsReviewed": [
+      "first battle model/terrain/HUD",
+      "stage4 repair factory in actual scene"
+    ],
+    "productionAutoMedium": {
+      "passed": true,
+      "predownload": true,
+      "reenter": true,
+      "firstBattleBytes": 559228463.1333317,
+      "secondBattleBytes": 572545649.7999994,
+      "increasePercent": 2.381349939173716,
+      "firstHeapSample": 387863326,
+      "secondHeapSample": 422933425,
+      "contextLoss": 0,
+      "pageErrors": [],
+      "resourceFailures": [],
+      "physicalAppleDevice": false,
+      "autoProbe": "Cached medium capability result; does not repeat initial detector"
+    },
+    "environment": "First browser attempt was blocked by local network access; rerun with local access succeeded."
+  },
+  "findings": [
+    {
+      "area": "Mission buildings and death models",
+      "before": "All 3 races prepared on first battle",
+      "after": "Eligible stage/difficulty/own-race dependency closure; explicit live/restored bodies override prediction"
+    },
+    {
+      "area": "Campaign hive and hatchery death",
+      "before": "Prepared before first battle",
+      "after": "Actual campaign structure reserves or existing hives trigger preparation"
+    },
+    {
+      "area": "Hero/elite/source effects",
+      "state": "Still broadly prepared; cross-race equipment and summon dependencies require complete routing before narrowing"
+    },
+    {
+      "area": "Snapshot unit preparation",
+      "state": "Still begins with broad own-race set; must preserve paid orders, pending rescue, forms and equipment dependencies"
+    },
+    {
+      "area": "Map/audio",
+      "state": "Map scene selects current map; packed audio already banked/budgeted. Downloaded encoded bytes are separate from decoded/GPU resources. Original Coze audio path differs."
+    },
+    {
+      "area": "Cross-run cache lifetime",
+      "state": "Previously prepared templates retained; this change does not implement eviction"
+    }
+  ],
+  "lowTierProposal": {
+    "implemented": false,
+    "scope": "Low only: world color/emissive long edge cap256, terrain cap512; separately validate normal/roughness scaling to512. UI/text/team masks/danger cues/animation unchanged. Medium/high unchanged.",
+    "tradeoff": "Softer small texture details and weaker surface relief; no promised total-RAM figure before measurement",
+    "currentPolicy": "Low eligible color/emissive images use 25 percent dimensions with cap512; many non-color/alpha/normal/flipbook/protected textures remain original. WebP quality factor alone mainly affects encoded bytes."
+  },
+  "open": [
+    "Original iPhone17Pro iOS26.7.1 auto-medium reload cause and physical verification",
+    "Effect dependency closure and snapshot/cross-run cache followups",
+    "Low-tier visual tradeoff requires user choice before implementation"
+  ],
+  "historicalCrossCheck": {
+    "originalCommit": "2924d9b",
+    "publishedSourceCommit": "02c312a",
+    "unchangedFiles": [
+      "src/simulation/boss-loot.ts",
+      "src/app/battle-preload-plan.ts"
+    ],
+    "originalMissionBuildingPreloadAlreadyBroad": true,
+    "publishedArtifact": "27897f5107714c97b660e39525ecd25b5c709cebfa30158a3e4ea127afcfe0b9",
+    "publishedCompressedEntryHashVerified": true,
+    "plannedBossFieldsPresentInPublishedArtifact": true,
+    "onlineRefetched": false,
+    "intentionalLaterChange": "91b0775 bounds constrained-device future preload to current/next and planned reward; 28c7987 links budgets",
+    "qualityClarification": "Medium/low texture sizes, render resolution and effects already reduced in published v13; proposed lower caps are additional changes, not missing basic tier behavior"
+  },
+  "industryResearch": {
+    "date": "2026-10-28",
+    "sources": {
+      "webgl": "https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_best_practices",
+      "ktx2": "https://threejs.org/docs/pages/KTX2Loader.html",
+      "basis": "https://github.com/BinomialLLC/basis_universal",
+      "dispose": "https://threejs.org/manual/pages/how-to-dispose-of-objects.html",
+      "streaming": "https://docs.unity3d.com/6000.0/Documentation/Manual/TextureStreaming-introduction.html",
+      "audio": "https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Best_practices",
+      "webgpu": "https://threejs.org/manual/pages/webgpurenderer",
+      "peer": "https://wow.aethus.pl/",
+      "peerRebuild": "https://github.com/OutThisLife/azeroth-survivors-re",
+      "profiling": "https://developer.chrome.com/docs/devtools/memory-problems"
+    },
+    "peerEvidence": "Official entry requires WebGPU. Direct source request returned403. Community rebuild explicitly not original; cannot infer original memory strategy/asset sizes or fault-free iPhone behavior. No peer playtest or benchmark.",
+    "priorities": [
+      "Measure OS/JS/decoded images/GL allocations/loading peak separately",
+      "Re-evaluate KTX2 UASTC for large live color textures: prior desktop BC7 samples quarter RGBA mip payload, bigger download and first transcode cost; physical iPhone target format/fallback pending",
+      "Reference-counted byte-budget eviction of unused templates, decoded sources, Blob URLs and effect pools at safe boundaries; preserve disk cache and restoration sources",
+      "Complete actual hero/equipment/order dependencies before narrower preparation",
+      "Screen-coverage texture tiers and material-specific channel packing/normal/mask policy; visual tradeoff must be validated",
+      "Audit disabled postprocessing render targets and temporary copies; no total savings claimed"
+    ],
+    "alreadyPresent": [
+      "GPU instanced skeletal animations with half-float pose atlases",
+      "Some LOD and culling",
+      "Packed audio banks and PCM budget",
+      "Medium/low resolution and textures",
+      "Recent-only preload and duplicate-image sharing"
+    ],
+    "reusedLocalSample": {
+      "source": "chromium-scoped-medium-details.json",
+      "animationAtlasBytes": 14784704,
+      "audioPcmBytes": 32719868,
+      "glTextureEstimateBytes": 559228463,
+      "notAdditiveTotalRam": true
+    },
+    "notRecommendedFirst": [
+      "Engine rewrite/WebGPU migration: custom GLSL/onBeforeCompile/postprocessing must port",
+      "More gzip/WebP quality reduction as substitute for runtime compression",
+      "Treating worker migration or all-mip residency as memory savings"
+    ],
+    "implementationThisResearchTurn": false
+  }
+}

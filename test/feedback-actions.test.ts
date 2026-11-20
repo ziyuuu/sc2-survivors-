@@ -90,7 +90,7 @@ test('fresh shop shelves filter exhausted and ineffective products and keep unaf
 });
 
 test('when all strengthenings are exhausted, three distinct existing resource goods remain available',()=>{
- const w=shop(),ctx=draftContext(w);ctx.funShop=undefined;ctx.heroes=[];ctx.elites=[];ctx.supplyLegal=()=>false;ctx.supportLegal=()=>false;ctx.armedLegal=()=>false;ctx.training=()=>null;ctx.familyInfo=()=>({alive:0,canAttack:false,canSupport:false,usesEnergy:false,cultivationCapacity:0,canProduce:false});for(const group of ['firepower','defense'] as const)for(const rarity of CARD_RARITIES)ctx.state.cardTotals[teamCardKey(group,rarity)]=3;
+ const w=shop(),ctx=draftContext(w);ctx.funShop=undefined;ctx.heroes=[];ctx.elites=[];ctx.supplyLegal=()=>false;ctx.supportLegal=()=>false;ctx.armedLegal=()=>false;ctx.doomsdayLegal=()=>false;ctx.bioLegal=()=>false;ctx.training=()=>null;ctx.familyInfo=()=>({alive:0,canAttack:false,canSupport:false,usesEnergy:false,cultivationCapacity:0,canProduce:false});for(const group of ['firepower','defense'] as const)for(const rarity of CARD_RARITIES)ctx.state.cardTotals[teamCardKey(group,rarity)]=3;
  const offers=drawExpeditionReinforcements(ctx,true);assert.equal(offers.length,3);assert.ok(offers.every(o=>o.expeditionEffect.kind==='resource'));assert.equal(new Set(offers.map(o=>o.id)).size,3);
 });
 

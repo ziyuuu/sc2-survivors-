@@ -43,8 +43,11 @@ export function sampleBarrierAlpha(profile:UnitMaterialProfile,materialIndex:num
 }
 /** Read-only render context. Never persisted and never used to change combat. */
 export interface UnitMaterialContext {
+ bioSurface?:number;
  entityId:number;runId:string;time:number;deathAt?:number;barrier?:BarrierPhase;
  teamColor?:readonly [number,number,number];activity?:number;
+ /** Nano plates, dark phase seams, body paint (1 Gundam / 2 fortress / 3 mechanized), repair reinforcement. */
+ refit?:readonly [number,number,number,number];
  /** Per-instance presentation, independent of team colour and authored opacity. */
  apparition?:{tint:readonly [number,number,number];opacity:number};
 }

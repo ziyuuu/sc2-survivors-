@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-27",
+  "status": "passed",
+  "repository": "https://github.com/ziyuuu/sc2-survivors-",
+  "branch": "体积优化版",
+  "implementationCommit": "56fa13dd782ba029e2890f87fe9009772372c5bc",
+  "remoteCommitVerifiedVia": "GitHub branch and recursive Git tree API",
+  "localAndRemoteTree": "4661c65839f41eaf2f0b70dd6e05762481a45502",
+  "verifiedTrees": {
+    "src": "9ad022ee050d4527bc714e2064101b42d21eb2b6",
+    "test": "dbb2e079d76e1af92bac584a2f33e39786aecc9e",
+    "tools": "534ba5487597834104d9a3b775c304ff3f51597f",
+    "packedSite": "c23b7f5bb7a6505e5c7a63f68e091c50249c2675"
+  },
+  "cozeGuide": {
+    "path": "docs/project/COZE_FEEDBACK_DEPLOY_20261027.md",
+    "implementationBlob": "52a10f26ed5298782d85f454362c238ec5276031",
+    "followup": "Documentation follow-up pins checkout to the implementation commit."
+  },
+  "sites": {
+    "liveVersion": 7,
+    "internalSourceCommit": "ffa349c01b3934fcfd2b320bbfcbc9cef6cdff35",
+    "snapshotFiles": 190,
+    "evidence": "reports/qa/v06-sites-source-check-20261027.json"
+  },
+  "validation": {
+    "reused": "reports/qa/v06-feedback-repairs-20261027.json",
+    "regressionPassed": 2717,
+    "newGameplayChangesDuringGitSync": false,
+    "stagedWhitespaceCheck": "passed"
+  },
+  "preserved": {
+    "main": "2924d9bb3330f10ad78462b6f96efda163c5eff3",
+    "mainMerged": false,
+    "unrelatedWorkingChanges": true,
+    "cozeDeploymentUnchanged": true,
+    "aliCloudDeploymentUnchanged": true
+  },
+  "verificationNotes": [
+    "Initial line-by-line tree output was truncated; replaced with direct subtree identity comparison against the complete GitHub tree.",
+    "PowerShell unquoted tree revision was rejected; quoted revision used for root tree verification."
+  ],
+  "open": [
+    "V05/V06 user experience and final acceptance remain open."
+  ],
+  "followup": "This report records the verified implementation commit. The subsequent documentation-only commit preserves its game, test, tool and Sites trees."
+}

@@ -43,7 +43,7 @@ for(const key of ['scv','drone','probe','barracks','hatchery','pylon','pylon.bir
 for(const family of ALL_FAMILIES)requireModel(family,`ordinary/enemy family ${family}`);
 for(const [id,hero] of Object.entries(HEROES))requireModel(hero.model,`hero ${id}`);
 for(const [id,elite] of Object.entries(ELITES))requireModel(elite.model,`elite ${id}`);
-for(const key of ['hellion.hellbat','viking.assault','interceptor','scv','drone','probe','egg','hive','barracks','hatchery','pylon','pylon.birth','loot.mineral','loot.gas','loot.large','projectile.marauder','projectile.hydralisk','fort.bunker','fort.bunker.death','fort.repair','fort.repair.death'])
+for(const key of ['hellion.hellbat','viking.assault','liberator.ag','liberator.ag.death','interceptor','scv','drone','probe','egg','hive','barracks','hatchery','pylon','pylon.birth','loot.mineral','loot.gas','loot.large','projectile.marauder','projectile.hydralisk','fort.bunker','fort.bunker.death','fort.repair','fort.repair.death'])
  useIfPresent(`model.${key}`,`mode/summon/economy/effect/fortification ${key}`);
 for(const family of ['lurker','thor'])for(const record of available)
  if(record.id.startsWith(`model.${family}.`)&&!record.id.endsWith('.death'))requireAsset(record.id,`manual mode ${family}`);

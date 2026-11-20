@@ -1,0 +1,29 @@
+{
+  "description": "Three UI portraits; visible pixels only, not a full-game fidelity assessment",
+  "samples": [
+    {
+      "asset": "ui.paint.marine-single",
+      "rgbMAE": 3.238,
+      "rgbPSNR": 34.99,
+      "alphaMaxDifference": 0,
+      "originalBytes": 345810,
+      "compressedBytes": 184588
+    },
+    {
+      "asset": "ui.paint.hydralisk-single",
+      "rgbMAE": 3.964,
+      "rgbPSNR": 33.43,
+      "alphaMaxDifference": 0,
+      "originalBytes": 404094,
+      "compressedBytes": 186198
+    },
+    {
+      "asset": "ui.paint.zealot-single",
+      "rgbMAE": 4.018,
+      "rgbPSNR": 33.12,
+      "alphaMaxDifference": 0,
+      "originalBytes": 376942,
+      "compressedBytes": 178366
+    }
+  ]
+}
