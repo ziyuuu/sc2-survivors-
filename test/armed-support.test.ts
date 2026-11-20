@@ -33,7 +33,7 @@ function restored(w:World){const other=make(w.runConfig!.seed);other.restoreRun(
 
 test('armed purchase chain records 1→1→2→3, freezes receipts and restores without advancing',()=>{
  const w=make();shopping(w);for(const [id,progress,rank]of [['W01',1,1],['W01',1,2],['W04',2,1],['G01',3,1]] as const){const before={...w.wallet},r=buy(w,id),after={...w.wallet};assert.equal(w.expedition.build!.counts.armed,progress);assert.equal(armedRank(w.expedition.support,id),rank);assert.equal(before.minerals-after.minerals,r.purchaseReceipt!.minerals);assert.equal(before.gas-after.gas,r.purchaseReceipt!.gas);assert.equal(w.choose(r.offerId),false);assert.deepEqual(w.wallet,after);}
- assert.equal(w.expedition.build!.main,null);assert.equal(w.expedition.build!.milestones.length,1);assert.equal(w.expedition.build!.milestones[0].id,'armed:3');
+ assert.equal(w.expedition.build!.main,'armed');assert.equal(w.expedition.build!.milestones.length,1);assert.equal(w.expedition.build!.milestones[0].id,'armed:3');
  const copy=restored(w);assert.deepEqual(copy.expedition.build,w.expedition.build);assert.deepEqual(copy.expedition.support.armed,w.expedition.support.armed);
 });
 test('armed aliases migrate the six candidates, never duplicate execution or backfill old progress',()=>{
@@ -43,29 +43,31 @@ test('armed aliases migrate the six candidates, never duplicate execution or bac
 test('old checkpoints without build/armed load without granting a milestone or converting legacy support',()=>{
  const w=make();w.expedition.support.levels.mines=2;const snap=w.captureRun();delete snap.state.expedition.build;delete snap.state.expedition.support.armed;const copy=make(w.runConfig!.seed);copy.restoreRun(snap);assert.equal(copy.expedition.build,undefined);assert.equal(copy.expedition.support.armed,undefined);assert.equal(armedRank(copy.expedition.support,'G01'),2);
 });
-test('legacy unclaimed locks reopen on restore and preserve deferred offers, the paid shelf and receipts',()=>{
+test('legacy unclaimed locks remain mandatory on restore and preserve promised offers, the paid shelf and receipts',()=>{
  const w=make();buy(w,'W01');buy(w,'W04');buy(w,'G01');
  const m=pendingBuildChoice(w)!;
- assert.ok(w.deferBuildChoice(m.id,w.expedition.shopRevision));
- const snapshot=w.captureRun();snapshot.state.expedition.build!.main='armed';
+ assert.equal(w.deferBuildChoice(m.id,w.expedition.shopRevision),false);
+ const snapshot=w.captureRun();snapshot.state.expedition.build!.milestones[0].deferredWindow=w.expedition.draftWindow;snapshot.state.expedition.build!.main='armed';
+ const oldPair=snapshot.state.expedition.build!.milestones[0].offers.slice(0,2);
+ snapshot.state.expedition.build!.milestones[0].offers=oldPair;
  const copy=make(w.runConfig!.seed);copy.restoreRun(snapshot);
  assert.equal(snapshot.state.expedition.build!.main,'armed');
- assert.deepEqual(copy.expedition.build,{...snapshot.state.expedition.build,main:null});
+ const restoredOffers=copy.expedition.build!.milestones[0].offers;
+ assert.equal(copy.expedition.build!.main,'armed');assert.equal(new Set(restoredOffers).size,3);
+ assert.deepEqual(restoredOffers.slice(0,2),oldPair);assert.equal(oldPair.length,2);
  assert.deepEqual(copy.expedition.support.armed,w.expedition.support.armed);
  assert.deepEqual(copy.rewards,w.rewards);assert.deepEqual(copy.wallet,w.wallet);
- assert.equal(pendingBuildChoice(copy),undefined);assert.ok(copy.skipReward());copy.endStage();
- assert.deepEqual(pendingBuildChoice(copy)!.offers,m.offers);
+ assert.equal(copy.skipReward(),false);assert.equal(copy.expedition.build!.milestones[0].deferredWindow,undefined);
+ assert.deepEqual(pendingBuildChoice(copy)!.offers,restoredOffers);
  assert.ok(copy.claimBuildChoice(m.id,copy.expedition.shopRevision,m.offers[0]));
  assert.equal(restored(copy).expedition.build!.main,'armed');
 });
-test('an armed claim locks only on a valid receipt and retires other branches’ pending nodes',()=>{
+test('an armed mandatory claim rejects stale receipts and foreign milestones without changing its lock',()=>{
  const w=make();buy(w,'W01');buy(w,'W04');buy(w,'G01');
  const b=w.expedition.build!,m=pendingBuildChoice(w)!,rev=w.expedition.shopRevision;
- b.counts.doomsday=3;
- b.milestones.unshift({...m,id:'doomsday:3',branch:'doomsday',offers:[...m.offers]});
- validateBuildProgress(b);
+ b.counts.doomsday=3;validateBuildProgress(b);
  assert.equal(w.claimBuildChoice('doomsday:3',rev,m.offers[0]),false);
- assert.equal(w.claimBuildChoice(m.id,rev-1,m.offers[0]),false);assert.equal(b.main,null);
+ assert.equal(w.claimBuildChoice(m.id,rev-1,m.offers[0]),false);assert.equal(b.main,'armed');
  assert.ok(w.claimBuildChoice(m.id,rev,m.offers[0]));assert.equal(b.main,'armed');
  assert.equal(b.counts.doomsday,3);assert.deepEqual(b.milestones,[m]);
  assert.equal(w.claimBuildChoice(m.id,rev,m.offers[0]),false);
@@ -73,8 +75,9 @@ test('an armed claim locks only on a valid receipt and retires other branches’
  bad.main='armed';bad.orange='O02';assert.throws(()=>validateBuildProgress(bad,w.expedition.support));
  assert.equal(restored(w).expedition.build!.main,'armed');
 });
-test('node choices freeze two legal candidates, prefer unlearned and survive reopening',()=>{
- const w=make();buy(w,'W01');buy(w,'W04');buy(w,'G01');const b=structuredClone(w.expedition.build);assert.equal(b!.milestones[0].offers.length,2);prepareBuildChoices(w.expedition,()=>{throw Error('Must not reroll');});assert.deepEqual(w.expedition.build,b);
+
+test('node choices freeze three legal candidates, prefer unlearned and survive reopening',()=>{
+ const w=make();buy(w,'W01');buy(w,'W04');buy(w,'G01');const b=structuredClone(w.expedition.build);assert.equal(b!.milestones[0].offers.length,3);prepareBuildChoices(w.expedition,()=>{throw Error('Must not reroll');});assert.deepEqual(w.expedition.build,b);
 });
 test('W01 opens three real passengers once; a partial snapshot never recreates the first passenger',()=>{
  const w=make();buy(w,'W01');w.phase='battle';foe(w);assert.equal(reserveArmedDispatch(w,'W01'),1);w.advance(.25);assert.equal(w.allies().filter(u=>u.armed).length,0);w.advance(.1);assert.equal(w.allies().filter(u=>u.armed).length,1);
@@ -106,13 +109,13 @@ test('R3 nuclear plans preserve budgets, count clamps, finite inward placement a
  const manual=planNukeVolley({...input,origin:'manual',legalTargets:0,budget:7500,radius:10},()=>true);assert.equal(manual.points.length,1);assert.equal(manual.firstTick,280);assert.equal(manual.blastRadius,10);assert.equal(manual.ammoDelta,-1);
 });
 test('P01 system rounds grant no ammo; N05 grants one per round and manual spends one for the entire saved round',()=>{
- const w=make();buy(w,'P01');w.phase='battle';const target=foe(w),a=w.expedition.support.armed!;assert.ok(commitArmedNuke(w,'P01',target));const ordinary=a.volleys[0];assert.equal(ordinary.shots.length,3);assert.equal(w.expedition.support.ammo,0);assert.equal(ordinary.nextIndex,0);
+ const w=make();buy(w,'W01');buy(w,'W04');buy(w,'G01');const node=pendingBuildChoice(w)!;assert.ok(w.claimBuildChoice(node.id,w.expedition.shopRevision,node.offers.find(id=>id!=='N05')!));buy(w,'P01');w.phase='battle';const target=foe(w),a=w.expedition.support.armed!;assert.ok(commitArmedNuke(w,'P01',target));const ordinary=a.volleys[0];assert.equal(ordinary.shots.length,3);assert.equal(w.expedition.support.ammo,0);assert.equal(ordinary.nextIndex,0);
  w.advance(.5);assert.equal(a.volleys.length,0);a.ranks.N05=1;a.readyTick.P01=w.tick;assert.ok(commitArmedNuke(w,'P01',target));assert.equal(w.expedition.support.ammo,1);const system=a.volleys[0];assert.equal(system.shots.length,5);assert.equal(system.nextIndex,1);assert.ok(w.visualEvents.some(e=>e.kind==='strategic-impact'&&e.time===w.time));
  assert.ok(commitStrategic(w,{x:30,z:30}));assert.equal(w.expedition.support.ammo,0);const manual=a.volleys.find(v=>v.manual)!;assert.equal(manual.shots.length,5);assert.equal(manual.shots[0].damage,2400);assert.ok(Math.abs(manual.shots[0].radius-8.45)<1e-8);w.expedition.support.ammo=1;assert.equal(previewStrategic(w,{x:30,z:30}),false);assert.equal(commitStrategic(w,{x:30,z:30}),false);assert.equal(w.expedition.support.ammo,1);
  const copy=restored(w);for(const world of [w,copy]){world.advance(.4);assert.equal(world.expedition.support.armed!.volleys.length,0);assert.equal(world.expedition.support.ammo,1);assert.ok(previewStrategic(world,{x:30,z:30}));}assert.deepEqual(copy.expedition.support.armed,w.expedition.support.armed);
 });
-test('real milestone UI offers two purple nodes and rejects stale, double or bypassed claims',()=>{
- const w=make();buy(w,'W01');buy(w,'W04');buy(w,'G01');const m=pendingBuildChoice(w)!,revision=w.expedition.shopRevision,views=armedNodeViews(w);assert.equal(views.length,2);assert.ok(views.every(c=>c.rarity==='purple'&&c.kicker.includes('紫色节点')&&c.free));assert.equal(w.skipReward(),false);assert.equal(w.claimBuildChoice(m.id,revision-1,m.offers[0]),false);
+test('real milestone UI offers three purple nodes and rejects stale, double or bypassed claims',()=>{
+ const w=make();buy(w,'W01');buy(w,'W04');buy(w,'G01');const m=pendingBuildChoice(w)!,revision=w.expedition.shopRevision,views=armedNodeViews(w);assert.equal(views.length,3);assert.ok(views.every(c=>c.rarity==='purple'&&c.kicker.includes('紫色节点')&&c.free));assert.equal(w.skipReward(),false);assert.equal(w.claimBuildChoice(m.id,revision-1,m.offers[0]),false);
  const copy=restored(w),before={...copy.wallet};assert.deepEqual(armedNodeViews(copy),views);assert.ok(copy.claimBuildChoice(m.id,revision,m.offers[0]));assert.deepEqual(copy.wallet,before);assert.equal(pendingBuildChoice(copy),undefined);assert.equal(copy.claimBuildChoice(m.id,revision,m.offers[0]),false);assert.equal(copy.expedition.build!.counts.armed,3);
 });
 test('N02 W01 makes four higher-rank passengers; its one reserved extra is temporary and consumed once',()=>{
@@ -208,13 +211,38 @@ test('O01 commits only the tenth real formal death, grants a single system ammo 
  for(const world of [w,copy]){assert.equal(world.expedition.support.ammo,1);assert.equal(world.expedition.support.armed!.counter!.activation!.finished,true);assert.deepEqual(world.heroes.get('raynor'),permanent);const temp=world.allies().find(u=>u.armed?.cardId==='O01'&&u.heroId)!;assert.ok(temp);assert.equal(temp.heroId,'raynor');assert.equal(temp.rank,5);assert.ok(Math.abs(temp.temporaryUntil!-temp.bornAt-120)<1e-6);world.expireUnit(temp);assert.deepEqual(world.heroes.get('raynor'),permanent);assert.equal(world.heroEntity('raynor')!.hp>0,true);}
 });
 
-test('normal orange shelf freezes three paid candidates at nine progress and three claims, then accepts only one purchase',()=>{
- const w=make(),a=own(w,'W01','W04','G01','N01','N02','N03');w.expedition.build={main:'armed',counts:{armed:9},orange:null,milestones:[{id:'armed:3',branch:'armed',at:3,offers:['N01','N02'],claimed:'N01'},{id:'armed:6',branch:'armed',at:6,offers:['N02','N03'],claimed:'N02'},{id:'armed:9',branch:'armed',at:9,offers:['N03','N04'],claimed:'N03'}]};shopping(w);const shelf=drawExpeditionReinforcements({...draftContext(w),currentOffers:[]},true);assert.deepEqual(shelf.map(r=>r.expeditionEffect.kind==='armedSupport'?r.expeditionEffect.cardId:null),['O01','O02','O03']);assert.ok(shelf.every(r=>r.baseMinerals===325&&r.baseGas===140));w.rewards=shelf;const before={...w.wallet};assert.ok(w.choose(shelf[1].offerId));assert.equal(w.wallet.minerals,before.minerals-shelf[1].minerals!);assert.equal(w.wallet.gas,before.gas-shelf[1].gas!);assert.equal(w.expedition.build.orange,'O02');assert.equal(w.expedition.build.counts.armed,9);assert.equal(a.ranks.O02,1);assert.equal(w.choose(shelf[0].offerId),false);assert.equal(w.choose(shelf[1].offerId),false);const copy=restored(w);assert.equal(copy.expedition.build!.orange,'O02');
+test('armed ultimate follows the third purple claim by three more points and is free exactly once',()=>{
+ const w=make();
+ for(const id of ['W01','W04','G01','W02','W03','W05','W06','W07','W08'] as const){
+  buy(w,id);const m=pendingBuildChoice(w);if(m)assert.ok(w.claimBuildChoice(m.id,w.expedition.shopRevision,m.offers[0]));
+ }
+ // A pending paid ultimate shelf from the nine-point rule becomes an ordinary shelf.
+ const legacy=w.captureRun();delete legacy.state.expedition.build!.orangeAt;
+ legacy.state.rewards=(['O01','O02','O03'] as const).map(cardId=>({
+  ...w.rewards[0],offerId:'legacy:'+cardId,id:'armed.'+cardId,value:cardId,kind:'buff',rarity:'orange',
+  expeditionEffect:{kind:'armedSupport',cardId,expectedRank:0,expectedReserve:0},
+  minerals:325,gas:140,baseMinerals:325,baseGas:140,sold:false,purchaseReceipt:undefined,
+ }));
+ const migrated=make(w.runConfig!.seed);migrated.restoreRun(legacy);
+ assert.equal(migrated.expedition.build!.orangeAt,12);assert.equal(pendingBuildChoice(migrated),undefined);
+ assert.ok(migrated.rewards.length>0&&migrated.rewards.every(r=>!r.id.startsWith('armed.O')));
+ assert.deepEqual(migrated.wallet,w.wallet);
+ assert.equal(pendingBuildChoice(w),undefined);
+ for(const id of ['W09','G03'] as const){buy(w,id);assert.equal(pendingBuildChoice(w),undefined);}
+ buy(w,'G04');const m=pendingBuildChoice(w)!;assert.deepEqual(m.offers,['O01','O02','O03']);
+ const copy=restored(w);copy.wallet={minerals:0,gas:0};const rev=copy.expedition.shopRevision;
+ assert.equal(copy.claimBuildChoice(m.id,rev-1,'O02'),false);assert.ok(copy.claimBuildChoice(m.id,rev,'O02'));
+ assert.deepEqual(copy.wallet,{minerals:0,gas:0});assert.equal(copy.claimBuildChoice(m.id,rev,'O03'),false);
+ assert.equal(restored(copy).expedition.build!.orange,'O02');assert.equal(copy.expedition.build!.counts.armed,12);
 });
 
-test('deferring a frozen purple choice preserves it across the next normal intermission and restore',()=>{
- const w=make();buy(w,'W01');buy(w,'W04');buy(w,'G01');const m=pendingBuildChoice(w)!,offers=[...m.offers],revision=w.expedition.shopRevision;assert.ok(w.deferBuildChoice(m.id,revision));assert.equal(w.deferBuildChoice(m.id,revision),false);assert.equal(pendingBuildChoice(w),undefined);const copy=restored(w);assert.equal(pendingBuildChoice(copy),undefined);assert.ok(w.skipReward());assert.equal(w.phase,'battle');w.endStage();assert.deepEqual(pendingBuildChoice(w)!.offers,offers);assert.equal(w.expedition.build!.counts.armed,3);
+test('a mandatory purple choice cannot be deferred or skipped and survives restore unchanged',()=>{
+ const w=make();buy(w,'W01');buy(w,'W04');buy(w,'G01');const m=pendingBuildChoice(w)!,offers=[...m.offers],revision=w.expedition.shopRevision;
+ assert.equal(w.deferBuildChoice(m.id,revision),false);assert.equal(w.skipReward(),false);assert.equal(w.reroll(),false);assert.equal(w.expedition.shopRevision,revision);
+ const copy=restored(w);assert.deepEqual(pendingBuildChoice(copy)!.offers,offers);assert.equal(copy.skipReward(),false);
+ assert.ok(copy.claimBuildChoice(m.id,revision,offers[0]));assert.ok(copy.skipReward());assert.equal(copy.phase,'battle');
 });
+
 test('the existing card book contains all 45 armed cards with no duplicate migrated Terran effects',()=>{
  const w=make(),cards=catalogueCards(w),armed=cards.filter(c=>c.armedId);assert.equal(armed.length,45);assert.equal(new Set(armed.map(c=>c.armedId)).size,45);assert.ok(armed.every(c=>c.detail&&c.stat));assert.ok(!cards.some(c=>c.race==='terran'&&['terran.bunker','terran.missiles','terran.ricochet','terran.overdrive'].some(id=>c.id==='terran:'+id)));
 });

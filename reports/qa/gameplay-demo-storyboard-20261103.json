@@ -1,0 +1,198 @@
+{
+  "task": "DEMO-01",
+  "date": "2026-11-03",
+  "revision": 4,
+  "status": "Revised economic shots plus cover and audio style sample delivered; video not filmed",
+  "confirmedDirection": [
+    "12 scenes in user order",
+    "All 12 user captions verbatim",
+    "Three factions intercut",
+    "About two minutes; not exactly 120 seconds"
+  ],
+  "durationPolicy": "Flexible; preserve understandable actions and outcomes. Current rough estimate is not a hard limit.",
+  "roughEditingBudgetSeconds": [
+    126,
+    173
+  ],
+  "shots": [
+    {
+      "order": 1,
+      "scene": "移动并攻击敌人",
+      "roughSeconds": [
+        8,
+        10
+      ],
+      "races": "人族→虫族→神族",
+      "action": "从交战直接开始。人族侧移射击、虫族转向接敌、神族避开危险范围再反击；各镜头保留移动指令、部队响应与击退敌人的结果。",
+      "caption": "击退敌军"
+    },
+    {
+      "order": 2,
+      "scene": "救农民、击杀敌方工蜂与拾取矿气",
+      "roughSeconds": [
+        14,
+        20
+      ],
+      "races": "虫族救工人→人族打敌方工蜂→神族捡矿气",
+      "action": "先拍工人成功获救及收入提升；再拍敌方工蜂被击杀，真实矿气掉落；队伍移动拾取，聚焦矿、气图标与余额实际增加。救援与掠取是不同动作，接在同一资源章节内，字幕沿用用户原文。",
+      "caption": "增加资源获取"
+    },
+    {
+      "order": 3,
+      "scene": "矿气花费、清空并获得援兵",
+      "roughSeconds": [
+        13,
+        17
+      ],
+      "races": "神族→人族→虫族",
+      "action": "选择三族付费生产援兵样例。每个样例先聚焦同一笔订单开始时矿气实际扣除，随后串起生产、落地、清除守军、接收与入队；扣费短特写后回到战场。实际数据来自HUD和订单回执，不在接收时伪造第二次扣款。",
+      "caption": "获取援兵"
+    },
+    {
+      "order": 4,
+      "scene": "选择不同发展路线",
+      "roughSeconds": [
+        10,
+        14
+      ],
+      "races": "人族→虫族→神族",
+      "action": "三族分别展示真实基地建设界面的发展方向；光标点选，候选内容随之更新，再选择一项发展。主镜头给足路线名称阅读时间，补切另外两族不同的发展选择。可短带生产安排，保持此段主题集中。",
+      "caption": "选择你的发展路线"
+    },
+    {
+      "order": 5,
+      "scene": "选择卡牌",
+      "roughSeconds": [
+        18,
+        24
+      ],
+      "races": "人族→虫族→神族，每族一个购买与收益小段",
+      "action": "从战备补给卡面开始：卡名／用途／价格→点击确认→真实扣费和获得反馈→同一队伍在下一战使用。三族各选一张当时合法、可看出效果的卡，优先战术、部队强化或支援；按真实触发点剪接，消除等冷却的空白。保留实际关数，让观众知道关间会反复选卡。",
+      "caption": "选择卡牌强化部队"
+    },
+    {
+      "order": 6,
+      "scene": "击倒Boss",
+      "roughSeconds": [
+        18,
+        24
+      ],
+      "races": "神族→人族→虫族",
+      "action": "三种不同首领或不同接敌方向，各拍击倒、实际奖励、对应强力单位／英雄加入及一记明显作用。卡面名称和加入的身份要对得上；奖励遵循当前开放条件及实际奖励池，不把首领演成必出英雄。",
+      "caption": "获取强力单位和英雄"
+    },
+    {
+      "order": 7,
+      "scene": "获取装备",
+      "roughSeconds": [
+        7,
+        10
+      ],
+      "races": "人族主镜头，虫族／神族补切",
+      "action": "精英／Boss倒下，真实装备落地、品质光柱出现，移动拾取、背包有对应物品。人族明确拾取一件后续要演示的局外模块，记录并贯穿第9–11段；其他两族补不同装备掉落和拾取。",
+      "caption": "获取装备武装旗舰"
+    },
+    {
+      "order": 8,
+      "scene": "关间换装",
+      "roughSeconds": [
+        6,
+        9
+      ],
+      "races": "神族主镜头",
+      "action": "明确切到关间，打开本次出征背包，选择一件符合条件的属性／特殊装备，查看用途、装备成功，属性或槽位变化清楚可见。选用无污染、未锁定且可在关间换装的物品。",
+      "caption": "及时提升"
+    },
+    {
+      "order": 9,
+      "scene": "不可以换的装备",
+      "roughSeconds": [
+        6,
+        8
+      ],
+      "races": "人族，承接第7段同件模块",
+      "action": "在关间查看第7段捡到的模块，展示实际“局外更换”状态及对应限制。此例必须是需要局外更换的模块／套装类别，不能拿种族不符、污染待清洗或奖励锁定的物品混讲。保留物品图标与名称，方便第11段认出。",
+      "caption": "返回旗舰装备更精良的设施"
+    },
+    {
+      "order": 10,
+      "scene": "撤离、下一关、无尽",
+      "roughSeconds": [
+        10,
+        14
+      ],
+      "races": "人族撤离→虫族下一关→神族无尽",
+      "action": "三个并列选择：人族在正常关间撤离，战利品成功带出；虫族从正常关间返回前线，进入下一关；神族在真实战役通关后进入无尽准备与无尽战斗。不同种族承担不同分支，不把三个按钮伪造成普通关间同屏，也不在撤离后继续该局。",
+      "caption": "挑战或保留战利品？"
+    },
+    {
+      "order": 11,
+      "scene": "旗舰换装",
+      "roughSeconds": [
+        10,
+        14
+      ],
+      "races": "人族主镜头→虫族→神族",
+      "action": "人族回到局外旗舰配装，将第9段不能在关间换的同件模块从仓库装上，拍清成功状态，完成前后呼应。再补虫族、神族各一个局外整备镜头，展示不同配置；不展开额外清洗／合成教程。",
+      "caption": "整备"
+    },
+    {
+      "order": 12,
+      "scene": "再次出发",
+      "roughSeconds": [
+        6,
+        9
+      ],
+      "races": "人族→虫族→神族",
+      "action": "三族分别以已经整备的合法配装出发，短切部署确认与落地后开始行动，最后在重新交火中收尾，形成循环。",
+      "caption": "再次出发"
+    }
+  ],
+  "continuity": [
+    "Each purchase and payoff stays within the same race and squad",
+    "Terran module picked in scene 7, unavailable in scene 9, extracted in scene 10, equipped in scene 11",
+    "Scene 10 uses distinct runs for extraction, ordinary next stage and post-campaign endless"
+  ],
+  "sourceHead": "b18410e58642d61b94390f2a20d6cc73e8f3428e",
+  "flowSources": [
+    "src/ui/hud/m3-menu.ts",
+    "src/ui/presentation/intermission.ts",
+    "src/simulation/expedition-production.ts",
+    "src/ui/starship/equipment-availability.ts",
+    "src/simulation/starship/inventory.ts",
+    "src/simulation/starship/phase.ts",
+    "src/simulation/world.ts",
+    "docs/project/D05_CHECKPOINT_20261023.md"
+  ],
+  "checks": [
+    "Exactly 12 scenes and captions matched user wording",
+    "Three faction switch plan present",
+    "Module-only-outside restriction checked separately from pollution/race/reward locks",
+    "Normal next-stage and post-campaign endless entry checked",
+    "All source references exist"
+  ],
+  "notPerformed": [
+    "Gameplay video recording",
+    "Final video audio mix",
+    "Product modifications",
+    "Publication"
+  ],
+  "plan": "docs/project/GAMEPLAY_DEMO_STORYBOARD_20261103.md",
+  "supersededProposals": [
+    {
+      "revision": 1,
+      "summary": "Fixed 120-second single-Terran flow; superseded by user corrections."
+    },
+    {
+      "revision": 2,
+      "summary": "Eight flexible sections, two purchase cycles and a continue-game ending; superseded by user-defined 12-scene order."
+    }
+  ],
+  "additions": [
+    "Enemy drone kill and mineral/gas drop, pickup and wallet increase",
+    "Focus each shown paid reinforcement order cost at the real charge time, before arrival",
+    "Gameplay explanation cover",
+    "Original light UA-style BGM and feedback-cue preview"
+  ],
+  "costTiming": "Paid production debits minerals/gas when its order starts. Receiving that order does not debit again; free reinforcements are not depicted as paid."
+}

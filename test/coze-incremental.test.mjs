@@ -5,9 +5,10 @@ import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {applyUpdate} from '../tools/apply-coze-update.mjs';
 const sha=b=>createHash('sha256').update(b).digest('hex');
-test('incremental update retains old resources/environment and refuses broken app before activation',async()=>{
+test('incremental update retains old resources/environment and refuses broken app before activation',async t=>{
  await fs.mkdir('.cache',{recursive:true});
  const base=await fs.mkdtemp(path.resolve('.cache/coze-update-test-')),root=path.join(base,'existing'),app=path.join(base,'incoming'),patch=path.join(base,'patch'),assets=path.join(root,'public');
+ t.after(()=>fs.rm(base,{recursive:true,force:true,maxRetries:3}));
  for(const dir of [root,app,patch,assets])await fs.mkdir(dir,{recursive:true});await fs.writeFile(path.join(root,'.env'),'PORT=7777');await fs.writeFile(path.join(root,'package.json'),JSON.stringify({name:'existing',scripts:{test:'keep',start:'node old.mjs'}}));
  const rows=['old','new'].map(text=>{const b=Buffer.from(text),h=sha(b);return {url:`assets/${h}.glb`,sha256:h,bytes:b.length,mime:'model/gltf-binary',b};});
  for(let i=0;i<rows.length;i++){const r=rows[i],to=path.join(i?patch:assets,r.url);await fs.mkdir(path.dirname(to),{recursive:true});await fs.writeFile(to,r.b);}

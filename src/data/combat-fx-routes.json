@@ -823,5 +823,110 @@
         "BattlecruiserAirAttackImpact"
       ]
     }
+  },
+  {
+    "key": "ghost",
+    "family": "ghost",
+    "weapon": "C10CanisterRifle",
+    "kind": "instant",
+    "actors": [
+      "GhostAttack"
+    ],
+    "models": {
+      "launch": [
+        "GhostAttackLaunch"
+      ],
+      "impact": [
+        "GhostAttackImpact"
+      ]
+    }
+  },
+  {
+    "key": "widow_mine",
+    "family": "widow_mine",
+    "weapon": "WidowMineAttack",
+    "kind": "missile",
+    "actors": [
+      "WidowMineAttack"
+    ],
+    "models": {
+      "launch": [
+        "WidowMineAttackLaunch"
+      ],
+      "flight": [
+        "TornadoMissileWeapon"
+      ],
+      "impact": [
+        "WidowMineAttackImpact"
+      ]
+    }
+  },
+  {
+    "key": "widow_mine-air",
+    "family": "widow_mine",
+    "weapon": "WidowMineAttack",
+    "kind": "missile",
+    "actors": [
+      "WidowMineAirAttack"
+    ],
+    "models": {
+      "launch": [
+        "WidowMineAttackLaunch"
+      ],
+      "flight": [
+        "TornadoMissileWeapon"
+      ],
+      "impact": [
+        "WidowMineAirAttackImpact"
+      ]
+    }
+  },
+  {
+    "key": "cyclone",
+    "family": "cyclone",
+    "weapon": "TyphoonMissilePod",
+    "kind": "missile",
+    "actors": [
+      "CycloneMissilesAttack"
+    ],
+    "models": {
+      "flight": [
+        "CycloneMissile"
+      ],
+      "impact": [
+        "CycloneMissileImpact"
+      ]
+    }
+  },
+  {
+    "key": "liberator",
+    "family": "liberator",
+    "weapon": "LiberatorMissileLaunchers",
+    "kind": "missile",
+    "actors": [
+      "LiberatorAttack"
+    ],
+    "models": {
+      "flight": [
+        "LiberatorMissile"
+      ],
+      "impact": [
+        "LiberatorAttackImpact"
+      ]
+    }
+  },
+  {
+    "key": "liberator-ag",
+    "family": "liberator",
+    "weapon": "LiberatorAGWeapon",
+    "kind": "missile",
+    "actors": [
+      "LiberatorAGAttack"
+    ],
+    "models": {
+      "impact": [
+        "LiberatorAGAttackImpact"
+      ]
+    }
   }
 ]

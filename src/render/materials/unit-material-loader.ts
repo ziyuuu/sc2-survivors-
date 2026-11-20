@@ -46,7 +46,16 @@ export function legalMaterialGlb(bytes:ArrayBuffer,eliteBatchProfile?:UnitMateri
 /** Bind every shipped source surface by both model hash and original material index/name. */
 export async function loadUnitMaterialGltf(loader:GLTFLoader,url:string,key:string,batched=false):Promise<GLTF>{
  const profile=presentationMaterialProfile(key);
- if(!profile)return restoreSc2Materials(await loader.loadAsync(url));
+ if(!profile){
+  const gltf=await restoreSc2Materials(await loader.loadAsync(url));
+  // The converted Overlord emissive map paints a permanent white disc on the living sac.
+  if(key==='overlord')gltf.scene.traverse(node=>{
+   if(!(node instanceof THREE.Mesh))return;
+   for(const m of Array.isArray(node.material)?node.material:[node.material])
+    if(m instanceof THREE.MeshStandardMaterial&&(m.name==='Body#2'||m.name==='Sacs#3'))m.emissiveIntensity=0;
+  });
+  return gltf;
+ }
  const response=await fetch(url);if(!response.ok)throw Error('Original material model could not load: '+key);
  const bytes=await response.arrayBuffer(),digest=await crypto.subtle.digest('SHA-256',bytes);
  const sha=[...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,'0')).join('');

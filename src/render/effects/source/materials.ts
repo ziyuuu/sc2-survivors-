@@ -60,13 +60,13 @@ export function sourceSurface(resource:SourceMaterialResource,geometry:THREE.Buf
    .replace('umUV0=uv;',`umUV0=uv;fxParticleUV=${particles?'uv*sourceUv.zw+sourceUv.xy':'uv'};fxWorldUV=(modelMatrix*${particles||instances?'instanceMatrix*':''}vec4(transformed,1.0)).xz*vec2(1.0,-1.0)/1.4;`);
   shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying vec2 fxParticleUV;varying vec2 fxWorldUV;');
   for(const [i,role]of MATERIAL_ROLES.entries()){const uv=original.layers[role]?.uv;if(uv===5||uv===6){const expression=new RegExp('(vec2 umUv'+i+'\\(\\)\\{[^}]*?vec2 uv=)umUV0');shader.fragmentShader=shader.fragmentShader.replace(expression,'$1'+(uv===6?'fxParticleUV':'fxWorldUV'));}}
-  if(particles){shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nattribute vec4 sourceColor;attribute vec4 sourceUv;attribute float sourceSegmentedUv;varying vec4 fxColor;')
-   .replace('umUV0=uv;','umUV0=mix(uv,uv*sourceUv.zw+sourceUv.xy,sourceSegmentedUv);fxColor=sourceColor;');
-   shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying vec4 fxColor;')
-    .replace('#include <opaque_fragment>','outgoingLight*=fxColor.rgb;diffuseColor.a*=fxColor.a;\n#include <opaque_fragment>');
+  if(particles){shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nattribute vec3 sourceTint;varying vec3 fxTint;attribute vec4 sourceColor;attribute vec4 sourceUv;attribute float sourceSegmentedUv;varying vec4 fxColor;')
+   .replace('umUV0=uv;','umUV0=mix(uv,uv*sourceUv.zw+sourceUv.xy,sourceSegmentedUv);fxColor=sourceColor;fxTint=sourceTint;');
+   shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying vec3 fxTint;varying vec4 fxColor;')
+    .replace('#include <opaque_fragment>','outgoingLight*=fxColor.rgb;if(dot(fxTint,fxTint)>0.0)outgoingLight=vec3(max(outgoingLight.r,max(outgoingLight.g,outgoingLight.b)))*fxTint;diffuseColor.a*=fxColor.a;\n#include <opaque_fragment>');
    if(prepared.source.blend===2)shader.fragmentShader=shader.fragmentShader.replace('gl_FragColor.rgb*=umData(10).x;','gl_FragColor.rgb*=umData(10).x*fxColor.a;');
   }
  };
- mat.customProgramCacheKey=()=>surface.programKey(geometry,particles||instances)+':palette-rigid:'+Number(instances)+':combat:'+Number(particles)+':'+MATERIAL_ROLES.map(role=>original.layers[role]?.uv??0).join(',');
+ mat.customProgramCacheKey=()=>surface.programKey(geometry,particles||instances)+':tint-v1:palette-rigid:'+Number(instances)+':combat:'+Number(particles)+':'+MATERIAL_ROLES.map(role=>original.layers[role]?.uv??0).join(',');
  return surface;
 }

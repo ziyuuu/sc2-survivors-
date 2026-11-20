@@ -1,5 +1,6 @@
 /** Generated from pinned 5.0.15 UpgradeData. Ordinary weapon increments are source values, not flat +1 assumptions. */
 import type {FamilyId} from './races';
+import type {ZergSixFamily} from './zerg-six';
 export interface SourceWeaponUpgradeDelta {damage:number;bonusDamage:Record<string,number>;shieldBonus:number;}
 export interface SourceWeaponUpgrade {upgradeKey:string;sourceIds:readonly string[];perLevel:readonly SourceWeaponUpgradeDelta[];}
 export const SOURCE_UPGRADE_PROFILE={
@@ -32,7 +33,13 @@ export const SOURCE_UPGRADE_PROFILE={
     }
   ]
 } as const;
-export const SOURCE_PRIMARY_DAMAGE_EFFECT:Record<FamilyId,string|null>={
+export const SOURCE_PRIMARY_DAMAGE_EFFECT:Partial<Record<FamilyId,string|null>> & Record<Exclude<FamilyId,ZergSixFamily>,string|null>={
+  "ghost": "C10CanisterRifle",
+  "widow_mine": "WidowMineExplodeDirect",
+  "cyclone": "CycloneAttackWeaponDamage",
+  "raven": null,
+  "liberator": "LiberatorMissileDamage",
+  "battlecruiser": "ATSLaserBatteryU",
   "marine": "GuassRifle",
   "marauder": "PunisherGrenadesU",
   "reaper": "P38ScytheGuassPistol",
@@ -141,6 +148,37 @@ export const SOURCE_WEAPON_UPGRADE_STEPS:Readonly<Record<string,SourceWeaponUpgr
         "damage": 1,
         "bonusDamage": {
           "Armored": 1
+        },
+        "shieldBonus": 0
+      }
+    ]
+  },
+  "C10CanisterRifle": {
+    "upgradeKey": "terran.infantry",
+    "sourceIds": [
+      "TerranInfantryWeaponsLevel1",
+      "TerranInfantryWeaponsLevel2",
+      "TerranInfantryWeaponsLevel3"
+    ],
+    "perLevel": [
+      {
+        "damage": 1,
+        "bonusDamage": {
+          "Light": 1
+        },
+        "shieldBonus": 0
+      },
+      {
+        "damage": 1,
+        "bonusDamage": {
+          "Light": 1
+        },
+        "shieldBonus": 0
+      },
+      {
+        "damage": 1,
+        "bonusDamage": {
+          "Light": 1
         },
         "shieldBonus": 0
       }
@@ -376,6 +414,56 @@ export const SOURCE_WEAPON_UPGRADE_STEPS:Readonly<Record<string,SourceWeaponUpgr
       }
     ]
   },
+  "ATSLaserBatteryU": {
+    "upgradeKey": "terran.air_weapon",
+    "sourceIds": [
+      "TerranShipWeaponsLevel1",
+      "TerranShipWeaponsLevel2",
+      "TerranShipWeaponsLevel3"
+    ],
+    "perLevel": [
+      {
+        "damage": 1,
+        "bonusDamage": {},
+        "shieldBonus": 0
+      },
+      {
+        "damage": 1,
+        "bonusDamage": {},
+        "shieldBonus": 0
+      },
+      {
+        "damage": 1,
+        "bonusDamage": {},
+        "shieldBonus": 0
+      }
+    ]
+  },
+  "ATALaserBatteryU": {
+    "upgradeKey": "terran.air_weapon",
+    "sourceIds": [
+      "TerranShipWeaponsLevel1",
+      "TerranShipWeaponsLevel2",
+      "TerranShipWeaponsLevel3"
+    ],
+    "perLevel": [
+      {
+        "damage": 1,
+        "bonusDamage": {},
+        "shieldBonus": 0
+      },
+      {
+        "damage": 1,
+        "bonusDamage": {},
+        "shieldBonus": 0
+      },
+      {
+        "damage": 1,
+        "bonusDamage": {},
+        "shieldBonus": 0
+      }
+    ]
+  },
   "LanzerTorpedoesDamage": {
     "upgradeKey": "terran.air_weapon",
     "sourceIds": [
@@ -428,6 +516,56 @@ export const SOURCE_WEAPON_UPGRADE_STEPS:Readonly<Record<string,SourceWeaponUpgr
         "bonusDamage": {
           "Mechanical": 1
         },
+        "shieldBonus": 0
+      }
+    ]
+  },
+  "LiberatorMissileDamage": {
+    "upgradeKey": "terran.air_weapon",
+    "sourceIds": [
+      "TerranShipWeaponsLevel1",
+      "TerranShipWeaponsLevel2",
+      "TerranShipWeaponsLevel3"
+    ],
+    "perLevel": [
+      {
+        "damage": 1,
+        "bonusDamage": {},
+        "shieldBonus": 0
+      },
+      {
+        "damage": 1,
+        "bonusDamage": {},
+        "shieldBonus": 0
+      },
+      {
+        "damage": 1,
+        "bonusDamage": {},
+        "shieldBonus": 0
+      }
+    ]
+  },
+  "LiberatorAGDamage": {
+    "upgradeKey": "terran.air_weapon",
+    "sourceIds": [
+      "TerranShipWeaponsLevel1",
+      "TerranShipWeaponsLevel2",
+      "TerranShipWeaponsLevel3"
+    ],
+    "perLevel": [
+      {
+        "damage": 5,
+        "bonusDamage": {},
+        "shieldBonus": 0
+      },
+      {
+        "damage": 5,
+        "bonusDamage": {},
+        "shieldBonus": 0
+      },
+      {
+        "damage": 5,
+        "bonusDamage": {},
         "shieldBonus": 0
       }
     ]

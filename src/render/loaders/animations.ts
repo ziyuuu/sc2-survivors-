@@ -7,6 +7,10 @@ export function mapAnimations(clips:AnimationClip[],profile?:string){
  const unsieging=find(/un[\s_-]*(?:siege|deploy)/i);
  const sieging=clips.find(c=>/siege|deploy/i.test(c.name)&&!/^.*un[\s_-]*(?:siege|deploy)/i.test(c.name));
  const mapped={burrow:find(/^burrow$/i),unburrow:find(/^unburrow$/i),burrowIdle:find(/^stand burrow$/i)??find(/^burrow stand$/i)??find(/^burrow$/i),burrowAttack:find(/^attack burrow$/i),highImpactMorph:find(/^morph$/i),highImpactUnmorph:find(/^morph end$/i),highImpactIdle:find(/^morph stand$/i),highImpactAttack:find(/^spell d$/i),attackLeft:find(/^attack left$/i),attackRight:find(/^attack right$/i),ready:find(/^stand ready$/i),skill:find(/^spell$/i)??find(/^spell/i),idle:find(/^(stand|idle)$/i)??find(/stand|idle/i),move:find(/^run$/i)??find(/^walk$/i)??find(/run/i)??find(/walk|move/i),attack:find(/^attack$/i)??find(/attack|fire/i),dead:find(/^death$/i)??find(/death|dead/i),spawn:find(/^(birth|spawn)$/i)??find(/birth|spawn/i),sieging:sieging??find(/^morph start$/i),unsieging:unsieging??find(/^morph end$/i),heal:find(/^stand work$/i)??find(/heal|spell|channel/i),hit:find(/^(hit|hurt|wound|flinch)(\s|$)/i)};
+ if(profile==='swarm_host')mapped.burrowAttack=find(/^attack$/i);
+ if(profile==='viper')mapped.attack=find(/^spell$/i)??mapped.attack;
+ if(profile==='widow_mine'){mapped.burrow=find(/^burrow 01$/i);mapped.burrowAttack=find(/^spell a$/i);}
+ if(profile==='liberator'||profile==='liberator.ag'){mapped.sieging=find(/^stand work start$/i);mapped.unsieging=find(/^stand work end$/i);if(profile==='liberator.ag'){mapped.idle=find(/^stand work$/i);mapped.attack=find(/^attack a$/i);}}
  if(profile==='fun-nydus'){mapped.skill=find(/^stand work start$/i);mapped.attack=find(/^pickup$/i);mapped.heal=find(/^spell$/i);mapped.unsieging=find(/^stand work end$/i);}
  const selected=animationProfile(profile),named=(names?:string[])=>names?.map(name=>clips.find(c=>c.name.toLowerCase()===name.toLowerCase())).find(Boolean);
  const extra={attackChannel:named(selected?.attackChannel),attackEnd:named(selected?.attackEnd)};
@@ -32,11 +36,11 @@ export function mapAnimations(clips:AnimationClip[],profile?:string){
    highImpactGroundAttack=deployed(mapped.attack);mapped.highImpactAttack=deployed(mapped.highImpactAttack);
   }
  }
- return {...mapped,...extra,highImpactMove,highImpactReady,highImpactGroundAttack};
+ return {...mapped,...extra,highImpactMove,highImpactReady,highImpactGroundAttack,swordHorizontal:find(/^Doomsday Sword Horizontal$/),swordReturn:find(/^Doomsday Sword Return$/)};
 }
 
 /** Composed skeletal poses keep their body's original material timeline. */
-export const sourceAnimationName=(clip?:AnimationClip)=>clip?.name.replace(/ \+ Morph Stand$/,'')??'';
+export const sourceAnimationName=(clip?:AnimationClip)=>clip?.name.startsWith('Doomsday Sword')?'Stand':clip?.name.replace(/ \+ Morph Stand$/,'')??'';
 
 export type AttackPlaybackState={channelSince?:number;lastShotAt?:number;shotSequence?:number;suppressedThroughShot?:number};
 type ShootingUnit=Pick<Entity,'unitType'|'action'|'hp'|'lastShotAt'|'shotSequence'|'shotInterval'|'windup'|'modeTimer'> & Partial<Pick<Entity,'heroId'|'summonKind'|'nativeModeUntil'|'recoveryUntil'|'nativeMode'|'lastSkillAt'|'activeWeapon'>>;
@@ -48,11 +52,13 @@ export function selectAttackPresentation(unit:ShootingUnit,time:number,actions:R
  if(priority){delete state.channelSince;state.lastShotAt=unit.lastShotAt;state.shotSequence=unit.shotSequence;state.suppressedThroughShot=unit.shotSequence??0;return null;}
  if(unit.unitType==='carrier'&&!unit.heroId&&!unit.summonKind)return null;
  const overlay=!unit.heroId&&(unit.unitType==='marine'||unit.unitType==='marauder');
+ const mine=unit.unitType==='widow_mine';
+ if(mine&&(unit.nativeMode!=='mine_burrowed'||unit.windup>0))return null;
  const deployedThor=unit.unitType==='thor'&&!unit.heroId&&unit.nativeMode==='thor_high_impact';
  const modeAttack=unit.activeWeapon==='LanceMissileLaunchers'?'highImpactAttack':'highImpactGroundAttack';
- const action=unit.unitType==='lurker'&&actions.burrowAttack?'burrowAttack':deployedThor&&actions[modeAttack]?modeAttack:attackAction(unit.unitType,unit.shotSequence),clip=actions[action];
+ const action=(mine||unit.unitType==='lurker'&&actions.burrowAttack)?'burrowAttack':deployedThor&&actions[modeAttack]?modeAttack:attackAction(unit.unitType,unit.shotSequence),clip=actions[action];
  if(!clip||clip===actions.idle)return null;
- const rate=1.4,marker=Math.min(clip.duration,SC2_UNITS[unit.unitType].damagePoint*rate);
+ const rate=1.4,marker=mine?0:Math.min(clip.duration,SC2_UNITS[unit.unitType].damagePoint*rate);
  const age=time-unit.lastShotAt;
  const gap=Math.max(.16,unit.shotInterval*1.5),channel=(unit.unitType==='void_ray'||unit.unitType==='colossus')&&!unit.heroId&&!!actions.attackChannel;
  if(unit.windup>0&&unit.action==='attack'&&!(channel&&(unit.shotSequence??0)>0&&age<=gap))return {action:deployedThor&&actions.highImpactReady?'highImpactReady':actions.ready?'ready':action,seconds:Math.max(0,marker-unit.windup*rate),once:true,overlay};

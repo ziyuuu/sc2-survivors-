@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-25",
+  "status": "complete",
+  "authorization": "用户明确确认：按列出的全部范围删除。",
+  "policy": "已完成且可由代码复现的产物不保留；仅保留简要结论、复现代码及正在进行的当前必要内容。覆盖旧证据保留规则。",
+  "scope": [
+    "D:/星际/reports/local 已完成批次及废弃T01输出",
+    "D:/星际/dist 旧成品",
+    "D:/星际/preview 可重建生成文件",
+    "C盘本聊天的旧截图/视频目录"
+  ],
+  "deleted": {
+    "files": 300473,
+    "logicalBytes": 167271515443,
+    "targets": 25883,
+    "links": 17,
+    "emptyDirectories": 9,
+    "remainingTargets": 0
+  },
+  "drives": {
+    "C": {
+      "beforeFreeBytes": 6323470336,
+      "afterFreeBytes": 13127069696,
+      "increaseBytes": 6803599360
+    },
+    "D": {
+      "beforeFreeBytes": 24378179584,
+      "afterFreeBytes": 95118168064,
+      "increaseBytes": 70739988480
+    }
+  },
+  "verified": {
+    "sourceAndTestFilesUnchanged": 798,
+    "primaryAssets": 2197,
+    "activeT01ResourceHashes": 1852,
+    "htmlBuildInputs": 530,
+    "currentUnchanged": true,
+    "t01HtmlUnchanged": true,
+    "currentHtml": "reports\\local\\t01-20261024\\offline-r7\\T01-综合检测.html",
+    "currentHtmlSha256": "2a2d2ae32f0847d6a0891a96f19850719de8cd644d9b9c90d8b4b1829df28577",
+    "mechanicTestFilesAvailable": 125
+  },
+  "retained": [
+    "源码、测试、构建与复现代码、项目结论",
+    "原始游戏资源和用户实际存档",
+    "Current 正式成品",
+    "当前 T01 最新综合 HTML、必要资源及当前机制检查结果"
+  ],
+  "dependencyMaintenance": "当前T01构建、离线打包及机制测试选择已解除对已完成V01/I03报告目录的依赖。重建的9份Web文件与当前交付逐SHA一致。",
+  "resolved": "V03旧检查服务器占用日志；确认进程身份后关闭该服务器，补删成功。17个旧目录链接仅移除链接本身，目标保留。",
+  "limits": "逻辑删除字节含硬链接和压缩文件，不能当作实际释放量；盘符可用空间变化也可能包含同时发生的系统活动。",
+  "gameChanges": false,
+  "newGameTests": false,
+  "t01StillAwaitingUserVisualReview": true,
+  "commit": false,
+  "push": false,
+  "publish": false,
+  "temporaryRecordsRemoved": true
+}

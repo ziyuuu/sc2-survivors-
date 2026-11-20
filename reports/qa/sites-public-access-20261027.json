@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-27",
+  "scope": "用户明确授权公开 Sites 站点供朋友试玩；不更换部署版本，不改变阿里云渠道。",
+  "site": "星际幸存者",
+  "url": "https://sc2-v04-private-test-20261027.yuuuu-g.chatgpt.site/",
+  "siteVersion": 7,
+  "accessMode": "public",
+  "accessRevision": 2,
+  "checks": {
+    "anonymousHomeHttp": 200,
+    "anonymousManageHttp": 403,
+    "anonymousOwnerApiHttp": 403,
+    "fictionalEmailOwnerApiHttp": 403,
+    "freshAnonymousBrowserEnteredBattle": true,
+    "pageErrors": 0,
+    "failedHttpResponses": 0
+  },
+  "limitations": [
+    "未检查真实所有者身份伪造：自动审批拒绝向线上接口发送真实站点所有者邮箱作为伪造认证请求头；虚构邮箱检查不能替代该验证。",
+    "未重新验证公开权限下所有者本人登录管理页面。",
+    "浏览器检查为单次全新匿名环境进入战斗，不代表所有设备、国内网络或完整战役均已验证。",
+    "独立备份、长期清理与完整公开环境验收仍待处理；不将本次检查等同V05完成。"
+  ]
+}

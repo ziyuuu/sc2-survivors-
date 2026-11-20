@@ -1,6 +1,7 @@
 // Actor/SoundData identities from the pinned B97563 build. Custom Survivors skills
 // explicitly name the matching source ability; no base-family gun fallback.
 export const AUDIO_WEAPONS={
+ ghost:{actor:'GhostAttack'},widow_mine:{actor:'WidowMineAttack',impact:null},'widow_mine-air':{actor:'WidowMineAirAttack'},cyclone:{actor:'CycloneAttackLeft'},liberator:{actor:'LiberatorAttack'},'liberator-ag':{actor:'LiberatorAGAttack'},
  marine:{actor:'MarineAttack'},marauder:{actor:'MarauderAttack'},reaper:{actor:'ReaperAttack'},hellion:{actor:'HellionAttack'},hellbat:{actor:'HellionTankAttack'},tank:{actor:'SiegeTankAttack'},'tank-siege':{actor:'SiegeTankSiegedAttack'},
  'thor-ground':{actor:'ThorAttack'},'thor-air':{actor:'ThorAAAttack'},'thor-high-impact':{actor:'ThorAALanceAttack'},viking:{actor:'VikingFighterAttack'},'viking-assault':{actor:'VikingAssaultAttack'},banshee:{actor:'BansheeAttack'},
  zergling:{actor:'ZerglingAttack',attack:'Zergling_AttackLaunch'},baneling:{attack:'Baneling_Suicide',impact:null,note:'BanelingDeathSuicideSound owns the suicide burst; do not play it again for its death.'},roach:{actor:'RoachAttack'},'roach-melee':{actor:'RoachMeleeAttack',attack:'Roach_AttackLaunchMelee'},ravager:{actor:'RavagerAttack'},hydralisk:{actor:'HydraliskAttack'},'hydralisk-air':{actor:'HydraliskAttack',note:'NeedleSpinesLaunchMissile uses the same HydraliskAttack actor for air and ground. Unreferenced AirAttackLaunch bank has obsolete missing files.'},'hydralisk-melee':{actor:'HydraliskMeleeAttack',attack:'Hydralisk_MeleeAttackLaunch',impact:'Hydralisk_AttackImpactMelee'},
@@ -15,6 +16,8 @@ export const AUDIO_WEAPONS={
  broodling:{actor:'BroodlingAttack',attack:'Broodling_AttackLaunch'},locust:{actor:'LocustMPAttack'},'locust-melee':{actor:'LocustMPMeleeAttack'},
 };
 export const AUDIO_DEATHS={
+ ghost:['melee','Ghost_Explode'],widow_mine:['melee','Terran_ExplosionSmall'],cyclone:['melee','WarHound_Explode'],liberator:['melee','Liberator_Death'],raven:['melee','Raven_Explode'],battlecruiser:['melee','Battlecruiser_Death'],
+ overlord:['melee','Overlord_Death'],
  'fun-nydus':['melee','NydusWorm_Death','NydusWorm_DeathCry','NydusWorm_DeathThud'],
  'fun-infested-marine':['melee','InfestedTerran_Explode'],
  'fun-cocoon':['melee','Cocoon_Death'],
@@ -28,6 +31,7 @@ export const AUDIO_DEATHS={
  'building:terran':['swarm','Terran_BuildingExplosion_medium'],'building:protoss':['melee','Protoss_ExplosionLarge'],'building:zerg':['void','ZergInfestedBuildingExplosion'],broodling:['melee','Broodling_Death'],locust:['melee','Locust_Death'],drone:['melee','Drone_Death'],probe:['melee','Probe_Explode'],scv:['melee','SCV_Death'],
 };
 export const AUDIO_SKILLS={
+ six_weak:{profile:'melee',launch:'Ghost_SnipeLaunch',impact:'Ghost_SnipeImpact'},six_interfere:{profile:'melee',launch:'Ghost_EMPAttackLaunch',impact:'Ghost_EMPAttackImpact'},six_shredder:{profile:'melee',launch:'Raven_HunterSeekerLaunch'},
  raynor:{profile:'liberty',charge:'Raynor_PenetratorRoundChargeUp',launch:'RaynorSnipeSound',impact:'Raynor_AttackImpact'},tychus:{profile:'liberty',launch:'Tychus_TossGrenadeLaunch',impact:'TychusTossGrenadeImpact'},nova:{profile:'liberty',launch:'Nova_SnipeLaunch',impact:'Nova_SnipeImpact'},swann:{profile:'melee',launch:'Thor_EmergencyRepair_Self_Start',loop:'SCV_Repair',end:'Thor_EmergencyRepair_Self_End',note:'Current timed repair aura uses original repair start/work/end sound actors.'},tosh:{profile:'liberty',launch:'Spectre_UltrasonicPulseLaunch',impact:'Spectre_UltrasonicPulseImpact',note:'Original Spectre area stun pulse mapped to the approved Mind Blast area skill.'},
  kerrigan:{profile:'swarm',launch:'PsionicShockwaveSound',impact:'Hybrid_PsionicShockwaveImpact'},zagara:{profile:'coop',launch:'ZagaraAC_BanelingLaunch',impact:'Baneling_Suicide'},dehaka:{profile:'swarm',launch:'Dehaka_Bite',impact:'ConsumptionSound',note:'Devour bite and native Consume impact, no weapon-gun fallback.'},stukov:{profile:'melee',launch:'Ravager_CorrosiveBile_AttackLaunch',impact:'Ravager_Attack_Impact',note:'Approved corrosive projectile and area acid impact.'},niadra:{profile:'swarm',launch:'Niadra_Collect_Cast',loop:'Niadra_Collect_Loop',end:'Niadra_Collect_End',revive:'Queen_Transfusion',note:'Native collection channel follows the actual revival window.'},
  artanis:{profile:'void',launch:'Artanis_ResurgenceCharge',impact:'Artanis_ResurgenceExplode'},zeratul:{profile:'liberty',launch:'Zeratul_Blink',impact:'Zeratul_AttackImpact'},alarak:{profile:'void',launch:'Alarak_DestructionWave_Cast',impact:'Alarak_DestructionWave_Impact'},fenix:{profile:'void',charge:'Immortal_PurifierCannonAttackCharge',launch:'Immortal_PurifierCannonAttackLaunch',impact:'Immortal_PurifierCannonAttackImpact'},vorazun:{profile:'void',launch:'VoidStasis_Launch',impact:'VoidStasis_Impact'},

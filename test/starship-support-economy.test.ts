@@ -16,7 +16,7 @@ function enemy(w:World){const u=w.addUnit('zergling','zerg',0,3);u.hp=u.maxHp=10
 test('loan and extra development pay real projects, keep distinct first choices, and clear the specified stages once',()=>{
  const w=world();put(w,'module.loan.4','gathering');for(const slot of ATTRIBUTE_SLOTS.slice(0,4))put(w,'set.advanced.choice.4',slot);const initial={...w.wallet};w.start();close(w.wallet.minerals-initial.minerals,4500);close(w.wallet.gas-initial.gas,3000);w.endStage();assert.equal(equipmentDevelopmentLimit(w),4);const chosen:string[]=[];
  for(let n=0;n<4;n++){assert.equal(w.rewardRound,'building');const offer=w.rewards.find(r=>w.canChooseReward(r))!;assert.ok(offer);chosen.push(offer.id);assert.ok(w.choose(offer.offerId));}
- assert.notEqual(chosen[0],chosen[1]);assert.equal(w.rewardRound,'random');assert.equal(w.starship.numbers.get('development-count:'+w.draftWindowId),4);assert.ok(w.economyTotals.purchases.minerals>0);
+ assert.notEqual(chosen[0],chosen[1]);assert.equal(w.rewardRound,'random');assert.equal(w.starship.numbers.get('development-count:'+w.draftWindowId),4);assert.equal(w.economyTotals.purchases.minerals,0);
  w.stage=7;equipmentStageEconomy(w);assert.deepEqual(w.wallet,{minerals:0,gas:0});w.wallet.minerals=17;equipmentStageEconomy(w);assert.equal(w.wallet.minerals,17);w.stage=8;equipmentStageEconomy(w);assert.equal(w.wallet.minerals,0);
 });
 test('purple paid refresh earns one independent free refresh and only real payments enter the stable price counter',()=>{

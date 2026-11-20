@@ -110,7 +110,7 @@ export class SourceEffectPlayer {decorationFraction=1;displacementEnabled=true;
    if(request.particleOpacity!==undefined)quad.color[3]*=request.particleOpacity;
    const route=routes.get(quad.materialReference)!;
    if(route.displacement){if(!this.displacementEnabled)continue;displacementQuads++;}
-   for(const batch of route.batches)batch.add(quad);
+   for(const batch of route.batches)batch.add(request.colorize?{...quad,tint:request.colorize}:quad);
   }
   const model=this.modelCounts.get(def.id)??{requests:0,meshes:0,particles:0,ribbons:0,projections:0,displacementMeshes:0,displacementQuads:0};model.requests++;model.meshes+=Number(hasMesh);model.particles+=particles.length;model.ribbons+=ribbons.length;model.projections+=projections.length;model.displacementMeshes+=this.displacementEnabled&&meshActive&&resource.displacementGltf?(this.meshPools.get(def.id+':displacement')?.[0].surfaces.length??0):0;model.displacementQuads+=displacementQuads;this.counts.displacementQuads+=displacementQuads;this.modelCounts.set(def.id,model);
  }

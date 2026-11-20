@@ -4,7 +4,7 @@ import {World} from '../src/simulation/world';
 import {draftContext} from '../src/simulation/expedition-economy';
 import {drawExpeditionReinforcements} from '../src/simulation/progression/expedition-drafts';
 
-function intermission(){const w=new World({terrain:false,obstacles:[],waves:false,sandbox:true});w.start();w.wallet={minerals:10000,gas:10000};w.endStage();return w;}
+function intermission(race:'terran'|'protoss'='terran'){const w=new World({race,terrain:false,obstacles:[],waves:false,sandbox:true});w.start();w.wallet={minerals:10000,gas:10000};w.endStage();return w;}
 test('first intermission opens its native first direction and grants one base free refresh',()=>{
  const w=intermission();assert.equal(w.expedition.developmentDirection,'barracks');assert.ok(w.rewards.length>0);assert.equal(w.rerollCost(),0);
  assert.equal((w as any).setDevelopmentDirection('barracks'),true);assert.ok(w.rewards.length>0);
@@ -26,7 +26,11 @@ test('former guaranteed hero/purple windows and low-window history do not force 
  const w=intermission();for(const stage of [6,9,12,15]){w.stage=stage;w.expedition.draftWindow=w.draftWindowId;w.expedition.lowWindows=9;w.expedition.draftTaken=false;const ctx=draftContext(w);ctx.random=()=>0;ctx.currentOffers=[];const offers=drawExpeditionReinforcements(ctx,true);assert.equal(offers.length,3);assert.ok(offers.every(r=>r.rarity==='white'));}
 });
 test('four authored discounts are independently quoted and zero-resource prices stay zero',()=>{
- for(const [random,off] of [[.1,0],[.6,.15],[.87,.3],[.98,.5]]){const w=intermission();w.random=()=>random;assert.ok(w.reroll());assert.ok(w.setDevelopmentDirection('barracks'));assert.ok(w.rewards.length);for(const offer of w.rewards){assert.equal(offer.discount,off);assert.equal(offer.minerals,Math.ceil(offer.baseMinerals*(1-off)));assert.equal(offer.gas,Math.ceil(offer.baseGas*(1-off)));}}
+ for(const [random,off] of [[.1,0],[.6,.15],[.87,.3],[.98,.5]]){
+  for(const race of ['terran','protoss'] as const){const w=intermission(race);w.random=()=>random;assert.ok(w.reroll());assert.ok(w.setDevelopmentDirection(race==='terran'?'barracks':'gateway'));assert.ok(w.rewards.length);
+   for(const offer of w.rewards){assert.equal(offer.discount,race==='terran'?0:off);for(const [base,paid] of [[offer.baseMinerals,offer.minerals],[offer.baseGas,offer.gas]])assert.equal(paid,race==='terran'||!base?0:Math.max(1,Math.ceil(base*(1-off))));}
+  }
+ }
 });
 test('stale revisions and wrong windows are rejected without RNG, quota or wallet changes',()=>{
  const w=intermission();w.setDevelopmentDirection('barracks');const before=w.captureRun(),revision=w.expedition.shopRevision;assert.equal(w.purchaseDevelopmentOffer(w.draftWindowKey,w.rewards[0].offerId,revision-1),false);assert.equal(w.refreshOffers('wrong',revision),false);assert.equal(w.setDevelopmentDirection('factory',revision-1),false);assert.deepEqual(w.captureRun(),before);

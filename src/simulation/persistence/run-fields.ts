@@ -1,4 +1,5 @@
 import {validContentPlan} from '../progression/run-content';
+import {validateDoomsdayCombat} from '../combat/doomsday-state';
 import {ARMED_CARD_BY_ID} from '../../data/terran-armed-support';
 import {validateFunShop} from '../fun-shop/state';
 import {validateEndlessState} from '../../data/endless';
@@ -22,6 +23,9 @@ import {FAMILY_MODES,type ModeFamily} from '../combat/family-actions';
 import {validateSwarm} from '../../data/swarm';
 import type {RunState} from '../run-state';
 import {validateExpedition} from '../expedition-state';
+import {isZergSixBody,isZergSixFamily} from '../../data/zerg-six';
+import {validateZergSixState} from '../combat/zerg-six';
+import {validateSixState} from '../combat/terran-six';
 import {ALL_FAMILIES,combatRace,isAirHeroType,isSupportCombatType,type FamilyId} from '../../data/races';
 import {allocationCost,allocationPoints,validateTalentAllocation} from '../../data/mvp-talents';
 import {ELITES} from '../../data/elites';
@@ -45,7 +49,14 @@ export const RUN_FIELDS=[
  // Lone hunter effective growth/cache rebuilds from raw absorptions; stored contributions stay unchanged.
  // Saved inside entities.heroCombat / heroCasts: cycle, warmup, cloak episode/charge, protection expiry, cast rank/targets/view.
  // Saved in expedition.support.mines: phase, stable target, emergence timer, point/facing. Routes/poses rebuild.
- // expedition.build preserves branch progress and frozen node choices; support.armed
+ // expedition.build preserves branch progress, the threshold set on the third purple claim,
+ // frozen purple/orange choices, postponements and claims. support.armed
+ // expedition.zergSixSeatCooldowns preserves clocks when a formal body has no live instance.
+ // expedition.doomsday preserves card/seat receipts, crossfire and salvo reservations.
+ // doomsday.slashes persists frozen source/budget/facing, windup/impact/recovery ticks
+ // and atomic settlement. The blade and skeletal pose reconstruct from this queue.
+ // entities.doomsday and weaponFlights.source.doomsday freeze native round identity;
+ // weaponFlights.doomsdayDerived owns its own frozen armor payload, never new procs.
  // preserves acquired ranks/reserves, purchase receipts, dispatch/volley cursors,
  // raider detonation receipts and the active planetary sweep/pulse cursor.
  // Missing optional objects in existing player checkpoints mean no new acquisitions.
@@ -93,7 +104,17 @@ export function validateRunData(data:RunData,defaults:object,equipment?:Starship
  }
  validateEndlessState(data.endless);
  if(data.endless?.pacing?.nextWaveIndex!==undefined&&(data.endless.pacing.nextWaveIndex<data.waves.length||!Number.isSafeInteger(data.stageWave)||data.stageWave<0||data.stageWave>data.waves.length))throw Error('无尽波次窗口无效');
- for(const unit of data.entities.values())validateEndlessStamp(unit.enemySpawn);
+ if(!data.specialStages.active)for(const [id,b] of Object.entries(data.expedition.doomsday?.blueprints??{})){if(!b?.order)continue;const j=data.expedition.ledger.find(j=>j.id===b.order!.jobId);if(!j||j.family!==b.family||(b.order.kind==='incoming'?!j.passengers[b.order.passengerIndex]||j.passengers[b.order.passengerIndex].purpose!=='body':j.refit?.cardId!==id||j.refit.target.entityId!==b.order.target.entityId||j.refit.target.bornAt!==b.order.target.bornAt))throw Error('机械图纸工序归属无效');}
+ for(const unit of data.entities.values()){validateEndlessStamp(unit.enemySpawn);validateDoomsdayCombat(unit.doomsday);}
+ for(const effect of data.effects){
+  const flame=effect.doomsdayFlame;if(flame===undefined)continue;
+  if(effect.kind!=='flame'||!flame||!Number.isSafeInteger(flame.style)||flame.style<0||flame.style>65535||!Number.isFinite(flame.width)||flame.width<=0||flame.width>2||typeof flame.blue!=='boolean')throw Error('喷焰外观无效');
+ }
+ for(const flight of data.weaponFlights){validateDoomsdayCombat(flight.source?.doomsday);const d=flight.doomsdayDerived;if(d&&(!Number.isFinite(d.penetration)||d.penetration<0||d.penetration>1||flight.apm||flight.primary||flight.hop||d.kind!==undefined&&!['repeat','split','turret','node','vikingAssist','barrage'].includes(d.kind)||d.round!==undefined&&!/^\d+:[\d.]+:\d+$/.test(d.round)))throw Error('机械派生弹载荷无效');}
+ const mechanical=data.expedition.doomsday,specialFamilies:Record<string,string>={'M-G06':'hellion','M-B07':'viking','M-P06':'banshee','M-O02':'thor','M-O03':'tank'},areaIds=new Set(data.weaponFlights.map(p=>p.id));
+ for(const e of [...mechanical?.areas??[],...mechanical?.slashes??[]]){if(e.id>=data.nextId||areaIds.has(e.id))throw Error('机械攻击编号重复');areaIds.add(e.id);}
+ for(const [id,b] of Object.entries(mechanical?.blueprints??{})){const u=b?.host&&data.entities.get(b.host.entityId);if(u&&(u.bornAt!==b!.host!.bornAt||u.unitType!==b!.family||u.team!=='player'||u.heroId||u.temporary||specialFamilies[id]&&u.doomsday?.special!==id))throw Error('机械宿主归属无效');}
+ for(const u of data.entities.values())if(u.doomsday?.special&&u.unitType!==specialFamilies[u.doomsday.special])throw Error('机械特装身份无效');
  for(const wave of data.waves)for(const member of wave.members??[])validateEndlessStamp(member.stamp);
  for(const member of data.endless?.pacing?.previousWave?.members??[])validateEndlessStamp(member.stamp);
  for(const member of data.ambientBacklog)validateEndlessStamp(member.stamp);
@@ -115,9 +136,23 @@ export function validateRunData(data:RunData,defaults:object,equipment?:Starship
   // Their corpses also remain in the intermission checkpoint until normal cleanup.
   const bodies=equipment?.runtime?.advancedBodies,members=equipment?.runtime?.members,body=bodies instanceof Map?bodies.get(id):undefined,member=members instanceof Map?members.get(id):undefined;
   const equipmentLeviathan=u.unitType==='hots_leviathan'&&u.owner==='terran'&&u.temporary===true&&u.heroId===undefined&&!u.attributes.includes('Heroic')&&Number.isFinite(u.temporaryUntil)&&body&&['plague','behemoth'].includes(body.kind)&&member?.origin===body.kind&&member.independent===true&&member.cannotGrow===true&&member.cannotRevive===true;
-  const combatBody=isAirHeroType(u.unitType)?u.owner==='terran'&&(u.heroId===u.unitType||equipmentLeviathan):isSupportCombatType(u.unitType)?u.owner==='terran'&&u.temporaryKind==='armed'&&['B06','O02'].includes(u.armed?.cardId??''):ALL_FAMILIES.includes(u.unitType as FamilyId);if(!Number.isSafeInteger(id)||u?.id!==id||!combatBody||u.race!==combatRace(u.unitType)||u.team!==(u.owner==='terran'?'player':'enemy')||![u.x,u.z,u.hp,u.maxHp,u.weaponCooldown,u.nextShotAt,u.lastShotAt].every(n=>typeof n==='number'&&!Number.isNaN(n))||u.maxHp<=0)throw Error('续局单位无效');
+  validateSixState(u);validateZergSixState(u);
+  const sixBody=isZergSixBody(u.unitType),child=u.zergSix?.temp;
+  const validSix=sixBody&&(isZergSixFamily(u.unitType)?u.owner==='terran'||u.owner==='zerg'&&!!u.enemySix
+   :child?.kind===(u.unitType==='zerg_locust'?'locust':'broodling'));
+  const combatBody=sixBody?validSix:isAirHeroType(u.unitType)?u.owner==='terran'&&(u.heroId===u.unitType||equipmentLeviathan)
+   :isSupportCombatType(u.unitType)&&u.temporary?u.owner==='terran'&&u.temporaryKind==='armed'&&['B06','O02'].includes(u.armed?.cardId??'')
+   :ALL_FAMILIES.includes(u.unitType as FamilyId);
+  if(!Number.isSafeInteger(id)||u?.id!==id||!combatBody||u.race!==combatRace(u.unitType)||u.team!==(u.owner==='terran'?'player':'enemy')
+   ||![u.x,u.z,u.hp,u.maxHp,u.weaponCooldown,u.nextShotAt,u.lastShotAt].every(n=>typeof n==='number'&&!Number.isNaN(n))||u.maxHp<=0)throw Error('续局单位无效');
  }
- for(const u of data.entities.values())if(u.rewardSourceKind!==undefined&&(!u.summonKind||!['ordinary','elite','hero','temporary'].includes(u.rewardSourceKind)||!Number.isSafeInteger(u.rewardOwnerId)||!Number.isFinite(u.rewardOwnerGeneration)||u.rewardOwnerId!==u.summonOwnerId))throw Error('召唤物奖励归属无效');
+ for(const u of data.entities.values()){
+  if(u.rewardSourceKind===undefined)continue;
+  const child=u.zergSix?.temp;
+  const parent=child&&child.kind!=='converted'&&u.owner==='terran'&&u.rewardSourceKind==='ordinary'?child.parent:u.summonKind?u.summonOwnerId:undefined;
+  if(!['ordinary','elite','hero','temporary'].includes(u.rewardSourceKind)||!Number.isSafeInteger(u.rewardOwnerId)
+   ||!Number.isFinite(u.rewardOwnerGeneration)||u.rewardOwnerId!==parent)throw Error('召唤物奖励归属无效');
+ }
  // Saved: pair identity/rank/regrowth tick, queen cooldown, per-carrier injection receipt.
  // Rebuilt: console selection/pages and engagement positions. No view objects in these DTOs.
  for(const u of data.entities.values()){

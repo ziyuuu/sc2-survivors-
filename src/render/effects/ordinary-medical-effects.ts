@@ -25,8 +25,22 @@ export class OrdinaryMedicalEffects {
   for(const b of [...this.beams,...this.shields,...this.fogs,...this.nodes])b.visible=false;this.beamMaterial.uniforms.clock.value=w.time;this.shieldMaterial.uniforms.clock.value=w.time;
   let links=0,shells=0,clouds=0,nodes=0;this.fogCount=0;this.fogMaterial.uniforms.clock.value=w.time;
  const sprite=(p:THREE.Vector3,size:number,medical=false)=>{let m=this.nodes[nodes++];if(!m){m=new THREE.Sprite(this.flareMaterial);this.group.add(m);this.nodes.push(m);}m.material=medical?this.healMaterial:this.flareMaterial;m.position.copy(p);m.scale.setScalar(size);m.visible=true;};
-  for(const u of w.entities.values())if(u.hp>0&&visible(u)&&!u.eliteId&&['medivac','science_vessel'].includes(u.unitType)&&!u.heroId)for(const id of u.healTargets??(u.healTarget?[u.healTarget]:[])){const target=w.entities.get(id);if(!target?.hp||!visible(target))continue;if(u.unitType==='science_vessel'){this.fogCount++;const height=target.flying?AIR_HEIGHT:(w.terrain?.height(target)??0)+.15;for(let i=0;i<3;i++){let fog=this.fogs[clouds++];if(!fog){fog=new THREE.Mesh(this.plane,this.fogMaterial);this.group.add(fog);this.fogs.push(fog);}fog.position.set(target.x+Math.sin(w.time*.4+i)*.12,height+.35+i*.35,target.z+Math.cos(w.time*.3+i)*.12);fog.quaternion.copy(camera.quaternion);fog.scale.set(2.6-i*.35,1.8-i*.15,1);fog.renderOrder=3;fog.visible=true;}for(let i=0;i<(this.quality==='low'?1:this.quality==='balanced'?3:6);i++){const angle=i*2.399+w.time*.7,r=.25+(i%3)*.18;sprite(new THREE.Vector3(target.x+Math.sin(angle)*r,height+.25+((w.time*.35+i*.19)%1.2),target.z+Math.cos(angle)*r),.09);}continue;}
- // The original Medivac effect owns this actual recipient link.
-  }
+  for(const u of w.entities.values())if(u.hp>0&&visible(u)&&u.unitType==='science_vessel'&&!u.eliteId&&!u.heroId)
+   for(const id of u.healTargets??(u.healTarget?[u.healTarget]:[])){
+    const target=w.entities.get(id);if(!target?.hp||!visible(target))continue;
+    this.fogCount++;
+    const height=target.flying?AIR_HEIGHT:(w.terrain?.height(target)??0)+.15;
+    for(let i=0;i<3;i++){
+     let fog=this.fogs[clouds++];
+     if(!fog){fog=new THREE.Mesh(this.plane,this.fogMaterial);this.group.add(fog);this.fogs.push(fog);}
+     fog.position.set(target.x+Math.sin(w.time*.4+i)*.12,height+.35+i*.35,target.z+Math.cos(w.time*.3+i)*.12);
+     fog.quaternion.copy(camera.quaternion);fog.scale.set(2.6-i*.35,1.8-i*.15,1);fog.renderOrder=3;fog.visible=true;
+    }
+    const flecks=this.quality==='low'?1:this.quality==='balanced'?3:6;
+    for(let i=0;i<flecks;i++){
+     const angle=i*2.399+w.time*.7,r=.25+(i%3)*.18;
+     sprite(new THREE.Vector3(target.x+Math.sin(angle)*r,height+.25+((w.time*.35+i*.19)%1.2),target.z+Math.cos(angle)*r),.09);
+    }
+   }
  }
 }

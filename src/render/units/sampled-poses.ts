@@ -3,6 +3,8 @@ import type {GLTF} from 'three/addons/loaders/GLTFLoader.js';
 import {sc2BodyBounds,sc2ModelScale} from '../loaders/sc2-materials';
 import {mapAnimations,weaponAttachmentNames} from '../loaders/animations';
 import {bodyOutline} from './body-outline';
+import {withDoomsdayClips} from './doomsday-clips';
+import {bioRig,bioSkinSocket,leftArmorWeight} from '../materials/bio-armor';
 
 export type PoseLayout={offset:number;frames:number;duration:number};
 export type PosePreparation={
@@ -22,7 +24,7 @@ type Progress={done:number;total:number};
 /** CPU-only output. One original pose traversal feeds every socket and bind palette. */
 function* samples(gltf:GLTF,height:number,normalization?:THREE.Matrix4,unitScale=1,profile?:string,referenceBodyHeight?:number):Generator<Progress,PosePreparation>{
  if(profile==='hero.nova'){const gun=gltf.scene.getObjectByName('Bone_Gun');if(!gun)throw Error('Nova weapon bone missing');gun.position.set(0,0,0);}
- const actions=mapAnimations(gltf.animations,profile),mixer=new THREE.AnimationMixer(gltf.scene),rest=actions.idle??gltf.animations[0];
+ const actions=mapAnimations(withDoomsdayClips(gltf.animations,gltf.scene,profile),profile),mixer=new THREE.AnimationMixer(gltf.scene),rest=actions.idle??gltf.animations[0];
  try{
   if(rest){mixer.clipAction(rest).play();mixer.setTime(0);}gltf.scene.updateMatrixWorld(true);
   const box=sc2BodyBounds(gltf.scene),center=box.getCenter(new THREE.Vector3()),sourceScale=sc2ModelScale(gltf.scene);
@@ -39,14 +41,28 @@ function* samples(gltf:GLTF,height:number,normalization?:THREE.Matrix4,unitScale
   const palettes=new Map<string,{bones:number;packed:Uint16Array}>(),skeletons=new Map<string,THREE.Skeleton>();let boneCount=0;
   for(const node of nodes){const key=posePaletteKey(node.skeleton);if(palettes.has(key))continue;const bones=node.skeleton.bones.length;boneCount=Math.max(boneCount,bones);palettes.set(key,{bones,packed:new Uint16Array(total*bones*16)});skeletons.set(key,node.skeleton);}
   const weaponTracks=new Map<string,THREE.Vector3[]>();let done=0;
+  const anatomy:{key:string;attachment:THREE.Object3D;offset:THREE.Vector3}[]=[];
+  if(bioRig(profile)){
+   const bones=nodes[0].skeleton.bones;
+   const shoulder=bones.find(b=>leftArmorWeight(b.name)===1)??bones.find(b=>leftArmorWeight(b.name)>0);
+   const head=bones.find(b=>/^bone[ _]?head$/i.test(b.name))??gltf.scene.getObjectByName('Ref_Head');
+   const side=shoulder&&shoulder.getWorldPosition(new THREE.Vector3()).x<center.x?-1:1;
+   if(shoulder)anatomy.push({key:'shoulder',attachment:shoulder,offset:bioSkinSocket(nodes,shoulder,side,false)});
+   if(head)anatomy.push({key:'head',attachment:head,offset:bioSkinSocket(nodes,head,side,true)});
+  }
   for(const clip of selected){
-   const layout=clips.get(clip.name)!,mounts:{key:string;attachment:THREE.Object3D;points:THREE.Vector3[]}[]=[];
+   const layout=clips.get(clip.name)!,mounts:{key:string;attachment:THREE.Object3D;points:THREE.Vector3[];offset?:THREE.Vector3}[]=[];
    for(const side of mountSides){const attachment=weaponAttachmentNames(clip.name,profile,side).map(name=>gltf.scene.getObjectByName(name)).find(Boolean);if(attachment)mounts.push({key:clip.name+(side?':'+side:''),attachment,points:[]});}
    const overhead=gltf.scene.getObjectByName('Ref_Overhead');if(overhead)mounts.push({key:clip.name+':Overhead',attachment:overhead,points:[]});
+   for(const joint of anatomy)mounts.push({key:clip.name+':'+joint.key,attachment:joint.attachment,offset:joint.offset,points:[]});
+   for(const side of ['Left','Right']){const foot=gltf.scene.getObjectByName('Evt_FootPrint'+side);if(foot)mounts.push({key:clip.name+':Foot'+side,attachment:foot,points:[]});}
    mixer.stopAllAction();const action=mixer.clipAction(clip).reset().setLoop(THREE.LoopOnce,1);action.clampWhenFinished=true;action.play();
    for(let frame=0;frame<layout.frames;frame++){
     mixer.setTime(frame/(layout.frames-1)*clip.duration);gltf.scene.updateMatrixWorld(true);
-    for(const mount of mounts)mount.points.push(mount.attachment.getWorldPosition(new THREE.Vector3()).applyMatrix4(transform));
+    for(const mount of mounts){
+     const point=mount.offset?mount.attachment.localToWorld(mount.offset.clone()):mount.attachment.getWorldPosition(new THREE.Vector3());
+     mount.points.push(point.applyMatrix4(transform));
+    }
     for(const [key,palette]of palettes){const skeleton=skeletons.get(key)!;skeleton.update();const matrix=skeleton.boneMatrices;if(!matrix)throw Error('Missing bone palette');const offset=(layout.offset+frame)*palette.bones*16;
      for(let i=0;i<matrix.length;i++){const value=matrix[i];if(!Number.isFinite(value)||Math.abs(value)>65504)throw Error('Original pose has invalid or unbounded bone transforms');palette.packed[offset+i]=THREE.DataUtils.toHalfFloat(value);}
     }

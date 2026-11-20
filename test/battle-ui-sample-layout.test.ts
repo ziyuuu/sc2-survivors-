@@ -4,11 +4,14 @@ import {World} from '../src/simulation/world';
 import {EnhancementJournal} from '../preview/battle-ui-feedback-20261008/enhancement-model';
 import {liveSeats} from '../preview/battle-ui-feedback-20261008/roster-model';
 import {familyAction} from '../preview/battle-ui-feedback-20261008/console-model';
-import type {ExpeditionReward} from '../src/simulation/progression/expedition-drafts';
+import {drawExpeditionReinforcements,type ExpeditionReward} from '../src/simulation/progression/expedition-drafts';
+import {draftContext} from '../src/simulation/expedition-economy';
 import {encodeGraph} from '../src/persistence/graph-codec';
 
 function shop(){const w=new World({race:'terran',sandbox:true,waves:false,terrain:false,obstacles:[],seed:10808});w.start();w.wallet={minerals:1000000000,gas:1000000000};w.endStage();assert.ok(w.skipReward());return w;}
-function card(w:World,kind:'card'|'teamCard'='teamCard'){for(let i=0;i<200;i++){const r=(w.rewards as ExpeditionReward[]).find(r=>r.expeditionEffect.kind===kind&&w.canChooseReward(r));if(r)return r;assert.ok(w.reroll());}throw Error('No native '+kind+' quote');}
+// These assertions exercise receipt history, not how many shop refreshes find a product.
+// Keep a seeded stream alive while asking the native generator for a legal shelf.
+function card(w:World,kind:'card'|'teamCard'='teamCard'){const ctx={...draftContext(w),random:w.random,currentOffers:[]};for(let i=0;i<2000;i++){w.rewards=drawExpeditionReinforcements(ctx,true);const r=(w.rewards as ExpeditionReward[]).find(r=>r.expeditionEffect.kind===kind&&w.canChooseReward(r));if(r)return r;}throw Error('No native '+kind+' quote');}
 test('shop journal records only completed native purchases, once, without changing saved state',()=>{
  const w=shop(),j=new EnhancementJournal(),r=card(w);assert.equal(j.record(r),false);assert.ok(w.choose(r.offerId));const before=JSON.stringify(encodeGraph({run:w.captureRun(),profile:w.permanentProfile.exportJSON()}));assert.ok(j.record(r));assert.equal(j.record(r),false);assert.equal(j.snapshot().length,1);assert.deepEqual(j.snapshot()[0].purchaseReceipt,r.purchaseReceipt);assert.deepEqual(j.totals(),w.expedition.cardTotals);assert.equal(JSON.stringify(encodeGraph({run:w.captureRun(),profile:w.permanentProfile.exportJSON()})),before);
 });

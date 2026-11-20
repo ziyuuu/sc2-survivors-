@@ -1,5 +1,7 @@
 # 缓存脚本修复 GitHub 同步 · 2026-11-03
 
+11月4日用户已暂缓 Coze 后端要求。下方11月3日提示词中的 `/api/config` 核查和相关回执项自此暂缓，当前前端版本、核验结果与两条 CDN 待复验路径见[线上核验记录](COZE_FRONTEND_ACCEPTANCE_20261104.md)。
+
 用户要求先将[本批修复](COZE_CACHE_WORKER_FIX_20261103.md)推送 GitHub「体积优化版」，再提供包含缓存更新和 `/api/config` 核查要求的完整 Coze 提示词。本次只提交、推送源码与同版交付，未操作 Coze、Sites 或阿里云部署，未合并 main。
 
 ## 固定交付

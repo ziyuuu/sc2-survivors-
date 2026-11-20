@@ -9,8 +9,10 @@ import {prepareImageManifest} from './prepare-shared-image-manifest.mjs';
 
 const baseline = path.resolve('sites/size-optimized-site/public');
 const web = path.resolve(process.argv[2] ?? 'dist/v14-armed-audit-fixes-20261112/web');
-const out = path.join(path.dirname(web), 'packed');
-const audit = path.resolve('reports/local/v14-armed-audit-fixes-20261112');
+const out = path.resolve(process.env.SC2_PACK_OUTPUT ?? path.join(path.dirname(web), 'packed'));
+const audit = path.resolve(process.env.SC2_PACK_QA_OUTPUT ?? 'reports/local/v14-armed-audit-fixes-20261112');
+const expectedAdditions = Number(process.env.SC2_EXPECTED_NEW_ASSETS ?? 20);
+assert.ok(Number.isSafeInteger(expectedAdditions) && expectedAdditions >= 0, 'Explicit reviewed asset delta must be a non-negative integer');
 const read = async file => JSON.parse(await fs.readFile(file, 'utf8'));
 const write = (file, obj) => fs.writeFile(file, JSON.stringify(obj));
 const indexAt = async dir => JSON.parse((await fs.readFile(path.join(dir, 'sites-pack-index.js'), 'utf8'))
@@ -28,7 +30,7 @@ const additions = Object.fromEntries(Object.entries(src.assets).filter(([id]) =>
 async function packAdditions(work) {
   const count = Object.keys(additions).length;
   if (count === 0) return {newRows:{}, deltaIndex:{}, delta:null};
-  assert.equal(count, 20, 'Expected the reviewed armed support resource delta');
+  assert.equal(count, expectedAdditions, 'Expected the explicitly reviewed resource delta');
   const staging = path.join(work, 'sites/v04-original-staging'), high = path.join(work, 'sites/v04-compact-r2/dist');
   const tiers = path.join(work, 'tiers'), delta = path.join(tiers, 'public');
   await fs.mkdir(path.join(staging, 'assets'), {recursive:true});

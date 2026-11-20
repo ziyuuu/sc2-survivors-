@@ -1,0 +1,62 @@
+[
+  {
+    "id": "texture.btn-unit-zerg-aberration.dds",
+    "cachedFile": "assets/private/dds/btn-unit-zerg-aberration.dds",
+    "bytes": 5904,
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/btn-unit-zerg-aberration.dds",
+    "installFile": "assets/private/dds/btn-unit-zerg-aberration.dds",
+    "sha256": "8a89857ce1433b8cb89dba79f1472581633e36b1a28ab26c3fe2c849c10b5c6f"
+  },
+  {
+    "sha256": "68140854c832d09d851c146916508781e3fd68fdc91b94d5afb04a7211288bb8",
+    "verifiedCascBuild": true,
+    "bytes": 23232,
+    "cachedFile": "assets/private/dds/btn-unit-zerg-devourerex3.dds",
+    "version": "5.0.16.97563",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/btn-unit-zerg-devourerex3.dds",
+    "installFile": "assets/private/dds/btn-unit-zerg-devourerex3.dds",
+    "id": "texture.btn-unit-zerg-devourerex3.dds"
+  },
+  {
+    "id": "texture.btn-unit-zerg-infestor.dds",
+    "cachedFile": "assets/private/dds/btn-unit-zerg-infestor.dds",
+    "bytes": 5904,
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/btn-unit-zerg-infestor.dds",
+    "installFile": "assets/private/dds/btn-unit-zerg-infestor.dds",
+    "sha256": "851d33a348b6c27a77c78eb903dbd121e60251fdbbd36d62987885eef293065d"
+  },
+  {
+    "id": "texture.btn-unit-zerg-swarmhost.dds",
+    "cachedFile": "assets/private/dds/btn-unit-zerg-swarmhost.dds",
+    "bytes": 5904,
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/btn-unit-zerg-swarmhost.dds",
+    "installFile": "assets/private/dds/btn-unit-zerg-swarmhost.dds",
+    "sha256": "e4f56c2beafd422e17a7d53194cf27ad0397605bc1cdc28583ce269cc67b9fbb"
+  },
+  {
+    "id": "texture.btn-unit-zerg-viper.dds",
+    "cachedFile": "assets/private/dds/btn-unit-zerg-viper.dds",
+    "bytes": 5904,
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/btn-unit-zerg-viper.dds",
+    "installFile": "assets/private/dds/btn-unit-zerg-viper.dds",
+    "sha256": "d97c1f60310fbd43de696c7e208322c3a3154277e47096b1302ed1c6a02afa90"
+  },
+  {
+    "id": "texture.btn-unit-zerg-broodlord.dds",
+    "cachedFile": "assets/private/dds/btn-unit-zerg-broodlord.dds",
+    "bytes": 5904,
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/btn-unit-zerg-broodlord.dds",
+    "installFile": "assets/private/dds/btn-unit-zerg-broodlord.dds",
+    "sha256": "080c8c42c0030cc6377a8ced26b5c213d8ac35ef101703c2138fa68a830ff56a"
+  }
+]

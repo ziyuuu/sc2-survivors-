@@ -1,0 +1,474 @@
+{
+  "file": "dist/promo-video-v5-20261102/Starcraft-Survivors-Trailer-v5.mp4",
+  "bytes": 279141272,
+  "sha256": "f04a969462ee79388e9578a7596d3d05262c9be0cb0805858e14172604faa9ae",
+  "duration": 299.97,
+  "plannedDuration": 300,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "fps": 30,
+  "decodeErrors": "",
+  "audioLevels": [
+    "mean_volume: -21.6 dB",
+    "max_volume: -2.3 dB"
+  ],
+  "outcomes": {
+    "newRecordings": 15,
+    "cards": [
+      {
+        "name": "payoff-terran",
+        "remainingEnemiesAtIntermission": 17,
+        "sameSquadAndStats": true,
+        "purchases": [
+          "空降地堡",
+          "导弹齐射"
+        ],
+        "postCut": 6.7,
+        "firstKillAfterCut": 1.4999999999999991,
+        "killsInShownBattle": 27,
+        "contributions": {
+          "terran.bunker": {
+            "damage": 782.788816666668
+          },
+          "terran.missiles": {
+            "damage": 420.4062146666672
+          }
+        }
+      },
+      {
+        "name": "payoff-zerg",
+        "remainingEnemiesAtIntermission": 17,
+        "sameSquadAndStats": true,
+        "purchases": [
+          "寄生毒囊",
+          "尸骸孵育"
+        ],
+        "postCut": 7.5,
+        "firstKillAfterCut": 0.6999999999999993,
+        "killsInShownBattle": 53,
+        "contributions": {
+          "zerg.parasite": {
+            "damage": 5089.436259999999
+          },
+          "zerg.hatch": {
+            "damage": 165
+          }
+        }
+      },
+      {
+        "name": "payoff-protoss",
+        "remainingEnemiesAtIntermission": 17,
+        "sameSquadAndStats": true,
+        "purchases": [
+          "破盾反击",
+          "棱镜扫射"
+        ],
+        "postCut": 5.8,
+        "firstKillAfterCut": 0.2666666666666666,
+        "killsInShownBattle": 35,
+        "contributions": {
+          "protoss.prism": {
+            "damage": 4488.422769333333
+          },
+          "protoss.counter": {
+            "damage": 165
+          }
+        }
+      }
+    ],
+    "heroShowcase": [
+      {
+        "identity": "tychus",
+        "source": "hero-tychus",
+        "damage": 50996.079317738935,
+        "rewardBoss": "ravager",
+        "position": [
+          3,
+          -3
+        ],
+        "castAt": 2.8
+      },
+      {
+        "identity": "yamato_battlecruiser",
+        "source": "hero-yamato_battlecruiser",
+        "damage": 64721.49200154344,
+        "rewardBoss": "mutalisk",
+        "position": [
+          -2,
+          -4
+        ],
+        "castAt": 2.8
+      },
+      {
+        "identity": "zagara",
+        "source": "hero-zagara",
+        "damage": 36355.2773338169,
+        "rewardBoss": "ultralisk",
+        "position": [
+          -2,
+          -4
+        ],
+        "castAt": 2.8
+      },
+      {
+        "identity": "hots_leviathan",
+        "source": "hero-hots_leviathan",
+        "damage": 84954.34901887186,
+        "rewardBoss": "corruptor",
+        "position": [
+          -3,
+          -3
+        ],
+        "castAt": 2.8
+      },
+      {
+        "identity": "alarak",
+        "source": "hero-alarak",
+        "damage": 42719.14414403422,
+        "rewardBoss": "roach",
+        "position": [
+          -3,
+          -3
+        ],
+        "castAt": 2.8
+      },
+      {
+        "identity": "purifier_flagship",
+        "source": "hero-purifier_flagship",
+        "damage": 83375.1370700635,
+        "rewardBoss": "queen",
+        "position": [
+          3,
+          -3
+        ],
+        "castAt": 2.8
+      },
+      {
+        "identity": "raynor",
+        "source": "comeback-terran",
+        "damage": 53699.75452886657,
+        "reusedFrom": "V4 2026-11-02",
+        "rewardBoss": "ultralisk",
+        "castAt": 18.7
+      },
+      {
+        "identity": "kerrigan",
+        "source": "comeback-zerg",
+        "damage": 81886.64793892392,
+        "reusedFrom": "V4 2026-11-02",
+        "rewardBoss": "ultralisk",
+        "castAt": 18.7
+      },
+      {
+        "identity": "artanis",
+        "source": "comeback-protoss",
+        "damage": 59867.349691232455,
+        "reusedFrom": "V4 2026-11-02",
+        "rewardBoss": "ultralisk",
+        "castAt": 18.7
+      }
+    ],
+    "eliteShowcase": [
+      {
+        "identity": "hellion.1",
+        "source": "elite-hellion-1",
+        "damage": 2500.368450564109,
+        "rewardBoss": "roach",
+        "position": [
+          -3,
+          -3
+        ]
+      },
+      {
+        "identity": "baneling.1",
+        "source": "elite-baneling-1",
+        "damage": 5744.659876336993,
+        "rewardBoss": "hydralisk",
+        "position": [
+          3,
+          -3
+        ]
+      },
+      {
+        "identity": "colossus.1",
+        "source": "elite-colossus-1",
+        "damage": 13197.637527841276,
+        "rewardBoss": "zergling",
+        "position": [
+          -2,
+          -4
+        ]
+      },
+      {
+        "identity": "thor.1",
+        "source": "comeback-terran",
+        "damage": 45431.28965965775,
+        "reusedFrom": "V4 2026-11-02",
+        "rewardBoss": "hydralisk"
+      },
+      {
+        "identity": "ravager.1",
+        "source": "comeback-zerg",
+        "damage": 16001.090681558548,
+        "reusedFrom": "V4 2026-11-02",
+        "rewardBoss": "roach"
+      },
+      {
+        "identity": "high_templar.1",
+        "source": "comeback-protoss",
+        "damage": 38395.81442458467,
+        "reusedFrom": "V4 2026-11-02",
+        "rewardBoss": "hydralisk"
+      }
+    ],
+    "loot": [
+      {
+        "name": "loot-terran",
+        "enemyDeaths": 20,
+        "itemsGenerated": 11,
+        "peakGroundItems": 10,
+        "backpackAtEnd": 8,
+        "events": {
+          "equipment-drop": 11,
+          "equipment-pickup": 8
+        },
+        "bossTypes": [
+          "hydralisk",
+          "mutalisk",
+          "ravager",
+          "roach"
+        ]
+      },
+      {
+        "name": "loot-zerg",
+        "enemyDeaths": 20,
+        "itemsGenerated": 11,
+        "peakGroundItems": 10,
+        "backpackAtEnd": 6,
+        "events": {
+          "equipment-drop": 11,
+          "equipment-pickup": 6
+        },
+        "bossTypes": [
+          "corruptor",
+          "hydralisk",
+          "roach",
+          "ultralisk"
+        ]
+      },
+      {
+        "name": "loot-protoss",
+        "enemyDeaths": 20,
+        "itemsGenerated": 10,
+        "peakGroundItems": 8,
+        "backpackAtEnd": 7,
+        "events": {
+          "equipment-drop": 10,
+          "equipment-pickup": 7
+        },
+        "bossTypes": [
+          "hydralisk",
+          "queen",
+          "ravager",
+          "zergling"
+        ]
+      }
+    ],
+    "duration": 300.0,
+    "cuts": 72,
+    "scope": "Real isolated game outcomes with authorized staging. Does not certify production balance, real-time FPS or human approval."
+  },
+  "sampleTimes": [
+    1.0,
+    3.0,
+    5.0,
+    7.0,
+    9.0,
+    11.0,
+    13.0,
+    15.0,
+    17.0,
+    19.5,
+    22.5,
+    26,
+    30.2,
+    31.2,
+    36.2,
+    41.2,
+    46.2,
+    50.0,
+    54.2,
+    55.2,
+    60.2,
+    65.2,
+    70.2,
+    74.0,
+    79.2,
+    86.2,
+    86.4,
+    88.7,
+    92.2,
+    96.2,
+    103.7,
+    109.7,
+    110.4,
+    110.7,
+    111.7,
+    112.95,
+    115.7,
+    118.95,
+    121.7,
+    124.95,
+    127.7,
+    131.29999999999998,
+    134.4,
+    135.4,
+    140.29999999999998,
+    143.4,
+    144.4,
+    149.29999999999998,
+    152.4,
+    153.4,
+    159.0,
+    162.60000000000002,
+    166.20000000000002,
+    170.0,
+    176.0,
+    182.0,
+    188.0,
+    189.0,
+    197.0,
+    198.0,
+    206.0,
+    207.0,
+    214.2,
+    215.0,
+    216.0,
+    224.0,
+    228.5,
+    233.0,
+    234.0,
+    242.0,
+    245.25,
+    247.5,
+    250.5,
+    253.75,
+    256.0,
+    259.0,
+    262.75,
+    265.0,
+    268.0,
+    270.75,
+    272.75,
+    276.0,
+    278.75,
+    280.75,
+    284.0,
+    286.75,
+    288.75,
+    291.0,
+    293.0,
+    295.0,
+    298.0
+  ],
+  "visualReview": {
+    "status": "reviewed",
+    "filmSampleCount": 91,
+    "contactSheets": 8,
+    "purchaseSamples": 6,
+    "oldEliteFaceCloseups": 9,
+    "finalMobileSamples": 4,
+    "lastEditRechecked": "Three reused elite acquisitions now show readable front faces. Final movie and mobile samples rechecked.",
+    "findings": "Sampled final shots show purchase states, bunker/missile payoff, parasite/hatch payoff, prism sweep and counter, task/deadlock/attack chapter art, original hero identities and skill effects, multi-item loot beams and pickup. No missing actor or clipped chapter graphic seen in reviewed frames.",
+    "scope": "Selected frames and muted browser playback; not continuous human viewing/listening or physical-phone approval."
+  },
+  "productionBoundary": "Capture and editing sources only; no production src, UI, player saves, commit, push or deployment changes.",
+  "mobile": {
+    "file": "dist/promo-video-v5-20261102/Starcraft-Survivors-Trailer-v5-mobile.mp4",
+    "bytes": 63737916,
+    "sha256": "42dffd0354e85040d5c02b2f7626baaa68a58746bd12e8132fabfcfbcde28fda",
+    "duration": 300.0,
+    "plannedDuration": 300,
+    "size": [
+      1920,
+      1080
+    ],
+    "fps": 30,
+    "decodeErrors": "",
+    "driveUpload": "User requested local delivery after connection failures."
+  },
+  "browserPlayback": {
+    "metadata": {
+      "duration": 299.966667,
+      "width": 1920,
+      "height": 1080,
+      "controls": true,
+      "error": null
+    },
+    "seeks": [
+      {
+        "time": 0.510053,
+        "paused": false,
+        "error": null
+      },
+      {
+        "time": 24.508631,
+        "paused": false,
+        "error": null
+      },
+      {
+        "time": 85.706521,
+        "paused": false,
+        "error": null
+      },
+      {
+        "time": 109.70793,
+        "paused": false,
+        "error": null
+      },
+      {
+        "time": 240.505952,
+        "paused": false,
+        "error": null
+      },
+      {
+        "time": 266.506491,
+        "paused": false,
+        "error": null
+      },
+      {
+        "time": 290.506494,
+        "paused": false,
+        "error": null
+      }
+    ],
+    "passed": true,
+    "scope": "Browser metadata, muted playback and seven chapter seeks. Not a continuous listening review or physical-phone test."
+  },
+  "delivery": {
+    "mode": "local",
+    "authorization": "2026-11-02 user explicitly chose 先交付本地视频即可 after Drive connection failures.",
+    "remoteUpload": "not performed",
+    "files": [
+      "dist/promo-video-v5-20261102/Starcraft-Survivors-Trailer-v5.mp4",
+      "dist/promo-video-v5-20261102/Starcraft-Survivors-Trailer-v5-mobile.mp4",
+      "dist/promo-video-v5-20261102/review.html"
+    ]
+  },
+  "timing": {
+    "plannedSeconds": 300,
+    "fullBrowserSeconds": 299.966667,
+    "mobileSeconds": 300.0,
+    "checkToleranceSeconds": 0.05
+  },
+  "gitHeadAtFinalization": "8d680aca1b3150b3faa0c9c170458d084c9a1a1e",
+  "docsCheck": "npm run docs:check passed",
+  "userAcceptance": "pending",
+  "cleanup": {
+    "RemovedFiles": 433,
+    "RemovedBytes": 715188479,
+    "Kept": "Final full/mobile videos, player, provenance, current source clips/audio/metadata, build, score/impact/graphic inputs and source tools"
+  }
+}

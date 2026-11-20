@@ -14,7 +14,7 @@ export function armedSceneKeys(s:ExpeditionState,forts?:Iterable<Pick<Fortificat
  const keys=new Set<string>(),a=s.support.armed;
  for(const [card,key] of armedPropModels)if(a?.ranks[card]||a?.fields?.some(f=>f.cardId===card))keys.add(key);
  for(const [card,kind] of armedFortModels)if(a?.ranks[card]||a?.deployments.some(d=>d.cardId===card))keys.add('fort.'+kind);
- if(a?.ranks.W07||a?.deployments.some(d=>d.cardId==='W07'&&d.phase!=='ended'))keys.add('fort.turret_terran');
+ if(s.tech['unlock.raven']||s.familySlots.includes('raven')||a?.ranks.W07||a?.deployments.some(d=>d.cardId==='W07'&&d.phase!=='ended'))keys.add('fort.turret_terran');
  if(s.support.unique.levels['terran.bunker']||s.support.unique.landing)keys.add('fort.bunker');
  for(const f of forts??[])keys.add('fort.'+f.kind);
  return keys;
@@ -22,7 +22,9 @@ export function armedSceneKeys(s:ExpeditionState,forts?:Iterable<Pick<Fortificat
 
 /** Future passengers of cards already owned, including restored in-flight rows. */
 export function armedSupportModels(s:ExpeditionState,planned?:Pick<StageContent,'heroes'|'elites'>){
- const models=new Map<string,CombatUnitType>(),a=s.support.armed;if(!a)return models;
+ const models=new Map<string,CombatUnitType>(),a=s.support.armed;
+ const bio=s.bio?.ranks;if(bio){if(bio['BIO-W01']||bio['BIO-B03'])models.set('zergling','zergling');if(bio['BIO-B01']||bio['BIO-B03'])models.set('baneling','baneling');if(bio['BIO-B03']){models.set('mutalisk','mutalisk');models.set('fun-cocoon','zergling');}if(bio['BIO-B05'])models.set('overlord','mutalisk');if(bio['BIO-G05'])models.set('reaper','reaper');if(bio['BIO-O02'])models.set(HEROES.kerrigan.model,HEROES.kerrigan.baseFamily);}
+ if(!a)return models;
  const add=(family:CombatUnitType)=>models.set(family,family);
  if(a.ranks.W01)add('marine');
  if(a.ranks.G05)add('hellion');if(a.ranks.G06)add('zergling');if(a.ranks.B03)add('reaper');if(a.ranks.B08){add('tank');add('medivac');}

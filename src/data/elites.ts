@@ -3,7 +3,7 @@ import {ZERG_ELITE_RULES,isZergEliteId,zergEliteGrowth} from './zerg-elites';
 import {PROTOSS_ELITE_RULES,isProtossEliteId,protossEliteGrowth} from './protoss-elites';
 import {TEAM_AURA_HELP} from './team-auras';
 import type {FamilyId} from './races';
-export type EliteId=`${FamilyId}.${1|2|3}`;
+export type EliteId=keyof typeof TERRAN_ELITE_RULES|keyof typeof ZERG_ELITE_RULES|keyof typeof PROTOSS_ELITE_RULES;
 export interface EliteDefinition {id:EliteId;family:FamilyId;name:string;description:string;model:string;sourceModel:string;icon:string}
 /** Approved model identities only. Combat parameters come exclusively from the three race rule tables. */
 const presentation:Record<EliteId,readonly [FamilyId,string,string,string]>={

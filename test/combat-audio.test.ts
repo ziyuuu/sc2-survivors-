@@ -1,7 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
-import {SOUND_DATA,SoundVariation} from '../src/render/effects/audio-source-data';
+import {ZERG_SIX_AUDIO,ZERG_SIX_ASSETS} from '../src/assets/zerg-six.generated';
+import {SOUND_DATA,SoundVariation,ZERG_SIX_SOUND_CUES} from '../src/render/effects/audio-source-data';
 import {CombatAudioRouter,weaponSoundKey,deathSoundKey} from '../src/render/effects/combat-audio-router';
 import {StimPresentation} from '../src/render/effects/stim-presentation';
 import {NativeSoundPlayer} from '../src/render/effects/native-sound-player';
@@ -24,11 +25,14 @@ test('dialogue voices are globally exclusive and pause releases the speaking slo
  player.reset();assert.equal(player.voices.size,0);assert.ok(player.play(cue('melee:SiegeTank_What')));
 });
 test('all audio routes resolve to original banks, with distinct hero ability feedback',()=>{
- assert.equal(Object.keys(SOUND_DATA.skills).length,18);const banks=new Set(Object.keys(SOUND_DATA.banks));
+ assert.equal(Object.keys(SOUND_DATA.skills).length,21);const banks=new Set(Object.keys(SOUND_DATA.banks));
  for(const [key,r]of Object.entries(SOUND_DATA.weapons)){assert.ok(r.attack||r.impact||r.channel,key);for(const id of [r.attack,r.impact,r.powered,...r.channel??[],...Object.values(r.surfaces)])if(id)assert.ok(banks.has(id),key+':'+id);}
  for(const [hero,s]of Object.entries(SOUND_DATA.skills))for(const [kind,id]of Object.entries(s))if(kind!=='note'){assert.ok(banks.has(id),hero+':'+kind);assert.notEqual(id,SOUND_DATA.weapons['hero:'+hero]?.attack);}
  for(const rows of [SOUND_DATA.deaths,SOUND_DATA.special])for(const [key,ids]of Object.entries(rows))for(const id of ids)assert.ok(banks.has(id),key+':'+id);
- for(const b of Object.values(SOUND_DATA.banks))assert.ok(b.samples.length&&b.samples.every(s=>/^sc2\.source\.[a-f0-9]{24}$/.test(s.asset)),b.id);
+ const zergAssets=new Set(ZERG_SIX_ASSETS.filter(a=>a.kind==='audio').map(a=>a.id));
+ const zergSamples=new Set(ZERG_SIX_AUDIO.map(a=>a.asset));
+ for(const id of Object.values(ZERG_SIX_SOUND_CUES))assert.ok(banks.has(id),id);
+ for(const b of Object.values(SOUND_DATA.banks))assert.ok(b.samples.length&&b.samples.every(s=>/^sc2\.source\.[a-f0-9]{24}$/.test(s.asset)||zergSamples.has(s.asset)&&zergAssets.has('audio.'+s.asset)),b.id);
 });
 test('forms, target types and hero carrier children select their actual weapon identity',()=>{
  for(const [u,key]of [[{unitType:'hellion',nativeMode:'hellbat'},'hellbat'],[{unitType:'tank',mode:'siege'},'tank-siege'],[{unitType:'thor',activeWeapon:'LanceMissileLaunchers'},'thor-high-impact'],[{unitType:'thor',activeWeapon:'JavelinMissileLaunchers'},'thor-air'],[{unitType:'viking',nativeMode:'viking_assault'},'viking-assault'],[{unitType:'queen',activeWeapon:'Talons'},'queen-melee'],[{unitType:'hydralisk',targetFlying:true},'hydralisk-air'],[{heroId:'yamato_battlecruiser',targetFlying:true},'hero:yamato_battlecruiser-air'],[{heroId:'purifier_flagship',summonKind:'interceptor',rewardSourceKind:'hero'},'interceptor']] as const)assert.equal(weaponSoundKey(u as any),key);

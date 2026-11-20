@@ -6,6 +6,9 @@ try{targets.push(...JSON.parse(fs.readFileSync(new URL('./armed-support-dependen
 try{targets.push(...JSON.parse(fs.readFileSync(new URL('./armed-support-prop-dependencies.json',import.meta.url),'utf8').replace(/^\uFEFF/,'')));}catch{}
 try{targets.push(...JSON.parse(fs.readFileSync(new URL('./starship-fort-dependencies.json',import.meta.url),'utf8').replace(/^\uFEFF/,'')));}catch{}
 try{targets.push(...JSON.parse(fs.readFileSync(new URL('./combat-death-dependencies.json',import.meta.url),'utf8').replace(/^\uFEFF/,'')));}catch{}
+targets.push(...JSON.parse(fs.readFileSync(new URL('./bio-dependencies.json',import.meta.url),'utf8').replace(/^\uFEFF/,'')));
+targets.push(...JSON.parse(fs.readFileSync(new URL('./terran-six-dependencies.json',import.meta.url),'utf8')));
+try{targets.unshift(...JSON.parse(fs.readFileSync(new URL('./zerg-six-dependencies.json',import.meta.url),'utf8').replace(/^\uFEFF/,'')));}catch{}
 const lock=JSON.parse(fs.readFileSync(new URL('./sc2-casc-lock.json',import.meta.url),'utf8').replace(/^\uFEFF/,''));
 try{targets.push(...JSON.parse(fs.readFileSync(new URL('./expansion-dependencies.json',import.meta.url),'utf8').replace(/^\uFEFF/,'')));}catch{}
 try{targets.push(...JSON.parse(fs.readFileSync(new URL('./three-race-dependencies.json',import.meta.url),'utf8').replace(/^\uFEFF/,'')));}catch{}

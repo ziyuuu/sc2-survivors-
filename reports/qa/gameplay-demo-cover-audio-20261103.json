@@ -1,0 +1,184 @@
+{
+  "task": "DEMO-01",
+  "date": "2026-11-03",
+  "cover": {
+    "source": "assets/generated/codex-images/01a17d3f-27e6-7641-8671-d903de1b2ce3/exec-f3ce76c3-0696-414c-8e9d-4ef4ebf13038.png",
+    "generatedWith": "Built-in image_gen, text only",
+    "prompt": "tools/promo-video/demo-cover-prompt.txt",
+    "size": [
+      1920,
+      1080
+    ],
+    "copy": [
+      "星际幸存者",
+      "玩法详解",
+      "打资源 → 买卡 → 扩军 → 换装"
+    ]
+  },
+  "audio": {
+    "style": "Original 120 BPM light electronic/plucked UA-style loop, with resource/purchase/arrival/upgrade cues",
+    "source": "Deterministically synthesized original music and cues; no sampled commercial ad music",
+    "sampleRate": 48000,
+    "files": [
+      {
+        "file": "dist/gameplay-demo-design-20261103/Demo-BGM-loop.wav",
+        "seconds": 16.0,
+        "peak": 0.3246035575866699,
+        "rms": 0.04468275234103203,
+        "sha256": "cec909f009727721b6490733b5fc351dfb8ef05ce032da61c0d1eb6a45eab03c"
+      },
+      {
+        "file": "dist/gameplay-demo-design-20261103/Demo-Audio-Preview.wav",
+        "seconds": 24.0,
+        "peak": 0.5565718412399292,
+        "rms": 0.0554375946521759,
+        "sha256": "611f04372818791876092aabd241002a69dbce3f4f4cca8b00a126e6d313ebd9"
+      },
+      {
+        "file": "dist/gameplay-demo-design-20261103/resource-pickup.wav",
+        "seconds": 0.545,
+        "peak": 0.6201580166816711,
+        "rms": 0.11908029019832611,
+        "sha256": "f313082c7412edbaa31dba1f683c0f88ad7a1b34fd641345be220081ccb6749c"
+      },
+      {
+        "file": "dist/gameplay-demo-design-20261103/resource-deduct.wav",
+        "seconds": 0.12,
+        "peak": 0.4837901294231415,
+        "rms": 0.09972625970840454,
+        "sha256": "6ac860e647f62fbfa8ce5474bb7f280680d6480f655603b77ee32eb36955ed66"
+      },
+      {
+        "file": "dist/gameplay-demo-design-20261103/reinforcement-arrival.wav",
+        "seconds": 0.695,
+        "peak": 0.7078526616096497,
+        "rms": 0.1511632651090622,
+        "sha256": "a0eedf5a224f5bbeab811be8567288a958fd30881867a3c21c85732a6b341bbf"
+      },
+      {
+        "file": "dist/gameplay-demo-design-20261103/card-purchase.wav",
+        "seconds": 0.61,
+        "peak": 0.7223678231239319,
+        "rms": 0.1386052519083023,
+        "sha256": "0cea31d2be9489b325266e801da5e33ecf98b738af7c339cdc183613d106093a"
+      },
+      {
+        "file": "dist/gameplay-demo-design-20261103/equipment-upgrade.wav",
+        "seconds": 0.71,
+        "peak": 0.6599833369255066,
+        "rms": 0.14571063220500946,
+        "sha256": "d22799a53b29e695c0990f2e70f07e7338f31a9757bd1d1c64e5003f2020c083"
+      },
+      {
+        "file": "dist/gameplay-demo-design-20261103/transition-whoosh.wav",
+        "seconds": 0.32,
+        "peak": 0.467617928981781,
+        "rms": 0.0826389342546463,
+        "sha256": "9563a16433d7f7552683e8fb3eb3b3d0fba295336195bb424cfcb1eeb0173928"
+      }
+    ],
+    "previewEvents": [
+      {
+        "second": 2,
+        "cue": "resource-pickup"
+      },
+      {
+        "second": 3,
+        "cue": "resource-pickup"
+      },
+      {
+        "second": 5,
+        "cue": "resource-pickup"
+      },
+      {
+        "second": 7,
+        "cue": "resource-deduct"
+      },
+      {
+        "second": 10,
+        "cue": "reinforcement-arrival"
+      },
+      {
+        "second": 13,
+        "cue": "card-purchase"
+      },
+      {
+        "second": 17,
+        "cue": "equipment-upgrade"
+      },
+      {
+        "second": 20,
+        "cue": "resource-deduct"
+      },
+      {
+        "second": 21,
+        "cue": "transition-whoosh"
+      },
+      {
+        "second": 22,
+        "cue": "reinforcement-arrival"
+      }
+    ],
+    "mp3DecodeErrors": "",
+    "scope": "Style preview only; final cues must align with actual recorded events. Not mixed into a gameplay video yet."
+  },
+  "files": {
+    "audio-manifest.json": {
+      "bytes": 3266,
+      "sha256": "626b3ecd24f936204d83c9eaa56a67cd074ec41e1afd0a9a86ea7bfb03b3b435"
+    },
+    "card-purchase.wav": {
+      "bytes": 117164,
+      "sha256": "0cea31d2be9489b325266e801da5e33ecf98b738af7c339cdc183613d106093a"
+    },
+    "Demo-Audio-Preview.mp3": {
+      "bytes": 577196,
+      "sha256": "81d36455a1510bde978b4bdf98e99c563b32f07720fe0c8159b141113ed01349"
+    },
+    "Demo-Audio-Preview.wav": {
+      "bytes": 4608044,
+      "sha256": "611f04372818791876092aabd241002a69dbce3f4f4cca8b00a126e6d313ebd9"
+    },
+    "Demo-BGM-loop.wav": {
+      "bytes": 3072044,
+      "sha256": "cec909f009727721b6490733b5fc351dfb8ef05ce032da61c0d1eb6a45eab03c"
+    },
+    "equipment-upgrade.wav": {
+      "bytes": 136364,
+      "sha256": "d22799a53b29e695c0990f2e70f07e7338f31a9757bd1d1c64e5003f2020c083"
+    },
+    "Gameplay-Explained-Cover.jpg": {
+      "bytes": 786497,
+      "sha256": "d630832353f4b1e257c1b624f6544cd23d0785757af142eae7d00e31e97917fc"
+    },
+    "Gameplay-Explained-Cover.png": {
+      "bytes": 4621590,
+      "sha256": "d8724be5f290dc2da50674c400ee0d25ba13c3db5079d2f292d77f00c3ec43d9"
+    },
+    "reinforcement-arrival.wav": {
+      "bytes": 133484,
+      "sha256": "a0eedf5a224f5bbeab811be8567288a958fd30881867a3c21c85732a6b341bbf"
+    },
+    "resource-deduct.wav": {
+      "bytes": 23084,
+      "sha256": "6ac860e647f62fbfa8ce5474bb7f280680d6480f655603b77ee32eb36955ed66"
+    },
+    "resource-pickup.wav": {
+      "bytes": 104684,
+      "sha256": "f313082c7412edbaa31dba1f683c0f88ad7a1b34fd641345be220081ccb6749c"
+    },
+    "transition-whoosh.wav": {
+      "bytes": 61484,
+      "sha256": "9563a16433d7f7552683e8fb3eb3b3d0fba295336195bb424cfcb1eeb0173928"
+    }
+  },
+  "checks": [
+    "Generated cover text reviewed",
+    "Audio finite samples and peak bounds checked",
+    "Preview MP3 full decode passed"
+  ],
+  "limitations": [
+    "Original sound style sample, not a previously released ad track",
+    "No final demonstration video or synchronized final mix yet"
+  ]
+}

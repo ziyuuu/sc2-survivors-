@@ -1,3 +1,4 @@
+import {bioHealingFactor} from './bio-runtime';
 import {equipmentKerriganAbsorbed,equipmentInfectionDeath} from '../starship/hero-advancements';
 import {equipmentAreaRadius,equipmentAreaFactor,equipmentCluster} from '../starship/weapon-areas';
 import {equipmentNativeFactor,equipmentHealingOutput,nativeEquipmentHeroSources} from '../starship/native-effects';
@@ -26,7 +27,7 @@ export function zergTeamBuff(w:World,u:Entity){const a={damage:0,health:0,armor:
 }
 export function dehakaStats(u:Entity){const e=u.heroId==='dehaka'?zergState(u).essence:0,f=e/(e+R.dehaka.essenceK);return {damage:1+R.dehaka.damage*f,health:1+R.dehaka.health*f,armor:R.dehaka.armor*f};}
 export const dehakaPenetration=(u:Entity)=>u.heroId==='dehaka'&&(u.zergCombat?.mechanicalUntil??0)>(u.heroCombat?.lastFire??0)?R.dehaka.armorIgnore:0;
-export function zergHeal(w:World,source:Entity,target:Entity,amount:number,active=false){if(target.hp<=0)return 0;const suppress=Math.min(.5,Math.max(w.statuses.value(target.id,'bleed',w.time),w.statuses.value(target.id,'corruption',w.time))),gain=Math.max(0,Math.min(target.maxHp-target.hp,amount*(1-suppress)*teamHealingFactor(w,target,source.heroId==='niadra'||source.heroId==='stukov')*equipmentHealingOutput(w,source,source.heroId!=='dehaka')));if(gain>0){target.hp+=gain;w.stats.healed+=gain;observeRecovery(w,source,target,gain);if(active)w.visual('skill-heal',source,target);}return gain;}
+export function zergHeal(w:World,source:Entity,target:Entity,amount:number,active=false){if(target.hp<=0)return 0;const suppress=1-bioHealingFactor(w,target),gain=Math.max(0,Math.min(target.maxHp-target.hp,amount*(1-suppress)*teamHealingFactor(w,target,source.heroId==='niadra'||source.heroId==='stukov')*equipmentHealingOutput(w,source,source.heroId!=='dehaka')));if(gain>0){target.hp+=gain;w.stats.healed+=gain;observeRecovery(w,source,target,gain);if(active)w.visual('skill-heal',source,target);}return gain;}
 function patients(w:World,p:Point,radius:number,max=7,exclude?:number){return firstSupportTargets(w.entities.values(),u=>u.id!==exclude&&permanentBiological(u)&&u.hp<u.maxHp&&dist(p,u)<=radius+u.unitRadius&&(!w.terrain||w.terrain.lineOfFire(p,u,false,u.flying)),healthOrder,max);}
 export function tickZergHero(w:World,u:Entity,dt:number){if(!isZergHero(u.heroId)||u.hp<=0)return;const s=zergState(u),g=zergHeroGrowth(equipmentNativeRank(w,u));
  if(s.barrierUntil<=w.time)s.barrier=0;if(s.reserveUntil<=w.time)s.reserve=0;

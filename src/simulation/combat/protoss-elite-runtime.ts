@@ -134,7 +134,7 @@ export function tickProtossEliteState(w:World){const s=w.protossElites;
   while(f.next<=w.time+1e-8&&f.next<=f.until+1e-8){f.next+=f.period;
    if(f.kind==='guardian'){const targets=w.allies().filter(u=>permanentTeamBody(u)&&nativeShieldBody(u)&&teamRange(w,live!,u,f.radius)&&(u.shield??0)<(u.maxShield??0)).sort((a,b)=>(a.shield??0)/(a.maxShield||1)-(b.shield??0)/(b.maxShield||1)||a.id-b.id).slice(0,7);for(const b of targets)if(restoreShield(w,b,f.amount,live!)>0)w.visual('support-impact',live!,b);}
    else if(f.kind==='web'){for(const b of protossEliteEnemies(w,f.source,f.point,f.radius,'both'))debuff(w,f.source,b,1.01,{speed:.4*(boss(b)?.5:1)});if(live?.hp)for(const b of w.allies().filter(b=>permanentTeamBody(b)&&b.maxEnergy!>0&&teamRange(w,f.source,b,f.radius)).sort((a,b)=>a.energy/(a.maxEnergy||1)-b.energy/(b.maxEnergy||1)||a.id-b.id).slice(0,7))b.energy=Math.min(b.maxEnergy!,b.energy+6);}
-   else {for(const b of protossEliteEnemies(w,f.source,f.point,f.radius,f.kind==='fire'?'ground':'both')){const key=`${f.kind}:${f.source.id}:${b.id}`;if((s.gates[key]??0)>w.time+1e-8)continue;s.gates[key]=w.time+f.period;w.hit(b,f.amount,[],1,f.source.owner,0,f.kind==='storm'?1:0,f.source.id);}w.visual('skill-impact',f.source,f.point);}
+   else {for(const b of protossEliteEnemies(w,f.source,f.point,f.radius,f.kind==='fire'?'ground':'both')){const key=`${f.kind}:${f.source.id}:${b.id}`;if((s.gates[key]??0)>w.time+1e-8)continue;s.gates[key]=w.time+f.period;w.hitOverTime(b,f.amount,[],1,f.source.owner,0,f.kind==='storm'?1:0,f.source.id);}w.visual('skill-impact',f.source,f.point);}
   }
  }s.fields=s.fields.filter(f=>f.until>w.time+1e-8);for(const[k,t]of Object.entries(s.gates))if(t<w.time-2)delete s.gates[k];
 }

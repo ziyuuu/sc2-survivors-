@@ -1,0 +1,177 @@
+[
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Aberration_Attack_01.ogg",
+    "build": "B97563",
+    "bytes": 38094,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Aberration_Attack_01.ogg",
+    "sha256": "eae30ce2da291787309b8f1827a792d0dd98b6ff932f65c90b6777522e6e7894"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Aberration_Death_00.wav",
+    "build": "B97563",
+    "bytes": 73532,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Aberration_Death_00.wav",
+    "sha256": "adf7d0f9d3b4315ae56aaa2f90e96aa768856bf0cbf0917fc9e6bb3c2fd6b59c"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Roach/Roach_AttackLaunchRanged0.wav",
+    "build": "B97563",
+    "bytes": 32828,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Roach/Roach_AttackLaunchRanged0.wav",
+    "sha256": "da1ae6c9da21b91bb7eb5c23f4160ba34d1b8b0166ac0297aff6b4d1512d89ad"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Roach/Roach_AttackImpactRanged0.wav",
+    "build": "B97563",
+    "bytes": 47164,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Roach/Roach_AttackImpactRanged0.wav",
+    "sha256": "4ea9952bec22623a6174a285236ba8dd1b264a127ef127b9c7531a71350aaa71"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Devourer_DeathVox01.wav",
+    "build": "B97563",
+    "bytes": 28476,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Devourer_DeathVox01.wav",
+    "sha256": "4c92b498b286247a9b6ab252e4e79a35ab32dc47a46d426639f951f972cffc3e"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Infestor/Infestor_AttackLaunch0.wav",
+    "build": "B97563",
+    "bytes": 11836,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Infestor/Infestor_AttackLaunch0.wav",
+    "sha256": "b65d88369281dcfac5225fad86042f8f22bf7ad04ac0706e31edb0a43f4a3c11"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Infestor/Infestor_NeuralParasiteAttackImpact0.wav",
+    "build": "B97563",
+    "bytes": 25660,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Infestor/Infestor_NeuralParasiteAttackImpact0.wav",
+    "sha256": "f9db473b8d2281073c820e8a4ab88c5183ab463a5c0e83cd7e243f443d52338e"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Infestor/Infestor_FungalGrowthImpact0.wav",
+    "build": "B97563",
+    "bytes": 43836,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Infestor/Infestor_FungalGrowthImpact0.wav",
+    "sha256": "1ffbcd6704af01d5d45dab41b97f502407e2f73e86f938dd12ef8ce6b542abcd"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Infestor/Infestor_Death0.wav",
+    "build": "B97563",
+    "bytes": 28220,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Infestor/Infestor_Death0.wav",
+    "sha256": "5f73b35e09d9512ceb35a26bb8abf68bb0c0cabce591c8566fc40a263bc72fc2"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/SwarmHost_Attack_00.ogg",
+    "build": "B97563",
+    "bytes": 30224,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/SwarmHost_Attack_00.ogg",
+    "sha256": "6b478ecca431e77b37b9126e9ed85735bc647d3658c9fc90e4ccdaf861da1dd5"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Ultralisk/Ultralisk_Burrow0.wav",
+    "build": "B97563",
+    "bytes": 46396,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Ultralisk/Ultralisk_Burrow0.wav",
+    "sha256": "079498f0136872660a3a4f2f4205a9af2f5286532c0da179fc7a920da08805e7"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/SwarmHost_Death_00.wav",
+    "build": "B97563",
+    "bytes": 33852,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/SwarmHost_Death_00.wav",
+    "sha256": "10f73fc02ac2f6dfa0226e3f27efcd95f5a22862e095760136964da7571cc477"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/LairViper_Death_00.wav",
+    "build": "B97563",
+    "bytes": 49468,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/LairViper_Death_00.wav",
+    "sha256": "34f027d02517d6144a2012d4e1761dd8a13fd5b6445ada3628255f297d81d9fe"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/SharedEffects/Explosions/Zerg_ExplosionMedium0.wav",
+    "build": "B97563",
+    "bytes": 44092,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/SharedEffects/Explosions/Zerg_ExplosionMedium0.wav",
+    "sha256": "5d65c5ef84bdc65501b64726f96f55c17ef6327a109dd02a23986077a1f5a02a"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Queen/Queen_SwarmInfestationLaunch0.wav",
+    "build": "B97563",
+    "bytes": 134204,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Queen/Queen_SwarmInfestationLaunch0.wav",
+    "sha256": "1e0e7ceffdc1b3ab685b8db2e19b1e01d102036fdc7438796f9a68034899d021"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Corruptor/Corruptor_Attack1.ogg",
+    "build": "B97563",
+    "bytes": 44829,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Corruptor/Corruptor_Attack1.ogg",
+    "sha256": "86c2acbdaa2e0eb001405c6969fb2b6aeaa2efa6166f1a675cdbf04687243cea"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Corruptor/Corruptor_AttackImpact0.wav",
+    "build": "B97563",
+    "bytes": 20028,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Corruptor/Corruptor_AttackImpact0.wav",
+    "sha256": "21d9691dbf6bce744539e59ca7f84934a3e909435ecabf49cce73e2bf19c4f53"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/BroodLord/Broodlord_AttackLaunch0.wav",
+    "build": "B97563",
+    "bytes": 31804,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/BroodLord/Broodlord_AttackLaunch0.wav",
+    "sha256": "557f304b15c076f96199bc0b1542126f84caac4757fcec836c8a7b69d6129b3c"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/BroodLord/Broodlord_AttackImpact0.wav",
+    "build": "B97563",
+    "bytes": 11580,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/BroodLord/Broodlord_AttackImpact0.wav",
+    "sha256": "395e2cc957152b7eefddce814edc9076411d85864ae6ff688cde2afd41028da4"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/BroodLord/BroodLord_Death0.wav",
+    "build": "B97563",
+    "bytes": 30524,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/BroodLord/BroodLord_Death0.wav",
+    "sha256": "4156527496216ded7208572fab5be92612b47625f7459cb3a9bfed9f13bf6910"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/SharedEffects/Explosions/Zerg_ExplosionSmall0.wav",
+    "build": "B97563",
+    "bytes": 30780,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/SharedEffects/Explosions/Zerg_ExplosionSmall0.wav",
+    "sha256": "d4d20882e2c701ff6d5e660358232f86094aa357ab2666180ac34c6a7eba525d"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Locust_Spit00.wav",
+    "build": "B97563",
+    "bytes": 10556,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Locust_Spit00.wav",
+    "sha256": "e6a2147f9b168b480906d14d7902e121e82bc1b6a9c42168d6f71ee93250d594"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Locust_Spit_Impact_1.wav",
+    "build": "B97563",
+    "bytes": 12348,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Locust_Spit_Impact_1.wav",
+    "sha256": "c498033d92cd41952d9741028c0b070cdcd00e990aca2642215e85ab1e0b9fc1"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Broodling/Broodling_Attack0.ogg",
+    "build": "B97563",
+    "bytes": 40032,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Broodling/Broodling_Attack0.ogg",
+    "sha256": "7434df0189370229b1dc42c7786e091a67958fb1b5f709e96aa02f3c5b652f9d"
+  },
+  {
+    "installFile": "assets/private/audio-source/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Broodling/Broodling_Death0.wav",
+    "build": "B97563",
+    "bytes": 46908,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Broodling/Broodling_Death0.wav",
+    "sha256": "94fc9e80f1cb13e9e0b63739833d7ec7958b506f36219f7bf79e943afefc457c"
+  }
+]

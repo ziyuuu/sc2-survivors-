@@ -1,0 +1,13 @@
+#zerg-trial{
+ position:fixed;z-index:30;left:50%;top:calc(env(safe-area-inset-top, 0px) + .5rem);transform:translateX(-50%);
+ display:flex;align-items:center;gap:.45rem;padding:.35rem .5rem;width:max-content;max-width:calc(100% - 1rem);
+ background:#0b121b;color:#e4edf2;border:1px solid #556b82;border-radius:3px;font-size:.875rem;
+}
+#zerg-trial select,#zerg-trial button,#zerg-trial summary{color:inherit;background:#172432;font:inherit;padding:.3rem .45rem;border:1px solid #556b82;cursor:pointer}
+#zerg-trial .trial-details{position:absolute;right:0;top:calc(100% + .25rem);width:min(21rem,76vw);padding:.55rem;background:#0b121b;border:1px solid #556b82}
+#zerg-trial .trial-details p{margin:0 0 .35rem}
+#zerg-trial .trial-details output{display:block;padding-top:.35rem;border-top:1px solid #334657}
+@media (orientation:portrait){
+ #zerg-trial{left:auto;right:.4rem;transform:none;gap:.3rem;padding:.3rem;font-size:.8rem}
+ #zerg-trial .trial-details{top:max(calc(100% + .25rem),8.8rem)}
+}

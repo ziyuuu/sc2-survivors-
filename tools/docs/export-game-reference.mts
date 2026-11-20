@@ -1,3 +1,6 @@
+import {DOOMSDAY_CARDS,DOOMSDAY_RULES} from '../../src/data/terran-doomsday';
+import {BIO_CARDS} from '../../src/data/terran-bio';
+import {DOOMSDAY_BRIEF,DOOMSDAY_DETAIL} from '../../src/data/terran-doomsday-copy';
 import {ARMED_CARDS,ARMED_RULES,armedDetail} from '../../src/data/terran-armed-support';
 import {endlessRoundDuration,endlessRoundFrequency} from '../../src/data/endless';
 import {TEAM_CARD_VALUES,CARD_RARITIES} from '../../src/simulation/progression/team-cards';
@@ -18,6 +21,8 @@ import {RACES,RACE_NAMES,FAMILIES_BY_RACE,ALL_FAMILIES,FAMILY_LIMIT,BODY_LIMIT,O
 import {EXPANSION_SOURCE,SOURCE_UNIT_DETAILS,SOURCE_PRODUCTION_RECIPES,SOURCE_UNIT_MODES,SOURCE_UNIT_WEAPON_IDS,sourceWeaponsForUnit,type VerifiedAddedUnitType} from '../../src/data/expansion-units';
 import {CAMPAIGN_SCIENCE_VESSEL,SCIENCE_VESSEL_SOURCE,CAMPAIGN_SCIENCE_VESSEL_RECIPE,SCIENCE_VESSEL_ADAPTATION} from '../../src/data/campaign-science-vessel';
 import {PRODUCTION_LINES,TREE_STEPS,FAMILY_REQUIREMENTS,HEAVY_FAMILIES,DEVELOPMENT,developmentPrice,familyLine} from '../../src/data/expedition-buildings';
+import {ZERG_SIX,ZERG_SIX_PRODUCTION,ZERG_SIX_SOURCE_COST,ZERG_SIX_WEAPON_RESEARCH,isZergSixFamily} from '../../src/data/zerg-six';
+import {ZERG_EXPERIENCE,zergCampaignQuotas} from '../../src/data/zerg-six-encounters';
 import {CAMPAIGN18_ID,CAMPAIGN18_STAGES,CAMPAIGN18_ENEMIES,CAMPAIGN18_WEIGHTS,CAMPAIGN18_TOTALS,campaign18StageConfig,campaign18EnemyPressure,campaign18ChapterGrowth} from '../../src/data/campaign18';
 import {MVP_TALENTS,TALENT_LINES,TALENT_POINT_CAP,MAIN_TIER_COSTS,MICRO_TIER_COSTS,PREVIOUS_TIER_POINTS} from '../../src/data/mvp-talents';
 import {SOURCE_UPGRADE_PROFILE,SOURCE_WEAPON_UPGRADE_STEPS,SOURCE_RESEARCH_EFFECTS} from '../../src/data/expansion-upgrades';
@@ -32,8 +37,8 @@ const name=(id:FamilyId)=>SC2_UNITS[id].zh;
 const difficulties=['easy','normal','hard','hell'] as const;
 const difficultyNames={easy:'简单',normal:'普通',hard:'困难',hell:'地狱'};
 const resource=(v:{minerals:number;gas:number})=>`${v.minerals}／${v.gas}`;
-const unitRecipe=(id:FamilyId)=>id==='science_vessel'?CAMPAIGN_SCIENCE_VESSEL_RECIPE:SOURCE_PRODUCTION_RECIPES[id]!;
-const unitShield=(id:FamilyId)=>id==='science_vessel'?CAMPAIGN_SCIENCE_VESSEL.maxShields:SOURCE_UNIT_DETAILS[id]!.shields;
+const unitRecipe=(id:FamilyId)=>id==='science_vessel'?CAMPAIGN_SCIENCE_VESSEL_RECIPE:SOURCE_PRODUCTION_RECIPES[id as keyof typeof SOURCE_PRODUCTION_RECIPES]!;
+const unitShield=(id:FamilyId)=>id==='science_vessel'?CAMPAIGN_SCIENCE_VESSEL.maxShields:isZergSixFamily(id)?0:SOURCE_UNIT_DETAILS[id]!.shields;
 const text:string[]=[];
 const currentElites={...TERRAN_ELITE_RULES,...ZERG_ELITE_RULES,...PROTOSS_ELITE_RULES};
 
@@ -51,20 +56,26 @@ text.push('# 当前游戏数据参考 · 三族18关',
 
 text.push('## 玩家战斗统一适配',`普通和精英玩家战斗单位及其适用子体的武器及附加伤害、最大生命、原生护盾、移速、生命/护盾护甲乘 ${PLAYER_COMBAT_FACTOR}，攻击周期除以该因子。工人、建筑、载体和技能/治疗不乘。P3已批准的18名英雄使用下列独立显式机体，普攻和机体不再重复乘该因子或旧1.15普攻适配；旗舰子机使用独立250/.4秒机枪。下方普通来源表未包含这项适配；实际实体以派生值为准。`, '跳虫每名额为一对，共享军衔及精英身份，两身体独立战斗。缺员900固定步后存活者裂变；死亡、培养及换兵按配对账计算。虫后距落地载体6以内注卵，每只45秒冷却、同舱一次、最多两个一级普通名额、零付款、先扣除预付款占位。');
 text.push('### 2026-10-29 已批准的虫族与接敌适配',`己方永久普通／精英毒爆基础生产 ${PLAYER_BANELING.productionSeconds} 秒、基础移速 ${PLAYER_BANELING.moveSpeed}，爆炸后休眠 ${PLAYER_BANELING.recoverySeconds} 秒；新订单使用新配方，已付订单不追溯。跳虫只在承受敌方毒爆爆炸时减伤 ${PLAYER_ZERGLING_BANELING_REDUCTION*100}%，其他伤害保持。己方普通／精英潜伏者地上使用同款地刺、${PLAYER_LURKER.surfaceDamage*100}%伤害；潜伏后可按正常移速 ${PLAYER_LURKER.burrowMove*100}% 移动。来源表仍是原版资料。`,`接敌冲锋按当前地面武器射程不超过 ${APPROACH_CHARGE.shortRange}、来源半径至少 ${APPROACH_CHARGE.minimumSourceRadius} 筛选中大型单位，毒爆单独纳入。一般冲锋 ${APPROACH_CHARGE.standard.cooldown} 秒CD、${APPROACH_CHARGE.standard.speed}倍移速、最长${APPROACH_CHARGE.standard.seconds}秒或${APPROACH_CHARGE.standard.maxDistance}格；毒爆${APPROACH_CHARGE.baneling.cooldown}秒CD、${APPROACH_CHARGE.baneling.speed}倍、最长${APPROACH_CHARGE.baneling.seconds}秒或${APPROACH_CHARGE.baneling.maxDistance}格。仅穿敌我单位，地形／建筑保持阻挡，无额外伤害。已研究的狂热者沿用专用冲锋与冷却。`);
-text.push('## 新规则：30个普通家族',
- '以下为一级基础身体和默认主武器。雷神、虫后等多武器、变形与范围模式另见后表；科技球及医疗艇没有普通攻击，航母伤害由所属截击机结算。菌毯修正、护盾和恢复不合并成生命。');
+text.push(`## ${ALL_FAMILIES.length} 个正式普通家族`,
+ '以下为一级基础身体和默认主武器。虫族六个新家族使用 R2 本作数值，不重复乘普通玩家适配倍率。雷神、虫后等多武器、变形与范围模式另见后表；科技球及医疗艇没有普通攻击，航母伤害由所属截击机结算。菌毯修正、护盾和恢复不合并成生命。');
 for(const race of RACES)text.push('### '+RACE_NAMES[race],table(['ID','兵种','HP／护盾','生命护甲','移速','单发 × 发数','周期秒','射程','默认目标','属性'],FAMILIES_BY_RACE[race].map(id=>{
  const u=SC2_UNITS[id];return [id,u.zh,`${u.maxHp}／${unitShield(id)}`,u.armor,n(u.movementSpeed),`${u.attackDamage+(id==='reaper'?PLAYER_REAPER_DAMAGE_BONUS:0)} × ${u.attacks}`,n(u.attackPeriod),u.attackRange,u.targetType,list(u.attributes)];
 })));
 text.push('玩家死神使用本作适配：每周期两次、每次6伤害；锁定来源仍为2×4。军衔、精英、科技和强化在此基础上分别计算一次。');
 text.push('### 完整生产配方',
  '费用按最终交付的一名身体列出，进化体费用已包含基础体，不再重复收费。完整训练时间为基础体与进化阶段之和；跳虫通常一批双生，单体尾单按单体价格、同一配方时间。新订单锁定实际价格与训练时间，旧订单不追溯改价。',
- table(['家族','生产线','矿／气（每身体）','来源完整秒','基础秒＋进化秒','通常身体／配方','基础体','本作前置','额外关卡条件','来源训练项'],ALL_FAMILIES.map(id=>{
+ table(['家族','生产线','矿／气（每身体）','来源完整秒','基础秒＋进化秒','通常身体／配方','基础体','本作前置','额外关卡条件','来源训练项'],ALL_FAMILIES.filter(id=>!isZergSixFamily(id)).map(id=>{
   const p=unitRecipe(id);return [name(id),PRODUCTION_LINES[familyLine(id)].name,`${p.mineralCost}／${p.gasCost}`,n(p.productionTime),`${n(p.baseSeconds)}＋${n(p.morphSeconds)}`,p.batchBodyCount,p.baseFamily?name(p.baseFamily):'—',list(FAMILY_REQUIREMENTS[id]),HEAVY_FAMILIES.includes(id)?'完成第9关':'—',`${p.abilityId}/${p.entryId}`];
  })),
- '科技球使用独立战役配方；其余配方使用固定多人导出。旧规则的基础体训练字段保留原值，不能拿旧表中爆虫／破坏者的进化阶段时间当作新局完整配方时间。');
+ '科技球使用独立战役配方；旧规则的基础体训练字段保留原值，不能拿爆虫／破坏者的进化阶段时间当作新局完整配方时间。',
+ '虫族发展、攻防研究和新训练／补员订单免费。旧订单依据原收据交付或退款。',
+ table(['R2 家族','方向','原目录身体矿／气','最早解锁窗口','最早生产关','本作训练秒','武器研究每级'],ZERG_SIX.map(id=>{
+  const p=ZERG_SIX_PRODUCTION[id];return [name(id),PRODUCTION_LINES[familyLine(id)].name,ZERG_SIX_SOURCE_COST[id].join('／'),p.firstBattle-1,p.firstBattle,p.trainingSeconds,ZERG_SIX_WEAPON_RESEARCH[id]];
+ })),
+ '虫群宿主武器研究加在蝗虫，巢虫自身另受每级 0.5 点武器研究。巢虫领主使用独立训练，无需消耗腐化者。');
 text.push('### 护盾、能量与固有恢复',table(['家族','护盾护甲','回盾／秒','受击延迟秒','初始／最大能量','回能／秒','固有生命恢复／秒','生命恢复延迟秒','菌毯移速系数'],ALL_FAMILIES.map(id=>{
  if(id==='science_vessel'){const c=CAMPAIGN_SCIENCE_VESSEL;return [c.zh,c.shieldArmor,n(c.shieldRegenPerSecond),n(c.shieldRegenDelay),`${c.startEnergy}／${c.maxEnergy}`,n(c.energyRegenPerSecond),n(c.hpRegenPerSecond),n(c.hpRegenDelay),c.creepSpeedMultiplier];}
+ if(isZergSixFamily(id))return [name(id),0,0,0,'0／0',0,.38,0,1];
  const s=SOURCE_UNIT_DETAILS[id]!;return [name(id),s.shieldArmor,n(s.shieldRegen*FASTER),n(s.shieldDelay/FASTER),`${s.energyStart}／${s.energy}`,n(s.energyRegen*FASTER),n(s.lifeRegen*FASTER),n(s.lifeDelay/FASTER),n(s.creep)];
 })),
  '虫族默认满足菌毯条件，只将其实际拥有的菌毯效果应用一次。医修按实际恢复的生命耗能：医疗艇对生物全效／机械三分之一；科技球对机械全效／生物三分之一。降低跨类型恢复速率不再额外增加每点生命能耗。',
@@ -77,11 +88,13 @@ text.push('### 来源科技增量',`以下武器与特色研究增量来自同�
  table(['特色研究ID','源UpgradeID','实际效果字段'],Object.entries(SOURCE_RESEARCH_EFFECTS).map(([id,r])=>[id,r.sourceId,JSON.stringify(Object.fromEntries(Object.entries(r).filter(([key])=>key!=='sourceId')))])),
  '速度加值已换算为Faster时钟。潜伏者部署研究只缩短埋入，不能套到钻出；恢复卡分别增强已存在的生命恢复、原生回盾和治疗输出，每个通道只乘一次，不凭空增加恢复能力。');
 
-text.push('## 普通敌军与混合投放 · R2',
- '每累计4只强化主力，同波搭配4只30%单位和1只50%单位，替换独立虫海。弱单位只缩放最大生命、固定伤害与护甲；攻速、移速、射程和体积保持对应主力值。弱兵优先70%跳虫／20%蟑螂／10%爆虫，按已出场兵种归一化；守军、巢穴增援与特殊怪不递归追加。',
+text.push('## 普通敌军与独立体验投放 · R2',
+ '原混合排程和每累计4只主力搭配4只30%体、1只50%体的计划保留。旧伴随体按普通波来源迁入独立体验队列；救援守军、巢穴增援和特殊敌人维持原身份。',
+ `新增体验体血量及护甲采用5%／10%／20%／30%档，旧伴随体保留30%／50%体档。体验体输出统一${Math.round(ZERG_EXPERIENCE.damage*100)}%，速度、射程和体积沿用对应原单位；体验体独立节拍，组合以跳虫为主。`,
+ table(['难度','第18关追加正常六者（依照家族表顺序）'],(['easy','normal','hard','hell'] as const).map(d=>[difficultyNames[d],zergCampaignQuotas(18,d).join('／')])),
  '普通／困难／地狱以 p=(关数−1＋关内战斗进度)/18 连续成长，旧军衔与章节属性倍率已合并；军衔只保留机制门槛，无尽固定III级。简单主力保留原战役强度。计划出生时刻与档位随队列固定，跨关不重算，不给存活敌人追溯加血。',
  table(['难度','开场→终点 HP倍率','伤害倍率','攻速倍率','跳虫开场→终点HP'],(['normal','hard','hell'] as const).map(d=>{const a=continuousOrdinaryGrowth(d,0),b=continuousOrdinaryGrowth(d,1);return [difficultyNames[d],`${n(a.health)}→${n(b.health)}`,`${n(a.damage)}→${n(b.damage)}`,`${n(a.attackSpeed)}→${n(b.attackSpeed)}`,`${n(continuousLingHp(0)*a.health)}→${n(continuousLingHp(1)*b.health)}`];})),
- '矿／气以旧主波和被替换虫海的每关总预算分配，按各兵种基础掉落与1／0.3／0.5档位加权。30%／50%弱兵只保留同比例矿气和战斗击杀统计，不进入装备、卡牌、天赋晋级、免费增援或装备／英雄击杀成长；已施加毒素、感染等死亡战斗效果照常结算。100%主力及特殊怪保持原奖励规则。300活跃敌人上限与首领留位保留，积压记录不删除。',
+ '正常主力及特殊敌人保持原单体奖励，正常六者按各自掉落包走正常结算。体验体不产出奖励、不消耗正常奖励随机数；感染DOT仍可留下限时受控体。全场300敌人封顶，正常主队列及关键对象优先，新增母体与体验队列分别在等待15秒和6秒后可过期。',
  '无尽第1—3轮每轮60秒，4—6轮90秒，7—9轮120秒，10—12轮180秒，之后每3轮增加60秒。以x=轮次−1＋轮内进度连续成长：HP×1.22^x、伤害×1.10^min(x,5)×1.16^max(0,x−5)、攻速×min(1.25,1.025^x)。每3轮一档，主波／精英／首领频率F=1＋0.15×floor((轮次−1)/3)，基础间隔15／30／90秒除以F，简单精英再乘2；进度跨轮承接。单波数量仍按实际分钟前5分钟累计最多增加20%，不再乘F。待出生敌军保存原出生轮号和成长进度。旧档本轮保留60秒及原排程，下一轮切换。',
  table(['无尽轮开场','轮长（秒）','频率倍率','HP倍率','伤害倍率','攻速倍率'],[1,4,7,10,13,16,19,24,30].map(r=>{const g=continuousEndlessGrowth((r-1)*60);return [r,endlessRoundDuration(r),n(endlessRoundFrequency(r)),n(g.health),n(g.damage),n(g.attackSpeed)];})));
 
@@ -106,8 +119,13 @@ text.push('## 新规则：三件付费商品与Build卡组',
  '删除固定关卡英雄、紫卡、连续低品质和强制品质补位；保留分阶段基础稀有度。Boss每三关死亡掉一件：80%紫／20%橙，橙替代紫。',
  '每页三件商品均可购买，售罄不补货；R09每窗口1／2次免单，刷新不消耗免单。数值卡白到橙基础价50/0、90/20、150/50、225/90、325/140；培养为完整配方乘实际等级增量；紫精英为配方乘5，橙V级精英为紫价乘3；英雄750/250。四种经济商品支付25矿/25矿/50矿/75矿25气，分别得到100矿/50气/75矿25气/100矿25气。空投白绿蓝1／2／3名额，直接获兵绿蓝紫1／2／3名额（直接价格乘1.5），按路线攻防进度和卡片品质交集开放三档兵种；不解锁生产。原趣味牌为布雷、随机轰炸、弹药变异与战略打击；每族另有4张独有卡（3自动、1主动），见RACE_FUN_CACHE_20260929.md。先抽品质，再趣味池25%/其他75%，空池重新归一化；每族8张。地图掉落无章节额度，普通／经济工蜂／精英触发率2%／8%／40%；R14另产生独立紫／橙击杀掉落，均保存收据。');
 
+text.push('## 1.4 人族末日兵器',`首次成功领取节点才锁定唯一主分支；每 ${DOOMSDAY_RULES.nodeEvery} 点免费三选一。领满 ${DOOMSDAY_RULES.orangeClaims} 个紫节点后再积 ${DOOMSDAY_RULES.nodeEvery} 点，免费领取一个橙色终极。各节点最多备 ${DOOMSDAY_RULES.reserveLimit} 次复选。机械主分支新身体／重装工时 ×${DOOMSDAY_RULES.bodyTime}，巨械专机 ×${DOOMSDAY_RULES.orangeTime}，已付订单不追溯。`,table(['卡号','类型','卡名','基础矿／气','上限','简要','详细','正式配置'],DOOMSDAY_CARDS.map(c=>[c.id,c.purchase,c.name,c.price.join('／'),c.maxRank,DOOMSDAY_BRIEF[c.id],DOOMSDAY_DETAIL[c.id].replaceAll('\n',' '),JSON.stringify(c.params)])));
+
+text.push('## 1.4 人族生化协同',
+ table(['卡号','类型','卡名','基础矿／气','上限','简要','详细'],BIO_CARDS.map(c=>[c.id,c.purchase,c.name,c.price.join('／'),c.maxRank,c.brief,c.detail.replaceAll('\n',' ')])));
+
 text.push('## 1.4 人族武装支援 · R3',
- `普通临援上限 ${ARMED_RULES.ordinaryTemporaryCap}；N03 后 ${ARMED_RULES.eliteTemporaryCap}。白牌复购只升档。每个分支每 ${ARMED_RULES.nodeEvery} 点可免费选一个紫节点，首次领取确定主分支。主分支达到 ${ARMED_RULES.orangeAt} 点且已领 ${ARMED_RULES.orangeClaims} 次后橙色三选一。复备最多 ${ARMED_RULES.reserveLimit} 次。`,
+ `普通临援上限 ${ARMED_RULES.ordinaryTemporaryCap}；N03 后 ${ARMED_RULES.eliteTemporaryCap}。白牌复购只升档。每个分支每 ${ARMED_RULES.nodeEvery} 点可免费三选一领取紫节点，首次领取确定主分支。领满 ${ARMED_RULES.orangeClaims} 个紫节点后主分支再积 ${ARMED_RULES.nodeEvery} 点，免费橙色三选一。复备最多 ${ARMED_RULES.reserveLimit} 次。`,
  '本批复用正式 World 固定步与原执行器；保存逐弹、逐人、控制区域、卡盾、正式战损及橙卡阶段回执。第一批共用经济 PLAY-1X 尚未合流，现有生产报价仍扣矿气；普通战巡仅由本批临援使用，T06 普通生产家族另行接入。',
  table(['卡号','品质／类型','卡名','基础价矿／气','简要','详细','精确配置'],ARMED_CARDS.map(c=>[c.id,c.purchase,c.name,c.price.join('／'),c.brief,armedDetail(c),JSON.stringify(c.params)])),
  '### 普通战列巡洋舰临援身份',

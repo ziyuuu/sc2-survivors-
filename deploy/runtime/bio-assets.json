@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "generatedSha256": "6699f45c7d4728ad50f0b0a85ad0b27bc412e18483a14ea8c563986c507732c4",
+  "records": [
+    {
+      "id": "model.overlord",
+      "kind": "model",
+      "status": "available",
+      "url": "assets/animated/model.overlord.glb",
+      "required": false,
+      "packedFile": "public/assets/animated/model.overlord.glb",
+      "gitPath": "deploy/runtime/assets/bb7923fbe4b753ade37c1b5d197264c128464d9e02520c0534ee7c4190610b23.glb",
+      "bytes": 4661300,
+      "packedSha256": "bb7923fbe4b753ade37c1b5d197264c128464d9e02520c0534ee7c4190610b23",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Units/Zerg/Overlord/Overlord.m3",
+      "sourceBuild": "5.0.16.97563",
+      "sourceSha256": "f15efd15e28fe418075766b5e73ec7adc89cfc180d8b1905d1a192aa31726540",
+      "animations": [
+        "Stand",
+        "Walk",
+        "Stand Work",
+        "Birth",
+        "Stand Morph Start"
+      ]
+    },
+    {
+      "id": "model.overlord.death",
+      "kind": "model",
+      "status": "available",
+      "url": "assets/animated/model.overlord.death.glb",
+      "required": false,
+      "packedFile": "public/assets/animated/model.overlord.death.glb",
+      "gitPath": "deploy/runtime/assets/efabd1b5fd44c88cb60226d867e0ba31963473b4069515ce2f5020ca66038f8d.glb",
+      "bytes": 5559652,
+      "packedSha256": "efabd1b5fd44c88cb60226d867e0ba31963473b4069515ce2f5020ca66038f8d",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Units/Zerg/OverlordDeathEx1/OverlordDeathEx1.m3",
+      "sourceBuild": "5.0.16.97563",
+      "sourceSha256": "a2f66c52cd4a0b9c8c0f71ad7c213444003ae56b9a402031689ae21530d73708",
+      "animations": [
+        "Death",
+        "Death 01",
+        "Death 02"
+      ]
+    }
+  ]
+}

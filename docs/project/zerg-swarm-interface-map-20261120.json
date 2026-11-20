@@ -1,0 +1,1219 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-20",
+  "status": "interfaces-specified-runtime-not-implemented",
+  "approval": {
+    "values": "confirmed",
+    "userCorrection": "感染孢子为物理攻击才行",
+    "physicalBoundary": "confirmed-physical-weapons-only",
+    "userPhysicalClarification": "仅爪击、骨刺等物理武器；酸液／毒液普攻也排除"
+  },
+  "physicalWeaponPolicy": {
+    "status": "specified-not-wired",
+    "defaultEligible": false,
+    "acidPoisonBasicAttackEligible": false,
+    "weaponKeySnapshot": "at-launch",
+    "allowedWeaponKeys": [
+      "zergling/Claws",
+      "hydralisk/NeedleSpinesDamage",
+      "queen/Talons",
+      "queen/TalonsMissile",
+      "lurker/LurkerMP",
+      "ultralisk/KaiserBlades",
+      "aberration/primary-cleave"
+    ],
+    "explicitlyExcludedWeaponKeys": ["queen/AcidSpines"],
+    "passiveCards": ["W03", "B03", "N05"],
+    "explicitSporeCards": ["G07", "P05"],
+    "deathHatchRequiresPhysicalKillingBlow": false
+  },
+  "branch": "zerg-swarm",
+  "prefix": "ZSW-",
+  "runtimePath": "expedition.zergSwarm",
+  "reviewedRunSchema": 26,
+  "plannedRunSchema": 27,
+  "review": "docs/project/ZERG_SWARM_45_REVIEW_20261120.md",
+  "spec": "docs/project/ZERG_SWARM_IMPLEMENTATION_SPEC_20261120.md",
+  "sources": [
+    {
+      "key": "build",
+      "path": "src/simulation/progression/build-progress.ts",
+      "symbols": [
+        "BuildBranch",
+        "BuildCardId",
+        "buildCard",
+        "buildCardRank",
+        "buildNodeLegal",
+        "prepareBuildChoices",
+        "validateBuildProgress"
+      ]
+    },
+    {
+      "key": "draft",
+      "path": "src/simulation/progression/expedition-drafts.ts",
+      "symbols": [
+        "ExpeditionOfferEffect",
+        "ExpeditionDraftContext",
+        "drawExpeditionReinforcements",
+        "canTakeExpeditionOffer"
+      ]
+    },
+    {
+      "key": "economy",
+      "path": "src/simulation/expedition-economy.ts",
+      "symbols": [
+        "draftContext",
+        "purchaseOffer"
+      ]
+    },
+    {
+      "key": "purchaseExample",
+      "path": "src/simulation/combat/bio-acquisition.ts",
+      "symbols": [
+        "bioOfferLegal",
+        "applyBioPurchase",
+        "claimBioNode"
+      ]
+    },
+    {
+      "key": "expedition",
+      "path": "src/simulation/expedition-state.ts",
+      "symbols": [
+        "ExpeditionState",
+        "DeliveryPassenger",
+        "DeliveryLedger",
+        "newExpedition",
+        "validateExpedition"
+      ]
+    },
+    {
+      "key": "world",
+      "path": "src/simulation/world.ts",
+      "symbols": [
+        "World"
+      ],
+      "members": [
+        "fire",
+        "attackHit",
+        "hit",
+        "commitUnitDeath",
+        "expireUnit",
+        "familyMemberCap",
+        "familySeatCount",
+        "squadCap",
+        "heroEntity"
+      ]
+    },
+    {
+      "key": "production",
+      "path": "src/simulation/expedition-production.ts",
+      "symbols": [
+        "productionQuote",
+        "updateExpeditionProduction",
+        "releasePaidPassenger",
+        "receiptNeeded",
+        "commitReplacement"
+      ]
+    },
+    {
+      "key": "supply",
+      "path": "src/simulation/progression/supply-plan.ts",
+      "symbols": [
+        "supplyPlan"
+      ]
+    },
+    {
+      "key": "delivery",
+      "path": "src/simulation/production-queries.ts",
+      "symbols": [
+        "deliveryJobs",
+        "deliveryJob",
+        "deliveryChanged"
+      ]
+    },
+    {
+      "key": "brood",
+      "path": "src/simulation/zerg-brood.ts",
+      "symbols": [
+        "rosterMembers",
+        "joinPair",
+        "notePairDeath",
+        "tickBroods"
+      ]
+    },
+    {
+      "key": "flight",
+      "path": "src/simulation/combat/weapon-flight.ts",
+      "symbols": [
+        "WeaponFlight",
+        "launchWeaponFlight",
+        "tickWeaponFlights"
+      ]
+    },
+    {
+      "key": "patterns",
+      "path": "src/simulation/combat/weapon-patterns.ts",
+      "symbols": [
+        "fireWeaponPattern",
+        "tickWeaponAreas"
+      ]
+    },
+    {
+      "key": "combat",
+      "path": "src/simulation/combat/expedition-combat.ts",
+      "symbols": [
+        "refreshExpeditionStats",
+        "expeditionWeaponScale",
+        "unitData"
+      ]
+    },
+    {
+      "key": "six",
+      "path": "src/simulation/combat/zerg-six.ts",
+      "symbols": [
+        "ZergSixState",
+        "zergSixInstant",
+        "resolveZergSixFlight",
+        "convertInfestation",
+        "tickZergSixUnit",
+        "validateZergSixState"
+      ]
+    },
+    {
+      "key": "revival",
+      "path": "src/simulation/combat/zerg-hero-revival.ts",
+      "symbols": [
+        "tickZergRevival",
+        "registerZergRevival",
+        "zergRevivalSeats"
+      ]
+    },
+    {
+      "key": "equipmentLife",
+      "path": "src/simulation/starship/lifecycle.ts",
+      "symbols": [
+        "EquipmentLifeRuntime",
+        "equipmentBodyDied",
+        "equipmentCanRevive"
+      ]
+    },
+    {
+      "key": "heroes",
+      "path": "src/simulation/combat/expedition-heroes.ts",
+      "symbols": [
+        "canAcquireExpeditionHero",
+        "refreshExpeditionHero",
+        "castExpeditionHero",
+        "deployExpeditionHero"
+      ]
+    },
+    {
+      "key": "nativeHeroes",
+      "path": "src/simulation/starship/native-effects.ts",
+      "symbols": [
+        "nativeEquipmentHeroSources"
+      ]
+    },
+    {
+      "key": "auras",
+      "path": "src/simulation/combat/team-auras.ts",
+      "symbols": [
+        "permanentTeamBody",
+        "compositeHeroBuff",
+        "compositeEliteBuff"
+      ]
+    },
+    {
+      "key": "equipment",
+      "path": "src/simulation/starship/runtime.ts",
+      "symbols": [
+        "StarshipRuntime",
+        "equipmentUnitTotals"
+      ]
+    },
+    {
+      "key": "projections",
+      "path": "src/simulation/starship/projections.ts",
+      "symbols": [
+        "createEquipmentProjections",
+        "retireEquipmentProjection"
+      ]
+    },
+    {
+      "key": "fields",
+      "path": "src/simulation/persistence/run-fields.ts",
+      "symbols": [
+        "validateRunData",
+        "selectRunData"
+      ]
+    },
+    {
+      "key": "snapshot",
+      "path": "src/simulation/persistence/run-snapshot.ts",
+      "symbols": [
+        "RUN_SCHEMA",
+        "RunSnapshot"
+      ]
+    },
+    {
+      "key": "archive",
+      "path": "src/persistence/archive.ts",
+      "symbols": [
+        "readArchive",
+        "writeArchive"
+      ]
+    },
+    {
+      "key": "presence",
+      "path": "src/simulation/combat/combat-presence.ts",
+      "symbols": [
+        "hasCombatPotential"
+      ]
+    },
+    {
+      "key": "ui",
+      "path": "src/ui/presentation/armed-cards.ts",
+      "symbols": [
+        "armedWorldDetail",
+        "armedNodeViews"
+      ]
+    },
+    {
+      "key": "render",
+      "path": "src/render/effects/bio-battle-effects.ts",
+      "symbols": [
+        "BioBattleEffects"
+      ]
+    },
+    {
+      "key": "types",
+      "path": "src/simulation/types.ts",
+      "symbols": [
+        "Entity",
+        "HeroRecord"
+      ]
+    },
+    {
+      "key": "eligibility",
+      "path": "src/simulation/starship/eligibility.ts",
+      "symbols": [
+        "permanentEquipmentBody",
+        "equipmentCanGrow"
+      ]
+    },
+    {
+      "key": "members",
+      "path": "src/simulation/starship/members.ts",
+      "symbols": [
+        "equipmentBoundBody",
+        "equipmentRosterMember"
+      ]
+    },
+    {
+      "key": "runState",
+      "path": "src/simulation/run-state.ts",
+      "symbols": [
+        "RunState"
+      ],
+      "members": [
+        "snapshotData"
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "id": "ZSW-W01",
+      "localId": "W01",
+      "name": "繁殖加速",
+      "difficulty": "medium",
+      "maxRank": 3,
+      "ports": [
+        "production",
+        "delivery"
+      ],
+      "plannedHandlers": [
+        "swarmProductionFactor"
+      ],
+      "acceptance": [
+        "S20",
+        "S40"
+      ]
+    },
+    {
+      "id": "ZSW-W02",
+      "localId": "W02",
+      "name": "跳虫投放",
+      "difficulty": "medium",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "brood",
+        "combat"
+      ],
+      "plannedHandlers": [
+        "queueSwarmBatch"
+      ],
+      "acceptance": [
+        "S14",
+        "S16",
+        "S17"
+      ]
+    },
+    {
+      "id": "ZSW-W03",
+      "localId": "W03",
+      "name": "感染孢子",
+      "difficulty": "high",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "flight",
+        "patterns",
+        "six"
+      ],
+      "plannedHandlers": [
+        "isSwarmPhysicalPrimary",
+        "onSwarmResolvedHit",
+        "onSwarmEnemyDeath"
+      ],
+      "acceptance": [
+        "S05",
+        "S06",
+        "S07",
+        "S08",
+        "S09"
+      ]
+    },
+    {
+      "id": "ZSW-W04",
+      "localId": "W04",
+      "name": "血肉再生",
+      "difficulty": "medium",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "production"
+      ],
+      "plannedHandlers": [
+        "onSwarmFormalDeath",
+        "nextSwarmDeliveryCountdown"
+      ],
+      "acceptance": [
+        "S20",
+        "S29"
+      ]
+    },
+    {
+      "id": "ZSW-W05",
+      "localId": "W05",
+      "name": "破壳狂热",
+      "difficulty": "low",
+      "maxRank": 3,
+      "ports": [
+        "combat",
+        "world"
+      ],
+      "plannedHandlers": [
+        "swarmBirthModifiers"
+      ],
+      "acceptance": [
+        "S16",
+        "S33"
+      ]
+    },
+    {
+      "id": "ZSW-W06",
+      "localId": "W06",
+      "name": "孵化甲壳",
+      "difficulty": "medium",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "combat"
+      ],
+      "plannedHandlers": [
+        "swarmBirthModifiers",
+        "absorbSwarmShells"
+      ],
+      "acceptance": [
+        "S34"
+      ]
+    },
+    {
+      "id": "ZSW-W07",
+      "localId": "W07",
+      "name": "协同撕咬",
+      "difficulty": "medium",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "flight"
+      ],
+      "plannedHandlers": [
+        "onSwarmResolvedHit",
+        "swarmDirectFactor"
+      ],
+      "acceptance": [
+        "S35"
+      ]
+    },
+    {
+      "id": "ZSW-W08",
+      "localId": "W08",
+      "name": "破壳冲击",
+      "difficulty": "medium",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "combat"
+      ],
+      "plannedHandlers": [
+        "onSwarmRootBatchBorn",
+        "swarmCardDamage"
+      ],
+      "acceptance": [
+        "S31",
+        "S35"
+      ]
+    },
+    {
+      "id": "ZSW-W09",
+      "localId": "W09",
+      "name": "群体追猎",
+      "difficulty": "low",
+      "maxRank": 3,
+      "ports": [
+        "world"
+      ],
+      "plannedHandlers": [
+        "swarmDirectFactor"
+      ],
+      "acceptance": [
+        "S35"
+      ]
+    },
+    {
+      "id": "ZSW-G01",
+      "localId": "G01",
+      "name": "虫族主脑",
+      "difficulty": "high",
+      "maxRank": 3,
+      "ports": [
+        "production",
+        "delivery",
+        "expedition",
+        "world"
+      ],
+      "plannedHandlers": [
+        "claimSwarmDelivery",
+        "releaseSwarmDelivery"
+      ],
+      "acceptance": [
+        "S21",
+        "S22",
+        "S23"
+      ]
+    },
+    {
+      "id": "ZSW-G02",
+      "localId": "G02",
+      "name": "孵化囊肿",
+      "difficulty": "medium",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "combat"
+      ],
+      "plannedHandlers": [
+        "queueSwarmBatch",
+        "consumeSwarmBaneling"
+      ],
+      "acceptance": [
+        "S19"
+      ]
+    },
+    {
+      "id": "ZSW-G03",
+      "localId": "G03",
+      "name": "坑道虫",
+      "difficulty": "medium",
+      "maxRank": 3,
+      "ports": [
+        "production",
+        "world",
+        "brood"
+      ],
+      "plannedHandlers": [
+        "resolveSwarmRecipe",
+        "queueSwarmBatch"
+      ],
+      "acceptance": [
+        "S14",
+        "S17"
+      ]
+    },
+    {
+      "id": "ZSW-G04",
+      "localId": "G04",
+      "name": "再生血肉",
+      "difficulty": "high",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "revival",
+        "equipmentLife",
+        "brood",
+        "presence"
+      ],
+      "plannedHandlers": [
+        "offerSwarmRevival",
+        "resolveFormalRevivalCandidates"
+      ],
+      "acceptance": [
+        "S26",
+        "S27",
+        "S28",
+        "S29"
+      ]
+    },
+    {
+      "id": "ZSW-G05",
+      "localId": "G05",
+      "name": "刺蛇卵群",
+      "difficulty": "low",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "combat"
+      ],
+      "plannedHandlers": [
+        "queueSwarmBatch"
+      ],
+      "acceptance": [
+        "S14",
+        "S16"
+      ]
+    },
+    {
+      "id": "ZSW-G06",
+      "localId": "G06",
+      "name": "畸变护卫",
+      "difficulty": "low",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "six"
+      ],
+      "plannedHandlers": [
+        "queueSwarmBatch"
+      ],
+      "acceptance": [
+        "S14",
+        "S16"
+      ]
+    },
+    {
+      "id": "ZSW-G07",
+      "localId": "G07",
+      "name": "孢囊喷射",
+      "difficulty": "medium",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "combat"
+      ],
+      "plannedHandlers": [
+        "swarmSporeProjectile",
+        "applySwarmSpore"
+      ],
+      "acceptance": [
+        "S10",
+        "S13"
+      ]
+    },
+    {
+      "id": "ZSW-G08",
+      "localId": "G08",
+      "name": "残躯筑甲",
+      "difficulty": "medium",
+      "maxRank": 3,
+      "ports": [
+        "world"
+      ],
+      "plannedHandlers": [
+        "onSwarmFormalDeath",
+        "grantSwarmShell"
+      ],
+      "acceptance": [
+        "S29",
+        "S34"
+      ]
+    },
+    {
+      "id": "ZSW-G09",
+      "localId": "G09",
+      "name": "伴生幼虫",
+      "difficulty": "medium",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "brood"
+      ],
+      "plannedHandlers": [
+        "onSwarmRootBatchBorn"
+      ],
+      "acceptance": [
+        "S31"
+      ]
+    },
+    {
+      "id": "ZSW-B01",
+      "localId": "B01",
+      "name": "腺体增强",
+      "difficulty": "high",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "production",
+        "supply",
+        "brood"
+      ],
+      "plannedHandlers": [
+        "applyZergSwarmCard",
+        "swarmFamilyCapacity"
+      ],
+      "acceptance": [
+        "S24",
+        "S25"
+      ]
+    },
+    {
+      "id": "ZSW-B02",
+      "localId": "B02",
+      "name": "裂体虫族",
+      "difficulty": "medium",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "production"
+      ],
+      "plannedHandlers": [
+        "onSwarmFormalDeath"
+      ],
+      "acceptance": [
+        "S29",
+        "S30"
+      ]
+    },
+    {
+      "id": "ZSW-B03",
+      "localId": "B03",
+      "name": "孢子传染",
+      "difficulty": "high",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "flight",
+        "patterns",
+        "six"
+      ],
+      "plannedHandlers": [
+        "onSwarmResolvedHit",
+        "resolveSwarmSporeOffspring"
+      ],
+      "acceptance": [
+        "S05",
+        "S06",
+        "S13"
+      ]
+    },
+    {
+      "id": "ZSW-B04",
+      "localId": "B04",
+      "name": "腐蚀空群",
+      "difficulty": "low",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "six"
+      ],
+      "plannedHandlers": [
+        "queueSwarmBatch"
+      ],
+      "acceptance": [
+        "S14"
+      ]
+    },
+    {
+      "id": "ZSW-B05",
+      "localId": "B05",
+      "name": "寄生战群",
+      "difficulty": "low",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "six"
+      ],
+      "plannedHandlers": [
+        "queueSwarmBatch"
+      ],
+      "acceptance": [
+        "S11",
+        "S12",
+        "S14"
+      ]
+    },
+    {
+      "id": "ZSW-B06",
+      "localId": "B06",
+      "name": "巢穴攻势",
+      "difficulty": "low",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "six"
+      ],
+      "plannedHandlers": [
+        "queueSwarmBatch"
+      ],
+      "acceptance": [
+        "S14",
+        "S33"
+      ]
+    },
+    {
+      "id": "ZSW-B07",
+      "localId": "B07",
+      "name": "群体围攻",
+      "difficulty": "medium",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "combat"
+      ],
+      "plannedHandlers": [
+        "swarmNearbyCount",
+        "swarmDirectFactor"
+      ],
+      "acceptance": [
+        "S35",
+        "S42"
+      ]
+    },
+    {
+      "id": "ZSW-B08",
+      "localId": "B08",
+      "name": "成熟腺体",
+      "difficulty": "medium",
+      "maxRank": 3,
+      "ports": [
+        "combat",
+        "equipment",
+        "six"
+      ],
+      "plannedHandlers": [
+        "tickSwarmMaturity"
+      ],
+      "acceptance": [
+        "S33"
+      ]
+    },
+    {
+      "id": "ZSW-B09",
+      "localId": "B09",
+      "name": "战损接替",
+      "difficulty": "medium",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "projections",
+        "eligibility",
+        "members"
+      ],
+      "plannedHandlers": [
+        "onSwarmFormalDeath",
+        "spawnSwarmClone"
+      ],
+      "acceptance": [
+        "S29",
+        "S30"
+      ]
+    },
+    {
+      "id": "ZSW-P01",
+      "localId": "P01",
+      "name": "雷兽冲锋",
+      "difficulty": "medium",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "combat",
+        "render"
+      ],
+      "plannedHandlers": [
+        "queueSwarmBatch"
+      ],
+      "acceptance": [
+        "S14",
+        "S16",
+        "S32",
+        "S33"
+      ]
+    },
+    {
+      "id": "ZSW-P02",
+      "localId": "P02",
+      "name": "遮蔽天空",
+      "difficulty": "medium",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "production",
+        "draft"
+      ],
+      "plannedHandlers": [
+        "resolveSwarmRecipe"
+      ],
+      "acceptance": [
+        "S14",
+        "S16"
+      ]
+    },
+    {
+      "id": "ZSW-P03",
+      "localId": "P03",
+      "name": "虫潮奔袭",
+      "difficulty": "low",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "brood",
+        "combat"
+      ],
+      "plannedHandlers": [
+        "queueSwarmBatch"
+      ],
+      "acceptance": [
+        "S14",
+        "S32",
+        "S33"
+      ]
+    },
+    {
+      "id": "ZSW-P04",
+      "localId": "P04",
+      "name": "虫巢围城",
+      "difficulty": "low",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "six"
+      ],
+      "plannedHandlers": [
+        "queueSwarmBatch"
+      ],
+      "acceptance": [
+        "S14",
+        "S33"
+      ]
+    },
+    {
+      "id": "ZSW-P05",
+      "localId": "P05",
+      "name": "感染暴潮",
+      "difficulty": "medium",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "six",
+        "combat"
+      ],
+      "plannedHandlers": [
+        "swarmSporeProjectile",
+        "queueSwarmBatch"
+      ],
+      "acceptance": [
+        "S10",
+        "S11",
+        "S13"
+      ]
+    },
+    {
+      "id": "ZSW-P06",
+      "localId": "P06",
+      "name": "虫群合围",
+      "difficulty": "medium",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "six"
+      ],
+      "plannedHandlers": [
+        "queueSwarmBatch"
+      ],
+      "acceptance": [
+        "S14",
+        "S42"
+      ]
+    },
+    {
+      "id": "ZSW-N01",
+      "localId": "N01",
+      "name": "高级虫巢",
+      "difficulty": "high",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "production",
+        "delivery"
+      ],
+      "plannedHandlers": [
+        "swarmBirthRank"
+      ],
+      "acceptance": [
+        "S17",
+        "S21",
+        "S23"
+      ]
+    },
+    {
+      "id": "ZSW-N02",
+      "localId": "N02",
+      "name": "增殖部队",
+      "difficulty": "high",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "projections",
+        "eligibility"
+      ],
+      "plannedHandlers": [
+        "tickSwarmSplit",
+        "spawnSwarmClone"
+      ],
+      "acceptance": [
+        "S30",
+        "S32"
+      ]
+    },
+    {
+      "id": "ZSW-N03",
+      "localId": "N03",
+      "name": "绝望重生",
+      "difficulty": "high",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "revival",
+        "equipmentLife",
+        "brood"
+      ],
+      "plannedHandlers": [
+        "offerSwarmRevival",
+        "onSwarmFormalRevived"
+      ],
+      "acceptance": [
+        "S26",
+        "S27",
+        "S28",
+        "S29",
+        "S30"
+      ]
+    },
+    {
+      "id": "ZSW-N04",
+      "localId": "N04",
+      "name": "王虫腺体",
+      "difficulty": "medium",
+      "maxRank": 3,
+      "ports": [
+        "build",
+        "world",
+        "production"
+      ],
+      "plannedHandlers": [
+        "swarmFamilyCapacity"
+      ],
+      "acceptance": [
+        "S03",
+        "S24",
+        "S25"
+      ]
+    },
+    {
+      "id": "ZSW-N05",
+      "localId": "N05",
+      "name": "孢子母巢",
+      "difficulty": "medium",
+      "maxRank": 3,
+      "ports": [
+        "world"
+      ],
+      "plannedHandlers": [
+        "resolveSwarmSporeOffspring"
+      ],
+      "acceptance": [
+        "S13",
+        "S32"
+      ]
+    },
+    {
+      "id": "ZSW-N06",
+      "localId": "N06",
+      "name": "连续孵化",
+      "difficulty": "high",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "expedition"
+      ],
+      "plannedHandlers": [
+        "onSwarmRootBatchBorn"
+      ],
+      "acceptance": [
+        "S31",
+        "S32",
+        "S40"
+      ]
+    },
+    {
+      "id": "ZSW-N07",
+      "localId": "N07",
+      "name": "围猎本能",
+      "difficulty": "medium",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "flight",
+        "patterns"
+      ],
+      "plannedHandlers": [
+        "onSwarmResolvedHit",
+        "swarmCardDamage"
+      ],
+      "acceptance": [
+        "S35"
+      ]
+    },
+    {
+      "id": "ZSW-N08",
+      "localId": "N08",
+      "name": "延命腺体",
+      "difficulty": "medium",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "six",
+        "fields"
+      ],
+      "plannedHandlers": [
+        "swarmLifetime"
+      ],
+      "acceptance": [
+        "S18",
+        "S40"
+      ]
+    },
+    {
+      "id": "ZSW-N09",
+      "localId": "N09",
+      "name": "集群巢甲",
+      "difficulty": "medium",
+      "maxRank": 3,
+      "ports": [
+        "world",
+        "auras",
+        "combat"
+      ],
+      "plannedHandlers": [
+        "swarmNearbyCount",
+        "swarmIncomingFactor"
+      ],
+      "acceptance": [
+        "S35",
+        "S42"
+      ]
+    },
+    {
+      "id": "ZSW-O01",
+      "localId": "O01",
+      "name": "英雄分裂",
+      "difficulty": "high",
+      "maxRank": 1,
+      "ports": [
+        "world",
+        "heroes",
+        "nativeHeroes",
+        "auras",
+        "members",
+        "equipmentLife",
+        "presence"
+      ],
+      "plannedHandlers": [
+        "bindSwarmHeroTwin",
+        "castSwarmHeroGroup",
+        "tickSwarmHeroTwin"
+      ],
+      "acceptance": [
+        "S36",
+        "S37",
+        "S38",
+        "S39",
+        "S40"
+      ]
+    },
+    {
+      "id": "ZSW-O02",
+      "localId": "O02",
+      "name": "基因突破",
+      "difficulty": "high",
+      "maxRank": 1,
+      "ports": [
+        "world",
+        "production",
+        "supply",
+        "build"
+      ],
+      "plannedHandlers": [
+        "swarmSquadCapacity",
+        "swarmFamilyCapacity"
+      ],
+      "acceptance": [
+        "S24",
+        "S25",
+        "S41"
+      ]
+    },
+    {
+      "id": "ZSW-O03",
+      "localId": "O03",
+      "name": "无尽虫巢",
+      "difficulty": "high",
+      "maxRank": 1,
+      "ports": [
+        "world",
+        "expedition",
+        "build"
+      ],
+      "plannedHandlers": [
+        "swarmChance",
+        "expandSwarmRecipe",
+        "swarmTemporaryCapacity"
+      ],
+      "acceptance": [
+        "S13",
+        "S14",
+        "S32"
+      ]
+    }
+  ],
+  "sharedAcceptance": [
+    "S01",
+    "S02",
+    "S03",
+    "S04",
+    "S40",
+    "S41",
+    "S42"
+  ]
+}

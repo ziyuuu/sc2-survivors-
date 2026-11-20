@@ -8,6 +8,7 @@ import {refreshEquipmentMember} from '../starship/members';
 import {equipmentSurvivesWipe} from '../starship/lifecycle';
 import {hasCombatPotential} from '../combat/combat-presence';
 import {newArmedSupport} from '../combat/armed-support-state';
+import {clearDoomsdayBattle,clearDoomsdayActorBattle} from '../combat/doomsday-combat';
 import {SpecialTerrain} from './terrain';
 import type {SpecialActive,SpecialStageKind} from './state';
 import {SPECIAL_STAGE_NAMES} from './state';
@@ -41,6 +42,7 @@ export function parkNormalWorld(w:World,a:SpecialActive,members:Entity[]){
  w.terrain=terrain(a.kind);w.obstacles=(w.terrain as SpecialTerrain).walls.map(o=>({...o}));w.enemySpecials=new EnemySpecials(w);
  w.expedition.ledger=[];w.expedition.pendingFreeDeliveries=[];w.expedition.pendingReceipt=null;w.expedition.pendingTalentLoot=null;w.expedition.eliteRescueRights=[];w.expedition.weaponAreas=[];w.expedition.spells=[];w.expedition.bossLootQueue=[];w.expedition.support.impacts=[];w.expedition.support.mines=[];
  w.expedition.support.burns=[];w.expedition.detectionFields=[];
+ const parkedSalvos=w.expedition.doomsday?.salvos?.filter(g=>g.enhanced).length??0;const parkedResonance=w.expedition.doomsday?.areas?.filter(e=>e.kind==='resonance'&&e.enhanced).length??0;clearDoomsdayBattle(w);if(w.expedition.doomsday){w.expedition.doomsday.parkedSalvoReservations=parkedSalvos;w.expedition.doomsday.parkedResonanceReservations=parkedResonance;}
  const armed=w.expedition.support.armed;
  if(armed){
   // The parent keeps its actors, scheduled impacts, queued charges and field clock.
@@ -60,6 +62,7 @@ export function parkNormalWorld(w:World,a:SpecialActive,members:Entity[]){
  for(const h of w.heroes.values()){h.awaitingSpawn=false;h.revivePaid=false;}
  const columns=a.kind==='dodge'?2:Math.min(7,Math.ceil(Math.sqrt(members.length))),spacing=a.kind==='dodge'?Math.max(1.2,...members.map(u=>u.unitRadius*2+.25)):1.4;
  for(const [i,u] of data.members.entries()){
+  clearDoomsdayActorBattle(u);
   const index=Math.max(0,members.findIndex(v=>v.id===u.id));u.x=(index%columns-(columns-1)/2)*spacing;u.z=w.anchor.z+Math.floor(index/columns)*spacing;u.prev={x:u.x,z:u.z};u.trailIndex=0;u.slot=i;u.velocity={x:0,z:0};u.attackTarget=null;u.pendingTarget=null;u.windup=0;u.action='idle';delete u.cliffTransit;delete u.chargeState;
   w.entities.set(u.id,u);
   transferNativeStats(oldStarship,originals[i],w.starship,u);

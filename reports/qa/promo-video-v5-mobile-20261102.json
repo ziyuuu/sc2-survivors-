@@ -1,0 +1,14 @@
+{
+  "file": "dist/promo-video-v5-20261102/Starcraft-Survivors-Trailer-v5-mobile.mp4",
+  "bytes": 63737916,
+  "sha256": "42dffd0354e85040d5c02b2f7626baaa68a58746bd12e8132fabfcfbcde28fda",
+  "duration": 300.0,
+  "plannedDuration": 300,
+  "size": [
+    1920,
+    1080
+  ],
+  "fps": 30,
+  "decodeErrors": "",
+  "driveUpload": "User requested local delivery after connection failures."
+}

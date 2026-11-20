@@ -1,3 +1,4 @@
+import {doomsdayOwnsFlight} from '../../simulation/combat/doomsday-presentation';
 import {enemyMissileHeight} from './enemy-special-source';
 import {fleetPresentationCasts} from './mission-feedback';
 import {isProtossEliteId} from '../../data/protoss-elites';
@@ -120,7 +121,7 @@ export class CombatSculptures {
   obj.position.set((from.x+to.x)/2,(from.y+to.y)/2,(from.z+to.z)/2);obj.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),new THREE.Vector3(to.x-from.x,to.y-from.y,to.z-from.z).normalize());obj.scale.set(width,d/1.26,width);obj.updateMatrix();b.mesh.setMatrixAt(b.count,obj.matrix);b.mesh.setColorAt(b.count,tint.set(color));b.count++;
  }
  private flight(w:World,p:WeaponFlight,visible:(p:Point)=>boolean,muzzle:(e:VisualEvent,side?:'Left'|'Right')=>Vec|null){
-  if(this.ordinarySource(p.source))return;
+  if(this.ordinarySource(p.source)||doomsdayOwnsFlight(w,p))return;
   if(isRevisedHero(p.source.heroId)||revisedElite(p.source)||revisedZergElite(p.source)||isProtossEliteId(p.source.eliteId)||isProtossEliteId(w.entities.get(p.source.summonOwnerId??-1)?.eliteId)||w.time<p.start)return;
   if(!visible(p.point))return;const u=p.source,hero=u.heroId?HERO_SPECTACLE[u.heroId]:undefined;
   // These two use their authentic original weapon meshes, rendered by OriginalProjectiles.

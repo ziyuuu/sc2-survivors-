@@ -1,0 +1,212 @@
+[
+  {
+    "id": "model.ghost",
+    "modelDataId": "Ghost",
+    "assetPath": "Assets/Units/Terran/GhostEx3/GhostEx3.m3",
+    "name": "ghostex3",
+    "sourceScale": null
+  },
+  {
+    "id": "model.widow_mine",
+    "modelDataId": "WidowMine",
+    "assetPath": "Assets/Units/Terran/WidowMine/WidowMine.m3",
+    "name": "widowmine",
+    "sourceScale": "0.750000,0.750000,0.750000"
+  },
+  {
+    "id": "model.cyclone",
+    "modelDataId": "Cyclone",
+    "assetPath": "Assets/Units/Terran/Cyclone/Cyclone.m3",
+    "name": "cyclone",
+    "sourceScale": null
+  },
+  {
+    "id": "model.raven",
+    "modelDataId": "Raven",
+    "assetPath": "Assets/Units/Terran/Raven/Raven.m3",
+    "name": "raven",
+    "sourceScale": "0.800000,0.800000,0.800000"
+  },
+  {
+    "id": "model.liberator",
+    "modelDataId": "Liberator",
+    "assetPath": "Assets/Units/Terran/Liberator/Liberator.m3",
+    "name": "liberator",
+    "sourceScale": null
+  },
+  {
+    "id": "model.liberator.ag",
+    "modelDataId": "LiberatorAG",
+    "assetPath": "Assets/Units/Terran/Liberator/Liberator.m3",
+    "name": "liberator",
+    "sourceScale": null
+  },
+  {
+    "id": "model.liberator.ag.death",
+    "modelDataId": "LiberatorMorph_Death",
+    "assetPath": "Assets/Units/Terran/LiberatorMorph_Death/LiberatorMorph_Death.m3",
+    "name": "liberatormorph_death",
+    "sourceScale": null
+  },
+  {
+    "id": "model.ghost.death",
+    "modelDataId": "GhostDeath",
+    "assetPath": "Assets/Units/Terran/GhostDeathEx1/GhostDeathEx1.m3",
+    "name": "ghostdeathex1",
+    "sourceScale": null
+  },
+  {
+    "id": "model.widow_mine.death",
+    "modelDataId": "WidowMineDeath",
+    "assetPath": "Assets/Units/Terran/WidowMineDeath/WidowMineDeath.m3",
+    "name": "widowminedeath",
+    "sourceScale": null
+  },
+  {
+    "id": "model.cyclone.death",
+    "modelDataId": "CycloneDeath",
+    "assetPath": "Assets/Units/Terran/Cyclone_Death/Cyclone_Death_00.m3",
+    "name": "cyclone_death_00",
+    "sourceScale": null
+  },
+  {
+    "id": "model.raven.death",
+    "modelDataId": "RavenDeath",
+    "assetPath": "Assets/Units/Terran/RavenDeathEx1/RavenDeathEx1_00.m3",
+    "name": "ravendeathex1_00",
+    "sourceScale": null
+  },
+  {
+    "id": "model.liberator.death",
+    "modelDataId": "LiberatorDeath",
+    "assetPath": "Assets/Units/Terran/Liberator_Death/Liberator_Death_00.m3",
+    "name": "liberator_death_00",
+    "sourceScale": null
+  },
+  {
+    "id": "effect.six.ghost-launch",
+    "modelDataId": "GhostAttackLaunch",
+    "assetPath": "Assets/Effects/Terran/GhostWeaponLaunch/GhostWeaponLaunch.m3",
+    "name": "ghostweaponlaunch",
+    "sourceScale": null
+  },
+  {
+    "id": "effect.six.ghost-impact",
+    "modelDataId": "GhostAttackImpact",
+    "assetPath": "Assets/Effects/Terran/GhostWeaponImpact/GhostWeaponImpact.m3",
+    "name": "ghostweaponimpact",
+    "sourceScale": null
+  },
+  {
+    "id": "effect.six.ghost-snipe",
+    "modelDataId": "GhostSnipeAttackLaunch",
+    "assetPath": "Assets/Effects/Terran/SnipeLaunch/SnipeLaunch.m3",
+    "name": "snipelaunch",
+    "sourceScale": null
+  },
+  {
+    "id": "effect.six.ghost-emp",
+    "modelDataId": "GhostEMPAttackImpactEffect",
+    "assetPath": "Assets/Effects/Terran/EMP/EMP.m3",
+    "name": "emp",
+    "sourceScale": "0.600000,0.600000,0.600000"
+  },
+  {
+    "id": "effect.six.mine-launch",
+    "modelDataId": "WidowMineAttackLaunch",
+    "assetPath": "Assets/Effects/Terran/WidowMineDustBirth/WidowMineDustBirth.m3",
+    "name": "widowminedustbirth",
+    "sourceScale": "0.750000,0.750000,0.750000"
+  },
+  {
+    "id": "effect.six.mine-impact",
+    "modelDataId": "WidowMineAttackImpact",
+    "assetPath": "Assets/Effects/Terran/WidowMineImpact/WidowMineImpact.m3",
+    "name": "widowmineimpact",
+    "sourceScale": null
+  },
+  {
+    "id": "effect.six.mine-air-impact",
+    "modelDataId": "WidowMineAirAttackImpact",
+    "assetPath": "Assets/Effects/Terran/WidowMineAirImpact/WidowMineAirImpact.m3",
+    "name": "widowmineairimpact",
+    "sourceScale": null
+  },
+  {
+    "id": "effect.six.cyclone-missile",
+    "modelDataId": "CycloneMissile",
+    "assetPath": "Assets/Effects/Terran/Cyclone_Missile/Cyclone_Missile.m3",
+    "name": "cyclone_missile",
+    "sourceScale": "0.500000,0.500000,0.500000"
+  },
+  {
+    "id": "effect.six.cyclone-impact",
+    "modelDataId": "CycloneMissileImpact",
+    "assetPath": "Assets/Effects/Terran/Cyclone_Missile_Impact/Cyclone_Missile_Impact.m3",
+    "name": "cyclone_missile_impact",
+    "sourceScale": null
+  },
+  {
+    "id": "effect.six.liberator-missile",
+    "modelDataId": "LiberatorMissile",
+    "assetPath": "Assets/Effects/Terran/Liberator_Missile/Liberator_Missile.m3",
+    "name": "liberator_missile",
+    "sourceScale": null
+  },
+  {
+    "id": "effect.six.raven-debuff",
+    "modelDataId": "RavenShredderMissileAttackImpactDebuff",
+    "assetPath": "Assets/Effects/Terran/Raven_Shredder_Missile_MP_ImpactDebuff/Raven_Shredder_Missile_MP_ImpactDebuff.m3",
+    "name": "raven_shredder_missile_mp_impactdebuff",
+    "sourceScale": null
+  },
+  {
+    "id": "effect.six.ghost-snipe-hit",
+    "modelDataId": "GhostSnipeAttackImpact",
+    "assetPath": "Assets/Effects/Terran/SnipeImpact/SnipeImpact.m3",
+    "name": "snipeimpact",
+    "sourceScale": null
+  },
+  {
+    "id": "effect.six.mine-missile",
+    "modelDataId": "TornadoMissileWeapon",
+    "assetPath": "Assets/Effects/Terran/WarHoundHaywireMissile/WarHoundHaywireMissile.m3",
+    "name": "warhoundhaywiremissile",
+    "sourceScale": "2.000000,2.000000,2.000000"
+  },
+  {
+    "id": "effect.six.liberator-aa-impact",
+    "modelDataId": "LiberatorAttackImpact",
+    "assetPath": "Assets/Effects/Terran/Liberator_Missile_Impact/Liberator_Missile_Impact.m3",
+    "name": "liberator_missile_impact",
+    "sourceScale": null
+  },
+  {
+    "id": "effect.six.liberator-ag-impact",
+    "modelDataId": "LiberatorAGAttackImpact",
+    "assetPath": "Assets/Effects/Terran/Liberator_GroundCannon_Impact/Liberator_GroundCannon_Impact.m3",
+    "name": "liberator_groundcannon_impact",
+    "sourceScale": null
+  },
+  {
+    "id": "effect.six.yamato-missile",
+    "modelDataId": "YamatoWeapon",
+    "assetPath": "Assets/Effects/Terran/YamatoMissile/YamatoMissile.m3",
+    "name": "yamatomissile",
+    "sourceScale": null
+  },
+  {
+    "id": "effect.six.raven-missile",
+    "modelDataId": "ShredderWeapon",
+    "assetPath": "Assets/Effects/Terran/Raven_Shredder_Missile_MP/Raven_Shredder_Missile_MP.m3",
+    "name": "raven_shredder_missile_mp",
+    "sourceScale": null
+  },
+  {
+    "id": "effect.six.yamato-impact",
+    "modelDataId": "BattlecruiserYamatoAttackImpact",
+    "assetPath": "Assets/Effects/Terran/YamatoMissileImpact/YamatoMissileImpact.m3",
+    "name": "yamatomissileimpact",
+    "sourceScale": null
+  }
+]

@@ -1,0 +1,1413 @@
+{
+  "file": "dist\\promo-video-v2-20261030\\Starcraft-Survivors-Trailer-v2.mp4",
+  "bytes": 231232934,
+  "sha256": "52b706b3899314b9f6cd40f8fe6676a5fb82b090c0799065f192fa30a73563c6",
+  "duration": "00:04:00",
+  "size": [
+    1920,
+    1080
+  ],
+  "fps": 30,
+  "decodeExit": 0,
+  "decodeErrors": "",
+  "audioLevels": [
+    "mean_volume: -21.2 dB",
+    "max_volume: -1.3 dB"
+  ],
+  "reviewFrames": [
+    1,
+    4,
+    8,
+    11,
+    14,
+    17,
+    19,
+    21,
+    23,
+    26,
+    30,
+    35,
+    42,
+    47,
+    54,
+    61,
+    70,
+    77,
+    87,
+    95,
+    100,
+    110,
+    117,
+    120,
+    121,
+    126,
+    133,
+    138,
+    143,
+    150,
+    156,
+    162,
+    165,
+    168,
+    172,
+    175,
+    180,
+    184,
+    188,
+    191,
+    196,
+    200,
+    204,
+    207,
+    210,
+    215,
+    220,
+    225,
+    227,
+    231,
+    235,
+    238
+  ],
+  "visualReview": {
+    "status": "passed-sampled",
+    "scope": "Inspected 52 sampled final frames in five contact sheets plus full-size frames at 104s, 121s, 168s and 228.2s. Confirmed three-race defeat/grayscale, original logo/opening without progress bar, readable arrival cards, three-race equipment/stats, comparison labels and three art titles; no persistent click-ring residue in sampled frames. Not continuous human viewing or a listening review.",
+    "additionalFrames": [
+      104,
+      228.2
+    ]
+  },
+  "captureMode": "Offline fixed-step game rendering at 30 sampled frames per simulation second; not a real-time FPS benchmark. UI animation clock synchronized for supplemental captures.",
+  "scope": "User-authorized staged and numerically tuned gameplay. Isolated memory account. No production game edits or publication. Sound reconstructed from captured game sound-bank cues, source voices and local instrumental/sound design.",
+  "comparisons": [
+    {
+      "race": "terran",
+      "sameScenarioExceptGear": true,
+      "before": {
+        "type": "marine",
+        "hp": 134.54999999999998,
+        "shield": 0,
+        "damage": 15.92307692307692,
+        "period": 0.4112756808408983
+      },
+      "after": {
+        "type": "marine",
+        "hp": 4083.4287000000004,
+        "shield": 0,
+        "damage": 15.92307692307692,
+        "period": 0.2778889735411475
+      },
+      "enemiesAt5s": [
+        10,
+        0
+      ]
+    },
+    {
+      "race": "zerg",
+      "sameScenarioExceptGear": true,
+      "before": {
+        "type": "zergling",
+        "hp": 104.64999999999999,
+        "shield": 0,
+        "damage": 13.269230769230766,
+        "period": 0.3325370281892021
+      },
+      "after": {
+        "type": "zergling",
+        "hp": 4039.1169000000004,
+        "shield": 0,
+        "damage": 13.269230769230766,
+        "period": 0.22468718120892034
+      },
+      "enemiesAt5s": [
+        12,
+        0
+      ]
+    },
+    {
+      "race": "protoss",
+      "sameScenarioExceptGear": true,
+      "before": {
+        "type": "zealot",
+        "hp": 299,
+        "shield": 149.5,
+        "damage": 21.230769230769226,
+        "period": 0.5733397037744864
+      },
+      "after": {
+        "type": "zealot",
+        "hp": 4327.1436,
+        "shield": 235.9708,
+        "damage": 21.230769230769226,
+        "period": 0.3873916917395178
+      },
+      "enemiesAt5s": [
+        13,
+        0
+      ]
+    }
+  ],
+  "captures": [
+    {
+      "name": "comeback",
+      "frames": 1740,
+      "seconds": 58,
+      "wallSeconds": 220.304,
+      "phase": "battle",
+      "allies": 5,
+      "boss": {
+        "hp": 0,
+        "deadAt": 26.25
+      },
+      "heroes": [
+        "raynor"
+      ],
+      "events": [
+        {
+          "at": 12,
+          "time": 12,
+          "kind": "pressure"
+        },
+        {
+          "at": 23,
+          "time": 23,
+          "kind": "boss-vulnerable",
+          "hp": 100
+        },
+        {
+          "at": 29,
+          "time": 29,
+          "kind": "boss-reward",
+          "ok": true,
+          "heroes": [
+            "raynor"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "compare-protoss-after",
+      "frames": 270,
+      "seconds": 9,
+      "wallSeconds": 38.745,
+      "phase": "battle",
+      "allies": 7,
+      "boss": null,
+      "heroes": [],
+      "events": []
+    },
+    {
+      "name": "compare-protoss-before",
+      "frames": 270,
+      "seconds": 9,
+      "wallSeconds": 43.06,
+      "phase": "battle",
+      "allies": 7,
+      "boss": null,
+      "heroes": [],
+      "events": []
+    },
+    {
+      "name": "compare-terran-after",
+      "frames": 270,
+      "seconds": 9,
+      "wallSeconds": 25.891,
+      "phase": "battle",
+      "allies": 8,
+      "boss": null,
+      "heroes": [],
+      "events": []
+    },
+    {
+      "name": "compare-terran-before",
+      "frames": 270,
+      "seconds": 9,
+      "wallSeconds": 29.878,
+      "phase": "battle",
+      "allies": 8,
+      "boss": null,
+      "heroes": [],
+      "events": []
+    },
+    {
+      "name": "compare-zerg-after",
+      "frames": 270,
+      "seconds": 9,
+      "wallSeconds": 28.271,
+      "phase": "battle",
+      "allies": 13,
+      "boss": null,
+      "heroes": [],
+      "events": []
+    },
+    {
+      "name": "compare-zerg-before",
+      "frames": 270,
+      "seconds": 9,
+      "wallSeconds": 37.685,
+      "phase": "battle",
+      "allies": 13,
+      "boss": null,
+      "heroes": [],
+      "events": []
+    },
+    {
+      "name": "counterpush",
+      "frames": 540,
+      "seconds": 18,
+      "wallSeconds": 78.125,
+      "phase": "battle",
+      "allies": 5,
+      "boss": null,
+      "heroes": [
+        "raynor"
+      ],
+      "events": []
+    },
+    {
+      "name": "development2",
+      "frames": 420,
+      "seconds": 14,
+      "wallSeconds": 45.772,
+      "phase": "reward",
+      "allies": 8,
+      "boss": null,
+      "heroes": [],
+      "events": [
+        {
+          "at": 2,
+          "time": 0.1,
+          "kind": "click",
+          "selector": "[data-action=\"development-direction\"][data-line=\"factory\"]"
+        },
+        {
+          "at": 4,
+          "time": 0.1,
+          "kind": "click",
+          "selector": ".im-card-action:not([disabled])"
+        },
+        {
+          "at": 7,
+          "time": 0.1,
+          "kind": "click",
+          "selector": ".im-card-action:not([disabled])"
+        }
+      ]
+    },
+    {
+      "name": "doom-protoss",
+      "frames": 540,
+      "seconds": 18,
+      "wallSeconds": 75.774,
+      "phase": "lost",
+      "allies": 0,
+      "boss": {
+        "hp": 835288.6051365063,
+        "deadAt": null
+      },
+      "heroes": [],
+      "events": []
+    },
+    {
+      "name": "doom-terran",
+      "frames": 540,
+      "seconds": 18,
+      "wallSeconds": 62.949,
+      "phase": "lost",
+      "allies": 0,
+      "boss": {
+        "hp": 835622.467759788,
+        "deadAt": null
+      },
+      "heroes": [],
+      "events": []
+    },
+    {
+      "name": "doom-zerg",
+      "frames": 540,
+      "seconds": 18,
+      "wallSeconds": 63.902,
+      "phase": "lost",
+      "allies": 0,
+      "boss": {
+        "hp": 834894.0197931733,
+        "deadAt": null
+      },
+      "heroes": [],
+      "events": []
+    },
+    {
+      "name": "elite-zerg",
+      "frames": 300,
+      "seconds": 10,
+      "wallSeconds": 33.401,
+      "phase": "battle",
+      "allies": 7,
+      "boss": {
+        "hp": 0,
+        "deadAt": 1.2833333333333332
+      },
+      "heroes": [],
+      "events": [
+        {
+          "at": 1,
+          "time": 1,
+          "kind": "boss-vulnerable",
+          "hp": 1
+        },
+        {
+          "at": 4,
+          "time": 4,
+          "kind": "elite-boss-reward",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "name": "equipment-fast-protoss",
+      "frames": 300,
+      "seconds": 10,
+      "wallSeconds": 19.639,
+      "phase": "menu",
+      "allies": 1,
+      "boss": {
+        "hp": 0,
+        "deadAt": 5.6
+      },
+      "heroes": [],
+      "events": [
+        {
+          "at": 1.3,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-9",
+          "totals": {
+            "dps": 5,
+            "attackSpeed": 0.025,
+            "armor": 0,
+            "hp": 0,
+            "attack": 0,
+            "trueDps": 0,
+            "range": 0,
+            "crit": 0.0164,
+            "critDamage": 0,
+            "defense": 0,
+            "dodge": 0,
+            "move": 0,
+            "health": 0,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 1.6666666666666667,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-10",
+          "totals": {
+            "dps": 10,
+            "attackSpeed": 0.05,
+            "armor": 0,
+            "hp": 0,
+            "attack": 0,
+            "trueDps": 0,
+            "range": 0,
+            "crit": 0.0164,
+            "critDamage": 0.0424,
+            "defense": 0,
+            "dodge": 0,
+            "move": 0,
+            "health": 0,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 2,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-11",
+          "totals": {
+            "dps": 14.2,
+            "attackSpeed": 0.079,
+            "armor": 0,
+            "hp": 0,
+            "attack": 0.0195,
+            "trueDps": 0,
+            "range": 0,
+            "crit": 0.0164,
+            "critDamage": 0.0424,
+            "defense": 0,
+            "dodge": 0,
+            "move": 0,
+            "health": 0,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 2.3666666666666667,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-12",
+          "totals": {
+            "dps": 18.4,
+            "attackSpeed": 0.108,
+            "armor": 0,
+            "hp": 0,
+            "attack": 0.038900000000000004,
+            "trueDps": 0,
+            "range": 0,
+            "crit": 0.0164,
+            "critDamage": 0.0424,
+            "defense": 0,
+            "dodge": 0,
+            "move": 0,
+            "health": 0,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 2.8,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-1",
+          "totals": {
+            "dps": 44.900000000000006,
+            "attackSpeed": 0.23299999999999998,
+            "armor": 0,
+            "hp": 0,
+            "attack": 0.1493,
+            "trueDps": 18.9,
+            "range": 0.1448,
+            "crit": 0,
+            "critDamage": 0.3904,
+            "defense": 0,
+            "dodge": 0,
+            "move": 0,
+            "health": 0,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 3.2,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-2",
+          "totals": {
+            "dps": 84,
+            "attackSpeed": 0.29800000000000004,
+            "armor": 0,
+            "hp": 0,
+            "attack": 0.2501,
+            "trueDps": 18.9,
+            "range": 0.28880000000000006,
+            "crit": 0.1023,
+            "critDamage": 0.744,
+            "defense": 0,
+            "dodge": 0,
+            "move": 0,
+            "health": 0,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 3.6,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-3",
+          "totals": {
+            "dps": 123.89999999999999,
+            "attackSpeed": 0.359,
+            "armor": 0,
+            "hp": 0,
+            "attack": 0.34819999999999995,
+            "trueDps": 38.8,
+            "range": 0.43520000000000003,
+            "crit": 0.1023,
+            "critDamage": 1.1400000000000001,
+            "defense": 0,
+            "dodge": 0,
+            "move": 0,
+            "health": 0,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 4,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-4",
+          "totals": {
+            "dps": 151.2,
+            "attackSpeed": 0.48,
+            "armor": 0,
+            "hp": 0,
+            "attack": 0.4416,
+            "trueDps": 54.9,
+            "range": 0.43520000000000003,
+            "crit": 0.19030000000000002,
+            "critDamage": 1.4900000000000002,
+            "defense": 0,
+            "dodge": 0,
+            "move": 0,
+            "health": 0,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 4.4,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-5",
+          "totals": {
+            "dps": 151.2,
+            "attackSpeed": 0.48,
+            "armor": 3.15,
+            "hp": 367.5,
+            "attack": 0.4416,
+            "trueDps": 54.9,
+            "range": 0.43520000000000003,
+            "crit": 0.19030000000000002,
+            "critDamage": 1.4900000000000002,
+            "defense": 124,
+            "dodge": 0.0588,
+            "move": 0.0876,
+            "health": 0.14800000000000002,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 4.8,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-6",
+          "totals": {
+            "dps": 151.2,
+            "attackSpeed": 0.48,
+            "armor": 8.4,
+            "hp": 630,
+            "attack": 0.4416,
+            "trueDps": 54.9,
+            "range": 0.43520000000000003,
+            "crit": 0.19030000000000002,
+            "critDamage": 1.4900000000000002,
+            "defense": 282.4,
+            "dodge": 0.13799999999999998,
+            "move": 0.2052,
+            "health": 0.14800000000000002,
+            "reduction": 0.0588
+          }
+        },
+        {
+          "at": 5.2,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-7",
+          "totals": {
+            "dps": 151.2,
+            "attackSpeed": 0.48,
+            "armor": 15.75,
+            "hp": 787.5,
+            "attack": 0.4416,
+            "trueDps": 54.9,
+            "range": 0.43520000000000003,
+            "crit": 0.19030000000000002,
+            "critDamage": 1.4900000000000002,
+            "defense": 442.4,
+            "dodge": 0.13799999999999998,
+            "move": 0.30779999999999996,
+            "health": 0.34600000000000003,
+            "reduction": 0.1149
+          }
+        },
+        {
+          "at": 5.6,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-8",
+          "totals": {
+            "dps": 151.2,
+            "attackSpeed": 0.48,
+            "armor": 21.84,
+            "hp": 1008,
+            "attack": 0.4416,
+            "trueDps": 54.9,
+            "range": 0.43520000000000003,
+            "crit": 0.19030000000000002,
+            "critDamage": 1.4900000000000002,
+            "defense": 578.4,
+            "dodge": 0.20759999999999998,
+            "move": 0.30779999999999996,
+            "health": 0.48200000000000004,
+            "reduction": 0.1569
+          }
+        }
+      ]
+    },
+    {
+      "name": "equipment-fast-terran",
+      "frames": 300,
+      "seconds": 10,
+      "wallSeconds": 18.122,
+      "phase": "menu",
+      "allies": 1,
+      "boss": {
+        "hp": 0,
+        "deadAt": 5.6
+      },
+      "heroes": [],
+      "events": [
+        {
+          "at": 1.3,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-9",
+          "totals": {
+            "dps": 5,
+            "attackSpeed": 0.025,
+            "armor": 0,
+            "hp": 0,
+            "attack": 0,
+            "trueDps": 0,
+            "range": 0,
+            "crit": 0.0164,
+            "critDamage": 0,
+            "defense": 0,
+            "dodge": 0,
+            "move": 0,
+            "health": 0,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 1.6666666666666667,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-10",
+          "totals": {
+            "dps": 10,
+            "attackSpeed": 0.05,
+            "armor": 0,
+            "hp": 0,
+            "attack": 0,
+            "trueDps": 0,
+            "range": 0,
+            "crit": 0.0164,
+            "critDamage": 0.0424,
+            "defense": 0,
+            "dodge": 0,
+            "move": 0,
+            "health": 0,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 2,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-11",
+          "totals": {
+            "dps": 14.2,
+            "attackSpeed": 0.079,
+            "armor": 0,
+            "hp": 0,
+            "attack": 0.0195,
+            "trueDps": 0,
+            "range": 0,
+            "crit": 0.0164,
+            "critDamage": 0.0424,
+            "defense": 0,
+            "dodge": 0,
+            "move": 0,
+            "health": 0,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 2.3666666666666667,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-12",
+          "totals": {
+            "dps": 18.4,
+            "attackSpeed": 0.108,
+            "armor": 0,
+            "hp": 0,
+            "attack": 0.038900000000000004,
+            "trueDps": 0,
+            "range": 0,
+            "crit": 0.0164,
+            "critDamage": 0.0424,
+            "defense": 0,
+            "dodge": 0,
+            "move": 0,
+            "health": 0,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 2.8,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-1",
+          "totals": {
+            "dps": 44.900000000000006,
+            "attackSpeed": 0.23299999999999998,
+            "armor": 0,
+            "hp": 0,
+            "attack": 0.1493,
+            "trueDps": 18.9,
+            "range": 0.1448,
+            "crit": 0,
+            "critDamage": 0.3904,
+            "defense": 0,
+            "dodge": 0,
+            "move": 0,
+            "health": 0,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 3.2,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-2",
+          "totals": {
+            "dps": 84,
+            "attackSpeed": 0.29800000000000004,
+            "armor": 0,
+            "hp": 0,
+            "attack": 0.2501,
+            "trueDps": 18.9,
+            "range": 0.28880000000000006,
+            "crit": 0.1023,
+            "critDamage": 0.744,
+            "defense": 0,
+            "dodge": 0,
+            "move": 0,
+            "health": 0,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 3.6,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-3",
+          "totals": {
+            "dps": 123.89999999999999,
+            "attackSpeed": 0.359,
+            "armor": 0,
+            "hp": 0,
+            "attack": 0.34819999999999995,
+            "trueDps": 38.8,
+            "range": 0.43520000000000003,
+            "crit": 0.1023,
+            "critDamage": 1.1400000000000001,
+            "defense": 0,
+            "dodge": 0,
+            "move": 0,
+            "health": 0,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 4,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-4",
+          "totals": {
+            "dps": 151.2,
+            "attackSpeed": 0.48,
+            "armor": 0,
+            "hp": 0,
+            "attack": 0.4416,
+            "trueDps": 54.9,
+            "range": 0.43520000000000003,
+            "crit": 0.19030000000000002,
+            "critDamage": 1.4900000000000002,
+            "defense": 0,
+            "dodge": 0,
+            "move": 0,
+            "health": 0,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 4.4,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-5",
+          "totals": {
+            "dps": 151.2,
+            "attackSpeed": 0.48,
+            "armor": 3.15,
+            "hp": 367.5,
+            "attack": 0.4416,
+            "trueDps": 54.9,
+            "range": 0.43520000000000003,
+            "crit": 0.19030000000000002,
+            "critDamage": 1.4900000000000002,
+            "defense": 124,
+            "dodge": 0.0588,
+            "move": 0.0876,
+            "health": 0.14800000000000002,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 4.8,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-6",
+          "totals": {
+            "dps": 151.2,
+            "attackSpeed": 0.48,
+            "armor": 8.4,
+            "hp": 630,
+            "attack": 0.4416,
+            "trueDps": 54.9,
+            "range": 0.43520000000000003,
+            "crit": 0.19030000000000002,
+            "critDamage": 1.4900000000000002,
+            "defense": 282.4,
+            "dodge": 0.13799999999999998,
+            "move": 0.2052,
+            "health": 0.14800000000000002,
+            "reduction": 0.0588
+          }
+        },
+        {
+          "at": 5.2,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-7",
+          "totals": {
+            "dps": 151.2,
+            "attackSpeed": 0.48,
+            "armor": 15.75,
+            "hp": 787.5,
+            "attack": 0.4416,
+            "trueDps": 54.9,
+            "range": 0.43520000000000003,
+            "crit": 0.19030000000000002,
+            "critDamage": 1.4900000000000002,
+            "defense": 442.4,
+            "dodge": 0.13799999999999998,
+            "move": 0.30779999999999996,
+            "health": 0.34600000000000003,
+            "reduction": 0.1149
+          }
+        },
+        {
+          "at": 5.6,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-8",
+          "totals": {
+            "dps": 151.2,
+            "attackSpeed": 0.48,
+            "armor": 21.84,
+            "hp": 1008,
+            "attack": 0.4416,
+            "trueDps": 54.9,
+            "range": 0.43520000000000003,
+            "crit": 0.19030000000000002,
+            "critDamage": 1.4900000000000002,
+            "defense": 578.4,
+            "dodge": 0.20759999999999998,
+            "move": 0.30779999999999996,
+            "health": 0.48200000000000004,
+            "reduction": 0.1569
+          }
+        }
+      ]
+    },
+    {
+      "name": "equipment-fast-zerg",
+      "frames": 300,
+      "seconds": 10,
+      "wallSeconds": 21.839,
+      "phase": "menu",
+      "allies": 2,
+      "boss": {
+        "hp": 0,
+        "deadAt": 5.6
+      },
+      "heroes": [],
+      "events": [
+        {
+          "at": 1.3,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-9",
+          "totals": {
+            "dps": 5,
+            "attackSpeed": 0.025,
+            "armor": 0,
+            "hp": 0,
+            "attack": 0,
+            "trueDps": 0,
+            "range": 0,
+            "crit": 0.0164,
+            "critDamage": 0,
+            "defense": 0,
+            "dodge": 0,
+            "move": 0,
+            "health": 0,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 1.6666666666666667,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-10",
+          "totals": {
+            "dps": 10,
+            "attackSpeed": 0.05,
+            "armor": 0,
+            "hp": 0,
+            "attack": 0,
+            "trueDps": 0,
+            "range": 0,
+            "crit": 0.0164,
+            "critDamage": 0.0424,
+            "defense": 0,
+            "dodge": 0,
+            "move": 0,
+            "health": 0,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 2,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-11",
+          "totals": {
+            "dps": 14.2,
+            "attackSpeed": 0.079,
+            "armor": 0,
+            "hp": 0,
+            "attack": 0.0195,
+            "trueDps": 0,
+            "range": 0,
+            "crit": 0.0164,
+            "critDamage": 0.0424,
+            "defense": 0,
+            "dodge": 0,
+            "move": 0,
+            "health": 0,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 2.3666666666666667,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-12",
+          "totals": {
+            "dps": 18.4,
+            "attackSpeed": 0.108,
+            "armor": 0,
+            "hp": 0,
+            "attack": 0.038900000000000004,
+            "trueDps": 0,
+            "range": 0,
+            "crit": 0.0164,
+            "critDamage": 0.0424,
+            "defense": 0,
+            "dodge": 0,
+            "move": 0,
+            "health": 0,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 2.8,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-1",
+          "totals": {
+            "dps": 44.900000000000006,
+            "attackSpeed": 0.23299999999999998,
+            "armor": 0,
+            "hp": 0,
+            "attack": 0.1493,
+            "trueDps": 18.9,
+            "range": 0.1448,
+            "crit": 0,
+            "critDamage": 0.3904,
+            "defense": 0,
+            "dodge": 0,
+            "move": 0,
+            "health": 0,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 3.2,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-2",
+          "totals": {
+            "dps": 84,
+            "attackSpeed": 0.29800000000000004,
+            "armor": 0,
+            "hp": 0,
+            "attack": 0.2501,
+            "trueDps": 18.9,
+            "range": 0.28880000000000006,
+            "crit": 0.1023,
+            "critDamage": 0.744,
+            "defense": 0,
+            "dodge": 0,
+            "move": 0,
+            "health": 0,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 3.6,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-3",
+          "totals": {
+            "dps": 123.89999999999999,
+            "attackSpeed": 0.359,
+            "armor": 0,
+            "hp": 0,
+            "attack": 0.34819999999999995,
+            "trueDps": 38.8,
+            "range": 0.43520000000000003,
+            "crit": 0.1023,
+            "critDamage": 1.1400000000000001,
+            "defense": 0,
+            "dodge": 0,
+            "move": 0,
+            "health": 0,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 4,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-4",
+          "totals": {
+            "dps": 151.2,
+            "attackSpeed": 0.48,
+            "armor": 0,
+            "hp": 0,
+            "attack": 0.4416,
+            "trueDps": 54.9,
+            "range": 0.43520000000000003,
+            "crit": 0.19030000000000002,
+            "critDamage": 1.4900000000000002,
+            "defense": 0,
+            "dodge": 0,
+            "move": 0,
+            "health": 0,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 4.4,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-5",
+          "totals": {
+            "dps": 151.2,
+            "attackSpeed": 0.48,
+            "armor": 3.15,
+            "hp": 367.5,
+            "attack": 0.4416,
+            "trueDps": 54.9,
+            "range": 0.43520000000000003,
+            "crit": 0.19030000000000002,
+            "critDamage": 1.4900000000000002,
+            "defense": 124,
+            "dodge": 0.0588,
+            "move": 0.0876,
+            "health": 0.14800000000000002,
+            "reduction": 0
+          }
+        },
+        {
+          "at": 4.8,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-6",
+          "totals": {
+            "dps": 151.2,
+            "attackSpeed": 0.48,
+            "armor": 8.4,
+            "hp": 630,
+            "attack": 0.4416,
+            "trueDps": 54.9,
+            "range": 0.43520000000000003,
+            "crit": 0.19030000000000002,
+            "critDamage": 1.4900000000000002,
+            "defense": 282.4,
+            "dodge": 0.13799999999999998,
+            "move": 0.2052,
+            "health": 0.14800000000000002,
+            "reduction": 0.0588
+          }
+        },
+        {
+          "at": 5.2,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-7",
+          "totals": {
+            "dps": 151.2,
+            "attackSpeed": 0.48,
+            "armor": 15.75,
+            "hp": 787.5,
+            "attack": 0.4416,
+            "trueDps": 54.9,
+            "range": 0.43520000000000003,
+            "crit": 0.19030000000000002,
+            "critDamage": 1.4900000000000002,
+            "defense": 442.4,
+            "dodge": 0.13799999999999998,
+            "move": 0.30779999999999996,
+            "health": 0.34600000000000003,
+            "reduction": 0.1149
+          }
+        },
+        {
+          "at": 5.6,
+          "time": 0,
+          "kind": "equip",
+          "id": "ship-item-8",
+          "totals": {
+            "dps": 151.2,
+            "attackSpeed": 0.48,
+            "armor": 21.84,
+            "hp": 1008,
+            "attack": 0.4416,
+            "trueDps": 54.9,
+            "range": 0.43520000000000003,
+            "crit": 0.19030000000000002,
+            "critDamage": 1.4900000000000002,
+            "defense": 578.4,
+            "dodge": 0.20759999999999998,
+            "move": 0.30779999999999996,
+            "health": 0.48200000000000004,
+            "reduction": 0.1569
+          }
+        }
+      ]
+    },
+    {
+      "name": "finale-terran",
+      "frames": 360,
+      "seconds": 12,
+      "wallSeconds": 73.308,
+      "phase": "battle",
+      "allies": 10,
+      "boss": {
+        "hp": 0,
+        "deadAt": 5.6
+      },
+      "heroes": [
+        "raynor",
+        "yamato_battlecruiser"
+      ],
+      "events": [
+        {
+          "at": 5.5,
+          "time": 5.5,
+          "kind": "boss-vulnerable",
+          "hp": 1
+        }
+      ]
+    },
+    {
+      "name": "growth-army2",
+      "frames": 750,
+      "seconds": 25,
+      "wallSeconds": 115.307,
+      "phase": "battle",
+      "allies": 11,
+      "boss": null,
+      "heroes": [],
+      "events": [
+        {
+          "at": 15,
+          "time": 15,
+          "kind": "reinforcement",
+          "family": "marine",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "name": "growth-start",
+      "frames": 360,
+      "seconds": 12,
+      "wallSeconds": 47.093,
+      "phase": "battle",
+      "allies": 4,
+      "boss": null,
+      "heroes": [],
+      "events": []
+    },
+    {
+      "name": "operations",
+      "frames": 300,
+      "seconds": 10,
+      "wallSeconds": 36.759,
+      "phase": "reward",
+      "allies": 8,
+      "boss": null,
+      "heroes": [],
+      "events": [
+        {
+          "at": 2,
+          "time": 0.1,
+          "kind": "click",
+          "selector": "[data-action=\"development-direction\"][data-line=\"barracks\"]"
+        },
+        {
+          "at": 4,
+          "time": 0.1,
+          "kind": "click",
+          "selector": ".im-card-action:not([disabled])"
+        },
+        {
+          "at": 7,
+          "time": 0.1,
+          "kind": "click",
+          "selector": ".im-card-action:not([disabled])"
+        }
+      ]
+    },
+    {
+      "name": "raynor-arrival",
+      "frames": 180,
+      "seconds": 6,
+      "wallSeconds": 21.777,
+      "phase": "battle",
+      "allies": 8,
+      "boss": null,
+      "heroes": [
+        "raynor"
+      ],
+      "events": [
+        {
+          "at": 1,
+          "time": 1,
+          "kind": "hero-arrival",
+          "id": "raynor"
+        }
+      ]
+    },
+    {
+      "name": "victory-protoss",
+      "frames": 360,
+      "seconds": 12,
+      "wallSeconds": 56.476,
+      "phase": "battle",
+      "allies": 9,
+      "boss": {
+        "hp": 0,
+        "deadAt": 1.8166666666666667
+      },
+      "heroes": [
+        "artanis",
+        "zeratul"
+      ],
+      "events": [
+        {
+          "at": 3,
+          "time": 3,
+          "kind": "boss-vulnerable",
+          "hp": 0
+        }
+      ]
+    },
+    {
+      "name": "victory-terran",
+      "frames": 360,
+      "seconds": 12,
+      "wallSeconds": 42.99,
+      "phase": "battle",
+      "allies": 10,
+      "boss": {
+        "hp": 0,
+        "deadAt": 2.1
+      },
+      "heroes": [
+        "raynor",
+        "yamato_battlecruiser"
+      ],
+      "events": [
+        {
+          "at": 3,
+          "time": 3,
+          "kind": "boss-vulnerable",
+          "hp": 0
+        }
+      ]
+    },
+    {
+      "name": "victory-zerg",
+      "frames": 360,
+      "seconds": 12,
+      "wallSeconds": 43.621,
+      "phase": "battle",
+      "allies": 15,
+      "boss": {
+        "hp": 0,
+        "deadAt": 2.2
+      },
+      "heroes": [
+        "kerrigan",
+        "dehaka"
+      ],
+      "events": [
+        {
+          "at": 3,
+          "time": 3,
+          "kind": "boss-vulnerable",
+          "hp": 0
+        }
+      ]
+    }
+  ],
+  "playerCheck": {
+    "metadata": {
+      "duration": 240,
+      "width": 1920,
+      "height": 1080,
+      "controls": true,
+      "error": null
+    },
+    "seeks": [
+      {
+        "time": 116.546867,
+        "paused": false,
+        "error": null
+      },
+      {
+        "time": 160.524967,
+        "paused": false,
+        "error": null
+      },
+      {
+        "time": 208.571513,
+        "paused": false,
+        "error": null
+      }
+    ],
+    "passed": true,
+    "scope": "Browser metadata, muted playback and three chapter seeks; not a listening review."
+  },
+  "docsCheck": "npm run docs:check passed; no game regression suite rerun for isolated capture/edit tooling.",
+  "delivery": {
+    "local": "ready",
+    "wechat": "not-sent",
+    "reason": "Computer Use launch_app twice returned: accessibility window-opened handler did not become ready. No targetable WeChat window was returned. No upload attempted."
+  }
+}

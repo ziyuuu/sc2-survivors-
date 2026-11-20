@@ -32,7 +32,7 @@ test('ordinary release reserves campaign Boss capacity without deleting queued b
  const pod=w.spawnPod('marine',{x:8,z:0});pod.guardTypes=['zergling'];w.landPod(pod);assert.equal(pod.guardianIds.size,0);
  w.stageElapsed=45;w.tick=2700;w.time=45;w.step();
  assert.equal(w.enemyCount(),300);assert.ok([...w.entities.values()].some(e=>e.enemyTier==='boss'&&e.unitType==='ultralisk'));
- assert.equal(pod.guardianIds.size,0);assert.ok((w as any).ambientBacklog.some((e:any)=>e.stamp.density===.3));assert.equal(w.swarm.planned,0);
+ assert.equal(pod.guardianIds.size,0);assert.ok((w as any).ambientBacklog.some((e:any)=>e.stamp.density===1));const experience=w.expedition.zergEncounters!.counters.experience;assert.ok(experience.planned>0&&experience.skipped>0,'the fixture jumps past companion TTL; only the overdue experience queue is allowed to expire');assert.equal(w.swarm.planned,0);
 });
 for(const difficulty of ['easy','normal','hard','hell'] as const)test(`spawn rank and frozen HP ${difficulty}`,()=>{
  const w=new World({difficulty,waves:false,terrain:false,obstacles:[]});w.start();

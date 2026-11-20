@@ -1,3 +1,4 @@
+import {doomsdayOwnsFlight} from '../../simulation/combat/doomsday-presentation';
 import * as THREE from 'three';
 import {sourceOwnsWeapon,sourceOwnsFlight} from './combat-fx-profile';
 import type {World} from '../../simulation/world';
@@ -14,6 +15,8 @@ import {commitInstances} from '../units/instance-updates';
 import {loadOrdinaryEffects,saveOrdinaryEffects,type OrdinaryEffectQuality} from '../settings/quality';
 import {createFlameFanGeometry} from './terran-flame-fan';
 import {SOURCE_WEAPON_PATTERNS} from '../../data/expansion-units';
+import type {BioMounts} from '../materials/bio-armor';
+import {BioBattleEffects} from './bio-battle-effects';
 import {AcidGroundEffects} from './acid-ground-effects';
 
 type P={x:number;y:number;z:number};
@@ -23,27 +26,35 @@ const object=new THREE.Object3D();
 /** Render-only adapters of real ordinary attacks and support receipts. No simulation mutation or RNG. */
 export class NonHeroEffects {
  ready=false;quality:OrdinaryEffectQuality=loadOrdinaryEffects();
+ private bio:BioBattleEffects;
  private psionic:ProtossHeroMaterials;private organic:ZergEliteMaterials;private terran:TerranEliteMaterials;private medical:OrdinaryMedicalEffects;private acidGround:AcidGroundEffects;
  private serial=0;private time=0;private echoes:Echo[]=[];private missiles:THREE.InstancedMesh[]=[];private needles:THREE.InstancedMesh[]=[];private missileCount=0;private needleCount=0;
  private flameFans?:THREE.InstancedMesh;private fanCount=0;private flameExtents:{origin:P;radius:number;arc:number}[]=[];
  private counts={attacks:0,flights:0,contacts:0,blades:0,beams:0,fields:0,medical:0,mines:0,packets:0,telegraphs:0,statuses:0,decorations:0};
- constructor(private scene:THREE.Scene,private fx:BattleEffects,private camera:THREE.Camera){this.psionic=new ProtossHeroMaterials(scene,camera,fx);this.organic=new ZergEliteMaterials(scene,camera,fx);this.terran=new TerranEliteMaterials(scene,camera,fx);this.medical=new OrdinaryMedicalEffects(scene,fx);this.acidGround=new AcidGroundEffects(scene,fx);}
+ constructor(private scene:THREE.Scene,private fx:BattleEffects,private camera:THREE.Camera){this.psionic=new ProtossHeroMaterials(scene,camera,fx);this.organic=new ZergEliteMaterials(scene,camera,fx);this.bio=new BioBattleEffects(scene,this.organic);this.terran=new TerranEliteMaterials(scene,camera,fx);this.medical=new OrdinaryMedicalEffects(scene,fx);this.acidGround=new AcidGroundEffects(scene,fx);}
  async load(){if(this.ready)return;this.psionic.prepare();this.organic.prepare();this.terran.prepare();await this.medical.loadMedicalTextures();for(const [key,list]of [['marauder',this.missiles],['hydralisk',this.needles]] as const)for(const original of this.fx.projectiles.batches.get(key)??[]){const mesh=new THREE.InstancedMesh(original.geometry,original.material,512);mesh.count=0;mesh.frustumCulled=false;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);this.scene.add(mesh);list.push(mesh);}
   const material=new THREE.ShaderMaterial({transparent:true,depthWrite:false,side:THREE.DoubleSide,blending:THREE.AdditiveBlending,uniforms:{map:{value:this.terran.burningCore(0).uniforms.map.value},time:{value:0}},vertexShader:'varying vec2 v;varying vec3 tint;void main(){v=uv;tint=instanceColor;gl_Position=projectionMatrix*modelViewMatrix*instanceMatrix*vec4(position,1.);}',fragmentShader:'uniform sampler2D map;uniform float time;varying vec2 v;varying vec3 tint;void main(){vec3 t=texture2D(map,vec2(v.x*2.+time*.15,v.y*2.-time*1.8)).rgb;float h=max(t.r,max(t.g,t.b));float edge=smoothstep(0.,.04,v.x)*smoothstep(0.,.04,1.-v.x)*smoothstep(0.,.08,1.-v.y);vec3 rgb=mix(vec3(.9,.08,.01),vec3(1.3,.75,.18),smoothstep(.2,.85,h));gl_FragColor=vec4(rgb*tint,edge*(.45+.4*h));}'});
   this.flameFans=new THREE.InstancedMesh(createFlameFanGeometry(SOURCE_WEAPON_PATTERNS.hellbat.arcDegrees),material,128);this.flameFans.count=0;this.flameFans.frustumCulled=false;this.flameFans.setColorAt(0,new THREE.Color(1,1,1));this.scene.add(this.flameFans);this.acidGround.prepare();this.ready=true;
  }
  setQuality(q:OrdinaryEffectQuality){this.quality=q;saveOrdinaryEffects(q);}
  resumeAt(w:World){this.serial=w.visualEvents.at(-1)?.serial??0;this.time=w.time;}
- reset(){this.serial=this.time=0;this.echoes=[];this.acidGround.reset();if(this.ready){this.psionic.reset();this.organic.reset();this.terran.reset();this.medical.reset();for(const m of [...this.missiles,...this.needles,...(this.flameFans?[this.flameFans]:[])])commitInstances(m,0);}}
- report(){return {ready:this.ready,quality:this.quality,decorationDensity:ORDINARY_DETAIL[this.quality],...this.counts,missiles:this.missileCount,needles:this.needleCount,flameExtents:this.flameExtents,acidGround:this.acidGround.report(),medical:this.medical.report(),psionic:this.psionic.report(),organic:this.organic.report(),terran:this.terran.report()};}
+ reset(){this.serial=this.time=0;this.echoes=[];this.acidGround.reset();this.bio.reset();if(this.ready){this.psionic.reset();this.organic.reset();this.terran.reset();this.medical.reset();for(const m of [...this.missiles,...this.needles,...(this.flameFans?[this.flameFans]:[])])commitInstances(m,0);}}
+ report(){return {ready:this.ready,quality:this.quality,bio:this.bio.report(),decorationDensity:ORDINARY_DETAIL[this.quality],...this.counts,missiles:this.missileCount,needles:this.needleCount,flameExtents:this.flameExtents,acidGround:this.acidGround.report(),medical:this.medical.report(),psionic:this.psionic.report(),organic:this.organic.report(),terran:this.terran.report()};}
  private body(kind:'missile'|'needle',p:P,angle:number,scale=1,tilt=0){const n=kind==='missile'?this.missileCount++:this.needleCount++,list=kind==='missile'?this.missiles:this.needles;if(n>=512)return;object.position.set(p.x,p.y,p.z);object.rotation.set(tilt,angle,0);object.scale.setScalar(scale);object.updateMatrix();for(const m of list)m.setMatrixAt(n,object.matrix);}
- render(w:World,visible:(p:Point)=>boolean,muzzle:(e:VisualEvent,side?:'Left'|'Right')=>P){
+ render(w:World,visible:(p:Point)=>boolean,muzzle:(e:VisualEvent,side?:'Left'|'Right')=>P,bodyHeight=(u:Entity)=>Math.max(.5,u.unitRadius*2),bioMounts?:ReadonlyMap<number,BioMounts>){
   if(!this.ready)return;if(w.time<this.time)this.reset();this.time=w.time;const density=ORDINARY_DETAIL[this.quality];this.psionic.begin(w.time);this.organic.begin(w.time);this.terran.begin(w.time);this.missileCount=this.needleCount=this.fanCount=0;this.flameExtents=[];if(this.flameFans)(this.flameFans.material as THREE.ShaderMaterial).uniforms.time.value=w.time;
   this.counts={attacks:0,flights:0,contacts:0,blades:0,beams:0,fields:0,medical:0,mines:0,packets:0,telegraphs:0,statuses:0,decorations:0};
   const p=(b:Point&{flying?:boolean},height=.65):P=>({x:b.x,z:b.z,y:(b.flying?5.6:w.terrain?.height(b)??0)+height});
   const glow=(at:P,size:number,tint:number,opacity=.8)=>this.psionic.sprite('glow',at,size,tint,opacity,Math.floor(w.time*24)%16);
   const energy=(a:P,b:P,width:number,tint:number,opacity=.8)=>{this.psionic.ribbon('beam',a,b,width,tint,opacity,0,true,.9);};
   const streak=(a:P,b:P,width:number,tint:number,opacity=.8)=>this.terran.ribbon('trace',a,b,width,tint,opacity,0,true,1);
+  for(const mine of w.entities.values()){
+   if(mine.unitType!=='widow_mine'||mine.hp<=0||mine.nativeMode!=='mine_burrowed'||mine.nativeModeUntil||mine.windup<=0||mine.pendingTarget===null||!w.visibleTo(mine,'terran')||!visible(mine))continue;
+   const target=w.body(mine.pendingTarget);
+   if(!target?.hp||!w.visibleTo(target,'terran'))continue;
+   streak(p(mine,.2),p(target,Math.min(1,target.unitRadius)),.055,0xff584a,.85);
+   this.counts.beams++;
+  }
   this.fx.ordinaryEventIds.clear();this.fx.sculptures.ordinarySource=u=>ordinaryActor(u,w)||sourceOwnsWeapon(u)||!u.heroId&&u.unitType==='medivac';this.fx.supportPresentation=true;
   for(const e of w.visualEvents){const own=ordinaryEvent(e,w),support=!e.heroId&&!e.eliteId&&e.entityId===0&&['support-flight','support-pulse','support-impact','strategic-impact','bile-impact'].includes(e.kind);if(own||support)this.fx.ordinaryEventIds.add(e.serial);if(this.fx.sourceEventIds.has(e.serial)||e.serial<=this.serial||w.time-e.time>.45||!own&&!support)continue;
    const from=own?muzzle(e):{x:e.x,y:e.y,z:e.z},u=w.entities.get(e.entityId);if(e.attackId)this.fx.sculptures.mounts.set(e.attackId,{...from});
@@ -73,7 +84,7 @@ export class NonHeroEffects {
    this.contact(end,e.race??w.expedition.race,big?3:r,fade,age);this.counts.contacts++;
    for(let i=0;i<Math.ceil((big?14:4)*density);i++){const a=i*2.399,dist=Math.min(r,age*r*2),q={x:end.x+Math.sin(a)*dist,y:end.y+.1+age*(i%3),z:end.z+Math.cos(a)*dist};if(e.race==='zerg'||!e.race&&w.expedition.race==='zerg')this.organic.sprite('venom',q,.28,color,fade*.6,Math.floor(age*24));else this.terran.sprite('spark',q,.24,color,fade,Math.floor(age*24));this.counts.decorations++;}
   }
-  for(const f of w.weaponFlights){const u=f.source;if(sourceOwnsFlight(u)||!ordinaryActor(u,w)||w.time<f.start||!visible(f.point))continue;
+  for(const f of w.weaponFlights){const u=f.source;if(sourceOwnsFlight(u)||doomsdayOwnsFlight(w,f)||!ordinaryActor(u,w)||w.time<f.start||!visible(f.point))continue;
    if(f.hop===0&&!this.fx.sculptures.mounts.has(f.attackId)){
     // Reconstruct a frozen socket after save/load from the saved launch body and pose.
     const at=p({...f.from,flying:u.flying}),end=p({...f.lastSeen,flying:w.body(f.target)?.flying});
@@ -97,10 +108,48 @@ export class NonHeroEffects {
   }
   for(const s of w.expedition.spells){const u=w.entities.get(s.source);if(sourceOwnsWeapon(u)||!ordinaryActor(u,w)||s.until<=w.time||!visible(s))continue;const at=p(s,.15);if(s.kind==='storm'){for(let i=0;i<7;i++){const a=i*2.399,r=s.radius*Math.sqrt((i+.5)/7)*.8,b={x:at.x+Math.sin(a)*r,y:at.y,z:at.z+Math.cos(a)*r},points=Array.from({length:6},(_,j)=>({x:b.x+Math.sin(i*3+j*6+w.time*11)*.15,y:b.y+2.5-j*.5,z:b.z+Math.cos(j*3+i)*.1}));this.psionic.stroke(points,[.02,.1,.13,.11,.08,.01],0xb5cfff,.65,.9);}this.psionic.sprite('plasma',at,s.radius*2,0x98acdd,.16,Math.floor(w.time*16)%16);}else if(s.kind==='transfusion'){const patient=s.target===null?undefined:w.entities.get(s.target);if(patient?.hp){const a=p(u!),b=p(patient),points=Array.from({length:9},(_,i)=>{const t=i/8,q=mix(a,b,t);return {...q,y:q.y+Math.sin(t*Math.PI)*.65};});for(let i=1;i<points.length;i++)this.organic.ribbon('fluid',points[i-1],points[i],.22,0xb8e598,.6);this.organic.skin(b,{x:.65,y:.8,z:.65},0xa7d984);this.counts.medical++;}}else{this.psionic.sprite('plasma',at,s.radius*1.5,0x9bdefc,.18,Math.floor(w.time*16)%16);}this.counts.fields++;}
   for(const u of w.entities.values()){if(!ordinaryActor(u,w)||u.hp<=0||!visible(u))continue;if(u.unitType!=='immortal'&&(u.barrier??0)>0){this.psionic.sprite('plasma',p(u),Math.max(1.3,u.unitRadius*2.5),0x9bd7f4,.28,Math.floor(w.time*20)%16);this.counts.statuses++;}if((u.recoveryUntil??0)>w.time){this.organic.skin(p(u,.35),{x:.48,y:.5,z:.48},0xc2d477);this.counts.statuses++;}}
+  this.bio.render(w,visible,p,bodyHeight,bioMounts);
+  if(w.phase==='battle'&&w.expedition.bio?.ranks['BIO-W02'])this.drawVenom(w,visible,p,bodyHeight);
   this.support(w,visible,p,glow,energy,streak,density);this.acidGround.render(w,visible);
   this.medical.quality=this.quality;this.medical.render(w,this.camera,visible);this.psionic.end();this.organic.end();this.terran.end();if(this.flameFans)commitInstances(this.flameFans,this.fanCount);for(const m of this.missiles)commitInstances(m,Math.min(512,this.missileCount));for(const m of this.needles)commitInstances(m,Math.min(512,this.needleCount));
  }
  private contact(at:P,race:string,size:number,fade:number,age:number){if(race==='zerg'){this.organic.sprite('burst',at,size*2,0xc4db81,fade*.8,Math.floor(age*24));this.organic.sprite('tissue',at,size*2.4,0x9abc60,fade*.35,Math.floor(age*20));}else if(race==='protoss'){this.psionic.sprite('glow',at,size*1.6,0xccecff,fade*.8,Math.floor(age*24));this.psionic.sprite('plasma',at,size*2.1,0x85b6e7,fade*.45,Math.floor(age*20));}else {this.terran.sprite('fire',at,size*2,0xffc583,fade*.8,Math.floor(age*24),0);this.terran.sprite('smokeLit',at,size*2.7,0xd0a481,fade*.35,Math.floor(age*20),0);}}
+ private drawVenom(w:World,visible:(p:Point)=>boolean,point:(u:Entity,height:number)=>P,bodyHeight:(u:Entity)=>number){
+  for(const target of w.entities.values()){
+   const poisons=target.bio?.poisons;
+   if(!poisons?.length||target.hp<=0||target.heldBy||!visible(target)||!w.visibleTo(target,'terran'))continue;
+   let layers=0,lastHit=-Infinity,end=0;
+   for(const poison of poisons){
+    if(poison.kind!=='venom'||poison.end<=w.time)continue;
+    layers++;
+    lastHit=Math.max(lastHit,poison.refreshedAt??poison.start);
+    end=Math.max(end,poison.end);
+   }
+   if(!layers)continue;
+   const center=point(target,bodyHeight(target)*.9),radius=Math.max(.35,Math.min(target.unitRadius,1.2));
+   const strength=Math.min(1,(end-w.time)/.35),age=w.time-lastHit;
+   const frame=Math.floor(w.time*18);
+   // Droplets stay on the visible body as it moves. Several sources share one coating.
+   for(let i=0;i<Math.min(layers,3);i++){
+    const angle=target.facing+target.id+i*2.4;
+    const rise=(w.time*1.3+i*.37)%1;
+    const drop={x:center.x+Math.sin(angle)*radius*.72,y:center.y+rise*.35,z:center.z+Math.cos(angle)*radius*.72};
+    const drip={x:drop.x+Math.sin(angle)*.16,y:drop.y-radius*(.38+.65*rise),z:drop.z+Math.cos(angle)*.16};
+    this.organic.ribbon('fluid',drop,drip,.12+radius*.14,0xa4f156,strength*.94,frame);
+    this.organic.sprite('acid',drip,.25+radius*.53,0xc4ff69,strength*.9,frame+i);
+    this.organic.sprite('venom',drop,radius*1.85+.52,0x8ae63d,strength*.87,frame+i*4,false,angle);
+    this.organic.sprite('acid',drop,radius*.62+.25,0xc1fc64,strength*.95,frame+i*4);
+   }
+   if(age>=0&&age<.32){
+    for(let i=0;i<3;i++){
+     const angle=target.id+i*2.1,spread=radius*.3+age*2.2;
+     const drop={x:center.x+Math.sin(angle)*spread,y:center.y+.12+age*(1.9-3*age),z:center.z+Math.cos(angle)*spread};
+     this.organic.sprite('acid',drop,.62,0xbaff55,1-age/.32,frame+i);
+    }
+   }
+   this.counts.statuses++;
+  }
+ }
  private support(w:World,visible:(p:Point)=>boolean,p:(b:Point&{flying?:boolean},h?:number)=>P,glow:(p:P,s:number,c:number,a?:number)=>void,energy:(a:P,b:P,width:number,c:number,alpha?:number)=>void,streak:(a:P,b:P,width:number,c:number,alpha?:number)=>void,density:number){
   const s=w.expedition.support,u=s.unique,race=w.expedition.race,color=race==='zerg'?0xb7d97b:race==='protoss'?0x8bdafa:0xffbc6f;
   for(const m of s.mines){if(!visible(m.point))continue;const at=p(m.point,.26);if(race==='protoss'){for(let i=0;i<3;i++){const a=i*Math.PI*2/3+w.time*.25;energy(at,{x:at.x+Math.sin(a)*.4,y:at.y+.45,z:at.z+Math.cos(a)*.4},.18,0x7cd6ff,.7);}glow(at,.6,color,.55);}else if(race==='zerg')this.organic.skin(at,{x:.45,y:.35,z:.45},color);else if(m.phase!=='buried')this.terran.sprite('smoke',at,.8,0xad9985,.24,Math.floor(w.time*16));this.counts.mines++;}

@@ -53,7 +53,8 @@ const isChild=(u:Entity)=>u.summonKind==='interceptor';
 function parent(w:World,u:Entity){return isChild(u)?w.entities.get(u.summonOwnerId!):u;}
 function budgetShare(w:World,u:Entity){const owner=parent(w,u);return owner&&isChild(u)?1/Math.max(1,[...w.entities.values()].filter(child=>isChild(child)&&child.summonOwnerId===owner.id&&child.hp>0).length):1;}
 const nonempty=(totals:ReturnType<typeof equipmentUnitTotals>)=>Object.entries(totals).some(([key,value])=>['lifeFactor','exclusiveHealth','exclusiveShield','burstFactor'].includes(key)?value!==1:!!value);
-export function equipmentUnitTotals(w:World,u:Entity){const owner=parent(w,u)??u,t={...equipmentTotals(w),shieldPercent:0,armorPercent:0,native:0,lifeFactor:1,exclusiveHealth:1,exclusiveShield:1,burstFactor:(w.starship.numbers.get('drop-speed:'+u.id)??0)>w.time?2:1},ordinary=!owner.heroId&&!owner.eliteId&&owner.enemyTier!=='elite';
+import {bioArmorPercent} from '../combat/bio-runtime';
+export function equipmentUnitTotals(w:World,u:Entity){const owner=parent(w,u)??u,t={...equipmentTotals(w),shieldPercent:0,armorPercent:bioArmorPercent(w,u),native:0,lifeFactor:1,exclusiveHealth:1,exclusiveShield:1,burstFactor:(w.starship.numbers.get('drop-speed:'+u.id)??0)>w.time?2:1},ordinary=!owner.heroId&&!owner.eliteId&&owner.enemyTier!=='elite';
  const high=w.starship.highQualityTotals,rankBonus=rankEquipmentBonus(owner);let highDps=high.dps,highHp=high.hp;
  for(const effect of activeEquipmentEffects(w)){const [scope,key]=effect.key.split('.'),bound=equipmentBoundBody(w,effect,owner);
   if(scope==='stat'||scope==='bound'&&bound||scope==='elite'&&(!!owner.eliteId||owner.enemyTier==='elite')||scope==='ordinary'&&ordinary&&permanentEquipmentBody(w,owner)||scope==='direction'&&ordinary&&permanentEquipmentBody(w,owner)&&directionMatches(effect.binding,owner.unitType)){

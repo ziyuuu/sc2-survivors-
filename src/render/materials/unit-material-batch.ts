@@ -3,8 +3,10 @@ import {MATERIAL_ROLES,preparedUnitMaterial,bindUnitMaterial,type PreparedUnitMa
 import {sampleMaterialTrack,sampleBarrierAlpha,type MaterialRef,type UnitMaterialContext,type UnitMaterialPose} from './source-tracks';
 
 type Shader=Pick<Parameters<THREE.Material['onBeforeCompile']>[0],'uniforms'|'vertexShader'|'fragmentShader'>;
-const PARAM=(i:number)=>i<5?i*2:11+(i-5)*2,COLOR=MATERIAL_ROLES.length*2+1,TEAM=COLOR+MATERIAL_ROLES.length,APPARITION=TEAM+1,ROWS=APPARITION+1;
+const PARAM=(i:number)=>i<5?i*2:11+(i-5)*2,COLOR=MATERIAL_ROLES.length*2+1,TEAM=COLOR+MATERIAL_ROLES.length,APPARITION=TEAM+1,REFIT=APPARITION+1,ROWS=REFIT+1;
 export const UNIT_MATERIAL_TEAM_ROW=TEAM;
+export const UNIT_MATERIAL_APPARITION_ROW=APPARITION;
+export const UNIT_MATERIAL_REFIT_ROW=REFIT;
 const linear=(v:number)=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4;
 const DEFAULT_TEAM=[linear(0x52/255),linear(0x82/255),linear(0xb4/255)] as const;
 let uploadEpoch=0;
@@ -26,6 +28,7 @@ export class UnitMaterialSurface {
  private staticClips=new Set<string>();private staticSamples=new Map<string,readonly number[][]>();
  private samples=new Map<string,readonly number[][]>();private lastSampleKey='';private lastSample?:readonly number[][];
  private uploadedEpoch=-1;private dirtyMin=new Int32Array(ROWS).fill(0x7fffffff);private dirtyMax=new Int32Array(ROWS).fill(-1);
+ private refitTime={value:0};
  private pendingUpload={bytes:0,calls:1,partial:false};
  constructor(readonly prepared:PreparedUnitMaterial,original:THREE.Material,readonly capacity:number){
   this.material=original.clone();bindUnitMaterial(this.material,prepared);
@@ -54,11 +57,13 @@ export class UnitMaterialSurface {
  }
  write(index:number,pose:UnitMaterialPose,context?:UnitMaterialContext){
   if(index>=this.capacity)throw Error('Original material instance capacity exceeded');
+  // A shared battle clock animates the tracers without changing cached pose rows.
+  if(context?.refit)this.refitTime.value=context.time;
   // A source actor submits many quads at exactly the same authored phase. Cache
   // only those inputs that affect material rows, never entity/world state.
   const team=context?.teamColor??DEFAULT_TEAM,barrier=context?.barrier;
   const staticPose=this.staticClips.has(pose.clip)&&(!pose.attackClip||this.staticClips.has(pose.attackClip));
-  const key=JSON.stringify([pose.clip,staticPose?0:pose.seconds,pose.attackClip,staticPose?0:pose.attackSeconds,barrier?.phase,barrier?.seconds,...team,context?.activity??0,context?.apparition?.tint,context?.apparition?.opacity]);
+  const key=JSON.stringify([pose.clip,staticPose?0:pose.seconds,pose.attackClip,staticPose?0:pose.attackSeconds,barrier?.phase,barrier?.seconds,...team,context?.activity??0,context?.apparition?.tint,context?.apparition?.opacity,context?.refit]);
   let rows=key===this.lastSampleKey?this.lastSample:(staticPose?this.staticSamples:this.samples).get(key);
   if(!rows){rows=this.sample(pose,context);const cache=staticPose?this.staticSamples:this.samples;if(cache.size<(staticPose?64:2048))cache.set(key,rows);this.lastSampleKey=key;this.lastSample=rows;}
   if(this.slotRows[index]===rows)return;this.slotRows[index]=rows;
@@ -78,6 +83,7 @@ export class UnitMaterialSurface {
   const alpha=this.immortal?sampleBarrierAlpha(profile,source.index,context?.barrier):this.composite?Number(read(this.composite)):1;
   row(10,[alpha,0,0,0]);row(TEAM,[...(context?.teamColor??DEFAULT_TEAM),context?.activity??0]);
   row(APPARITION,[...(context?.apparition?.tint??[1,1,1]),context?.apparition?.opacity??1]);
+  row(REFIT,context?.refit??[0,0,0,0]);
   return rows;
  }
  flush(){
@@ -142,7 +148,62 @@ export class UnitMaterialSurface {
    emission+=mode===0?`umEmission=${j?'umEmission':'umDiffuse'}*${value};`:mode===1?`umEmission=${j?'umEmission':'umDiffuse'}*${value}*2.0;`:mode===3?`umEmission=mix(umEmission,${value},umLayer${j+1}().a);`:mode===4?`umEmission+=${value}*umData(${TEAM}).rgb;`:mode===5?`umDiffuse+=${value}*umData(${TEAM}).rgb;`:`umEmission+=${value};`;
   }
   emission+=`umEmission=max(vec3(0.0),umEmission*${number(source.hdrEmission)})*(1.0+.16*umData(${TEAM}).a);`;
-  const body=diffuse+emission+`umDiffuse*=umData(${APPARITION}).rgb;umEmission*=umData(${APPARITION}).rgb;`;
+  const refit=instanced&&geometry.hasAttribute('unitUpper')?`
+   vec4 ds=umData(${REFIT});float dsLuma=dot(umDiffuse,vec3(.299,.587,.114));
+   float grade=floor(ds.w*.5),pulse=fract(ds.w)/.75;ds.w=mod(floor(ds.w),2.);
+   if(ds.z>.5&&ds.z<1.5){
+    vec3 paint=mix(vec3(.90,.94,1.0),vec3(.045,.24,.85),clamp(unitPaintRegion.x,0.,1.));
+    paint=mix(paint,vec3(.72,.025,.035),clamp(unitPaintRegion.y,0.,1.));
+    paint=mix(paint,vec3(.045,.05,.06),clamp(unitPaintRegion.z,0.,1.));
+    umDiffuse=mix(umDiffuse,paint*(.62+dsLuma*.85),.94);
+   }else if(ds.z>1.5&&ds.z<2.5){umDiffuse=mix(umDiffuse,vec3(.09,.105,.12)*(.65+dsLuma*1.8),.8);umEmission*=vec3(1.15,.30,.10);}
+   float bare=${teamTexture?'1.-clamp(umMask,0.,1.)':'1.'};
+   float etch=smoothstep(.035,.24,fwidth(dsLuma)/max(.08,dsLuma));
+   float inset=smoothstep(.06,.5,dsLuma)*(.3+.7*etch)*bare;
+   if(ds.z>2.5&&unitPaintRegion.z>-.2){
+    umDiffuse=mix(umDiffuse,dsLuma*vec3(.78,.99,1.16),.66*bare);
+    umEmission+=vec3(.055,.13,.17)*inset*unitSteelWeight;
+   }
+   if(ds.y>0.){
+    float rim=pow(1.-abs(dot(normalize(umNormal),normalize(umView))),2.);
+    float darkSteel=ds.z>.5&&ds.z<2.5?.16:.65;
+    umDiffuse=mix(umDiffuse,dsLuma*vec3(.46,.43,.61),bare*darkSteel);
+    umEmission+=vec3(.14,.075,.23)*rim*(.20+.80*etch)*bare;
+   }
+   if(ds.x>0.||ds.w>0.){
+    // Circuits follow the source UV islands, including their articulation.
+    vec2 panel=umUV0*vec2(15.,11.);
+    vec2 cell=floor(panel),p=fract(panel);
+    float bank=fract(dot(cell,vec2(.618,.382)));
+    float elbow=.30+.40*step(.5,bank);
+    float distanceToTrace=min(max(abs(p.y-elbow),p.x-.66),max(abs(p.x-.66),elbow-p.y));
+    float aa=clamp(max(fwidth(panel.x),fwidth(panel.y))*.5,.016,.14);
+    float trace=(1.-smoothstep(.020,.040+aa,distanceToTrace))*smoothstep(.22,.55,bank);
+    float carrier=fract(umRefitTime*.70+umUV0.y*.9+bank*.44);
+    float sweep=1.-smoothstep(.035,.24,abs(carrier-.46));
+    float response=.27+.89*sweep+.57*ds.w;
+    vec3 ink=mix(vec3(.035,.88,.82),vec3(.71,.12,.65),smoothstep(.76,.93,bank));
+    float mask=bare*(ds.z>.5&&ds.z<2.5?.40:1.);
+    if(ds.x>0.&&ds.z<.5)umDiffuse=mix(umDiffuse,dsLuma*vec3(.66,.94,1.04),.44*bare);
+    umEmission+=ink*response*(trace*(.50+.50*etch)+.18*etch*sweep)*mask;
+   }
+   if(grade>.5&&(ds.z<.5||ds.z>2.5)){
+    float plate=smoothstep(.08,.72,unitSteelWeight);
+    vec3 steel=dsLuma*vec3(.86,1.02,1.14)*(grade>1.5?1.25:1.);
+    umDiffuse=mix(umDiffuse,steel,bare*plate*(grade>1.5?.75:.52));
+    umEmission+=vec3(.17,.23,.27)*plate*inset;
+    if(grade>1.5)umDiffuse+=vec3(.18,.20,.22)*plate*inset;
+    if(grade>2.5){
+     float along=.5+atan(unitSurfacePoint.z)*.30;
+     float wave=exp(-12.*abs(along-(1.-pulse)));
+     umEmission+=vec3(1.7,.55,.095)*plate*inset*pulse*(.50+wave);
+    }
+   }` : '';
+  if(refit){
+   shader.uniforms.umRefitTime=this.refitTime;
+   shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nuniform float umRefitTime;varying vec3 unitPaintRegion;varying vec3 unitSurfacePoint;varying float unitSteelWeight;');
+  }
+  const body=diffuse+emission+refit+`umDiffuse*=umData(${APPARITION}).rgb;umEmission*=umData(${APPARITION}).rgb;`;
   if(this.material instanceof THREE.MeshBasicMaterial)shader.fragmentShader=shader.fragmentShader.replace('#include <map_fragment>',body+'diffuseColor.rgb=umDiffuse+umEmission;');
   else {
    shader.fragmentShader=shader.fragmentShader.replace('#include <map_fragment>',body+'diffuseColor.rgb*=umDiffuse;');

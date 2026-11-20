@@ -5,18 +5,18 @@ import type {SourcePhase} from './types';
 import type {UnitMaterialSurface} from '../../materials/unit-material-batch';
 import {DisplacementSurface,DISPLACEMENT_LAYER,type DisplacementResource} from './displacement';
 
-export interface SourceQuad {matrix:THREE.Matrix4;color:[number,number,number,number];uv:[number,number,number,number];phase:SourcePhase;segmentedUv?:boolean}
+export interface SourceQuad {tint?:readonly [number,number,number];matrix:THREE.Matrix4;color:[number,number,number,number];uv:[number,number,number,number];phase:SourcePhase;segmentedUv?:boolean}
 /** Source effects grow their draw storage; a crowded scene cannot drop a core emitter. */
 export class SourceDrawBatch {
  mesh!:THREE.InstancedMesh;surface!:UnitMaterialSurface|DisplacementSurface;
- private slots!:THREE.InstancedBufferAttribute;private paletteCapacity=0;private colors!:THREE.InstancedBufferAttribute;private uvs!:THREE.InstancedBufferAttribute;private segmented!:THREE.InstancedBufferAttribute;private capacity=0;
+ private tints!:THREE.InstancedBufferAttribute;private slots!:THREE.InstancedBufferAttribute;private paletteCapacity=0;private colors!:THREE.InstancedBufferAttribute;private uvs!:THREE.InstancedBufferAttribute;private segmented!:THREE.InstancedBufferAttribute;private capacity=0;
  readonly quads:SourceQuad[]=[];growths=0;
  constructor(private scene:THREE.Scene,private material:SourceMaterialResource|DisplacementResource){this.grow(64);}
  private grow(size:number,paletteSize=64){
   const previousPalette=this.paletteCapacity;
   this.paletteCapacity=Math.max(64,2**Math.ceil(Math.log2(paletteSize)));
   const old=this.mesh,oldSurface=this.surface;this.capacity=Math.max(64,2**Math.ceil(Math.log2(size)));
-  const geometry=new THREE.PlaneGeometry(1,1);this.colors=new THREE.InstancedBufferAttribute(new Float32Array(this.capacity*4),4).setUsage(THREE.DynamicDrawUsage);this.uvs=new THREE.InstancedBufferAttribute(new Float32Array(this.capacity*4),4).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('sourceColor',this.colors);geometry.setAttribute('sourceUv',this.uvs);
+  const geometry=new THREE.PlaneGeometry(1,1);this.colors=new THREE.InstancedBufferAttribute(new Float32Array(this.capacity*4),4).setUsage(THREE.DynamicDrawUsage);this.uvs=new THREE.InstancedBufferAttribute(new Float32Array(this.capacity*4),4).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('sourceColor',this.colors);this.tints=new THREE.InstancedBufferAttribute(new Float32Array(this.capacity*3),3).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('sourceTint',this.tints);geometry.setAttribute('sourceUv',this.uvs);
   this.segmented=new THREE.InstancedBufferAttribute(new Float32Array(this.capacity),1).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('sourceSegmentedUv',this.segmented);
   this.slots=new THREE.InstancedBufferAttribute(new Float32Array(this.capacity),1).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('sourceMaterialSlot',this.slots);
   // Capacity-only growth retains the warmed program and the material palette.
@@ -42,10 +42,10 @@ export class SourceDrawBatch {
   phases.forEach((phase,i)=>this.surface.write(i,{clip:phase.clip.name,seconds:phase.seconds}));
   for(let i=0;i<this.quads.length;i++){
    const q=this.quads[i],c=q.color,uv=q.uv;this.mesh.setMatrixAt(i,q.matrix);
-   this.colors.setXYZW(i,c[0],c[1],c[2],c[3]);this.uvs.setXYZW(i,uv[0],uv[1],uv[2],uv[3]);
+   this.tints.setXYZ(i,...(q.tint??[0,0,0] as const));this.colors.setXYZW(i,c[0],c[1],c[2],c[3]);this.uvs.setXYZW(i,uv[0],uv[1],uv[2],uv[3]);
    this.segmented.setX(i,q.segmentedUv?1:0);this.slots.setX(i,indices[i]);
   }
-  commitInstances(this.mesh,this.quads.length);uploadActive(this.colors,this.quads.length);uploadActive(this.uvs,this.quads.length);uploadActive(this.segmented,this.quads.length);uploadActive(this.slots,this.quads.length);this.surface.flush();
+  commitInstances(this.mesh,this.quads.length);uploadActive(this.colors,this.quads.length);uploadActive(this.tints,this.quads.length);uploadActive(this.uvs,this.quads.length);uploadActive(this.segmented,this.quads.length);uploadActive(this.slots,this.quads.length);this.surface.flush();
  }
  dispose(){this.mesh.removeFromParent();this.mesh.geometry.dispose();this.mesh.dispose();this.surface.material.dispose();this.surface.texture.dispose();}
  report(){return {active:this.quads.length,submitted:this.mesh.count,dropped:Math.max(0,this.quads.length-this.mesh.count),capacity:this.capacity,growths:this.growths,paletteCapacity:this.paletteCapacity};}

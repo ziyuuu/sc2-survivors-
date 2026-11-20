@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>末日兵器 · 购卡入口</title>
+  <style>
+    :root{color-scheme:dark;background:#0b141d;color:#e7eff2;font:16px/1.65 "Microsoft YaHei UI",sans-serif}
+    main{max-width:64rem;margin:2rem auto;padding:0 1rem}
+    h1{font-size:1.5rem} h2{font-size:1.1rem;margin:1.5rem 0 .4rem}
+    nav{display:grid;grid-template-columns:repeat(auto-fit,minmax(12rem,1fr));gap:.4rem}
+    a{padding:.55rem .7rem;color:#d2e7f4;background:#152733;text-decoration:none}
+    a:hover,a:focus-visible{outline:1px solid #98cce2}
+    small{margin-right:.65rem;color:#acc2d0}
+  </style>
+</head>
+<body><main><h1>末日兵器 · 购卡入口</h1>
+<h2>买三张，免费选节点</h2>
+<p><a href="./shop.html?branch=doomsday">末日兵器</a> <a href="./shop.html?branch=armed">武装支援</a></p><h2>已领三个紫节点，再买三张选橙节点</h2>
+<p><a href="./shop.html?branch=doomsday&amp;after=9">末日兵器</a> <a href="./shop.html?branch=armed&amp;after=9">武装支援</a></p></main>
+<script type="module">
+  import {DOOMSDAY_CARDS} from '../../src/data/terran-doomsday.ts';
+  const root=document.querySelector('main');
+  for(const [code,label] of Object.entries({W:'白卡',G:'绿卡',B:'蓝卡',P:'普通紫卡',N:'紫色节点 · 免费三选一',O:'橙色终极 · 免费三选一'})){
+    const heading=document.createElement('h2'),nav=document.createElement('nav');
+    heading.textContent=label;
+    nav.setAttribute('aria-label',label);
+    for(const card of DOOMSDAY_CARDS.filter(c=>c.id[2]===code)){
+      const link=document.createElement('a'),number=document.createElement('small');
+      link.href='./shop.html?card='+card.id;
+      number.textContent=card.id;
+      link.append(number,card.name);
+      nav.append(link);
+    }
+    root.append(heading,nav);
+  }
+</script></body></html>

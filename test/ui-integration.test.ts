@@ -13,7 +13,7 @@ import {encodeGraph} from '../src/persistence/graph-codec';
 import {createHash} from 'node:crypto';
 const snapshot=(w:World)=>createHash('sha256').update(JSON.stringify(encodeGraph({profile:w.permanentProfile.exportJSON(),run:w.captureRun()}))).digest('hex');
 
-test('formal inspection renders all 690 body/rank combinations without mutating the complete archive',()=>{
+test('formal inspection renders all 750 body/rank combinations without mutating the complete archive',()=>{
  let count=0;
  for(const rank of [1,2,3,4,5])for(const id of [...ALL_FAMILIES,...Object.keys(ELITES),...Object.keys(HEROES)]){
   const hero=HEROES[id as HeroId],elite=ELITES[id as keyof typeof ELITES],family=elite?.family??(hero?.baseFamily??id) as typeof ALL_FAMILIES[number];
@@ -25,14 +25,14 @@ test('formal inspection renders all 690 body/rank combinations without mutating 
   for(const tab of ['stats','abilities','army'] as const){const html=renderUnitInspector(w,seat,[seat],tab,new Set(['active','passive','native','elite','weapon']));assert.ok(html.includes('inspector-content'));assert.ok(!/NaN|undefined|Infinity/.test(html),id+':'+rank+':'+tab);}
   assert.equal(snapshot(w),before,id+':'+rank);count++;
  }
- assert.equal(count,690);
+ assert.equal(count,750);
 });
 
 test('catalogue and multi-level intermission navigation are read-only for all races',()=>{
  for(const race of ['terran','zerg','protoss'] as const){
   const w=new World({race,sandbox:true,waves:false,terrain:false});w.start();const before=snapshot(w),nav=new IntermissionNavigation();
   nav.sync(w);
-  for(const filter of ['ordinary','elite','hero','development','support','training'] as const){nav.filter=filter;const items=catalogue(w,filter);assert.ok(items.length);if(filter==='ordinary')assert.equal(items.length,10);if(filter==='elite')assert.equal(items.length,30);if(filter==='hero')assert.equal(items.length,6);
+  for(const filter of ['ordinary','elite','hero','development','support','training'] as const){nav.filter=filter;const items=catalogue(w,filter);assert.ok(items.length);if(filter==='ordinary')assert.equal(items.length,race==='protoss'?10:16);if(filter==='elite')assert.equal(items.length,30);if(filter==='hero')assert.equal(items.length,6);
    nav.push({page:'catalog'});assert.equal(nav.current.page,'root');for(const item of items){nav.push({page:'catalog-detail',id:item.id});assert.equal(nav.current.page,'root');}assert.doesNotMatch(renderIntermission(w,'',nav),/data-page="catalog"/);
   }
   assert.equal(snapshot(w),before);

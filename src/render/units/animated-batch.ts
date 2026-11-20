@@ -2,6 +2,7 @@ import {preparePoseData,preparePoseDataAsync,posePaletteKey,type PosePreparation
 import {unitMaterialTextures} from '../materials/unit-material-loader';
 import {commitInstances,uploadActive} from './instance-updates';
 
+import {bioRig,leftArmorWeight,compileBioArmor,type BioMounts} from '../materials/bio-armor';
 import {compileUnitPose} from './unit-pose-shader';
 import {bindSourceDepth} from '../materials/posed-depth';
 import * as THREE from 'three';
@@ -12,6 +13,7 @@ import {mapAnimations,sourceAnimationName} from '../loaders/animations';
 import type {AnimationMode} from '../settings/quality';
 import {createUnitMaterialSurface,type UnitMaterialSurface} from '../materials/unit-material-batch';
 import type {UnitMaterialContext} from '../materials/source-tracks';
+import {doomsdayPaintRegion} from '../materials/doomsday-material';
 
 export type PoseClip={offset:number;frames:number;duration:number};
 const CAPACITY=1024;
@@ -26,7 +28,6 @@ export class AnimatedBatch {
  readonly apparitionMeshes:THREE.InstancedMesh[]=[];private apparitionCount=0;
  private apparitionAttributes:THREE.InstancedBufferAttribute[]=[];
  get allMeshes(){return [...this.meshes,...this.apparitionMeshes];}
- tierAttributes:THREE.InstancedBufferAttribute[]=[];
  aimAttributes:THREE.InstancedBufferAttribute[]=[];turretPivot=new THREE.Vector3();
  blendAttributes:THREE.InstancedBufferAttribute[]=[]; weapon=new THREE.Vector3(0,.8,.5);
  weaponTracks=new Map<string,THREE.Vector3[]>();
@@ -37,6 +38,7 @@ export class AnimatedBatch {
  private ownedPoseTextures:THREE.Texture[]=[];
  readonly materialSurfaces:UnitMaterialSurface[]=[];
  private simplePose=false;
+ private bioRig=false;
  static async create(gltf:GLTF,scene:THREE.Scene,height:number,normalization?:THREE.Matrix4,unitScale=1,profile?:string,referenceBodyHeight?:number,control:PosePreparationControl={}){
   const data=await preparePoseDataAsync([gltf,height,normalization,unitScale,profile,referenceBodyHeight],control);
   const batch=new AnimatedBatch(gltf,scene,height,normalization,unitScale,profile,referenceBodyHeight,data,true);
@@ -44,7 +46,8 @@ export class AnimatedBatch {
   catch(error){batch.dispose();throw error;}
  }
  constructor(gltf:GLTF,scene:THREE.Scene,height:number,normalization?:THREE.Matrix4,unitScale=1,profile?:string,referenceBodyHeight?:number,prepared?:PosePreparation,deferred=false){
-  this.simplePose=profile?.startsWith('fun-')??false;
+  this.bioRig=bioRig(profile);
+  this.simplePose=!!profile&&(profile.startsWith('fun-')||profile==='overlord'||profile==='overlord.death');
   const data=prepared??preparePoseData(gltf,height,normalization,unitScale,profile,referenceBodyHeight);
   this.actions=data.actions;this.scale=data.scale;this.normalization=data.normalization;this.bodyHeight=data.bodyHeight;this.bodyRadius=data.bodyRadius;this.bodyOutline=data.bodyOutline;this.turretPivot.copy(data.turretPivot);this.clips=data.clips;this.weaponTracks=data.weaponTracks;this.weapon.copy(data.weapon);this.boneCount=data.boneCount;
   if(!deferred)for(const _ of this.buildMeshes(data,scene)){}
@@ -52,17 +55,27 @@ export class AnimatedBatch {
  private *buildMeshes(data:PosePreparation,scene:THREE.Scene){
   const nodes=data.nodes,turretBones=data.turretBones,paletteKey=posePaletteKey,textures=new Map<string,THREE.DataTexture>();
   for(const [key,palette]of data.palettes){const tex=new THREE.DataTexture(palette.packed,palette.bones*4,data.totalFrames,THREE.RGBAFormat,THREE.HalfFloatType);tex.magFilter=tex.minFilter=THREE.NearestFilter;tex.needsUpdate=true;textures.set(key,tex);this.ownedPoseTextures.push(tex);this.textureBytes+=palette.packed.byteLength;}
-  for(const n of nodes){const geometry=n.geometry.clone(),pose=new THREE.InstancedBufferAttribute(new Float32Array(CAPACITY*4),4).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('unitPose',pose);const tier=new THREE.InstancedBufferAttribute(new Float32Array(CAPACITY),1).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('unitTier',tier);this.tierAttributes.push(tier);
+  for(const n of nodes){const geometry=n.geometry.clone(),pose=new THREE.InstancedBufferAttribute(new Float32Array(CAPACITY*4),4).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('unitPose',pose);
    const apparition=new THREE.InstancedBufferAttribute(new Float32Array(CAPACITY*4).fill(1),4).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('unitApparition',apparition);this.apparitionAttributes.push(apparition);
    const full=geometry.getIndex();if(full&&geometry.groups.length<=1&&MeshoptSimplifier.supported){const position=geometry.getAttribute('position'),positions=new Float32Array(position.count*3);for(let v=0;v<position.count;v++){positions[v*3]=position.getX(v);positions[v*3+1]=position.getY(v);positions[v*3+2]=position.getZ(v);}
     const [indices]=MeshoptSimplifier.simplify(new Uint32Array(full.array),positions,3,Math.max(3,Math.floor(full.count*.3/3)*3),.035,['RegularizeLight']);const low=new THREE.BufferAttribute(indices,1);this.lodIndices.push({full,low});this.lodRatio=Math.min(this.lodRatio,indices.length/full.count);
    }else if(full)this.lodIndices.push({full,low:full});
    const blend=new THREE.InstancedBufferAttribute(new Float32Array(CAPACITY*4),4).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('unitBlend',blend);
-   const weights=new Float32Array(geometry.attributes.position.count),indices=geometry.getAttribute('skinIndex'),skin=geometry.getAttribute('skinWeight');
-   for(let v=0;v<weights.length;v++)for(let k=0;k<4;k++){const bone=n.skeleton.bones[indices.getComponent(v,k)];if(bone&&/spine|shoulder|arm|hand|head|weapon/i.test(bone.name))weights[v]+=skin.getComponent(v,k);}
-   geometry.setAttribute('unitUpper',new THREE.BufferAttribute(weights,1));
-   const turretWeights=new Float32Array(weights.length);for(let v=0;v<weights.length;v++)for(let k=0;k<4;k++)if(turretBones.has(n.skeleton.bones[indices.getComponent(v,k)]))turretWeights[v]+=skin.getComponent(v,k);geometry.setAttribute('unitTurret',new THREE.BufferAttribute(turretWeights,1));
-   const aim=new THREE.InstancedBufferAttribute(new Float32Array(CAPACITY*2),2).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('unitAim',aim);
+   const vertices=geometry.attributes.position.count,weights=new Float32Array(vertices*4),indices=geometry.getAttribute('skinIndex'),skin=geometry.getAttribute('skinWeight');
+   for(let v=0;v<vertices;v++)for(let k=0;k<4;k++){const bone=n.skeleton.bones[indices.getComponent(v,k)];if(!bone)continue;const w=skin.getComponent(v,k);if(/spine|shoulder|arm|hand|head|weapon/i.test(bone.name))weights[v*4]+=w;const region=doomsdayPaintRegion(bone.name);for(let c=0;c<3;c++)weights[v*4+1+c]+=region[c]*w;}
+   geometry.setAttribute('unitUpper',new THREE.BufferAttribute(weights,4));
+   const stride=this.bioRig?3:2,mountWeights=new Float32Array(vertices*stride);
+   const shellWeights=this.bioRig?n.skeleton.bones.map(b=>leftArmorWeight(b.name)):[];
+   const weaponBones=new Set(n.skeleton.bones.filter(b=>/turret|cannon|weapon|rifle|barrel|gun|launcher|muzzle/i.test(b.name)));
+   for(let v=0;v<vertices;v++)for(let k=0;k<4;k++){
+    const bone=n.skeleton.bones[indices.getComponent(v,k)],weight=skin.getComponent(v,k);
+    if(turretBones.has(bone))mountWeights[v*stride]+=weight;
+    if(weaponBones.has(bone))mountWeights[v*stride+1]+=weight;
+    if(this.bioRig)mountWeights[v*stride+2]+=(shellWeights[indices.getComponent(v,k)]??0)*weight;
+   }
+   geometry.setAttribute('unitTurret',new THREE.BufferAttribute(mountWeights,stride));
+   // One instance attribute keeps UV1 meshes within WebGL2’s 16-location minimum.
+   const aim=new THREE.InstancedBufferAttribute(new Float32Array(CAPACITY*4),4).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('unitAimTier',aim);
    const assetMatrix=this.normalization.clone().multiply(n.matrixWorld).multiply(n.bindMatrixInverse),bind=n.bindMatrix.clone();
    geometry.computeBoundingBox();const accentTop=geometry.boundingBox?.max.y??0,accentBottom=geometry.boundingBox?.min.y??0,accentStart=accentTop-Math.max(.001,accentTop-accentBottom)*.18;
    const poseUniforms={simple:this.simplePose,atlas:textures.get(paletteKey(n.skeleton))!,bind,asset:assetMatrix,pivot:this.turretPivot,accent:new THREE.Vector2(accentStart,accentTop)};
@@ -70,8 +83,8 @@ export class AnimatedBatch {
     mat.onBeforeCompile=(shader,renderer)=>{if(!surface)m.onBeforeCompile(shader,renderer);
      compileUnitPose(shader,poseUniforms);
      shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying float unitHit; varying float specialTier; varying float localAccent;').replace('#include <emissivemap_fragment>','#include <emissivemap_fragment>\nfloat hitRim=pow(1.0-abs(dot(normalize(normal),normalize(vViewPosition))),3.0); totalEmissiveRadiance += (diffuseColor.rgb*.32+vec3(.18,.07,.025))*unitHit*(.12+.88*hitRim); if(specialTier<-.5){float dissolve=clamp(-specialTier-1.0,0.0,1.0);float grain=fract(sin(dot(vViewPosition.xy,vec2(12.9898,78.233)))*43758.5453);if(grain<dissolve)discard;totalEmissiveRadiance+=vec3(.15,.5,.68)*sin(dissolve*3.14159)*.8;} if(specialTier>0.5&&specialTier<4.5){float rim=pow(1.0-abs(dot(normalize(normal),normalize(vViewPosition))),2.0);vec3 glow=specialTier>2.5?vec3(1.0,.58,.12):specialTier>1.5?vec3(1.0,.32,.03):vec3(.54,.1,.85);totalEmissiveRadiance += glow*(specialTier>2.5?.2+rim*2.1:.12+rim*1.5);} if(specialTier>14.5){float phase=fract(sin(dot(gl_FragCoord.xy,vec2(12.9898,78.233)))*43758.5453);if(phase<.7)discard;totalEmissiveRadiance+=vec3(.12,.35,.6)*.45;} if(specialTier>13.5){float heroRim=pow(1.0-abs(dot(normalize(normal),normalize(vViewPosition))),7.0);totalEmissiveRadiance+=vec3(1.0,.49,.10)*heroRim*.72;}');
-     surface?.compile(shader,geometry);if(!surface)compileFallbackApparition(shader);
-    };mat.customProgramCacheKey=()=> 'sc2-original-gpu-bones-v11:'+(this.simplePose?'fun-simple:':'')+(surface?.programKey(geometry)??m.customProgramCacheKey());
+     surface?.compile(shader,geometry);if(this.bioRig)compileBioArmor(shader);if(!surface)compileFallbackApparition(shader);
+    };mat.customProgramCacheKey=()=> 'sc2-original-gpu-bones-v12:'+(this.bioRig?'bio-skin:':'')+(this.simplePose?'fun-simple:':'')+(surface?.programKey(geometry)??m.customProgramCacheKey());
     bindSourceDepth(mat,{key:()=>surface?'sc2-original-gpu-bones-depth-v11:'+(this.simplePose?'fun-simple:':'')+surface.programKey(geometry,true,true):mat.customProgramCacheKey(),compile:(shader,renderer)=>{if(!surface)m.onBeforeCompile(shader,renderer);compileUnitPose(shader,poseUniforms);surface?.compile(shader,geometry,true,true);if(!surface)compileFallbackApparition(shader);shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying float specialTier;').replace('#include <alphatest_fragment>','#include <alphatest_fragment>\nif(specialTier<-.5||specialTier>14.5)discard;');}});return mat;});
    const mesh=new THREE.InstancedMesh(geometry,materials.length===1?materials[0]:materials,CAPACITY);mesh.frustumCulled=false;mesh.matrixAutoUpdate=false;mesh.matrixWorldAutoUpdate=false;mesh.count=0;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);scene.add(mesh);this.meshes.push(mesh);this.attributes.push(pose);this.blendAttributes.push(blend);this.aimAttributes.push(aim);yield;
   }
@@ -120,14 +133,27 @@ export class AnimatedBatch {
   const attack=this.pose(attackKey),shot=attack&&attackSeconds>=0?Math.min(attack.frames-1,attackSeconds/attack.duration*(attack.frames-1)):0,sa=Math.floor(shot),sb=Math.min((attack?.frames??1)-1,sa+1),weight=attackSeconds>=0?(attackKey==='attackLeft'||attackKey==='attackRight'?Math.min(1,Math.max(0,((attack?.duration??0)-attackSeconds)/.12)):Math.max(0,1-attackSeconds/.55)):0;
   if(this.materialSurfaces.length){const pose={clip:sourceAnimationName(this.actions[action]??this.actions.idle),seconds:t,attackClip:weight>.001?sourceAnimationName(this.actions[attackKey]):undefined,attackSeconds:Math.max(0,Math.min(attack?.duration??0,attackSeconds))};for(const surface of this.materialSurfaces)surface.write(this.count,pose,materialContext);}
   object.position.set(x,y,z);object.rotation.set(0,facing,0);object.scale.setScalar(shrink);object.updateMatrix();
-  this.meshes.forEach((m,i)=>{m.setMatrixAt(this.count,object.matrix);this.tierAttributes[i].setX(this.count,tier);this.aimAttributes[i].setXY(this.count,Math.sin(turretYaw),Math.cos(turretYaw));this.attributes[i].setXYZW(this.count,p.offset+a,p.offset+b,interpolate?frame-a:0,hit);this.blendAttributes[i].setXYZW(this.count,(attack?.offset??0)+sa,(attack?.offset??0)+sb,interpolate?shot-sa:0,weight);});this.count++;
+  this.meshes.forEach((m,i)=>{m.setMatrixAt(this.count,object.matrix);this.aimAttributes[i].setXYZW(this.count,Math.sin(turretYaw),Math.cos(turretYaw),tier,materialContext?.bioSurface??0);this.attributes[i].setXYZW(this.count,p.offset+a,p.offset+b,interpolate?frame-a:0,hit);this.blendAttributes[i].setXYZW(this.count,(attack?.offset??0)+sa,(attack?.offset??0)+sb,interpolate?shot-sa:0,weight);});this.count++;
+  if(this.bioRig&&materialContext?.bioSurface!==undefined){
+   const mounts:BioMounts={};
+   const bodyClip=this.actions[action]??this.actions.idle,upperClip=this.actions[attackKey];
+   for(const name of ['head','shoulder'] as const){
+    const points=this.weaponTracks.get(bodyClip?.name+':'+name);if(!points)continue;
+    const v=points[a].clone().lerp(points[b],interpolate?frame-a:0);
+    const upper=weight>0?this.weaponTracks.get(upperClip?.name+':'+name):undefined;
+    if(upper)v.lerp(upper[sa].clone().lerp(upper[sb],interpolate?shot-sa:0),weight);
+    mounts[name]=v.applyMatrix4(object.matrix);
+   }
+   return mounts;
+  }
  }
- end(){this.meshes.forEach((m,i)=>{commitInstances(m,this.count);uploadActive(this.attributes[i],this.count);uploadActive(this.blendAttributes[i],this.count);uploadActive(this.aimAttributes[i],this.count);uploadActive(this.tierAttributes[i],this.count);uploadActive(this.apparitionAttributes[i],this.count);});for(const mesh of this.apparitionMeshes){mesh.count=this.apparitionCount?this.count:0;mesh.visible=mesh.count>0;}for(const surface of this.materialSurfaces)surface.flush();}
+ end(){this.meshes.forEach((m,i)=>{commitInstances(m,this.count);uploadActive(this.attributes[i],this.count);uploadActive(this.blendAttributes[i],this.count);uploadActive(this.aimAttributes[i],this.count);uploadActive(this.apparitionAttributes[i],this.count);});for(const mesh of this.apparitionMeshes){mesh.count=this.apparitionCount?this.count:0;mesh.visible=mesh.count>0;}for(const surface of this.materialSurfaces)surface.flush();}
 }
 
 /** Converted fallback materials need the same instance isolation as source surfaces. */
 function compileFallbackApparition(shader:THREE.WebGLProgramParametersWithUniforms){
  shader.uniforms.umApparitionPass={value:0};
- shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nattribute vec4 unitApparition;varying vec4 fallbackApparition;').replace('#include <begin_vertex>','#include <begin_vertex>\nfallbackApparition=unitApparition;');
+ // The pose shader replaces begin_vertex. Assign the pass data in both colour and depth shaders.
+ shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nattribute vec4 unitApparition;varying vec4 fallbackApparition;').replace(/void main\(\)\s*\{/, 'void main() {\nfallbackApparition=unitApparition;');
  shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying vec4 fallbackApparition;uniform float umApparitionPass;').replace('#include <alphatest_fragment>','if(umApparitionPass<.5){if(fallbackApparition.a<1.0)discard;}else{if(fallbackApparition.a>=1.0)discard;diffuseColor.a*=fallbackApparition.a;}diffuseColor.rgb*=fallbackApparition.rgb;\n#include <alphatest_fragment>');
 }

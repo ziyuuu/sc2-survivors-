@@ -105,7 +105,7 @@ export class AssetReadinessCoordinator {
     if(!this.audio)return;
     const state=request.snapshot?.state??this.world;
     const stage=kind==='new'?1:Math.min(18,state.stage+Number(state.phase==='reward'));
-    const identities=[...state.entities.values(),...(request.hero?[{heroId:request.hero}]:[])];
+    const identities=[...state.entities.values(),...(request.hero?[{heroId:request.hero}]:[]),...(state.expedition.bio?.ranks['BIO-B05']?[{modelKey:'overlord'}]:[])];
     const plan=request.snapshot?.config.contentPlan??request.contentPlan??this.world.runConfig?.contentPlan;
     const round=state.endless?state.endless.round+Number(state.phase==='reward'):kind==='endless'||state.endlessEntry?1:undefined;
     const content=plan?stageContentAssets(plan,stage,round,state.funShop.levels,state.expedition.familySlots,[]):undefined;

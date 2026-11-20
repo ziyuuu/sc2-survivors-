@@ -2,7 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
 import {draftContext} from '../src/simulation/expedition-economy';
-import {drawExpeditionReinforcements,type ExpeditionReward} from '../src/simulation/progression/expedition-drafts';
+import {drawExpeditionReinforcements,inspectShopWeights,type ExpeditionReward} from '../src/simulation/progression/expedition-drafts';
+import {RARITIES} from '../src/data/rewards';
 import {effectiveReaperGrowth} from '../src/simulation/combat/terran-elite-runtime';
 import {newEquipmentAccount,grantEquipment,canEquip} from '../src/simulation/starship/inventory';
 import {quickEquipPlan} from '../src/simulation/starship/quick-equip';
@@ -15,8 +16,11 @@ import {SaveRepository,type SaveBackend} from '../src/persistence/save-repositor
 const make=()=>new World({seed:529,race:'terran',difficulty:'normal',waves:false,sandbox:true,terrain:false,obstacles:[],equipmentAccount:newEquipmentAccount(529)});
 function shop(rank=1){const w=make();w.start();w.entities.clear();w.heroes.clear();w.expedition.familySlots=['reaper'];w.stage=7;for(let n=0;n<rank;n++)assert.ok(w.acquireElite('reaper.3'));w.wallet={minerals:100000,gas:100000};w.endStage();w.skipReward();assert.equal(w.rewardRound,'random');return w;}
 function offer(w:World,rarity:'purple'|'orange'){
- for(let n=0;n<500;n++){w.rewards=drawExpeditionReinforcements(draftContext(w),true);const r=w.rewards.find(r=>r.rarity===rarity&&(r as ExpeditionReward).expeditionEffect.kind==='elite');if(r)return r as ExpeditionReward;}
- throw Error('Expected finite native elite quote');
+ const ctx={...draftContext(w),currentOffers:[]},tiers=Object.keys(RARITIES),pool=inspectShopWeights(ctx,true).filter(c=>c.weight>0).sort((a,b)=>tiers.indexOf(a.rarity)-tiers.indexOf(b.rarity));
+ const at=pool.findIndex(c=>c.rarity===rarity&&c.group==='elite');assert.ok(at>=0,'Expected a legal native elite quote');
+ const sum=(xs:typeof pool)=>xs.reduce((n,c)=>n+c.weight,0);let first=true;
+ ctx.random=()=>{if(!first)return w.random();first=false;return (sum(pool.slice(0,at))+pool[at].weight/2)/sum(pool);};w.rewards=drawExpeditionReinforcements(ctx,true);
+ const r=w.rewards.find(r=>r.rarity===rarity&&(r as ExpeditionReward).expeditionEffect.kind==='elite');assert.ok(r,'Expected the selected native elite quote');return r as ExpeditionReward;
 }
 function state(w:World){const h=w.eliteOwned('reaper.3');return {wallet:{...w.wallet},growth:h?effectiveReaperGrowth(w,h):null,hunter:h?.id,rank:h?.rank,receipts:structuredClone(w.terranElites.absorptions),bodies:w.allies().filter(u=>u.unitType==='reaper').map(u=>({id:u.id,rank:u.rank,elite:u.eliteId})),purchases:{...w.economyTotals.purchases}};}
 for(const rank of [1,5])for(const rarity of ['purple','orange'] as const)for(const variant of ['reaper.1','reaper.2'] as const)test(`paid ${rarity} ${variant} feeds rank-${rank} hunter once, at the quoted rank, across restore`,()=>{

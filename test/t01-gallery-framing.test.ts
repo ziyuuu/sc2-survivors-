@@ -22,7 +22,7 @@ test('fresh and legacy restored interceptors share source scale without modifyin
  const before=structuredClone(restored);assert.equal(modelPresentationScale(restored),1);assert.deepEqual(restored,before);assert.equal(restored.hp,17);assert.equal(restored.unitRadius,child.unitRadius);
 });
 test('gallery keeps every unit and real state branch, filters numeric cards and retains effectful equipment',()=>{
- const objects=buildGallery(DYNAMIC_CASES);assert.equal(objects.filter(o=>o.unit).length,165);
+ const objects=buildGallery(DYNAMIC_CASES);assert.equal(objects.filter(o=>o.unit).length,177);
  assert.ok(objects.flatMap(o=>o.actions).some(a=>a.id==='stim'));
  assert.ok(objects.some(o=>o.id==='actor:hero.purifier_flagship'));
  for(const support of ['terran.strategic','terran.bunker','zerg.parasite','protoss.reserve','protoss.prism'])assert.ok(objects.some(o=>o.id==='card:'+support.split('.')[0]+':support.'+support),support);

@@ -62,7 +62,9 @@
     "newPackage": false
   },
   "cleanup": {
-    "pending": true
+    "pending": false,
+    "completed": true,
+    "details": "reports/qa/three-stage-cleanup-20261029.json"
   },
   "featureCommit": "f68cc858c591d1f8a4674e4b9e0433ba4a6af903",
   "remoteVerification": {

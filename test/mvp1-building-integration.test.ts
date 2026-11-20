@@ -48,12 +48,11 @@ for(const [race,kind,family,producer,hero] of [
   if(process.env.MVP1_TRANSPORT_EVIDENCE_DIR){const root=path.resolve('reports/local/mvp1-building-main-20261013'),out=path.resolve(process.env.MVP1_TRANSPORT_EVIDENCE_DIR),relative=path.relative(root,out);assert.ok(relative&&!relative.startsWith('..')&&!path.isAbsolute(relative));fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,race+'.json'),JSON.stringify({scope:'native transport with fixed hero input; not whole-run balance acceptance',race,kind,offer:{cost:[offer.minerals,offer.gas],base:[offer.baseMinerals,offer.baseGas]},paidBatch:job,lifecycle,final:{time:w.time,tick:w.tick,phase:w.phase,produced:w.stats.produced,rescued:w.stats.rescued}},null,2),{flag:'wx'});}
  });
 }
-test('main purchase and refresh reject insufficient funds, stale window/revision and replay before any mutation',()=>{
+test('free Terran development rejects stale windows, old quotes and replay before mutation',()=>{
  const w=world(),r=window(w,'barracks'),revision=w.expedition.shopRevision;w.wallet.minerals=0;const before=w.captureRun();
- assert.equal(w.purchaseDevelopmentOffer(w.draftWindowKey,r.offerId,revision),false);assert.deepEqual(w.captureRun(),before);
  assert.equal(w.purchaseDevelopmentOffer('old',r.offerId,revision),false);assert.equal(w.purchaseDevelopmentOffer(w.draftWindowKey,r.offerId,revision-1),false);assert.deepEqual(w.captureRun(),before);
- assert.ok(w.refreshOffers(w.draftWindowKey,revision));assert.equal(w.wallet.minerals,0);assert.equal(w.rerollCost(),50);
- const after=w.captureRun();assert.equal(w.refreshOffers(w.draftWindowKey,revision),false);assert.equal(w.refreshOffers(),false);assert.deepEqual(w.captureRun(),after);
+ assert.ok(w.refreshOffers(w.draftWindowKey,revision));assert.equal(w.wallet.minerals,0);assert.equal(w.rerollCost(),0);
+ const after=w.captureRun();assert.equal(w.refreshOffers(w.draftWindowKey,revision),false);assert.equal(w.purchaseDevelopmentOffer(w.draftWindowKey,r.offerId,revision),false);assert.deepEqual(w.captureRun(),after);
 });
 test('Zerg evolution uses a real target and payment; old free line assignment cannot bypass it',()=>{
  const w=world('zerg');w.grantFacility('hatchery');w.expedition.tech['unlock.roach']=1;const r=window(w,'evolve-zerg.evolution');

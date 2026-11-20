@@ -1,6 +1,6 @@
 # 项目目录与修改边界
 
-核对于 2026-10-27。当前状态见 [完整交接](project/MVP_TO_1_0_HANDOFF_20261027.md)，操作命令见 [根 README](../README.md)。保留既有路径，不为统一模板搬动代码、资源和日期型工具。
+核对于 2026-10-27。当前状态见 [完整交接](project/MVP_1_0_HANDOFF_20261029.md)，操作命令见 [根 README](../README.md)。保留既有路径，不为统一模板搬动代码、资源和日期型工具。
 
 ~~~text
 星际/
@@ -48,7 +48,7 @@
 | 新原型 | preview 下明确命名目录，区分源码/唯一图稿与可重建输出 |
 | 简要检查结论 | reports/qa；来源、实际结果、限制和复现工具路径足够即可 |
 | 临时截图/视频/日志 | reports/local 对应任务；任务结束按保留规则清理 |
-| 本地成品 | dist 命名输出；不覆盖仍要求保留的 Current，不将同包重复上传 Git |
+| 本地成品 | dist 按任务命名；只保留进行中工作实际所需输出，已结束且可重建的产物删除，Current／V04／T01 无保留例外；不将同包重复上传 Git |
 | 生产账号/数据库/配置秘密 | 按运维流程保存在服务器，不能进入仓库、日志或交接提示词 |
 
 ## 必须区分的文件
@@ -67,4 +67,11 @@
 
 普通代码修改运行相关回归；资源修改核对来源和依赖闭包；目录路径迁移须修引用并验证入口。本轮根 AGENTS 已按共同讨论定稿，旧文完整归档，导航检查相对链接；游戏源码/测试/配置保持，资源统计修正只核对对应清单与载荷，不重复游戏全回归。
 
+> **2026-11-16 产物规则更新：** 已结束且可重新构建的产物全部清理，旧 Current、V04、T01 不再保留。下方历史表格中的交付路径、只归档或暂不清理描述均不构成保留例外；现行范围见[产物保留规则](project/ARTIFACT_RETENTION.md)。源码、原始输入与真实用户数据保持。
+
+
 武装支援候选入口（2026-11-11）：`src/data/terran-armed-support.ts`统一45卡参数/文案；`simulation/combat/armed-*`处理出勤、字段/工事、核击、舰队、节点与救场，进度交易沿`progression/build-progress.ts`及原商店。`app/armed-preload-plan.ts`收集本关/恢复模型，`render`中的载体/场物/行星炮塔视图只读正式状态；新增原资源独立于锁定核心目录，见`src/assets/armed-support.ts`和`deploy/runtime/armed-support-assets.json`。`preview/armed-support-showcase-20261111`是45项独立实机工具，不进入玩家HUD。[候选结果](../reports/qa/armed-support-implementation-20261111.md)列出实际验证和第一批依赖。
+人族三分支主线接入（2026-11-19）：`src/data/terran-bio.ts`、`terran-doomsday.ts` 持有新两支参数；`src/simulation/combat/bio-*` 与 `doomsday-*` 分别负责真实时序、编制、派生状态和恢复。生化王虫原始输入登记在 `tools/bio-dependencies.json`，运行载荷登记在 `deploy/runtime/bio-assets.json`；表现入口为 `bio-battle-effects.ts`、`bio-organs.ts` 与 `doomsday-views.ts`。`tools/qa-terran-*` 提供三支实际购买、混买、同预算战斗、正式包与代表性画面复现；`preview/bio-synergy-20261118`、`preview/doomsday-showcase-20261117` 保留源码，不长期保存其构建和截图。[接入结论](../reports/qa/terran-main-integration-20261119.md)。
+
+
+末日兵器候选入口（2026-11-17）：`src/data/terran-doomsday*.ts` 管理45卡参数与两层文案，`simulation/combat/doomsday-*.ts` 处理机械席位、改装、独立武器、节点与终极；正式交易及 RunState 沿原入口扩展。`render/effects/doomsday-views.ts` 为程序挂件与派生弹线，原机体／炮击／声音继续复用已核实资源。独立工具在 `preview/doomsday-showcase-20261117` 与 `tools/qa-doomsday-*`；[简要结果及交付边界](../reports/qa/doomsday-implementation-20261117.md)列出具体文件范围，临时产物不长期保留。

@@ -6,11 +6,11 @@
 
 | 要做什么 | 必读入口 | 在这里找到什么 |
 | --- | --- | --- |
-| 接手整个项目 | [根 README](README.md)、[当前项目导航](docs/project/README.md)、[当前交接](docs/project/MVP_TO_1_0_HANDOFF_20261027.md) | 版本、模块、八包进度、部署、遗留项及下一线程提示词；以后由项目导航指向新交接 |
+| 接手整个项目 | [根 README](README.md)、[当前项目导航](docs/project/README.md)、[当前交接](docs/project/MVP_1_0_HANDOFF_20261029.md) | 版本、模块、八包进度、部署、遗留项及下一线程提示词；以后由项目导航指向新交接 |
 | 找源码、工具或成品 | [项目结构](docs/PROJECT_STRUCTURE.md)、[工具入口](tools/README.md) | 各目录职责、修改位置、生成物与源文件边界 |
 | 排任务、执行、记录或交接 | [项目管理规范](docs/project/PROJECT_MANAGEMENT_RULES.md)、[任务状态源](docs/project/performance-board.json)、[可视看板](docs/project/PERFORMANCE_BOARD.html) | 任务状态、完成标准、更新流程、并行约束与协作边界 |
 | 改 UI、文案、图标、布局或交互入口 | [UI 规范](docs/project/UI_RULES.md) | 具体修改确认、极简文案、SC2 视觉、三端布局、保存入口及已确认专项约定 |
-| 改游戏机制与数据 | [当前交接的模块地图](docs/project/MVP_TO_1_0_HANDOFF_20261027.md)、[数据参考](docs/GAME_DATA_REFERENCE.md)、[八包范围及后续修订](docs/project/MVP_COMPLETION_CONTRACT_20261013.md) | 当前规则入口、实际数值、范围；不要只照旧设计实现 |
+| 改游戏机制与数据 | [当前交接的模块地图](docs/project/MVP_1_0_HANDOFF_20261029.md)、[数据参考](docs/GAME_DATA_REFERENCE.md)、[八包范围及后续修订](docs/project/MVP_COMPLETION_CONTRACT_20261013.md) | 当前规则入口、实际数值、范围；不要只照旧设计实现 |
 | 改保存与恢复 | [D05 检查点约定](docs/project/D05_CHECKPOINT_20261023.md)、[项目结构](docs/PROJECT_STRUCTURE.md) | 账户/装备/回执事务、失败保护、备份、恢复与兼容边界 |
 | 做美术、模型、特效、声音或图稿 | [资源来源](docs/DATA_SOURCES.md)、[原版战斗资源](docs/MVP10_COMBAT_ASSETS.md)、[T01 收尾](docs/project/T01_CLOSEOUT_20261027.md)、[UI 规范](docs/project/UI_RULES.md) | 原版身份与表现、最新修复、图标/命名/视觉规范；图片位置见项目管理规范 |
 | 检查游戏或复现问题 | [工具入口](tools/README.md)、[历史 QA 适用范围](tools/HISTORICAL_QA.md)、[简要报告目录](reports/README.md) | 当前常规命令、定向工具及证据口径 |
@@ -70,17 +70,17 @@
 ## 资源与产物
 
 - 原版身份、动作、贴图、声音及依赖需有来源证据；缺资源如实记录，不用其他单位、占位模型或生成图冒充原版。
-- 原始资源、唯一美术源、真实用户存档和当前正式成品保持。preview 含源文件，assets/private 含历史跟踪项，不按目录名字批量删除。
+- 源码、原始资源、唯一美术源、真实用户存档及实际运行／部署必需资源保持。preview 含源文件，assets/private 含历史跟踪项，不按目录名字批量删除；成品身份本身不构成永久保留理由。
 - 生成新插画沿用已授权范围；私有原图/模型/贴图/截图向外上传需要对应授权，不从文本生成授权推断私有素材上传授权。
 - 项目图片写入 D 盘：生成图归档 assets/generated/codex-images，截图/联系表/验证图进 reports/local 对应任务，原型源图进 preview。工具的 C 盘默认图片路径先核对是否为指向 D 盘的目录联接，不能当缓存删除或重新积累实体图片；详见 [项目管理规范](docs/project/PROJECT_MANAGEMENT_RULES.md)。
-- 按 docs/project/ARTIFACT_RETENTION.md 管理文件：完成的可重建截图/视频/详细日志/缓存/旧构建清理，只长期保留简要结论、决定及复现代码。失败也不例外；当前工作保留必需输入。
+- 按 [产物保留规则](docs/project/ARTIFACT_RETENTION.md) 管理文件：已结束且可重新构建的产物全部删除，只长期保留简要结论、决定及复现代码。2026-11-16 已取消旧 Current、V04、T01 的保留例外；失败、历史引用、正式版／基线名称均不构成例外，去重或归档不能代替删除。进行中的工作只留当前实际使用产物和必需输入，结束时同步清理。
 - 发布应用与内容哈希资源分开，Git LFS 遵循现有范围；不提交数据库、凭据、玩家数据、重复大包或测试缓存。
 
 ## 验证、交付与收尾
 
 - 选择与改动相关的测试，必要时完整回归。玩法/存档修改验证结算和恢复；呈现修改验证实际输出；打包验证清单、hash 与真实入口。文档修改不重复重型游戏矩阵。
 - `npm test`、`npm run typecheck`、`npm run docs:check` 是常规入口。历史脚本先读 tools/HISTORICAL_QA.md，不能为跑旧脚本恢复旧产品行为。
-- 构建离线 HTML 显式指定 SC2_DEMO_OUTPUT，不覆盖保留的 Current。共享 dist/web 使用前核对其他工作是否依赖该版本。
+- 构建离线 HTML 显式指定 SC2_DEMO_OUTPUT，不覆盖其他进行中工作实际使用的输出。共享 dist/web 使用前核对依赖；旧 Current 文件名没有保留效力，已结束构建按产物保留规则清理。
 - 只报告实际执行的验证；明确区分模拟输入/物理设备、独立场景/组合战场、功能通过/性能达标、人类认可/自动检查。复用旧证据注明版本和范围。
 - 每项工作留下简要结果、受影响文件、证据、未解决事项和下一步；进度写当前状态文件或日期记录，不再向根 AGENTS.md 堆叠日志。
 - 提交、推送、部署及公开发布按已有明确授权和实际范围执行；“允许实现”或“备案通过”本身不等于新的公开发布授权。状态未核实就不宣布完成。

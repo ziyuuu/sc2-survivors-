@@ -1,4 +1,11 @@
+import {bioKnockDistance} from './bio-runtime';
+import {isBioId} from '../../data/terran-bio';
+import {claimBioNode} from './bio-acquisition';
 import {takeArmedProc,hasArmedProc} from './armed-procs';
+import {isDoomsdayId} from '../../data/terran-doomsday';
+import {doomsdayRuntimeReady,claimDoomsdayNode} from './doomsday';
+import {availableNewBodies,reconcileMechanicalSeats} from './doomsday-roster';
+import {buildCardBranch,buildNodeLegal,ordinaryBuildCardAllowed,type BuildCardId,type BuildBranch} from '../progression/build-progress';
 import {armedTargetAllowed} from './armed-targets';
 import {raiderEntryClearance} from './armed-raiders';
 import {tickArmedCounterattack} from './armed-counterattack';
@@ -15,7 +22,7 @@ import {equipmentCardDamage} from '../starship/card-effects';
 import {castTactical} from './unique-support';
 import {buySupport,supportLegal} from './shop-support';
 import {newArmedSupport,type ArmedDeployment,type ArmedPassenger,type ArmedShot} from './armed-support-state';
-import {LEGACY_ARMED,armedOrangeEligible,armedRank,armedPurchaseLegal,recordArmedPurchase,prepareBuildChoices,armedNodeLegal,type ArmedId} from '../progression/build-progress';
+import {LEGACY_ARMED,armedRank,armedPurchaseLegal,recordArmedPurchase,prepareBuildChoices,scheduleOrangeChoice,type ArmedId} from '../progression/build-progress';
 import {validCarrierLanding} from '../movement/carrier-landing';
 import {translate} from '../movement/steering';
 import {waitingBodySeats} from '../expedition-production';
@@ -36,8 +43,9 @@ import type {Body,Entity,Point} from '../types';
 const implemented=new Set<ArmedId>(['N06','N07','N08','N09','O01','O03','B06','O02','W06','W07','W08','W09','G04','G06','G09','B02','P03','P04','W01','W02','W03','W04','W05','G01','G02','G03','G05','G07','G08','B01','B03','B04','B05','B07','B08','B09','P01','P02','P05','P06','N01','N02','N03','N04','N05']);
 export const armedStageKey=(w:World)=>`${w.runId}:${w.endless?'endless:'+w.endless.round:w.stage}`;
 export function armedRuntimeReady(w:World,id:ArmedId){return w.expedition.race==='terran'&&implemented.has(id);}
+export function buildRuntimeReady(w:World,id:BuildCardId){return isBioId(id)?w.expedition.race==='terran':isDoomsdayId(id)?doomsdayRuntimeReady(w,id):armedRuntimeReady(w,id);}
 export function armedOfferLegal(w:World,id:ArmedId){
- if(!armedRuntimeReady(w,id)||!(id.startsWith('O')?armedOrangeEligible(w.expedition):armedPurchaseLegal(w.expedition.support,id)))return false;
+ if(!armedRuntimeReady(w,id)||!ordinaryBuildCardAllowed(w.expedition,id)||!armedPurchaseLegal(w.expedition.support,id))return false;
  const legacy=LEGACY_ARMED[id as keyof typeof LEGACY_ARMED];return !legacy||supportLegal(w,legacy);
 }
 export function applyArmedPurchase(w:World,id:ArmedId,offerId:string){
@@ -46,30 +54,38 @@ export function applyArmedPurchase(w:World,id:ArmedId,offerId:string){
  if(a?.purchases.some(p=>p.offerId===offerId))return false;
  const legacy=LEGACY_ARMED[id as keyof typeof LEGACY_ARMED];if(legacy&&!buySupport(w,legacy))return false;
  s.support.armed??=newArmedSupport();recordArmedPurchase(s,id,offerId,previous);
- prepareBuildChoices(s,w.random,id=>armedRuntimeReady(w,id));return true;
+ prepareBuildChoices(s,w.random,id=>buildRuntimeReady(w,id));return true;
 }
 export function pendingBuildChoice(w:World){
  const b=w.expedition.build;
- if(w.phase!=='reward'||!b||b.main&&b.main!=='armed')return;
- const m=b.milestones.find(m=>m.branch==='armed'&&!m.claimed);
- if(m?.offers.length===2&&m.deferredWindow!==w.expedition.draftWindow)return m;
+ if(w.phase!=='reward'||!b)return;
+ const seen=new Set<BuildBranch>();
+ for(const m of b.milestones){if(m.claimed||b.main&&m.branch!==b.main||seen.has(m.branch))continue;seen.add(m.branch);
+  if(m.offers.length===3&&m.offers.every(id=>buildCardBranch(id)===m.branch))return m;
+ }
 }
-export function deferBuildChoice(w:World,id:string,revision:number){const m=pendingBuildChoice(w);if(!m||m.id!==id||w.expedition.shopRevision!==revision)return false;m.deferredWindow=w.expedition.draftWindow;w.expedition.shopRevision++;w.changed();return true;}
-export function prepareArmedChoices(w:World){prepareBuildChoices(w.expedition,w.random,id=>armedRuntimeReady(w,id));}
-export function claimBuildChoice(w:World,milestoneId:string,revision:number,id:ArmedId){
+/** Kept for old callers; earned nodes must be settled before continuing. */
+export function deferBuildChoice(_w:World,_id:string,_revision:number){return false;}
+export function prepareArmedChoices(w:World){reconcileMechanicalSeats(w);prepareBuildChoices(w.expedition,w.random,id=>buildRuntimeReady(w,id));}
+export function claimBuildChoice(w:World,milestoneId:string,revision:number,id:BuildCardId){
  const s=w.expedition,b=s.build,m=b?.milestones.find(m=>m.id===milestoneId);
- if(w.phase!=='reward'||s.shopRevision!==revision||!b||!m||pendingBuildChoice(w)!==m||m.claimed||!m.offers.includes(id)||!armedRuntimeReady(w,id)||!armedNodeLegal(s,id))return false;
- const a=s.support.armed??=newArmedSupport();if(armedRank(s.support,id))a.nodeReserves[id]=(a.nodeReserves[id]??0)+1;else a.ranks[id]=1;
+ if(w.phase!=='reward'||s.shopRevision!==revision||!b||!m||pendingBuildChoice(w)!==m||m.claimed||!m.offers.includes(id)||buildCardBranch(id)!==m.branch||!buildRuntimeReady(w,id)||!buildNodeLegal(s,id))return false;
+ const previousRanks=b.main===null?{...s.doomsday?.ranks}:undefined;
+ if(isBioId(id)){if(!claimBioNode(w,id))return false;}
+ else if(isDoomsdayId(id)){if(!claimDoomsdayNode(w,id))return false;}
+ else {const a=s.support.armed??=newArmedSupport();if(armedRank(s.support,id))a.nodeReserves[id]=(a.nodeReserves[id]??0)+1;else a.ranks[id]=1;}
  m.claimed=id;
+ if(m.at===b.orangeAt)b.orange=id;
  if(b.main===null){b.main=m.branch;b.milestones=b.milestones.filter(other=>other.branch===b.main);}
- s.shopRevision++;prepareBuildChoices(s,w.random,id=>armedRuntimeReady(w,id));w.changed();return true;
+ scheduleOrangeChoice(b);
+ reconcileMechanicalSeats(w,true,previousRanks);s.shopRevision++;prepareBuildChoices(s,w.random,id=>buildRuntimeReady(w,id));w.changed();return true;
 }
 export function armedTrainingSeconds(w:World,seconds:number,baseSeconds=seconds){
  const rank=armedRank(w.expedition.support,'W03');if(!rank)return seconds;
  return Math.min(seconds,Math.max(seconds*ARMED_CARD_BY_ID.W03.params.timeFactor[rank-1],baseSeconds*ARMED_CARD_BY_ID.W03.params.floor));
 }
 export function armedFormalReservations(w:World,f:UnitType){return w.expedition.support.armed?.deployments.reduce((n,d)=>n+(d.phase==='ended'?0:d.passengers.filter(p=>p.formal&&p.family===f&&p.entityId===null&&!p.cancelled).length),0)??0;}
-export function armedFormalFree(w:World,f:UnitType){return Math.max(0,w.familyMemberCap(f)-w.familySeatCount(f)-waitingBodySeats(w,f,f==='zergling'?2:1)-armedFormalReservations(w,f));}
+export function armedFormalFree(w:World,f:UnitType){return availableNewBodies(w,f);}
 const node=(w:World,id:ArmedId)=>armedRank(w.expedition.support,id)>0;
 function supportBody(d:ArmedDeployment):Body{return {id:d.id,...d.point,hp:d.hp,maxHp:d.maxHp,armor:d.armor,unitRadius:d.radius,owner:'terran',race:'terran',team:'player',flying:false,attributes:['Mechanical','Structure']};}
 function landingPoint(w:World,origin:Point,id?:number,radius=1.25,reserved:readonly Point[]=[],accept?:(p:Point)=>boolean){
@@ -170,7 +186,7 @@ export function tickArmedSupport(w:World){
   if(d.phase==='falling'&&w.tick>=d.landTick){if(!armedLandingClear(w,d)){const alternate=armedAirEntry(d)?w.freePosition(d.passengers[0].family,d.point,0,8):landingPoint(w,d.point,d.id,d.radius);if(!alternate)continue;d.point=alternate;}const delay=w.tick-d.landTick;for(const p of d.passengers)p.exitTick+=delay;d.openTick+=delay;d.landTick=w.tick;d.phase='active';landArmedFort(w,d);if(!['G05','B03'].includes(d.cardId))w.visual('pod-land',supportBody(d),d.point,d.castId,undefined,{supportSound:'podTerran'});}
   if(d.phase!=='active')continue;
   if(!d.doorOpened&&d.passengers.length&&(!armedIndividualCard(d.cardId)||d.cardId==='G06')&&w.tick>=d.openTick){d.doorOpened=true;w.visual('pod-open',supportBody(d),d.point,d.castId);}
-  if(!d.impactDone){d.impactDone=true;if(d.impactDamage)impact(w,{point:d.point,tick:w.tick,damage:d.impactDamage,radius:d.impactRadius!,kind:'pod'},d.cardId,d.castId);if(d.pushDistance)for(const u of enemies(w,true)){const dx=u.x-d.point.x,dz=u.z-d.point.z,length=Math.hypot(dx,dz);if(!u.enemyTier&&length>0&&length<=d.impactRadius!+u.unitRadius)translate(u,{x:dx/length*d.pushDistance,z:dz/length*d.pushDistance},u.unitRadius,false,w.obstacles,w.mapHalf,w.terrain);}}
+  if(!d.impactDone){d.impactDone=true;if(d.impactDamage)impact(w,{point:d.point,tick:w.tick,damage:d.impactDamage,radius:d.impactRadius!,kind:'pod'},d.cardId,d.castId);if(d.pushDistance)for(const u of enemies(w,true)){const dx=u.x-d.point.x,dz=u.z-d.point.z,length=Math.hypot(dx,dz);if(!u.enemyTier&&length>0&&length<=d.impactRadius!+u.unitRadius)translate(u,{x:dx/length*bioKnockDistance(w,u,d.pushDistance),z:dz/length*bioKnockDistance(w,u,d.pushDistance)},u.unitRadius,false,w.obstacles,w.mapHalf,w.terrain);}}
   for(const p of d.passengers){if(p.cancelled||p.entityId!==null||w.tick<p.exitTick)continue;
    let point=w.freePosition(p.family,p.origin??d.point,armedIndividualCard(d.cardId)?0:1.6,7);
    if(d.cardId==='G05'){

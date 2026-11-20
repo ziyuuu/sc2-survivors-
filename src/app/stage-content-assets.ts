@@ -1,3 +1,5 @@
+import {ZERG_SIX} from '../data/zerg-six';
+import {zergCampaignQuotas} from '../data/zerg-six-encounters';
 import {HEROES,type HeroId} from '../data/heroes';
 import {ELITES} from '../data/elites';
 import {BOSSES} from '../data/enemies';
@@ -17,6 +19,9 @@ export function stageContentAssets(plan:RunContentPlan|undefined,stage:number,ro
  const encounter=natural==='encounter'||round===undefined&&stage>=4&&levels.bait>0?content.encounter:null;
  const models=new Map<string,CombatUnitType>();
  const family=(type:CombatUnitType)=>models.set(type,type);
+ ZERG_SIX.forEach((type,i)=>{if(round!==undefined||zergCampaignQuotas(stage,plan.difficulty)[i])family(type);});
+ if(models.has('swarm_host'))family('zerg_locust');
+ if(models.has('brood_lord'))family('zerg_broodling');
  const heroes=new Set<HeroId>();
  const battleHeroReward=stage>=ordinaryHeroUnlockStage(plan.difficulty)&&(!!BOSSES[stage]||mission==='intel');
  if(battleHeroReward||round!==undefined||encounter==='cruelQueen')for(const id of content.heroes)heroes.add(id);

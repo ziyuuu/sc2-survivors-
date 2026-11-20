@@ -1,3 +1,6 @@
+import {bioHealingFactor} from './bio-runtime';
+import {refreshHeroArmor} from './doomsday-orange';
+import {applyDoomsdayStats,refreshDoomsdayPools} from './doomsday-passives';
 import {identityReserved,reservedHeroSeats} from '../missions/rewards';
 import {equipmentSwannTargets,equipmentSwannProtection,captureEquipmentHeroCasts,equipmentHeroHit,equipmentHeroPreImpact,completeEquipmentHeroCast,tickEquipmentHeroes} from '../starship/hero-advancements';
 import {equipmentNativeFactor,equipmentHealingOutput,heroExtraAmount} from '../starship/native-effects';
@@ -23,9 +26,10 @@ import {validBattleView,pointInBattleView,type BattleView} from './battle-view';
 import {uniqueActiveStats} from './unique-support';
 import {teamCardEffects} from '../progression/team-cards';
 import {HEROES,HERO_IDS_BY_RACE,HERO_SKILL_FLIGHT,type HeroId} from '../../data/heroes';
+import {bioStats,detachBioStats} from './bio-runtime';
 import {RUNTIME_ASSETS} from '../../assets/runtime.generated';
 import {TUNING} from '../../data/game';
-import {FASTER,SC2_UNITS,type UnitType} from '../../data/sc2-units';
+import {FASTER,SC2_UNITS} from '../../data/sc2-units';
 import {SOURCE_UNIT_DETAILS} from '../../data/expansion-units';
 import {talentModifiers} from './expedition-combat';
 import type {World} from '../world';
@@ -41,12 +45,12 @@ export function canAcquireExpeditionHero(w:World,id:HeroId,available=heroModelRe
 }
 export function refreshExpeditionHero(w:World,u:Entity,fill=false):boolean{
  if(!w.expedition||!u.heroId)return false;
- detachEquipmentStats(w,u);
+ detachEquipmentStats(w,u);detachBioStats(u);
  const oldPools={hp:u.hp,maxHp:u.maxHp,shield:u.shield??0,maxShield:u.maxShield??0,factor:u.teamAuraFactors},ground=groundHeroBuff(w,u);const ea=eliteFriendlyAura(w,u),za=zergEliteFriendlyAura(w,u),oldEliteHp=(u.eliteHpAuraFactor??1)*(u.zergEliteHpAuraFactor??1);const data=HEROES[u.heroId],modern=isProtossHero(u.heroId)?protossHeroGrowth(u.rank):isZergHero(u.heroId)?zergHeroGrowth(u.rank):terranHeroGrowth(u.rank),growth={health:modern.health,armor:modern.armor,damage:modern.damage,attackSpeed:1/modern.period},adapt=isProtossHero(u.heroId)?protossStats(w,u):dehakaStats(u),aura=heroAura(w,u),lostHp=(u.maxHp-u.hp)/oldEliteHp,lostShield=(u.maxShield??0)-(u.shield??0),lostTalentShield=(u.maxTalentShield??0)-(u.talentShield??0);
  u.race=data.race;u.team='player';u.owner='terran';u.attributes=[...data.attributes];if(u.flying!==!!data.flying)w.hash.invalidatePlanes();u.flying=!!data.flying;
  const talents=talentModifiers(w,u),team=teamCardEffects(w.expedition);
  u.maxHp=data.hp*(1+team.health+aura.health)*growth.health*adapt.health*(1+(talents.maxHpPct??0))*Math.max(ea.hp,za.hp);u.hp=fill?u.maxHp:Math.max(0,Math.min(u.maxHp,u.maxHp-lostHp*ea.hp*za.hp));u.eliteHpAuraFactor=ea.hp;u.zergEliteHpAuraFactor=za.hp;
- const shieldSource=SOURCE_UNIT_DETAILS[data.baseFamily==='purifier_flagship'?'carrier':data.baseFamily as UnitType];
+ const shieldSource=SOURCE_UNIT_DETAILS[data.baseFamily==='purifier_flagship'?'carrier':data.baseFamily as keyof typeof SOURCE_UNIT_DETAILS];
  u.shieldArmor=((talents.shieldArmorFlat??0)+team.armor)*(1+ground.shieldArmorPct)+protossShieldArmor(w,u)+za.shieldArmor;u.shieldRegen=data.shield>0?(shieldSource?.shieldRegen??2)*FASTER:0;u.shieldDelay=data.shield>0?(shieldSource?.shieldDelay??10)/FASTER:0;
  u.maxShield=data.shield*(1+team.health+aura.shield)*growth.health*(1+(talents.maxShieldPct??0))+(data.race==='protoss'?u.maxHp*(talents.shieldFromHpPct??0):0);u.maxShield*=za.shield;u.shield=fill?u.maxShield:Math.max(0,Math.min(u.maxShield,u.maxShield-lostShield));
  u.maxTalentShield=data.race!=='protoss'&&u.attributes.includes('Biological')?u.maxHp*(talents.shieldFromHpPct??0):0;u.talentShield=fill?u.maxTalentShield:Math.max(0,Math.min(u.maxTalentShield,u.maxTalentShield-lostTalentShield));
@@ -55,7 +59,8 @@ export function refreshExpeditionHero(w:World,u:Entity,fill=false):boolean{
  u.maxEnergy=0;u.energy=0;u.energyRegen=0;u.healRate=0;
  if(isZergHero(u.heroId))zergState(u);
  if(isProtossHero(u.heroId)){protossState(u);u.cloaked=data.innateCloak||(u.protossCombat!.veilUntil>w.time);}
- heroState(u);u.cloaked??=false;applyEquipmentStats(w,u,fill);
+ u.unitRadius=(data.flying?SC2_UNITS[data.baseFamily].unitRadius:.45)*TUNING.unitScale;u.movementRadius=u.unitRadius;
+ heroState(u);u.cloaked??=false;bioStats(w,u,fill);applyDoomsdayStats(w,u);applyEquipmentStats(w,u,fill);refreshHeroArmor(w,u);refreshDoomsdayPools(w,u);
  return true;
 }
 export function deployExpeditionHero(w:World,record:HeroRecord,revival:boolean):boolean{
@@ -151,7 +156,7 @@ function castHeroSource(w:World,source:Entity,record:HeroRecord,battleView?:Batt
  resolveExpeditionHeroCasts(w);w.changed();return true;
 }
 function restoreHealth(w:World,source:Entity,target:Entity,amount:number,castId?:number){
- const suppression=Math.min(.5,Math.max(w.statuses.value(target.id,'bleed',w.time),w.statuses.value(target.id,'corruption',w.time)));
+ const suppression=1-bioHealingFactor(w,target);
  const restored=Math.min(target.maxHp-target.hp,amount*(1-suppression)*equipmentRecoveryFactor(w,target)*equipmentHealingOutput(w,source));if(restored<=0)return;
  target.hp+=restored;w.stats.healed+=restored;observeRecovery(w,source,target,restored);w.effect('heal',source,target,.3,.35);if(source.heroId==='swann'||source.heroId==='niadra')w.visual('skill-impact',source,target,castId);else if(source.heroId==='dehaka')w.visual('skill-heal',source,target,castId);
 }

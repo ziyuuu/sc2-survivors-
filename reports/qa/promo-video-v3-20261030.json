@@ -1,0 +1,957 @@
+{
+  "file": "dist\\promo-video-v3-20261030\\Starcraft-Survivors-Trailer-v3.mp4",
+  "bytes": 264720096,
+  "sha256": "ccf3fd864be6183e3023c907140fdf488b63a2728e6191241863ecc49448cf1c",
+  "duration": 240,
+  "size": [
+    1920,
+    1080
+  ],
+  "fps": 30,
+  "decodeErrors": "",
+  "audioLevels": [
+    "mean_volume: -21.5 dB",
+    "max_volume: -1.5 dB"
+  ],
+  "cuts": 68,
+  "reviewFrames": [
+    1.0,
+    3.0,
+    5.0,
+    7.0,
+    9.0,
+    11.0,
+    13.0,
+    15.0,
+    17.0,
+    19.5,
+    22.5,
+    26.0,
+    30.0,
+    34.0,
+    37.5,
+    41.0,
+    45.0,
+    49.0,
+    53,
+    58.0,
+    62,
+    67.0,
+    71.0,
+    75.0,
+    79,
+    84.0,
+    88,
+    93,
+    98.0,
+    102.0,
+    106.0,
+    110,
+    116.0,
+    120.0,
+    123.5,
+    126.5,
+    130.0,
+    134.0,
+    138.0,
+    142,
+    148,
+    153.0,
+    156.5,
+    160,
+    164.5,
+    167.0,
+    169.0,
+    172,
+    176.5,
+    179.0,
+    181.0,
+    184,
+    188.5,
+    191.0,
+    193.0,
+    196.0,
+    200.0,
+    204.0,
+    208.0,
+    212.0,
+    216.0,
+    219.5,
+    222.5,
+    225.5,
+    229,
+    233.0,
+    235.0,
+    238.0
+  ],
+  "visualReview": "Reviewed all 68 final cut samples across six contact sheets, plus full-size source frames for hives, repair, resources, arena, crossing, flying roaches and devourer. Art titles, race changes, equipment captions and main subjects are readable; no click-ring residue or black/missing-asset frame found in samples. Sample review only, not continuous human playback/listening.",
+  "captures": [
+    {
+      "name": "air-protoss",
+      "source": "reports\\local\\promo-video-v3-20261030\\clips\\air-protoss.json",
+      "frames": 360,
+      "phase": "battle",
+      "allies": 6,
+      "prepared": {
+        "race": "protoss",
+        "map": "边境矿场",
+        "allies": 6,
+        "heroes": [],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "air-terran",
+      "source": "reports\\local\\promo-video-v3-20261030\\clips\\air-terran.json",
+      "frames": 360,
+      "phase": "battle",
+      "allies": 7,
+      "prepared": {
+        "race": "terran",
+        "map": "工业遗址",
+        "allies": 7,
+        "heroes": [],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "air-zerg",
+      "source": "reports\\local\\promo-video-v3-20261030\\clips\\air-zerg.json",
+      "frames": 360,
+      "phase": "battle",
+      "allies": 8,
+      "prepared": {
+        "race": "zerg",
+        "map": "查尔焦土",
+        "allies": 8,
+        "heroes": [],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "challenge-arena",
+      "source": "reports\\local\\promo-video-v3-20261030\\clips\\challenge-arena.json",
+      "frames": 420,
+      "phase": "battle",
+      "allies": 5,
+      "prepared": {
+        "race": "terran",
+        "map": "endless-flat-v1",
+        "allies": 5,
+        "heroes": [],
+        "special": "arena",
+        "fun": null,
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "challenge-crossing",
+      "source": "reports\\local\\promo-video-v3-20261030\\clips\\challenge-crossing.json",
+      "frames": 480,
+      "phase": "battle",
+      "allies": 12,
+      "prepared": {
+        "race": "zerg",
+        "map": "endless-flat-v1",
+        "allies": 12,
+        "heroes": [],
+        "special": "crossing",
+        "fun": null,
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "challenge-dodge",
+      "source": "reports\\local\\promo-video-v3-20261030\\clips\\challenge-dodge.json",
+      "frames": 420,
+      "phase": "battle",
+      "allies": 4,
+      "prepared": {
+        "race": "protoss",
+        "map": "endless-flat-v1",
+        "allies": 4,
+        "heroes": [],
+        "special": "dodge",
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "challenge-resources",
+      "source": "reports\\local\\promo-video-v3-20261030\\clips\\challenge-resources.json",
+      "frames": 360,
+      "phase": "battle",
+      "allies": 6,
+      "prepared": {
+        "race": "zerg",
+        "map": "endless-flat-v1",
+        "allies": 6,
+        "heroes": [],
+        "special": "resources",
+        "fun": null,
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "comeback",
+      "source": "reports\\local\\promo-video-v2-20261030\\clips\\comeback.json",
+      "frames": 1740,
+      "phase": "battle",
+      "allies": 5,
+      "prepared": {
+        "race": "terran",
+        "map": "工业遗址",
+        "allies": 8,
+        "heroes": [],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "compare-protoss-after",
+      "source": "reports\\local\\promo-video-v2-20261030\\clips\\compare-protoss-after.json",
+      "frames": 270,
+      "phase": "battle",
+      "allies": 7,
+      "prepared": {
+        "race": "protoss",
+        "map": "边境矿场",
+        "allies": 7,
+        "heroes": [],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "compare-protoss-before",
+      "source": "reports\\local\\promo-video-v2-20261030\\clips\\compare-protoss-before.json",
+      "frames": 270,
+      "phase": "battle",
+      "allies": 7,
+      "prepared": {
+        "race": "protoss",
+        "map": "边境矿场",
+        "allies": 7,
+        "heroes": [],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "compare-terran-after",
+      "source": "reports\\local\\promo-video-v2-20261030\\clips\\compare-terran-after.json",
+      "frames": 270,
+      "phase": "battle",
+      "allies": 8,
+      "prepared": {
+        "race": "terran",
+        "map": "工业遗址",
+        "allies": 8,
+        "heroes": [],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "compare-terran-before",
+      "source": "reports\\local\\promo-video-v2-20261030\\clips\\compare-terran-before.json",
+      "frames": 270,
+      "phase": "battle",
+      "allies": 8,
+      "prepared": {
+        "race": "terran",
+        "map": "工业遗址",
+        "allies": 8,
+        "heroes": [],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "compare-zerg-after",
+      "source": "reports\\local\\promo-video-v2-20261030\\clips\\compare-zerg-after.json",
+      "frames": 270,
+      "phase": "battle",
+      "allies": 13,
+      "prepared": {
+        "race": "zerg",
+        "map": "查尔焦土",
+        "allies": 13,
+        "heroes": [],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "compare-zerg-before",
+      "source": "reports\\local\\promo-video-v2-20261030\\clips\\compare-zerg-before.json",
+      "frames": 270,
+      "phase": "battle",
+      "allies": 13,
+      "prepared": {
+        "race": "zerg",
+        "map": "查尔焦土",
+        "allies": 13,
+        "heroes": [],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "counterpush",
+      "source": "reports\\local\\promo-video-v2-20261030\\clips\\counterpush.json",
+      "frames": 540,
+      "phase": "battle",
+      "allies": 5,
+      "prepared": {
+        "race": "terran",
+        "map": "工业遗址",
+        "allies": 5,
+        "heroes": [
+          "raynor"
+        ],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "development2",
+      "source": "reports\\local\\promo-video-v2-20261030\\clips\\development2.json",
+      "frames": 420,
+      "phase": "reward",
+      "allies": 8,
+      "prepared": {
+        "race": "terran",
+        "map": "工业遗址",
+        "allies": 8,
+        "heroes": [],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "doom-protoss",
+      "source": "reports\\local\\promo-video-v2-20261030\\clips\\doom-protoss.json",
+      "frames": 540,
+      "phase": "lost",
+      "allies": 0,
+      "prepared": {
+        "race": "protoss",
+        "map": "边境矿场",
+        "allies": 7,
+        "heroes": [],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "doom-terran",
+      "source": "reports\\local\\promo-video-v2-20261030\\clips\\doom-terran.json",
+      "frames": 540,
+      "phase": "lost",
+      "allies": 0,
+      "prepared": {
+        "race": "terran",
+        "map": "工业遗址",
+        "allies": 8,
+        "heroes": [],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "doom-zerg",
+      "source": "reports\\local\\promo-video-v2-20261030\\clips\\doom-zerg.json",
+      "frames": 540,
+      "phase": "lost",
+      "allies": 0,
+      "prepared": {
+        "race": "zerg",
+        "map": "查尔焦土",
+        "allies": 13,
+        "heroes": [],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "elite-zerg",
+      "source": "reports\\local\\promo-video-v2-20261030\\clips\\elite-zerg.json",
+      "frames": 300,
+      "phase": "battle",
+      "allies": 7,
+      "prepared": {
+        "race": "zerg",
+        "map": "查尔焦土",
+        "allies": 6,
+        "heroes": [],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "encounter-devourer",
+      "source": "reports\\local\\promo-video-v3-20261030\\clips\\encounter-devourer.json",
+      "frames": 300,
+      "phase": "battle",
+      "allies": 5,
+      "prepared": {
+        "race": "terran",
+        "map": "工业遗址",
+        "allies": 5,
+        "heroes": [],
+        "fun": {
+          "kind": "devourer",
+          "phase": "rescue",
+          "held": 2,
+          "actors": [
+            {
+              "id": 9,
+              "type": "roach",
+              "hp": 18647.372272621997,
+              "model": "fun-nydus",
+              "flying": false
+            }
+          ]
+        },
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "encounter-flying",
+      "source": "reports\\local\\promo-video-v3-20261030\\clips\\encounter-flying.json",
+      "frames": 300,
+      "phase": "battle",
+      "allies": 7,
+      "prepared": {
+        "race": "protoss",
+        "map": "边境矿场",
+        "allies": 7,
+        "heroes": [],
+        "fun": {
+          "kind": "flyingRoaches",
+          "phase": "active",
+          "held": 0,
+          "actors": [
+            {
+              "id": 9,
+              "type": "roach",
+              "hp": 2724.791666666666,
+              "flying": true
+            },
+            {
+              "id": 10,
+              "type": "roach",
+              "hp": 2724.791666666666,
+              "flying": true
+            },
+            {
+              "id": 11,
+              "type": "roach",
+              "hp": 2724.791666666666,
+              "flying": true
+            },
+            {
+              "id": 12,
+              "type": "roach",
+              "hp": 2724.791666666666,
+              "flying": true
+            },
+            {
+              "id": 13,
+              "type": "roach",
+              "hp": 2724.791666666666,
+              "flying": true
+            },
+            {
+              "id": 14,
+              "type": "roach",
+              "hp": 2724.791666666666,
+              "flying": true
+            }
+          ]
+        },
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "equipment-fast-protoss",
+      "source": "reports\\local\\promo-video-v2-20261030\\clips\\equipment-fast-protoss.json",
+      "frames": 300,
+      "phase": "menu",
+      "allies": 1,
+      "prepared": {
+        "mode": "equipment",
+        "gearIds": [
+          "ship-item-1",
+          "ship-item-2",
+          "ship-item-3",
+          "ship-item-4",
+          "ship-item-5",
+          "ship-item-6",
+          "ship-item-7",
+          "ship-item-8",
+          "ship-item-9",
+          "ship-item-10",
+          "ship-item-11",
+          "ship-item-12"
+        ]
+      }
+    },
+    {
+      "name": "equipment-fast-terran",
+      "source": "reports\\local\\promo-video-v2-20261030\\clips\\equipment-fast-terran.json",
+      "frames": 300,
+      "phase": "menu",
+      "allies": 1,
+      "prepared": {
+        "mode": "equipment",
+        "gearIds": [
+          "ship-item-1",
+          "ship-item-2",
+          "ship-item-3",
+          "ship-item-4",
+          "ship-item-5",
+          "ship-item-6",
+          "ship-item-7",
+          "ship-item-8",
+          "ship-item-9",
+          "ship-item-10",
+          "ship-item-11",
+          "ship-item-12"
+        ]
+      }
+    },
+    {
+      "name": "equipment-fast-zerg",
+      "source": "reports\\local\\promo-video-v2-20261030\\clips\\equipment-fast-zerg.json",
+      "frames": 300,
+      "phase": "menu",
+      "allies": 2,
+      "prepared": {
+        "mode": "equipment",
+        "gearIds": [
+          "ship-item-1",
+          "ship-item-2",
+          "ship-item-3",
+          "ship-item-4",
+          "ship-item-5",
+          "ship-item-6",
+          "ship-item-7",
+          "ship-item-8",
+          "ship-item-9",
+          "ship-item-10",
+          "ship-item-11",
+          "ship-item-12"
+        ]
+      }
+    },
+    {
+      "name": "finale-terran",
+      "source": "reports\\local\\promo-video-v2-20261030\\clips\\finale-terran.json",
+      "frames": 360,
+      "phase": "battle",
+      "allies": 10,
+      "prepared": {
+        "race": "terran",
+        "map": "工业遗址",
+        "allies": 10,
+        "heroes": [
+          "raynor",
+          "yamato_battlecruiser"
+        ],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "heavy-protoss",
+      "source": "reports\\local\\promo-video-v3-20261030\\clips\\heavy-protoss.json",
+      "frames": 360,
+      "phase": "battle",
+      "allies": 4,
+      "prepared": {
+        "race": "protoss",
+        "map": "边境矿场",
+        "allies": 6,
+        "heroes": [],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "heavy-terran",
+      "source": "reports\\local\\promo-video-v3-20261030\\clips\\heavy-terran.json",
+      "frames": 360,
+      "phase": "battle",
+      "allies": 7,
+      "prepared": {
+        "race": "terran",
+        "map": "工业遗址",
+        "allies": 7,
+        "heroes": [],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "mission-escort",
+      "source": "reports\\local\\promo-video-v3-20261030\\clips\\mission-escort.json",
+      "frames": 450,
+      "phase": "lost",
+      "allies": 0,
+      "prepared": {
+        "race": "terran",
+        "map": "工业遗址",
+        "allies": 7,
+        "heroes": [],
+        "mission": "escort",
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "mission-hives",
+      "source": "reports\\local\\promo-video-v3-20261030\\clips\\mission-hives.json",
+      "frames": 540,
+      "phase": "battle",
+      "allies": 6,
+      "prepared": {
+        "race": "zerg",
+        "map": "查尔焦土",
+        "allies": 8,
+        "heroes": [],
+        "mission": "hives",
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "mission-repair",
+      "source": "reports\\local\\promo-video-v3-20261030\\clips\\mission-repair.json",
+      "frames": 540,
+      "phase": "battle",
+      "allies": 7,
+      "prepared": {
+        "race": "protoss",
+        "map": "边境矿场",
+        "allies": 7,
+        "heroes": [],
+        "mission": "repair",
+        "fun": null,
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "mobile-protoss",
+      "source": "reports\\local\\promo-video-v3-20261030\\clips\\mobile-protoss.json",
+      "frames": 360,
+      "phase": "battle",
+      "allies": 7,
+      "prepared": {
+        "race": "protoss",
+        "map": "边境矿场",
+        "allies": 8,
+        "heroes": [],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "mobile-terran",
+      "source": "reports\\local\\promo-video-v3-20261030\\clips\\mobile-terran.json",
+      "frames": 360,
+      "phase": "battle",
+      "allies": 8,
+      "prepared": {
+        "race": "terran",
+        "map": "工业遗址",
+        "allies": 8,
+        "heroes": [],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "mobile-zerg",
+      "source": "reports\\local\\promo-video-v3-20261030\\clips\\mobile-zerg.json",
+      "frames": 360,
+      "phase": "battle",
+      "allies": 6,
+      "prepared": {
+        "race": "zerg",
+        "map": "查尔焦土",
+        "allies": 13,
+        "heroes": [],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "raynor-arrival",
+      "source": "reports\\local\\promo-video-v2-20261030\\clips\\raynor-arrival.json",
+      "frames": 180,
+      "phase": "battle",
+      "allies": 8,
+      "prepared": {
+        "race": "terran",
+        "map": "工业遗址",
+        "allies": 7,
+        "heroes": [],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "siege-zerg",
+      "source": "reports\\local\\promo-video-v3-20261030\\clips\\siege-zerg.json",
+      "frames": 360,
+      "phase": "battle",
+      "allies": 6,
+      "prepared": {
+        "race": "zerg",
+        "map": "查尔焦土",
+        "allies": 7,
+        "heroes": [],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "special-lurker",
+      "source": "reports\\local\\promo-video-v3-20261030\\clips\\special-lurker.json",
+      "frames": 360,
+      "phase": "battle",
+      "allies": 8,
+      "prepared": {
+        "race": "terran",
+        "map": "工业遗址",
+        "allies": 8,
+        "heroes": [],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "special-ravager",
+      "source": "reports\\local\\promo-video-v3-20261030\\clips\\special-ravager.json",
+      "frames": 360,
+      "phase": "battle",
+      "allies": 6,
+      "prepared": {
+        "race": "protoss",
+        "map": "边境矿场",
+        "allies": 6,
+        "heroes": [],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "victory-protoss",
+      "source": "reports\\local\\promo-video-v2-20261030\\clips\\victory-protoss.json",
+      "frames": 360,
+      "phase": "battle",
+      "allies": 9,
+      "prepared": {
+        "race": "protoss",
+        "map": "边境矿场",
+        "allies": 9,
+        "heroes": [
+          "artanis",
+          "zeratul"
+        ],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "victory-terran",
+      "source": "reports\\local\\promo-video-v2-20261030\\clips\\victory-terran.json",
+      "frames": 360,
+      "phase": "battle",
+      "allies": 10,
+      "prepared": {
+        "race": "terran",
+        "map": "工业遗址",
+        "allies": 10,
+        "heroes": [
+          "raynor",
+          "yamato_battlecruiser"
+        ],
+        "memoryOnly": true
+      }
+    },
+    {
+      "name": "victory-zerg",
+      "source": "reports\\local\\promo-video-v2-20261030\\clips\\victory-zerg.json",
+      "frames": 360,
+      "phase": "battle",
+      "allies": 15,
+      "prepared": {
+        "race": "zerg",
+        "map": "查尔焦土",
+        "allies": 15,
+        "heroes": [
+          "kerrigan",
+          "dehaka"
+        ],
+        "memoryOnly": true
+      }
+    }
+  ],
+  "newCaptureMovement": [
+    {
+      "name": "air-protoss",
+      "anchorDistance": 25.29,
+      "maxLivingSquadWalked": 128.2373723093541
+    },
+    {
+      "name": "air-terran",
+      "anchorDistance": 25.29,
+      "maxLivingSquadWalked": 118.04909604545195
+    },
+    {
+      "name": "air-zerg",
+      "anchorDistance": 25.29,
+      "maxLivingSquadWalked": 169.835536585871
+    },
+    {
+      "name": "challenge-arena",
+      "anchorDistance": 34.25,
+      "maxLivingSquadWalked": 93.05696828828215
+    },
+    {
+      "name": "challenge-crossing",
+      "anchorDistance": 60.89,
+      "maxLivingSquadWalked": 777.3843202447181
+    },
+    {
+      "name": "challenge-dodge",
+      "anchorDistance": 56.24,
+      "maxLivingSquadWalked": 231.64880028517018
+    },
+    {
+      "name": "challenge-resources",
+      "anchorDistance": 24.08,
+      "maxLivingSquadWalked": 161.31245521480434
+    },
+    {
+      "name": "encounter-devourer",
+      "anchorDistance": 13.53,
+      "maxLivingSquadWalked": 47.27651596344603
+    },
+    {
+      "name": "encounter-flying",
+      "anchorDistance": 14.37,
+      "maxLivingSquadWalked": 90.5433809266514
+    },
+    {
+      "name": "heavy-protoss",
+      "anchorDistance": 25.29,
+      "maxLivingSquadWalked": 61.28209365211008
+    },
+    {
+      "name": "heavy-terran",
+      "anchorDistance": 25.29,
+      "maxLivingSquadWalked": 99.95822674704563
+    },
+    {
+      "name": "mission-escort",
+      "anchorDistance": 36.05,
+      "maxLivingSquadWalked": 255.90174615320868
+    },
+    {
+      "name": "mission-hives",
+      "anchorDistance": 15.59,
+      "maxLivingSquadWalked": 96.9497351820735
+    },
+    {
+      "name": "mission-repair",
+      "anchorDistance": 11.95,
+      "maxLivingSquadWalked": 218.29531519588355
+    },
+    {
+      "name": "mobile-protoss",
+      "anchorDistance": 25.29,
+      "maxLivingSquadWalked": 127.42610691251711
+    },
+    {
+      "name": "mobile-terran",
+      "anchorDistance": 25.29,
+      "maxLivingSquadWalked": 166.79735678056977
+    },
+    {
+      "name": "mobile-zerg",
+      "anchorDistance": 25.29,
+      "maxLivingSquadWalked": 249.95418273611347
+    },
+    {
+      "name": "siege-zerg",
+      "anchorDistance": 25.29,
+      "maxLivingSquadWalked": 153.036277324586
+    },
+    {
+      "name": "special-lurker",
+      "anchorDistance": 25.29,
+      "maxLivingSquadWalked": 145.94621591931144
+    },
+    {
+      "name": "special-ravager",
+      "anchorDistance": 25.29,
+      "maxLivingSquadWalked": 107.28768038996093
+    }
+  ],
+  "newRosterTypes": [
+    "adept",
+    "baneling",
+    "banshee",
+    "carrier",
+    "colossus",
+    "corruptor",
+    "hellion",
+    "high_templar",
+    "hydralisk",
+    "immortal",
+    "lurker",
+    "marauder",
+    "medivac",
+    "mutalisk",
+    "phoenix",
+    "queen",
+    "ravager",
+    "reaper",
+    "roach",
+    "science_vessel",
+    "sentry",
+    "stalker",
+    "thor",
+    "viking",
+    "void_ray",
+    "zealot",
+    "zergling"
+  ],
+  "comparisons": [
+    {
+      "race": "terran",
+      "sameScenarioExceptGear": true
+    },
+    {
+      "race": "zerg",
+      "sameScenarioExceptGear": true
+    },
+    {
+      "race": "protoss",
+      "sameScenarioExceptGear": true
+    }
+  ],
+  "scope": "Offline fixed-step real game rendering, staged and numerically tuned in a memory account. V2 footage reused with prior source record; V3 gameplay newly captured. Not a real-time frame-rate or continuous human listening test.",
+  "player": {
+    "metadata": {
+      "duration": 240,
+      "width": 1920,
+      "height": 1080,
+      "controls": true,
+      "error": null
+    },
+    "seeks": [
+      {
+        "time": 114.544112,
+        "paused": false,
+        "error": null
+      },
+      {
+        "time": 158.52413,
+        "paused": false,
+        "error": null
+      },
+      {
+        "time": 194.521289,
+        "paused": false,
+        "error": null
+      }
+    ],
+    "passed": true,
+    "scope": "Browser metadata, muted playback and three chapter seeks; not a listening review."
+  },
+  "newCaptureCount": 20,
+  "deliveryEvidence": "promo-video-v3-drive-20261030.json",
+  "docsCheck": {
+    "command": "npm run docs:check",
+    "exitCode": 0,
+    "result": "Game reference matches runtime data."
+  }
+}

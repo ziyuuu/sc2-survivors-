@@ -1,0 +1,270 @@
+{
+  "task": "DEMO-01",
+  "date": "2026-11-03",
+  "status": "Cover corrected; local delivery ready for user review",
+  "durationSeconds": 167.7,
+  "shots": 42,
+  "recordedScenes": 15,
+  "media": [
+    {
+      "file": "dist/gameplay-demo-20261103/Starcraft-Survivors-Gameplay-Demo-With-Cover.mp4",
+      "bytes": 58697561,
+      "sha256": "bfdf9732caa2a6119d5faaa62f8a5ccca9ba92732a2bb6b0f682d1ebe1bf38f1",
+      "seconds": 167.7,
+      "size": [
+        1920,
+        1080
+      ],
+      "fps": 30,
+      "decodedFrames": 5031,
+      "decodeErrors": "",
+      "audio": [
+        "mean_volume: -23.4 dB",
+        "max_volume: -4.7 dB"
+      ]
+    },
+    {
+      "file": "dist/gameplay-demo-20261103/Starcraft-Survivors-Gameplay-Demo-Mobile-With-Cover.mp4",
+      "bytes": 21031887,
+      "sha256": "e78fc2acdb7238aff8d4379ea3665f155cb30c3d4c663885c89f8d1832358840",
+      "seconds": 167.7,
+      "size": [
+        1920,
+        1080
+      ],
+      "fps": 30,
+      "decodedFrames": 5031,
+      "decodeErrors": "",
+      "audio": [
+        "mean_volume: -23.5 dB",
+        "max_volume: -4.5 dB"
+      ]
+    }
+  ],
+  "exactCaptions": [
+    "击退敌军",
+    "增加资源获取",
+    "获取援兵",
+    "选择你的发展路线",
+    "选择卡牌强化部队",
+    "获取强力单位和英雄",
+    "获取装备武装旗舰",
+    "及时提升",
+    "返回旗舰装备更精良的设施",
+    "挑战或保留战利品？",
+    "整备",
+    "再次出发"
+  ],
+  "outcomes": [
+    {
+      "check": "paid-reinforcement",
+      "scene": "field-terran",
+      "family": "marauder",
+      "cost": {
+        "minerals": 100,
+        "gas": 25
+      },
+      "paidAt": 12,
+      "joinedAt": 39.733333333333334,
+      "onePayment": true
+    },
+    {
+      "check": "card-and-payoff",
+      "scene": "choices-terran",
+      "card": "空降地堡",
+      "paid": [
+        105,
+        35
+      ],
+      "damage": 156.79875824335323,
+      "visibleSupportImpacts": [
+        12.5,
+        14.1,
+        14.6,
+        15.1
+      ]
+    },
+    {
+      "check": "boss-reward",
+      "scene": "boss-terran",
+      "identities": [
+        "raynor"
+      ],
+      "receipt": "demo-terran-hero-13:boss:15:0",
+      "bosses": [
+        "zergling"
+      ]
+    },
+    {
+      "check": "paid-reinforcement",
+      "scene": "field-zerg",
+      "family": "roach",
+      "cost": {
+        "minerals": 75,
+        "gas": 25
+      },
+      "paidAt": 12,
+      "joinedAt": 37.46666666666667,
+      "onePayment": true
+    },
+    {
+      "check": "card-and-payoff",
+      "scene": "choices-zerg",
+      "card": "寄生毒囊",
+      "paid": [
+        225,
+        90
+      ],
+      "damage": 896.9423023773859,
+      "visibleSupportImpacts": [
+        12.433333333333334,
+        12.833333333333334,
+        13.2,
+        13.8
+      ]
+    },
+    {
+      "check": "boss-reward",
+      "scene": "boss-zerg",
+      "identities": [
+        "hydralisk.3"
+      ],
+      "receipt": "demo-zerg-20261103:boss:16:0",
+      "bosses": [
+        "roach"
+      ]
+    },
+    {
+      "check": "paid-reinforcement",
+      "scene": "field-protoss",
+      "family": "stalker",
+      "cost": {
+        "minerals": 125,
+        "gas": 50
+      },
+      "paidAt": 12,
+      "joinedAt": 45.96666666666667,
+      "onePayment": true
+    },
+    {
+      "check": "card-and-payoff",
+      "scene": "choices-protoss",
+      "card": "相位回响",
+      "paid": [
+        192,
+        77
+      ],
+      "damage": 40.750395572083804,
+      "visibleSupportImpacts": [
+        14.6,
+        14.733333333333333,
+        14.8
+      ]
+    },
+    {
+      "check": "boss-reward",
+      "scene": "boss-protoss",
+      "identities": [
+        "stalker.3"
+      ],
+      "receipt": "demo-protoss-20261103:boss:15:0",
+      "bosses": [
+        "hydralisk"
+      ]
+    },
+    {
+      "check": "same-module-continuity",
+      "id": "ship-item-1",
+      "name": "SCV勤务终端",
+      "path": [
+        "ground",
+        "backpack",
+        "outside-only",
+        "extraction",
+        "warehouse",
+        "equipped",
+        "deployment"
+      ]
+    },
+    {
+      "check": "distinct-branches",
+      "extraction": "gear-terran",
+      "nextStage": "gear-zerg",
+      "campaignToEndless": "endless-protoss",
+      "threeRaceDeployment": true
+    }
+  ],
+  "visualReview": {
+    "status": "passed",
+    "method": "Viewed the decoded browser first frame of both revised outputs; both show the requested artwork. Original 12 gameplay chapters reuse the unchanged source intervals and framing verified in the initial delivery.",
+    "findings": [
+      "Three-second cover is present in actual video, not just the HTML poster",
+      "Both output first frames show the correct cover",
+      "Original gameplay chapters begin at 3 seconds",
+      "Caption and event times shifted with the three-second intro"
+    ],
+    "limits": [
+      "Physical-phone playback and user acceptance pending"
+    ]
+  },
+  "browserPlayback": {
+    "passed": true,
+    "files": 2,
+    "chapterSeeks": 24
+  },
+  "source": {
+    "gitHeadAtDelivery": "43ef159808248f9c2819b08addd8f87209ef8fb0",
+    "isolatedAppSha256": "8e240d2399d3900804033c430d48ef220516ef1f67beb66a82b3a215208fc753",
+    "sourceInputCount": 551,
+    "inputDrift": [],
+    "rulesId": "mvp-1.0",
+    "assetRelease": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa"
+  },
+  "otherChecks": [
+    "npm run docs:check passed",
+    "No page or renderer errors in all 15 recorded scenes"
+  ],
+  "resolvedProductionIssues": [
+    "Preload loop now refreshes HUD between simulated seconds so shop actions see rendered controls",
+    "Endless branch preloads required building models",
+    "Explicit CFR output and frame counts corrected segment end-time metadata",
+    "Cover retained as separate poster; final movie starts directly in combat"
+  ],
+  "scope": "Prepared real-game scenes with real transactions, not a single natural playthrough. Campaign-clear fixture uses assisted preparation. No physical-phone testing or user acceptance claimed.",
+  "deliveryDirectory": "dist/gameplay-demo-20261103",
+  "reproduction": "tools/promo-video/DEMO_README.md",
+  "formalProductChanged": false,
+  "realPlayerSaveChanged": false,
+  "committed": false,
+  "pushed": false,
+  "uploaded": false,
+  "deployed": false,
+  "open": [
+    "User video review",
+    "Physical-phone playback if requested"
+  ],
+  "cleanup": {
+    "kept": "Current delivery, 15 source clips and metadata, isolated build, fixtures, compact checks",
+    "removedBytes": 185471483,
+    "scope": "Only rebuildable preflight, review, intermediate edits, mix and root capture samples in this video task",
+    "removedFiles": 396
+  },
+  "coverCorrection": {
+    "request": "怎么没封面？",
+    "seconds": 3,
+    "actualVideoIntro": true,
+    "previousFiles": [
+      {
+        "sha256": "71bc84893c64c1f35491b58b721fa77eff3a6147eb34857115d7f2f234c0bd0f",
+        "seconds": 164.7
+      },
+      {
+        "sha256": "ff86cc2cc3f53261ffad572335595d4c6305616cb86f28bb3963b480af844c1a",
+        "seconds": 164.71
+      }
+    ],
+    "bodySourceIntervalsUnchanged": true,
+    "fullDecodeFramesPerFile": 5031,
+    "playbackSeeks": 24
+  }
+}

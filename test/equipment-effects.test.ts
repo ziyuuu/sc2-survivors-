@@ -12,7 +12,7 @@ import {equipmentPresentation,equipmentPresentationReceipts,equipmentBurnZone} f
 import {createEquipmentProjections,retireEquipmentProjection} from '../src/simulation/starship/projections';
 import {equipmentApparition} from '../src/render/units/equipment-apparition';
 import {equipmentEffectRequests,equipmentMarkers,equipmentFallbackRoutes} from '../src/render/effects/equipment-effects';
-import {UnitMaterialSurface} from '../src/render/materials/unit-material-batch';
+import {UnitMaterialSurface,UNIT_MATERIAL_APPARITION_ROW,UNIT_MATERIAL_REFIT_ROW} from '../src/render/materials/unit-material-batch';
 import {UNIT_MATERIAL_CATALOG} from '../src/render/materials/unit-material-catalog';
 const world=()=>new World({seed:529,waves:false,sandbox:true,terrain:false,obstacles:[],equipmentAccount:newEquipmentAccount(529)});
 
@@ -30,9 +30,10 @@ test('phantom child bodies get independent appearance; retirement records each l
 });
 test('material slots isolate apparitions and reset reused slots without modifying original material',()=>{
  const profile=Object.values(UNIT_MATERIAL_CATALOG)[0],source=profile.materials[0],material=new THREE.MeshStandardMaterial(),surface=new UnitMaterialSurface({profile,source,textures:{}},material,3),pose={clip:profile.clips[0]?.name??'',seconds:0};
- const context={entityId:1,runId:'a',time:0,apparition:{tint:[.1,.2,1] as const,opacity:.7}},row=surface.texture.image.height-1;
+ const context={entityId:1,runId:'a',time:0,apparition:{tint:[.1,.2,1] as const,opacity:.7},refit:[1,1,1,0] as const},row=UNIT_MATERIAL_APPARITION_ROW;
  surface.write(0,pose,context);surface.write(1,pose);surface.write(2,pose,{...context,apparition:{tint:[.4,.5,1],opacity:.5}});
  const read=(slot:number)=>Array.from(surface.data.slice((row*3+slot)*4,(row*3+slot+1)*4));assert.deepEqual(read(1),[1,1,1,1]);assert.equal(read(0)[3],Math.fround(.7));assert.equal(read(2)[3],.5);surface.write(0,pose);assert.deepEqual(read(0),[1,1,1,1]);assert.equal(material.opacity,1);assert.equal(material.transparent,false);assert.equal(material.color.getHex(),0xffffff);
+ const refit=(slot:number)=>Array.from(surface.data.slice((UNIT_MATERIAL_REFIT_ROW*3+slot)*4,(UNIT_MATERIAL_REFIT_ROW*3+slot+1)*4));assert.deepEqual(refit(0),[0,0,0,0]);assert.deepEqual(refit(1),[0,0,0,0]);assert.deepEqual(refit(2),[1,1,1,0]);
  surface.material.dispose();surface.texture.dispose();material.dispose();
 });
 test('fire follows real creation time, radius and lifetime; paused requests are identical',()=>{

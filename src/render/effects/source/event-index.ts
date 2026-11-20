@@ -12,15 +12,18 @@ export class SourceEventIndex {
  private attacks=new Map<number,VisualEvent[]>();
  private firstHit=new Map<string,number>();
  private impacts=new Set<string>();
+ private boreContacts?:Set<string>;
  constructor(events:readonly VisualEvent[]){
   for(const e of events){
    if(e.kind==='attack'){let list=this.attacks.get(e.entityId);if(!list){list=[];this.attacks.set(e.entityId,list);}list.push(e);}
    if(hitKind(e)){const key=strike(e.hitSourceId,e.entityId,e.time),serial=this.firstHit.get(key);if(serial===undefined||e.serial<serial)this.firstHit.set(key,e.serial);}
    if(e.kind==='projectile-impact'&&e.targetId!==undefined)this.impacts.add(strike(e.entityId,e.targetId,e.time));
+   if(e.doomsdayEffect==='bore-hit'&&e.targetId!==undefined)(this.boreContacts??=new Set()).add(strike(e.entityId,e.targetId,e.time));
   }
  }
  attack(source:number,time:number){const list=this.attacks.get(source);if(list)for(let i=list.length-1;i>=0;i--)if(list[i].time<=time)return list[i];return undefined;}
  duplicate(e:VisualEvent){return (this.firstHit.get(strike(e.hitSourceId,e.entityId,e.time))??Infinity)<e.serial;}
  missile(e:VisualEvent){return this.impacts.has(strike(e.hitSourceId,e.entityId,e.time));}
+ boreContact(e:VisualEvent){return this.boreContacts?.has(strike(e.hitSourceId,e.entityId,e.time))??false;}
  nearbyAttack(entity:number,time:number){return this.attacks.get(entity)?.some(a=>Math.abs(a.time-time)<.04)??false;}
 }

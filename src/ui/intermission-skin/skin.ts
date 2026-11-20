@@ -1,3 +1,6 @@
+import {BIO_BY_ID} from '../../data/terran-bio';
+import {DOOMSDAY_CARD_ART} from '../../data/doomsday-card-art';
+import {DOOMSDAY_CARD_BY_ID} from '../../data/terran-doomsday';
 import {ARMED_CARD_ART} from '../../data/armed-card-art';
 import './skin.css';
 import {ARMED_CARD_BY_ID} from '../../data/terran-armed-support';
@@ -5,6 +8,8 @@ import {armedNodeViews} from '../presentation/armed-cards';
 import './card-material.css';
 import './refinements.css';
 import './adaptive-layout.css';
+import './branch-mark.css';
+import {branchMark} from './branch-mark';
 import type {World} from '../../simulation/world';
 import type {ExpeditionReward} from '../../simulation/progression/expedition-drafts';
 import {offerView,catalogueCards,restCards} from '../../ui/presentation/intermission';
@@ -23,6 +28,12 @@ export function mountIntermissionSkin(root:HTMLElement,getWorld:()=>World,option
  const query=<T extends Element=HTMLElement>(s:string)=>root.querySelectorAll<T>(s);
  const asset=(id:string)=>options.assets.resolve(id)??'';
  function art(c:CardView,r?:ExpeditionReward){
+  if(c.bioId){
+   const bio=BIO_BY_ID[c.bioId],bodies=bio.art.split(',');
+   const art=bio.art.startsWith('#')?`<div class="imx-object" role="img" aria-label="${esc(c.name)}" style="background-image:url('${asset('objects-zerg')}');background-position:${(Number(bio.art.slice(1))%4)/3*100}% ${Math.floor(Number(bio.art.slice(1))/4)/3*100}%"></div>`:paintedArt(bodies[0],c.name,bodies.length,c.id,bodies);
+   return art+(bio.purchase==='node'?'<svg class="armed-node-symbol" viewBox="0 0 40 40" aria-label="联动节点"><path d="M9 8v12h22V8M20 20v12"/><circle cx="9" cy="8" r="4"/><circle cx="31" cy="8" r="4"/><circle cx="20" cy="32" r="4"/></svg>':'');
+  }
+  if(c.doomsdayId){const definition=DOOMSDAY_CARD_BY_ID[c.doomsdayId],a=DOOMSDAY_CARD_ART[c.doomsdayId],i=a.sprite,body=a.identity?paintedArt(a.identity,c.name,a.bodies??1,'doomsday-'+c.id,a.identities):'';return (body||`<div class="imx-object" role="img" aria-label="${esc(c.name)}" style="background-image:url('${asset('objects-'+c.race)}');background-position:${(i%4)/3*100}% ${Math.floor(i/4)/3*100}%"></div>`)+(definition.purchase==='node'?'<svg class="armed-node-symbol" viewBox="0 0 40 40" aria-label="联动节点"><path d="M9 8v12h22V8M20 20v12"/><circle cx="9" cy="8" r="4"/><circle cx="31" cy="8" r="4"/><circle cx="20" cy="32" r="4"/></svg>':'');}
   if(c.armedId){const definition=ARMED_CARD_BY_ID[c.armedId],composition=ARMED_CARD_ART[c.armedId],i=definition.sprite,body=composition?paintedArt(composition.identity,c.name,composition.bodies,'armed-'+c.id,composition.identities):`<div class="imx-object" role="img" aria-label="${esc(c.name)}" style="background-image:url('${asset('objects-'+c.race)}');background-position:${(i%4)/3*100}% ${Math.floor(i/4)/3*100}%"></div>`;return body+(definition.purchase==='node'?'<svg class="armed-node-symbol" viewBox="0 0 40 40" aria-label="联动节点"><path d="M9 8v12h22V8M20 20v12"/><circle cx="9" cy="8" r="4"/><circle cx="31" cy="8" r="4"/><circle cx="20" cy="32" r="4"/></svg>':'');}
 
   const eq=cardPresentation(getWorld(),c,r).equipment;
@@ -64,6 +75,9 @@ export function mountIntermissionSkin(root:HTMLElement,getWorld:()=>World,option
      const body=document.createElement('div');body.className='imx-card-body';
      body.innerHTML=`<div class="imx-art">${c?art(c,v?.reward):face.querySelector('.im-card-art')?.outerHTML??''}<div class="imx-badges"><b>${esc(p?.current??'')}</b><strong>${esc(p?.gain??'')}</strong></div></div><h2 class="imx-name">${esc(name)}</h2><p class="imx-kind">${esc(c?.kicker??el.querySelector('.im-card-meta>span')?.textContent??'')}</p><button class="imx-copy" type="button" data-imx-flip="${esc(id)}" aria-label="${esc(name)}：${flipped.has(id)?'切回简略':'查看详情'}" aria-expanded="${flipped.has(id)}"><span>${esc(flipped.has(id)?detail:simple)}</span><i aria-hidden="true">${glyph('refresh')}</i></button>`;
      body.querySelector<HTMLButtonElement>('.imx-copy')!.dataset.simple=simple;body.querySelector<HTMLButtonElement>('.imx-copy')!.dataset.detail=detail;
+     if(c?.ordinaryBranch&&el.closest('#reward-cards')){
+      body.querySelector('.imx-art')!.insertAdjacentHTML('beforeend',branchMark(c.ordinaryBranch));
+     }
      face.replaceWith(body);el.dataset.imxCard='true';
      const b=el.querySelector<HTMLButtonElement>('.im-card-action');if(b?.disabled&&!sold&&!el.classList.contains('im-pending')){if(p?.simple==='军衔已满')b.textContent='军衔已满';b.insertAdjacentHTML('afterbegin','<i class="imx-ban" aria-hidden="true">⊘</i>');}
      if(c?.id==='repair')el.querySelector('.im-card-bottom')?.insertAdjacentHTML('beforebegin',button('选择部队','ui-rest-repair','text-button imx-service-detail'));

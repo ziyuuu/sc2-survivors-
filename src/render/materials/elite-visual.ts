@@ -10,7 +10,8 @@ export function eliteVisualProfile(unit:{eliteId?:EliteId;heroId?:string}){retur
 export function displayAssetModelKey(key:string){return key.replace(/^hero\.purifier_flagship(?=\.|$)/,'elite.carrier.1');}
 export function displayLoadModelKey(key:string,type:string){return type==='purifier_flagship'&&key==='elite.carrier.1'?'hero.purifier_flagship':key;}
 /** Bodies, weapon attachments, corpses and diagnostic inspection share this resolver. */
-export function displayModelKey(unit:{eliteId?:EliteId;heroId?:string;modelKey?:string;unitType:string}){
+export function displayModelKey(unit:{eliteId?:EliteId;heroId?:string;modelKey?:string;unitType:string;doomsdayArmor?:boolean;doomsday?:{heroArmor?:unknown}}){
+ if(unit.heroId&&(unit.doomsday?.heroArmor||unit.doomsdayArmor))return 'thor';
  if(unit.modelKey==='interceptor')return unit.modelKey;
  // Equipment can deliver the native air-hero unit type without hero ownership.
  // Its art still belongs to the same original model; no gameplay identity is added.
@@ -21,11 +22,12 @@ export function displayModelKey(unit:{eliteId?:EliteId;heroId?:string;modelKey?:
  if(profile&&unit.modelKey?.startsWith(profile.model+'.'))return unit.modelKey;
  return profile?.model??unit.modelKey??unit.unitType;
 }
-type DisplayUnit=Pick<Entity,'eliteId'|'heroId'|'modelKey'|'unitType'|'nativeMode'|'mode'|'action'>;
+type DisplayUnit=Pick<Entity,'eliteId'|'heroId'|'modelKey'|'unitType'|'nativeMode'|'mode'|'action'>&{doomsdayArmor?:boolean;doomsday?:Entity['doomsday']};
 export function displayActiveModelKey(unit:DisplayUnit){
  const base=displayModelKey(unit);if(unit.heroId||unit.modelKey==='interceptor')return base;
  if(unit.unitType==='tank')return base+(unit.action==='sieging'||unit.action==='unsieging'?'.morph':unit.mode==='siege'?'.siege':'');
  const form=unit.nativeMode&&eliteVisualProfile(unit)?.forms[unit.nativeMode];if(form)return form;
+ if(unit.unitType==='liberator'&&unit.nativeMode==='liberator_ag')return 'liberator.ag';
  if(!unit.eliteId&&unit.unitType==='hellion'&&unit.nativeMode==='hellbat')return 'hellion.hellbat';
  if(!unit.eliteId&&unit.unitType==='viking'&&unit.nativeMode==='viking_assault')return 'viking.assault';
  return base;
@@ -33,6 +35,10 @@ export function displayActiveModelKey(unit:DisplayUnit){
 export function displayDeathModelKey(unit:DisplayUnit){return unit.unitType==='tank'&&!unit.heroId?displayModelKey(unit):displayActiveModelKey(unit);}
 /** Observe existing state only. Never call the gameplay accessors which initialize combat records. */
 export function unitMaterialIdentity(unit:Entity,time:number){
+ if(unit.zergSix?.temp?.kind==='converted')return {teamColor:linearColor(0xa5fb81),activity:.25,apparition:{tint:[.72,1.4,.8] as const,opacity:1}};
+ if((unit.zergSix?.shellUntil??0)>time)return {teamColor:linearColor(0xefb574),activity:.8};
+ if(unit.doomsday?.heroArmor&&unit.heroId){const colors:Record<string,number>={raynor:0x5282b4,tychus:0xd29b45,nova:0x72cde0,swann:0xc47740,tosh:0xa171c9};return {teamColor:linearColor(colors[unit.heroId]??0x5282b4),activity:0};}
+ if(unit.team==='player'&&unit.doomsday?.mechanized)return {teamColor:linearColor(0x98a5b4),activity:0,apparition:{tint:[.82,.9,1] as const,opacity:1}};
  if(unit.fun?.kind==='whitePack'&&unit.fun.role==='actor'&&unit.fun.mode==='passive')return {teamColor:linearColor(0xffffff),activity:.2,apparition:{tint:[2.6,2.6,2.6] as const,opacity:1}};
  if(unit.fun?.kind==='infectedTerrans'){
   const f=unit.fun,friend=f.mode==='friend',charging=f.mode==='swelling'||f.mode==='charging',healing=Math.min(1,f.healed/Math.max(1,unit.maxHp*.3));

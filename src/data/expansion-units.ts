@@ -4,9 +4,9 @@
  */
 import type {UnitData} from './sc2-units';
 export const EXPANSION_SOURCE={revision:'fbbd6429b1eb6978c78a092dc68ba09029d03171',layers:["core","liberty","swarm","void","voidmulti","balancemulti"],clock:'Faster: durations / 1.4, rates * 1.4'} as const;
-export const EXPANSION_FAMILIES=["marine","marauder","reaper","hellion","tank","thor","viking","banshee","medivac","science_vessel","zergling","baneling","roach","ravager","hydralisk","queen","lurker","mutalisk","corruptor","ultralisk","zealot","adept","stalker","sentry","immortal","colossus","high_templar","phoenix","void_ray","carrier"] as const;
+export const EXPANSION_FAMILIES=["ghost","widow_mine","cyclone","raven","liberator","battlecruiser","marine","marauder","reaper","hellion","tank","thor","viking","banshee","medivac","science_vessel","zergling","baneling","roach","ravager","hydralisk","queen","lurker","mutalisk","corruptor","ultralisk","zealot","adept","stalker","sentry","immortal","colossus","high_templar","phoenix","void_ray","carrier"] as const;
 export type ExpansionFamilyId=typeof EXPANSION_FAMILIES[number];
-export const ADDED_UNIT_IDS=["reaper","thor","viking","banshee","science_vessel","queen","lurker","mutalisk","corruptor","ultralisk","zealot","adept","stalker","sentry","immortal","colossus","high_templar","phoenix","void_ray","carrier"] as const;
+export const ADDED_UNIT_IDS=["reaper","thor","viking","banshee","science_vessel","queen","lurker","mutalisk","corruptor","ultralisk","zealot","adept","stalker","sentry","immortal","colossus","high_templar","phoenix","void_ray","carrier","ghost","widow_mine","cyclone","raven","liberator","battlecruiser"] as const;
 export type AddedUnitType=typeof ADDED_UNIT_IDS[number];
 export type VerifiedAddedUnitType=Exclude<AddedUnitType,'science_vessel'>;
 export interface SourceWeapon {weaponId:string;effectId:string|null;attackDamage:number;attacks:number;attackPeriod:number;attackRange:number;minimumRange:number;targetType:UnitData['targetType'];damagePoint:number;bonusDamage:UnitData['bonusDamage'];shieldBonus:number;splash:{radius:number;fraction:number;arc:number}[];}
@@ -1112,10 +1112,404 @@ export const VERIFIED_EXPANSION_UNITS:Record<VerifiedAddedUnitType,ExpansionUnit
       "shieldBonus": 0,
       "splash": []
     }
+  },
+  "ghost": {
+    "name": "Ghost",
+    "zh": "幽灵",
+    "maxHp": 125,
+    "armor": 0,
+    "movementSpeed": 3.9374999999999996,
+    "attackDamage": 10,
+    "attacks": 1,
+    "attackPeriod": 1.0714285714285714,
+    "attackRange": 6,
+    "targetType": "both",
+    "splash": [],
+    "bonusDamage": [
+      {
+        "attribute": "Light",
+        "amount": 10
+      }
+    ],
+    "attributes": [
+      "Biological",
+      "Psionic",
+      "Light"
+    ],
+    "productionTime": 28.571428571428573,
+    "mineralCost": 150,
+    "gasCost": 125,
+    "unitRadius": 0.375,
+    "flying": false,
+    "damagePoint": 0.059285714285714296,
+    "maxShields": 0,
+    "shieldArmor": 0,
+    "shieldRegenPerSecond": 0,
+    "shieldRegenDelay": 0,
+    "hpRegenPerSecond": 0,
+    "hpRegenDelay": 0,
+    "maxEnergy": 200,
+    "startEnergy": 75,
+    "energyRegenPerSecond": 0.7875,
+    "creepSpeedMultiplier": 1,
+    "targetPlanes": [
+      "ground"
+    ],
+    "movementClass": "ground",
+    "sourceUnitId": "Ghost",
+    "primaryWeapon": {
+      "weaponId": "C10CanisterRifle",
+      "effectId": "C10CanisterRifle",
+      "attackDamage": 10,
+      "attacks": 1,
+      "attackPeriod": 1.0714285714285714,
+      "attackRange": 6,
+      "minimumRange": 0,
+      "targetType": "both",
+      "damagePoint": 0.059285714285714296,
+      "bonusDamage": [
+        {
+          "attribute": "Light",
+          "amount": 10
+        }
+      ],
+      "shieldBonus": 0,
+      "splash": []
+    }
+  },
+  "widow_mine": {
+    "name": "Widow Mine",
+    "zh": "寡妇雷",
+    "maxHp": 90,
+    "armor": 0,
+    "movementSpeed": 3.9374999999999996,
+    "attackDamage": 125,
+    "attacks": 1,
+    "attackPeriod": 28.571428571428573,
+    "attackRange": 5,
+    "targetType": "both",
+    "splash": [],
+    "bonusDamage": [],
+    "attributes": [
+      "Light",
+      "Mechanical"
+    ],
+    "productionTime": 21.42857142857143,
+    "mineralCost": 75,
+    "gasCost": 25,
+    "unitRadius": 0.5,
+    "flying": false,
+    "damagePoint": 1.0714285714285714,
+    "maxShields": 0,
+    "shieldArmor": 0,
+    "shieldRegenPerSecond": 0,
+    "shieldRegenDelay": 0,
+    "hpRegenPerSecond": 0,
+    "hpRegenDelay": 0,
+    "maxEnergy": 0,
+    "startEnergy": 0,
+    "energyRegenPerSecond": 0,
+    "creepSpeedMultiplier": 1,
+    "targetPlanes": [
+      "ground"
+    ],
+    "movementClass": "ground",
+    "sourceUnitId": "WidowMine",
+    "primaryWeapon": {
+      "weaponId": "WidowMineDummy",
+      "effectId": "WidowMineExplodeDirect",
+      "attackDamage": 125,
+      "attacks": 1,
+      "attackPeriod": 28.571428571428573,
+      "attackRange": 5,
+      "minimumRange": 0,
+      "targetType": "both",
+      "damagePoint": 1.0714285714285714,
+      "bonusDamage": [],
+      "shieldBonus": 35,
+      "splash": []
+    }
+  },
+  "cyclone": {
+    "name": "Cyclone",
+    "zh": "飓风",
+    "maxHp": 120,
+    "armor": 1,
+    "movementSpeed": 4.725,
+    "attackDamage": 18,
+    "attacks": 1,
+    "attackPeriod": 0.7142857142857143,
+    "attackRange": 5,
+    "targetType": "both",
+    "splash": [],
+    "bonusDamage": [],
+    "attributes": [
+      "Armored",
+      "Mechanical"
+    ],
+    "productionTime": 32.142857142857146,
+    "mineralCost": 150,
+    "gasCost": 100,
+    "unitRadius": 0.75,
+    "flying": false,
+    "damagePoint": 0.1192857142857143,
+    "maxShields": 0,
+    "shieldArmor": 0,
+    "shieldRegenPerSecond": 0,
+    "shieldRegenDelay": 0,
+    "hpRegenPerSecond": 0,
+    "hpRegenDelay": 0,
+    "maxEnergy": 0,
+    "startEnergy": 0,
+    "energyRegenPerSecond": 0,
+    "creepSpeedMultiplier": 1,
+    "targetPlanes": [
+      "ground"
+    ],
+    "movementClass": "ground",
+    "sourceUnitId": "Cyclone",
+    "primaryWeapon": {
+      "weaponId": "TyphoonMissilePod",
+      "effectId": "CycloneAttackWeaponDamage",
+      "attackDamage": 18,
+      "attacks": 1,
+      "attackPeriod": 0.7142857142857143,
+      "attackRange": 5,
+      "minimumRange": 0,
+      "targetType": "both",
+      "damagePoint": 0.1192857142857143,
+      "bonusDamage": [],
+      "shieldBonus": 0,
+      "splash": []
+    }
+  },
+  "raven": {
+    "name": "Raven",
+    "zh": "渡鸦",
+    "maxHp": 140,
+    "armor": 1,
+    "movementSpeed": 4.12888,
+    "attackDamage": 0,
+    "attacks": 0,
+    "attackPeriod": 1,
+    "attackRange": 0,
+    "targetType": "none",
+    "splash": [],
+    "bonusDamage": [],
+    "attributes": [
+      "Light",
+      "Mechanical"
+    ],
+    "productionTime": 34.285714285714285,
+    "mineralCost": 100,
+    "gasCost": 150,
+    "unitRadius": 0.625,
+    "flying": true,
+    "damagePoint": 0,
+    "maxShields": 0,
+    "shieldArmor": 0,
+    "shieldRegenPerSecond": 0,
+    "shieldRegenDelay": 0,
+    "hpRegenPerSecond": 0,
+    "hpRegenDelay": 0,
+    "maxEnergy": 200,
+    "startEnergy": 50,
+    "energyRegenPerSecond": 0.7875,
+    "creepSpeedMultiplier": 1,
+    "targetPlanes": [
+      "air"
+    ],
+    "movementClass": "flying",
+    "sourceUnitId": "Raven",
+    "primaryWeapon": null
+  },
+  "liberator": {
+    "name": "Liberator",
+    "zh": "解放者",
+    "maxHp": 180,
+    "armor": 0,
+    "movementSpeed": 4.725,
+    "attackDamage": 5,
+    "attacks": 2,
+    "attackPeriod": 1.2857142857142858,
+    "attackRange": 5,
+    "targetType": "air",
+    "splash": [
+      {
+        "radius": 1.5,
+        "fraction": 1
+      }
+    ],
+    "bonusDamage": [],
+    "attributes": [
+      "Armored",
+      "Mechanical"
+    ],
+    "productionTime": 42.85714285714286,
+    "mineralCost": 150,
+    "gasCost": 125,
+    "unitRadius": 0.75,
+    "flying": true,
+    "damagePoint": 0.1192857142857143,
+    "maxShields": 0,
+    "shieldArmor": 0,
+    "shieldRegenPerSecond": 0,
+    "shieldRegenDelay": 0,
+    "hpRegenPerSecond": 0,
+    "hpRegenDelay": 0,
+    "maxEnergy": 0,
+    "startEnergy": 0,
+    "energyRegenPerSecond": 0,
+    "creepSpeedMultiplier": 1,
+    "targetPlanes": [
+      "air"
+    ],
+    "movementClass": "flying",
+    "sourceUnitId": "Liberator",
+    "primaryWeapon": {
+      "weaponId": "LiberatorMissileLaunchers",
+      "effectId": "LiberatorMissileDamage",
+      "attackDamage": 5,
+      "attacks": 2,
+      "attackPeriod": 1.2857142857142858,
+      "attackRange": 5,
+      "minimumRange": 0,
+      "targetType": "air",
+      "damagePoint": 0.1192857142857143,
+      "bonusDamage": [],
+      "shieldBonus": 0,
+      "splash": [
+        {
+          "radius": 1.5,
+          "fraction": 1,
+          "arc": 360
+        }
+      ]
+    }
+  },
+  "battlecruiser": {
+    "name": "Battlecruiser",
+    "zh": "战列巡洋舰",
+    "maxHp": 550,
+    "armor": 3,
+    "movementSpeed": 2.625,
+    "attackDamage": 8,
+    "attacks": 1,
+    "attackPeriod": 0.16071428571428573,
+    "attackRange": 6,
+    "targetType": "ground",
+    "splash": [],
+    "bonusDamage": [],
+    "attributes": [
+      "Armored",
+      "Mechanical",
+      "Massive"
+    ],
+    "productionTime": 64.28571428571429,
+    "mineralCost": 400,
+    "gasCost": 300,
+    "unitRadius": 1.25,
+    "flying": true,
+    "damagePoint": 0.1192857142857143,
+    "maxShields": 0,
+    "shieldArmor": 0,
+    "shieldRegenPerSecond": 0,
+    "shieldRegenDelay": 0,
+    "hpRegenPerSecond": 0,
+    "hpRegenDelay": 0,
+    "maxEnergy": 0,
+    "startEnergy": 0,
+    "energyRegenPerSecond": 0,
+    "creepSpeedMultiplier": 1,
+    "targetPlanes": [
+      "air"
+    ],
+    "movementClass": "flying",
+    "sourceUnitId": "Battlecruiser",
+    "primaryWeapon": {
+      "weaponId": "ATSLaserBattery",
+      "effectId": "ATSLaserBatteryU",
+      "attackDamage": 8,
+      "attacks": 1,
+      "attackPeriod": 0.16071428571428573,
+      "attackRange": 6,
+      "minimumRange": 0,
+      "targetType": "ground",
+      "damagePoint": 0.1192857142857143,
+      "bonusDamage": [],
+      "shieldBonus": 0,
+      "splash": []
+    }
   }
 };
 export const EXPANSION_UNITS:Record<AddedUnitType,ExpansionUnitData|null>={...VERIFIED_EXPANSION_UNITS,science_vessel:null};
 export const SOURCE_PRODUCTION_RECIPES:Record<ExpansionFamilyId,SourceProductionRecipe|null>={
+  "ghost": {
+    "abilityId": "BarracksTrain",
+    "entryId": "Train3",
+    "baseFamily": null,
+    "mineralCost": 150,
+    "gasCost": 125,
+    "productionTime": 28.571428571428573,
+    "baseSeconds": 28.571428571428573,
+    "morphSeconds": 0,
+    "batchBodyCount": 1
+  },
+  "widow_mine": {
+    "abilityId": "FactoryTrain",
+    "entryId": "Train25",
+    "baseFamily": null,
+    "mineralCost": 75,
+    "gasCost": 25,
+    "productionTime": 21.42857142857143,
+    "baseSeconds": 21.42857142857143,
+    "morphSeconds": 0,
+    "batchBodyCount": 1
+  },
+  "cyclone": {
+    "abilityId": "FactoryTrain",
+    "entryId": "Train8",
+    "baseFamily": null,
+    "mineralCost": 150,
+    "gasCost": 100,
+    "productionTime": 32.142857142857146,
+    "baseSeconds": 32.142857142857146,
+    "morphSeconds": 0,
+    "batchBodyCount": 1
+  },
+  "raven": {
+    "abilityId": "StarportTrain",
+    "entryId": "Train3",
+    "baseFamily": null,
+    "mineralCost": 100,
+    "gasCost": 150,
+    "productionTime": 34.285714285714285,
+    "baseSeconds": 34.285714285714285,
+    "morphSeconds": 0,
+    "batchBodyCount": 1
+  },
+  "liberator": {
+    "abilityId": "StarportTrain",
+    "entryId": "Train7",
+    "baseFamily": null,
+    "mineralCost": 150,
+    "gasCost": 125,
+    "productionTime": 42.85714285714286,
+    "baseSeconds": 42.85714285714286,
+    "morphSeconds": 0,
+    "batchBodyCount": 1
+  },
+  "battlecruiser": {
+    "abilityId": "StarportTrain",
+    "entryId": "Train4",
+    "baseFamily": null,
+    "mineralCost": 400,
+    "gasCost": 300,
+    "productionTime": 64.28571428571429,
+    "baseSeconds": 64.28571428571429,
+    "morphSeconds": 0,
+    "batchBodyCount": 1
+  },
   "marine": {
     "abilityId": "BarracksTrain",
     "entryId": "Train1",
@@ -1438,6 +1832,87 @@ export const SOURCE_PRODUCTION_RECIPES:Record<ExpansionFamilyId,SourceProduction
   }
 };
 export const SOURCE_WEAPONS:Record<string,SourceWeapon>={
+  "C10CanisterRifle": {
+    "weaponId": "C10CanisterRifle",
+    "effectId": "C10CanisterRifle",
+    "attackDamage": 10,
+    "attacks": 1,
+    "attackPeriod": 1.0714285714285714,
+    "attackRange": 6,
+    "minimumRange": 0,
+    "targetType": "both",
+    "damagePoint": 0.059285714285714296,
+    "bonusDamage": [
+      {
+        "attribute": "Light",
+        "amount": 10
+      }
+    ],
+    "shieldBonus": 0,
+    "splash": []
+  },
+  "WidowMineDummy": {
+    "weaponId": "WidowMineDummy",
+    "effectId": "WidowMineExplodeDirect",
+    "attackDamage": 125,
+    "attacks": 1,
+    "attackPeriod": 28.571428571428573,
+    "attackRange": 5,
+    "minimumRange": 0,
+    "targetType": "both",
+    "damagePoint": 1.0714285714285714,
+    "bonusDamage": [],
+    "shieldBonus": 35,
+    "splash": []
+  },
+  "TyphoonMissilePod": {
+    "weaponId": "TyphoonMissilePod",
+    "effectId": "CycloneAttackWeaponDamage",
+    "attackDamage": 18,
+    "attacks": 1,
+    "attackPeriod": 0.7142857142857143,
+    "attackRange": 5,
+    "minimumRange": 0,
+    "targetType": "both",
+    "damagePoint": 0.1192857142857143,
+    "bonusDamage": [],
+    "shieldBonus": 0,
+    "splash": []
+  },
+  "LiberatorMissileLaunchers": {
+    "weaponId": "LiberatorMissileLaunchers",
+    "effectId": "LiberatorMissileDamage",
+    "attackDamage": 5,
+    "attacks": 2,
+    "attackPeriod": 1.2857142857142858,
+    "attackRange": 5,
+    "minimumRange": 0,
+    "targetType": "air",
+    "damagePoint": 0.1192857142857143,
+    "bonusDamage": [],
+    "shieldBonus": 0,
+    "splash": [
+      {
+        "radius": 1.5,
+        "fraction": 1,
+        "arc": 360
+      }
+    ]
+  },
+  "ATSLaserBattery": {
+    "weaponId": "ATSLaserBattery",
+    "effectId": "ATSLaserBatteryU",
+    "attackDamage": 8,
+    "attacks": 1,
+    "attackPeriod": 0.16071428571428573,
+    "attackRange": 6,
+    "minimumRange": 0,
+    "targetType": "ground",
+    "damagePoint": 0.1192857142857143,
+    "bonusDamage": [],
+    "shieldBonus": 0,
+    "splash": []
+  },
   "P38ScytheGuassPistol": {
     "weaponId": "P38ScytheGuassPistol",
     "effectId": "P38ScytheGuassPistol",
@@ -1741,6 +2216,34 @@ export const SOURCE_WEAPONS:Record<string,SourceWeapon>={
     "shieldBonus": 0,
     "splash": []
   },
+  "ATALaserBattery": {
+    "weaponId": "ATALaserBattery",
+    "effectId": "ATALaserBatteryU",
+    "attackDamage": 5,
+    "attacks": 1,
+    "attackPeriod": 0.16071428571428573,
+    "attackRange": 6,
+    "minimumRange": 0,
+    "targetType": "air",
+    "damagePoint": 0.1192857142857143,
+    "bonusDamage": [],
+    "shieldBonus": 0,
+    "splash": []
+  },
+  "AutoTurret": {
+    "weaponId": "AutoTurret",
+    "effectId": "AutoTurret",
+    "attackDamage": 18,
+    "attacks": 1,
+    "attackPeriod": 0.5714285714285715,
+    "attackRange": 6,
+    "minimumRange": 0,
+    "targetType": "both",
+    "damagePoint": 0.1192857142857143,
+    "bonusDamage": [],
+    "shieldBonus": 0,
+    "splash": []
+  },
   "JavelinMissileLaunchers": {
     "weaponId": "JavelinMissileLaunchers",
     "effectId": "JavelinMissileLaunchersDamage",
@@ -1804,6 +2307,20 @@ export const SOURCE_WEAPONS:Record<string,SourceWeapon>={
     "minimumRange": 0,
     "targetType": "both",
     "damagePoint": 0.1192857142857143,
+    "bonusDamage": [],
+    "shieldBonus": 0,
+    "splash": []
+  },
+  "LiberatorAGWeapon": {
+    "weaponId": "LiberatorAGWeapon",
+    "effectId": "LiberatorAGDamage",
+    "attackDamage": 75,
+    "attacks": 1,
+    "attackPeriod": 1.142857142857143,
+    "attackRange": 10,
+    "minimumRange": 0,
+    "targetType": "ground",
+    "damagePoint": 0.08928571428571429,
     "bonusDamage": [],
     "shieldBonus": 0,
     "splash": []
@@ -1938,6 +2455,23 @@ export const SOURCE_UNIT_WEAPON_IDS={
   ],
   "carrier": [
     "InterceptorLaunch"
+  ],
+  "ghost": [
+    "C10CanisterRifle"
+  ],
+  "widow_mine": [
+    "WidowMineDummy"
+  ],
+  "cyclone": [
+    "TyphoonMissilePod"
+  ],
+  "raven": [],
+  "liberator": [
+    "LiberatorMissileLaunchers"
+  ],
+  "battlecruiser": [
+    "ATSLaserBattery",
+    "ATALaserBattery"
   ]
 } as const;
 /** Weapons retain their own range and target filters; a dual-plane victim is eligible for either weapon. */
@@ -1947,6 +2481,52 @@ export function sourceWeaponsForUnit(family:VerifiedAddedUnitType,mode?:keyof ty
  let result:readonly SourceWeapon[];if(selected){const raw=SOURCE_UNIT_MODES[selected].weapon,weapon:SourceWeapon={...raw,bonusDamage:[...raw.bonusDamage],splash:[...raw.splash]};result=selected==='thor_high_impact'?[SOURCE_WEAPONS.ThorsHammer,weapon]:[weapon];}
  else result=SOURCE_UNIT_WEAPON_IDS[family].map(id=>SOURCE_WEAPONS[id]);sourceWeaponLists.set(key,result);return result;
 }
+export const TERRAN_SIX_NATIVE={
+  "ghost": {
+    "cloakCost": 25,
+    "cloakDrain": 2.0671
+  },
+  "mine": {
+    "deploy": 2.232142857142857,
+    "release": 0.8035714285714286,
+    "splashRadius": 1.5,
+    "splash": 40,
+    "shieldBonus": 25
+  },
+  "cyclone": {
+    "range": 7,
+    "maintainRange": 12,
+    "cooldown": 4.285714285714286
+  },
+  "raven": {
+    "range": 10,
+    "energy": 75,
+    "radius": 2.88,
+    "duration": 21.42857142857143,
+    "reduction": 3,
+    "detectorRange": 11,
+    "turretCost": 50,
+    "turretRange": 2,
+    "turretLife": 10,
+    "turretHp": 100,
+    "turretArmor": 0,
+    "turretRadius": 1
+  },
+  "liberator": {
+    "radius": 5,
+    "castRange": 5,
+    "deploy": 2.886928571428572,
+    "release": 1.458357142857143
+  },
+  "cruiser": {
+    "damage": 240,
+    "range": 10,
+    "charge": 2.142857142857143,
+    "cooldown": 71.42857142857143,
+    "jumpCooldown": 71.42857142857143,
+    "jumpCharge": 1
+  }
+} as const;
 export const SOURCE_MOVEMENT={
   "CliffJumper": {
     "sourceMoverId": "CliffJumper",
@@ -2438,6 +3018,32 @@ export const SOURCE_ABILITIES={
   }
 } as const;
 export const SOURCE_UNIT_MODES={
+  "liberator_ag": {
+    "sourceUnitId": "LiberatorAG",
+    "maxHp": 180,
+    "armor": 0,
+    "movementSpeed": 0,
+    "unitRadius": 0.75,
+    "flying": true,
+    "attributes": [
+      "Armored",
+      "Mechanical"
+    ],
+    "weapon": {
+      "weaponId": "LiberatorAGWeapon",
+      "effectId": "LiberatorAGDamage",
+      "attackDamage": 75,
+      "attacks": 1,
+      "attackPeriod": 1.142857142857143,
+      "attackRange": 10,
+      "minimumRange": 0,
+      "targetType": "ground",
+      "damagePoint": 0.08928571428571429,
+      "bonusDamage": [],
+      "shieldBonus": 0,
+      "splash": []
+    }
+  },
   "hellbat": {
     "sourceUnitId": "HellionTank",
     "maxHp": 135,
@@ -2561,6 +3167,230 @@ export const SOURCE_UNIT_MODES={
   }
 } as const;
 export const SOURCE_UNIT_DETAILS={
+  "ghost": {
+    "xmlId": "Ghost",
+    "layers": [
+      "liberty",
+      "swarm",
+      "voidmulti",
+      "balancemulti"
+    ],
+    "hp": 125,
+    "armor": 0,
+    "speed": 2.8125,
+    "radius": 0.375,
+    "shields": 0,
+    "shieldArmor": 0,
+    "shieldRegen": 0,
+    "shieldDelay": 0,
+    "lifeRegen": 0,
+    "lifeDelay": 0,
+    "energy": 200,
+    "energyStart": 75,
+    "energyRegen": 0.5625,
+    "creep": 1,
+    "cost": {
+      "Minerals": "150",
+      "Vespene": "125"
+    },
+    "attributes": {
+      "Biological": "1",
+      "Psionic": "1",
+      "Light": "1"
+    },
+    "planes": {
+      "Ground": "1"
+    },
+    "weapons": [
+      "C10CanisterRifle"
+    ],
+    "mover": "Ground"
+  },
+  "widow_mine": {
+    "xmlId": "WidowMine",
+    "layers": [
+      "swarm",
+      "void",
+      "voidmulti",
+      "balancemulti"
+    ],
+    "hp": 90,
+    "armor": 0,
+    "speed": 2.8125,
+    "radius": 0.5,
+    "shields": 0,
+    "shieldArmor": 0,
+    "shieldRegen": 0,
+    "shieldDelay": 0,
+    "lifeRegen": 0,
+    "lifeDelay": 0,
+    "energy": 0,
+    "energyStart": 0,
+    "energyRegen": 0,
+    "creep": 1,
+    "cost": {
+      "Minerals": "75",
+      "Vespene": "25"
+    },
+    "attributes": {
+      "Light": "1",
+      "Mechanical": "1"
+    },
+    "planes": {
+      "Ground": "1"
+    },
+    "weapons": [],
+    "mover": "Ground"
+  },
+  "cyclone": {
+    "xmlId": "Cyclone",
+    "layers": [
+      "void",
+      "voidmulti",
+      "balancemulti"
+    ],
+    "hp": 120,
+    "armor": 1,
+    "speed": 3.375,
+    "radius": 0.75,
+    "shields": 0,
+    "shieldArmor": 0,
+    "shieldRegen": 0,
+    "shieldDelay": 0,
+    "lifeRegen": 0,
+    "lifeDelay": 0,
+    "energy": 0,
+    "energyStart": 0,
+    "energyRegen": 0,
+    "creep": 1,
+    "cost": {
+      "Minerals": "150",
+      "Vespene": "100"
+    },
+    "attributes": {
+      "Armored": "1",
+      "Mechanical": "1"
+    },
+    "planes": {
+      "Ground": "1"
+    },
+    "weapons": [
+      "TyphoonMissilePod"
+    ],
+    "mover": "Ground"
+  },
+  "raven": {
+    "xmlId": "Raven",
+    "layers": [
+      "liberty",
+      "swarm",
+      "voidmulti",
+      "balancemulti"
+    ],
+    "hp": 140,
+    "armor": 1,
+    "speed": 2.9492,
+    "radius": 0.625,
+    "shields": 0,
+    "shieldArmor": 0,
+    "shieldRegen": 0,
+    "shieldDelay": 0,
+    "lifeRegen": 0,
+    "lifeDelay": 0,
+    "energy": 200,
+    "energyStart": 50,
+    "energyRegen": 0.5625,
+    "creep": 1,
+    "cost": {
+      "Minerals": "100",
+      "Vespene": "150"
+    },
+    "attributes": {
+      "Light": "1",
+      "Mechanical": "1"
+    },
+    "planes": {
+      "Air": "1"
+    },
+    "weapons": [],
+    "mover": "Fly"
+  },
+  "liberator": {
+    "xmlId": "Liberator",
+    "layers": [
+      "void",
+      "voidmulti",
+      "balancemulti"
+    ],
+    "hp": 180,
+    "armor": 0,
+    "speed": 3.375,
+    "radius": 0.75,
+    "shields": 0,
+    "shieldArmor": 0,
+    "shieldRegen": 0,
+    "shieldDelay": 0,
+    "lifeRegen": 0,
+    "lifeDelay": 0,
+    "energy": 0,
+    "energyStart": 0,
+    "energyRegen": 0,
+    "creep": 1,
+    "cost": {
+      "Minerals": "150",
+      "Vespene": "125"
+    },
+    "attributes": {
+      "Armored": "1",
+      "Mechanical": "1"
+    },
+    "planes": {
+      "Air": "1"
+    },
+    "weapons": [
+      "LiberatorMissileLaunchers"
+    ],
+    "mover": "Fly"
+  },
+  "battlecruiser": {
+    "xmlId": "Battlecruiser",
+    "layers": [
+      "liberty",
+      "swarm",
+      "voidmulti",
+      "balancemulti"
+    ],
+    "hp": 550,
+    "armor": 3,
+    "speed": 1.875,
+    "radius": 1.25,
+    "shields": 0,
+    "shieldArmor": 0,
+    "shieldRegen": 0,
+    "shieldDelay": 0,
+    "lifeRegen": 0,
+    "lifeDelay": 0,
+    "energy": 0,
+    "energyStart": 0,
+    "energyRegen": 0,
+    "creep": 1,
+    "cost": {
+      "Minerals": "400",
+      "Vespene": "300"
+    },
+    "attributes": {
+      "Armored": "1",
+      "Mechanical": "1",
+      "Massive": "1"
+    },
+    "planes": {
+      "Air": "1"
+    },
+    "weapons": [
+      "BattlecruiserWeaponSwitch"
+    ],
+    "mover": "Fly"
+  },
   "marine": {
     "xmlId": "Marine",
     "layers": [

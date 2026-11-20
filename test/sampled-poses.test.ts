@@ -47,7 +47,7 @@ test('sliced and immediate fun actors keep their reduced pose inputs and separat
  const material=(batch:AnimatedBatch)=>{const m=batch.meshes[0].material;return Array.isArray(m)?m[0]:m;};
  const compile=(batch:AnimatedBatch)=>{const shader={uniforms:{},vertexShader:'#include <common>\nvoid main() {\n#include <beginnormal_vertex>\n#include <begin_vertex>\n}',fragmentShader:'#include <common>\n#include <emissivemap_fragment>'};material(batch).onBeforeCompile(shader as any,{} as any);return shader;};
  const plain=compile(normal),fun=compile(sync),sliced=compile(asyncBatch);
- assert.match(plain.vertexShader,/attribute vec2 unitAim/);assert.match(fun.vertexShader,/const vec2 unitAim/);assert.match(fun.vertexShader,/const vec4 unitBlend/);
+ assert.match(plain.vertexShader,/attribute vec4 unitAimTier/);assert.match(fun.vertexShader,/const vec2 unitTurret/);assert.match(fun.vertexShader,/const vec4 unitBlend/);
  assert.equal(fun.vertexShader,sliced.vertexShader);assert.notEqual(material(normal).customProgramCacheKey(),material(sync).customProgramCacheKey());assert.equal(material(sync).customProgramCacheKey(),material(asyncBatch).customProgramCacheKey());
  assert.deepEqual(sync.clips,asyncBatch.clips);assert.deepEqual(sync.weaponTracks,asyncBatch.weaponTracks);
  for(const batch of [normal,sync,asyncBatch])batch.dispose();

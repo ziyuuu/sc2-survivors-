@@ -1,3 +1,4 @@
+import {doomsdayFlameWidth} from './doomsday-passives';
 import {equipmentAreaRadius,equipmentAreaFactor,equipmentAreaBonuses,equipmentCluster} from '../starship/weapon-areas';
 import {bindEquipmentAttack,resolveEquipmentAreaHit,equipmentPatternDamage} from '../starship/runtime';
 import type {World} from '../world';
@@ -23,7 +24,7 @@ export function fireWeaponPattern(w:World,u:Entity,target:Body,bonuses:Bonus[],a
  if(u.heroId||u.summonKind||!w.expedition)return false;const s=w.expedition,angle=Math.atan2(target.x-u.x,target.z-u.z),dx=Math.sin(angle),dz=Math.cos(angle);
  const hit:PatternAttack=attack??((victim,damage,bonus,hits=1)=>{const f=w.enemyDamageFactor(u);w.hit(victim,damage*f,scaled(bonus,f),hits,u.owner,.5,0,u.id);});
  if(u.unitType==='hellion'&&u.nativeMode==='hellbat'){
-  const p=SOURCE_WEAPON_PATTERNS.hellbat,origin={x:u.x+dx*(p.offsetByUnitRadius?u.unitRadius:0),z:u.z+dz*(p.offsetByUnitRadius?u.unitRadius:0)},radius=equipmentAreaRadius(w,u,p.radius*(u.eliteId==='hellion.3'?1.25:1)),arc=p.arcDegrees*(u.eliteId==='hellion.3'?1.5:1);
+  const p=SOURCE_WEAPON_PATTERNS.hellbat,origin={x:u.x+dx*(p.offsetByUnitRadius?u.unitRadius:0),z:u.z+dz*(p.offsetByUnitRadius?u.unitRadius:0)},radius=equipmentAreaRadius(w,u,p.radius*(u.eliteId==='hellion.3'?1.25:1)),arc=doomsdayFlameWidth(w,u)*p.arcDegrees*(u.eliteId==='hellion.3'?1.5:1);
   hit(target,u.weaponDamage*equipmentAreaFactor(w,u),equipmentAreaBonuses(w,u,bonuses));for(const victim of bodies(w))if(victim.id!==target.id&&validAreaVictim(u,victim,'ground')&&inWeaponArc(origin,angle,victim,radius,arc,p.extendByUnitRadius)&&w.hasAttackLine(u,victim))hit(victim,u.weaponDamage*equipmentAreaFactor(w,u),equipmentAreaBonuses(w,u,bonuses));equipmentCluster(w,u,target,p.radius,u.weaponDamage,bonuses,1,crit,'ground');
   w.effect('flame',u,{x:origin.x+dx*radius,z:origin.z+dz*radius},Math.tan(arc*Math.PI/360)*radius,.35);return true;
  }

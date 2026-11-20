@@ -1,5 +1,17 @@
 # 历史诊断脚本与当前验证入口
 
+2026-11-16：旧 Current、V04 和 T01 交付已清理。历史检查脚本引用的生成物不再长期保存；需要复现时使用相应代码与资源重建，完成后再次清理。只保留简要结论和复现代码，见[产物保留规则](../docs/project/ARTIFACT_RETENTION.md)。
+
+`qa-v*`、`qa-m1` 至 `qa-m7`、`qa-p3*` 至 `qa-p6*`、各次英雄／精英独立演示、旧 `play-policy.ts` 和 `budget-envelope.mts` 保留对应阶段的原始验证方法；它们不是当前版本的测试入口。部分依赖已删除的旧存档、奖励或原型生产 API，只能在 Git 对应历史提交运行。不要为运行这些脚本恢复旧生产逻辑。
+
+2026-11-09教学微调与配音：local.4通过环境变量使用polish-20261109独立目录，收尾用`finalize-tutorial-polish.mjs`；旧工具默认仍local.3。`finalize-tutorial-feedback.mjs`内有2秒反馈旧断言，仅用于11月6日历史候选，不能为通过它恢复长等待。当前半秒短反馈、批准的离线中文配音与三族含音录屏见[实现记录](../docs/project/V1_1_TUTORIAL_IMPLEMENTATION_20261105.md)。具体变量和声音源工具见[工具入口](README.md#11-短版教学当前)。
+
+既有设计和验证报告保留当时结论；历史 HTML 与包按现行保留规则清理，不代表当前 schema24/profile v6 的新验证结果。当前实际结果见 `docs/project/CURRENT_LOGIC_CLEANUP_20261006.md`。
+
+2026-11-06教学节奏修订：短版build/qa/serve工具的当前路径集中在`tutorial-candidate-paths.mjs`，指向feedback-20261106候选。`finalize-short-tutorial.mjs`仍固定20261105旧目录及19次点击，只适用于local.2历史候选；当前收尾用`finalize-tutorial-feedback.mjs`。`--fast`为有限功能检查，不是正常时钟录屏证据；当前三族录屏、镜头和触屏/恢复范围见[本轮QA](../reports/qa/tutorial-feedback-1.1-20261106.json)。
+
+2026-11-06：`inspect-player-feedback-20261105.mts`、`qa-player-feedback-20261105.mjs`属于修复前的橙色购买报错/功能装备跳过复现，不能在新源码上要求其故障断言通过。当前使用 `test/player-feedback-fixes.test.ts` 和 `qa-player-feedback-fixes-20261106.mjs`，见[修复范围](../docs/project/PLAYER_FEEDBACK_FIX_20261106.md)。
+
 2026-11-03缓存升级修复：`test/packed-worker-update.test.ts`验证协议/实际控制权/升级失败/清理边界；`verify-cache-worker-upgrade-20261103.mjs`重放线上发现的旧Worker SHA `777a07c5…`，对本批 `86c3ca45…`候选执行本机有限升级与真实检查点恢复。小场景的模拟保存和完整游戏的真实UI检查点分别记录；不代替线上CDN或物理iPhone验收。`package-cache-worker-fix-20261103.mjs`的输入版本固定，不能跨版本直接套用。见[结果与步骤](../docs/project/COZE_CACHE_WORKER_FIX_20261103.md)。
 
 2026-11-03公开Coze检查：`verify-coze-live-20261103.mjs`及`inspect-coze-{delivery,cache}-20261103.mjs`针对appBuildId `34408a35…`，记录正常三族流程、CDN/SW混用及配置404。是有限线上观察，不能推断物理iPhone/长局通过，也不能将某一次HTTP成功覆盖其他请求变体的失败。版本变化时保留[当时结论](../docs/project/COZE_LIVE_CHECK_20261103.md)，不要覆盖历史报告；详细参数见工具入口。
@@ -32,3 +44,9 @@ package.json 中 test:browser / test:offline:save 仍指向 qa-current-logic.mts
 
 
 2026-11-02后续：两轮审查的产品修复用新增 `test/audit-*`、`decoder-recovery`、`runtime-resource-recovery` 及 `verify-audit-browser-20261102.mjs` 验证正确行为。原 `inspect-full-audit-*`、`inspect-runtime-persistence/hero-checkpoint/rescue-save/resources/browser-*` 含修复前故障断言，保留历史用途，不能恢复缺陷来使它们通过。`inspect-runtime-simulation-20261102.mts` 的正常行为断言仍可复用，本批三族均通过，原虫族失败结果保留在历史报告。范围与命令见[修复记录](../docs/project/AUDIT_FIXES_20261102.md)。
+
+
+2026-11-05教学版本2：`qa-first-run-tutorial.mjs`、`qa-tutorial-ui-restore.mjs`、`finalize-tutorial-delivery.mjs --presentation-only` 和 `finalize-tutorial-ui-restore.mjs` 属于旧自由引导／UI回退证据；不要用辅助清敌或“非UI源码未变”断言验收新固定脚本。新入口为 `probe-guided-tutorial.mts`、`qa-guided-tutorial.mjs`、`qa-guided-recovery.mjs` 和 `finalize-guided-tutorial.mjs`，详见tools/README当前段。
+# 2026-11-05 教学范围变更
+
+`qa-guided-*`、`probe-guided-*` 与 guided候选/录屏验证的是旧三关流程。用户后来明确改成出发前询问、独立两段课程和精英固定双白装；当前入口为 `qa-short-tutorial.mjs`、`probe-short-tutorial.mts` 与 `short-tutorial.test.ts`。不得为通过旧脚本恢复三关、反复启停生产或强迫满血修复。旧存档version1/2继续兼容，不自动重置成新客。

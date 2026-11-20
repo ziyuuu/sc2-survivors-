@@ -120,5 +120,10 @@
     "tools/qa-unlock-feedback.mjs",
     "tools/qa-zerg-melee-equipment.mjs"
   ],
-  "featureCommit": "f10cfc18d359710b2e0c7dd13ea38764ec23cfef"
+  "featureCommit": "f10cfc18d359710b2e0c7dd13ea38764ec23cfef",
+  "cleanup": {
+    "pending": false,
+    "completed": true,
+    "details": "reports/qa/three-stage-cleanup-20261029.json"
+  }
 }

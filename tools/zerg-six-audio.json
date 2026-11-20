@@ -1,0 +1,177 @@
+[
+  {
+    "id": "sc2.zsix.aberration.attack",
+    "unit": "aberration",
+    "kind": "attack",
+    "module": "campaigns/swarm.sc2campaign",
+    "path": "Assets/Sounds/Aberration_Attack_01.ogg"
+  },
+  {
+    "id": "sc2.zsix.aberration.death",
+    "unit": "aberration",
+    "kind": "death",
+    "module": "campaigns/swarm.sc2campaign",
+    "path": "Assets/Sounds/Aberration_Death_00.wav"
+  },
+  {
+    "id": "sc2.zsix.devourer.attack",
+    "unit": "devourer",
+    "kind": "attack",
+    "module": "mods/void.sc2mod",
+    "path": "Assets/Sounds/Zerg/Roach/Roach_AttackLaunchRanged0.wav"
+  },
+  {
+    "id": "sc2.zsix.devourer.impact",
+    "unit": "devourer",
+    "kind": "impact",
+    "module": "mods/void.sc2mod",
+    "path": "Assets/Sounds/Zerg/Roach/Roach_AttackImpactRanged0.wav"
+  },
+  {
+    "id": "sc2.zsix.devourer.death",
+    "unit": "devourer",
+    "kind": "death",
+    "module": "mods/void.sc2mod",
+    "path": "Assets/Sounds/Devourer_DeathVox01.wav"
+  },
+  {
+    "id": "sc2.zsix.infestor.attack",
+    "unit": "infestor",
+    "kind": "attack",
+    "module": "mods/liberty.sc2mod",
+    "path": "Assets/Sounds/Zerg/Infestor/Infestor_AttackLaunch0.wav"
+  },
+  {
+    "id": "sc2.zsix.infestor.impact",
+    "unit": "infestor",
+    "kind": "impact",
+    "module": "mods/liberty.sc2mod",
+    "path": "Assets/Sounds/Zerg/Infestor/Infestor_NeuralParasiteAttackImpact0.wav"
+  },
+  {
+    "id": "sc2.zsix.infestor.skill",
+    "unit": "infestor",
+    "kind": "skill",
+    "module": "mods/liberty.sc2mod",
+    "path": "Assets/Sounds/Zerg/Infestor/Infestor_FungalGrowthImpact0.wav"
+  },
+  {
+    "id": "sc2.zsix.infestor.death",
+    "unit": "infestor",
+    "kind": "death",
+    "module": "mods/liberty.sc2mod",
+    "path": "Assets/Sounds/Zerg/Infestor/Infestor_Death0.wav"
+  },
+  {
+    "id": "sc2.zsix.swarm_host.skill",
+    "unit": "swarm_host",
+    "kind": "skill",
+    "module": "mods/liberty.sc2mod",
+    "path": "Assets/Sounds/SwarmHost_Attack_00.ogg"
+  },
+  {
+    "id": "sc2.zsix.swarm_host.burrow",
+    "unit": "swarm_host",
+    "kind": "burrow",
+    "module": "mods/liberty.sc2mod",
+    "path": "Assets/Sounds/Zerg/Ultralisk/Ultralisk_Burrow0.wav"
+  },
+  {
+    "id": "sc2.zsix.swarm_host.death",
+    "unit": "swarm_host",
+    "kind": "death",
+    "module": "mods/liberty.sc2mod",
+    "path": "Assets/Sounds/SwarmHost_Death_00.wav"
+  },
+  {
+    "id": "sc2.zsix.viper.death",
+    "unit": "viper",
+    "kind": "death",
+    "module": "mods/liberty.sc2mod",
+    "path": "Assets/Sounds/LairViper_Death_00.wav"
+  },
+  {
+    "id": "sc2.zsix.viper.deathfx",
+    "unit": "viper",
+    "kind": "death",
+    "module": "mods/liberty.sc2mod",
+    "path": "Assets/Sounds/Zerg/SharedEffects/Explosions/Zerg_ExplosionMedium0.wav"
+  },
+  {
+    "id": "sc2.zsix.viper.skill",
+    "unit": "viper",
+    "kind": "skill",
+    "module": "mods/swarm.sc2mod",
+    "path": "Assets/Sounds/Zerg/Queen/Queen_SwarmInfestationLaunch0.wav"
+  },
+  {
+    "id": "sc2.zsix.viper.attack",
+    "unit": "viper",
+    "kind": "attack",
+    "module": "campaigns/swarm.sc2campaign",
+    "path": "Assets/Sounds/Zerg/Corruptor/Corruptor_Attack1.ogg"
+  },
+  {
+    "id": "sc2.zsix.viper.impact",
+    "unit": "viper",
+    "kind": "impact",
+    "module": "campaigns/swarm.sc2campaign",
+    "path": "Assets/Sounds/Zerg/Corruptor/Corruptor_AttackImpact0.wav"
+  },
+  {
+    "id": "sc2.zsix.brood_lord.attack",
+    "unit": "brood_lord",
+    "kind": "attack",
+    "module": "mods/liberty.sc2mod",
+    "path": "Assets/Sounds/Zerg/BroodLord/Broodlord_AttackLaunch0.wav"
+  },
+  {
+    "id": "sc2.zsix.brood_lord.impact",
+    "unit": "brood_lord",
+    "kind": "impact",
+    "module": "mods/liberty.sc2mod",
+    "path": "Assets/Sounds/Zerg/BroodLord/Broodlord_AttackImpact0.wav"
+  },
+  {
+    "id": "sc2.zsix.brood_lord.death",
+    "unit": "brood_lord",
+    "kind": "death",
+    "module": "mods/liberty.sc2mod",
+    "path": "Assets/Sounds/Zerg/BroodLord/BroodLord_Death0.wav"
+  },
+  {
+    "id": "sc2.zsix.zerg_locust.death",
+    "unit": "zerg_locust",
+    "kind": "death",
+    "module": "mods/liberty.sc2mod",
+    "path": "Assets/Sounds/Zerg/SharedEffects/Explosions/Zerg_ExplosionSmall0.wav"
+  },
+  {
+    "id": "sc2.zsix.zerg_locust.attack",
+    "unit": "zerg_locust",
+    "kind": "attack",
+    "module": "mods/liberty.sc2mod",
+    "path": "Assets/Sounds/Locust_Spit00.wav"
+  },
+  {
+    "id": "sc2.zsix.zerg_locust.impact",
+    "unit": "zerg_locust",
+    "kind": "impact",
+    "module": "mods/liberty.sc2mod",
+    "path": "Assets/Sounds/Locust_Spit_Impact_1.wav"
+  },
+  {
+    "id": "sc2.zsix.zerg_broodling.attack",
+    "unit": "zerg_broodling",
+    "kind": "attack",
+    "module": "mods/liberty.sc2mod",
+    "path": "Assets/Sounds/Zerg/Broodling/Broodling_Attack0.ogg"
+  },
+  {
+    "id": "sc2.zsix.zerg_broodling.death",
+    "unit": "zerg_broodling",
+    "kind": "death",
+    "module": "mods/liberty.sc2mod",
+    "path": "Assets/Sounds/Zerg/Broodling/Broodling_Death0.wav"
+  }
+]
