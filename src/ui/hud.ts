@@ -231,7 +231,7 @@ export class HUD {
    else if(action==='armed-node'){
     const id=button.dataset.node as BuildCardId,face=button.closest('.im-card');
     const art=face?.querySelector('.imx-art > .painted-art,.imx-art > .imx-object,.im-card-art')?.cloneNode(true) as Element|undefined;
-    if(world.claimBuildChoice(button.dataset.milestone!,Number(button.dataset.revision),id)){
+    if(world.claimBuildChoice(button.dataset.milestone!,Number(button.dataset.revision),id,(this.root.querySelector<HTMLSelectElement>('[data-swarm-hero]')?.value||undefined) as HeroId|undefined)){
      const card=buildCard(id);
      this.arrivalCards.showNode({kind:'node',identity:id,name:card.name,quality:card.purchase==='orange'?'orange':'purple',art:art??null});
      this.finishPurchase(e);

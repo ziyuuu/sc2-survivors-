@@ -28,7 +28,7 @@ export interface Entity extends Body {
  race:import('../data/races').Race;
  team:import('../data/races').Team;
  /** Carrier-owned actors are targetable entities, never independent roster/cultivation entries. */
- summonKind?:'interceptor';summonOwnerId?:number;
+ summonKind?:'interceptor';summonOwnerId?:number;swarmHeroSummon?:import('../data/heroes').HeroId;
  /** Frozen when a summon starts an attack; surviving projectiles keep their original reward identity. */
  rewardOwnerId?:number;rewardOwnerGeneration?:number;rewardSourceKind?:'ordinary'|'elite'|'hero'|'temporary';
  carrierHangar?:{initialized:boolean;serial:number;job:{remaining:number;paid:number}|null};
@@ -56,7 +56,7 @@ export interface Entity extends Body {
  mode:'tank'|'siege';desiredMode:'tank'|'siege';modeTimer:number;windup:number;attackLock:number;pendingTarget:number|null;lastShotAt:number;nextShotAt:number;shotInterval:number;repositionUntil:number;aimStartedAt:number|null;
  energy:number;maxEnergy:number;energyRegen:number;healRate:number;healTarget:number|null;bileCooldown:number;guardianPod:number|null;guardOrigin?:boolean;stimUntil:number;
  deadAt:number|null;bornAt:number;thinkAt:number;distanceWalked:number;
- shield?:number;maxShield?:number;lastDamagedAt?:number;charmStage?:number;orderlyStage?:number;lastStandStage?:number;lastStandUntil?:number;temporaryUntil?:number;temporary?:boolean;temporaryKind?:'proliferate'|'mercenary'|'fun-brood'|'hero-baneling'|'shop-gland'|'shop-nydus'|'armed'|'bio';freeConscript?:boolean;tacticalTier?:number;tacticalDirection?:'assault'|'guard'|'mobility';recoveryUntil?:number;
+ shield?:number;maxShield?:number;lastDamagedAt?:number;charmStage?:number;orderlyStage?:number;lastStandStage?:number;lastStandUntil?:number;temporaryUntil?:number;temporary?:boolean;zergSwarm?:import('./combat/zerg-swarm-state').SwarmBody;swarmAttack?:import('./combat/zerg-swarm-spores').SwarmAttackOrigin;swarmHeroTwin?:boolean;temporaryKind?:'zerg-swarm'|'proliferate'|'mercenary'|'fun-brood'|'hero-baneling'|'shop-gland'|'shop-nydus'|'armed'|'bio';freeConscript?:boolean;tacticalTier?:number;tacticalDirection?:'assault'|'guard'|'mobility';recoveryUntil?:number;
 }
 export interface Pod extends Body {injectedBy?:number;injectedSeats?:number;injectedAt?:number;number:number;unitType:UnitType;createdAt:number;landedAt:number;guardianIds:Set<number>;guardTypes:UnitType[];
  guardSpawn?:import('../data/enemy-tuning').EnemySpawnStamp;

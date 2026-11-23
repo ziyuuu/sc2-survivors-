@@ -23,6 +23,7 @@ export class SquadConsole {
  readonly root:HTMLElement;private grid:HTMLElement;private detail:HTMLElement;private pager:HTMLElement;private commands:HTMLElement;
  private commandIds:BattleActionId[]=[];private selected='';private page=0;private structure='';private commandStructure='';private detailHTML='';private run='';private rows:UnitSeat[]=[];private detailOpen=false;private tab:InspectorTab='stats';private expanded=new Set<string>();private columns=6;private pageSize=12;private blocked=false;private visible=false;private pageAnchor=0;private commandPage=0;private pageHTML='';private foldHTML='';private skinKey='';private selectionKey='';
  private suppressUntil=0;private ignorePressClick=false;private press:{id:number;key:string;x:number;y:number;timer:number}|null=null;private swipe:{id:number;x:number;y:number}|null=null;
+ private content!:HTMLElement;private armyRow!:HTMLElement;private layoutSize={width:0,height:0,armyHeight:0};
  blocksTap(b:HTMLButtonElement){return !!(b.dataset.seat||b.dataset.command)&&performance.now()<this.suppressUntil;}
  get selectedEntityIds(){return this.rows.find(s=>s.key===this.selected)?.bodies.map(u=>u.id)??[];}
  get isOpen(){return this.detailOpen&&!this.root.hidden;}
@@ -33,6 +34,7 @@ export class SquadConsole {
   this.root=document.createElement('section');this.root.id='battle-console';this.root.className='battle-console packed-console';this.root.setAttribute('aria-label','作战控制台');
   this.root.innerHTML=`<div class="console-body"><div class="command-row"><div class="native-command-frame"></div><section id="console-commands" aria-label="英雄技能与全局指令"></section><nav id="native-command-pages" aria-label="技能分页"></nav></div><div class="army-row"><div class="native-army-frame"></div><button id="army-toggle" class="console-fold" aria-controls="army-hud"></button><section id="army-hud"><div id="roster" role="group" aria-label="全队单位"></div></section><nav id="army-pages" aria-label="部队分页"></nav></div></div><section id="native-selection" hidden aria-label="所选士兵生命"></section><div id="unit-inspector" data-captures-battle-input hidden></div><div id="production-detail" hidden></div>`;
   parent.append(this.root);this.grid=this.root.querySelector('#roster')!;this.detail=this.root.querySelector('#unit-inspector')!;this.pager=this.root.querySelector('#army-pages')!;this.commands=this.root.querySelector('#console-commands')!;
+  this.content=this.root.querySelector('#army-hud')!;this.armyRow=this.root.querySelector('.army-row')!;
   this.root.addEventListener('pointerdown',()=>{this.ignorePressClick=false;},true);
   this.root.addEventListener('click',e=>{if(this.ignorePressClick){this.ignorePressClick=false;e.preventDefault();e.stopImmediatePropagation();}},true);
   const inspectKey=(e:Event)=>(e.target as HTMLElement).closest<HTMLElement>('[data-seat],[data-hero-seat]');
@@ -50,16 +52,21 @@ export class SquadConsole {
   this.grid.addEventListener('keydown',e=>{const delta=({ArrowLeft:-1,ArrowRight:1,ArrowUp:-this.columns,ArrowDown:this.columns} as Record<string,number>)[e.key];if(!delta)return;e.preventDefault();e.stopPropagation();const b=[...this.grid.querySelectorAll<HTMLButtonElement>('button')],at=b.indexOf(document.activeElement as HTMLButtonElement);b[Math.max(0,Math.min(b.length-1,at+delta))]?.focus();});
   document.addEventListener('sc2-inspection-open',e=>{if((e as CustomEvent).detail==='carrier')this.close();});
   document.addEventListener('sc2-hud-skill-focus',e=>{const at=this.commandIds.indexOf((e as CustomEvent).detail);if(at<0)return;const page=Math.floor(at/(this.mode==='portrait'?9:15));if(page!==this.commandPage){this.commandPage=page;this.update();}});
-  new ResizeObserver(()=>this.update()).observe(parent);
+  // Read geometry after the browser has resolved layout, before update writes
+  // health/command text. Combat refreshes reuse it until the actual boxes change.
+  const observer=new ResizeObserver(()=>{this.measureLayout();this.update();});
+  for(const element of [parent,this.content,this.armyRow])observer.observe(element);
  }
+ private measureLayout(){this.layoutSize={width:this.content.clientWidth,height:this.content.clientHeight,armyHeight:this.armyRow.offsetHeight};}
  private clearPress(){if(this.press)clearTimeout(this.press.timer);this.press=null;}
  private turnPage(delta:number){this.page=Math.max(0,Math.min(Math.ceil(this.rows.length/this.pageSize)-1,this.page+delta));this.pageAnchor=this.page*this.pageSize;this.update();}
  update(visible=this.visible,blocked=this.blocked){
-  const w=this.world;this.visible=visible;this.blocked=blocked;this.root.hidden=!visible;this.root.dataset.race=w.expedition.race;this.root.classList.toggle('touch-console',this.mobile);document.body.classList.toggle('has-battle-console',visible);this.root.parentElement!.classList.toggle('packed-mobile',this.mobile);if(!visible){this.clearPress();return;}
+  const w=this.world,revealed=visible&&!this.visible;this.visible=visible;this.blocked=blocked;this.root.hidden=!visible;attr(this.root,'data-race',w.expedition.race);this.root.classList.toggle('touch-console',this.mobile);document.body.classList.toggle('has-battle-console',visible);this.root.parentElement!.classList.toggle('packed-mobile',this.mobile);if(!visible){this.clearPress();return;}
   if(this.run!==w.runId){this.run=w.runId??'';this.page=0;this.pageAnchor=0;this.commandPage=0;this.selected='';this.detailOpen=false;this.tab='stats';this.expanded.clear();}
-  const mode=this.mode,skin=activeSkin(w.permanentProfile,w.expedition.race),skinKey=mode+'/'+skin.id;this.root.parentElement!.dataset.hudMode=mode;
-  if(skinKey!==this.skinKey){this.skinKey=skinKey;this.root.querySelector('.native-army-frame')!.innerHTML=armyFrame(skin,mode);this.root.querySelector('.native-command-frame')!.innerHTML=commandFrame(skin,mode);this.foldHTML='';}
-  const read=battleActionReader(w);this.rows=packedSeats(w);const content=this.root.querySelector<HTMLElement>('#army-hud')!,width=content.clientWidth,height=content.clientHeight,gap=mode==='portrait'?innerWidth*.0075:innerWidth*.0024;
+  const mode=this.mode,skin=activeSkin(w.permanentProfile,w.expedition.race),skinKey=mode+'/'+skin.id,skinChanged=skinKey!==this.skinKey;attr(this.root.parentElement!,'data-hud-mode',mode);
+  if(skinChanged){this.skinKey=skinKey;this.root.querySelector('.native-army-frame')!.innerHTML=armyFrame(skin,mode);this.root.querySelector('.native-command-frame')!.innerHTML=commandFrame(skin,mode);this.foldHTML='';}
+  if(revealed||skinChanged||!this.layoutSize.width)this.measureLayout();
+  const read=battleActionReader(w);this.rows=packedSeats(w);const content=this.content,{width,height}=this.layoutSize,gap=mode==='portrait'?innerWidth*.0075:innerWidth*.0024;
   this.columns=mode==='portrait'?1:mode==='pc'?10:Math.max(1,Math.ceil((width+gap)/(Math.max(20,Math.min(30,(height-gap)/2))+gap)));
   const rows=mode==='portrait'?Math.max(1,Math.floor((height+gap)/(width+gap))):2;this.pageSize=this.columns*rows;
   const pages=Math.max(1,Math.ceil(this.rows.length/this.pageSize));this.page=Math.max(0,Math.min(pages-1,Math.floor(this.pageAnchor/this.pageSize)));const shown=this.rows.slice(this.page*this.pageSize,(this.page+1)*this.pageSize),folded=this.preferences.armyCollapsed;
@@ -75,7 +82,7 @@ export class SquadConsole {
   const commandPager=this.root.querySelector<HTMLElement>('#native-command-pages')!;commandPager.hidden=commandPages===1;const commandsHTML=`<button data-command-page="-1" aria-label="上一页技能" ${this.commandPage===0?'disabled':''}>‹</button><span>${this.commandPage+1} / ${commandPages}</span><button data-command-page="1" aria-label="下一页技能" ${this.commandPage===commandPages-1?'disabled':''}>›</button>`;if(commandPager.dataset.html!==commandsHTML){commandPager.dataset.html=commandsHTML;commandPager.innerHTML=commandsHTML;}
   const selected=this.rows.find(s=>s.key===this.selected),selection=this.root.querySelector<HTMLElement>('#native-selection')!;selection.hidden=!selected;if(selected){const key=selected.key+'/'+selected.image+'/'+!!selected.unit?.maxShield+'/'+!!selected.unit?.maxEnergy+'/'+skin.race;if(key!==this.selectionKey){this.selectionKey=key;selection.innerHTML=selectionFrame(selected,skin.race);}updateSelection(selection,selected);}
 
-  style(this.root.parentElement!,'--packed-army-height',this.root.querySelector<HTMLElement>('.army-row')!.offsetHeight+'px');
+  style(this.root.parentElement!,'--packed-army-height',this.layoutSize.armyHeight+'px');
   this.detail.hidden=!this.detailOpen;const seat=this.rows.find(s=>s.key===this.selected);if(this.detailOpen&&!seat){this.detailOpen=false;this.detail.hidden=true;}const html=this.detailOpen&&seat?renderUnitInspector(w,seat,this.rows,this.tab,this.expanded):'';if(html!==this.detailHTML){this.detailHTML=html;updateLiveInspector(this.detail,html);}
  }
  selectEntity(id:number){const seat=packedSeats(this.world).find(s=>s.bodies.some(u=>u.id===id));if(!seat)return false;this.selected=seat.key;this.update();return true;}

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><base href="/"><link rel="icon" href="data:,"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>虫群增殖 · 战场展示</title></head>
+<body class="swarm-trial">
+ <main id="game-root"><canvas id="battle" aria-label="虫群增殖战场"></canvas><div id="interface"></div></main>
+ <aside id="showcase" aria-label="战场展示控制">
+  <div class="controls">
+   <select id="card" aria-label="选择卡牌"></select>
+   <select id="hero" aria-label="选择分裂英雄" hidden></select>
+   <select id="cargo" aria-label="选择主脑场景" hidden><option value="delivery">正式新兵</option><option value="overflow">满员投放</option></select>
+   <span id="ranks" role="group" aria-label="选择卡牌档位">
+    <button data-rank="0">基础对照</button><button data-rank="1">Ⅰ档</button><button data-rank="2">Ⅱ档</button><button data-rank="3">Ⅲ档</button>
+   </span>
+   <button id="cast" hidden>英雄技能</button><button id="replay">重放</button><button id="pause">暂停</button><button id="retreat">撤离</button>
+   <a id="catalogue" href="/preview/zerg-swarm-20261120/cards.html">卡牌图鉴</a>
+  </div>
+  <p id="effect"></p><p id="focus"></p>
+  <output id="summary"></output>
+  <output id="state" role="status">载入原版资源中</output>
+  <details><summary>战场记录</summary><pre id="records"></pre></details>
+ </aside>
+ <script type="module" src="/preview/zerg-swarm-20261120/main.ts"></script>
+</body>
+</html>

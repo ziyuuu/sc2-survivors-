@@ -1,6 +1,6 @@
 import {encodeGraph,decodeGraph,checksum,type Graph} from './graph-codec';
 import {PermanentProfile} from '../simulation/progression/permanent-profile';
-import {RUN_SCHEMA,RUN_RULES,type RunSnapshot} from '../simulation/persistence/run-snapshot';
+import {PREVIOUS_RUN_SCHEMA,RUN_SCHEMA,RUN_RULES,type RunSnapshot} from '../simulation/persistence/run-snapshot';
 import {validateRunData} from '../simulation/persistence/run-fields';
 import {RunState} from '../simulation/run-state';
 import {restoreStarship,validateEquipmentAccount} from '../simulation/persistence/starship-snapshot';
@@ -26,6 +26,10 @@ export function readArchive(raw:string):{bundle:SaveBundle;savedAt:number}{
  if(bundle.equipment?.run&&!bundle.equipment.run.ended&&!bundle.run?.starship)throw Error('出征账户缺少对应检查点');
  if(bundle.management){const m=bundle.management;if(!Number.isSafeInteger(m.revision)||m.revision<0||!(m.locked instanceof Set)||!(m.favorites instanceof Set)||[...m.locked,...m.favorites].some(id=>typeof id!=='string')||!m.presets||!m.presetNames)throw Error('配装预设无效');for(const race of ['terran','zerg','protoss'] as const){if(!Array.isArray(m.presets[race])||m.presets[race].length!==3||!Array.isArray(m.presetNames[race])||m.presetNames[race].length!==3||m.presetNames[race].some(n=>typeof n!=='string'||n.length>100))throw Error('配装预设无效');for(const preset of m.presets[race])if(preset!==null&&(!preset||typeof preset!=='object'||Array.isArray(preset)||Object.entries(preset).some(([slot,id])=>!(EQUIPMENT_SLOTS as readonly string[]).includes(slot)||typeof id!=='string')||new Set(Object.values(preset)).size!==Object.values(preset).length))throw Error('配装预设槽位无效');}}
  if(bundle.run!==null){
+  if(Number(bundle.run?.schema)===PREVIOUS_RUN_SCHEMA){
+   if(bundle.run.state?.expedition?.zergSwarm)throw Error('旧续局版本含无效增殖状态');
+   bundle.run.schema=RUN_SCHEMA;
+  }
   if(!bundle.run||bundle.run.schema!==RUN_SCHEMA||bundle.run.rules!==RUN_RULES||bundle.run.config?.rulesId!==RUN_RULES)throw Error('续局版本不兼容');
   validateRunData(bundle.run.state,new RunState(),bundle.run.starship);
   if(JSON.stringify(bundle.run.config.contentPlan)!==JSON.stringify(bundle.run.state.runConfig?.contentPlan))throw Error('续局内容计划与状态不一致');

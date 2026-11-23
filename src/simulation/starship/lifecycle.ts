@@ -11,10 +11,10 @@ import {createEquipmentProjections,retireEquipmentProjection} from './projection
 import {observeAmount} from '../observation';
 import {hasCombatPotential} from '../combat/combat-presence';
 
-export interface EquipmentRecovery {body:Entity;death:number;source:'native'|'phase'|'survivor'|'failed';backup?:ActiveEquipmentEffect;projections:number[];until:number;phaseWon?:Point;}
+export interface EquipmentRecovery {body:Entity;death:number;source:'native'|'phase'|'survivor'|'failed';backup?:ActiveEquipmentEffect;rescueReservation?:{key:string;member:string};projections:number[];until:number;phaseWon?:Point;}
 export interface EquipmentLifeRuntime {roster:Map<number,Entity>;version:number;snapshot?:{version:number;time:number;members:Entity[]};pending:Map<number,EquipmentRecovery>;rewindUsed:boolean;}
 export function newEquipmentLife():EquipmentLifeRuntime{return {roster:new Map(),version:0,pending:new Map(),rewindUsed:false};}
-export function equipmentCanRevive(w:World,u:Entity){return permanentEquipmentBody(w,u)&&!w.starship.members.get(u.id)?.cannotRevive;}
+export function equipmentCanRevive(w:World,u:Entity){return permanentEquipmentBody(w,u)&&w.expedition.zergSwarm?.twin?.body!==u.id&&!w.starship.members.get(u.id)?.cannotRevive;}
 /** Retirement cancels recovery ownership; it is neither a death nor a new reward. */
 export function retireEquipmentFamily(w:World,family:UnitType){
  const life=w.starship.life,retired=new Set<number>();
@@ -34,12 +34,31 @@ export function registerEquipmentRoster(w:World){if(!w.starship.enabled)return;c
  }
  if(equipmentValue(w,'rewind')&&life.roster.size&&[...life.roster.values()].every(u=>(w.entities.get(u.id)?.hp??0)>0))life.snapshot={version:life.version,time:w.time,members:[...life.roster.values()].map(u=>structuredClone(w.entities.get(u.id)!))};
 }
-function reserveSurvivor(w:World,u:Entity){if(u.heroId||u.eliteId)return undefined;const e=activeEquipmentEffects(w).find(e=>e.key==='rescue');if(!e)return undefined;const period=e.values[3]?equipmentStageKey(w):'run',key=e.source+':rescue:'+period,member=key+':'+(u.pairId??u.id);
- if(w.starship.numbers.has(member)||(w.starship.numbers.get(key)??0)>=e.values[0])return undefined;w.starship.numbers.set(member,1);w.starship.numbers.set(key,(w.starship.numbers.get(key)??0)+1);return structuredClone(e);
+function reserveSurvivor(w:World,u:Entity):Pick<EquipmentRecovery,'backup'|'rescueReservation'>{if(u.heroId||u.eliteId)return {};const e=activeEquipmentEffects(w).find(e=>e.key==='rescue');if(!e)return {};const period=e.values[3]?equipmentStageKey(w):'run',key=e.source+':rescue:'+period,member=key+':'+(u.pairId??u.id);
+ const reserved=[...w.starship.life.pending.values()].flatMap(r=>r.rescueReservation?[r.rescueReservation]:[]);
+ if(w.starship.numbers.has(member)||reserved.some(r=>r.member===member)||(w.starship.numbers.get(key)??0)+reserved.filter(r=>r.key===key).length>=e.values[0])return {};
+ const backup=structuredClone(e);
+ if(w.expedition.zergSwarm?.revivals[u.id])return {backup,rescueReservation:{key,member}};
+ w.starship.numbers.set(member,1);w.starship.numbers.set(key,(w.starship.numbers.get(key)??0)+1);return {backup};
+}
+/** Competing swarm recoveries reserve capacity; only the winning rescue spends it. */
+function commitRescue(w:World,r:EquipmentRecovery){const held=r.rescueReservation;if(!held)return;w.starship.numbers.set(held.member,1);w.starship.numbers.set(held.key,(w.starship.numbers.get(held.key)??0)+1);delete r.rescueReservation;}
+export function cancelEquipmentRecovery(w:World,id:number){const r=w.starship.life.pending.get(id);if(!r)return;for(const projection of r.projections)retireEquipmentProjection(w,projection);w.starship.life.pending.delete(id);}
+/** Older swarm saves charged the equipment fallback before the race was decided. */
+export function restoreSwarmRecoveryReservations(w:World){
+ for(const [id,r] of w.starship.life.pending){
+  if(!w.expedition.zergSwarm?.revivals[id]||!r.backup||r.rescueReservation)continue;
+  const prefix=r.backup.source+':rescue:',suffix=':'+(r.body.pairId??r.body.id);
+  const member=[...w.starship.numbers.keys()].filter(key=>key.startsWith(prefix)&&key.endsWith(suffix)&&/^(run|stage:\d+|endless:\d+)$/.test(key.slice(prefix.length,-suffix.length))).at(-1);
+  if(!member)continue;
+  const key=member.slice(0,-suffix.length),count=Math.max(0,(w.starship.numbers.get(key)??0)-1);
+  w.starship.numbers.delete(member);if(count)w.starship.numbers.set(key,count);else w.starship.numbers.delete(key);
+  r.rescueReservation={key,member};
+ }
 }
 /** Actual death freezes backup eligibility once, after native revival registration. */
 export function equipmentBodyDied(w:World,u:Entity){if(!w.starship.enabled||!equipmentCanRevive(w,u))return;const life=w.starship.life;life.roster.set(u.id,u);const previous=life.pending.get(u.id);if(previous&&previous.death===w.time)return;
- const backup=reserveSurvivor(w,u),body=structuredClone(u),record:EquipmentRecovery={body,death:w.time,source:'failed',backup,projections:[],until:w.time};
+ const reserved=reserveSurvivor(w,u),backup=reserved.backup,body=structuredClone(u),record:EquipmentRecovery={body,death:w.time,source:'failed',...reserved,projections:[],until:w.time};
  if(nativeWaiting(w,u))record.source='native';else {const e=activeEquipmentEffects(w).find(e=>e.key==='phase');if(e){const copies=createEquipmentProjections(w,u,e.values[0],'phase',e.values[1],e.values[2],e.values[3],e.values[4]);if(copies.length===e.values[0]){record.source='phase';record.projections=copies.map(v=>v.id);record.until=w.time+e.values[1];}}if(record.source==='failed'&&backup)record.source='survivor';}
  if(record.source!=='failed')life.pending.set(u.id,record);
 }
@@ -48,12 +67,13 @@ function restore(w:World,snapshot:Entity,point:Point,hp:number,shield:number,rew
  if(rewind){const time=life.snapshot!.time;for(const key of ['nextShotAt','abilityReady','specialReady','barrierReady','nativeModeUntil','stoppedUntil'] as const){const value=snapshot[key];if(value!==undefined)u[key]=w.time+Math.max(0,value-time);}}
  w.entities.set(u.id,u);life.roster.set(u.id,u);w.starship.native.delete(u);w.refreshStats(u);u.hp=Math.max(1,u.maxHp*hp);u.shield=(u.maxShield??0)*shield;u.energy=Math.min(u.maxEnergy,snapshot.energy);if(u.heroId){const record=w.starship.nativeHeroes.get(u.id)?.record??w.heroes.get(u.heroId);if(record){record.entityId=u.id;record.rank=w.starship.nativeHeroes.get(u.id)?.source==='ark'?5:u.rank;record.awaitingSpawn=false;record.revivePaid=false;if(rewind){const ready=w.starship.numbers.get('rewind-hero-ready:'+u.heroId);if(ready!==undefined)record.skillReady=w.time+Math.max(0,ready-life.snapshot!.time);}}}
  if(u.pairId){const pair=w.expedition.zerglingPairs.find(p=>p.id===u.pairId);if(pair){pair.members=pair.members.filter(id=>id===u.id||(w.entities.get(id)?.hp??0)>0);if(!pair.members.includes(u.id))pair.members.push(u.id);pair.rank=u.rank;pair.eliteId=u.eliteId;pair.regrowAt=null;pair.birthPending=false;}}
- equipmentPresentation(w,rewind?'rewind':'recall-to',u);observeAmount(w,u,'revivals',1);w.visual('hero-revive',u);w.hash.invalidatePlanes();return u;
+ equipmentPresentation(w,rewind?'rewind':'recall-to',u);observeAmount(w,u,'revivals',1);w.visual('hero-revive',u);if(!rewind)onSwarmFormalRevived(w,u);w.hash.invalidatePlanes();return u;
 }
+import {onSwarmFormalRevived} from '../combat/zerg-swarm-revival';
 export function tickEquipmentLife(w:World){if(!w.starship.enabled)return;for(const [id,r] of w.starship.life.pending){const live=w.entities.get(id);if(live&&live.hp>0){w.starship.life.pending.delete(id);continue;}
   if(r.source==='native'){if(r.body.pairId){const pair=w.expedition.zerglingPairs.find(p=>p.id===r.body.pairId);if(pair&&pair.members.filter(id=>((w.entities.get(id)??w.specialStages.active?.evacuated.get(id))?.hp??0)>0).length===2){w.starship.life.pending.delete(id);w.starship.life.roster.delete(id);continue;}}if(nativeWaiting(w,r.body))continue;r.source=r.backup?'survivor':'failed';}
   if(r.source==='phase'){const survivors=r.projections.map(id=>w.entities.get(id)).filter((u):u is Entity=>!!u&&u.hp>0);if(!r.phaseWon&&survivors.length&&w.time+1e-8>=r.until){r.phaseWon={x:survivors[0].x,z:survivors[0].z};for(const projection of r.projections)retireEquipmentProjection(w,projection);}if(r.phaseWon){const points=landing(w,[r.body],[r.phaseWon]);if(!points)continue;restore(w,r.body,points[0],1,1);w.starship.life.pending.delete(id);continue;}if(!survivors.length)r.source=r.backup?'survivor':'failed';else continue;}
-  if(r.source==='survivor'&&r.backup&&w.time+1e-8>=r.death+r.backup.values[1]){const points=landing(w,[r.body],[r.body]);if(!points)continue;const u=restore(w,r.body,points[0],r.backup.values[2],0);if(r.backup.values[4])giveEquipmentBarrier(w,u,'survivor',u.maxHp*r.backup.values[4],r.backup.values[5]);w.starship.life.pending.delete(id);continue;}
+  if(r.source==='survivor'&&r.backup&&w.time+1e-8>=r.death+r.backup.values[1]){const points=landing(w,[r.body],[r.body]);if(!points)continue;commitRescue(w,r);const u=restore(w,r.body,points[0],r.backup.values[2],0);if(r.backup.values[4])giveEquipmentBarrier(w,u,'survivor',u.maxHp*r.backup.values[4],r.backup.values[5]);w.starship.life.pending.delete(id);continue;}
   if(r.source==='failed')w.starship.life.pending.delete(id);
  }
  registerEquipmentRoster(w);if(w.starship.life.snapshot)for(const [id,h] of w.heroes)if(w.starship.life.roster.size&&[...w.starship.life.roster.values()].every(u=>u.hp>0))w.starship.numbers.set('rewind-hero-ready:'+id,h.skillReady);

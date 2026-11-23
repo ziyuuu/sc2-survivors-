@@ -1,4 +1,6 @@
 import {bioKnockDistance} from './bio-runtime';
+import {isZswId} from '../../data/zerg-swarm';
+import {applySwarmCard,swarmRuntimeReady} from '../progression/zerg-swarm-acquisition';
 import {isBioId} from '../../data/terran-bio';
 import {claimBioNode} from './bio-acquisition';
 import {takeArmedProc,hasArmedProc} from './armed-procs';
@@ -43,7 +45,7 @@ import type {Body,Entity,Point} from '../types';
 const implemented=new Set<ArmedId>(['N06','N07','N08','N09','O01','O03','B06','O02','W06','W07','W08','W09','G04','G06','G09','B02','P03','P04','W01','W02','W03','W04','W05','G01','G02','G03','G05','G07','G08','B01','B03','B04','B05','B07','B08','B09','P01','P02','P05','P06','N01','N02','N03','N04','N05']);
 export const armedStageKey=(w:World)=>`${w.runId}:${w.endless?'endless:'+w.endless.round:w.stage}`;
 export function armedRuntimeReady(w:World,id:ArmedId){return w.expedition.race==='terran'&&implemented.has(id);}
-export function buildRuntimeReady(w:World,id:BuildCardId){return isBioId(id)?w.expedition.race==='terran':isDoomsdayId(id)?doomsdayRuntimeReady(w,id):armedRuntimeReady(w,id);}
+export function buildRuntimeReady(w:World,id:BuildCardId){return isZswId(id)?swarmRuntimeReady(w,id):isBioId(id)?w.expedition.race==='terran':isDoomsdayId(id)?doomsdayRuntimeReady(w,id):armedRuntimeReady(w,id);}
 export function armedOfferLegal(w:World,id:ArmedId){
  if(!armedRuntimeReady(w,id)||!ordinaryBuildCardAllowed(w.expedition,id)||!armedPurchaseLegal(w.expedition.support,id))return false;
  const legacy=LEGACY_ARMED[id as keyof typeof LEGACY_ARMED];return !legacy||supportLegal(w,legacy);
@@ -67,11 +69,12 @@ export function pendingBuildChoice(w:World){
 /** Kept for old callers; earned nodes must be settled before continuing. */
 export function deferBuildChoice(_w:World,_id:string,_revision:number){return false;}
 export function prepareArmedChoices(w:World){reconcileMechanicalSeats(w);prepareBuildChoices(w.expedition,w.random,id=>buildRuntimeReady(w,id));}
-export function claimBuildChoice(w:World,milestoneId:string,revision:number,id:BuildCardId){
+export function claimBuildChoice(w:World,milestoneId:string,revision:number,id:BuildCardId,hero?:import('../../data/heroes').HeroId){
  const s=w.expedition,b=s.build,m=b?.milestones.find(m=>m.id===milestoneId);
  if(w.phase!=='reward'||s.shopRevision!==revision||!b||!m||pendingBuildChoice(w)!==m||m.claimed||!m.offers.includes(id)||buildCardBranch(id)!==m.branch||!buildRuntimeReady(w,id)||!buildNodeLegal(s,id))return false;
  const previousRanks=b.main===null?{...s.doomsday?.ranks}:undefined;
- if(isBioId(id)){if(!claimBioNode(w,id))return false;}
+ if(isZswId(id)){if(!applySwarmCard(w,id,undefined,hero))return false;}
+ else if(isBioId(id)){if(!claimBioNode(w,id))return false;}
  else if(isDoomsdayId(id)){if(!claimDoomsdayNode(w,id))return false;}
  else {const a=s.support.armed??=newArmedSupport();if(armedRank(s.support,id))a.nodeReserves[id]=(a.nodeReserves[id]??0)+1;else a.ranks[id]=1;}
  m.claimed=id;

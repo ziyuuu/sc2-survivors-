@@ -1,3 +1,5 @@
+import {ZERG_SWARM_BY_ID,ZERG_SWARM_CARDS,isZswId,type ZswCardId} from '../../data/zerg-swarm';
+import {swarmRoll,type ZergSwarmState} from '../combat/zerg-swarm-state';
 import {BIO_BY_ID,BIO_CARDS,isBioId,type BioId} from '../../data/terran-bio';
 import {bioRank,type BioState} from '../combat/bio-state';
 import {ARMED_CARDS,ARMED_CARD_BY_ID,ARMED_RULES,type ArmedCard} from '../../data/terran-armed-support';
@@ -7,15 +9,15 @@ import type {ExpeditionState} from '../expedition-state';
 import type {ShopSupportState} from '../combat/shop-support';
 
 export type ArmedId=ArmedCard['id'];
-export type BuildCardId=ArmedId|DoomsdayId|BioId;
-export type BuildBranch='armed'|'doomsday'|'bio';
+export type BuildCardId=ArmedId|DoomsdayId|BioId|ZswCardId;
+export type BuildBranch='armed'|'doomsday'|'bio'|'zerg-swarm';
 export interface BuildMilestone {id:string;branch:BuildBranch;at:number;offers:BuildCardId[];claimed:BuildCardId|null;deferredWindow?:number}
 export interface BuildProgress {counts:Partial<Record<BuildBranch,number>>;main:BuildBranch|null;milestones:BuildMilestone[];orangeAt?:number;orange:BuildCardId|null}
 export interface ArmedPurchaseReceipt {offerId:string;cardId:ArmedId;rank:number;progress:number}
 export const newBuildProgress=():BuildProgress=>({counts:{},main:null,milestones:[],orange:null});
-export function buildCard(id:BuildCardId){return isBioId(id)?BIO_BY_ID[id]:isDoomsdayId(id)?DOOMSDAY_CARD_BY_ID[id]:ARMED_CARD_BY_ID[id];}
-export function buildCardBranch(id:BuildCardId):BuildBranch{return isBioId(id)?'bio':isDoomsdayId(id)?'doomsday':'armed';}
-export function ordinaryBuildCardAllowed(s:ExpeditionState,id:BuildCardId){const c=buildCard(id);return !!c&&c.purchase!=='node'&&c.purchase!=='orange'&&(c.quality!=='purple'||s.build?.main===buildCardBranch(id));}
+export function buildCard(id:BuildCardId){return isZswId(id)?ZERG_SWARM_BY_ID[id]:isBioId(id)?BIO_BY_ID[id]:isDoomsdayId(id)?DOOMSDAY_CARD_BY_ID[id]:ARMED_CARD_BY_ID[id];}
+export function buildCardBranch(id:BuildCardId):BuildBranch{return isZswId(id)?'zerg-swarm':isBioId(id)?'bio':isDoomsdayId(id)?'doomsday':'armed';}
+export function ordinaryBuildCardAllowed(s:ExpeditionState,id:BuildCardId){const c=buildCard(id);return !!c&&s.race===(isZswId(id)?'zerg':'terran')&&c.purchase!=='node'&&c.purchase!=='orange'&&(c.quality!=='purple'||s.build?.main===buildCardBranch(id));}
 /** First earned milestone wins, including old deferred saves; frozen candidates stay intact. */
 export function lockEarnedBuildBranch(b:BuildProgress){
  const previous=b.main;
@@ -24,7 +26,7 @@ export function lockEarnedBuildBranch(b:BuildProgress){
  for(const m of b.milestones)delete m.deferredWindow;
  return previous===null&&b.main!==null;
 }
-export function buildCardRank(s:ExpeditionState,id:BuildCardId){return isBioId(id)?bioRank(s,id):isDoomsdayId(id)?doomsdayRank(s.doomsday,id):armedRank(s.support,id);}
+export function buildCardRank(s:ExpeditionState,id:BuildCardId){return isZswId(id)?s.zergSwarm?.ranks[id]??0:isBioId(id)?bioRank(s,id):isDoomsdayId(id)?doomsdayRank(s.doomsday,id):armedRank(s.support,id);}
 export function addBuildProgress(s:ExpeditionState,branch:BuildBranch,progress:number){
  const b=s.build??=newBuildProgress();b.counts[branch]=(b.counts[branch]??0)+progress;
  if(b.main&&b.main!==branch)return;
@@ -38,7 +40,7 @@ export function addBuildProgress(s:ExpeditionState,branch:BuildBranch,progress:n
  lockEarnedBuildBranch(b);
  // A legacy paid ultimate has no orange milestone. Its subsequent purple cadence continues.
  const next=b.orangeAt??(b.orange?third+step:undefined);
- if(next!==undefined)for(let at=next;at<=count;at+=step)add(at);
+ if(next!==undefined)for(let at=next;at<=count&&(branch!=='zerg-swarm'||at===next);at+=step)add(at);
 }
 export function doomsdayPurchaseLegal(s:ExpeditionState,id:DoomsdayId){
  const c=DOOMSDAY_CARD_BY_ID[id];
@@ -74,8 +76,9 @@ export function recordArmedPurchase(s:ExpeditionState,id:ArmedId,offerId:string,
 }
 export function buildNodeLegal(s:ExpeditionState,id:BuildCardId){
  const card=buildCard(id);
- if(s.race!=='terran'||!card)return false;
+ if(s.race!==(isZswId(id)?'zerg':'terran')||!card)return false;
  if(card.purchase==='orange')return !s.build?.orange;
+ if(isZswId(id))return card.purchase==='node'&&buildCardRank(s,id)<3;
  const reserves=isBioId(id)?s.bio?.nodeReserves[id]:isDoomsdayId(id)?s.doomsday?.nodeReserves[id]:s.support.armed?.nodeReserves[id];
  return card.purchase==='node'&&(reserves??0)<ARMED_RULES.reserveLimit;
 }
@@ -87,14 +90,16 @@ export function prepareBuildChoices(s:ExpeditionState,random:()=>number,ready:(i
   if(m.claimed||b.main&&m.branch!==b.main||seen.has(m.branch))continue;
   seen.add(m.branch);
   if(m.offers.length===3)continue;
-  const catalogue=m.branch==='armed'?ARMED_CARDS:m.branch==='doomsday'?DOOMSDAY_CARDS:BIO_CARDS;
+  const catalogue=m.branch==='armed'?ARMED_CARDS:m.branch==='doomsday'?DOOMSDAY_CARDS:m.branch==='zerg-swarm'?ZERG_SWARM_CARDS:BIO_CARDS;
   const orange=b.orangeAt===m.at;
   const legal=catalogue.filter(c=>c.purchase===(orange?'orange':'node')&&ready(c.id)&&buildNodeLegal(s,c.id)&&!m.offers.includes(c.id)).map(c=>c.id);
   if(legal.length+m.offers.length<3)continue;
   if(orange){m.offers=legal;continue;}
   const fresh=legal.filter(id=>!buildCardRank(s,id)),repeat=legal.filter(id=>buildCardRank(s,id)>0);
+  const draw=m.branch==='zerg-swarm'&&s.zergSwarm?()=>swarmRoll(s.zergSwarm!,'offers'):random;
+  if(m.branch==='zerg-swarm'&&repeat.length&&!m.offers.some(id=>buildCardRank(s,id)))m.offers.push(repeat.splice(Math.floor(draw()*repeat.length),1)[0]);
   for(const pool of [fresh,repeat])while(pool.length&&m.offers.length<3){
-   const index=Math.min(pool.length-1,Math.floor(Math.max(0,random())*pool.length));
+   const index=Math.min(pool.length-1,Math.floor(Math.max(0,draw())*pool.length));
    m.offers.push(pool.splice(index,1)[0]);
   }
  }
@@ -105,10 +110,10 @@ export function scheduleOrangeChoice(b:BuildProgress){
  const claimed=b.milestones.filter(m=>m.branch===b.main&&m.claimed);
  if(claimed.length>=ARMED_RULES.orangeClaims)b.orangeAt=(b.counts[b.main]??0)+ARMED_RULES.nodeEvery;
 }
-export function validateBuildProgress(b:BuildProgress|undefined,support?:ShopSupportState,doomsday?:DoomsdayState,bio?:BioState){
+export function validateBuildProgress(b:BuildProgress|undefined,support?:ShopSupportState,doomsday?:DoomsdayState,bio?:BioState,swarm?:ZergSwarmState,race?:string){
  if(b===undefined)return;
- const branches=['armed','doomsday','bio'];
- if(!b||!b.counts||typeof b.counts!=='object'||Object.entries(b.counts).some(([key,v])=>!branches.includes(key)||!Number.isSafeInteger(v)||v!<0)||b.main!==null&&!branches.includes(b.main)||!Array.isArray(b.milestones)||b.orange!==null&&!['O01','O02','O03','M-O01','M-O02','M-O03','BIO-O01','BIO-O02','BIO-O03'].includes(b.orange))throw Error('构筑进度无效');
+ const branches=race==='zerg'?['zerg-swarm']:race&&race!=='terran'?[]:['armed','doomsday','bio',...(race?[]:['zerg-swarm'])];
+ if(!b||!b.counts||typeof b.counts!=='object'||Object.entries(b.counts).some(([key,v])=>!branches.includes(key)||!Number.isSafeInteger(v)||v!<0)||b.main!==null&&!branches.includes(b.main)||!Array.isArray(b.milestones)||b.orange!==null&&!['O01','O02','O03','M-O01','M-O02','M-O03','BIO-O01','BIO-O02','BIO-O03','ZSW-O01','ZSW-O02','ZSW-O03'].includes(b.orange))throw Error('构筑进度无效');
  if(b.main&&!(b.counts[b.main]!>=ARMED_RULES.lockAt)||new Set(b.milestones.map(m=>m.id)).size!==b.milestones.length)throw Error('构筑主分支无效');
  if(b.orangeAt!==undefined&&(!Number.isSafeInteger(b.orangeAt)||b.orangeAt<ARMED_RULES.orangeAt||!b.main||b.orangeAt>(b.counts[b.main]??0)+ARMED_RULES.nodeEvery||b.milestones.filter(m=>m.branch===b.main&&m.at<b.orangeAt!&&m.claimed).length<ARMED_RULES.orangeClaims))throw Error('橙色节点门槛无效');
  for(const m of b.milestones){
@@ -132,6 +137,7 @@ export function validateBuildProgress(b:BuildProgress|undefined,support?:ShopSup
  if(b.orange){
   const id=b.orange;
   if(b.main!==buildCardBranch(id)||b.milestones.filter(m=>m.claimed&&m!==ultimate).length<ARMED_RULES.orangeClaims)throw Error('构筑橙卡成交无效');
+  if(isZswId(id)){if(ultimate?.claimed!==id||swarm?.ranks[id]!==1)throw Error('虫群增殖橙节点无效');return;}
   const state=isBioId(id)?bio:isDoomsdayId(id)?doomsday:support?.armed;
   if(b.orangeAt!==undefined){
    if(ultimate?.claimed!==id||(isBioId(id)?!bio?.ranks[id]:isDoomsdayId(id)?doomsday&&!doomsday.ranks[id]:support&&!support.armed?.ranks[id]))throw Error('橙色节点领取无效');

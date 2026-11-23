@@ -118,16 +118,29 @@ function castTarget(w:World,id:HeroId,source=w.heroEntity(id)):Body|undefined{if
  }
  return chosen;
 }
-function readyHeroTarget(w:World,id:HeroId,battleView?:BattleView):Body|undefined{
- const record=w.heroes.get(id),source=w.heroEntity(id);
+function readyHeroTarget(w:World,id:HeroId,battleView?:BattleView,source=w.heroEntity(id)):Body|undefined{
+ const record=w.heroes.get(id);
  if(w.missions.fleet.ceasefire||!w.expedition||w.phase!=='battle'||w.paused||w.requiresPlayerDecision||!record||!source||source.hp<=0||((source as ControlledEntity).stoppedUntil??0)>w.time||w.time+1e-8<record.skillReady||w.heroCasts.some(cast=>cast.source===source.id&&(cast as ExtendedCast).phase!=='dot'))return;
  return id==='tosh'?(validBattleView(battleView)?toshTargets(w,source,battleView)[0]:undefined):castTarget(w,id,source);
 }
-export function canCastExpeditionHero(w:World,id:HeroId,battleView?:BattleView):boolean{return !!readyHeroTarget(w,id,battleView);}
+export function canCastExpeditionHero(w:World,id:HeroId,battleView?:BattleView):boolean{
+ return swarmHeroSources(w,id).some(source=>!!readyHeroTarget(w,id,battleView,source));
+}
+function swarmHeroSources(w:World,id:HeroId){
+ const source=w.heroEntity(id),state=w.expedition.zergSwarm?.twin;
+ const extra=state?.hero===id&&state.body!==undefined?w.entities.get(state.body):undefined;
+ return [...new Set([source,extra])].filter((u):u is Entity=>!!u&&u.hp>0);
+}
 function toshTargets(w:World,source:Entity,view:BattleView){return [...w.entities.values(),...(w.hive?[w.hive]:[]),...w.expansionHives.values()].filter(b=>b.owner==='zerg'&&b.hp>0&&visible(w,b)&&pointInBattleView(view,b)&&w.hasAttackLine(source,b)).sort((a,b)=>a.id-b.id);}
 export function castExpeditionHero(w:World,id:HeroId,battleView?:BattleView):boolean{
- const target=readyHeroTarget(w,id,battleView);if(!target)return false;
- const result=castHeroSource(w,w.heroEntity(id)!,w.heroes.get(id)!,battleView,target);if(result)equipmentManualSucceeded(w,'hero:'+id);return result;
+ const record=w.heroes.get(id);if(!record)return false;
+ const ready=swarmHeroSources(w,id).flatMap(source=>{const target=readyHeroTarget(w,id,battleView,source);return target?[{source,target}]:[];});
+ if(!ready.length)return false;
+ let until=record.skillReady;
+ for(const [index,{source,target}] of ready.entries()){
+  castHeroSource(w,source,record,battleView,target,index===0);until=Math.max(until,record.skillReady);
+ }
+ record.skillReady=until;equipmentManualSucceeded(w,'hero:'+id);return true;
 }
 /** Independent support/projection identities use the exact native cast without occupying a permanent hero slot. */
 export function castEquipmentHero(w:World,source:Entity,record:HeroRecord,target?:Body){if(w.missions.fleet.ceasefire)return false;
@@ -135,13 +148,13 @@ export function castEquipmentHero(w:World,source:Entity,record:HeroRecord,target
  const view=w.starship.battleView?.();if(record.id==='tosh'&&!validBattleView(view))return false;
  return castHeroSource(w,source,record,view,target);
 }
-function castHeroSource(w:World,source:Entity,record:HeroRecord,battleView?:BattleView,selected?:Body):boolean{
+function castHeroSource(w:World,source:Entity,record:HeroRecord,battleView?:BattleView,selected?:Body,unique=true):boolean{
  const id=record.id,target=selected??(id==='tosh'?toshTargets(w,source,battleView!)[0]:castTarget(w,id,source)),data=HEROES[id];if(!target)return false;const serial=w.nextId++;
  const talents=talentModifiers(w,source,'hero');record.skillReady=w.time+data.cooldown*(1-(talents.abilityCooldownReductionPct??0));source.lastSkillAt=w.time;
  const base:ExtendedCast={beganAt:w.time,rank:record.rank,id:serial,hero:id,source:source.id,target:target.id,origin:{x:source.x,z:source.z},point:{x:target.x,z:target.z},at:w.time+data.delay,damage:data.skillDamage*(isProtossHero(id)?protossHeroGrowth(record.rank).skill/9200:isZergHero(id)?zergHeroGrowth(record.rank).skill/9200:terranHeroGrowth(record.rank).skill/9200)*(1+(talents.abilityDamagePct??0))*equipmentOutputFactor(w,source.id)*equipmentNativeFactor(w,source),phase:'impact'};
  source.attackFacing=Math.atan2(target.x-source.x,target.z-source.z);source.action='skill';
  if(id==='artanis'){registerShieldReconstruction(w,source,serial,record.rank,alliesFor(w,id,source).slice(0,7));base.frozenTargets=alliesFor(w,id,source).slice(0,7).map(a=>({id:a.id,maxHp:a.maxShield!}));}
- if(id==='niadra'){registerZergRevival(w,source,serial,record.rank);base.frozenTargets=alliesFor(w,id,source).slice(0,7).map(a=>({id:a.id,maxHp:a.maxHp}));base.at=w.time+.3;}
+ if(id==='niadra'){if(unique)registerZergRevival(w,source,serial,record.rank);base.frozenTargets=alliesFor(w,id,source).slice(0,7).map(a=>({id:a.id,maxHp:a.maxHp}));base.at=w.time+.3;}
  if(id==='nova')heroState(source).charge=1;
  if(id==='swann'){const targets=alliesFor(w,id,source).slice(0,equipmentSwannTargets(w,source));base.frozenTargets=targets.map(a=>({id:a.id,maxHp:a.maxHp}));for(const a of targets)heroState(a).protectedUntil=Math.max(heroState(a).protectedUntil,w.time+equipmentSwannProtection(w,source));for(let pulse=1;pulse<=4;pulse++)w.heroCasts.push({...base,at:w.time+pulse,damage:(.25+.0625*Math.min(4,record.rank-1))*heroExtraAmount(record.rank)/4,phase:'channel'});}
  else if(id==='tosh'){base.frozenTargets=toshTargets(w,source,battleView!).map(a=>({id:a.id,maxHp:a.maxHp}));base.battleView=structuredClone(battleView!);w.heroCasts.push(base);}

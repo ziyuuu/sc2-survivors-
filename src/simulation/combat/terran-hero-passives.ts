@@ -16,7 +16,7 @@ export const newHeroCombatState=():HeroCombatState=>({cycles:0,target:null,warmu
 export function heroState(u:Entity){return u.heroCombat??=newHeroCombatState();}
 export const permanentMechanical=(u:Entity)=>u.hp>0&&u.owner==='terran'&&!u.temporary&&!u.summonKind&&!u.attributes.includes('Structure')&&u.attributes.includes('Mechanical');
 /** Distinct named bonuses add before final multiplication; one living source per identity. */
-export function heroAura(w:World,u:Entity){const result={damage:0,speed:0,health:0,shield:0,armor:0,move:0};if(u.owner!=='terran'||u.summonKind||u.temporary)return result;
+export function heroAura(w:World,u:Entity){const result={damage:0,speed:0,health:0,shield:0,armor:0,move:0};if(u.owner!=='terran'||u.summonKind||u.temporary&&!u.zergSwarm)return result;
  const raynor=w.heroEntity('raynor');if(raynor&&raynor.hp>0&&(u.heroId==='raynor'||!u.heroId&&['marine','marauder','reaper'].includes(u.unitType)))Object.assign(result,{damage:.3,speed:.3,health:.3,armor:3,move:.2});
  const brood=zergTeamBuff(w,u);result.health+=brood.health;result.speed+=brood.speed;result.move+=brood.move;
  const ground=groundHeroBuff(w,u);result.damage+=ground.damage;result.speed+=ground.speed;result.shield=result.health+ground.shield;result.health+=ground.health;result.move+=ground.move;

@@ -1,0 +1,20 @@
+.swarm-trial #showcase{gap:.35rem;align-items:baseline;max-width:calc(100vw - 8px)}
+.swarm-trial .controls{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;width:100%}
+.swarm-trial .controls select{max-width:100%;min-width:0}
+.swarm-trial #ranks{display:inline-flex;gap:.22rem;flex-wrap:wrap}
+.swarm-trial #ranks [aria-pressed=true]{background:#265347;border-color:#a4c3ad;color:#fff}
+.swarm-trial #showcase a{color:#e2f1e7;padding:.35rem}
+.swarm-trial #effect,.swarm-trial #focus{width:100%;margin:0;line-height:1.35}
+.swarm-trial #focus{color:#c9e1e5}
+.swarm-trial #summary{margin-left:0;color:#fff;font-variant-numeric:tabular-nums}
+.swarm-trial #state{font-variant-numeric:tabular-nums}
+.swarm-trial #showcase details{max-width:min(36rem,100%);border:1px solid #365c73}
+.swarm-trial [hidden]{display:none!important}
+.swarm-trial :disabled{cursor:wait}
+.swarm-trial #battle{touch-action:none}
+@media(max-height:475px),(max-width:600px){
+ .swarm-trial #showcase{font-size:13px}
+ .swarm-trial #showcase button,.swarm-trial #showcase select{padding:.3rem .45rem}
+ .swarm-trial #showcase output{width:auto;font-size:inherit}
+ .swarm-trial #focus{font-size:.9em}
+}

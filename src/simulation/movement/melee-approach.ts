@@ -3,6 +3,7 @@ import type {Body,Entity,Point} from '../types';
 import {clearLine,distance} from './steering';
 import {equipmentIgnoreContact} from '../starship/controls';
 
+import {swarmCanCross,swarmContactSpan} from '../combat/zerg-swarm-density';
 interface Route {target:number;goal:Point;terrain:World['terrain'];stage:number;until:number;points:Point[];}
 // Derived movement intent only. New bodies/restored runs have no inherited route.
 const routes=new WeakMap<Entity,Route>();
@@ -13,13 +14,13 @@ const STEP=.5,PADDING=4,LIMIT=2048;
 const NEIGHBORS=[[0,1],[1,0],[0,-1],[-1,0],[1,1],[1,-1],[-1,1],[-1,-1]] as const;
 /** Reach a melee contact slot around a group of allies, without walking through them. */
 export function meleeApproachGoal(w:World,u:Entity,target:Body,goal:Point):Point {
- const bodies:Body[]=[...w.entities.values(),...w.pods.filter(p=>p.status==='active'||p.status==='opening'),...w.fortifications.values()].filter(b=>b.id!==u.id&&b.hp>0&&!b.flying&&b.owner===u.owner&&!equipmentIgnoreContact(w,u,b)&&(!w.terrain||w.terrain.sameContactLayer(u,b)));
+ const bodies:Body[]=[...w.entities.values(),...w.pods.filter(p=>p.status==='active'||p.status==='opening'),...w.fortifications.values()].filter(b=>b.id!==u.id&&b.hp>0&&!b.flying&&b.owner===u.owner&&!swarmCanCross(w,u,b)&&!equipmentIgnoreContact(w,u,b)&&(!w.terrain||w.terrain.sameContactLayer(u,b)));
  const clear=(a:Point,b:Point)=>{
   if(Math.abs(b.x)+u.unitRadius>w.mapHalf||Math.abs(b.z)+u.unitRadius>w.mapHalf)return false;
   if(!clearLine(a,b,u.unitRadius,w.obstacles,w.terrain))return false;
   const dx=b.x-a.x,dz=b.z-a.z,length=dx*dx+dz*dz;
   for(const other of bodies){
-   const radius=u.unitRadius+other.unitRadius+.18,ox=a.x-other.x,oz=a.z-other.z;
+   const radius=swarmContactSpan(w,u,other,b=>b.unitRadius)+.18,ox=a.x-other.x,oz=a.z-other.z;
    // Contact resolution may leave the source inside the planning margin.
    // Permit moving away from that contact, never across its center.
    if(length>0&&ox*ox+oz*oz<radius*radius&&ox*dx+oz*dz>=0)continue;

@@ -4,6 +4,7 @@ import {validateZergEncounters,type ZergEncounters} from './zerg-encounters';
 import {validateBioState,type BioState} from './combat/bio-state';
 import {validSupportMine} from './combat/tracking-mines';
 import {validateDoomsdayState,type DoomsdayState} from './combat/doomsday-state';
+import {validateZergSwarmState,type ZergSwarmState} from './combat/zerg-swarm-state';
 import {newBuildProgress,validateBuildProgress,type BuildProgress} from './progression/build-progress';
 import {validateArmedSupport} from './combat/armed-support-state';
 import {validateUniqueSupport} from './combat/unique-support';
@@ -17,7 +18,7 @@ import {newBuildingState,type BuildingState} from './building/rules';
 export interface Payment {minerals:number;gas:number}
 export type TacticalDirection='assault'|'guard'|'mobility';
 export interface DeliveryPassenger {pairId?:string;pairHalf?:0|1;source?:'queen-inject'|'shop-supply';paid:Payment;status:'waiting'|'released'|'lost'|'refunded';entityId:number|null;purpose:'body'|'rankTraining'|'tacticalProgress';targetEntityId?:number;targetGeneration?:number;tacticalTierAtOrder?:number;direction?:TacticalDirection;}
-export interface DeliveryLedger {refit?:{cardId:import('../data/terran-doomsday').DoomsdayId;target:import('./combat/doomsday-state').MechanicalMemberRef};producerId?:string;landingRetryAt?:number;id:number;family:FamilyId;line:ProductionLineId;facilityIds:number[];remaining:number;state:'training'|'awaiting'|'risk'|'settled';podId:number|null;passengers:DeliveryPassenger[];}
+export interface DeliveryLedger {swarmBorn?:boolean;refit?:{cardId:import('../data/terran-doomsday').DoomsdayId;target:import('./combat/doomsday-state').MechanicalMemberRef};producerId?:string;landingRetryAt?:number;id:number;family:FamilyId;line:ProductionLineId;facilityIds:number[];remaining:number;state:'training'|'awaiting'|'risk'|'settled';podId:number|null;passengers:DeliveryPassenger[];}
 export interface CultivationCredit {id:number;rank:number;sourceId:number;}
 export interface FamilyReceiptRequest {id:string;podId:number;passengerIndex:number;family:FamilyId;readyTick:number;}
 export interface EliteContract {id:string;eliteId:string;family:FamilyId;minerals:number;gas:number;purchased:boolean;}
@@ -31,6 +32,7 @@ export interface ExpeditionState {
  build?:BuildProgress;
  doomsday?:DoomsdayState;
  bio?:BioState;
+ zergSwarm?:ZergSwarmState;
  tutorial?:import('./tutorial/types').TutorialRun;
  /** New-run building package. Legacy player archives are not converted by this integration. */
  building?:BuildingState;
@@ -38,7 +40,7 @@ export interface ExpeditionState {
  pendingFreeDeliveries:{family:FamilyId;jobId:number;retryAt:number}[];
  mapLootStats:Record<'regular'|'drone'|'elite',{attempts:number;triggered:number;generated:number;empty:number}>;
  zerglingPairs:import('./zerg-brood').ZerglingPair[];
- weaponAreas:{id:number;source:number;owner:'terran'|'zerg';points:{x:number;z:number}[];nextIndex:number;next:number;period:number;radius:number;hits:number[];damage:number;bonuses:{attribute:string;amount:number}[];primaryTargetId?:number;primaryCrit?:number;apmDamage?:number;apmBonuses?:{attribute:string;amount:number}[];apmUsed?:boolean}[];
+ weaponAreas:{id:number;source:number;owner:'terran'|'zerg';points:{x:number;z:number}[];nextIndex:number;next:number;period:number;radius:number;hits:number[];damage:number;bonuses:{attribute:string;amount:number}[];primaryTargetId?:number;primaryCrit?:number;swarmOrigin?:import('./combat/zerg-swarm-spores').SwarmAttackOrigin;swarmTemporary?:boolean;apmDamage?:number;apmBonuses?:{attribute:string;amount:number}[];apmUsed?:boolean}[];
  spells:{id:number;kind:'storm'|'transfusion'|'guardian';source:number;target:number|null;x:number;z:number;owner:'terran'|'zerg';radius:number;next:number;until:number;period:number;amount:number}[];
  rules:typeof MVP_RULES;race:Race;familySlots:FamilyId[];tech:Record<string,number>;
  facilities:{id:number;kind:string;line:ProductionLineId;techLab:boolean}[];nextFacility:number;
@@ -82,7 +84,7 @@ export function validateExpedition(s:ExpeditionState,tick=-1){
  if(s.zergSixSeatCooldowns!==undefined&&(!s.zergSixSeatCooldowns||s.race!=='zerg'||Array.isArray(s.zergSixSeatCooldowns)||typeof s.zergSixSeatCooldowns!=='object'||Object.entries(s.zergSixSeatCooldowns).some(([family,seats])=>!isZergSixFamily(family)||!seats||typeof seats!=='object'||Array.isArray(seats)||Object.entries(seats).some(([slot,c])=>!/^\d+$/.test(slot)||!Number.isSafeInteger(Number(slot))||!c||![c.ability,c.shell,c.weapon].every(v=>Number.isFinite(v)&&v>=0)))))throw Error('虫群编制冷却无效');
  if(s.zergSixClouds&&(!Array.isArray(s.zergSixClouds)||s.zergSixClouds.some(c=>!c||!Number.isSafeInteger(c.source)
   ||![c.point?.x,c.point?.z,c.next,c.damage].every(Number.isFinite)||c.damage<0||!Number.isInteger(c.remaining)||c.remaining<1||c.remaining>5)))throw Error('飞蛇腐蚀云状态无效');
- validateArmedSupport(s.support?.armed,tick);validateDoomsdayState(s.doomsday);validateBioState(s.bio);validateBuildProgress(s.build,s.support,s.doomsday,s.bio);
+ validateArmedSupport(s.support?.armed,tick);validateDoomsdayState(s.doomsday);validateBioState(s.bio);validateZergSwarmState(s.zergSwarm,s.race);validateBuildProgress(s.build,s.support,s.doomsday,s.bio,s.zergSwarm,s.race);
  if(s.heroRewardsUnlocked!==undefined&&typeof s.heroRewardsUnlocked!=='boolean')throw Error('英雄奖励开放状态无效');
  if(s.firstBossLoot!==undefined){const p=s.firstBossLoot,r=p?.reward,e=r?.expeditionEffect;
   if(!p||typeof p.consumed!=='boolean'||!r||r.sold||[r.minerals,r.gas,r.baseMinerals,r.baseGas].some(n=>n!==0)||!['purple','orange'].includes(r.rarity)||!e||!(e.kind==='hero'&&p.variant===null&&HEROES[e.heroId as HeroId]?.race===s.race||e.kind==='elite'&&p.variant!==null&&ELITES[p.variant]?.family===e.family&&(FAMILIES_BY_RACE[s.race] as readonly string[]).includes(e.family)||e.kind==='resource'&&p.variant===null&&e.minerals===250&&e.gas===100&&e.fallback))throw Error('首关首领奖励计划无效');
@@ -101,7 +103,7 @@ export function validateExpedition(s:ExpeditionState,tick=-1){
  if(s.pendingShopElite!==null&&(!s.pendingShopElite||typeof s.pendingShopElite.offerId!=='string'||!Object.hasOwn(ELITES,s.pendingShopElite.variantId)||s.pendingShopElite.revision!==s.shopRevision))throw Error('精英购买预览无效');
  if(!Array.isArray(s.bossLootReceipts)||new Set(s.bossLootReceipts).size!==s.bossLootReceipts.length||!Array.isArray(s.bossLootClaimed)||new Set(s.bossLootClaimed).size!==s.bossLootClaimed.length||s.bossLootClaimed.some(r=>!s.bossLootReceipts.includes(r))||typeof s.bossLootOpen!=='boolean'||!Array.isArray(s.bossLootQueue)||new Set(s.bossLootQueue.map(q=>q.receipt)).size!==s.bossLootQueue.length||s.bossLootQueue.some(q=>!s.bossLootReceipts.includes(q.receipt)||s.bossLootClaimed.includes(q.receipt)||!q.reward||q.reward.sold||q.reward.minerals!==0||q.reward.gas!==0||!q.reward.expeditionEffect||!['elite','hero','resource'].includes(q.reward.expeditionEffect.kind)||q.variant!==null&&(!Object.hasOwn(ELITES,q.variant)||q.reward.expeditionEffect.kind!=='elite'||ELITES[q.variant].family!==q.reward.expeditionEffect.family)))throw Error('首领奖励收据无效');
  if(s.developmentDirection!==null&&PRODUCTION_LINES[s.developmentDirection]?.race!==s.race||![s.shopRevision,s.shopPage,s.refreshCount,s.freePurchasesRemaining].every(n=>Number.isSafeInteger(n)&&n>=0)||s.freePurchasesRemaining>2||!s.directionOffers||!s.developmentQuotes)throw Error('关间购物状态无效');
- if(s.rules!==MVP_RULES||!Object.hasOwn(FAMILIES_BY_RACE,s.race)||!Array.isArray(s.familySlots)||s.familySlots.length>5||new Set(s.familySlots).size!==s.familySlots.length||s.familySlots.some(f=>!(FAMILIES_BY_RACE[s.race] as readonly string[]).includes(f)))throw Error('三族编制数据无效');
+ if(s.rules!==MVP_RULES||!Object.hasOwn(FAMILIES_BY_RACE,s.race)||!Array.isArray(s.familySlots)||s.familySlots.length>(s.zergSwarm?.ranks['ZSW-O02']?6:5)||new Set(s.familySlots).size!==s.familySlots.length||s.familySlots.some(f=>!(FAMILIES_BY_RACE[s.race] as readonly string[]).includes(f)))throw Error('三族编制数据无效');
  if(!Array.isArray(s.weaponAreas)||s.weaponAreas.some(area=>!area||!Number.isSafeInteger(area.id)||!Number.isSafeInteger(area.source)||!['terran','zerg'].includes(area.owner)||!Array.isArray(area.points)||area.points.some(point=>![point.x,point.z].every(Number.isFinite))||!Number.isSafeInteger(area.nextIndex)||area.nextIndex<0||area.nextIndex>area.points.length||![area.next,area.period,area.radius,area.damage].every(Number.isFinite)||area.period<0||area.radius<0||!Array.isArray(area.hits)||new Set(area.hits).size!==area.hits.length||!Array.isArray(area.bonuses)||area.primaryTargetId!==undefined&&!Number.isSafeInteger(area.primaryTargetId)||area.primaryCrit!==undefined&&!Number.isFinite(area.primaryCrit)||area.apmDamage!==undefined&&(!Number.isFinite(area.apmDamage)||area.apmDamage<0)||area.apmBonuses!==undefined&&!Array.isArray(area.apmBonuses)||area.apmUsed!==undefined&&typeof area.apmUsed!=='boolean'))throw Error('武器范围结算数据无效');
  // Shop pods can train an existing full squad; only queen injection is body-only.
  for(const entry of s.ledger){if(entry.landingRetryAt!==undefined&&(!Number.isFinite(entry.landingRetryAt)||entry.landingRetryAt<0)||!Number.isSafeInteger(entry.id)||!Array.isArray(entry.passengers)||entry.passengers.length>(entry.family==='zergling'?14:7)||entry.passengers.some(p=>p.source!==undefined&&(!['queen-inject','shop-supply'].includes(p.source)||p.source==='queen-inject'&&(p.paid.minerals!==0||p.paid.gas!==0||p.purpose!=='body')||p.source==='shop-supply'&&!['body','rankTraining'].includes(p.purpose))||p.pairId!==undefined&&(entry.family!=='zergling'||typeof p.pairId!=='string'||!p.pairId||![0,1].includes(p.pairHalf??-1))||!Number.isFinite(p.paid.minerals)||p.paid.minerals<0||!Number.isFinite(p.paid.gas)||p.paid.gas<0||!['body','rankTraining','tacticalProgress'].includes(p.purpose)||p.purpose==='tacticalProgress'&&(!Number.isSafeInteger(p.targetEntityId)||!Number.isFinite(p.targetGeneration)||!['assault','guard','mobility'].includes(p.direction??''))))throw Error('运输付款账本无效');}

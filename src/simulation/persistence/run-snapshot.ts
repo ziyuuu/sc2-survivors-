@@ -6,7 +6,8 @@ import type {EnemySpecialsSnapshot} from '../combat/enemy-specials';
 import type {Race} from '../../data/races';
 import type {Difficulty} from '../../data/stages';
 import type {FrozenTalentAllocation} from '../progression/permanent-profile';
-export const RUN_SCHEMA=26;
+export const RUN_SCHEMA=27;
+export const PREVIOUS_RUN_SCHEMA=26;
 export const RUN_RULES=MVP_RULES;
 export interface RunConfig {
  contentPlan?:import('../progression/run-content').RunContentPlan;

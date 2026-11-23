@@ -11,7 +11,7 @@ const fixed=(u:Entity|undefined)=>!u||u.mode==='siege'||u.modeTimer>0;
  */
 export class ContactSolver {
  private actors:Entity[]=[];private pairs:Body[]=[];private remaining=new Map<number,number>();
- resolve(units:Iterable<Entity>,hash:SpatialHash<Body>,obstacles:Obstacle[],half:number,dt:number,large:Body|readonly Body[]|null=null,terrain?:TerrainQuery,ignorePair?:(a:Body,b:Body)=>boolean,unitContactScale=1){
+ resolve(units:Iterable<Entity>,hash:SpatialHash<Body>,obstacles:Obstacle[],half:number,dt:number,large:Body|readonly Body[]|null=null,terrain?:TerrainQuery,ignorePair?:(a:Body,b:Body)=>boolean,unitContactScale=1,contactSpan?:(a:Body,b:Body)=>number){
   const {actors,pairs,remaining}=this;actors.length=0;pairs.length=0;remaining.clear();let contacts=0;
   const largeBodies=large===null?[]:Array.isArray(large)?large:[large as Body],largeIds=new Set(largeBodies.map(b=>b.id));
   for(const u of units)if(u.hp>0&&!u.heldBy){actors.push(u);remaining.set(u.id,Math.max(.06,u.moveSpeed*1.5*dt));}
@@ -19,10 +19,10 @@ export class ContactSolver {
   for(const a of actors){let checked=0;hash.query(a,movementRadius(a)+1.5,b=>{if(largeIds.has(b.id))return;if(checked++>=20)return false;
     if(b.heldBy||ignorePair?.(a,b)||a.id===b.id||a.flying!==b.flying||b.hp<=0||actor(b)&&a.id>b.id)return;
     // A pair farther apart than both complete correction budgets cannot touch in either pass.
-    const reach=(movementRadius(a)+movementRadius(b))*unitContactScale+(remaining.get(a.id)??0)+(remaining.get(b.id)??0);if((a.x-b.x)**2+(a.z-b.z)**2>reach*reach||!a.flying&&terrain&&!terrain.sameContactLayer(a,b))return;
+    const reach=(contactSpan?.(a,b)??(movementRadius(a)+movementRadius(b)))*unitContactScale+(remaining.get(a.id)??0)+(remaining.get(b.id)??0);if((a.x-b.x)**2+(a.z-b.z)**2>reach*reach||!a.flying&&terrain&&!terrain.sameContactLayer(a,b))return;
     pairs.push(a,b);
    });if(!a.flying)for(const fixedBody of largeBodies)if(fixedBody.hp>0){const r=movementRadius(a)+movementRadius(fixedBody)+.25;if((a.x-fixedBody.x)**2+(a.z-fixedBody.z)**2<r*r)pairs.push(a,fixedBody);}}
-  for(let pass=0;pass<2;pass++)for(let i=0;i<pairs.length;i+=2){const a=pairs[i] as Entity,b=pairs[i+1];let dx=a.x-b.x,dz=a.z-b.z;const r=(movementRadius(a)+movementRadius(b))*(largeIds.has(b.id)?1:unitContactScale),d2=dx*dx+dz*dz;
+  for(let pass=0;pass<2;pass++)for(let i=0;i<pairs.length;i+=2){const a=pairs[i] as Entity,b=pairs[i+1];let dx=a.x-b.x,dz=a.z-b.z;const r=largeIds.has(b.id)?movementRadius(a)+movementRadius(b):(contactSpan?.(a,b)??(movementRadius(a)+movementRadius(b)))*unitContactScale,d2=dx*dx+dz*dz;
    if(d2>=(r-.0001)*(r-.0001))continue;const other=actor(b),d=Math.sqrt(d2),overlap=r-d;contacts++;
    if(d<.00001){const angle=(Math.min(a.id,b.id)*7+Math.max(a.id,b.id)*13)*2.399;dx=Math.sin(angle);dz=Math.cos(angle);}else{dx/=d;dz/=d;}
    let wa=fixed(a)?0:1,wb=fixed(other)?0:1;

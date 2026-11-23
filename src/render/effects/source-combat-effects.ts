@@ -1,6 +1,6 @@
 import {doomsdayFlameWidth} from '../../simulation/combat/doomsday-passives';
 import {doomsdayShotStyle,customDoomsdayShot,doomsdayOwnsFlight} from '../../simulation/combat/doomsday-presentation';
-import {SourceEventIndex} from './source/event-index';
+import {SourceEventIndex,sourceEventIndex} from './source/event-index';
 import {StimPresentation,type StimCue} from './stim-presentation';
 import {SourceWeaponChannels} from './source/weapon-channels';
 import {EnemySpecialSource} from './enemy-special-source';
@@ -71,7 +71,7 @@ export class SourceCombatEffects {
   // a visible battlefield and cannot request a not-yet-prepared live ribbon.
   if(w.phase==='menu'){if(!this.menuSuspended)this.reset();this.menuSuspended=true;return;}this.menuSuspended=false;
   if(!this.player.ready)return;if(w.time<this.time||this.run!==(w.runId??''))this.reset();this.time=w.time;this.run=w.runId??'';this.routes.clear();this.flights=this.events=0;this.player.begin(w.time);const ground=(p:Point)=>w.terrain?.height(p)??0;
-  this.fx.sourceEventIds.clear();let eventIndex:SourceEventIndex|undefined;const indexedEvents=()=>eventIndex??=new SourceEventIndex(w.visualEvents);
+  this.fx.sourceEventIds.clear();let eventIndex:SourceEventIndex|undefined;const indexedEvents=()=>eventIndex??=sourceEventIndex(w.visualEvents);
   for(const cue of this.stim.update(w))this.stimCues.set(`stim:${cue.unit.id}:${cue.kind}:${cue.at}`,cue);
   for(const [key,cue]of this.stimCues){const u=w.entities.get(cue.unit.id),model=cue.kind==='start'?'StimpackStartImpact':'StimpackEndImpact',age=w.time-cue.at;
    if(!u?.hp||age>sourceLife(SOURCE_EFFECTS[model])/rate){this.stimCues.delete(key);continue;}

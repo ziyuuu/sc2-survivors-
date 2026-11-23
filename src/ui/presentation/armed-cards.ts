@@ -1,3 +1,5 @@
+import {ZERG_SWARM_BY_ID,isZswId} from '../../data/zerg-swarm';
+import {swarmCardCopy} from '../../data/zerg-swarm-copy';
 import {BIO_BY_ID,isBioId} from '../../data/terran-bio';
 import {bioCardView} from './bio-cards';
 import {ARMED_CARD_BY_ID,ARMED_NODE_LINKS,armedDetail,type ArmedCard} from '../../data/terran-armed-support';
@@ -18,6 +20,10 @@ export function doomsdayWorldDetail(w:World,c:DoomsdayCard){
 }
 
 export function armedNodeViews(w:World):CardView[]{const m=pendingBuildChoice(w);if(!m)return [];return m.offers.map(id=>{
+ if(isZswId(id)){
+  const c=ZERG_SWARM_BY_ID[id],rank=(w.expedition.zergSwarm?.ranks[id]??0)+1,copy=swarmCardCopy(c.short);
+  return {id:m.id+':'+id,zergSwarmId:id,race:'zerg',rarity:c.quality,name:c.name,kicker:'虫群增殖',flavour:'',stat:copy.brief,detail:copy.detail,rank:c.purchase==='node'?rank:undefined,art:'support',icon:'tech.attack',minerals:0,gas:0,free:true,action:'armed-node',attrs:`data-milestone="${esc(m.id)}" data-node="${id}" data-revision="${w.expedition.shopRevision}"`,detailAction:'ui-info',detailAttrs:`data-title="${esc(c.name)}" data-copy="${esc(copy.detail)}"`};
+ }
  if(isBioId(id)){
   const view=bioCardView(BIO_BY_ID[id]);
   return {...view,id:m.id+':'+id,action:'armed-node',label:'领取',attrs:`data-milestone="${esc(m.id)}" data-node="${id}" data-revision="${w.expedition.shopRevision}"`};

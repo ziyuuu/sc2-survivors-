@@ -1,3 +1,4 @@
+import {swarmDirectFactor} from './zerg-swarm';
 import {ZERG_SIX_CAPS as CAP,ZERG_SIX_UNITS,ZERG_SIX_WEAPON_RESEARCH,isZergSixFamily} from '../../data/zerg-six';
 import {familyResearchLevel} from '../../data/expedition-buildings';
 import {TUNING} from '../../data/game';
@@ -91,7 +92,7 @@ function cue(w:World,u:Entity,center:Point,kind:ZergSixCue,radius:number,life:nu
  w.visual('support-impact',u,center,undefined,undefined,{zergCue:kind,supportRadius:radius,supportDuration:life});
 }
 function packet(w:World,u:Entity,b:Body,damage:number,dot=false,infestation?:Infection){
- w.hit(b,damage,[],1,u.owner,.5,infestation?1:0,u.zergSix?.temp?.parent??u.id,false,false,0,false,false,false,{dot,infestation});
+ w.hit(b,damage*(dot?1:swarmDirectFactor(w,u,b)),[],1,u.owner,.5,infestation?1:0,u.zergSix?.temp?.parent??u.id,false,false,0,false,false,false,{dot,infestation});
 }
 function skillDamage(w:World,u:Entity,base:number){
  if(u.enemySix)return base*u.enemySix.damage;
@@ -99,7 +100,7 @@ function skillDamage(w:World,u:Entity,base:number){
  const gear=w.starship.enabled?equipmentUnitTotals(w,u):null,attack=1+(gear?.attack??0);
  const shot=w.starship.attacks.get(u);
  const damage=shot?shot.nativeDamage*attack:u.weaponDamage*(1+(gear?.native??0))*attack;
- return base*rank.attackSpeed*(ordinary?damage/ordinary:rank.damage);
+ return base*rank.attackSpeed*(ordinary?damage/ordinary:rank.damage*(1+(u.zergSwarm?.mature?.damage??0)));
 }
 function infect(w:World,u:Entity,b:Body,damage:number){
  const target=w.entities.get(b.id);
@@ -202,7 +203,7 @@ function breed(w:World,parent:Entity,type:ZergSixChild,center:Point,target?:numb
  const gear=w.starship.enabled?equipmentUnitTotals(w,parent):null;
  const hpFactor=(w.starship.native.get(parent)?.maxHp??parent.maxHp)/base.maxHp*(1+(gear?.health??0))*(gear?.exclusiveHealth??1)*(gear?.lifeFactor??1);
  const baseDamage=base.attackDamage+ZERG_SIX_WEAPON_RESEARCH[parent.unitType as ZergSixFamily]*research;
- const weaponFactor=(locust?expeditionWeaponScale(w,parent):parent.weaponDamage/baseDamage)*(1+(gear?.attack??0))*(1+(gear?.native??0));
+ const weaponFactor=(locust?expeditionWeaponScale(w,parent)*(1+(parent.zergSwarm?.mature?.damage??0)):parent.weaponDamage/baseDamage)*(1+(gear?.attack??0))*(1+(gear?.native??0));
  const cadence=base.attackPeriod/parent.attackPeriod;
  Object.assign(u,{hp:d.maxHp*hpFactor,maxHp:d.maxHp*hpFactor,weaponDamage:(d.attackDamage+(locust?1:.5)*research)*weaponFactor,
   attackPeriod:d.attackPeriod/cadence,shotInterval:d.attackPeriod/cadence,armor:d.armor,temporary:true,
