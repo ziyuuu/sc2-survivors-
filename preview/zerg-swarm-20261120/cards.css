@@ -1,0 +1,31 @@
+#interface #overlay:not([data-layout=portrait]).imx .swarm-design>.im-choice-grid{
+ grid-template-rows:minmax(48px,1fr) max-content max-content calc(42px * var(--text-scale,1) + 18px) max-content max-content max-content max-content
+}
+#interface #overlay:not([data-layout=portrait]).imx .swarm-design>.im-choice-grid>.im-card{grid-row:1 / span 8}
+#interface #overlay[data-layout=portrait].imx .swarm-design>.im-choice-grid>.im-card{
+ grid-template-rows:auto auto minmax(calc(40px * var(--text-scale,1) + 15px),1fr) auto auto auto auto;
+ grid-template-areas:'art name' 'art kind' 'art copy' 'art service' 'art price' 'status status' 'trial trial'
+}
+.swarm-trial-links,#card-details nav:not([hidden]){display:flex;gap:.35rem;flex-wrap:wrap}
+.swarm-trial-links{grid-row:8;margin:.35rem 3px 0;justify-self:stretch}
+#interface #overlay.imx .swarm-design .swarm-unit-portrait{position:absolute;inset:10% 10%;width:80%;height:80%;object-fit:contain;filter:drop-shadow(0 10px 6px #0009)}
+#overlay[data-layout=portrait] .swarm-trial-links{grid-area:trial}
+.swarm-trial-links a,#card-details a{
+ display:inline-flex;justify-content:center;align-items:center;min-height:2.1rem;flex:1;
+ padding:.3rem .5rem;color:#eef5f1;background:#173128;border:1px solid #527463;text-decoration:none;white-space:nowrap
+}
+.swarm-trial-links a:hover,#card-details a:hover{background:#254a3d}
+#card-details{width:min(44rem,calc(100vw - 1rem));max-height:calc(100dvh - 2rem);padding:1rem;color:#eff3ed;background:#12241f;border:1px solid #628475}
+#card-details::backdrop{background:#020608bc}
+#card-details header{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+#card-details h2{margin:0}
+#card-details button{min-height:2.1rem;padding:.3rem .7rem;color:inherit;background:#173128;border:1px solid #527463;cursor:pointer}
+#card-details ol{list-style:none;padding:0;margin:1rem 0}
+#card-details li{display:flex;align-items:center;gap:.7rem;justify-content:space-between;border-top:1px solid #456253}
+#card-details li a{flex:none}
+#card-details .swarm-notes{color:#cbdfd3}
+@media(max-width:550px){
+ #interface .swarm-design .im-heading select{max-width:100%;min-width:0;font-size:inherit}
+ .swarm-trial-links{gap:.2rem}
+ .swarm-trial-links a{min-width:30%;font-size:.9rem}
+}

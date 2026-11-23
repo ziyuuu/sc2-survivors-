@@ -1,3 +1,4 @@
+import {onSwarmFormalRevived} from './zerg-swarm-revival';
 import {equipmentRevivalWindow,equipmentRevived} from '../starship/hero-advancements';
 import {heroExtraAmount} from '../starship/native-effects';
 import {observeAmount} from '../observation';
@@ -33,7 +34,7 @@ export function zergRevivalDeath(w:World,e:Entity){for(const r of w.zergHeroes.r
 export function tickZergRevival(w:World){for(const r of w.zergHeroes.revivals){if(!active(w,r)||w.time+1e-8<r.next)continue;r.next=w.time+1;
   const seat=r.seats.filter(s=>waiting(w,r,s)).sort((a,b)=>(a.deadAt??0)-(b.deadAt??0)||a.members[0].id-b.members[0].id)[0];if(!seat)continue;
   const points:Point[]=[];for(const body of seat.members){let point:Point|null=null;for(let i=0;i<12&&!point;i++){const a=i*2.399,origin={x:body.x+Math.sin(a)*(.6+i*.15),z:body.z+Math.cos(a)*(.6+i*.15)},p=w.freePosition(seat.family,origin,0,2);if(p&&points.every(q=>distance(p,q)>body.unitRadius*2+.05))point=p;}if(!point)break;points.push(point);}if(points.length!==seat.members.length)continue;
-  seat.claimed=true;r.charges--;const n=Math.max(0,Math.min(4,seat.rank-1));for(const [i,body] of seat.members.entries()){const u=structuredClone(body);u.x=points[i].x;u.z=points[i].z;u.prev={...points[i]};u.deadAt=null;u.hp=Math.max(1,u.maxHp*R.niadra.revive[n]);u.velocity={x:0,z:0};u.action='spawn';u.pendingTarget=null;u.attackTarget=null;u.windup=0;u.attackLock=0;u.repositionUntil=w.time+.2;w.entities.set(u.id,u);w.refreshStats(u);u.hp=Math.max(1,u.maxHp*R.niadra.revive[n]);equipmentRevived(w,r.id,u);const source=w.entities.get(r.source);observeAmount(w,'niadra','revivals',1);w.visual('hero-revive',source??u,u,r.id);}
+  seat.claimed=true;r.charges--;const n=Math.max(0,Math.min(4,seat.rank-1));for(const [i,body] of seat.members.entries()){const u=structuredClone(body);u.x=points[i].x;u.z=points[i].z;u.prev={...points[i]};u.deadAt=null;u.hp=Math.max(1,u.maxHp*R.niadra.revive[n]);u.velocity={x:0,z:0};u.action='spawn';u.pendingTarget=null;u.attackTarget=null;u.windup=0;u.attackLock=0;u.repositionUntil=w.time+.2;w.entities.set(u.id,u);w.refreshStats(u);u.hp=Math.max(1,u.maxHp*R.niadra.revive[n]);equipmentRevived(w,r.id,u);onSwarmFormalRevived(w,u);const source=w.entities.get(r.source);observeAmount(w,'niadra','revivals',1);w.visual('hero-revive',source??u,u,r.id);}
   if(seat.pairId){const pair=w.expedition.zerglingPairs.find(p=>p.id===seat.pairId);if(pair){pair.members=seat.members.map(u=>u.id);pair.rank=seat.members[0].rank;pair.eliteId=seat.members[0].eliteId;pair.regrowAt=null;pair.birthPending=false;}}
   w.hash.invalidatePlanes();w.changed();
  }w.zergHeroes.revivals=w.zergHeroes.revivals.filter(r=>active(w,r));}

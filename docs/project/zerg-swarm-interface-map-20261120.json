@@ -634,18 +634,16 @@
     {
       "id": "ZSW-G08",
       "localId": "G08",
-      "name": "残躯筑甲",
+      "name": "小型化演化",
       "difficulty": "medium",
       "maxRank": 3,
       "ports": [
         "world"
       ],
       "plannedHandlers": [
-        "onSwarmFormalDeath",
-        "grantSwarmShell"
+        "swarmSize"
       ],
       "acceptance": [
-        "S29",
         "S34"
       ]
     },
@@ -821,7 +819,7 @@
     {
       "id": "ZSW-B09",
       "localId": "B09",
-      "name": "战损接替",
+      "name": "柔骨虫群",
       "difficulty": "medium",
       "maxRank": 3,
       "ports": [
@@ -831,12 +829,11 @@
         "members"
       ],
       "plannedHandlers": [
-        "onSwarmFormalDeath",
-        "spawnSwarmClone"
+        "swarmContactScale",
+        "swarmContactSpan"
       ],
       "acceptance": [
-        "S29",
-        "S30"
+        "S34"
       ]
     },
     {
@@ -1079,7 +1076,7 @@
     {
       "id": "ZSW-N07",
       "localId": "N07",
-      "name": "围猎本能",
+      "name": "密集适应性",
       "difficulty": "medium",
       "maxRank": 3,
       "ports": [
@@ -1088,10 +1085,13 @@
         "patterns"
       ],
       "plannedHandlers": [
-        "onSwarmResolvedHit",
-        "swarmCardDamage"
+        "swarmSize",
+        "swarmContactScale",
+        "swarmCanCross",
+        "swarmIgnoresPair"
       ],
       "acceptance": [
+        "S34",
         "S35"
       ]
     },

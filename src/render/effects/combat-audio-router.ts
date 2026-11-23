@@ -1,7 +1,7 @@
 import type {World} from '../../simulation/world';
 import type {Entity,Point,VisualEvent} from '../../simulation/types';
 import {combatFxProfile,sourceHologramDeath} from './combat-fx-profile';
-import {SourceEventIndex} from './source/event-index';
+import {sourceEventIndex} from './source/event-index';
 import {StimPresentation} from './stim-presentation';
 import {equipmentPresentationReceipts} from '../../simulation/starship/presentation';
 import {SOUND_DATA,ZERG_SIX_SOUND_CUES,type WeaponSound} from './audio-source-data';
@@ -50,7 +50,8 @@ export class CombatAudioRouter {
   // Consume paused history so unpausing cannot replay previous attacks/deaths.
   if(stopped){this.serial=w.visualEvents.at(-1)?.serial??this.serial;this.equipmentSerial=equipmentPresentationReceipts(w).at(-1)?.serial??this.equipmentSerial;this.stim.resumeAt(w);this.motion.pauseAt(w);for(const e of w.expedition.doomsday?.slashes??[])if(e.startTick<=w.tick)this.once('sword:'+e.id,w.time);for(const b of w.encounters.expanded.bursts)this.once('fun-burst:'+b.id,w.time);for(const e of w.heroAttackEvents)this.once('hero:'+e.kind+':'+e.packet.id+':'+e.at,w.time);return {cues,channels,silentStop:true};}
   for(const e of w.expedition.doomsday?.slashes??[])if(w.tick>=e.startTick&&w.tick-e.startTick<18)emit(SOUND_DATA.weapons.zealot?.attack,e.source,2,'sword:'+e.id);
-  const index=new SourceEventIndex(w.visualEvents);
+  let receiptIndex:ReturnType<typeof sourceEventIndex>|undefined;
+  const indexed=()=>receiptIndex??=sourceEventIndex(w.visualEvents);
   for(const e of w.visualEvents){
    if(e.serial<=this.serial)continue;this.serial=e.serial;if(w.time-e.time>.3||!near(e))continue;
    const u=e as unknown as Identity,skill=e.heroId?SOUND_DATA.skills[e.heroId]:undefined;
@@ -82,13 +83,13 @@ export class CombatAudioRouter {
     if(e.heroId&&!e.missionFleet&&e.summonKind!=='interceptor')continue;
     const id=e.unitType==='mutalisk'&&(e.weaponHop??0)>0?'mutalisk-bounce'+((e.weaponHop??0)+1):weaponSoundKey(u),r=SOUND_DATA.weapons[id];
     emit(e.targetSurface==='shield'?r?.surfaces.shield??SOUND_DATA.special.shieldHit[0]:r?.impact,e.end,1,'impact:'+(e.attackId??e.serial)+':'+e.targetId+':'+e.time);
-   }else if(['hit','shield-hit','shield-break'].includes(e.kind)&&e.weaponHit&&e.hitSourceId!==undefined&&!index.duplicate(e)&&!index.missile(e)){
-    const attack=index.attack(e.hitSourceId,e.time),source=w.entities.get(e.hitSourceId);if(!source||source.heroId)continue;
+   }else if(['hit','shield-hit','shield-break'].includes(e.kind)&&e.weaponHit&&e.hitSourceId!==undefined&&!indexed().duplicate(e)&&!indexed().missile(e)){
+    const attack=indexed().attack(e.hitSourceId,e.time),source=w.entities.get(e.hitSourceId);if(!source||source.heroId)continue;
     const route=weapon(source);if(route?.channel||attack?.projectileSpeed)continue;
     impact((attack??source) as Identity,e,e.targetSurface,source.unitType==='colossus'?'sweep-impact:'+e.hitSourceId+':'+source.shotSequence:undefined);
    }else if(e.kind==='death'){
     if(e.equipmentProjection){special('hallucination',e.unitType==='colossus'?3:1,e,2);continue;}
-    if(e.unitType==='baneling'&&index.nearbyAttack(e.entityId,e.time))continue;
+    if(e.unitType==='baneling'&&indexed().nearbyAttack(e.entityId,e.time))continue;
     if(sourceHologramDeath(u)){special('hologramDeath',0,e,3);continue;}
     const key=e.supportSound?.startsWith('death:')?e.supportSound.slice(6):deathSoundKey(u);
     // Overlord_Death has PassChance 25 in the original ActorData.

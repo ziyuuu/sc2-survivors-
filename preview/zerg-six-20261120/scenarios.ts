@@ -2,9 +2,9 @@ import {ZERG_SIX} from '../../src/data/zerg-six';
 import type {ZergSixFamily} from '../../src/data/zerg-six';
 import type {World} from '../../src/simulation/world';
 import type {Entity} from '../../src/simulation/types';
-import {SC2_UNITS,type ZergType} from '../../src/data/sc2-units';
+import {SC2_UNITS,type UnitType} from '../../src/data/sc2-units';
 
-type Opponent = [ZergType, x:number, z:number, hp:number, tier?:Entity['enemyTier']];
+type Opponent = [UnitType, x:number, z:number, hp:number, tier?:Entity['enemyTier']];
 const roaches=(n:number,front:number,hp:number):Opponent[]=>Array.from({length:n},(_,i)=>['roach',(i%3-1)*1.05,front+Math.floor(i/3)*1.25,hp]);
 export const scenes:Record<ZergSixFamily,{allies:[number,number][];enemies:Opponent[];focus:string}>={
  aberration:{allies:[[0,.7]],enemies:[...roaches(5,2.15,80),['zergling',1.5,1.8,25],['ultralisk',0,4.6,240]],

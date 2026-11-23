@@ -8,13 +8,14 @@ import type {EliteId} from '../data/elites';
 import type {DeliveryPassenger} from './expedition-state';
 import {reservedZergPair} from './combat/zerg-hero-revival';
 
+import {onSwarmFormalRevived,swarmReservesPair} from './combat/zerg-swarm-revival';
 export interface ZerglingPair {id:string;slot:number;members:number[];rank:number;eliteId?:EliteId;regrowAt:number|null;birthPending:boolean;}
 export const permanentLing=(u:Entity)=>u.team==='player'&&u.unitType==='zergling'&&!u.heroId&&!u.temporary&&!u.summonKind;
 export function pairFor(w:World,u:Entity){return u.pairId?w.expedition.zerglingPairs.find(p=>p.id===u.pairId):undefined;}
 export function pairBodies(w:World,p:ZerglingPair){return p.members.map(id=>w.entities.get(id)??w.specialStages.active?.evacuated.get(id)).filter((u):u is Entity=>!!u&&u.hp>0);}
 export function joinPair(w:World,u:Entity,id=`birth:${u.id}`){
  let p=w.expedition.zerglingPairs.find(p=>p.id===id);
- if(!p){const used=new Set(w.expedition.zerglingPairs.filter(p=>pairBodies(w,p).length||reservedZergPair(w,p.id)||equipmentReservedPair(w,p.id)||hasWaitingTwin(w,p.id)).map(p=>p.slot));let slot=0;while(used.has(slot))slot++;for(const q of w.expedition.zerglingPairs)if(q.slot===slot)delete w.zergElites.frenzy[q.id];w.expedition.zerglingPairs=w.expedition.zerglingPairs.filter(q=>q.slot!==slot);p={id,slot,members:[],rank:u.rank,regrowAt:null,birthPending:false};w.expedition.zerglingPairs.push(p);}
+ if(!p){const used=new Set(w.expedition.zerglingPairs.filter(p=>pairBodies(w,p).length||reservedZergPair(w,p.id)||swarmReservesPair(w,p.id)||equipmentReservedPair(w,p.id)||hasWaitingTwin(w,p.id)).map(p=>p.slot));let slot=0;while(used.has(slot))slot++;for(const q of w.expedition.zerglingPairs)if(q.slot===slot)delete w.zergElites.frenzy[q.id];w.expedition.zerglingPairs=w.expedition.zerglingPairs.filter(q=>q.slot!==slot);p={id,slot,members:[],rank:u.rank,regrowAt:null,birthPending:false};w.expedition.zerglingPairs.push(p);}
  if(p.members.length>=2)throw Error('Twin seat already filled');p.members.push(u.id);u.pairId=id;u.rank=p.rank;u.eliteId=p.eliteId;return p;
 }
 /** One representative per roster seat; living bodies remain independent combat entities. */
@@ -37,13 +38,13 @@ export function tickBroods(w:World){
   const alive=pairBodies(w,p);
   if(alive.length===2){p.regrowAt=null;p.birthPending=false;continue;}
   const pending=hasWaitingTwin(w,p.id);
-  if(!alive.length){p.regrowAt=null;if(!pending){p.members=[];p.birthPending=false;}continue;}
+  if(!alive.length){p.regrowAt=null;if(!pending&&!swarmReservesPair(w,p.id)){p.members=[];p.birthPending=false;}continue;}
   if(alive.some(u=>u.heldBy)||pending||equipmentReservedPair(w,p.id))continue;
   if(!p.birthPending&&p.regrowAt===null)p.regrowAt=w.tick+900;
   if(!p.birthPending&&w.tick<p.regrowAt!)continue;
   const anchor=alive[0],position=w.freePosition('zergling',anchor,.65,3);if(!position)continue;
   if(w.starship.members.get(anchor.id)?.cannotRevive&&!p.birthPending)continue;const u=w.addUnit('zergling','terran',position.x,position.z,p.rank);inheritEquipmentMember(w,u,anchor);p.members=pairBodies(w,p).map(v=>v.id);joinPair(w,u,p.id);
-  u.eliteId=anchor.eliteId;u.modelKey=anchor.modelKey;u.tacticalTier=anchor.tacticalTier;u.tacticalDirection=anchor.tacticalDirection;u.freeConscript=anchor.freeConscript;w.refreshStats(u,true);if(u.eliteId==='zergling.3'&&!p.birthPending)u.hp=u.maxHp*.6;if(!p.birthPending)observeAmount(w,u,'revivals',1);p.regrowAt=null;p.birthPending=false;w.changed();
+  u.eliteId=anchor.eliteId;u.modelKey=anchor.modelKey;u.tacticalTier=anchor.tacticalTier;u.tacticalDirection=anchor.tacticalDirection;u.freeConscript=anchor.freeConscript;w.refreshStats(u,true);if(u.eliteId==='zergling.3'&&!p.birthPending)u.hp=u.maxHp*.6;if(!p.birthPending){observeAmount(w,u,'revivals',1);onSwarmFormalRevived(w,u);}p.regrowAt=null;p.birthPending=false;w.changed();
  }
 }
 export function passengerReservation(p:DeliveryPassenger,w:World){

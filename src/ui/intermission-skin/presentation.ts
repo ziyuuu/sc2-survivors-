@@ -40,7 +40,7 @@ export function objectIndex(c:CardView){
 }
 /** Presentation reads the existing quote; it never recalculates prices or redirects effects. */
 export function cardPresentation(w:World,c:CardView,r?:ExpeditionReward){
- if(c.bioId)return {current:'',gain:'',simple:c.stat,detail:c.detail,equipment:null};
+ if(c.bioId||c.zergSwarmId)return {current:'',gain:'',simple:c.stat,detail:c.detail,equipment:null};
  if(c.doomsdayId){const rank=w.expedition.doomsday?.ranks[c.doomsdayId]??0;return {current:rank?rank+'级':'',gain:'',simple:c.stat,detail:c.detail,equipment:null};}
  if(c.armedId){const rank=armedRank(w.expedition.support,c.armedId);return {current:rank?rank+'级':'',gain:'',simple:c.stat,detail:c.detail,equipment:null};}
  const source=c.id.slice(c.id.indexOf(':')+1);

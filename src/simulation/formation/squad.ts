@@ -8,19 +8,19 @@ const order=['marine','marauder','hellion','tank','medivac'];
  * into distinct reachable slots instead of sending every blocked slot to the anchor. */
 export class SquadFormation {
  private goals=new Map<number,Point>();private until=-1;private anchor={x:Infinity,z:Infinity,facing:0};private roster:number[]=[];
- plan(units:Entity[],anchor:Point&{facing:number},now:number,half:number,obstacles:Obstacle[],terrain?:TerrainQuery){
+ plan(units:Entity[],anchor:Point&{facing:number},now:number,half:number,obstacles:Obstacle[],terrain?:TerrainQuery,bodyScale?:(u:Entity)=>number,contactScale?:(u:Entity)=>number){
   if(now<this.until&&units.length===this.roster.length&&units.every((u,i)=>u.id===this.roster[i])&&distance(anchor,this.anchor)<.65&&Math.abs(angleDelta(this.anchor.facing,anchor.facing))<.15)return;
   this.roster=units.map(u=>u.id);this.until=now+FORMATION.refreshSeconds;this.anchor={...anchor};this.goals.clear();
   const sin=Math.sin(anchor.facing),cos=Math.cos(anchor.facing),placed:{p:Point;r:number;air:boolean}[]=[];
   const point=(back:number,lane:number)=>({x:anchor.x-sin*back+cos*lane,z:anchor.z-cos*back-sin*lane});
   const legal=(p:Point,u:Entity)=>Math.abs(p.x)+u.unitRadius<half&&Math.abs(p.z)+u.unitRadius<half&&(u.flying||!blocked(p,u.unitRadius,obstacles)&&(!terrain||terrain.canOccupy(p,u.unitRadius)));
-  const separate=(p:Point,u:Entity)=>placed.every(s=>s.air!==u.flying||distance(s.p,p)>s.r+u.unitRadius+.14);
+  const separate=(p:Point,u:Entity)=>placed.every(s=>s.air!==u.flying||distance(s.p,p)>s.r+u.unitRadius*(contactScale?.(u)??1)+.14);
   let back=FORMATION.frontOffset;
   for(const type of [...order,...new Set(units.map(u=>u.unitType).filter(t=>!order.includes(t)))]){const group=units.filter(u=>u.unitType===type).sort((a,b)=>a.slot-b.slot);if(!group.length)continue;
    const radius=Math.max(...group.map(u=>u.unitRadius)),spacing=radius*2+FORMATION.bodyGap,columns=Math.min(FORMATION.columns,group.length),rows=Math.ceil(group.length/columns);
    if(type==='medivac')back=Math.max(3,back-1.5);
    for(let i=0;i<group.length;i++){const u=group[i],row=Math.floor(i/columns),count=Math.min(columns,group.length-row*columns),lane=(i%columns-(count-1)/2)*spacing;
-    const desired=point(back+row*spacing,lane);let chosen:Point|undefined;
+    const scale=bodyScale?.(u)??1,desired=point((back+row*spacing)*scale,lane*scale);let chosen:Point|undefined;
     if(legal(desired,u)&&separate(desired,u)&&(u.flying||clearLine(anchor,desired,u.unitRadius,obstacles,terrain)))chosen=desired;
     if(!chosen){const candidates:{p:Point;score:number}[]=[];
      // Search around this rank, including lateral room and the front shoulders. No shared fallback.
@@ -32,7 +32,7 @@ export class SquadFormation {
      // Existing legal positions remain a last resort in a packed cul-de-sac, never a relocation.
      chosen??=legal(u,u)&&separate(u,u)?{x:u.x,z:u.z}:candidates[0]?.p??{x:anchor.x,z:anchor.z};
     }
-    this.goals.set(u.id,chosen);placed.push({p:chosen,r:u.unitRadius,air:u.flying});
+    this.goals.set(u.id,chosen);placed.push({p:chosen,r:u.unitRadius*(contactScale?.(u)??1),air:u.flying});
    }
    back+=rows*spacing+FORMATION.rowGap;
   }

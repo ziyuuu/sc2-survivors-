@@ -1,3 +1,5 @@
+import {ZERG_SWARM_CARDS,ZERG_SWARM_BY_ID,type ZswCardId} from '../../data/zerg-swarm';
+import {swarmCardCopy} from '../../data/zerg-swarm-copy';
 import {BIO_CARDS,BIO_BY_ID,type BioId} from '../../data/terran-bio';
 import {bioRank} from '../combat/bio-state';
 import {funShopCandidates,funShopCatalogue,funShopQuote,shopRarityWeights,type FunShopLevels,type FunShopId} from '../fun-shop/state';
@@ -28,6 +30,7 @@ export type ExpeditionOfferEffect=
  | {kind:'armedSupport';cardId:ArmedId;expectedRank:number;expectedReserve:number}
  | {kind:'doomsday';cardId:DoomsdayId;expectedRank:number}
  | {kind:'bio';cardId:BioId;expectedRank:number}
+ | {kind:'zergSwarm';cardId:ZswCardId;expectedRank:number}
  | {kind:'specialTicket';stage:number;challenge:import('../special-stages/state').SpecialStageKind}
  | {kind:'development';definitionId:string;expectedLevel:number;targetFacilityId?:number}
  | {kind:'card';effect:ExpeditionCardEffect;family:FamilyId;amount:number;key:string}
@@ -71,6 +74,7 @@ export interface ExpeditionDraftContext {
  supportLegal?:(kind:SupportCard)=>boolean;
  armedLegal?:(id:ArmedId)=>boolean;
  bioLegal?:(id:BioId)=>boolean;
+ swarmLegal?:(id:ZswCardId)=>boolean;
  doomsdayLegal?:(id:DoomsdayId)=>boolean;
  doomsdayReady?:(id:DoomsdayId)=>boolean;
  training?:(rank:number)=>{targets:TrainingTarget[];minerals:number;gas:number}|null;
@@ -210,6 +214,7 @@ function reinforcementPool(ctx:ExpeditionDraftContext,shop=false,reference=false
  if(armed)for(const c of ARMED_CARDS)if(!['node','orange'].includes(c.purchase)&&(reference||ordinaryBuildCardAllowed(ctx.state,c.id)&&ctx.armedLegal?.(c.id))){result.push({id:'armed.'+c.id,name:c.name,description:c.brief,icon:'tech.attack',rarity:c.quality,kind:'buff',value:c.id,effect:{kind:'armedSupport',cardId:c.id,expectedRank:armedRank(ctx.state.support,c.id),expectedReserve:ctx.state.support.armed?.reserves[c.id]??0},category:'synergy',group:'armed.'+c.id,immediate:true});}
  if(armed&&ctx.doomsdayLegal)for(const c of DOOMSDAY_CARDS)if(!['node','orange'].includes(c.purchase)&&(reference?ctx.doomsdayReady?.(c.id)??ctx.doomsdayLegal(c.id):ordinaryBuildCardAllowed(ctx.state,c.id)&&ctx.doomsdayLegal(c.id)))result.push({id:'doomsday.'+c.id,name:c.name,description:DOOMSDAY_BRIEF[c.id],icon:'tech.attack',rarity:c.quality,kind:'buff',value:c.id,effect:{kind:'doomsday',cardId:c.id,expectedRank:doomsdayRank(ctx.state.doomsday,c.id)},category:'synergy',group:'doomsday.'+c.id,immediate:true});
  if(armed&&ctx.bioLegal)for(const c of BIO_CARDS)if(c.purchase!=='node'&&c.purchase!=='orange'&&(reference||ordinaryBuildCardAllowed(ctx.state,c.id)&&ctx.bioLegal(c.id)))result.push({id:'bio.'+c.id,name:c.name,description:c.brief,icon:'tech.heal',rarity:c.quality,kind:'buff',value:c.id,effect:{kind:'bio',cardId:c.id,expectedRank:bioRank(ctx.state,c.id)},category:'synergy',group:'bio.'+c.id,immediate:true});
+ if(shop&&ctx.state.race==='zerg'&&!ctx.tutorialFixed&&ctx.swarmLegal)for(const c of ZERG_SWARM_CARDS)if(c.purchase!=='node'&&c.purchase!=='orange'&&(reference?(c.quality!=='purple'||ctx.state.build?.main==='zerg-swarm'):ctx.swarmLegal(c.id)))result.push({id:'zerg-swarm.'+c.id,name:c.name,description:swarmCardCopy(c.short).brief,icon:'tech.attack',rarity:c.quality,kind:'buff',value:c.id,effect:{kind:'zergSwarm',cardId:c.id,expectedRank:ctx.state.zergSwarm?.ranks[c.id]??0},category:'synergy',group:'zerg-swarm.'+c.id,immediate:true});
  if(shop&&ctx.funShop)for(const c of reference?funShopCatalogue():funShopCandidates(ctx.funShop,ctx.difficulty))result.push({...c,kind:'buff',value:c.item,effect:{kind:'funShop',item:c.item,level:c.level,expected:c.expected},category:'synergy',group:'fun-shop.'+c.item,immediate:true});
  for(const group of ['firepower','defense'] as const)for(const [i,rarity] of RARITIES.entries())if(teamCardLegal(ctx.state,group,rarity))result.push({id:teamCardKey(group,rarity),name:group==='firepower'?'全军火力':'全军防御',description:group==='firepower'?`伤害 +${TEAM_CARD_VALUES.damage[i]*100}% · 攻速 +${TEAM_CARD_VALUES.speed[i]*100}%`:`生命与护盾 +${TEAM_CARD_VALUES.health[i]*100}% · 护甲 +${TEAM_CARD_VALUES.armor[i]}`,icon:group==='firepower'?'tech.attack':'tech.armor',rarity,kind:'buff',value:teamCardKey(group,rarity),effect:{kind:'teamCard',group,rarity},category:'core',group,immediate:true});
  for(let rank=2;rank<=5;rank++){const plan=ctx.training?.(rank);if(plan)result.push({id:`training.${rank}`,name:`两名士兵晋升${['','I','II','III','IV','V'][rank]}`,description:`最低军衔的两名普通士兵提升至${rank}级`,icon:'tech.attack',rarity:RARITIES[rank-1],kind:'buff',value:'training',effect:{kind:'training',rank,...plan},category:'core',group:'training',immediate:true});}
@@ -256,7 +261,7 @@ function shopReferencePool(ctx:ExpeditionDraftContext){
 function shopWeights(ctx:ExpeditionDraftContext,reference:readonly Candidate[],immediate:boolean){
  const result=new Map<string,number>(),rarities=shopRarityWeights(expeditionRarityWeights(ctx.stage),ctx.funShop?.dice??0,ctx.highQualityWeight??0);
  for(const rarity of RARITIES){
-  const tier=reference.filter(c=>c.rarity===rarity&&(!immediate||c.immediate)),fun=tier.filter(c=>c.effect.kind==='support'||c.effect.kind==='funShop'||c.effect.kind==='armedSupport'||c.effect.kind==='doomsday'||c.effect.kind==='bio'),other=tier.filter(c=>!fun.includes(c));
+  const tier=reference.filter(c=>c.rarity===rarity&&(!immediate||c.immediate)),fun=tier.filter(c=>c.effect.kind==='support'||c.effect.kind==='funShop'||c.effect.kind==='armedSupport'||c.effect.kind==='doomsday'||c.effect.kind==='bio'||c.effect.kind==='zergSwarm'),other=tier.filter(c=>!fun.includes(c));
   const assign=(items:Candidate[],mass:number)=>{const weights=items.map(c=>candidateWeight(ctx,c,tier)),total=weights.reduce((n,v)=>n+v,0);items.forEach((c,i)=>result.set(c.id,total?mass*weights[i]/total:0));};
   const mass=rarities[tierIndex(rarity)],funMass=mass*(other.length?.25:1),mechanical=fun.filter(c=>c.effect.kind==='doomsday');
   if(!mechanical.length)assign(fun,funMass);
@@ -339,6 +344,7 @@ export function drawExpeditionReinforcements(ctx:ExpeditionDraftContext,reroll=f
 function shopPrice(c:Candidate){
  const effect=c.effect;
  if(effect.kind==='armedSupport'){const [minerals,gas]=ARMED_CARD_BY_ID[effect.cardId].price;return {minerals,gas};}
+ if(effect.kind==='zergSwarm'){const [minerals,gas]=ZERG_SWARM_BY_ID[effect.cardId].price;return {minerals,gas};}
  if(effect.kind==='bio'){const [minerals,gas]=BIO_BY_ID[effect.cardId].price;return {minerals,gas};}
  if(effect.kind==='doomsday'){const [minerals,gas]=DOOMSDAY_CARD_BY_ID[effect.cardId].price;return {minerals,gas};}
  if(effect.kind==='supply')return supplyPrice(effect.family,effect.count,effect.mode);
@@ -392,6 +398,7 @@ export function canTakeExpeditionOffer(ctx:ExpeditionDraftContext,offer:Expediti
 /** Shared by fresh shelves and the final transaction; insufficient money is not ineligibility. */
 function shopEffectLegal(ctx:ExpeditionDraftContext,effect:ExpeditionOfferEffect){
  if(effect.kind==='armedSupport')return armedPurchaseLegal(ctx.state.support,effect.cardId)&&armedRank(ctx.state.support,effect.cardId)===effect.expectedRank&&(ctx.state.support.armed?.reserves[effect.cardId]??0)===effect.expectedReserve&&!!ctx.armedLegal?.(effect.cardId);
+ if(effect.kind==='zergSwarm')return !!ctx.swarmLegal?.(effect.cardId)&&(ctx.state.zergSwarm?.ranks[effect.cardId]??0)===effect.expectedRank;
  if(effect.kind==='bio')return !!ctx.bioLegal?.(effect.cardId)&&bioRank(ctx.state,effect.cardId)===effect.expectedRank;
  if(effect.kind==='doomsday')return doomsdayPurchaseLegal(ctx.state,effect.cardId)&&doomsdayRank(ctx.state.doomsday,effect.cardId)===effect.expectedRank&&!!ctx.doomsdayLegal?.(effect.cardId);
  if(effect.kind==='funShop')return !!ctx.funShop&&!!funShopQuote(ctx.funShop,effect.item,effect.level,effect.expected);

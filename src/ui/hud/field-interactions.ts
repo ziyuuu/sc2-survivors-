@@ -20,8 +20,10 @@ export class FieldInteractions{
  private root:HTMLElement;private buttons=new Map<string,HTMLButtonElement>();private projected=new Vector3();
  constructor(parent:HTMLElement){this.root=document.createElement('div');this.root.id='field-interactions';this.root.setAttribute('aria-label','场景交互');parent.append(this.root);}
  update(w:World,view:BattleRenderer){
-  const seen=new Set<string>(),width=view.canvas.clientWidth,height=view.canvas.clientHeight;
-  for(const item of fieldInteractionEntries(w)){
+  const entries=fieldInteractionEntries(w);
+  if(!entries.length&&!this.buttons.size)return;
+  const seen=new Set<string>(),{width,height}=view.viewportSize;
+  for(const item of entries){
    seen.add(item.key);let button=this.buttons.get(item.key);
    if(!button){button=document.createElement('button');button.type='button';button.className='field-interaction';button.dataset.action=item.action;if(item.kind)button.dataset.kind=item.kind;button.textContent=item.name;this.buttons.set(item.key,button);this.root.append(button);}
    const p=this.projected.set(item.point.x,view.ground(item.point)+item.height,item.point.z).project(view.camera);

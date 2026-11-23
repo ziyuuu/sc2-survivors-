@@ -91,7 +91,7 @@ requireCondition(manifest.sharedAcceptance.every(id=>scenarios.has(id)),'Unknown
 
 const runSource=read('src/simulation/persistence/run-snapshot.ts');
 const currentRunSchema=Number(/export const RUN_SCHEMA\s*=\s*(\d+)/.exec(runSource)?.[1]);
-requireCondition(currentRunSchema===manifest.reviewedRunSchema,'Run schema changed; re-review the migration plan');
+requireCondition(currentRunSchema===manifest.reviewedRunSchema||currentRunSchema===manifest.plannedRunSchema&&new RegExp(`PREVIOUS_RUN_SCHEMA\\s*=\\s*${manifest.reviewedRunSchema}`).test(runSource),'Run schema changed without the reviewed migration');
 
 const result={kind:'static-source-and-document-audit',gameplayImplemented:false,gameplayTested:false,
  cards:manifest.cards.length,distribution,nonOrangeTierRows,orangeSingle:3,

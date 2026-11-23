@@ -75,7 +75,7 @@ export function mountIntermissionSkin(root:HTMLElement,getWorld:()=>World,option
      const body=document.createElement('div');body.className='imx-card-body';
      body.innerHTML=`<div class="imx-art">${c?art(c,v?.reward):face.querySelector('.im-card-art')?.outerHTML??''}<div class="imx-badges"><b>${esc(p?.current??'')}</b><strong>${esc(p?.gain??'')}</strong></div></div><h2 class="imx-name">${esc(name)}</h2><p class="imx-kind">${esc(c?.kicker??el.querySelector('.im-card-meta>span')?.textContent??'')}</p><button class="imx-copy" type="button" data-imx-flip="${esc(id)}" aria-label="${esc(name)}：${flipped.has(id)?'切回简略':'查看详情'}" aria-expanded="${flipped.has(id)}"><span>${esc(flipped.has(id)?detail:simple)}</span><i aria-hidden="true">${glyph('refresh')}</i></button>`;
      body.querySelector<HTMLButtonElement>('.imx-copy')!.dataset.simple=simple;body.querySelector<HTMLButtonElement>('.imx-copy')!.dataset.detail=detail;
-     if(c?.ordinaryBranch&&el.closest('#reward-cards')){
+     if(c?.ordinaryBranch&&c.ordinaryBranch!=='zerg-swarm'&&el.closest('#reward-cards')){
       body.querySelector('.imx-art')!.insertAdjacentHTML('beforeend',branchMark(c.ordinaryBranch));
      }
      face.replaceWith(body);el.dataset.imxCard='true';

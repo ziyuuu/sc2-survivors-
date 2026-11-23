@@ -21,6 +21,7 @@ import {RACES,RACE_NAMES,FAMILIES_BY_RACE,ALL_FAMILIES,FAMILY_LIMIT,BODY_LIMIT,O
 import {EXPANSION_SOURCE,SOURCE_UNIT_DETAILS,SOURCE_PRODUCTION_RECIPES,SOURCE_UNIT_MODES,SOURCE_UNIT_WEAPON_IDS,sourceWeaponsForUnit,type VerifiedAddedUnitType} from '../../src/data/expansion-units';
 import {CAMPAIGN_SCIENCE_VESSEL,SCIENCE_VESSEL_SOURCE,CAMPAIGN_SCIENCE_VESSEL_RECIPE,SCIENCE_VESSEL_ADAPTATION} from '../../src/data/campaign-science-vessel';
 import {PRODUCTION_LINES,TREE_STEPS,FAMILY_REQUIREMENTS,HEAVY_FAMILIES,DEVELOPMENT,developmentPrice,familyLine} from '../../src/data/expedition-buildings';
+import {ZERG_SWARM_CARDS} from '../../src/data/zerg-swarm';
 import {ZERG_SIX,ZERG_SIX_PRODUCTION,ZERG_SIX_SOURCE_COST,ZERG_SIX_WEAPON_RESEARCH,isZergSixFamily} from '../../src/data/zerg-six';
 import {ZERG_EXPERIENCE,zergCampaignQuotas} from '../../src/data/zerg-six-encounters';
 import {CAMPAIGN18_ID,CAMPAIGN18_STAGES,CAMPAIGN18_ENEMIES,CAMPAIGN18_WEIGHTS,CAMPAIGN18_TOTALS,campaign18StageConfig,campaign18EnemyPressure,campaign18ChapterGrowth} from '../../src/data/campaign18';
@@ -123,6 +124,10 @@ text.push('## 1.4 人族末日兵器',`首次成功领取节点才锁定唯一�
 
 text.push('## 1.4 人族生化协同',
  table(['卡号','类型','卡名','基础矿／气','上限','简要','详细'],BIO_CARDS.map(c=>[c.id,c.purchase,c.name,c.price.join('／'),c.maxRank,c.brief,c.detail.replaceAll('\n',' ')])));
+
+text.push('## 虫群增殖 · R3',
+ '虫族首个构筑分支。常规牌第三个有效进度锁主，并立即完成 3／6／9 紫节点。第三紫后再积 3 点取得一张橙卡。普通白牌复选只升档。',
+ table(['ID','名称','品质','价格矿／气','档位'],ZERG_SWARM_CARDS.map(c=>[c.id,c.name,c.quality,c.price.join('／'),c.tiers.join(' · ')])));
 
 text.push('## 1.4 人族武装支援 · R3',
  `普通临援上限 ${ARMED_RULES.ordinaryTemporaryCap}；N03 后 ${ARMED_RULES.eliteTemporaryCap}。白牌复购只升档。每个分支每 ${ARMED_RULES.nodeEvery} 点可免费三选一领取紫节点，首次领取确定主分支。领满 ${ARMED_RULES.orangeClaims} 个紫节点后主分支再积 ${ARMED_RULES.nodeEvery} 点，免费橙色三选一。复备最多 ${ARMED_RULES.reserveLimit} 次。`,

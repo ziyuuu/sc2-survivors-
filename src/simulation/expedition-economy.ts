@@ -1,3 +1,4 @@
+import {applySwarmCard,swarmOfferLegal} from './progression/zerg-swarm-acquisition';
 import {applyBioPurchase,bioOfferLegal} from './combat/bio-acquisition';
 import {guided,guidedAllows} from './tutorial/guided';
 import {armedOfferLegal,applyArmedPurchase} from './combat/armed-support';
@@ -36,6 +37,7 @@ export function draftContext(w:World,source?:string):ExpeditionDraftContext {con
  supportLegal:kind=>supportLegal(w,kind),
  armedLegal:id=>armedOfferLegal(w,id),
  bioLegal:id=>bioOfferLegal(w,id),
+ swarmLegal:id=>swarmOfferLegal(w,id),
  doomsdayLegal:id=>doomsdayOfferLegal(w,id),
  doomsdayReady:id=>doomsdayRuntimeReady(w,id),
  training:rank=>trainingTargets(w,rank),trainingValid:(rank,targets)=>validTrainingTargets(w,rank,targets),
@@ -93,6 +95,7 @@ export function purchaseOffer(w:World,id:string,variantId?:EliteId,targetId?:num
  if(effect.kind==='supply'&&!applySupply(w,effect.family,effect.count,effect.mode,{minerals:firstFree||freePurchase?0:r.minerals,gas:firstFree||freePurchase?0:r.gas},oldFamily))return false;
  if(effect.kind==='support'&&!buySupport(w,effect.support))return false;
  if(effect.kind==='armedSupport'&&!applyArmedPurchase(w,effect.cardId,r.offerId))return false;
+ if(effect.kind==='zergSwarm'){if(!applySwarmCard(w,effect.cardId,r.offerId))return false;prepareArmedChoices(w);}
  if(effect.kind==='bio'){if(!applyBioPurchase(w,effect.cardId,r.offerId))return false;prepareArmedChoices(w);}
  if(effect.kind==='doomsday'){if(!applyDoomsdayPurchase(w,effect.cardId,r.offerId))return false;prepareArmedChoices(w);}
  if(effect.kind==='funShop'&&!buyFunShop(w,effect.item,effect.level,effect.expected))return false;

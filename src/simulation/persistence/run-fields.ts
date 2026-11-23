@@ -24,6 +24,7 @@ import {validateSwarm} from '../../data/swarm';
 import type {RunState} from '../run-state';
 import {validateExpedition} from '../expedition-state';
 import {isZergSixBody,isZergSixFamily} from '../../data/zerg-six';
+import {validateSwarmBody} from '../combat/zerg-swarm-state';
 import {validateZergSixState} from '../combat/zerg-six';
 import {validateSixState} from '../combat/terran-six';
 import {ALL_FAMILIES,combatRace,isAirHeroType,isSupportCombatType,type FamilyId} from '../../data/races';
@@ -136,7 +137,7 @@ export function validateRunData(data:RunData,defaults:object,equipment?:Starship
   // Their corpses also remain in the intermission checkpoint until normal cleanup.
   const bodies=equipment?.runtime?.advancedBodies,members=equipment?.runtime?.members,body=bodies instanceof Map?bodies.get(id):undefined,member=members instanceof Map?members.get(id):undefined;
   const equipmentLeviathan=u.unitType==='hots_leviathan'&&u.owner==='terran'&&u.temporary===true&&u.heroId===undefined&&!u.attributes.includes('Heroic')&&Number.isFinite(u.temporaryUntil)&&body&&['plague','behemoth'].includes(body.kind)&&member?.origin===body.kind&&member.independent===true&&member.cannotGrow===true&&member.cannotRevive===true;
-  validateSixState(u);validateZergSixState(u);
+  validateSixState(u);validateZergSixState(u);validateSwarmBody(u);
   const sixBody=isZergSixBody(u.unitType),child=u.zergSix?.temp;
   const validSix=sixBody&&(isZergSixFamily(u.unitType)?u.owner==='terran'||u.owner==='zerg'&&!!u.enemySix
    :child?.kind===(u.unitType==='zerg_locust'?'locust':'broodling'));
@@ -169,6 +170,7 @@ export function validateRunData(data:RunData,defaults:object,equipment?:Starship
   if(u.eliteHpAuraFactor!==undefined&&![1,1.2,1.35,1.62].some(f=>Math.abs(u.eliteHpAuraFactor!-f)<1e-6))throw Error('精英生命光环倍率无效');
   if(u.damageReduction!==undefined&&(!Number.isFinite(u.damageReduction)||u.damageReduction<0||u.damageReduction>1))throw Error('百分比防御无效');
   if(u.protossCombat)validateProtossCombat(u.protossCombat);
+  if(u.swarmHeroSummon!==undefined&&(u.swarmHeroSummon!=='zagara'||u.temporaryKind!=='hero-baneling'))throw Error('虫群英雄召唤身份无效');
   const z=u.zergCombat;if(z&&(!Object.values(z).every(Number.isFinite)||!Number.isSafeInteger(z.essence)||z.essence<0||z.essence>1000000||!Number.isSafeInteger(z.kills)||z.kills<0||z.kills>20||[z.barrier,z.reserve,z.reserveMax].some(n=>n<0)))throw Error('虫族英雄被动无效');
   const h=u.heroCombat;if(h&&(![h.cycles,h.lastFire,h.cloakUntil,h.charge,h.protectedUntil].every(Number.isFinite)||!Number.isSafeInteger(h.cycles)||h.cycles<0||![0,1].includes(h.charge)||typeof h.cloakEpisode!=='boolean'||h.target!==null&&!Number.isSafeInteger(h.target)||h.warmupStart!==null&&!Number.isFinite(h.warmupStart)))throw Error('英雄被动状态无效');
   const r=u.enemyRoute;
@@ -184,7 +186,7 @@ export function validateRunData(data:RunData,defaults:object,equipment?:Starship
   if(!cast||!Number.isSafeInteger(cast.id)||!Number.isSafeInteger(cast.source)||!Number.isSafeInteger(cast.target)||!Object.hasOwn(HEROES,cast.hero)||![cast.at,cast.damage,cast.origin?.x,cast.origin?.z,cast.point?.x,cast.point?.z].every(Number.isFinite))return true;
   if(cast.phase!==undefined&&!['impact','channel','dot','line-travel','area-pulse'].includes(cast.phase)||cast.launched!==undefined&&typeof cast.launched!=='boolean')return true;
   if(cast.presentationLaunch&&(![cast.presentationLaunch.x,cast.presentationLaunch.z,cast.presentationLaunch.facing,cast.presentationLaunch.poseSeconds].every(Number.isFinite)||cast.presentationLaunch.poseSeconds<0))return true;
-  if(cast.pulseIndex!==undefined&&(cast.hero!=='hots_leviathan'||cast.phase!=='area-pulse'||!Number.isInteger(cast.pulseIndex)||cast.pulseIndex<0||cast.pulseIndex>2))return true;
+  if(cast.pulseIndex!==undefined&&(!(cast.hero==='hots_leviathan'&&cast.phase==='area-pulse'||cast.hero==='zagara'&&cast.phase==='impact')||!Number.isInteger(cast.pulseIndex)||cast.pulseIndex<0||cast.pulseIndex>2))return true;
   return cast.phase==='line-travel'&&(!Number.isFinite(cast.progress)||cast.progress!<0||cast.progress!>1||!Array.isArray(cast.hitIds)||new Set(cast.hitIds).size!==cast.hitIds.length||cast.hitIds.some(id=>!Number.isSafeInteger(id)));
  }))throw Error('英雄弹体状态无效');
  if(!Array.isArray(data.talentSupportImpacts)||data.talentSupportImpacts.some(impact=>!impact||!Number.isSafeInteger(impact.id)||!['terran','zerg','protoss'].includes(impact.race)||![impact.at,impact.point?.x,impact.point?.z,impact.direction?.x,impact.direction?.z].every(Number.isFinite)||![0,1].includes(impact.packet)))throw Error('支援延迟命中数据无效');
